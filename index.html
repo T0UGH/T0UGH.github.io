@@ -249,6 +249,189 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/动态规划/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="T0UGH(GuiPing Wang)">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/33653960?s=400&u=eb438b904ecb9d91f3aa9b777155a6488599493b&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="T0UGH's BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/06/动态规划/" itemprop="url">动态规划</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-06T20:16:50+08:00">
+                2019-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/other/" itemprop="url" rel="index">
+                    <span itemprop="name">other</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="动态规划-Dynamic-Programing-DP"><a href="#动态规划-Dynamic-Programing-DP" class="headerlink" title="动态规划(Dynamic Programing, DP)"></a>动态规划(Dynamic Programing, DP)</h2><p>动态规划是一种通过把原问题分解为相对简单的子问题的方式求解复杂问题的方法</p>
+<p>动态规划常常适用于有重叠子问题和最优子结构性质的问题，动态规划方法所耗时间远少于朴素解法</p>
+<p>动态规划背后的基本思想非常简单。大致上，若要解一个给定问题，我们需要解其不同部分，再根据子问题的解以得出原问题的解</p>
+<p>通常许多子问题非常相似，为此动态规划法试图仅仅解决每个子问题一次，从而减少计算量：一旦某个给定子问题的解已经算出，则将其记忆化存储，以便下次需要同一个子问题解时直接查表。这种做法在重复子问题的数目关于输出的规模呈指数增长时特别有用</p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>动态规划在查找有许多重叠子问题的情况的最优解时有效，它将问题重新组合为子问题。为了避免多次解决这些子问题，它们的结果都逐渐被计算并被保存，从简单的问题直到整个问题都被解决。因此，动态规划保存递归时的结果，因而不会在解决同样的问题时花费时间。</p>
+<p>动态规划只能应用于有最优子结构的问题。最优子结构的意思是局部最优解能决定全局最优解。简单来说，问题可以被划分为子问题来解决</p>
+<h3 id="适用情况"><a href="#适用情况" class="headerlink" title="适用情况"></a>适用情况</h3><ol>
+<li>最优子结构性质: 如果问题的最优解所包含的子问题的解也是最优的，我们就称该问题具有最优子结构性质。最优子结构性质为动态规划算法解决问题提供了重要的线索</li>
+<li>无后效性: 即子问题的解一旦确定，就不再改变，不受在这之后、包含它的更大的问题的求解决策影响</li>
+<li>子问题重叠性质: 子问题重叠性质是指在用递归算法自顶向下对问题进行求解时，每次产生的子问题并不总是新问题，有些子问题会被重复计算多次。动态规划算法正是利用了这种子问题重叠性质，对每个子问题只计算一次，然后将其计算结果保存到一个表格中，当再次需要计算已经计算过的子问题时，只是在表格中简单地查看一下结果，从而获得较高的效率</li>
+</ol>
+<h3 id="实例–01背包问题"><a href="#实例–01背包问题" class="headerlink" title="实例–01背包问题"></a>实例–01背包问题</h3><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>有<code>N</code>件物品和一个容量为<code>V</code>的背包。第i件物品的费用是<code>c[i]</code>，价值为<code>w[i]</code>。求解将哪些物品装入背包可使价值总和最大</p>
+<h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><p>这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。 用子问题定义状态：即<code>f[i][v]</code>表示前<code>i</code>件物品恰放入一个容量为<code>v</code>的背包可以获得的最大价值。其状态转移方程为</p>
+<blockquote>
+<p>f[i][v]=max{f[i-1][v],f[i-1][v-c[i]]+w[i]}</p>
+</blockquote>
+<p>其中<code>i</code>表示放第<code>i</code>个物品</p>
+<p><code>v</code>表示背包所容纳的重量</p>
+<p><code>f[i][v]</code>表示前<code>i</code>件物品恰放入一个容量为<code>v</code>的背包可以获得的最大价值</p>
+<p><code>w[i]</code>表示第<code>i</code>件商品的价值</p>
+<p>若只考虑第<code>i</code>件物品的策略（放或不放），那么就可以转化为一个只牵扯前<code>i-1</code>件物品的问题。</p>
+<p>如果不放第<code>i</code>件物品，那么问题就转化为前<code>i-1</code>件物品放入容量为<code>v</code>的背包中，价值为<code>f[i-1][v]</code>；</p>
+<p>如果放第<code>i</code>件物品，那么问题就转化为前<code>i-1</code>件物品放入剩下的容量为<code>v-c[i]</code>的背包中”，此时能获得的最大价值就是<code>f[i-1][v-c[i]]</code>再加上通过放入第i件物品获得的价值<code>w[i]</code></p>
+<h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><p>假设现在有5件商品，每件商品的的价值和重量如下图所示，背包的容量 <code>C = 11</code>，现在来求解这个01背包问题</p>
+<p><img src="/2019/03/06/动态规划/dp_1.jpg" alt=""></p>
+<p>首先，我们制作一个表格</p>
+<p><img src="/2019/03/06/动态规划/dp_3.jpg" alt=""></p>
+<p>表格的每一列表示产品，列数等于产品数加一，即列数为6列。表格的行数等于背包的容量数加一，即行数为12行。</p>
+<p>假设我们按照商品序号从<code>1</code>到<code>5</code>的顺序放入商品，表格中的每个元素表示：当背包容量为j时，我们放到第<code>i</code>个商品时，背包价值的最大值。</p>
+<p>首先当背包为空时，价值为0，所以我们把第一行初始化为0。</p>
+<p>而当背包的容量为0时，我们无法放入任何商品，价值为0，所以我们把第一列初始化为0。</p>
+<p>对于其他元素，进行如下判断</p>
+<ul>
+<li><p>当商品重量大于背包容量时，我们一定无法放入商品，所以此时背包的价值继承自放入上一商品时的最大价值，即表格同列的上一个值。</p>
+</li>
+<li><p>当重量小于总重时，我们需要考虑是否放入此商品。我们比较放与不放的价值哪个较大。对于放入商品的价值，我们将背包容量减去此商品的重量后，查表。对于不放入商品的价值，继承自放入上一商品时的最大价值。例如，当表格运算到<code>[{1,2,3}, 5]</code>时,我们首先考虑将商品放入背包，则此时背包重量为0，我们查询<code>[{1,2},0]</code>发现此时价值为0，则这种情况下的价值为<code>0 + 18 = 18</code>。然后我们考虑不将商品放入背包，此时背包的价值继承自放入上一商品时的最大价值，我们查询<code>[{1, 2}, 5]</code>,这种情况下的价值为 <code>7</code>。明显第一种情况更好，则我们将这个元素的值设置为<code>18</code>。</p>
+</li>
+</ul>
+<p>当我们计算到表格的右下角元素时，此问题已经解决了，就是右下角元素的值</p>
+<h4 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h4><p><img src="/2019/03/06/动态规划/dp_2.jpg" alt=""></p>
+<h3 id="与内容无关的部分"><a href="#与内容无关的部分" class="headerlink" title="与内容无关的部分"></a>与内容无关的部分</h3><p><img src="/2019/03/06/动态规划/Raspberry_Pi.png" alt=""></p>
+<p><img src="/2019/03/06/动态规划/ubuntu魔改MAC.png" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/05/Tensorflow-1-深度学习简介/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2036,7 +2219,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
