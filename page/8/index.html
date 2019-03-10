@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/07/树形动态规划-节点选择/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/算法导论-15-动态规划/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -268,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/07/树形动态规划-节点选择/" itemprop="url">树形动态规划--节点选择</a></h1>
+                <a class="post-title-link" href="/2019/03/10/算法导论-15-动态规划/" itemprop="url">[算法导论][15]动态规划</a></h1>
         
 
         <div class="post-meta">
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-07T15:55:25+08:00">
-                2019-03-07
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-10T14:21:13+08:00">
+                2019-03-10
               </time>
             
 
@@ -303,8 +303,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/蓝桥杯/" itemprop="url" rel="index">
-                    <span itemprop="name">蓝桥杯</span>
+                  <a href="/categories/算法导论/" itemprop="url" rel="index">
+                    <span itemprop="name">算法导论</span>
                   </a>
                 </span>
 
@@ -342,213 +342,49 @@
       
         
           
-            <h2 id="树形动态规划–节点选择"><a href="#树形动态规划–节点选择" class="headerlink" title="树形动态规划–节点选择"></a>树形动态规划–节点选择</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>有一棵 <code>n</code> 个节点的树，树上每个节点都有一个正整数权值。如果一个点被选择了，那么在树上和它相邻的点都不能被选择。求选出的点的权值和最大是多少？</p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>此题目可以使用动态规划来求解，一个节点只有被选择和不被选择两种情况。</p>
-<p>首先构建一个名为dp的 <code>n * 2</code> 大小的矩阵，矩阵中的<code>dp[i][0]</code>表示不选择<code>i</code>节点时的权重最大值,<code>dp[i][1]</code>表示选择<code>i</code>节点时的权重最大值。最初时将矩阵中所有元素全部初始化为 <code>0</code> 。</p>
-<p>然后我们列出状态转移方程</p>
-<ul>
-<li><p>假如 <code>i</code> 是叶子节点</p>
-<blockquote>
-<p>dp[i][0] = 0</p>
-<p>dp[i][1] = w(i)</p>
-</blockquote>
+            <h2 id="第15章-动态规划"><a href="#第15章-动态规划" class="headerlink" title="第15章 动态规划"></a>第15章 动态规划</h2><p><strong>动态规划</strong>(dynamic programming)与分治方法相似，都是通过组合子问题的解来求解原问题。分治方法是将问题划分为互不相交的子问题，递归地求解子问题，再将它们的解结合起来，求出原问题的解。与之相反，动态规划用于子问题重叠的情况，即不同的子问题具有公共的子子问题。动态规划算法对每个子问题只求解一次，将其解保存到一个表格中，从而无需每次求解一个子子问题时都重新计算，避免了这种不必要的计算工作</p>
+<p>动态规划方法通常用来求解<strong>最优化问题</strong>。这类问题可以有很多可行解，每个解都有一个值，我们希望寻找具有最优值的解。我们称这个解为问题的一个最优解</p>
+<p>我们按照如下4个步骤来设计一个动态规划算法</p>
+<ol>
+<li>刻画一个最优解的结构特征</li>
+<li>递归地定义最优解的值</li>
+<li>计算最优解的值，通常采用自底向上的方法</li>
+<li>利用计算出来的信息构建最优解</li>
+</ol>
+<h3 id="15-1-钢条切割"><a href="#15-1-钢条切割" class="headerlink" title="15.1 钢条切割"></a>15.1 钢条切割</h3><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>给定一段长度为n英寸的钢条和一个价格表p<sub>i</sub>(i = 1, 2, …, n)，求切割钢条方案，使得销售收益r<sub>n</sub>最大</p>
+<h4 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h4><p>假设钢条的价格表如下</p>
+<p><img src="/2019/03/10/算法导论-15-动态规划/0310_0.png" alt=""></p>
+<p>考虑n=4的情况，下图给出了n=4的所有可能的切割情况</p>
+<p><img src="/2019/03/10/算法导论-15-动态规划/0310_1.png" alt=""></p>
+<p>我们用普通的加号来代表切割方案，例如: 将<code>7=2+2+3</code>表示为将长度7英寸的钢条切割为三段。</p>
+<p>对于上述价格表样例，我们可以观察所有最优收益值r<sub>i</sub> (i = 1, 2, …, 10)及对应的最初切割方案</p>
+<p><img src="/2019/03/10/算法导论-15-动态规划/0310_2.png" alt=""></p>
+<p>第一个参数p<sub>n</sub>表示不切割，直接出售长度为 <code>n</code> 英尺的钢条的方案。其他 <code>n-1</code> 个参数对应另外 <code>n - 1</code>种方案: 对每个 <code>i = 1, 2, ..., n-1</code>，首先把钢条切割为长度为<code>i</code>和<code>n-i</code>的两段，接着求解这两段的最优切割收益r<sub>n</sub>和r<sub>n-1</sub>。由于无法预知哪种方案会获得最优收益，我们必须考察所有可能的<code>i</code>，选取其中收益最大者。如果直接出售原钢条会获得最大收益，我们当然可以选择不做任何切割。</p>
+<p>注意到，为了求解规模为<code>n</code>的原问题，我们先求解形式完全相同，但规模更小的子问题。即当完成首次切割后，我们将两端钢条看成两个独立的钢条切割问题实例。我们通过组合两个相关子问题的最优解，并在所有可能的两段切割方案中提取组合收益最大者，构成原问题的最优解。我们称钢条切割问题满足最优子结构性质: 问题的最优解由相关子问题的最优解组合而成，而这些子问题可以独立求解</p>
+<h4 id="解决方案1—使用自顶向下的递归方法求解"><a href="#解决方案1—使用自顶向下的递归方法求解" class="headerlink" title="解决方案1—使用自顶向下的递归方法求解"></a>解决方案1—使用自顶向下的递归方法求解</h4><p>我们将钢条从左边切割下长度为 <code>i</code> 的一段，支队右边剩下的长度为 <code>n-i</code> 的一段继续进行切割(递归求解)，对左边的一段则不再进行切割。即问题分解的方式为：将长度为<code>n</code>的钢条分解为左边开始一段，以及剩余部分继续分解的结果。</p>
+<p>这样，不做任何切割的方案就可以描述为: 第一段的长度为 <code>n</code>，收益为 p<sub>n</sub>，剩余部分长度为0，对应的收益为r<sub>0</sub> = 0。</p>
+<p>公式如下<br><img src="/2019/03/10/算法导论-15-动态规划/0310_3.png" alt=""></p>
+<p>伪代码如下,它采用的是一种直接的自顶向下的递归方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CUT-ROD(p, n)</span><br><span class="line">    if n == 0</span><br><span class="line">        return 0</span><br><span class="line">    q = -∞</span><br><span class="line">    for i = 1 to n</span><br><span class="line">        q = max(q, p[i] + CUT-ROD(p, n-i))</span><br><span class="line">    return q</span><br></pre></td></tr></table></figure></p>
+<p>一旦输入规模稍微变大，程序运行时间会变得相当长。每当将 <code>n</code> 增加 <code>1</code> ，程序运行时间差不多会增加 <code>1</code> 倍。</p>
+<p>为什么<code>CUT-ROD</code>的效率如此差，原因是，<code>CUT-ROD</code>反复地用相同的参数值对自身进行递归调用，即它反复求解相同的子问题。如下图所示<br><img src="/2019/03/10/算法导论-15-动态规划/0310_4.png" alt=""></p>
+<p>此算法的时间复杂度为<br><img src="/2019/03/10/算法导论-15-动态规划/0310_5.png" alt=""></p>
+<h4 id="解决方案2—使用动态规划方法求解最优钢条切割问题"><a href="#解决方案2—使用动态规划方法求解最优钢条切割问题" class="headerlink" title="解决方案2—使用动态规划方法求解最优钢条切割问题"></a>解决方案2—使用动态规划方法求解最优钢条切割问题</h4><p>动态规划的思想如下所述。我们已经看到，朴素递归算法之所以效率很低，是因为它反复求解同样的子问题。因此，动态规划方法仔细安排求解顺序，对每个问题只求解一次，并将结果保存下来。如果随后再次需要此子问题的解，只需查找保存的结果，而不必重复计算。因此，动态规划方法是付出额外的内存空间来节省计算时间，是典型的时空权衡(time-memory-trade-off)的例子。而时间上的节省可能是非常巨大的:可能将指数时间的解转化为一个多项式时间的解。</p>
+<p>动态规划有两种等价的实现方法</p>
+<ol>
+<li><p>第一种方法称为带备忘的自顶向下法(top-down with memorization)。此方法仍按照自然的递归形式编写过程，但过程会保存每个子问题的解(通常保存在一个数组或散列表中)。当需要一个子问题的解时，过程首先检查是否已经保存过此解。如果是，则直接返回保存的值，从而节省了计算时间；否则，按通常方式计算这个子问题。我们称这个递归过程是带备忘的(memoized)，因为它记住了之前已经计算出的结果。</p>
 </li>
-<li><p>假如 <code>i</code> 不是叶子节点</p>
-<blockquote>
-<p>dp[i][0] = ∑ max(dp[j][0], dp[j][1])</p>
-<p>dp[i][1] = w(i) + ∑ dp[j][0]</p>
-</blockquote>
+<li><p>第二种方法称为自底向上法(bottom-up method)。这种方法一般需要恰当定义子问题”规模”的概念，使得任何子问题的求解都只依赖于”更小的”子问题的求解。因此我们可以将子问题按规模排序，按照由小至大的顺序进行求解。当求解某个子问题时，它所依赖的那些更小的子问题都已求解完毕，结果已经保存。每个子问题只需求解一次，当我们求解它时，它的所有前提子问题都已求解完成</p>
 </li>
-</ul>
-<p>接下来按照后序遍历的顺序遍历整个树，来完成dp矩阵中所有值的计算，举例如下</p>
-<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><p>输入的树如图所示，共有五个节点，每个节点的权重值标注在其右侧。<br><img src="/2019/03/07/树形动态规划-节点选择/Tree_dp_0.png" alt=""></p>
-<p>按照后序遍历，节点遍历顺序为 <code>3 -&gt; 4 -&gt; 5 -&gt; 2 -&gt; 1</code></p>
-<h4 id="1-初始化状态"><a href="#1-初始化状态" class="headerlink" title="1 初始化状态"></a>1 初始化状态</h4><table>
-<thead>
-<tr>
-<th>Select\Node</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<h4 id="2-后序遍历到3号节点"><a href="#2-后序遍历到3号节点" class="headerlink" title="2 后序遍历到3号节点"></a>2 后序遍历到3号节点</h4><table>
-<thead>
-<tr>
-<th>Select\Node</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>3</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<h4 id="3-后序遍历到4号节点"><a href="#3-后序遍历到4号节点" class="headerlink" title="3 后序遍历到4号节点"></a>3 后序遍历到4号节点</h4><table>
-<thead>
-<tr>
-<th>Select\Node</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-<h4 id="4-后序遍历到5号节点"><a href="#4-后序遍历到5号节点" class="headerlink" title="4 后序遍历到5号节点"></a>4 后序遍历到5号节点</h4><table>
-<thead>
-<tr>
-<th>Select\Node</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-<h4 id="5-后序遍历到2号节点"><a href="#5-后序遍历到2号节点" class="headerlink" title="5 后序遍历到2号节点"></a>5 后序遍历到2号节点</h4><table>
-<thead>
-<tr>
-<th>Select\Node</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>9</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-<h4 id="6-后序遍历到1号节点"><a href="#6-后序遍历到1号节点" class="headerlink" title="6 后序遍历到1号节点"></a>6 后序遍历到1号节点</h4><table>
-<thead>
-<tr>
-<th>Select\Node</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>5</td>
-<td>9</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>10</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-<p>此时取根节点位置 <code>0</code> 和 位置 <code>1</code> 中值较大者即可，本例中显然 <code>5 &lt; 10</code> ,所以最终结果为 <code>10</code> </p>
-<h3 id="代码-java"><a href="#代码-java" class="headerlink" title="代码(java)"></a>代码(java)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> node_num;</span><br><span class="line">    <span class="keyword">int</span>[] weight;</span><br><span class="line">    ArrayList&lt;Integer&gt;[] adjacencyTable;</span><br><span class="line">    <span class="keyword">int</span>[][] dp;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">generate_dp</span><span class="params">(<span class="keyword">int</span> node_id, <span class="keyword">int</span> parent_id)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> temp_id: adjacencyTable[node_id]) &#123;</span><br><span class="line">            <span class="keyword">if</span>(temp_id != parent_id)&#123;</span><br><span class="line">                generate_dp(temp_id, node_id);</span><br><span class="line">                dp[node_id][<span class="number">0</span>] += Math.max(dp[temp_id][<span class="number">0</span>], dp[temp_id][<span class="number">1</span>]);</span><br><span class="line">                dp[node_id][<span class="number">1</span>] += dp[temp_id][<span class="number">0</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[node_id][<span class="number">1</span>] += weight[node_id];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Scanner scanner = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        node_num = scanner.nextInt();</span><br><span class="line">        weight = <span class="keyword">new</span> <span class="keyword">int</span>[node_num];</span><br><span class="line">        adjacencyTable = <span class="keyword">new</span> ArrayList[node_num];</span><br><span class="line">        dp = <span class="keyword">new</span> <span class="keyword">int</span>[node_num][<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; node_num; i ++)&#123;</span><br><span class="line">            weight[i] = scanner.nextInt();</span><br><span class="line">            adjacencyTable[i]= <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; node_num - <span class="number">1</span>; i ++)&#123;</span><br><span class="line">            <span class="keyword">int</span> node_1 = scanner.nextInt() - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> node_2 = scanner.nextInt() - <span class="number">1</span>;</span><br><span class="line">            adjacencyTable[node_1].add(node_2);</span><br><span class="line">            adjacencyTable[node_2].add(node_1);</span><br><span class="line">        &#125;</span><br><span class="line">        generate_dp(<span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line">        System.out.println(Math.max(dp[<span class="number">0</span>][<span class="number">0</span>], dp[<span class="number">0</span>][<span class="number">1</span>]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Main().run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注: oj只有50分，后5个点超时</p>
-<h3 id="代码-转-c"><a href="#代码-转-c" class="headerlink" title="代码(转, c ++)"></a>代码(转, c ++)</h3><p>原文链接 <a href="https://www.liuchuo.net/archives/3937" target="_blank" rel="noopener">蓝桥杯 ALGO-4 算法训练 结点选择</a></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">100010</span>][<span class="number">2</span>];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; v;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> node, <span class="keyword">int</span> pre)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v[node].size(); i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> temp = v[node][i];</span><br><span class="line">        <span class="keyword">if</span> (temp != pre) &#123;</span><br><span class="line">            dfs(temp, node);</span><br><span class="line">            dp[node][<span class="number">0</span>] += max(dp[temp][<span class="number">0</span>], dp[temp][<span class="number">1</span>]);</span><br><span class="line">            dp[node][<span class="number">1</span>] += dp[temp][<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, a, b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;dp[i][<span class="number">1</span>]);</span><br><span class="line">    v.resize(n + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">        v[a].push_back(b);</span><br><span class="line">        v[b].push_back(a);</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; max(dp[<span class="number">1</span>][<span class="number">0</span>], dp[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>另: 柳神是我的!!!</p>
+</ol>
+<p>下面给出的是带备忘的自顶向下法的伪代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MEMOIZED-CUT-ROD(p,n)</span><br><span class="line">    let r[0..n] be a new array</span><br><span class="line">    for i = 0 to n</span><br><span class="line">        r[i] = -∞</span><br><span class="line">MEMORIZED-CUT-ROD-AUX(p,n,r)</span><br><span class="line">    if r[n] &gt;= 0</span><br><span class="line">        return r[n]</span><br><span class="line">    if n == 0</span><br><span class="line">        q = 0</span><br><span class="line">    else q = -∞</span><br><span class="line">        for i = 1 to n</span><br><span class="line">            q = max(q, p[i] + MEMOIZED-CUT-ROD-AUX(p, n-i, r))</span><br><span class="line">    r[n] = q</span><br><span class="line">    return q</span><br></pre></td></tr></table></figure></p>
+<p>自底向上版本更为简单<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">BOTTOM-UP-CUT-ROD(p, n)</span><br><span class="line">    let r[0..n] be a new array</span><br><span class="line">    r[0] = 0</span><br><span class="line">    for j = 1 to n</span><br><span class="line">        q = -∞</span><br><span class="line">        for i = 1 to j</span><br><span class="line">            q = max(q, p[i] + r[j - i])</span><br><span class="line">        r[j] = q</span><br><span class="line">    return r[n]</span><br></pre></td></tr></table></figure></p>
+<p>自底向上版本采用子问题的自然顺序；若 <code>i&lt;j</code>，则规模为 <code>i</code> 的子问题比规模为 <code>j</code> 的子问题”更小”。因此，过程依次求解规模为 <code>j = 0, 1, ..., n</code> 的子问题</p>
+<p>此算法的时间复杂度为 Θ(n<sup>2</sup>)</p>
+<h4 id="子问题图"><a href="#子问题图" class="headerlink" title="子问题图"></a>子问题图</h4><p>当思考一个动态规划问题时，我们应该弄清所涉及的子问题及子问题之间的依赖关系</p>
+<p>问题的子问题图准确地表达了这些信息，下图显示了 <code>n=4</code> 时钢条切割问题地子问题图。<br>它是一个有向图，每个顶点唯一地对应一个子问题。若求子问题x地最优解时需要直接用到子问题y地最优解，那么在子问题图中就会有一条从子问题x的定点到子问题y的定点的有向边。</p>
+<p><img src="/2019/03/10/算法导论-15-动态规划/0310_6.png" alt=""></p>
+<p>自底向上的动态规划方法处理子问题图中顶点的顺序为: 对于一个给定的子问题<code>x</code>，在求解它之前求解邻接它的子问题<code>y</code>。对于任何子问题，直至它依赖的所有子问题均已求解完成，才会求解它</p>
+<p>子问题图<code>G=(V, E)</code>的规模可以帮我们确定动态规划算法的运行时间。由于每个子问题只求解一次，因此算法运行时间等于每个子问题求解时间之和。通常，一个子问题的求解时间与子问题图中对应顶点的度(出射边的数目)成正比，而子问题的数目等于子问题图的顶点数。因此，通常情况下，动态规划算法的运行使劲按与顶点与边的数量呈线性关系</p>
 
           
         
@@ -588,7 +424,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -636,7 +472,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -658,7 +494,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -714,7 +550,7 @@
         <h3 class="widget-title">TAGS</h3>
         <div id="myCanvasContainer" class="widget tagcloud">
           <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
           </canvas>
         </div>
       </div>
