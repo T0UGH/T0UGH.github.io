@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="深度学习,Tensorflow,RNN,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第8章 循环神经网络 本章将介绍 循环神经网络(recurrent neural network, RNN) 长短时记忆网络(long short-term memory, LSTM)—–循环神经网络中的一个重要结构     8.1 循环神经网络简介 循环神经网络的历史、传统机器学习和全连接的瓶颈  循环神经网络(RNN)源自1982年由Saratha Sathasivam提出的霍普菲尔德网络 传">
+<meta name="keywords" content="深度学习,Tensorflow,RNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Tensorflow][8]循环神经网络">
+<meta property="og:url" content="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/index.html">
+<meta property="og:site_name" content="前中二少年的进阶之路">
+<meta property="og:description" content="第8章 循环神经网络 本章将介绍 循环神经网络(recurrent neural network, RNN) 长短时记忆网络(long short-term memory, LSTM)—–循环神经网络中的一个重要结构     8.1 循环神经网络简介 循环神经网络的历史、传统机器学习和全连接的瓶颈  循环神经网络(RNN)源自1982年由Saratha Sathasivam提出的霍普菲尔德网络 传">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/循环神经网络经典结构.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/循环神经网络经典结构展开.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/循环神经网络实现机器翻译示意图.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/简单的循环体.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/循环神经网络的前向传播计算过程.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/RNN前向传播计算过程详解1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/RNN前向传播计算过程详解2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/LSTM单元结构图.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/LSTM单元细节图.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/LSTM公式1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/LSTM公式2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/双向循环神经网络结构.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/深层循环神经网络结构.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/深层循环网络的dropout.jpg">
+<meta property="og:updated_time" content="2019-03-10T06:56:26.689Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Tensorflow][8]循环神经网络">
+<meta name="twitter:description" content="第8章 循环神经网络 本章将介绍 循环神经网络(recurrent neural network, RNN) 长短时记忆网络(long short-term memory, LSTM)—–循环神经网络中的一个重要结构     8.1 循环神经网络简介 循环神经网络的历史、传统机器学习和全连接的瓶颈  循环神经网络(RNN)源自1982年由Saratha Sathasivam提出的霍普菲尔德网络 传">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/循环神经网络经典结构.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/">
+
+
+
+
+
+  <title>[Tensorflow][8]循环神经网络 | 前中二少年的进阶之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/T0UGH" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">前中二少年的进阶之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">自娱自乐ing...</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="T0UGH(GuiPing Wang)">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/33653960?s=400&u=eb438b904ecb9d91f3aa9b777155a6488599493b&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前中二少年的进阶之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Tensorflow][8]循环神经网络</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-10T14:54:13+08:00">
+                2019-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tensorflow/" itemprop="url" rel="index">
+                    <span itemprop="name">Tensorflow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第8章-循环神经网络"><a href="#第8章-循环神经网络" class="headerlink" title="第8章 循环神经网络"></a>第8章 循环神经网络</h2><ul>
+<li>本章将介绍<ol>
+<li>循环神经网络(recurrent neural network, RNN)</li>
+<li>长短时记忆网络(long short-term memory, LSTM)—–循环神经网络中的一个重要结构</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="8-1-循环神经网络简介"><a href="#8-1-循环神经网络简介" class="headerlink" title="8.1 循环神经网络简介"></a>8.1 循环神经网络简介</h3><ul>
+<li><p>循环神经网络的历史、传统机器学习和全连接的瓶颈</p>
+<ul>
+<li>循环神经网络(RNN)源自1982年由Saratha Sathasivam提出的霍普菲尔德网络</li>
+<li>传统的机器学习算法非常依赖于人工提取的特征</li>
+<li>基于全连接神经网络的方法也存在参数太多，无法利用数据中时间序列信息等问题</li>
+<li>循环神经网络挖掘数据中时序信息以及语义信息的深度表达能力被充分利用，并在语音识别、语言模型、机器翻译以及时序分析等方面实现了突破</li>
+</ul>
+</li>
+<li><p>循环神经网络简介</p>
+<ul>
+<li>循环神经网络的主要用途是处理和预测<strong>序列</strong>数据</li>
+<li>循环神经网络的来源就是为了刻画一个序列<strong>当前的输入</strong>与<strong>之前信息</strong>的关系</li>
+<li>从网络结构上，循环神经网络会记忆之前的信息，并利用之前的信息影响后面节点的输出</li>
+<li>循环神经网络的隐藏层之间的节点是有连接的，<strong>隐藏层的输入</strong>不仅包括<strong>输入层的输入</strong>，还包括<strong>上一时刻隐藏层的输入</strong></li>
+</ul>
+</li>
+<li><p>循环神经网络的经典结构</p>
+<ul>
+<li>如图<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/循环神经网络经典结构.jpg" alt=""></li>
+<li>解释<ul>
+<li>在每一时刻t,循环神经网络会针对该时刻的输入结合当前模型的状态给出一个输出，并更新模型状态</li>
+<li>循环神经网络的主体结构A的输入除了来自输入层xt，还有一个循环的边来提供上一时刻的隐藏状态(hidden state)ht-1</li>
+<li>在每一个时刻，循环神经网络的模块A在读取了xt和ht-1之后会生成新的隐藏状态ht,并产生本时刻的输出ot</li>
+<li>由于模块A中的运算和变量在不同时刻是相同的，因此循环神经网络理论上可以被看作是同一神经网络结构无限复制的结果</li>
+<li>循环神经网络是在不同时间位置共享参数，从而能够使用有限的参数处理任意长度的序列</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>循环神经网络经典结构展开</p>
+<ul>
+<li>如图<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/循环神经网络经典结构展开.jpg" alt=""></li>
+<li>循环神经网络对长度为N的序列展开之后，可以视为一个有N个中间层的前馈神经网络</li>
+<li>这个前馈神经网络可以直接使用反向传播算法进行训练，这样的训练方法称为”沿时间反向传播”(Back-Propagation Through Time)</li>
+</ul>
+</li>
+<li><p>循环神经网络与时间序列处理</p>
+<ul>
+<li>从循环神经网络的结构特征可以很容易看出它擅长解决与时间序列相关的问题</li>
+<li>对于一个序列数据，可以将这个序列上不同时刻的数据依次传入循环神经网络的输入层</li>
+<li>输出可以是对序列中下一个时刻的预测，也可以是对当前时刻信息的处理结果</li>
+<li>循环神经网络要求每个时刻都有一个输入，但不一定每个时刻都需要有输出</li>
+</ul>
+</li>
+<li><p>以机器翻译为例介绍循环神经网络如何解决实际问题</p>
+<ul>
+<li>如图<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/循环神经网络实现机器翻译示意图.jpg" alt=""></li>
+<li>循环神经网络中每一个时刻的输入为需要翻译的句子中的单词</li>
+<li>需要翻译的句子是ABCD，那么循环神经网络第一段每一个时刻的输入就分别为A、B、C、D，然后用“_”作为待翻译句子的结束符</li>
+<li>在第一段，循环神经网络没有输出</li>
+<li>从结束符”_”开始，循环神经网络进入翻译阶段</li>
+<li>该阶段中每个时刻的输入是上一个时刻的输出，而最终得到的输出XYZ就是句子ABCD翻译的结果</li>
+</ul>
+</li>
+<li><p>循环体的概念</p>
+<ul>
+<li>循环神经网络可以看作是同一神经网络结构在时间序列上被复制多次的结果，这个被复制多次的结构被称为循环体</li>
+<li>一个简单的循环体<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/简单的循环体.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>循环神经网络的前向传播简介</p>
+<ul>
+<li>循环体中的神经网络的输入有两部分<ol>
+<li>上一时刻的状态:ht-1</li>
+<li>当前时刻的输入样本:xt</li>
+</ol>
+</li>
+<li>将上一时刻的状态与当前时刻的输入拼接为一个大的向量作为循环体中神经网络的输入<ul>
+<li>例如：假设输入向量的维度为x，隐藏状态的维度为n，那么循环体的全连接网络的输入大小为n+x</li>
+</ul>
+</li>
+<li>输出为当前时刻的状态ht，一个长度为n的向量</li>
+<li>然而有时RNN输出不仅需要提供给下一时刻作为状态，也需要提供给当前时刻作为当前时刻的输出</li>
+<li>此时需要一个全连接层，输入为前面计算出的状态向量，输出为当前时刻的输出，而不同时刻用于产生当前时刻输出的全连接层的参数也是共享的</li>
+<li>举例：一个循环神经网络前向传播的具体计算过程<ul>
+<li>如图<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/循环神经网络的前向传播计算过程.jpg" alt=""></li>
+<li>计算过程详解<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/RNN前向传播计算过程详解1.jpg" alt=""><br><img src="/2019/03/10/Tensorflow-8-循环神经网络/RNN前向传播计算过程详解2.jpg" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>循环神经网络的损失函数和优化过程</p>
+<ul>
+<li>损失函数：因为RNN在每个时刻都有一个输出，所以循环神经网络的总损失为所有时刻上的损失函数的综合</li>
+<li>优化过程：在定义完损失函数之后，套用第四章介绍的优化框架即可完成模型训练的过程</li>
+<li>在实际训练过程中，如果序列太长，会导致优化时出现梯度消散和梯度爆炸的问题</li>
+</ul>
+</li>
+<li><p>循环神经网络前向传播样例代码</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">X = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">state = [<span class="number">0.0</span>, <span class="number">0.0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义循环体A中产生当前状态的全连接层的参数，包括权重和偏置</span></span><br><span class="line">w_cell_state = np.asarray([[<span class="number">0.1</span>, <span class="number">0.2</span>], [<span class="number">0.3</span>, <span class="number">0.4</span>]])</span><br><span class="line">w_cell_input = np.asarray([<span class="number">0.5</span>, <span class="number">0.6</span>])</span><br><span class="line">b_cell = np.asarray([<span class="number">0.1</span>, <span class="number">-0.1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义用于输出的全连接层的参数</span></span><br><span class="line">w_output = np.asarray([[<span class="number">1.0</span>], [<span class="number">2.0</span>]])</span><br><span class="line">b_output = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 按照时间顺序执行循环神经网络的前向传播过程</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(X)):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算循环体中的全连接层神经网络</span></span><br><span class="line">    before_activation = np.dot(state, w_cell_state) + X[i] * w_cell_input + b_cell</span><br><span class="line">    state = np.tanh(before_activation)</span><br><span class="line">    <span class="comment"># 根据当前时刻状态计算最终输出</span></span><br><span class="line">    final_output = np.dot(state, w_output) + b_output</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 输出每个时刻的信息</span></span><br><span class="line">    print(<span class="string">"before activation: "</span>, before_activation)</span><br><span class="line">    print(<span class="string">"state: "</span>, state)</span><br><span class="line">    print(<span class="string">"output: "</span>, final_output)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">运行上面程序可以得到输出</span></span><br><span class="line"><span class="string">before activation:  [0.6 0.5]</span></span><br><span class="line"><span class="string">state:  [0.53704957 0.46211716]</span></span><br><span class="line"><span class="string">output:  [1.56128388]</span></span><br><span class="line"><span class="string">before activation:  [1.2923401  1.39225678]</span></span><br><span class="line"><span class="string">state:  [0.85973818 0.88366641]</span></span><br><span class="line"><span class="string">output:  [2.72707101]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="8-2-长短时记忆网络-LSTM-结构"><a href="#8-2-长短时记忆网络-LSTM-结构" class="headerlink" title="8.2 长短时记忆网络(LSTM)结构"></a>8.2 长短时记忆网络(LSTM)结构</h3><ul>
+<li><p>背景</p>
+<ul>
+<li>循环神经网络通过保存历史信息来帮助当前的决策</li>
+<li>但是存在长期依赖(long-term dependecies)问题<ul>
+<li>有时模型可能需要某些长期的信息来执行当前的任务</li>
+<li>比如：当模型试图去预测段落“某地开设了大量工厂，空气污染十分严重……这里的天空都是灰色的”的最后一个单词时，仅仅根据短期依赖就无法解决这个问题。因为只根据最后一小段，最后一个词可以是“蓝色的”或者“灰色的”。但如果模型需要预测清楚具体是什么颜色，就需要考虑先前提到但离当前位置较远的上下文信息</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>LSTM简介</p>
+<ul>
+<li>LSTM的设计就是为了解决长期依赖问题</li>
+<li>LSTM是一种拥有三个“门”结构的特殊网络结构</li>
+<li>结构图如下<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/LSTM单元结构图.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>门结构</p>
+<ul>
+<li>LSTM靠一些“门”的结构让信息有选择性地影响循环神经网络中每个时刻的状态</li>
+<li>所谓“门”的结构就是一个使用sigmoid神经网络和一个按位做乘法的操作，这两个操作合在一起就是一个“门”的结构</li>
+<li>为什么被称为“门”结构<ul>
+<li>因为sigmoid作为激活函数的全连接神经网络层会输出一个0到1之间的数值，描述当前输入有多少信号量可以通过这个结构</li>
+<li>这个结构的功能就类似于“门”，当门打开时(sigmoid神经网络层输出为1时)，全部信息都可以通过</li>
+<li>当门关上时(sigmoid神经网络层输出为0时)，任何信息都无法通过</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>遗忘门</p>
+<ul>
+<li>作用：让循环神经网络“忘记”之前没有用的信息</li>
+<li>工作原理<ul>
+<li>遗忘门会根据当前的输入xt和上一时刻输出ht-1决定哪一部分记忆需要被遗忘</li>
+<li>假设状态向量c的长度为n</li>
+<li>遗忘门会根据当前的输入xt和上一时刻输出ht-1计算一个维度为n的向量<code>f=sigmoid(W1x+W2h)</code>，它在每个维度的值都在<code>(0,1)</code>范围内</li>
+<li>再将上一时刻的状态ct-1与f向量按位相乘，那么f取值接近0的维度上的信息就会被遗忘，而f取值接近1的维度上的信息会被保留</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>输入门</p>
+<ul>
+<li>作用：循环神经网络忘记了部分之前的状态之后，还需要从当前的输入补充最新的记忆</li>
+<li>工作原理<ul>
+<li>输入门会根据当前的输入<code>xt</code>和上一时刻输出<code>ht-1</code>决定哪些信息加入到状态<code>ct-1</code>中生成新的状态<code>ct</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>输出门</p>
+<ul>
+<li>作用：LSTM在计算得到新的状态<code>ct</code>后需要产生当前时刻的输出，这个输出由输出门完成</li>
+<li>工作原理<ul>
+<li>输出门根据最新的状态<code>ct</code>、上一时刻的输出<code>ht-1</code>和当前的输入<code>xt</code>来决定该时刻的输出<code>ht</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>使用LSTM结构的RNN的前向传播过程</p>
+<ul>
+<li>LSTM单元细节图如下<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/LSTM单元细节图.jpg" alt=""></li>
+<li>具体LSTM每个门的公式定义如下<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/LSTM公式1.jpg" alt=""><br><img src="/2019/03/10/Tensorflow-8-循环神经网络/LSTM公式2.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>在TensorFlow中实现LSTM结构的RNN前向传播</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个LSTM结构</span></span><br><span class="line"><span class="comment"># LSTM中使用的变量也会在该函数中自动被声明</span></span><br><span class="line">lstm = tf.nn.rnn_cell.BasicLSTMCell(lstm_hidden_size)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将LSTM中的状态初始化为全0数组</span></span><br><span class="line"><span class="comment"># state中包含两个张量，其中state.c和state.h分别对应了LSTM单元细节图中的c状态和h状态</span></span><br><span class="line"><span class="comment"># batch_size给出了一个batch的大小</span></span><br><span class="line">state = lstm.zero_state(batch_size, tf.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义损失函数</span></span><br><span class="line">loss = <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在训练中为了将循环神经网络展开成前馈神经网络，需要直到训练数据的序列长度</span></span><br><span class="line"><span class="comment"># 其中，num_steps代表了这个长度</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(num_steps):</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 在第一个时刻声明LSTM结构中使用的变量，在之后的时刻都需要复用之前定义好的变量</span></span><br><span class="line">    <span class="keyword">if</span> i &gt; <span class="number">0</span>:</span><br><span class="line">        tf.get_variable_scope().reuse_variables()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 每一步处理时间序列中的一个时刻</span></span><br><span class="line">    <span class="comment"># 将当前输入current_input和前一时刻状态state(ht-1和ct-1)传入LSTM结构，</span></span><br><span class="line">    <span class="comment"># 可以得到当前LSTM的输出lstm_output(ht)和更新后状态state(ht和ct)</span></span><br><span class="line">    <span class="comment"># lstm_output可以用于输出给其他层，state用于输出给下一时刻</span></span><br><span class="line">    lstm_output, state = lstm(current_input, state)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 将当前时刻LSTM结构的输出传入一个全连接层得到最后的输出</span></span><br><span class="line">    final_output = fully_connected(lstm_output)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 计算当前输出的损失</span></span><br><span class="line">    loss += calc_loss(final_output, expected_output)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 然后使用类似第四章介绍的方法训练模型</span></span><br><span class="line">train()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="8-3-循环神经网络的变种"><a href="#8-3-循环神经网络的变种" class="headerlink" title="8.3 循环神经网络的变种"></a>8.3 循环神经网络的变种</h3><hr>
+<h4 id="8-3-1-双向循环神经网络和深层循环神经网络"><a href="#8-3-1-双向循环神经网络和深层循环神经网络" class="headerlink" title="8.3.1 双向循环神经网络和深层循环神经网络"></a>8.3.1 双向循环神经网络和深层循环神经网络</h4><ul>
+<li><p>双向循环神经网络(bidirectional RNN)</p>
+<ul>
+<li>简介<ul>
+<li>在有些问题中，当前时刻的输出不仅和之前的状态有关，也和之后的状态有关，这时就需要双向循环神经网络</li>
+<li>例如：预测一个语句中缺失的单词不仅需要根据前文判断，还需要根据后文判断，这时双向循环网络就可以发挥它的作用</li>
+<li>双向循环神经网络由两个独立的循环神经网络叠加在一起组成</li>
+<li>输出是由这两个循环神经网络的输出拼接而成</li>
+</ul>
+</li>
+<li>结构图<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/双向循环神经网络结构.jpg" alt=""></li>
+<li>工作原理<ul>
+<li>双向循环神经网络的主体结构就是两个单向循环神经网络的结合</li>
+<li>在每个时刻t，输入会同时提供给两个方向相反的循环神经网络</li>
+<li>两个网络独立进行计算，各自产生该时刻的新状态和输出，而双向循环神经网络的最终输出是这两个单向网络的输出的简单拼接</li>
+<li>两个循环神经网络除方向不同之外，其余结构完全对称</li>
+<li>每一层网络中的循环体可以自由选用任意结构，如前面介绍过的简单RNN、LSTM均可作为循环体</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>深层循环神经网络(deep RNN)</p>
+<ul>
+<li>简介<ul>
+<li>为了增强模型的表达能力，可以在网络中设置多个循环层，将每层循环网络的输出传给下一层进行处理</li>
+</ul>
+</li>
+<li>结构图<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/深层循环神经网络结构.jpg" alt=""></li>
+<li>工作原理<ul>
+<li>如图，在一个L层的深层循环网络中，每一时刻的输入xt到输出ot之间有L个循环体</li>
+<li>网络因此可以抽象更加高层的信息</li>
+<li>网络中每一层的循环体中参数是一致的，而不同层中的参数可以不同</li>
+</ul>
+</li>
+<li>代码实现  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf </span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个基本的LSTM结构作为循环体的基础结构</span></span><br><span class="line"><span class="comment"># 深层循环神经网络也支持使用其他的循环体结构</span></span><br><span class="line">lstm_cell = tf.nn.rnn_cell.BasicLSTMCell</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过MultiRNNCell类实现深层循环神经网络的结构</span></span><br><span class="line"><span class="comment"># 其中number_of_layers表示有多少层</span></span><br><span class="line">stacked_lstm = tf.nn.rnn_cell.MultiRNNCell([lstm_cell(lstm_size) <span class="keyword">for</span> _ <span class="keyword">in</span> range(number_of_layers)])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 和经典的循环神经网络一样，可以通过zero_state函数来获得初始状态</span></span><br><span class="line">state = stacked_lstm.zero_state(batch_size, tf.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算每一时刻的前向传播过程</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(num_steps)):</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> i &gt; <span class="number">0</span>:tf.get_variable_scope().reuse_variables()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 每一步处理时间序列中的一个时刻</span></span><br><span class="line">    <span class="comment"># 将当前输入current_input和前一时刻状态state(ht-1和ct-1)传入LSTM结构，</span></span><br><span class="line">    <span class="comment"># 可以得到当前LSTM的输出lstm_output(ht)和更新后状态state(ht和ct)</span></span><br><span class="line">    <span class="comment"># lstm_output可以用于输出给其他层，state用于输出给下一时刻</span></span><br><span class="line">    stacked_lstm_output, state = stacked_lstm(current_input, state)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 通过一个全连接层得到当前时刻的最终输出</span></span><br><span class="line">    final_output = fully_connected(stacked_lstm_output)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 累加损失函数</span></span><br><span class="line">    loss += calc_loss(final_output, expected_output)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="8-3-2-循环神经网络的dropout"><a href="#8-3-2-循环神经网络的dropout" class="headerlink" title="8.3.2 循环神经网络的dropout"></a>8.3.2 循环神经网络的dropout</h4><ul>
+<li><p>通过dropout，可以让神经网络更加健壮(robust)</p>
+</li>
+<li><p>循环神经网络一般只在不同层循环体结构之间使用dropout，而不在同一层的循环体结构之间使用</p>
+<ul>
+<li>也就是说，从时刻t-1传递到时刻t时，循环神经微那里过不会进行状态的dropout</li>
+<li>而在同一时刻t中，不同层循环体之间会使用dropout</li>
+<li>如图<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/深层循环网络的dropout.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>代码实现</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf </span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义LSTM结构</span></span><br><span class="line">lstm_cell = tf.nn.rnn_cell.BasicLSTMCell</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用DropoutWrapper类来实现dropout功能</span></span><br><span class="line"><span class="comment"># 这个类可以传入两个参数来控制dropout的概率</span></span><br><span class="line"><span class="comment"># input_keep_prob 用来控制输入的dropout概率</span></span><br><span class="line"><span class="comment"># output_keep_prob 用来控制输出的dropout概率</span></span><br><span class="line">stacked_lstm = tf.nn.rnn_cell.MultiRNNCell([tf.nn.rnn_cell.DropoutWrapper(lstm_cell(lstm_size)) <span class="keyword">for</span> _ <span class="keyword">in</span> range(number_of_layers)])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="8-3-循环神经网络的变种-1"><a href="#8-3-循环神经网络的变种-1" class="headerlink" title="8.3 循环神经网络的变种"></a>8.3 循环神经网络的变种</h3><ul>
+<li><p>简介：以时序预测为例，利用循环神经网络实现对函数sinx取值的预测</p>
+</li>
+<li><p>代码如下</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明常量</span></span><br><span class="line">HIDDEN_SIZE = <span class="number">30</span>                    <span class="comment"># LSTM中隐藏节点的个数</span></span><br><span class="line">NUM_LAYERS = <span class="number">2</span>                      <span class="comment"># LSTM的层数</span></span><br><span class="line"></span><br><span class="line">TIMESTEPS = <span class="number">10</span>                      <span class="comment"># 循环神经网络的训练序列长度</span></span><br><span class="line">TRAINING_STEPS = <span class="number">6000</span>               <span class="comment"># 训练轮数</span></span><br><span class="line">BATCH_SIZE = <span class="number">32</span>                     <span class="comment"># batch的大小</span></span><br><span class="line"></span><br><span class="line">TRAINING_EXAMPLES = <span class="number">10000</span>           <span class="comment"># 训练数据个数</span></span><br><span class="line">TESTING_EXAMPLES = <span class="number">1000</span>             <span class="comment"># 测试数据个数</span></span><br><span class="line">SAMPLE_GAP = <span class="number">0.1</span>                    <span class="comment"># 采样间隔</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 产生训练所用数据集X和标记Y</span></span><br><span class="line"><span class="comment"># 输入为一个数组,数组中的每个元素是sin函数的x值和对应的y值</span></span><br><span class="line"><span class="comment"># 输出为生成的数据集x和标记y</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_data</span><span class="params">(seq)</span>:</span></span><br><span class="line">    x, y = [], []</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将序列的第i项到第i+TIMESTEPS-1项，共TIMESTEPS项作为输入</span></span><br><span class="line">    <span class="comment"># 将序列的第i+TIMESTEPS项作为输出</span></span><br><span class="line">    <span class="comment"># 即，使用sin函数前TIMESTEPS个节点的信息，来预测第i + TIMESTEPS个节点的函数值</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(seq) - TIMESTEPS):</span><br><span class="line">        x.append([seq[i:i+TIMESTEPS]])</span><br><span class="line">        y.append([seq[i + TIMESTEPS]])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> np.array(x, dtype=np.float32), np.array(y, dtype=np.float32)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义模型、前向传播过程、损失函数和优化过程</span></span><br><span class="line"><span class="comment"># 输入为数据x、标记y和是否是训练过程is_training</span></span><br><span class="line"><span class="comment"># 返回预测结果，损失函数，优化过程</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lstm_model</span><span class="params">(x, y, is_training)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用多层的LSTM结构</span></span><br><span class="line">    cell = tf.nn.rnn_cell.MultiRNNCell([tf.nn.rnn_cell.BasicLSTMCell(HIDDEN_SIZE) <span class="keyword">for</span> _ <span class="keyword">in</span> range(NUM_LAYERS)])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将多层的LSTM结构连接成RNN网络并计算其前向传播的结果</span></span><br><span class="line">    outputs, _ = tf.nn.dynamic_rnn(cell, x, dtype=tf.float32)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># outputs是顶层LSTM在每一步的输出结果</span></span><br><span class="line">    <span class="comment"># 它的维度为[batch_size, time, HIDDEN_SIZE]</span></span><br><span class="line">    <span class="comment"># 本问题中只关注最后一个时刻的输出结果</span></span><br><span class="line">    output = outputs[:, <span class="number">-1</span>, :]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对LSTM网络的输出再加一层全连接层并计算损失</span></span><br><span class="line">    predictions = tf.contrib.layers.fully_connected(output, <span class="number">1</span>, activation_fn=<span class="keyword">None</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 只在训练时计算损失函数和优化步骤，测试时直接返回预测结果</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> is_training:</span><br><span class="line">        <span class="keyword">return</span> predictions, <span class="keyword">None</span>, <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算损失函数</span></span><br><span class="line">    loss = tf.losses.mean_squared_error(y, predictions)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 创建模型优化器并得到优化步骤</span></span><br><span class="line">    train_op = tf.contrib.layers.optimize_loss(loss, tf.train.get_global_step(), optimizer=<span class="string">"Adagrad"</span>, learning_rate=<span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 返回预测结果，损失函数，优化过程</span></span><br><span class="line">    <span class="keyword">return</span> predictions, loss, train_op</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练模型</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(sess, train_x, train_y)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对数据进行处理，将训练数据以数据集的方式提供给计算图</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 切分传入Tensor的第一个维度，生成相应的dataSet</span></span><br><span class="line">    ds = tf.data.Dataset.from_tensor_slices((train_x, train_y))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># ds.repeat : Repeats this dataset `count` times.</span></span><br><span class="line">    <span class="comment"># ds.shuffle : 随机打乱这个数据集的元素</span></span><br><span class="line">    <span class="comment"># ds.batch : 将此数据集的连续元素组合成batch</span></span><br><span class="line">    ds = ds.repeat().shuffle(<span class="number">1000</span>).batch(BATCH_SIZE)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># make_one_shot_iterator()用来生成一个迭代器来读取数据</span></span><br><span class="line">    <span class="comment"># one_shot迭代器人如其名，意思就是数据输出一次后就丢弃了</span></span><br><span class="line">    <span class="comment"># 之后每次x, y被会话调用迭代器就会将指针指向下一个元素</span></span><br><span class="line">    x, y = ds.make_one_shot_iterator().get_next()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用模型传入数据并得到预测结果、损失函数和优化步骤</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">"model"</span>):</span><br><span class="line">        predictions, loss, train_op = lstm_model(x, y, <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 初始化变量</span></span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 开启训练</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(TRAINING_STEPS):</span><br><span class="line">        _, loss_result = sess.run([train_op, loss])</span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">"After %d training step(s), the loss result is %f"</span> % (i, loss_result))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试模型</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run_eval</span><span class="params">(sess, test_x, test_y)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将测试数据以数据集的方式提供给计算图</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 切分传入Tensor的第一个维度，生成相应的dataSet</span></span><br><span class="line">    data_set = tf.data.Dataset.from_tensor_slices((test_x, test_y))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 类型转换，将Dataset转换为BatchDataset</span></span><br><span class="line">    data_set = data_set.batch(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># make_one_shot_iterator()用来生成一个迭代器来读取数据</span></span><br><span class="line">    <span class="comment"># one_shot迭代器人如其名，意思就是数据输出一次后就丢弃了</span></span><br><span class="line">    x, y = data_set.make_one_shot_iterator().get_next()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">"model"</span>, reuse=<span class="keyword">True</span>):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 调用模型得到预测结果</span></span><br><span class="line">        prediction, _, _ = lstm_model(x, [<span class="number">0.0</span>], <span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 将预测结果存入数组中</span></span><br><span class="line">        predictions, labels = [], []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(TESTING_EXAMPLES):</span><br><span class="line">            prediction_result, labels_result = sess.run([prediction, y])</span><br><span class="line">            predictions.append(prediction_result)</span><br><span class="line">            labels.append(labels_result)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 计算rmse作为评价标准</span></span><br><span class="line">        predictions = np.array(predictions).squeeze()</span><br><span class="line">        labels = np.array(labels).squeeze()</span><br><span class="line">        rmse = np.sqrt(((predictions - labels) ** <span class="number">2</span>).mean(axis=<span class="number">0</span>))</span><br><span class="line">        print(<span class="string">"Mean Square Error is: %f"</span> % rmse)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 对预测的sin函数曲线进行绘图</span></span><br><span class="line">        plt.figure()</span><br><span class="line">        plt.plot(labels, label=<span class="string">"real_sin"</span>)</span><br><span class="line">        plt.plot(predictions, label=<span class="string">'predictions'</span>)</span><br><span class="line">        plt.legend()</span><br><span class="line">        plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 主程序入口</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(args=None)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 产生训练集数据的起始值</span></span><br><span class="line">    train_start = <span class="number">0</span></span><br><span class="line">    <span class="comment"># 产生训练集数据的终止值，也就是测试集数据的起始值</span></span><br><span class="line">    train_end = test_start = (TRAINING_EXAMPLES + TIMESTEPS) * SAMPLE_GAP</span><br><span class="line">    <span class="comment"># 产生测试集数据的终止值</span></span><br><span class="line">    test_end = test_start + (TESTING_EXAMPLES + TIMESTEPS) * SAMPLE_GAP</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 产生训练集数据和测试集数据</span></span><br><span class="line">    train_x, train_y = generate_data(np.sin(np.linspace(train_start, train_end, TRAINING_EXAMPLES + TIMESTEPS, dtype=np.float32)))</span><br><span class="line">    test_x, test_y = generate_data(np.sin(np.linspace(test_start, test_end, TESTING_EXAMPLES + TIMESTEPS, dtype=np.float32)))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 开启会话开始计算</span></span><br><span class="line">    <span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 训练模型</span></span><br><span class="line">        train(sess, train_x, train_y)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 使用训练好的模型对测试数据进行预测</span></span><br><span class="line">        run_eval(sess, test_x, test_y)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># TensorFlow提供的一个主程序入口，tf.app.run()会调用上面定义的main函数</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    tf.app.run()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 某次训练的结果</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">After 0 training step(s), the loss result is 0.525303</span></span><br><span class="line"><span class="string">After 100 training step(s), the loss result is 0.002255</span></span><br><span class="line"><span class="string">After 200 training step(s), the loss result is 0.000643</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">After 9800 training step(s), the loss result is 0.000001</span></span><br><span class="line"><span class="string">After 9900 training step(s), the loss result is 0.000001</span></span><br><span class="line"><span class="string">Mean Square Error is: 0.001200</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"><i class="fa fa-tag"></i> 深度学习</a>
+          
+            <a href="/tags/Tensorflow/" rel="tag"><i class="fa fa-tag"></i> Tensorflow</a>
+          
+            <a href="/tags/RNN/" rel="tag"><i class="fa fa-tag"></i> RNN</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/10/Tensorflow-6-图像识别与卷积神经网络/" rel="next" title="[Tensorflow][6]图像识别与卷积神经网络">
+                <i class="fa fa-chevron-left"></i> [Tensorflow][6]图像识别与卷积神经网络
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/33653960?s=400&u=eb438b904ecb9d91f3aa9b777155a6488599493b&v=4" alt="T0UGH(GuiPing Wang)">
+            
+              <p class="site-author-name" itemprop="name">T0UGH(GuiPing Wang)</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/T0UGH" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="tough.neu.edu@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第8章-循环神经网络"><span class="nav-number">1.</span> <span class="nav-text">第8章 循环神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-循环神经网络简介"><span class="nav-number">1.1.</span> <span class="nav-text">8.1 循环神经网络简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-长短时记忆网络-LSTM-结构"><span class="nav-number">1.2.</span> <span class="nav-text">8.2 长短时记忆网络(LSTM)结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-循环神经网络的变种"><span class="nav-number">1.3.</span> <span class="nav-text">8.3 循环神经网络的变种</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3-1-双向循环神经网络和深层循环神经网络"><span class="nav-number">1.3.1.</span> <span class="nav-text">8.3.1 双向循环神经网络和深层循环神经网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3-2-循环神经网络的dropout"><span class="nav-number">1.3.2.</span> <span class="nav-text">8.3.2 循环神经网络的dropout</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-循环神经网络的变种-1"><span class="nav-number">1.4.</span> <span class="nav-text">8.3 循环神经网络的变种</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    
+      <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+      <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+      <div class="widget-wrap">
+        <h3 class="widget-title">TAGS</h3>
+        <div id="myCanvasContainer" class="widget tagcloud">
+          <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+          </canvas>
+        </div>
+      </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">T0UGH(GuiPing Wang)</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
