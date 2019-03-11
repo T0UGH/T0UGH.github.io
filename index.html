@@ -80,12 +80,12 @@
 
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="前中二少年的进阶之路">
+<meta property="og:title" content="打怪升级日常">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="前中二少年的进阶之路">
+<meta property="og:site_name" content="打怪升级日常">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="前中二少年的进阶之路">
+<meta name="twitter:title" content="打怪升级日常">
 
 
 
@@ -121,7 +121,7 @@
 
 
 
-  <title>前中二少年的进阶之路</title>
+  <title>打怪升级日常</title>
   
 
 
@@ -152,12 +152,12 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">前中二少年的进阶之路</span>
+        <span class="site-title">打怪升级日常</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">自娱自乐ing...</p>
+        <p class="site-subtitle">两星炸弹人(╯‵□′)╯炸弹！•••</p>
       
   </div>
 
@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/11/算法导论-15-动态规划/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/11/demo/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -258,7 +258,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="前中二少年的进阶之路">
+      <meta itemprop="name" content="打怪升级日常">
     </span>
 
     
@@ -268,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/11/算法导论-15-动态规划/" itemprop="url">算法导论[15][动态规划]</a></h1>
+                <a class="post-title-link" href="/2019/03/11/demo/" itemprop="url">demo</a></h1>
         
 
         <div class="post-meta">
@@ -280,7 +280,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-11T15:54:50+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-11T16:08:34+08:00">
                 2019-03-11
               </time>
             
@@ -290,28 +290,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法导论/" itemprop="url" rel="index">
-                    <span itemprop="name">算法导论</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -342,7 +320,14 @@
       
         
           
-            <h2 id="第15章-动态规划"><a href="#第15章-动态规划" class="headerlink" title="第15章 动态规划"></a>第15章 动态规划</h2><p><strong>动态规划</strong>(dynamic programming)与分治方法相似，都是通过组合子问题的解来求解原问题。分治方法是将问题划分为互不相交的子问题，递归地求解子问题，再将它们的解结合起来，求出原问题的解。与之相反，动态规划用于子问题重叠的情况，即不同的子问题具有公共的子子问题。动态规划算法对每个子问题只求解一次，将其解保存到一个表格中，从而无需每次求解一个子子问题时都重新计算，避免了这种不必要的计算工作</p>
+            <hr>
+<p>title: ‘算法导论[15][动态规划]’<br>date: 2019-03-11 15:54:50<br>tags:</p>
+<pre><code>- 动态规划
+- 算法导论
+</code></pre><p>categories:</p>
+<pre><code>- 算法导论
+</code></pre><hr>
+<h2 id="第15章-动态规划"><a href="#第15章-动态规划" class="headerlink" title="第15章 动态规划"></a>第15章 动态规划</h2><p><strong>动态规划</strong>(dynamic programming)与分治方法相似，都是通过组合子问题的解来求解原问题。分治方法是将问题划分为互不相交的子问题，递归地求解子问题，再将它们的解结合起来，求出原问题的解。与之相反，动态规划用于子问题重叠的情况，即不同的子问题具有公共的子子问题。动态规划算法对每个子问题只求解一次，将其解保存到一个表格中，从而无需每次求解一个子子问题时都重新计算，避免了这种不必要的计算工作</p>
 <p>动态规划方法通常用来求解<strong>最优化问题</strong>。这类问题可以有很多可行解，每个解都有一个值，我们希望寻找具有最优值的解。我们称这个解为问题的一个最优解</p>
 <p>我们按照如下4个步骤来设计一个动态规划算法</p>
 <ol>
@@ -353,21 +338,21 @@
 </ol>
 <h3 id="15-1-钢条切割"><a href="#15-1-钢条切割" class="headerlink" title="15.1 钢条切割"></a>15.1 钢条切割</h3><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>给定一段长度为n英寸的钢条和一个价格表p<sub>i</sub>(i = 1, 2, …, n)，求切割钢条方案，使得销售收益r<sub>n</sub>最大</p>
 <h4 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h4><p>假设钢条的价格表如下</p>
-<p><img src="/2019/03/11/算法导论-15-动态规划/钢条价格表.png" alt=""></p>
+<p><img src="/2019/03/11/demo/钢条价格表.png" alt=""></p>
 <p>考虑n=4的情况，下图给出了n=4的所有可能的切割情况</p>
-<p><img src="/2019/03/11/算法导论-15-动态规划/0310_1.png" alt=""></p>
+<p><img src="/2019/03/11/demo/0310_1.png" alt=""></p>
 <p>我们用普通的加号来代表切割方案，例如: 将<code>7=2+2+3</code>表示为将长度7英寸的钢条切割为三段。</p>
 <p>对于上述价格表样例，我们可以观察所有最优收益值r<sub>i</sub> (i = 1, 2, …, 10)及对应的最初切割方案</p>
-<p><img src="/2019/03/11/算法导论-15-动态规划/0310_2.png" alt=""></p>
+<p><img src="/2019/03/11/demo/0310_2.png" alt=""></p>
 <p>第一个参数p<sub>n</sub>表示不切割，直接出售长度为 <code>n</code> 英尺的钢条的方案。其他 <code>n-1</code> 个参数对应另外 <code>n - 1</code>种方案: 对每个 <code>i = 1, 2, ..., n-1</code>，首先把钢条切割为长度为<code>i</code>和<code>n-i</code>的两段，接着求解这两段的最优切割收益r<sub>n</sub>和r<sub>n-1</sub>。由于无法预知哪种方案会获得最优收益，我们必须考察所有可能的<code>i</code>，选取其中收益最大者。如果直接出售原钢条会获得最大收益，我们当然可以选择不做任何切割。</p>
 <p>注意到，为了求解规模为<code>n</code>的原问题，我们先求解形式完全相同，但规模更小的子问题。即当完成首次切割后，我们将两端钢条看成两个独立的钢条切割问题实例。我们通过组合两个相关子问题的最优解，并在所有可能的两段切割方案中提取组合收益最大者，构成原问题的最优解。我们称钢条切割问题满足最优子结构性质: 问题的最优解由相关子问题的最优解组合而成，而这些子问题可以独立求解</p>
 <h4 id="解决方案1—使用自顶向下的递归方法求解"><a href="#解决方案1—使用自顶向下的递归方法求解" class="headerlink" title="解决方案1—使用自顶向下的递归方法求解"></a>解决方案1—使用自顶向下的递归方法求解</h4><p>我们将钢条从左边切割下长度为 <code>i</code> 的一段，支队右边剩下的长度为 <code>n-i</code> 的一段继续进行切割(递归求解)，对左边的一段则不再进行切割。即问题分解的方式为：将长度为<code>n</code>的钢条分解为左边开始一段，以及剩余部分继续分解的结果。</p>
 <p>这样，不做任何切割的方案就可以描述为: 第一段的长度为 <code>n</code>，收益为 p<sub>n</sub>，剩余部分长度为0，对应的收益为r<sub>0</sub> = 0。</p>
-<p>公式如下<br><img src="/2019/03/11/算法导论-15-动态规划/0310_3.png" alt=""></p>
+<p>公式如下<br><img src="/2019/03/11/demo/0310_3.png" alt=""></p>
 <p>伪代码如下,它采用的是一种直接的自顶向下的递归方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CUT-ROD(p, n)</span><br><span class="line">    if n == 0</span><br><span class="line">        return 0</span><br><span class="line">    q = -∞</span><br><span class="line">    for i = 1 to n</span><br><span class="line">        q = max(q, p[i] + CUT-ROD(p, n-i))</span><br><span class="line">    return q</span><br></pre></td></tr></table></figure></p>
 <p>一旦输入规模稍微变大，程序运行时间会变得相当长。每当将 <code>n</code> 增加 <code>1</code> ，程序运行时间差不多会增加 <code>1</code> 倍。</p>
-<p>为什么<code>CUT-ROD</code>的效率如此差，原因是，<code>CUT-ROD</code>反复地用相同的参数值对自身进行递归调用，即它反复求解相同的子问题。如下图所示<br><img src="/2019/03/11/算法导论-15-动态规划/0310_4.png" alt=""></p>
-<p>此算法的时间复杂度为<br><img src="/2019/03/11/算法导论-15-动态规划/0310_5.png" alt=""></p>
+<p>为什么<code>CUT-ROD</code>的效率如此差，原因是，<code>CUT-ROD</code>反复地用相同的参数值对自身进行递归调用，即它反复求解相同的子问题。如下图所示<br><img src="/2019/03/11/demo/0310_4.png" alt=""></p>
+<p>此算法的时间复杂度为<br><img src="/2019/03/11/demo/0310_5.png" alt=""></p>
 <h4 id="解决方案2—使用动态规划方法求解最优钢条切割问题"><a href="#解决方案2—使用动态规划方法求解最优钢条切割问题" class="headerlink" title="解决方案2—使用动态规划方法求解最优钢条切割问题"></a>解决方案2—使用动态规划方法求解最优钢条切割问题</h4><p>动态规划的思想如下所述。我们已经看到，朴素递归算法之所以效率很低，是因为它反复求解同样的子问题。因此，动态规划方法仔细安排求解顺序，对每个问题只求解一次，并将结果保存下来。如果随后再次需要此子问题的解，只需查找保存的结果，而不必重复计算。因此，动态规划方法是付出额外的内存空间来节省计算时间，是典型的时空权衡(time-memory-trade-off)的例子。而时间上的节省可能是非常巨大的:可能将指数时间的解转化为一个多项式时间的解。</p>
 <p>动态规划有两种等价的实现方法</p>
 <ol>
@@ -382,7 +367,7 @@
 <p>此算法的时间复杂度为 Θ(n<sup>2</sup>)</p>
 <h4 id="子问题图"><a href="#子问题图" class="headerlink" title="子问题图"></a>子问题图</h4><p>当思考一个动态规划问题时，我们应该弄清所涉及的子问题及子问题之间的依赖关系</p>
 <p>问题的子问题图准确地表达了这些信息，下图显示了 <code>n=4</code> 时钢条切割问题地子问题图。<br>它是一个有向图，每个顶点唯一地对应一个子问题。若求子问题x地最优解时需要直接用到子问题y地最优解，那么在子问题图中就会有一条从子问题x的定点到子问题y的定点的有向边。</p>
-<p><img src="/2019/03/11/算法导论-15-动态规划/0310_6.png" alt=""></p>
+<p><img src="/2019/03/11/demo/0310_6.png" alt=""></p>
 <p>自底向上的动态规划方法处理子问题图中顶点的顺序为: 对于一个给定的子问题<code>x</code>，在求解它之前求解邻接它的子问题<code>y</code>。对于任何子问题，直至它依赖的所有子问题均已求解完成，才会求解它</p>
 <p>子问题图<code>G=(V, E)</code>的规模可以帮我们确定动态规划算法的运行时间。由于每个子问题只求解一次，因此算法运行时间等于每个子问题求解时间之和。通常，一个子问题的求解时间与子问题图中对应顶点的度(出射边的数目)成正比，而子问题的数目等于子问题图的顶点数。因此，通常情况下，动态规划算法的运行使劲按与顶点与边的数量呈线性关系</p>
 <h3 id="15-2-矩阵链乘法"><a href="#15-2-矩阵链乘法" class="headerlink" title="15.2 矩阵链乘法"></a>15.2 矩阵链乘法</h3><h4 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h4><p>给定一个 <code>n</code> 个矩阵的序列(矩阵链)(A<sub>1</sub>),我们希望计算它们的乘积如下</p>
@@ -396,7 +381,7 @@
 <p>矩阵链乘法问题(matrix-chain multiplication problem): 给定n个矩阵的链 <code>(A1, A2, ..., An)</code>, 矩阵<code>Ai</code> 的规模是p<sub>i-1</sub> * p<sub>i</sub>(1&lt;=i&lt;=n)，求完全括号化方案，使得计算乘积 <code>A1A2...An</code> 所需标量乘法次数最少</p>
 <h4 id="计算括号化方案的数量"><a href="#计算括号化方案的数量" class="headerlink" title="计算括号化方案的数量"></a>计算括号化方案的数量</h4><p>首先说明穷举所有可能的括号化方案不会产生一个高效的算法</p>
 <p>对于一个 <code>n</code> 个矩阵的链，令 <code>P(n)</code> 表示可供选择的括号化方案的数量。当 <code>n=1</code> 时，由于只有一个矩阵，因此只有一种完全括号化方案。当 <code>n&gt;=2</code> 时，完全括号化的矩阵乘积可描述为两个完全括号化的部分积相乘的形式，而两个部分积的划分点在第 <code>k</code> 个矩阵和第 <code>k+1</code> 个矩阵之间，<code>k</code> 为 <code>1, 2, ...., n - 1</code>中的任意一个值。可以得到递归式</p>
-<p><img src="/2019/03/11/算法导论-15-动态规划/0310_7.png" alt=""></p>
+<p><img src="/2019/03/11/demo/0310_7.png" alt=""></p>
 <p>经过证明，这种方法的时间复杂度为 Ω(2<sup>n</sup>)。因此通过暴力搜索穷尽所有可能的括号化方案来寻求最优方案，是一个糟糕的策略</p>
 <h4 id="应用动态规划方法"><a href="#应用动态规划方法" class="headerlink" title="应用动态规划方法"></a>应用动态规划方法</h4><p>我们按照如下4个步骤来进行</p>
 <ol>
@@ -411,16 +396,16 @@
 <h5 id="步骤2-一个递归求解方案-递归地定义最优解的值"><a href="#步骤2-一个递归求解方案-递归地定义最优解的值" class="headerlink" title="步骤2 : 一个递归求解方案(递归地定义最优解的值)"></a>步骤2 : 一个递归求解方案(递归地定义最优解的值)</h5><p>下面用子问题的最优解来递归地定义原问题最优解地代价。对矩阵链乘法问题，我们可以将对所有 <code>1&lt;=i&lt;=j&lt;=n</code>确定<code>Ai Ai+1 ... Aj</code>的最小代价括号化方案作为子问题。令<code>m[i, j]</code>表示计算矩阵 A<sub>i <em> j</em></sub>所需标量乘法次数的最小值，那么。原问题的最优解—计算A<sub>1  n</sub>所需的最低代价就是<code>m[1, n]</code></p>
 <p>我们可以递归地定义<code>m[i, j]</code>如下。</p>
 <p>对于 i=j 时的平凡问题，矩阵链只包含唯一地矩阵A<sub>i * i</sub> = A<sub>i</sub>，不需要做任何标量乘法计算。所以，对所有 <code>i = 1, 2, ..., n</code> 来说，<code>m[i, i] = 0</code>。</p>
-<p>若 <code>i&lt;j</code>，我们利用步骤1中得到的最优子结构来计算<code>m[i, j]</code>。我们假设<code>Ai Ai+1 ... Aj</code>的最优括号化方案的分割点在矩阵<code>Ak</code>和<code>Ak+1</code>之间，其中<code>i&lt;=k&lt;j</code>。那么，<code>m[i, j]</code>就等于计算<code>Ai * k</code>和<code>Ak+1 * j</code>的代价加上两者相乘的代价的最小值。由于矩阵Ai的大小为 <code>pi-1 * pi</code>，易知<code>Ai * k</code>和<code>Ak+1 * j</code>相乘的代价为<code>pi-1 * pk * pj</code>次标量乘法运算。因此我们得到<br><img src="/2019/03/11/算法导论-15-动态规划/0310_8.png" alt=""></p>
-<p>上述递归公式假定最优分割点 <code>k</code> 是已知的，但实际上不知道。不过 <code>k</code> 只有 <code>j-i</code> 种可能的取值。我们只需检查这<code>j-i</code>种情况，找出最优者即可。一次迭代求解公式变为<br><img src="/2019/03/11/算法导论-15-动态规划/0310_9.png" alt=""></p>
+<p>若 <code>i&lt;j</code>，我们利用步骤1中得到的最优子结构来计算<code>m[i, j]</code>。我们假设<code>Ai Ai+1 ... Aj</code>的最优括号化方案的分割点在矩阵<code>Ak</code>和<code>Ak+1</code>之间，其中<code>i&lt;=k&lt;j</code>。那么，<code>m[i, j]</code>就等于计算<code>Ai * k</code>和<code>Ak+1 * j</code>的代价加上两者相乘的代价的最小值。由于矩阵Ai的大小为 <code>pi-1 * pi</code>，易知<code>Ai * k</code>和<code>Ak+1 * j</code>相乘的代价为<code>pi-1 * pk * pj</code>次标量乘法运算。因此我们得到<br><img src="/2019/03/11/demo/0310_8.png" alt=""></p>
+<p>上述递归公式假定最优分割点 <code>k</code> 是已知的，但实际上不知道。不过 <code>k</code> 只有 <code>j-i</code> 种可能的取值。我们只需检查这<code>j-i</code>种情况，找出最优者即可。一次迭代求解公式变为<br><img src="/2019/03/11/demo/0310_9.png" alt=""></p>
 <h5 id="步骤3-计算最优代价"><a href="#步骤3-计算最优代价" class="headerlink" title="步骤3 : 计算最优代价"></a>步骤3 : 计算最优代价</h5><p>现在，我们可以很容易地基于上面的递归公式写出一个递归算法，来计算 <code>A1A2...An</code> 相乘的最小代价 <code>m[1, n]</code> 。此递归算法是指数时间的，并不比暴力搜索算法好</p>
 <p>此递归算法会在递归调用中多次遇到同一个子问题，这种子问题重叠的性质是应用动态规划的另一个标志</p>
 <p>我们采用自底向上表格法来计算最优代价。假定矩阵Ai的规模为 <code>pi-1 * pi(i = 1, 2, ..., n)</code>。它的输入是一个序列<code>p=(p0, p1, ..., pn)</code>，其长度为<code>p.length = n + 1</code>。过程用一个辅助表<code>m[1..n, 1..n]</code>来保存代码<code>m[i, j]</code>，用另一个辅助表<code>s[1..n-1, 2..n]</code>记录最优值<code>m[i, j]</code>对应的分割点<code>k</code>。我们就可以利用表s构建最优解。</p>
 <p>为了实现自底向上的方法，我们必须确定计算 <code>m[i, j]</code> 时需要访问哪些其他表项。<code>m[i, j]</code> 的值只依赖于那些少于 <code>j-i+1</code> 个矩阵链相乘的最优计算代价。因此算法应该按照长度递增的顺序求解矩阵链括号化问题，并按对应的顺序填写表<code>m</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">MATRIX-CHAIN-ORDER(p)</span><br><span class="line">    n = p.length - 1</span><br><span class="line">    let m[1..n,1..n] and s[1..n-1, 2..n]be new tables</span><br><span class="line">    for i = 1 to n</span><br><span class="line">        m[i, i] = 0</span><br><span class="line">    for l = 2 to n</span><br><span class="line">        for i = 1 to n - l + 1</span><br><span class="line">        j = i + l - 1</span><br><span class="line">        m[i, j] = ∞</span><br><span class="line">        for k = i to j - 1</span><br><span class="line">            q = m[i, k] + m[k+1, j] + p[i - 1] * p[k] * [pj]</span><br><span class="line">        if q &lt; m[i, j]</span><br><span class="line">            m[i, j] = q</span><br><span class="line">            s[i, j] = k</span><br><span class="line">    return m and s</span><br></pre></td></tr></table></figure>
-<p>下图展示了对一个长度为6的矩阵链执行此算法的过程<br><img src="/2019/03/11/算法导论-15-动态规划/0310_10.png" alt=""></p>
+<p>下图展示了对一个长度为6的矩阵链执行此算法的过程<br><img src="/2019/03/11/demo/0310_10.png" alt=""></p>
 <p>简单分析<code>MATRIX-CHAIN-ORDER</code>的嵌套循环结构，可以看到算法的运算时间为O(n<sup>3</sup>)。</p>
-<h5 id="步骤4-构建最优解"><a href="#步骤4-构建最优解" class="headerlink" title="步骤4: 构建最优解"></a>步骤4: 构建最优解</h5><p>我们可以根据表s记录的信息来递归地恢复最优解，算法如图<br><img src="/2019/03/11/算法导论-15-动态规划/0310_11.png" alt=""></p>
+<h5 id="步骤4-构建最优解"><a href="#步骤4-构建最优解" class="headerlink" title="步骤4: 构建最优解"></a>步骤4: 构建最优解</h5><p>我们可以根据表s记录的信息来递归地恢复最优解，算法如图<br><img src="/2019/03/11/demo/0310_11.png" alt=""></p>
 <h3 id="15-3-动态规划原理"><a href="#15-3-动态规划原理" class="headerlink" title="15.3 动态规划原理"></a>15.3 动态规划原理</h3><p>在本节我们将关注适合应用动态规划方法求解的最优化问题应该具备的两个要素: 最优子结构和子问题重叠</p>
 <h4 id="最优子结构"><a href="#最优子结构" class="headerlink" title="最优子结构"></a>最优子结构</h4><p>用动态规划问题求解最优化问题的第一步就是刻画最优解的结构。如果一个问题的最优解包含其子问题的最优解，我们就称此问题具有最优子结构性质。因此，某个问题是否适合应用动态规划算法，它是否具有最优子结构性质是一个好结构(当然，具有最优子结构性质也可能意味着适合应用贪心策略)</p>
 <p>本章前面的两个问题都具有最优子结构性质。在15.1中，我们观察到，长度为 <code>n</code> 的钢条的最优切割方案是由第一次切割后得到的两端钢条的最优切割方案组成的。在15.2中，我们看到 <code>Ai Ai+1 ... Aj</code> 的最优括号化方案首先在 <code>Ak</code> 和 <code>Ak+1</code>之间进行划分，然后对 <code>Ai Ai+1 ... Ak</code> 和 <code>Ak+1 Ak+2 ... Aj</code>继续进行最优括号化</p>
@@ -465,7 +450,7 @@
 <h4 id="步骤2-一个递归的求解方案"><a href="#步骤2-一个递归的求解方案" class="headerlink" title="步骤2: 一个递归的求解方案"></a>步骤2: 一个递归的求解方案</h4><p>定理 15.1 意味着，在求 <code>X=&lt;x1, x2, ..., xm&gt;</code> 和 <code>Y=&lt;y1, y2, ..., yn&gt;</code> 的一个LCS时，我们需要求解一个或两个子问题。如果 x<sub>m</sub> = y<sub>n</sub>, 我们应该求解X<sub>m-1</sub>和Y<sub>n-1</sub>的一个LCS。将 x<sub>m</sub> = y<sub>n</sub> 追加到一个LCS的末尾，就得到 X 和 Y 的一个LCS。如果 x<sub>m</sub> != y<sub>n</sub>，我们必须求解两个子问题，求 X<sub>m-1</sub> 和 Y 的一个LCS与 X 和 Y<sub>n-1</sub> 的一个LCS。两个LCS较长者即为 X 和 Y 的一个LCS。</p>
 <p>可以看出LCS问题的重叠子问题性质。为了求  X 和 Y 的LCS，要求 X<sub>m-1</sub> 和 Y 的一个LCS与 X 和 Y<sub>n-1</sub> 的LCS。但者几个子问题都包含求X<sub>m-1</sub>和Y<sub>n-1</sub>的LCS。</p>
 <p>设计LCS问题首先要建立最优解的递归式，如下</p>
-<p><img src="/2019/03/11/算法导论-15-动态规划/0311_1.png" alt=""></p>
+<p><img src="/2019/03/11/demo/0311_1.png" alt=""></p>
 <p>LCS问题是一个根据条件排除子问题的动态规划算法</p>
 <h4 id="步骤3-计算LCS的长度"><a href="#步骤3-计算LCS的长度" class="headerlink" title="步骤3: 计算LCS的长度"></a>步骤3: 计算LCS的长度</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">LCS-LENGTH(X, Y)</span><br><span class="line"></span><br><span class="line">m = X.length</span><br><span class="line">n = Y.length</span><br><span class="line">let b[1..m, 1..n] and c[0..m, 0..n] be new table</span><br><span class="line">for i = 1 to m</span><br><span class="line">    c[i, 0] = 0</span><br><span class="line">for j = 0 to n</span><br><span class="line">    c[0, j] = 0</span><br><span class="line">for i = 1 to m</span><br><span class="line">    for j = 1 to n</span><br><span class="line">        if xi == yi</span><br><span class="line">            c[i, i] = c[i - 1, j - 1] + 1</span><br><span class="line">            b[i, j] = &quot;↖&quot;</span><br><span class="line">        elseif c[i - 1, j] &gt;= c[i, j - 1]</span><br><span class="line">            c[i, j] = c[i - 1, j]</span><br><span class="line">            b[i, j] = &quot;↑&quot;</span><br><span class="line">        else </span><br><span class="line">            c[i, j] = c[i, j - 1]</span><br><span class="line">            b[i, j] = &quot;←&quot;</span><br></pre></td></tr></table></figure>
 <p>过程LCS-LENGTH接受两个序列  <code>X=&lt;x1, x2, ..., xm&gt;</code> 和 <code>Y=&lt;y1, y2, ..., yn&gt;</code> 作为输入。它将 <code>c[i, j]</code> 的值保存在表 <code>c[0..m, 0..n]</code>中，并按行主次序(row-major order)计算表项(即首先由左至右计算c的第一行，然后计算第二行，依次类推)。过程还维护一个表<code>b[0..m, 0..n]</code>，帮助构建最优解。<code>b[i, j]</code> 指向的表项对应计算 <code>c[i, j]</code> 时所选择的子问题最优解。过程返回表b和表c, <code>c[m, n]</code> 保存了 <code>X</code> 和 <code>Y</code> 的LCS的长度</p>
@@ -510,7 +495,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -558,7 +543,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
