@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="深度学习,Tensorflow,">
+  <meta name="keywords" content="贪心算法,算法导论,">
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="第2章 TensorFlow环境搭建 2.1 TensorFlow的主要依赖包 2.1.1 Protoval Buffer Protocal Buffer是谷歌开发的处理结构化数据的工具  什么是结构化数据  例如：用户信息包括用户的名字、ID和Email 123name:张三id:12345email:zhangsan@abc.com 上面的用户信息就是一个结构化的数据    结构化数据处理">
-<meta name="keywords" content="深度学习,Tensorflow">
+<meta name="description" content="第16章 贪心算法对于许多最优化问题，使用动态规划算法来求最优解有些杀鸡用牛刀了，可以使用更简单、更高效的算法。贪心算法(greedy algorithm)就是这样的算法，它在每一步都做出当时看起来最佳的选择。它总是做出局部最优的选择，寄希望这样的选择能导致全局最优解 贪心算法并不保证得到最优解，但对很多问题确实可以求得最优解 有很多利用贪心策略设计的算法，包括最小生成树(minimum-span">
+<meta name="keywords" content="贪心算法,算法导论">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Tensorflow][2]Tensorflow环境搭建">
-<meta property="og:url" content="http://yoursite.com/2019/03/10/Tensorflow-2-Tensorflow环境搭建/index.html">
+<meta property="og:title" content="[算法导论][16]贪心算法">
+<meta property="og:url" content="http://yoursite.com/2019/03/13/算法导论-16-贪心算法/index.html">
 <meta property="og:site_name" content="打怪升级日常">
-<meta property="og:description" content="第2章 TensorFlow环境搭建 2.1 TensorFlow的主要依赖包 2.1.1 Protoval Buffer Protocal Buffer是谷歌开发的处理结构化数据的工具  什么是结构化数据  例如：用户信息包括用户的名字、ID和Email 123name:张三id:12345email:zhangsan@abc.com 上面的用户信息就是一个结构化的数据    结构化数据处理">
+<meta property="og:description" content="第16章 贪心算法对于许多最优化问题，使用动态规划算法来求最优解有些杀鸡用牛刀了，可以使用更简单、更高效的算法。贪心算法(greedy algorithm)就是这样的算法，它在每一步都做出当时看起来最佳的选择。它总是做出局部最优的选择，寄希望这样的选择能导致全局最优解 贪心算法并不保证得到最优解，但对很多问题确实可以求得最优解 有很多利用贪心策略设计的算法，包括最小生成树(minimum-span">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-10T06:36:14.750Z">
+<meta property="og:image" content="http://yoursite.com/2019/03/13/算法导论-16-贪心算法/0312_0.png">
+<meta property="og:updated_time" content="2019-03-13T13:06:05.019Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Tensorflow][2]Tensorflow环境搭建">
-<meta name="twitter:description" content="第2章 TensorFlow环境搭建 2.1 TensorFlow的主要依赖包 2.1.1 Protoval Buffer Protocal Buffer是谷歌开发的处理结构化数据的工具  什么是结构化数据  例如：用户信息包括用户的名字、ID和Email 123name:张三id:12345email:zhangsan@abc.com 上面的用户信息就是一个结构化的数据    结构化数据处理">
+<meta name="twitter:title" content="[算法导论][16]贪心算法">
+<meta name="twitter:description" content="第16章 贪心算法对于许多最优化问题，使用动态规划算法来求最优解有些杀鸡用牛刀了，可以使用更简单、更高效的算法。贪心算法(greedy algorithm)就是这样的算法，它在每一步都做出当时看起来最佳的选择。它总是做出局部最优的选择，寄希望这样的选择能导致全局最优解 贪心算法并不保证得到最优解，但对很多问题确实可以求得最优解 有很多利用贪心策略设计的算法，包括最小生成树(minimum-span">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/13/算法导论-16-贪心算法/0312_0.png">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/10/Tensorflow-2-Tensorflow环境搭建/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/13/算法导论-16-贪心算法/">
 
 
 
 
 
-  <title>[Tensorflow][2]Tensorflow环境搭建 | 打怪升级日常</title>
+  <title>[算法导论][16]贪心算法 | 打怪升级日常</title>
   
 
 
@@ -253,7 +255,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Tensorflow-2-Tensorflow环境搭建/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/算法导论-16-贪心算法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -270,7 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">[Tensorflow][2]Tensorflow环境搭建</h1>
+          <h1 class="post-title" itemprop="name headline">[算法导论][16]贪心算法</h1>
         
 
         <div class="post-meta">
@@ -282,8 +284,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-10T14:35:36+08:00">
-                2019-03-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-13T21:04:54+08:00">
+                2019-03-13
               </time>
             
 
@@ -305,8 +307,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tensorflow/" itemprop="url" rel="index">
-                    <span itemprop="name">Tensorflow</span>
+                  <a href="/categories/算法导论/" itemprop="url" rel="index">
+                    <span itemprop="name">算法导论</span>
                   </a>
                 </span>
 
@@ -342,97 +344,31 @@
       
 
       
-        <h2 id="第2章-TensorFlow环境搭建"><a href="#第2章-TensorFlow环境搭建" class="headerlink" title="第2章 TensorFlow环境搭建"></a>第2章 TensorFlow环境搭建</h2><hr>
-<h3 id="2-1-TensorFlow的主要依赖包"><a href="#2-1-TensorFlow的主要依赖包" class="headerlink" title="2.1 TensorFlow的主要依赖包"></a>2.1 TensorFlow的主要依赖包</h3><hr>
-<h4 id="2-1-1-Protoval-Buffer"><a href="#2-1-1-Protoval-Buffer" class="headerlink" title="2.1.1 Protoval Buffer"></a>2.1.1 Protoval Buffer</h4><ul>
-<li><p>Protocal Buffer是谷歌开发的处理结构化数据的工具</p>
-</li>
-<li><p>什么是结构化数据</p>
-<ul>
-<li><p>例如：用户信息包括用户的名字、ID和Email</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name:张三</span><br><span class="line">id:12345</span><br><span class="line">email:zhangsan@abc.com</span><br></pre></td></tr></table></figure>
-<p>上面的用户信息就是一个结构化的数据</p>
-</li>
-</ul>
-</li>
-<li><p>结构化数据处理</p>
-<ul>
-<li>背景：要将这些结构化的用户信息持久化或进行网络传输时，就需要先将它们序列化。</li>
-<li>序列化：所谓序列化，是将结构化的数据变成数据流的格式，简单地说就是变成一个字符串</li>
-<li>定义：将结构化的数据序列化，并从序列化之后的数据流中还原出原来的结构化数据，统称为结构化数据处理</li>
-</ul>
-</li>
-<li><p>常见的结构化数据处理工具</p>
-<ul>
-<li>XML</li>
-<li>JSON</li>
-<li>Protocal Buffer</li>
-</ul>
-</li>
-<li><p>Protocal Buffer</p>
-<ul>
-<li><p>与XML和JSON格式的区别</p>
-<ul>
-<li>Protocal Buffer序列化之后得到的数据不是可读的字符串，而是二进制流。</li>
-<li>使用Protocal Buffer时需要先定义数据的格式(schema)。还原一个序列化之后的数据将需要使用到这个定义好的数据格式<br>例如<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">message user&#123;</span><br><span class="line">    optional string name = 1;</span><br><span class="line">    required int32 id = 2;</span><br><span class="line">    repeated string email = 3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>基本语法</p>
-<ul>
-<li>Protocal Buffer定义数据格式的文件一般保存在.proto文件中</li>
-<li>每个message代表了一类结构化的数据</li>
-<li>message里面定义了每个属性的类型和名字</li>
-<li>属性的类型可以是像布尔型、整数型、实数型、字符型这样的基本类型，也可以使另外一个message</li>
-<li>也需要定义一个属性是必需的(required)、可选的(optional)、或者可重复的(repeated)<ul>
-<li>required：这个message的所有实例都需要这个属性</li>
-<li>optional：这个属性的取值可以为空</li>
-<li>repeated：这个属性的取值可以使一个列表</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="2-1-2-Bazel"><a href="#2-1-2-Bazel" class="headerlink" title="2.1.2 Bazel"></a>2.1.2 Bazel</h4><ul>
-<li><p>简介：Bazel是谷歌开源的自动化构建工具</p>
-</li>
-<li><p>项目空间(workspace)</p>
-<ul>
-<li>一个项目空间可以简单地理解为一个文件夹</li>
-<li>在这个文件夹中包含了编译一个软件所需要的源代码以及输出编译结果的软连接(symbolic link)地址</li>
-</ul>
-</li>
-<li><p>WORKSPACE文件</p>
-<ul>
-<li>一个项目空间所对应的文件夹是这个项目的根目录，在这个根目录中需要一个WORKSPACE文件，此文件定义了对外部资源的依赖关系</li>
-</ul>
-</li>
-<li><p>BUILD文件</p>
-<ul>
-<li>在一个项目空间中,Bazel通过BUILD文件来找到需要编译的目标</li>
-<li>Bazel对Python支持的编译方式<ol>
-<li>py_binary：将Python程序编译为可执行文件</li>
-<li>py_test：编译Python测试程序</li>
-<li>py_library：编译为库函数供其他py_binary或py_test调用</li>
-</ol>
-</li>
-<li><p>例子</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">py_library(</span><br><span class="line">    name=<span class="string">"hello_lib"</span>,</span><br><span class="line">    srcs=[</span><br><span class="line">        <span class="string">"hello_lib.py"</span>,</span><br><span class="line">    ]</span><br><span class="line">)</span><br><span class="line">py_binary(</span><br><span class="line">    name=<span class="string">"hello_main"</span>,</span><br><span class="line">    srcs=[</span><br><span class="line">        <span class="string">"hello_main.py"</span>,</span><br><span class="line">    ]</span><br><span class="line">    deps=[</span><br><span class="line">        <span class="string">":hello_lib"</span>,</span><br><span class="line">    ],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>其他</p>
-<ul>
-<li>BUILD文件由一系列编译目标组成</li>
-<li>定义编译目标的先后顺序不会影响编译的结果</li>
-<li>在每个编译目标的第一行要指定辨析方式</li>
-<li>在每个编译目标的主体中需要给出编译的具体信息，例如：names、srcs、deps等</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+        <h2 id="第16章-贪心算法"><a href="#第16章-贪心算法" class="headerlink" title="第16章 贪心算法"></a>第16章 贪心算法</h2><p>对于许多最优化问题，使用动态规划算法来求最优解有些杀鸡用牛刀了，可以使用更简单、更高效的算法。贪心算法(greedy algorithm)就是这样的算法，它在每一步都做出当时看起来最佳的选择。它总是做出局部最优的选择，寄希望这样的选择能导致全局最优解</p>
+<p>贪心算法并不保证得到最优解，但对很多问题确实可以求得最优解</p>
+<p>有很多利用贪心策略设计的算法，包括最小生成树(minimum-spanning-tree)算法、单源最短路径算法的Dijkstra算法，以及集合覆盖问题的Chvatal贪心启发式算法</p>
+<h3 id="16-1-活动选择问题"><a href="#16-1-活动选择问题" class="headerlink" title="16.1 活动选择问题"></a>16.1 活动选择问题</h3><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>假定有一个 n 个活动(activity)的集合 S = {a<sub>1</sub>, a<sub>2</sub>, …, a<sub>n</sub>}，这些活动使用同一个资源，而这个资源在某个时刻只能供一个活动使用。每个活动 a<sub>i</sub> 都有一个开始时间 s<sub>i</sub> 和一个结束时间 f<sub>i</sub>。</p>
+<p>如果两个活动 a<sub>i</sub> 和 a<sub>j</sub> 满足 [s<sub>i</sub>, f<sub>i</sub>) 和 [s<sub>j</sub>, f<sub>j</sub>) 不重叠，则称它们是兼容的。</p>
+<p>在活动选择问题中，我们希望选出一个最大兼容活动集。 </p>
+<p>假定活动已经按照时间的单调递增顺序排序</p>
+<p>f<sub>1</sub> &lt;= f<sub>2</sub> &lt;= … &lt;= f<sub>n-1</sub> &lt;= f<sub>n</sub></p>
+<h4 id="活动选择问题的最优子结构"><a href="#活动选择问题的最优子结构" class="headerlink" title="活动选择问题的最优子结构"></a>活动选择问题的最优子结构</h4><p>令 S<sub>ij</sub> 表示在 a<sub>i</sub> 结束之后开始，在 a<sub>j</sub> 开始之前结束的那些活动的集合。假定 A<sub>ij</sub> 是 S<sub>ij</sub> 的一个最大的相互兼容的活动子集，且包含活动 a<sub>k</sub>。由于最优解包含活动 a<sub>k</sub> ，我们得到了两个子问题: 寻找 S<sub>ik</sub> 中的最大兼容活动子集(在 a<sub>i</sub> 结束之后开始，在 a<sub>k</sub> 开始之前结束的活动)以及寻找 S<sub>kj</sub> 中的最大兼容活动子集(在 a<sub>k</sub> 结束之后开始，在 a<sub>j</sub> 开始之前结束的活动)。可得 |A<sub>ij</sub>| = |A<sub>ik</sub>| + |A<sub>kj</sub>| + 1 个活动</p>
+<p>我们容易用剪切-粘贴法证明最优解A<sub>ij</sub>必然包含两个子问题S<sub>ik</sub>和S<sub>kj</sub>的最优解</p>
+<p>可以得到如下递归式</p>
+<p><img src="/2019/03/13/算法导论-16-贪心算法/0312_0.png" alt=""></p>
+<p>于是接下来可以设计一种带备忘机制的递归算法或者使用自底向上法填写表项</p>
+<h4 id="贪心选择"><a href="#贪心选择" class="headerlink" title="贪心选择"></a>贪心选择</h4><p>对于活动选择问题，什么是贪心选择？ 直觉告诉我们，应该选择S中最早结束的活动，因为它剩下的资源可供它之后尽可能多的活动使用</p>
+<p>当做出贪心选择之后，只剩下一个子问题需要我们求解: 寻找在 a<sub>1</sub> 结束后开始的活动</p>
+<p>令 S<sub>k</sub> = { a<sub>i</sub> ∈ S: s<sub>i</sub> &gt;= f<sub>k</sub>}为在 a<sub>k</sub>结束后开始的任务集合。当我们做出贪心选择，选择了 a<sub>1</sub> 之后，剩下的 S<sub>1</sub> 是唯一需要求解的子问题</p>
+<p>可以证明我们的直觉是正确的，证明过程略</p>
+<p>贪心算法通常都是自顶而下的设计: 做出一个选择，然后求解剩下的那个子问题，而不是自底向上地求解出很多子问题，然后再做出选择</p>
+<h4 id="递归贪心算法"><a href="#递归贪心算法" class="headerlink" title="递归贪心算法"></a>递归贪心算法</h4><p>过程 <code>RECURSIVE-ACTIVITY-SELECTOR</code> 的输入为两个数组 s 和 f，表示活动的开始和结束时间，下标 k 指出要求解的子问题 S<sub>k</sub>，以及问题规模 n 。它返回 S<sub>k</sub> 的一个最大兼容活动集。我们假定输入的 n 个活动已经按照结束时间的单调递增顺序排序好。为了方便算法初始化，我们添加了一个虚拟活动 a<sub>0</sub>，其结束时间为 f<sub>0</sub> = 0，这样子问题 S<sub>0</sub> 就是完整的活动集S。求解原问题即可调用 <code>RECURSIVE-ACTIVITY-SELECTOR(s, f, 0, n)</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">RECURSIVE-ACTIVITY-SELECTOR(s, f, k, n)</span><br><span class="line">    m = k + 1</span><br><span class="line">    while m &lt;= n and s[m] &lt; f[k]</span><br><span class="line">        m += 1</span><br><span class="line">    if m &lt;= n</span><br><span class="line">        return &#123; am &#125; ∪ RECURSIVE-ACTIVITY-SELECTOR(s, f, m, n)</span><br><span class="line">    else </span><br><span class="line">        return ∅</span><br></pre></td></tr></table></figure>
+<p><code>RECURSIVE-ACTIVITY-SELECTOR</code> 算法运行时间 <code>Θ(n)</code></p>
+<h4 id="迭代贪心算法"><a href="#迭代贪心算法" class="headerlink" title="迭代贪心算法"></a>迭代贪心算法</h4><p>我们可以很容易地将算法转换为迭代形式。过程 <code>RECURSIVE-ACTIVITY-SELECTOR</code> 几乎就是”尾递归”: 它以一个对自身地递归调用再接一次并集操作结尾。将尾递归过程改为迭代过程是很直接的</p>
+<p>过程 <code>GREEDY-ACTIVITY-SELECTOR</code> 是过程 <code>RECURSIVE-ACTIVITY-SELECTOR</code> 的一个迭代版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GREEDY-ACTIVITY-SELECTOR(s, f)</span><br><span class="line">    n = s.length</span><br><span class="line">    A = &#123;a1&#125;</span><br><span class="line">    k = 1</span><br><span class="line">    for m = 2 to n</span><br><span class="line">        if s[m] &gt;= f[k]</span><br><span class="line">            A = A U &#123;am&#125;</span><br><span class="line">            k = m</span><br><span class="line">    return A</span><br></pre></td></tr></table></figure>
+<p><code>GREEDY-ACTIVITY-SELECTOR</code> 算法运行时间 <code>Θ(n)</code></p>
 
       
     </div>
@@ -450,9 +386,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/深度学习/" rel="tag"><i class="fa fa-tag"></i> 深度学习</a>
+            <a href="/tags/贪心算法/" rel="tag"><i class="fa fa-tag"></i> 贪心算法</a>
           
-            <a href="/tags/Tensorflow/" rel="tag"><i class="fa fa-tag"></i> Tensorflow</a>
+            <a href="/tags/算法导论/" rel="tag"><i class="fa fa-tag"></i> 算法导论</a>
           
         </div>
       
@@ -465,8 +401,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/07/树形动态规划-节点选择/" rel="next" title="树形动态规划--节点选择">
-                <i class="fa fa-chevron-left"></i> 树形动态规划--节点选择
+              <a href="/2019/03/11/算法导论-15-动态规划/" rel="next" title="算法导论[15][动态规划]">
+                <i class="fa fa-chevron-left"></i> 算法导论[15][动态规划]
               </a>
             
           </div>
@@ -474,10 +410,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/10/Tensorflow-3-Tensorflow入门/" rel="prev" title="[Tensorflow][3]Tensorflow入门">
-                [Tensorflow][3]Tensorflow入门 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -633,7 +565,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第2章-TensorFlow环境搭建"><span class="nav-number">1.</span> <span class="nav-text">第2章 TensorFlow环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-TensorFlow的主要依赖包"><span class="nav-number">1.1.</span> <span class="nav-text">2.1 TensorFlow的主要依赖包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-Protoval-Buffer"><span class="nav-number">1.1.1.</span> <span class="nav-text">2.1.1 Protoval Buffer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-Bazel"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.1.2 Bazel</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第16章-贪心算法"><span class="nav-number">1.</span> <span class="nav-text">第16章 贪心算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#16-1-活动选择问题"><span class="nav-number">1.1.</span> <span class="nav-text">16.1 活动选择问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题描述"><span class="nav-number">1.1.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#活动选择问题的最优子结构"><span class="nav-number">1.1.2.</span> <span class="nav-text">活动选择问题的最优子结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#贪心选择"><span class="nav-number">1.1.3.</span> <span class="nav-text">贪心选择</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#递归贪心算法"><span class="nav-number">1.1.4.</span> <span class="nav-text">递归贪心算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代贪心算法"><span class="nav-number">1.1.5.</span> <span class="nav-text">迭代贪心算法</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
