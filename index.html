@@ -367,6 +367,37 @@
 <p>过程 <code>GREEDY-ACTIVITY-SELECTOR</code> 是过程 <code>RECURSIVE-ACTIVITY-SELECTOR</code> 的一个迭代版本</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GREEDY-ACTIVITY-SELECTOR(s, f)</span><br><span class="line">    n = s.length</span><br><span class="line">    A = &#123;a1&#125;</span><br><span class="line">    k = 1</span><br><span class="line">    for m = 2 to n</span><br><span class="line">        if s[m] &gt;= f[k]</span><br><span class="line">            A = A U &#123;am&#125;</span><br><span class="line">            k = m</span><br><span class="line">    return A</span><br></pre></td></tr></table></figure>
 <p><code>GREEDY-ACTIVITY-SELECTOR</code> 算法运行时间 <code>Θ(n)</code></p>
+<h3 id="16-2-贪心算法原理"><a href="#16-2-贪心算法原理" class="headerlink" title="16.2 贪心算法原理"></a>16.2 贪心算法原理</h3><p>贪心算法通过做出一系列选择来求出问题的最优解。在每个决策点，它做出在当时看起来最佳的选择</p>
+<p>我们可以按如下步骤设计贪心算法</p>
+<ol>
+<li>将最优化问题转化为这样的形式: 对其做出一次选择后，只剩下一个子问题需要求解</li>
+<li>证明做出贪心选择后，原问题总是存在最优解，即贪心选择总是安全的</li>
+<li>证明做出贪心选择后，剩余的子问题满足性质，其最优解与贪心选择组合即可得到原问题的最优解</li>
+</ol>
+<p>在每个贪心算法之下，几乎总有一个更繁琐的动态规划算法</p>
+<h4 id="贪心选择性质"><a href="#贪心选择性质" class="headerlink" title="贪心选择性质"></a>贪心选择性质</h4><p>贪心算法的一个关键要素是，贪心选择性质。即，我们可以通过做出局部最优选择来构建全局最优解。当进行选择时，我们直接选择做出在当前问题中看起来最优的选择，而不必考虑子问题的解。</p>
+<p>贪心算法与动态规划</p>
+<ul>
+<li><p>在动态规划和贪心算法中，每个步骤都要进行一次选择</p>
+</li>
+<li><p>但动态规划中，选择通常依赖于子问题的选择。因此，我们通常以一种自底向上的方式求解动态规划问题，先求解较小的子问题，然后是较大的子问题</p>
+</li>
+<li><p>在贪心算法中，我们总是做出当时看来最佳的选择，然后求解剩下的唯一的子问题。贪心算法进行选择时可能依赖之间做出的选择，但不依赖任何将来的选择或是子问题的解</p>
+</li>
+<li><p>贪心算法在进行第一次选择之前不求解任何子问题</p>
+</li>
+</ul>
+<p>但是我们必须证明每个步骤做出贪心算法能生成全局最优解</p>
+<h4 id="最优子结构"><a href="#最优子结构" class="headerlink" title="最优子结构"></a>最优子结构</h4><p>如果一个问题的最优解包含其子问题的最优解，则称此问题具有最优子结构性质</p>
+<p>当应用贪心算法时，我们通常使用更为直接的最优子结构。如前所述，我们可以假定，通过对原问题应用贪心选择即可得到子问题。我们真正要做的全部工作就是论证: 将子问题的最优解与贪心选择组合在一起就能生成原问题的最优解。这种方法隐含地对子问题使用了数学归纳法，证明了在每个步骤进行贪心选择会生成原问题的最优解</p>
+<h4 id="贪心对动态规划"><a href="#贪心对动态规划" class="headerlink" title="贪心对动态规划"></a>贪心对动态规划</h4><p>为了说明贪心算法和动态规划之间的细微差别，我们研究一个经典最优化问题的两个变形</p>
+<p>0-1 背包问题的描述如下</p>
+<p><img src="/2019/03/13/算法导论-16-贪心算法/0314_0.png" alt=""></p>
+<p>分数背包问题的描述如下</p>
+<p><img src="/2019/03/13/算法导论-16-贪心算法/0314_1.png" alt=""></p>
+<p>我们用贪心策略可以求解分数背包问题，而不能求解 0-1 背包问题。为了求解分数背包问题，我们首先计算每个商品的每磅价值 v/w。遵循贪心策略，小偷首先尽量多地拿走每磅价值最高的商品。如果该商品已全部拿走而背包尚未满，他继续尽量多地拿走每磅价值第二高的产品，依次类推，直至达到重量上限W</p>
+<p>这种贪心算法的运行时间为 <code>O(nlgn)</code></p>
+<p>拿走商品1的策略对 0-1 背包问题无效是因为小偷无法装满背包，空闲空间降低了方案的有效每磅价值</p>
 
           
         
