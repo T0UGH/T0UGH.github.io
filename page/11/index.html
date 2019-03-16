@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/动态规划/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Tensorflow-2-Tensorflow环境搭建/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -268,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/06/动态规划/" itemprop="url">动态规划</a></h1>
+                <a class="post-title-link" href="/2019/03/10/Tensorflow-2-Tensorflow环境搭建/" itemprop="url">[Tensorflow][2]Tensorflow环境搭建</a></h1>
         
 
         <div class="post-meta">
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-06T20:16:50+08:00">
-                2019-03-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-10T14:35:36+08:00">
+                2019-03-10
               </time>
             
 
@@ -303,8 +303,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/蓝桥杯/" itemprop="url" rel="index">
-                    <span itemprop="name">蓝桥杯</span>
+                  <a href="/categories/Tensorflow/" itemprop="url" rel="index">
+                    <span itemprop="name">Tensorflow</span>
                   </a>
                 </span>
 
@@ -342,48 +342,97 @@
       
         
           
-            <h2 id="动态规划-Dynamic-Programing-DP"><a href="#动态规划-Dynamic-Programing-DP" class="headerlink" title="动态规划(Dynamic Programing, DP)"></a>动态规划(Dynamic Programing, DP)</h2><p>动态规划是一种通过把原问题分解为相对简单的子问题的方式求解复杂问题的方法</p>
-<p>动态规划常常适用于有重叠子问题和最优子结构性质的问题，动态规划方法所耗时间远少于朴素解法</p>
-<p>动态规划背后的基本思想非常简单。大致上，若要解一个给定问题，我们需要解其不同部分，再根据子问题的解以得出原问题的解</p>
-<p>通常许多子问题非常相似，为此动态规划法试图仅仅解决每个子问题一次，从而减少计算量：一旦某个给定子问题的解已经算出，则将其记忆化存储，以便下次需要同一个子问题解时直接查表。这种做法在重复子问题的数目关于输出的规模呈指数增长时特别有用</p>
-<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>动态规划在查找有许多重叠子问题的情况的最优解时有效，它将问题重新组合为子问题。为了避免多次解决这些子问题，它们的结果都逐渐被计算并被保存，从简单的问题直到整个问题都被解决。因此，动态规划保存递归时的结果，因而不会在解决同样的问题时花费时间。</p>
-<p>动态规划只能应用于有最优子结构的问题。最优子结构的意思是局部最优解能决定全局最优解。简单来说，问题可以被划分为子问题来解决</p>
-<h3 id="适用情况"><a href="#适用情况" class="headerlink" title="适用情况"></a>适用情况</h3><ol>
-<li>最优子结构性质: 如果问题的最优解所包含的子问题的解也是最优的，我们就称该问题具有最优子结构性质。最优子结构性质为动态规划算法解决问题提供了重要的线索</li>
-<li>无后效性: 即子问题的解一旦确定，就不再改变，不受在这之后、包含它的更大的问题的求解决策影响</li>
-<li>子问题重叠性质: 子问题重叠性质是指在用递归算法自顶向下对问题进行求解时，每次产生的子问题并不总是新问题，有些子问题会被重复计算多次。动态规划算法正是利用了这种子问题重叠性质，对每个子问题只计算一次，然后将其计算结果保存到一个表格中，当再次需要计算已经计算过的子问题时，只是在表格中简单地查看一下结果，从而获得较高的效率</li>
-</ol>
-<h3 id="实例–01背包问题"><a href="#实例–01背包问题" class="headerlink" title="实例–01背包问题"></a>实例–01背包问题</h3><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>有<code>N</code>件物品和一个容量为<code>V</code>的背包。第i件物品的费用是<code>c[i]</code>，价值为<code>w[i]</code>。求解将哪些物品装入背包可使价值总和最大</p>
-<h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><p>这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。 用子问题定义状态：即<code>f[i][v]</code>表示前<code>i</code>件物品恰放入一个容量为<code>v</code>的背包可以获得的最大价值。其状态转移方程为</p>
-<blockquote>
-<p>f[i][v]=max{f[i-1][v],f[i-1][v-c[i]]+w[i]}</p>
-</blockquote>
-<p>其中<code>i</code>表示放第<code>i</code>个物品</p>
-<p><code>v</code>表示背包所容纳的重量</p>
-<p><code>f[i][v]</code>表示前<code>i</code>件物品恰放入一个容量为<code>v</code>的背包可以获得的最大价值</p>
-<p><code>w[i]</code>表示第<code>i</code>件商品的价值</p>
-<p>若只考虑第<code>i</code>件物品的策略（放或不放），那么就可以转化为一个只牵扯前<code>i-1</code>件物品的问题。</p>
-<p>如果不放第<code>i</code>件物品，那么问题就转化为前<code>i-1</code>件物品放入容量为<code>v</code>的背包中，价值为<code>f[i-1][v]</code>；</p>
-<p>如果放第<code>i</code>件物品，那么问题就转化为前<code>i-1</code>件物品放入剩下的容量为<code>v-c[i]</code>的背包中”，此时能获得的最大价值就是<code>f[i-1][v-c[i]]</code>再加上通过放入第i件物品获得的价值<code>w[i]</code></p>
-<h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><p>假设现在有5件商品，每件商品的的价值和重量如下图所示，背包的容量 <code>C = 11</code>，现在来求解这个01背包问题</p>
-<p><img src="/2019/03/06/动态规划/dp_1.jpg" alt=""></p>
-<p>首先，我们制作一个表格</p>
-<p><img src="/2019/03/06/动态规划/dp_3.jpg" alt=""></p>
-<p>表格的每一列表示产品，列数等于产品数加一，即列数为6列。表格的行数等于背包的容量数加一，即行数为12行。</p>
-<p>假设我们按照商品序号从<code>1</code>到<code>5</code>的顺序放入商品，表格中的每个元素表示：当背包容量为j时，我们放到第<code>i</code>个商品时，背包价值的最大值。</p>
-<p>首先当背包为空时，价值为0，所以我们把第一行初始化为0。</p>
-<p>而当背包的容量为0时，我们无法放入任何商品，价值为0，所以我们把第一列初始化为0。</p>
-<p>对于其他元素，进行如下判断</p>
-<ul>
-<li><p>当商品重量大于背包容量时，我们一定无法放入商品，所以此时背包的价值继承自放入上一商品时的最大价值，即表格同列的上一个值。</p>
+            <h2 id="第2章-TensorFlow环境搭建"><a href="#第2章-TensorFlow环境搭建" class="headerlink" title="第2章 TensorFlow环境搭建"></a>第2章 TensorFlow环境搭建</h2><hr>
+<h3 id="2-1-TensorFlow的主要依赖包"><a href="#2-1-TensorFlow的主要依赖包" class="headerlink" title="2.1 TensorFlow的主要依赖包"></a>2.1 TensorFlow的主要依赖包</h3><hr>
+<h4 id="2-1-1-Protoval-Buffer"><a href="#2-1-1-Protoval-Buffer" class="headerlink" title="2.1.1 Protoval Buffer"></a>2.1.1 Protoval Buffer</h4><ul>
+<li><p>Protocal Buffer是谷歌开发的处理结构化数据的工具</p>
 </li>
-<li><p>当重量小于总重时，我们需要考虑是否放入此商品。我们比较放与不放的价值哪个较大。对于放入商品的价值，我们将背包容量减去此商品的重量后，查表。对于不放入商品的价值，继承自放入上一商品时的最大价值。例如，当表格运算到<code>[{1,2,3}, 5]</code>时,我们首先考虑将商品放入背包，则此时背包重量为0，我们查询<code>[{1,2},0]</code>发现此时价值为0，则这种情况下的价值为<code>0 + 18 = 18</code>。然后我们考虑不将商品放入背包，此时背包的价值继承自放入上一商品时的最大价值，我们查询<code>[{1, 2}, 5]</code>,这种情况下的价值为 <code>7</code>。明显第一种情况更好，则我们将这个元素的值设置为<code>18</code>。</p>
+<li><p>什么是结构化数据</p>
+<ul>
+<li><p>例如：用户信息包括用户的名字、ID和Email</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name:张三</span><br><span class="line">id:12345</span><br><span class="line">email:zhangsan@abc.com</span><br></pre></td></tr></table></figure>
+<p>上面的用户信息就是一个结构化的数据</p>
 </li>
 </ul>
-<p>当我们计算到表格的右下角元素时，此问题已经解决了，就是右下角元素的值</p>
-<h4 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h4><p><img src="/2019/03/06/动态规划/dp_2.jpg" alt=""></p>
-<h3 id="与内容无关的部分"><a href="#与内容无关的部分" class="headerlink" title="与内容无关的部分"></a>与内容无关的部分</h3><p><img src="/2019/03/06/动态规划/Raspberry_Pi.png" alt=""></p>
-<p><img src="/2019/03/06/动态规划/ubuntu魔改MAC.png" alt=""></p>
+</li>
+<li><p>结构化数据处理</p>
+<ul>
+<li>背景：要将这些结构化的用户信息持久化或进行网络传输时，就需要先将它们序列化。</li>
+<li>序列化：所谓序列化，是将结构化的数据变成数据流的格式，简单地说就是变成一个字符串</li>
+<li>定义：将结构化的数据序列化，并从序列化之后的数据流中还原出原来的结构化数据，统称为结构化数据处理</li>
+</ul>
+</li>
+<li><p>常见的结构化数据处理工具</p>
+<ul>
+<li>XML</li>
+<li>JSON</li>
+<li>Protocal Buffer</li>
+</ul>
+</li>
+<li><p>Protocal Buffer</p>
+<ul>
+<li><p>与XML和JSON格式的区别</p>
+<ul>
+<li>Protocal Buffer序列化之后得到的数据不是可读的字符串，而是二进制流。</li>
+<li>使用Protocal Buffer时需要先定义数据的格式(schema)。还原一个序列化之后的数据将需要使用到这个定义好的数据格式<br>例如<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">message user&#123;</span><br><span class="line">    optional string name = 1;</span><br><span class="line">    required int32 id = 2;</span><br><span class="line">    repeated string email = 3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>基本语法</p>
+<ul>
+<li>Protocal Buffer定义数据格式的文件一般保存在.proto文件中</li>
+<li>每个message代表了一类结构化的数据</li>
+<li>message里面定义了每个属性的类型和名字</li>
+<li>属性的类型可以是像布尔型、整数型、实数型、字符型这样的基本类型，也可以使另外一个message</li>
+<li>也需要定义一个属性是必需的(required)、可选的(optional)、或者可重复的(repeated)<ul>
+<li>required：这个message的所有实例都需要这个属性</li>
+<li>optional：这个属性的取值可以为空</li>
+<li>repeated：这个属性的取值可以使一个列表</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="2-1-2-Bazel"><a href="#2-1-2-Bazel" class="headerlink" title="2.1.2 Bazel"></a>2.1.2 Bazel</h4><ul>
+<li><p>简介：Bazel是谷歌开源的自动化构建工具</p>
+</li>
+<li><p>项目空间(workspace)</p>
+<ul>
+<li>一个项目空间可以简单地理解为一个文件夹</li>
+<li>在这个文件夹中包含了编译一个软件所需要的源代码以及输出编译结果的软连接(symbolic link)地址</li>
+</ul>
+</li>
+<li><p>WORKSPACE文件</p>
+<ul>
+<li>一个项目空间所对应的文件夹是这个项目的根目录，在这个根目录中需要一个WORKSPACE文件，此文件定义了对外部资源的依赖关系</li>
+</ul>
+</li>
+<li><p>BUILD文件</p>
+<ul>
+<li>在一个项目空间中,Bazel通过BUILD文件来找到需要编译的目标</li>
+<li>Bazel对Python支持的编译方式<ol>
+<li>py_binary：将Python程序编译为可执行文件</li>
+<li>py_test：编译Python测试程序</li>
+<li>py_library：编译为库函数供其他py_binary或py_test调用</li>
+</ol>
+</li>
+<li><p>例子</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">py_library(</span><br><span class="line">    name=<span class="string">"hello_lib"</span>,</span><br><span class="line">    srcs=[</span><br><span class="line">        <span class="string">"hello_lib.py"</span>,</span><br><span class="line">    ]</span><br><span class="line">)</span><br><span class="line">py_binary(</span><br><span class="line">    name=<span class="string">"hello_main"</span>,</span><br><span class="line">    srcs=[</span><br><span class="line">        <span class="string">"hello_main.py"</span>,</span><br><span class="line">    ]</span><br><span class="line">    deps=[</span><br><span class="line">        <span class="string">":hello_lib"</span>,</span><br><span class="line">    ],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>其他</p>
+<ul>
+<li>BUILD文件由一系列编译目标组成</li>
+<li>定义编译目标的先后顺序不会影响编译的结果</li>
+<li>在每个编译目标的第一行要指定辨析方式</li>
+<li>在每个编译目标的主体中需要给出编译的具体信息，例如：names、srcs、deps等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
           
         
@@ -423,7 +472,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -471,7 +520,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -482,7 +531,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -493,7 +542,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -549,7 +598,7 @@
         <h3 class="widget-title">TAGS</h3>
         <div id="myCanvasContainer" class="widget tagcloud">
           <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
           </canvas>
         </div>
       </div>

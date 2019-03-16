@@ -81,7 +81,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="打怪升级日常">
-<meta property="og:url" content="http://yoursite.com/page/14/index.html">
+<meta property="og:url" content="http://yoursite.com/page/17/index.html">
 <meta property="og:site_name" content="打怪升级日常">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
@@ -115,7 +115,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/page/14/">
+  <link rel="canonical" href="http://yoursite.com/page/17/">
 
 
 
@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/05/Tensorflow-1-深度学习简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/20/算法导论-4-分治策略/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -268,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/05/Tensorflow-1-深度学习简介/" itemprop="url">[Tensorflow][1]深度学习简介</a></h1>
+                <a class="post-title-link" href="/2019/01/20/算法导论-4-分治策略/" itemprop="url">[算法导论][4]分治策略</a></h1>
         
 
         <div class="post-meta">
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-05T20:35:42+08:00">
-                2019-03-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-20T19:51:16+08:00">
+                2019-01-20
               </time>
             
 
@@ -303,8 +303,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tensorflow/" itemprop="url" rel="index">
-                    <span itemprop="name">Tensorflow</span>
+                  <a href="/categories/算法导论/" itemprop="url" rel="index">
+                    <span itemprop="name">算法导论</span>
                   </a>
                 </span>
 
@@ -342,157 +342,75 @@
       
         
           
-            <h2 id="Tensorflow-1-深度学习简介"><a href="#Tensorflow-1-深度学习简介" class="headerlink" title="[Tensorflow][1]深度学习简介"></a>[Tensorflow][1]深度学习简介</h2><h3 id="1-1-人工智能、机器学习与深度学习"><a href="#1-1-人工智能、机器学习与深度学习" class="headerlink" title="1.1 人工智能、机器学习与深度学习"></a>1.1 人工智能、机器学习与深度学习</h3><h4 id="1-1-1-人工智能"><a href="#1-1-1-人工智能" class="headerlink" title="1.1.1 人工智能"></a>1.1.1 人工智能</h4><ul>
-<li><p>背景：一些人类通过直觉可以很快解决的问题，目前却很难通过计算机解决。这些问题包括自然语言处理、图像识别、语音识别等。</p>
-</li>
-<li><p>人工智能：一类非常广泛的问题，它旨在通过计算机实现类似人类的智能</p>
-</li>
-<li><p>特定环境：很多早期的人工智能系统只能成功应用于相对 <strong>特定的环境(specific domain)</strong>，在这些特定环境下，计算机需要了解的知识很容易被严格和完整地定义</p>
-</li>
-<li><p>知识图库(Ontology)</p>
-<ul>
-<li>定义：将单词整理为<strong>近义词集(synsets)</strong>，并定义近义词集之间的关系</li>
-<li>缺点<ul>
-<li>花费大量人力物力</li>
-<li>可以通过知识图库方式明确定义的知识有限，很大部分无法明确定义的知识，就是人类的经验</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="1-1-2-机器学习"><a href="#1-1-2-机器学习" class="headerlink" title="1.1.2 机器学习"></a>1.1.2 机器学习</h4><ul>
-<li><p>背景：如何让计算机可以和人类一样从历史的经验中获取新的知识？这就是机器学习需要解决的问题</p>
-</li>
-<li><p>机器学习：</p>
-<ul>
-<li>定义：如果 <strong>一个程序</strong> 可以在 <strong>任务T</strong> 上，随着 <strong>经验E</strong> 的增加，<strong>效果P</strong> 也可以随之增加，则称这个程序可以从经验中学习</li>
-<li>以垃圾邮件分类的方法来解释机器学习<ul>
-<li>一个程序：需要用到的机器学习算法，比如逻辑回归算法</li>
-<li>任务T：区分垃圾邮件的任务</li>
-<li>经验E：已经区分过是否为垃圾邮件的历史邮件</li>
-<li>效果P：机器学习算法在区分是否为垃圾邮件任务上的正确率</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>特征(feature)：例如进行垃圾邮件分类时，会从每封邮件中提取对分类结果可能有影响的因素，每个因素称为一个特征(feature)</p>
-</li>
-<li><p>逻辑回归算法可以从训练数据中计算出每个特征和预测结果的相关度</p>
-</li>
-<li><p>在训练数据达到一定数量之前，越多的训练数据可以使逻辑回归算法对未知邮件做出的判断越精确</p>
-</li>
-<li><p>逻辑回归算法可以根据训练数据(经验E)提高在垃圾邮件分类问题(任务T)上的正确率(效果P)</p>
-</li>
-<li><p>逻辑回归算法的效果也依赖于从数据中提取的特征</p>
-</li>
-<li><p>如何从实体中提取特征，对于很多传统机器学习算法的性能有巨大影响</p>
-</li>
-</ul>
-<h4 id="1-1-3-深度学习"><a href="#1-1-3-深度学习" class="headerlink" title="1.1.3 深度学习"></a>1.1.3 深度学习</h4><ul>
-<li><p>背景：对许多机器学习问题来说，特征提取不是一件简单的事情，在一些复杂问题上，要通过手动的方式设计有效的特征集合，需要很多的时间和精力</p>
-</li>
-<li><p>深度学习</p>
-<ul>
-<li>定义：深度学习是机器学习的一个分支，它除了可以学习特征和任务之间的关联，还能自动从简单特征中提取更加复杂的特征</li>
-<li>深度学习解决的核心问题之一就是自动地将简单的特征组合成更加复杂的特征，并使用这些组合特征解决问题</li>
-<li>深度学习算法可以从数据中学习更加复杂的特征表达，使得最后一步权重学习变得更加简单且高效</li>
-</ul>
-</li>
-<li><p>深度学习与传统机器学习流程的对比<br><img src="/2019/03/05/Tensorflow-1-深度学习简介/深度学习与传统机器学习流程对比.jpg" alt=""></p>
-</li>
-</ul>
-<h4 id="1-1-4-深度学习与传统神经科学"><a href="#1-1-4-深度学习与传统神经科学" class="headerlink" title="1.1.4 深度学习与传统神经科学"></a>1.1.4 深度学习与传统神经科学</h4><ul>
-<li><p>早期深度学习受到神经科学的启发</p>
-</li>
-<li><p>例如</p>
-<ul>
-<li>神经科学的研究：虽然哺乳动物大脑分为了很多区域，但这些区域的学习机制却是相似的</li>
-<li>深度学习的运用：深度学习算法具有通用性，深度学习研究者往往可以跨越多个研究方向甚至同时活跃于所有的研究方向</li>
-</ul>
-</li>
-<li><p>现代深度学习的发展并不拘泥于模拟人脑神经元和人脑的工作机理，模拟人类大脑也不再是深度学习研究的主导方向</p>
-</li>
-<li><p>计算神经学：试图从算法层理解大脑的工作机制</p>
-</li>
-</ul>
-<hr>
-<h3 id="1-2-深度学习的发展历程"><a href="#1-2-深度学习的发展历程" class="headerlink" title="1.2 深度学习的发展历程"></a>1.2 深度学习的发展历程</h3><p>神经网络的发展史大致可以分为三个阶段</p>
-<h4 id="1-2-1-第一个阶段—仿生"><a href="#1-2-1-第一个阶段—仿生" class="headerlink" title="1.2.1 第一个阶段—仿生"></a>1.2.1 第一个阶段—仿生</h4><ul>
-<li><p>早期的神经网络模型类似于仿生机器学习，它试图模拟大脑的学习机理</p>
-</li>
-<li><p>McCulloch-Pitts Neuron结构</p>
-<ul>
-<li>简介：McCulloch-Pitts Neuron结构大致模拟了人类神经元的工作原理，它们都有一些输入，然后将输入进行一些变换后得到输出结果</li>
-<li>如图<br><img src="/2019/03/05/Tensorflow-1-深度学习简介/神经元结构.jpg" alt=""></li>
-<li>理解：McCulloch-Pitts Neuron结构使用简单的线性加权和的方式来模拟这个变换，将n个输入值提供给McCulloch-Pitts Neuron结构后，McCulloch-Pitts Neuron结构会通过n个权重w1,w2,…,wn来计算这n个输入的加权和，然后用这个加权和经过一个阈值函数得到一个0或1的输出</li>
-</ul>
-</li>
-<li><p>感知机( perceptron )</p>
-<ul>
-<li>首个可以根据样例数据学习特征权重的模型</li>
-<li>感知机模型只能解决线性不可分问题</li>
-</ul>
-</li>
-</ul>
-<h4 id="1-2-2-第二个阶段—分布式知识表达和反向传播算法"><a href="#1-2-2-第二个阶段—分布式知识表达和反向传播算法" class="headerlink" title="1.2.2 第二个阶段—分布式知识表达和反向传播算法"></a>1.2.2 第二个阶段—分布式知识表达和反向传播算法</h4><ul>
-<li><p>分布式知识表达</p>
-<ul>
-<li>核心思想：现代世界中的知识和概念应该由多个神经元(neuron)来表达，而模型中的每个神经元也应该参与表达多个概念</li>
-<li>意义：大大加强了模型的表达能力，让神经网络从宽度的方向走向了深度的方向</li>
-<li>深层神经网络解决了线性不可分问题</li>
-</ul>
-</li>
-<li><p>反向传播算法</p>
-<ul>
-<li>大幅降低了训练神经网络所需要的时间</li>
-</ul>
-</li>
-<li><p>此阶段的两大阻碍</p>
+            <h2 id="第4章-分治策略"><a href="#第4章-分治策略" class="headerlink" title="第4章 分治策略"></a>第4章 分治策略</h2><ul>
+<li><p>在分治策略中，我们递归地求解一个问题，在每层递归中运用如下三个步骤</p>
 <ol>
-<li>在当时的计算资源下，要训练深层的神经网络仍然是非常困难的</li>
-<li>当时的数据量较少，无法满足训练深层神经网络的需求</li>
+<li><strong>分解</strong>(Divide)：将问题划分为一些子问题，子问题的形式与原问题一样，只是规模更小</li>
+<li><strong>解决</strong>(Comquer)：递归的求解出子问题，如果子问题的规模足够小，则停止递归，直接求解</li>
+<li><strong>合并</strong>(Combine)：将子问题的解组合成原问题的解</li>
 </ol>
 </li>
+<li><p>递归情况和基本情况</p>
+<ul>
+<li>当子问题足够大时，需要地柜求解，我们称之为<strong>递归情况</strong>(recursive case)</li>
+<li>当子问题变得足够小，不再需要递归时，我们说递归已经”触底”，进入<strong>基本情况</strong>(base case)</li>
 </ul>
-<h4 id="1-2-2-第三个阶段—计算能力和数据量的提升"><a href="#1-2-2-第三个阶段—计算能力和数据量的提升" class="headerlink" title="1.2.2 第三个阶段—计算能力和数据量的提升"></a>1.2.2 第三个阶段—计算能力和数据量的提升</h4><ul>
-<li>此阶段解决了第二阶段的两大阻碍<ol>
-<li>随着云计算和GPU的出现，计算量已经不再是阻碍神经网络发展的问题</li>
-<li>随着互联网+的发展，获得海量数据也不再困难 </li>
-</ol>
+</li>
+<li><p>递归式</p>
+<ul>
+<li>一个递归式(recurrence)就是一个等式或不等式，它通过更小的输入上的函数值来描述一个函数</li>
+<li>例如<br><img src="/2019/01/20/算法导论-4-分治策略/递归式例子.png" alt=""></li>
+<li>三种求解递归式的方法<ul>
+<li>代入法：我们猜测一个界，然后用数学归纳法证明其正确性</li>
+<li>递归树法：将递归式转换为一棵树，其节点表示不同层次的递归调用的代价，然后采用边界和技术求解</li>
+<li>主方法：可求解形如下式的递归式<br><img src="/2019/01/20/算法导论-4-分治策略/主方法递归式.png" alt=""></li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 <hr>
-<h3 id="1-3-深度学习的应用"><a href="#1-3-深度学习的应用" class="headerlink" title="1.3 深度学习的应用"></a>1.3 深度学习的应用</h3><h4 id="1-3-1-计算机视觉"><a href="#1-3-1-计算机视觉" class="headerlink" title="1.3.1 计算机视觉"></a>1.3.1 计算机视觉</h4><ul>
-<li><p>传统的机器学习算法很难抽象出足够有效地特征，使得学习模型既可以区分不同的个体，又可以区分相同个体在不同环境下<br>的变化</p>
+<h3 id="4-1-最大子数组问题"><a href="#4-1-最大子数组问题" class="headerlink" title="4.1 最大子数组问题"></a>4.1 最大子数组问题</h3><h4 id="4-1-1-问题描述"><a href="#4-1-1-问题描述" class="headerlink" title="4.1.1 问题描述"></a>4.1.1 问题描述</h4><ul>
+<li><p>寻找一个数组的<strong>和最大</strong>的非空连续子数组，这样的数组我们称为<strong>最大子数组</strong>(maximum subarray)</p>
 </li>
-<li><p>深度学习技术通过从海量数据中自动习得更加有效地特征表达，可以很好的解决这个问题</p>
-</li>
-<li><p>光学字符识别(OCR)：使用计算机程序将计算机无法理解的图片中的字符，比如数字、字母、汉字等符号，转化为计算机可以理解的文本格式</p>
+<li><p>注意：只有<strong>当数组中包含负数</strong>时，最大子数组问题才<strong>有意义</strong>。如果所有数组元素都是非负的，最大子数组问题没有任何难度，因为整个数组的和肯定是最大的</p>
 </li>
 </ul>
-<h4 id="1-3-2-语音识别"><a href="#1-3-2-语音识别" class="headerlink" title="1.3.2 语音识别"></a>1.3.2 语音识别</h4><ul>
-<li>随着数据量的增大，使用深度学习模型无论在正确率的增长数值上还是在增长比率上都要优于使用混合高斯模型的算法</li>
-</ul>
-<h4 id="1-3-3-自然语言处理"><a href="#1-3-3-自然语言处理" class="headerlink" title="1.3.3 自然语言处理"></a>1.3.3 自然语言处理</h4><ul>
-<li><p>包括：语言模型、机器翻译、词性标注、实体识别、情感分析、广告推荐、搜索排序等</p>
+<h4 id="4-1-2-暴力求解方法"><a href="#4-1-2-暴力求解方法" class="headerlink" title="4.1.2 暴力求解方法"></a>4.1.2 暴力求解方法</h4><ul>
+<li><p>简单的尝试每对可能的{数组下标,数组上标},寻找最大值</p>
 </li>
-<li><p>单词向量(word embedding)</p>
-<ul>
-<li>单词向量提供了一种更加灵活的方式来刻画单词的语义</li>
-<li>单词向量会将一个单词表示为一个相对较低维度的向量(比如100维或200维)。对于语义相近的单词，其对应的单词向量在空间中的距离也应该接近。于是单词语义上的相似度可以通过空间中的距离来描述。</li>
-<li>通过单词向量可以进行单词之间的运算</li>
-</ul>
+<li><p>时间复杂度:O(n<sub>2</sub>),一共有(n-1)*n/2种情况</p>
+</li>
+<li><p>样例</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_maximum_subarray</span><span class="params">(A)</span>:</span></span><br><span class="line">    low = <span class="number">0</span></span><br><span class="line">    high = <span class="number">0</span></span><br><span class="line">    max_val = float(<span class="string">'-inf'</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(A)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i, len(A)):</span><br><span class="line">            sum = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> s <span class="keyword">in</span> range(i, j + <span class="number">1</span>):</span><br><span class="line">                sum += A[s]</span><br><span class="line">            <span class="keyword">if</span> sum &gt; max_val:</span><br><span class="line">                max_val = sum</span><br><span class="line">                low = i</span><br><span class="line">                high = j</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> low, high, max_val</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    A = [<span class="number">13</span>, <span class="number">-3</span>, <span class="number">-25</span>, <span class="number">20</span>, <span class="number">-3</span>, <span class="number">-16</span>, <span class="number">-23</span>, <span class="number">18</span>, <span class="number">20</span>, <span class="number">-7</span>, <span class="number">12</span>, <span class="number">-5</span>, <span class="number">-22</span>, <span class="number">15</span>, <span class="number">-4</span>, <span class="number">7</span>]</span><br><span class="line">    print(find_maximum_subarray(A))</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">(7, 10, 43)</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="1-3-4-人机博弈"><a href="#1-3-4-人机博弈" class="headerlink" title="1.3.4 人机博弈"></a>1.3.4 人机博弈</h4><ul>
-<li>AlphaGo<ul>
-<li>AlphaGo的组成部分：蒙特卡罗树搜索(Monte Carlo tree search,MCTS)、估值网络(value network)和走棋网络(policy network)。</li>
-<li>蒙特卡罗树搜索：实现对不同落子点的搜索</li>
-<li>走棋网络：预测下一步在哪里落子</li>
-<li>估值网络：给定当前的棋盘，判断黑棋赢的概率</li>
-</ul>
+<h4 id="4-1-3-使用分治策略的求解方法"><a href="#4-1-3-使用分治策略的求解方法" class="headerlink" title="4.1.3 使用分治策略的求解方法"></a>4.1.3 使用分治策略的求解方法</h4><ul>
+<li><p>首先我们把数组 <code>A[low..high]</code> 划分为两个规模尽量相等的子数组: <code>A[low..mid]</code> 和 <code>A[mid+1..high]</code></p>
+</li>
+<li><p><code>A[low..high]</code> 的任何连续子数组<code>A[i..j]</code>所处的位置必然是一下三种情况之一,如下图</p>
+<ol>
+<li>完全位于子数组 <code>A[low..mid]</code> 中，因此 <code>low&lt;=i&lt;=j&lt;=mid</code></li>
+<li>完全位于子数组 <code>A[mid+1..high]</code> 中，因此 <code>mid&lt;i&lt;=j&lt;=high</code></li>
+<li>跨越了中点,因此 <code>low&lt;=i&lt;=mid&lt;j&lt;=high</code><br><img src="/2019/01/20/算法导论-4-分治策略/子数组的三种情况.png" alt=""></li>
+</ol>
+</li>
+<li><p>因此 <code>A[low..high]</code> 的一个最大子数组所处的位置必定是这三种情况之一.我们可以递归的求解 <code>A[low..mid]</code> 和 <code>A[mid+1..high]</code> 的最大子数组，因为这两个子问题仍然是最大子数组问题，只是规模更小.因此，剩下的问题就是寻找跨越中点的最大子数组,然后在三种情况中选取和最大者</p>
+</li>
+<li><p>我们可以很容易地使用线性时间(O(n))内求出跨越中点的最大子数组，算法如下</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_max_crossing_subarray</span><span class="params">(A, low, mid, high)</span>:</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">求解跨越了中点的最大子数组</span></span><br><span class="line"><span class="string">:param A: 数组</span></span><br><span class="line"><span class="string">:param low: 数组下标</span></span><br><span class="line"><span class="string">:param mid: 数组中点</span></span><br><span class="line"><span class="string">:param high: 数组上标</span></span><br><span class="line"><span class="string">:return:</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">print(<span class="string">"find_max_crossing_subarray:"</span>, A, low, mid, high)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里需要考虑一种特殊情况,可以忽略但不影响逻辑理解</span></span><br><span class="line"><span class="keyword">if</span> low == mid:</span><br><span class="line">    <span class="keyword">return</span> find_max_crossing_subarray_base_case(A, low)</span><br><span class="line"></span><br><span class="line">left_sum = float(<span class="string">"-inf"</span>)</span><br><span class="line">sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(mid, low - <span class="number">1</span>, <span class="number">-1</span>):</span><br><span class="line">    sum += A[i]</span><br><span class="line">    <span class="keyword">if</span> sum &gt; left_sum:</span><br><span class="line">        left_sum = sum</span><br><span class="line">        max_left = i</span><br><span class="line"></span><br><span class="line">right_sum = float(<span class="string">"-inf"</span>)</span><br><span class="line">sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(mid + <span class="number">1</span>, high + <span class="number">1</span>):</span><br><span class="line">    sum += A[i]</span><br><span class="line">    <span class="keyword">if</span> sum &gt; right_sum:</span><br><span class="line">        right_sum = sum</span><br><span class="line">        max_right = i</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> max_left, max_right, left_sum + right_sum</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>有了一个线性的<code>find_max_crossing_subarray</code>在手，我们就可以设计求解最大子数组问题的分治算法了</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_maximum_subarray</span><span class="params">(A, low, high)</span>:</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">通过分治方法递归的求解最大子数组</span></span><br><span class="line"><span class="string">:param A: 数组</span></span><br><span class="line"><span class="string">:param low: 数组下标</span></span><br><span class="line"><span class="string">:param high: 数组上标</span></span><br><span class="line"><span class="string">:return:</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">print(<span class="string">"find_maximum_subarray:"</span>, A, low, high)</span><br><span class="line"><span class="keyword">if</span> low == high:</span><br><span class="line">    <span class="keyword">return</span> low, high, A[low]</span><br><span class="line"></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">    mid = int((low + high) / <span class="number">2</span>)</span><br><span class="line">    (left_low, left_high, left_sum) = find_maximum_subarray(A, low, mid)</span><br><span class="line">    (right_low, right_high, right_sum) = find_maximum_subarray(A, mid + <span class="number">1</span>, high)</span><br><span class="line">    (cross_low, cross_high, cross_sum) = find_max_crossing_subarray(A, low, mid, high)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> left_sum &gt;= right_sum <span class="keyword">and</span> left_sum &gt;= cross_sum:</span><br><span class="line">        <span class="keyword">return</span> left_low, left_high, left_sum</span><br><span class="line">    <span class="keyword">elif</span> right_sum &gt;= left_sum <span class="keyword">and</span> right_sum &gt;= cross_sum:</span><br><span class="line">        <span class="keyword">return</span> right_low, right_high, right_sum</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> cross_low, cross_high, cross_sum</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<h4 id="4-1-4-分治算法的分析"><a href="#4-1-4-分治算法的分析" class="headerlink" title="4.1.4 分治算法的分析"></a>4.1.4 分治算法的分析</h4><ul>
+<li><p>接下来我们建立一个递归式来分析分治算法<br>  <img src="/2019/01/20/算法导论-4-分治策略/分治法递归式.png" alt=""></p>
+</li>
+<li><p>最终可以求得时间复杂度为:O(nlgn)</p>
+</li>
+</ul>
+<hr>
 
           
         
@@ -532,7 +450,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 

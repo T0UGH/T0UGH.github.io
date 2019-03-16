@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Tensorflow-3-Tensorflow入门/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Tensorflow-5-MNIST数字识别问题/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -268,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/10/Tensorflow-3-Tensorflow入门/" itemprop="url">[Tensorflow][3]Tensorflow入门</a></h1>
+                <a class="post-title-link" href="/2019/03/10/Tensorflow-5-MNIST数字识别问题/" itemprop="url">[Tensorflow][5]MNIST数字识别问题</a></h1>
         
 
         <div class="post-meta">
@@ -280,7 +280,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-10T14:36:44+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-10T14:47:02+08:00">
                 2019-03-10
               </time>
             
@@ -342,458 +342,224 @@
       
         
           
-            <h2 id="第三章-TensorFlow入门"><a href="#第三章-TensorFlow入门" class="headerlink" title="第三章 TensorFlow入门"></a>第三章 TensorFlow入门</h2><hr>
-<h3 id="3-1-TensorFlow计算模型—计算图"><a href="#3-1-TensorFlow计算模型—计算图" class="headerlink" title="3.1 TensorFlow计算模型—计算图"></a>3.1 TensorFlow计算模型—计算图</h3><ul>
-<li>计算图是TensorFlow中最基本的一个概念，TensorFlow中的所有计算都会被转化为计算图上的节点</li>
-</ul>
-<hr>
-<h4 id="3-1-1-计算图的概念"><a href="#3-1-1-计算图的概念" class="headerlink" title="3.1.1 计算图的概念"></a>3.1.1 计算图的概念</h4><ul>
-<li><p>张量(Tensor)：可以被简单地理解为多维数组</p>
-</li>
-<li><p>流(Flow)：直观地表达了张量之间通过计算相互转化的过程</p>
-</li>
-<li><p>计算图</p>
+            <h2 id="第五章-MNIST数字识别问题"><a href="#第五章-MNIST数字识别问题" class="headerlink" title="第五章 MNIST数字识别问题"></a>第五章 MNIST数字识别问题</h2><h3 id="5-1-MNIST数据处理"><a href="#5-1-MNIST数据处理" class="headerlink" title="5.1 MNIST数据处理"></a>5.1 MNIST数据处理</h3><ul>
+<li><p>MNIST数据集简介</p>
 <ul>
-<li>简介：TensorFlow中的每一个计算都是计算图上的一个节点，而节点之间的边描述了计算之间的依赖关系</li>
-<li>节点<ul>
-<li>每个节点都是一个运算</li>
-<li>为了建模方便，TensorFlow会将常量转化为一种永远输出固定值的常量</li>
-</ul>
+<li><p>MNIST数据集是NIST数据集的一个子集，是一个手写体数字识别数据集</p>
 </li>
-<li>边<ul>
-<li>每条边表示了计算之间的依赖关系</li>
-<li>如果一个运算的输入依赖于另一个运算的输出，那么这两个运算有依赖关系</li>
-</ul>
+<li><p>它包含60000张图片作为训练数据，10000张图片作为测试数据</p>
 </li>
-<li>例子<br><img src="/2019/03/10/Tensorflow-3-Tensorflow入门/计算图样例.jpg" alt=""><br>a和b这两个常量不依赖于任何其他计算，而add计算则依赖读取两个常量的取值</li>
-</ul>
+<li><p>在MNIST数据集中的每一张图片都代表了0~9中的一个数字，图片的大小都是28*28，且数字都出现在图片的正中间</p>
+</li>
+<li><p>如图所示，一张数字图片及和它对应的像素矩阵<br><img src="/2019/03/10/Tensorflow-5-MNIST数字识别问题/数字图片及其像素矩阵.jpg" alt=""></p>
+</li>
+<li><p>为了验证模型训练的效果，一般还需要从训练数据中划分出一部分数据作为验证数据</p>
 </li>
 </ul>
-<hr>
-<h4 id="3-1-2-计算图的使用"><a href="#3-1-2-计算图的使用" class="headerlink" title="3.1.2 计算图的使用"></a>3.1.2 计算图的使用</h4><ul>
-<li><p>TensorFlow程序一般可以分为两个阶段</p>
+</li>
+<li><p>TensorFlow中的封装（基本过时）</p>
 <ul>
-<li>计算定义阶段：定义计算图中所有的计算</li>
-<li>计算执行阶段：详见3.3节</li>
-</ul>
+<li><p>样例程序</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 载入MNIST数据集，如果指定地址/path/to/MNIST_data下没有已经下载好的数据</span></span><br><span class="line"><span class="comment"># 那么TensorFlow会自动下载数据</span></span><br><span class="line">mnist = input_data.read_data_sets(<span class="string">"/path/to/MNIST_data/"</span>, one_hot=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印训练集的数据量</span></span><br><span class="line">print(<span class="string">"Training data size:"</span>, mnist.train.num_examples)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印验证集的数据量</span></span><br><span class="line">print(<span class="string">"Validating data size:"</span>, mnist.validation.num_examples)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印测试集的数据量</span></span><br><span class="line">print(<span class="string">"Testing data size:"</span>, mnist.test.num_examples)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印训练集中某一样例数据</span></span><br><span class="line"><span class="comment"># 一张数字图片，它的每个像素点都被放到这个长度为128一维数组中</span></span><br><span class="line"><span class="comment"># 如果一个像素点越接近于1，则颜色越深；越接近于0，则颜色越浅</span></span><br><span class="line">print(<span class="string">"Example training data:"</span>, mnist.train.images[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印训练集中某一样例数据的标记</span></span><br><span class="line"><span class="comment"># 一个大小为10的一维数组</span></span><br><span class="line"><span class="comment"># 数组中其中一个数字取值为1,其余数字取值为0</span></span><br><span class="line">print(<span class="string">"Example training data label:"</span>, mnist.train.labels[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置batch的大小</span></span><br><span class="line">batch_size = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用next_batch()方法来获得下一个batch的输入数据</span></span><br><span class="line">xs, ys = mnist.train.next_batch(batch_size)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"X shape:"</span>, xs.shape)</span><br><span class="line">print(<span class="string">"Y shape"</span>, ys.shape)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>计算定义阶段的样例</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="comment">#计算定义阶段开始</span></span><br><span class="line">a = tf.constant([<span class="number">1.0</span>,<span class="number">2.0</span>],name=<span class="string">"a"</span>)</span><br><span class="line">b = tf.constant([<span class="number">2.0</span>,<span class="number">3.0</span>],name=<span class="string">"b"</span>)</span><br><span class="line">result=a+b</span><br><span class="line"><span class="comment">#计算定义阶段结束</span></span><br></pre></td></tr></table></figure>
+<li><p>解读</p>
+<ol>
+<li><p>MNIST数据集被划分为train、validation和test三个数据集</p>
 </li>
-<li><p>其他</p>
-<ul>
-<li>在计算定义阶段，TensorFlow会自动将定义的计算转化为计算图上的节点</li>
-<li>在TensorFlow中，系统会自动维护一个默认的计算图</li>
-<li>通过<code>tf.get_default_graph()</code>可以获得当前默认的计算图</li>
-</ul>
+<li><p>处理后的每一张图片都是一个长度为784的一维数组，因为神经网络的输入是一个特征向量，所以在此把一张二维图像的像素矩阵放到一个一维数组中可以方便TensorFlow将图片的像素矩阵提供给神经网络的输入层</p>
 </li>
-<li><p>计算图的两个功能</p>
-<ul>
-<li>隔离张量和变量    <ul>
-<li>通过<code>tf.graph()</code>生成新的计算图</li>
-<li>不同计算图上的张量和运算都不会共享</li>
-</ul>
+<li><p>像素矩阵中元素的取值范围为[0,1]，它代表了颜色的深浅</p>
 </li>
-<li><p>提供了管理张量和计算的机制</p>
-<ul>
-<li><p>计算图可以通过<code>tf.Graph.device()</code>函数来指定运行计算的设备，这为使用GPU提供了机制</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">g=tf.Graph()</span><br><span class="line"><span class="keyword">with</span> g.device(<span class="string">'/gpu:0'</span>):</span><br><span class="line">    result = a + b</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在一个计算图中，可以通过集合(collection)来管理不同类别的资源</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="3-2-TensorFlow数据模型—张量"><a href="#3-2-TensorFlow数据模型—张量" class="headerlink" title="3.2 TensorFlow数据模型—张量"></a>3.2 TensorFlow数据模型—张量</h3><hr>
-<ul>
-<li>张量是TensorFlow管理数据的形式</li>
-</ul>
-<hr>
-<h4 id="3-2-1-张量的概念"><a href="#3-2-1-张量的概念" class="headerlink" title="3.2.1 张量的概念"></a>3.2.1 张量的概念</h4><ul>
-<li><p>在TensorFlow中所有的数据都通过张量的形式表示</p>
-</li>
-<li><p>张量可以被理解为多维数组</p>
-<ul>
-<li>零阶张量表示标量(scalar)，也就是一个数</li>
-<li>第一阶张量为向量(vector)，也就是一个一维数组</li>
-<li>第n阶张量为n维数组</li>
-</ul>
-</li>
-<li><p>在张量中并没有真正保存数字，它保存的是如何得到这些数字的计算过程</p>
-</li>
-<li><p>一个张量中主要保存了三个属性</p>
-<ul>
-<li><p>例子</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">a = tf.constant([<span class="number">1.0</span>,<span class="number">2.0</span>],name=<span class="string">"a"</span>)</span><br><span class="line">b = tf.constant([<span class="number">2.0</span>,<span class="number">3.0</span>],name=<span class="string">"b"</span>)</span><br><span class="line">result = a + b</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#output</span></span><br><span class="line">Tensor(<span class="string">"add:0"</span>, shape=(<span class="number">2</span>,), dtype=float32)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>名字(name)</p>
-<ul>
-<li>简介：一个张量的唯一标识符</li>
-<li>来源：计算图中的每个节点代表了一个计算，计算的结果保存在张量中，所以张量与计算图上节点所代表的计算结果是对应的</li>
-<li>命名：<code>node:src_output</code><br>  <code>node</code>：节点的名称<br>  <code>src_output</code>：表示当前张量是<code>node</code>的第几个输出</li>
-</ul>
-</li>
-<li><p>维度(shape)</p>
-<ul>
-<li>简介：描述一个张量的维度信息</li>
-<li>例如：<code>shape=(2,)</code>说明了张量是一个二维数组，这个数组的长度为2</li>
-</ul>
-</li>
-<li><p>类型(type)</p>
-<ul>
-<li>简介：每个张量都有一个唯一的类型</li>
-<li>类型包含：实数 ( <code>tf.float32、tf.float64</code> ) 、整数 ( <code>tf.int8、tf.int16、tf.int32、tf.int64、tf.uint8</code> )、布尔型 ( <code>tf.bool</code> ) 和复数 ( <code>tf.complex64、tf.complex128</code> )</li>
-<li>报错：TensorFlow会对参加计算的所有张量进行类型的检查，当发现类型不匹配时会报错</li>
-<li>默认类型：如果不指定类型，TensorFlow会给出默认的类型，比如不带小数点的数会被默认为<code>int32</code>，带小数点的数会默认为<code>float32</code></li>
-<li>建议：因为使用默认类型可能会导致潜在的类型不匹配问题，所以一般建议通过指定<code>dtype</code>来明确指出变量或常量的类型</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="3-2-2-张量的使用"><a href="#3-2-2-张量的使用" class="headerlink" title="3.2.2 张量的使用"></a>3.2.2 张量的使用</h4><ol>
-<li><p>对中间计算结果的引用</p>
-<ul>
-<li>当计算复杂度增加时，通过张量引用中间结果可以增加代码可读性</li>
-<li>通过张量引用中间结果可以方便获得中间结果</li>
-</ul>
-</li>
-<li><p>当计算图构建完成后用来获得计算结果</p>
-<ul>
-<li>虽然张量本身没有存储具体的数字，但通过session可以获得这些具体的数字</li>
-</ul>
+<li><p>使用mnist.train.next_batch()可以从所有的训练数据中读取一小部分作为一个batch</p>
 </li>
 </ol>
+</li>
+</ul>
+</li>
+</ul>
 <hr>
-<h3 id="3-3-TensorFlow运行模型—会话"><a href="#3-3-TensorFlow运行模型—会话" class="headerlink" title="3.3 TensorFlow运行模型—会话"></a>3.3 TensorFlow运行模型—会话</h3><ul>
+<h3 id="5-2-神经网络模型训练及不同模型结果对比"><a href="#5-2-神经网络模型训练及不同模型结果对比" class="headerlink" title="5.2 神经网络模型训练及不同模型结果对比"></a>5.2 神经网络模型训练及不同模型结果对比</h3><hr>
+<h4 id="5-2-1-TensorFlow训练神经网络"><a href="#5-2-1-TensorFlow训练神经网络" class="headerlink" title="5.2.1 TensorFlow训练神经网络"></a>5.2.1 TensorFlow训练神经网络</h4><ul>
+<li><p>回顾主要概念</p>
+<ul>
+<li>在神经网络的结构上，深度学习一方面需要使用激活函数实现神经网络模型的去线性化，另一方面需要使用一个或多个隐藏层使得神经网络的结构更深，以解决复杂问题</li>
+<li>使用带指数衰减的学习率设置、使用正则化来避免过度拟合，以及使用滑动平均模型可以使得神经网络模型更加健壮</li>
+</ul>
+</li>
+<li><p>直接给出<a href="https://github.com/T0UGH/TFDemo/blob/master/5.2.1MNISTSolution.py" target="_blank" rel="noopener">代码</a></p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line"></span><br><span class="line"><span class="comment"># MNIST数据集相关参数</span></span><br><span class="line">INPUT_NODE = <span class="number">784</span>                <span class="comment"># 输入层的节点数，等于图片的像素</span></span><br><span class="line">OUTPUT_NODE = <span class="number">10</span>                <span class="comment"># 输出层的节点数，等于类别的数目。0-9这10个数字，所以是10</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置神经网络的参数</span></span><br><span class="line">LAYER1_NODE = <span class="number">500</span>               <span class="comment"># 隐藏层节点数，这里只有一个隐藏层，此隐藏层有500个节点</span></span><br><span class="line">BATCH_NODE = <span class="number">100</span>                <span class="comment"># batch的大小</span></span><br><span class="line">LEARNING_RATE_BASE = <span class="number">0.8</span>        <span class="comment"># 基础的学习率</span></span><br><span class="line">LEARNING_RATE_DECAY = <span class="number">0.99</span>      <span class="comment"># 学习率的衰减率</span></span><br><span class="line">REGULARIZATION_RATE = <span class="number">0.0001</span>    <span class="comment"># 正则化项在损失函数中的系数</span></span><br><span class="line">TRAINING_STEPS = <span class="number">30000</span>          <span class="comment"># 训练轮数</span></span><br><span class="line">MOVING_AVERAGE_DECAY = <span class="number">0.99</span>     <span class="comment"># 滑动平均衰减率</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给定神经网络的输入和所有参数，计算神经网络的前向传播结果</span></span><br><span class="line"><span class="comment"># 在这里定义了一个使用ReLU激活函数的三层全连接网络</span></span><br><span class="line"><span class="comment"># 通过一层隐藏层实现了多层网络结构</span></span><br><span class="line"><span class="comment"># 通过ReLU激活函数实现了去线性化</span></span><br><span class="line"><span class="comment"># 并且提供了对滑动平均模型的支持，此时需要传入avg_class</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inference</span><span class="params">(input_tensor, avg_class, weights1, biases1, weights2, biases2)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> avg_class <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        layer1 = tf.nn.relu(tf.matmul(input_tensor, weights1) + biases1)</span><br><span class="line">        <span class="keyword">return</span> tf.matmul(layer1, weights2) + biases2</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        layer1 = tf.nn.relu(tf.matmul(input_tensor, avg_class.average(weights1)) + avg_class.average(biases1))</span><br><span class="line">        <span class="keyword">return</span> tf.matmul(layer1, avg_class.average(weights2)) + avg_class.average(biases2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练模型的整个过程</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(mnist)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 首先定义输入数据，使用了placeholder</span></span><br><span class="line">    x = tf.placeholder(tf.float32, [<span class="keyword">None</span>, INPUT_NODE], <span class="string">'x-input'</span>)</span><br><span class="line">    y_ = tf.placeholder(tf.float32, [<span class="keyword">None</span>, OUTPUT_NODE], <span class="string">'y-input'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义并初始化隐藏层的权重和偏置值</span></span><br><span class="line">    weight1 = tf.Variable(tf.truncated_normal([INPUT_NODE, LAYER1_NODE], stddev=<span class="number">0.1</span>))</span><br><span class="line">    biases1 = tf.Variable(tf.constant(<span class="number">0.1</span>, shape=[LAYER1_NODE]))</span><br><span class="line">    <span class="comment"># 定义并初始化输出层的权重和偏置值</span></span><br><span class="line">    weight2 = tf.Variable(tf.truncated_normal([LAYER1_NODE, OUTPUT_NODE], stddev=<span class="number">0.1</span>))</span><br><span class="line">    biases2 = tf.Variable(tf.constant(<span class="number">0.1</span>, shape=[OUTPUT_NODE]))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用inference函数计算前向传播的结果(不带滑动平均的)</span></span><br><span class="line">    y = inference(x, <span class="keyword">None</span>, weight1, biases1, weight2, biases2)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义一个储存训练轮数的变量，用于滑动平均模型和指数衰减的学习率</span></span><br><span class="line">    global_step = tf.Variable(<span class="number">0</span>, trainable=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 给定滑动平均衰减率和训练轮数的变量，初始化滑动平均类</span></span><br><span class="line">    variable_averages = tf.train.ExponentialMovingAverage(MOVING_AVERAGE_DECAY, global_step)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 在所有代表神经网络参数的变量上使用滑动平均，即所有tf.trainable_variables集合中的变量</span></span><br><span class="line">    variable_averages_op = variable_averages.apply(tf.trainable_variables())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算使用了滑动平均之后的前向传播结果</span></span><br><span class="line">    average_y = inference(x, variable_averages, weight1, biases1, weight2, biases2)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算交叉熵</span></span><br><span class="line">    cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=y, labels=tf.argmax(y_, <span class="number">1</span>))</span><br><span class="line">    <span class="comment"># 对整个batch的交叉熵求平均</span></span><br><span class="line">    cross_entropy_mean = tf.reduce_mean(cross_entropy)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 生成一个L2正则化损失函数</span></span><br><span class="line">    regularizer = tf.contrib.layers.l2_regularizer(REGULARIZATION_RATE)</span><br><span class="line">    <span class="comment"># 计算模型的正则化损失</span></span><br><span class="line">    regularization = regularizer(weight1) + regularizer(weight2)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将交叉熵和正则化损失求和，得到模型的总损失</span></span><br><span class="line">    loss = cross_entropy_mean + regularization</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置指数衰减的学习率</span></span><br><span class="line">    learning_rate = tf.train.exponential_decay(</span><br><span class="line">        LEARNING_RATE_BASE,                     <span class="comment"># 基础的学习率，随着迭代的进行，在这个学习率的基础上递减</span></span><br><span class="line">        global_step,                            <span class="comment"># 之前定义的用于储存训练轮数的变量</span></span><br><span class="line">        mnist.train.num_examples/BATCH_NODE,    <span class="comment"># 衰减速度</span></span><br><span class="line">        LEARNING_RATE_DECAY)                    <span class="comment"># 衰减系数，若衰减速度为100，衰减系数为.96，则说明每过100轮学习率变成之前的.96</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用梯度下降算法定义优化过程</span></span><br><span class="line">    train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss, global_step)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 因为使用了滑动平均模型，所以在训练神经网络时，每过一遍数据既需要通过反向传播来更新神经网络中的参数，又需要</span></span><br><span class="line">    <span class="comment"># 更新每个参数的滑动平均值。为了一次完成多个操作，可以使用tf.group()来将两个计算合并起来执行</span></span><br><span class="line">    train_op = tf.group(train_step, variable_averages_op)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 检验对于batch中的每个数据，预测结果是否等于标记值</span></span><br><span class="line">    correct_prediction = tf.equal(tf.argmax(average_y, <span class="number">1</span>), tf.argmax(y_, <span class="number">1</span>))</span><br><span class="line">    <span class="comment"># 计算模型在这一组数据中的正确率</span></span><br><span class="line">    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 开启一个会话，开始计算过程</span></span><br><span class="line">    <span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 对所有变量进行初始化</span></span><br><span class="line">        tf.global_variables_initializer().run()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 准备验证数据，一般可以在神经网络的训练过程中通过验证数据来大致判断停止的条件和评判训练的效果</span></span><br><span class="line">        validate_feed = &#123;</span><br><span class="line">            x: mnist.validation.images,</span><br><span class="line">            y_: mnist.validation.labels</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 准备测试数据，作为模型训练结束之后的最终评价标准</span></span><br><span class="line">        test_feed = &#123;</span><br><span class="line">            x: mnist.test.images,</span><br><span class="line">            y_: mnist.test.labels</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 迭代地训练神经网络</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(TRAINING_STEPS):</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 每过1000轮使用验证数据评价模型</span></span><br><span class="line">            <span class="keyword">if</span> i % <span class="number">1000</span> == <span class="number">0</span>:</span><br><span class="line">                validate_acc = sess.run(accuracy, feed_dict=validate_feed)</span><br><span class="line">                print(<span class="string">"After %d training step(s), validation accuracy using average model is %g"</span> % (i, validate_acc))</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 每轮都提取一个batch的数据，训练神经网络</span></span><br><span class="line">            xs, ys = mnist.train.next_batch(BATCH_NODE)</span><br><span class="line">            sess.run(train_op, feed_dict=&#123;x: xs, y_: ys&#125;)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 在训练结束之后，在测试数据上检测神经网络模型的最终正确率</span></span><br><span class="line">        test_acc = sess.run(accuracy, feed_dict=test_feed)</span><br><span class="line">        print(<span class="string">"After %d training step(s), test accuracy using average model is %g"</span> % (i, test_acc))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 主程序入口</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(argv=None)</span>:</span></span><br><span class="line">    mnist = input_data.read_data_sets(<span class="string">"/tmp/data"</span>, one_hot=<span class="keyword">True</span>)</span><br><span class="line">    train(mnist)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># TensorFlow提供的一个主程序入口，tf.app.run()会调用上面定义的main函数</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    tf.app.run()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>输出</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">After 0 training step(s), validation accuracy using average model is 0.0778</span><br><span class="line">After 1000 training step(s), validation accuracy using average model is 0.9758</span><br><span class="line">After 2000 training step(s), validation accuracy using average model is 0.9802</span><br><span class="line">After 3000 training step(s), validation accuracy using average model is 0.9818</span><br><span class="line">After 4000 training step(s), validation accuracy using average model is 0.983</span><br><span class="line">After 5000 training step(s), validation accuracy using average model is 0.9826</span><br><span class="line">After 6000 training step(s), validation accuracy using average model is 0.9828</span><br><span class="line">After 7000 training step(s), validation accuracy using average model is 0.9838</span><br><span class="line">After 8000 training step(s), validation accuracy using average model is 0.985</span><br><span class="line">After 9000 training step(s), validation accuracy using average model is 0.9836</span><br><span class="line">After 10000 training step(s), validation accuracy using average model is 0.9852</span><br><span class="line">After 11000 training step(s), validation accuracy using average model is 0.9836</span><br><span class="line">After 12000 training step(s), validation accuracy using average model is 0.9846</span><br><span class="line">After 13000 training step(s), validation accuracy using average model is 0.9852</span><br><span class="line">After 14000 training step(s), validation accuracy using average model is 0.9846</span><br><span class="line">After 15000 training step(s), validation accuracy using average model is 0.9842</span><br><span class="line">After 16000 training step(s), validation accuracy using average model is 0.9844</span><br><span class="line">After 17000 training step(s), validation accuracy using average model is 0.9846</span><br><span class="line">After 18000 training step(s), validation accuracy using average model is 0.9848</span><br><span class="line">After 19000 training step(s), validation accuracy using average model is 0.9844</span><br><span class="line">After 20000 training step(s), validation accuracy using average model is 0.9848</span><br><span class="line">After 21000 training step(s), validation accuracy using average model is 0.9844</span><br><span class="line">After 22000 training step(s), validation accuracy using average model is 0.9842</span><br><span class="line">After 23000 training step(s), validation accuracy using average model is 0.9852</span><br><span class="line">After 24000 training step(s), validation accuracy using average model is 0.9852</span><br><span class="line">After 25000 training step(s), validation accuracy using average model is 0.9854</span><br><span class="line">After 26000 training step(s), validation accuracy using average model is 0.9852</span><br><span class="line">After 27000 training step(s), validation accuracy using average model is 0.9854</span><br><span class="line">After 28000 training step(s), validation accuracy using average model is 0.9852</span><br><span class="line">After 29000 training step(s), validation accuracy using average model is 0.9856</span><br><span class="line">After 29999 training step(s), test accuracy using average model is 0.9837</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="5-2-2-使用验证数据集判断模型效果"><a href="#5-2-2-使用验证数据集判断模型效果" class="headerlink" title="5.2.2 使用验证数据集判断模型效果"></a>5.2.2 使用验证数据集判断模型效果</h4><ul>
+<li><p>超参数</p>
+<ul>
+<li>简介：一般无法通过学习获得，由程序员根据经验手动调整</li>
+<li>例如：初始学习率、学习率衰减率、隐藏层节点数、迭代轮数等等</li>
+</ul>
+</li>
+<li><p>如何设置超参数的取值</p>
+<ul>
+<li>配置这些超参数都是需要通过实验去调整的</li>
+</ul>
+</li>
+<li><p>使用测试数据来选取超参数会导致神经网络模型过度拟合测试数据，从而导致失去对未知数据的预测能力</p>
+</li>
+<li><p>为了评估神经网络模型在不同超参数下的效果，一般会从训练数据中抽取一部分作为验证数据，使用验证数据来验证模型效果</p>
+</li>
+<li><p>交叉验证</p>
+<ul>
+<li>另一种验证模型效果的方式</li>
+<li>适用于训练数据不够的情况，但整体速度偏慢</li>
+</ul>
+</li>
+<li><p>在MNIST问题上，完全可以通过模型在验证数据上的表现来判断一个模型的优劣<br><img src="/2019/03/10/Tensorflow-5-MNIST数字识别问题/测试与验证对比.jpg" alt=""></p>
+</li>
+<li><p>一般来说选取的验证数据分布越接近测试数据分布，模型在验证数据上的表现越可以体现模型在测试数据上的表现</p>
+</li>
+</ul>
+<hr>
+<h4 id="5-2-3-不同模型效果比较"><a href="#5-2-3-不同模型效果比较" class="headerlink" title="5.2.3 不同模型效果比较"></a>5.2.3 不同模型效果比较</h4><ul>
+<li><p>五种优化方法：</p>
+<ul>
+<li>在神经网络的设计上，需要使用<strong>激活函数</strong>和<strong>多层隐藏层</strong>。</li>
+<li>在神经网络优化时，可以使用<strong>指数衰减的学习率</strong>、<strong>加入正则化的损失函数</strong>以及<strong>滑动平均模型</strong></li>
+</ul>
+</li>
+<li><p>在超参数相同的情况下，使用不同优化方法，经过30000训练迭代后，得到的最终模型的正确率<br><img src="/2019/03/10/Tensorflow-5-MNIST数字识别问题/不同模型的正确率.jpg" alt=""></p>
+<ul>
+<li>神经网络的结构对最终模型的效果有本质性的影响</li>
+<li>使用滑动平均、指数衰减和正则化带来的影响并不特别明显</li>
+</ul>
+</li>
+<li><p>由于MNIST问题本身相对简单，所以滑动平均、指数衰减和正则化带来的提升效果并不特别明显</p>
+</li>
+<li><p>正则化和不使用正则化的损失函数的变化趋势<br><img src="/2019/03/10/Tensorflow-5-MNIST数字识别问题/不同模型的损失函数的变化趋势.jpg" alt=""></p>
+</li>
+</ul>
+<hr>
+<h3 id="5-3-变量管理"><a href="#5-3-变量管理" class="headerlink" title="5.3 变量管理"></a>5.3 变量管理</h3><hr>
+<ul>
 <li><p>简介</p>
 <ul>
-<li>会话(session)用来执行定义好的运算</li>
-<li>会话拥有并管理TensorFlow程序运行时的所有资源</li>
-<li>所有计算完成之后需要关闭会话来帮助系统回收资源，否则会资源泄漏</li>
-</ul>
+<li><p>TensorFlow提供了通过变量名称来创建或者获得一个变量的机制</p>
 </li>
-<li><p>使用会话的两种模式</p>
-<ol>
-<li><p>明确调用生成和关闭函数</p>
- <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建一个会话</span></span><br><span class="line">sess=tf.Session()</span><br><span class="line"><span class="comment">#使用创建好的会话来得到运算结果</span></span><br><span class="line">sess.run(result)</span><br><span class="line"><span class="comment">#关闭这个会话</span></span><br><span class="line">sess.close()</span><br><span class="line"><span class="comment">#但是如果因抛出异常而退出，未执行close，则还是会出现资源泄漏</span></span><br></pre></td></tr></table></figure>
+<li><p>通过这个机制，在不同的函数中可以直接通过变量的名字来使用变量，而不需要将变量通过参数的形式到处传递</p>
 </li>
-<li><p>使用python上下文管理器<code>with</code>来自动管理</p>
- <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建一个会话，并通过Python中的上下文管理器来管理这个会话</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="comment">#使用创建好的会话来计算关心的结果</span></span><br><span class="line">    sess.run(result)</span><br><span class="line"><span class="comment">#当上下文退出时自动关闭会话，释放资源</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li><p>默认的会话</p>
-<ul>
-<li><p>可以设置一个会话为默认的会话，这样，调用一个张量的<code>eval()</code>方法，就相当于将计算放到这个默认的会话中运行</p>
-<ul>
-<li><p>例子</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sess=tf.Session()</span><br><span class="line"><span class="keyword">with</span> sess.as_default():</span><br><span class="line">    print(result.eval())</span><br></pre></td></tr></table></figure>
-<p>  或者</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sess=tf.InteractiveSession()</span><br><span class="line">print(result.eval())</span><br><span class="line">sess.close()</span><br></pre></td></tr></table></figure>
+<li><p>TensorFlow中通过变量名称获得变量的机制主要通过<code>tf.get_variable()</code>和<code>tf.variable_scope()</code>来实现</p>
 </li>
 </ul>
 </li>
+<li><p>当<code>tf.get_variable()</code>用来创建变量时，它和tf.Variable()的功能是基本等价的</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面两个定义是等价的</span></span><br><span class="line">v = tf.get_variable(<span class="string">"v"</span>, shape=[<span class="number">1</span>], initializer=tf.constant_initializer(<span class="number">1.0</span>))</span><br><span class="line">v = tf.Variable(tf.constant(<span class="number">1.0</span>, shape=[<span class="number">1</span>], name=<span class="string">"v"</span>))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对于<code>tf.get_variable()</code>，变量名称是一个必填的参数</p>
+<ul>
+<li><code>tf.get_variable()</code>会根据这个名字去创建或者获取变量</li>
+<li><code>tf.get_variable()</code>首先试图去创建一个名字为v的参数，如果创建失败，这个程序会报错，这是为了避免无意识的变量复用造成的问题</li>
 </ul>
 </li>
-<li><p>通过ConfigProto Protocol Buffer来配置需要生成的会话  </p>
+<li><p>如果需要通过<code>tf.get_variable()</code>获得一个已经创建的变量，需要通过<code>tf.variable_scope()</code>函数来生成一个上下文管理器，并明确指定在这个上下文管理器中，<code>tf.get_variable()</code>将直接获得已经生成的变量</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在名字为foo的命名空间内创建名字为v的变量</span></span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(<span class="string">"foo"</span>):</span><br><span class="line">    v = tf.get_variable(</span><br><span class="line">        <span class="string">"v"</span>, [<span class="number">1</span>], initializer=tf.constant_initializer(<span class="number">1.0</span>)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 因为在命名空间foo中已经存在名字为v的变量，所以以下代码将会报错</span></span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(<span class="string">"foo"</span>):</span><br><span class="line">    v = tf.get_variable(<span class="string">"v"</span>, [<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在生成上下文管理器时，将参数reuse设置为True。这样tf.get_variable()函数将直接获得已经声明的变量</span></span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(<span class="string">"foo"</span>, reuse=<span class="keyword">True</span>):</span><br><span class="line">    v1 = tf.get_variable(<span class="string">"v"</span>, [<span class="number">1</span>])</span><br><span class="line">    print(v == v1)      <span class="comment"># 输出为True，代表v,v1表示的是相同的TensorFlow中变量</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将参数reuse设置为True时，tf.variable_scope将只能获得已经创建过的变量，因为在命名空间bar中还没有创建变量v，所以下面会报错</span></span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(<span class="string">"bar"</span>, reuse=<span class="keyword">True</span>):</span><br><span class="line">    v3 = tf.get_variable(<span class="string">"v"</span>, [<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p>例如</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">config=tf.ConfigProto(</span><br><span class="line">    allow_soft_placement=True,</span><br><span class="line">    log_device_placement=True</span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<li>当<code>tf.variable_scope()</code>函数使用参数reuse=True生成上下文管理器时，这个上下文管理器内所有的<code>tf.get_variable()</code>函数会直接获得已经创建的变量,如果变量不存在就会报错</li>
+<li>当<code>tf.variable_scope()</code>函数不使用参数reuse=True生成上下文管理器时，<code>tf.get_variable()</code>会创建新的变量，如果同名的变量已经存在,则<code>tf.get_variable()</code>函数会报错</li>
+</ul>
 </li>
-<li><p>通过ConfigProto可以配置类似并行的线程数、GPU分配策略、运算超时时间等参数</p>
+<li><p><code>tf.variable_scope()</code>不仅生成上下文管理器，也会生成命名空间，在命名空间中创建的所有变量名称都会带上这个命名空间名的前缀</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">v1 = tf.get_variable(<span class="string">"v"</span>, [<span class="number">1</span>])</span><br><span class="line">print(v1.name)          <span class="comment"># 输出v:0, "v"为变量名称, ":0"表示此变量是生成这个变量的运算的第一个输出</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(<span class="string">"foo"</span>):</span><br><span class="line">    v2 = tf.get_variable(<span class="string">"v"</span>, [<span class="number">1</span>])</span><br><span class="line">    print(v2.name)      <span class="comment"># 输出foo/v:0, 因为在名字空间中，所以变量名称前会加入名字空间的名称</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(<span class="string">"foo"</span>):</span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">"bar"</span>):</span><br><span class="line">        v3 = tf.get_variable(<span class="string">"v"</span>, [<span class="number">1</span>])</span><br><span class="line">        print(v3.name)  <span class="comment"># 输出foo/bar/v:0,</span></span><br><span class="line">    v4 = tf.get_variable(<span class="string">"v1"</span>, [<span class="number">1</span>])</span><br><span class="line">    print(v4.name)      <span class="comment"># 输出foo/v1:0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个名称为空的名字空间，并设置reuse=True</span></span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(<span class="string">""</span>, reuse=<span class="keyword">True</span>):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 可以直接通过带名字空间名称的变量名来获取其他名字空间下的变量</span></span><br><span class="line">    <span class="comment"># 比如这里直接通过指定"foo/bar/v"，来获得名字空间foo/bar下的v变量</span></span><br><span class="line">    v5 = tf.get_variable(<span class="string">"foo/bar/v"</span>, [<span class="number">1</span>])</span><br><span class="line">    print(v5 == v3)     <span class="comment"># 输出True</span></span><br><span class="line"></span><br><span class="line">    v6 = tf.get_variable(<span class="string">"foo/v"</span>, [<span class="number">1</span>])</span><br><span class="line">    print(v6 == v2)     <span class="comment"># 输出True</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="5-4-TensorFlow模型持久化"><a href="#5-4-TensorFlow模型持久化" class="headerlink" title="5.4 TensorFlow模型持久化"></a>5.4 TensorFlow模型持久化</h3><ul>
+<li>为了让训练结果可以复用，需要将训练得到的神经网络模型持久化</li>
+</ul>
+<hr>
+<h4 id="5-4-1-持久化代码实现"><a href="#5-4-1-持久化代码实现" class="headerlink" title="5.4.1 持久化代码实现"></a>5.4.1 持久化代码实现</h4><ul>
+<li><p>简介：TensorFlow提供了<code>tf.train.Saver</code>类来保存和还原一个神经网络模型</p>
+</li>
+<li><p>保存TensorFlow计算图的代码样例</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明两个变量并计算它们的和</span></span><br><span class="line">v1 = tf.Variable(tf.constant(<span class="number">1.0</span>, shape=[<span class="number">1</span>]), name=<span class="string">"v1"</span>)</span><br><span class="line">v2 = tf.Variable(tf.constant(<span class="number">2.0</span>, shape=[<span class="number">1</span>]), name=<span class="string">"v2"</span>)</span><br><span class="line">result = v1 + v2</span><br><span class="line"></span><br><span class="line">init_op = tf.global_variables_initializer()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明tf.train.Saver类用来保存模型</span></span><br><span class="line">saver = tf.train.Saver()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    </span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 将模型保存到D:PycharmProjects/TFDemo/data/model/540/model.ckpt</span></span><br><span class="line">    saver.save(sess, <span class="string">"/PycharmProjects/TFDemo/data/model/540/model.ckpt"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>TensorFlow模型的文件组织</p>
+<ul>
+<li>TensorFlow模型一般会存在后缀为<code>.ckpt</code>的文件中</li>
+<li>在这个文件目录下会出现三个文件<ul>
+<li><code>model.ckpt.meta</code>：保存TensorFlow计算图的结构</li>
+<li><code>model.ckpt</code>：保存TensorFlow程序中每一个变量的取值</li>
+<li><code>checkpoint</code>：保存了一个目录下所有的模型文件列表</li>
+</ul>
+</li>
+<li>如图<br><img src="/2019/03/10/Tensorflow-5-MNIST数字识别问题/文件组织.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>加载已经保存的TensorFlow模型的代码样例</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用和保存模型代码中一样的方式来声明变量</span></span><br><span class="line">v1 = tf.Variable(tf.constant(<span class="number">1.0</span>, shape=[<span class="number">1</span>]), name=<span class="string">"v1"</span>)</span><br><span class="line">v2 = tf.Variable(tf.constant(<span class="number">2.0</span>, shape=[<span class="number">1</span>]), name=<span class="string">"v2"</span>)</span><br><span class="line">result = v1 + v2</span><br><span class="line"></span><br><span class="line">saver = tf.train.Saver()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="comment"># 通过saver.restore加载v1和v2的具体取值，不需要初始化过程</span></span><br><span class="line">    saver.restore(sess, <span class="string">"/PycharmProjects/TFDemo/data/model</span></span><br><span class="line"><span class="string">    /540/model.ckpt"</span>)</span><br><span class="line">    print(sess.run(result))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>此处并没有运行变量的初始化过程，而是将变量的值通过已经保存的模型加载进来</li>
+</ul>
+</li>
+<li><p>直接加载已经持久化的图的代码样例（为了不重复定义图上的运算）</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接加载持久化的图</span></span><br><span class="line">saver = tf.train.import_meta_graph(<span class="string">"/PycharmProjects/TFDemo/data/model/540/model.ckpt.meta"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过名字获得result变量</span></span><br><span class="line">result = tf.get_default_graph().get_tensor_by_name(<span class="string">"add:0"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过saver.restore加载v1和v2的具体取值，不需要初始化过程</span></span><br><span class="line">    saver.restore(sess, <span class="string">"/PycharmProjects/TFDemo/data/model/540/model.ckpt"</span>)</span><br><span class="line">    <span class="comment"># 输出[3.]</span></span><br><span class="line">    print(sess.run(result))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如何在保存和加载时对变量进行重命名</p>
+<ul>
+<li>在声明 <code>tf.train.Saver</code> 类时可以提供一个列表来指定需要保存或者加载的变量，比如 <code>saver = tf.train.Saver([v1])</code></li>
+<li>TensorFlow通过字典将模型保存时的变量名和需要加载的变量联系起来<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里声明的变量名称与已经保存的模型中的变量的名称不同</span></span><br><span class="line">v1 = tf.Variable(tf.constant(<span class="number">1.0</span>, shape=[<span class="number">1</span>]), name=<span class="string">"other-v1"</span>)</span><br><span class="line">v2 = tf.Variable(tf.constant(<span class="number">2.0</span>, shape=[<span class="number">1</span>]), name=<span class="string">"other-v2"</span>)</span><br><span class="line">result = v1 + v2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 若直接使用tf.train.Saver()加载模型会报变量找不到的错误</span></span><br><span class="line"><span class="comment"># 使用一个字典来重命名变量可以加载原来的模型</span></span><br><span class="line">saver = tf.train.Saver(&#123;<span class="string">"v1"</span>: v1, <span class="string">"v2"</span>: v2&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    saver.restore(sess, <span class="string">"/PycharmProjects/TFDemo/data/model/540/model.ckpt"</span>)</span><br><span class="line">    print(sess.run(result))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>使用Saver保存和加载滑动平均</p>
+<ul>
+<li>每个变量的滑动平均值是通过影子变量维护的，所以要获得变量的滑动平均值实际上就是获得这个影子变量的取值。</li>
+<li>如果在加载模型时直接将影子变量映射到变量自身，那么在使用训练好的模型时就不需要再调用函数来获得变量的滑动平均值了</li>
+</ul>
+</li>
+<li><p>将计算图中的变量及其取值通过常量的形式保存</p>
+<ul>
+<li>背景：使用<code>Saver</code>会保存运行TensorFlow程序所需要的全部信息，但是有时并不需要某些信息。比如，在离线预测时，只需要知道如何从神经网络的输入层经过前向传播计算得到输出层即可，而不需要类似于变量初始化、模型保存等辅助节点的信息</li>
+<li><p>解决：TensorFlow提供了<code>convert_variables_to_constants()</code>将计算图中的变量及其取值通过常量的方式保存</p>
+<ul>
+<li><p>导出为常量</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework <span class="keyword">import</span> graph_util</span><br><span class="line"></span><br><span class="line">v1 = tf.Variable(tf.constant(<span class="number">1.0</span>, shape=[<span class="number">1</span>]), name=<span class="string">"v1"</span>)</span><br><span class="line">v2 = tf.Variable(tf.constant(<span class="number">2.0</span>, shape=[<span class="number">1</span>]), name=<span class="string">"v2"</span>)</span><br><span class="line">result = v1 + v2</span><br><span class="line"></span><br><span class="line">init_op = tf.global_variables_initializer()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    <span class="comment"># 导出当前计算图的GraphDef部分，只需要这一部分就可以完成从输入层到输出层的计算过程</span></span><br><span class="line">    graph_def = tf.get_default_graph().as_graph_def()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 将图中的变量及其取值转化为常量，同时将图中不必要的节点去掉</span></span><br><span class="line">    output_graph_def = graph_util.convert_variables_to_constants(sess, graph_def, [<span class="string">'add'</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 将导出的模型存入文件</span></span><br><span class="line">    <span class="keyword">with</span> tf.gfile.GFile(<span class="string">"/PycharmProjects/TFDemo/data/model/547/combined_model.pb"</span>, <span class="string">"wb"</span>) <span class="keyword">as</span> file:</span><br><span class="line">        file.write(output_graph_def.SerializeToString())</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导入常量</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.platform <span class="keyword">import</span> gfile</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    model_filename = <span class="string">"/PycharmProjects/TFDemo/data/model/547/combined_model.pb"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 读取保存的模型文件，将文件解析为对应的GraphDef Protocal Buffer</span></span><br><span class="line">    <span class="keyword">with</span> gfile.FastGFile(model_filename, <span class="string">'rb'</span>) <span class="keyword">as</span> file:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(file.read())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将graph_def中保存的图加载到当前的图中。</span></span><br><span class="line">    <span class="comment"># return_elements给出了返回的张量的名称。在保存时给出的是计算节点的名称，所以为"add"，在加载时给出的是张量的名称，所以为add:0</span></span><br><span class="line">    result = tf.import_graph_def(graph_def, return_elements=[<span class="string">"add:0"</span>])</span><br><span class="line">    <span class="comment"># 输出[3.0]　　</span></span><br><span class="line">    print(sess.run(result))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 </li>
 </ul>
 </li>
 </ul>
 <hr>
-<h3 id="3-4-TensorFlow实现神经网络"><a href="#3-4-TensorFlow实现神经网络" class="headerlink" title="3.4 TensorFlow实现神经网络"></a>3.4 TensorFlow实现神经网络</h3><hr>
-<h4 id="3-4-1-TensorFlow-Playground及神经网络简介"><a href="#3-4-1-TensorFlow-Playground及神经网络简介" class="headerlink" title="3.4.1 TensorFlow Playground及神经网络简介"></a>3.4.1 TensorFlow Playground及神经网络简介</h4><ul>
-<li><p><a href="http://playground.tensorflow.org/" target="_blank" rel="noopener">TensorFlow Playground—可视化神经网络demo</a></p>
+<h4 id="5-4-2-持久化原理及数据格式"><a href="#5-4-2-持久化原理及数据格式" class="headerlink" title="5.4.2 持久化原理及数据格式"></a>5.4.2 持久化原理及数据格式</h4><ul>
+<li><p>当调用<code>Saver.save()</code>时，会生成4个文件。TensorFlow持久化通过这四个文件实现</p>
 </li>
-<li><p>Playground设置<br>  <img src="/2019/03/10/Tensorflow-3-Tensorflow入门/playground.jpg" alt=""></p>
-</li>
-<li><p>Playground迭代203轮的结果<br>  <img src="/2019/03/10/Tensorflow-3-Tensorflow入门/playgroundFin.jpg" alt=""></p>
-</li>
-<li><p>获得的启示</p>
+<li><p>MetaGraphDef(model.ckpt.meta)</p>
 <ul>
-<li><p>在机器学习中，所有用于描述实体的数字的组合就是一个实体的<strong>特征向量(feature vector)</strong>，例如：可以用半径和质量来描述一个齿轮，gear –&gt; (r,m)</p>
-</li>
-<li><p>第一层是<strong>输入层</strong>，代表特征向量中每个特征的取值</p>
-</li>
-<li><p>同一层的节点不会相互连接，而且每一层只和下一层连接，直到最后一层作为<strong>输出层</strong>得到计算的结果</p>
-</li>
-<li><p>在输入和输出层之间的神经网络叫做<strong>隐藏层</strong>，一般一个神经网络的隐藏层越多，这个神经网络就越’深’</p>
-</li>
-<li><p>神经网络就是通过对参数的合理设置来解决分类或者回归问题的</p>
+<li>TensorFlow通过元图(MetaGraph)来记录计算图中节点的信息以及一些运行所需的元数据</li>
+<li>具体信息<ul>
+<li>meta_info_def：记录计算图中的元数据和TensorFlow中使用的所有运算的信息</li>
+<li>graph_def：记录TensorFlow计算图上的节点信息</li>
+<li>saver_def：记录持久化模型时所需的一些参数信息</li>
+<li>collection_def：在TensorFlow计算图中可以维护不同集合，而维护这些集合的底层实现是通过collection_def实现的</li>
+</ul>
 </li>
 </ul>
 </li>
-<li><p>使用神经网络解决分类问题的4个步骤</p>
-<ol>
-<li><p>提取问题中的实体的特征向量作为神经网络的输入，不同实体可以提取不同的特征向量</p>
-</li>
-<li><p>定义神经网络的结构，并定义如何从神经网络的输入得到输出，这个过程就是神经网络的前向传播算法</p>
-</li>
-<li><p>通过训练数据来调整神经网络中参数的取值，这就是训练神经网络的过程</p>
-</li>
-<li><p>使用训练好的神经网络来预测未知的数据</p>
-</li>
-</ol>
-</li>
-</ul>
-<hr>
-<h4 id="3-4-2-前向传播算法简介"><a href="#3-4-2-前向传播算法简介" class="headerlink" title="3.4.2 前向传播算法简介"></a>3.4.2 前向传播算法简介</h4><ul>
-<li><p>前向传播简介</p>
+<li><p>model.ckpt.data和model.ckpt.index</p>
 <ul>
-<li>前向传播算法主要用来解决如何将输入的特征向量经过层层推导得到最后的输出的问题</li>
+<li>用于持久化TensorFlow中所有变量的取值</li>
+<li>其中model.ckpt.data是通过SSTable格式存储的，可以理解为一个键值对列表</li>
 </ul>
 </li>
-<li><p>神经元</p>
+<li><p>checkpoint</p>
 <ul>
-<li>例子<br><img src="/2019/03/10/Tensorflow-3-Tensorflow入门/神经元样例.jpg" alt=""></li>
-<li>神经元是构成一个神经网络的最小单元</li>
-<li>一个神经元有多个输入和一个输出</li>
-<li>一个最简单神经元结构的输出就是所有输入的加权和，而不同输入的权重就是神经元的参数</li>
-</ul>
-</li>
-<li><p>神经网络</p>
-<ul>
-<li>所谓神经网络的结构指的是不同神经元之间的连接结构</li>
-<li>例子<br><img src="/2019/03/10/Tensorflow-3-Tensorflow入门/神经网络样例.jpg" alt=""></li>
-</ul>
-</li>
-<li><p>全连接神经网络</p>
-<ul>
-<li>全连接神经网络就是相邻两层之间任意两个节点之间都有连接</li>
-</ul>
-</li>
-<li><p>计算神经网络的<strong>前向传播</strong>结果需要<strong>三部分</strong>信息</p>
-<ol>
-<li>神经网络的输入<ul>
-<li>这个输入是从实体中提取的特征向量</li>
-</ul>
-</li>
-<li>神经网络的连接结构<ul>
-<li>神经网络是由神经元构成的</li>
-<li>神经网络的结构给出不同神经元之间输入输出的连接关系</li>
-</ul>
-</li>
-<li>每个神经元中的参数</li>
-</ol>
-</li>
-<li><p>前向传播算法样例<br><img src="/2019/03/10/Tensorflow-3-Tensorflow入门/前向传播样例.jpg" alt="">)</p>
-</li>
-<li><p>前向传播算法可以通过矩阵乘法的方式表达<br><img src="/2019/03/10/Tensorflow-3-Tensorflow入门/前向传播矩阵表示_0.jpg" alt=""><br><img src="/2019/03/10/Tensorflow-3-Tensorflow入门/前向传播矩阵表示_1.jpg" alt=""></p>
-</li>
-<li><p>TensorFlowFlow中的矩阵乘法</p>
-<ul>
-<li>使用<code>tf.matmul()</code>实现矩阵的乘法</li>
-<li>例如  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = tf.matmul(x,w1)</span><br><span class="line">b = tf.matmul(a,w2)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="3-4-3-神经网络参数与TensorFlow变量"><a href="#3-4-3-神经网络参数与TensorFlow变量" class="headerlink" title="3.4.3 神经网络参数与TensorFlow变量"></a>3.4.3 神经网络参数与TensorFlow变量</h4><ul>
-<li><p>变量简介：变量 ( <code>tf.Variable</code> ) 的作用就是保存和更新神经网络中的参数</p>
-</li>
-<li><p>变量初始化</p>
-<ul>
-<li>TensorFlow中的变量需要指定初始值</li>
-<li>一个变量的值在被使用之前，这个变量的初始化过程需要被明确调用</li>
-<li><p>使用随机数初始化</p>
-<ul>
-<li><p>样例</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">weights = tf.Variable(tf.random_normal([<span class="number">2</span>,<span class="number">3</span>],stddev=<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>说明</p>
-<ul>
-<li>首先调用了TensorFlow变量的声明函数<code>tf.Variable</code></li>
-<li><code>tf.random_normal([2,3],stddev=2)</code> <ul>
-<li>用来产生一个2*3的矩阵</li>
-<li>矩阵中的元素是均值为0，标准差为2的随机数</li>
-<li>可以通过参数<code>mean</code>来指定平均值，在没有指定时默认为0</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>使用常数初始化</p>
-<ul>
-<li><p>样例</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">biases = tf.Variable(tf.zeros([<span class="number">3</span>]))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>说明：将产生一个初始值为0，长度为3的变量</p>
-</li>
-</ul>
-</li>
-<li>使用其他变量的初始值初始化<ul>
-<li>样例  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">w1 = tf.Variable(weights.initialized_value())</span><br><span class="line">w2 = tf.Variable(weights.initialized_value() * <span class="number">2.0</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>通过变量实现神经网络的参数并实现前向传播</p>
-<ul>
-<li><p>样例</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明w1、w2两个变量，并通过seed参数设置了随机种子</span></span><br><span class="line">w1 = tf.Variable(tf.random_normal((<span class="number">2</span>,<span class="number">3</span>),stddev=<span class="number">1</span>,seed=<span class="number">1</span>))</span><br><span class="line">w2 = tf.Variable(tf.random_normal((<span class="number">3</span>,<span class="number">1</span>),stddev=<span class="number">1</span>,seed=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将输入的特征向量定义为一个常量，x是一个2*1的矩阵</span></span><br><span class="line">x = tf.constant([[<span class="number">0.7</span>,<span class="number">0.9</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过矩阵乘法获得神经网络的输出</span></span><br><span class="line">a = tf.matmul(x,w1)</span><br><span class="line">y = tf.matmul(a,w2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># session的配置信息</span></span><br><span class="line">config=tf.ConfigProto(</span><br><span class="line">    allow_soft_placement=<span class="keyword">True</span>,</span><br><span class="line">    log_device_placement=<span class="keyword">True</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用session获得计算结果</span></span><br><span class="line"><span class="keyword">with</span> tf.Session(config=config) <span class="keyword">as</span> sess:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对w1、w2进行初始化的过程</span></span><br><span class="line">    sess.run(w1.initializer)</span><br><span class="line">    sess.run(w2.initializer)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 得到最终的运算结果</span></span><br><span class="line">    print(sess.run(y))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>说明</p>
-<ul>
-<li>第一步：定义计算图中的所有计算，也就是定义w1、w2、a和y的过程</li>
-<li>第二步：声明一个会话，并通过会话计算结果<ul>
-<li>计算前需要初始化<ul>
-<li>在计算最后的y时，需要将所有变量初始化</li>
-<li>也就是说，虽然在变量定义时给出了变量初始化的方法，但这个方法并没有真正的运行</li>
-</ul>
-</li>
-<li>使用函数<code>tf.global_variables_initializer()</code>直接初始化所有变量<ul>
-<li>样例  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">init_op = tf.global_variables_initializer()</span><br><span class="line">sess.run(init_op)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>变量与张量</p>
-<ul>
-<li>简介：变量只是一种特殊的张量</li>
-<li>说明：在TensorFlow中，变量的声明函数tf.Variable是一个运算，这个运算的输出结果就是一个张量，这个张量也就是变量，所以变量只是一种特殊的张量</li>
-</ul>
-</li>
-<li><p>变量与集合</p>
-<ul>
-<li>所有变量都自动加入到<code>GraphKeys.VARIABLES</code>这个集合中</li>
-<li>通过<code>tf.global_variables()</code>函数可以拿到当前计算图中的所有变量</li>
-<li>通过变量声明函数中的<code>trainable</code>参数来区分需要优化的参数(如神经网络中的参数)和其他不需要优化参数(如迭代的轮数)</li>
-<li>如果声明变量时参数<code>trainable</code>为<code>True</code>，则这个变量将会被加入到<code>GraphKeys.TRAINABLE_VARIABLES</code>集合中</li>
-<li>神经网络优化算法会将<code>GraphKeys.TRAINABLE_VARIABLES</code>集合中的变量作为默认的优化对象</li>
-</ul>
-</li>
-<li><p>变量的类型</p>
-<ul>
-<li>一个变量在构建之后，它的类型就不能再改变了</li>
-</ul>
-</li>
-<li><p>变量的维度</p>
-<ul>
-<li>维度在程序运行中是有可能改变的</li>
-<li>设置参数<code>validate_shape=False</code>就可以修改维度</li>
-<li>修改维度在实践中比较罕见</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="3-4-4-通过TensorFlow训练神经网络模型"><a href="#3-4-4-通过TensorFlow训练神经网络模型" class="headerlink" title="3.4.4 通过TensorFlow训练神经网络模型"></a>3.4.4 通过TensorFlow训练神经网络模型</h4><ul>
-<li><p>训练</p>
-<ul>
-<li>设置神经网络参数的过程就是神经网络的训练过程</li>
-<li>只有经过有效训练的神经网络模型才可以真正地解决分类或者回归问题</li>
-</ul>
-</li>
-<li><p>监督学习</p>
-<ul>
-<li>数据集：使用监督学习的方式设置神经网络参数需要有一个标注好的训练数据集</li>
-<li>思想<ul>
-<li>在已知答案(就是标注)的标注数据集上，模型给出的预测结果要尽量接近真实的答案</li>
-<li>通过调整神经网络中的参数对训练数据进行拟合，可以使得模型对未知的样本提供预测的能力</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>反向传播算法(backpropagation algorithm)</p>
-<ul>
-<li>流程<br><img src="/2019/03/10/Tensorflow-3-Tensorflow入门/反向传播流程图.jpg" alt=""></li>
-<li>简介：反向传播算法实现了一个迭代的过程</li>
-<li>步骤<ol>
-<li>在每次迭代的开始，首先需要选取一小部分训练数据，这一部分数据叫做一个<strong>batch</strong></li>
-<li>然后，这个batch的样例会通过前向传播算法得到神经网络模型的预测结果</li>
-<li>计算出当前神经网络模型的预测结果与正确答案之间的差距</li>
-<li>基于预测值和真实值之间的差距，反向传播算法会相应更新神经网络参数的取值</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>placeholder机制</p>
-<ul>
-<li>背景：如果每轮迭代中选取的数据都要通过常量来表示，那么TensorFlow的计算图将会太大，而且利用率低，为了避免这个问题，提供了placeholder机制用于提供输入数据</li>
-<li>简介<ul>
-<li>placeholder相当于定义了一个位置，这个位置中的数据在程序运行时再指定</li>
-<li>程序不需要生成大量常量来提供输入数据，只需要将数据通过placeholder传入TensorFlow计算图</li>
-<li>在placeholder定义时，这个位置上的数据类型是需要指定的，而且类型不可更改</li>
-</ul>
-</li>
-<li>样例代码  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">w1 = tf.Variable(tf.random_normal((<span class="number">2</span>, <span class="number">3</span>), stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line">w2 = tf.Variable(tf.random_normal((<span class="number">3</span>, <span class="number">1</span>), stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line"><span class="comment"># 此处使用tf.placeholder来声明一个placeholder</span></span><br><span class="line">x = tf.placeholder(tf.float32,shape=(<span class="number">3</span>, <span class="number">2</span>), name=<span class="string">"input"</span>)</span><br><span class="line">a = tf.matmul(x, w1)</span><br><span class="line">y = tf.matmul(a, w2)</span><br><span class="line">config=tf.ConfigProto(</span><br><span class="line">    allow_soft_placement=<span class="keyword">True</span>,</span><br><span class="line">    log_device_placement=<span class="keyword">True</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">with</span> tf.Session(config=config) <span class="keyword">as</span> sess:</span><br><span class="line">    init_op = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    <span class="comment"># 在程序运行时，才通过feed_dict给placeholder赋值</span></span><br><span class="line">    <span class="comment"># feed_dick是一个字典(map)，在字典中需要给出每个用到的placeholder的取值</span></span><br><span class="line">    print(sess.run(y, feed_dict=&#123;x: [[<span class="number">0.7</span>, <span class="number">0.9</span>], [<span class="number">0.1</span>, <span class="number">0.4</span>], [<span class="number">0.5</span>, <span class="number">0.8</span>]]&#125;))</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>损失函数</p>
-<ul>
-<li>在得到一个batch的前向传播结果后，需要定义一个损失函数来刻画当前的预测值和真实答案之间的差距</li>
-<li>然后通过反向传播算法来调整神经网络参数的取值使得差距可以被缩小</li>
-<li>交叉熵(cross entropy)是一个常用的损失函数</li>
-</ul>
-</li>
-<li><p>反向传播的优化方法</p>
-<ul>
-<li>即通过调整参数使得损失函数刻画的差距被缩小</li>
-<li>常用的优化方法有:<code>tf.train.GradientDescentOptimizer</code>、<code>tf.train.AdamOptimizer</code>和<code>tf.train.MomenttumOptimizer</code></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="3-4-5-完整神经网络样例程序"><a href="#3-4-5-完整神经网络样例程序" class="headerlink" title="3.4.5 完整神经网络样例程序"></a>3.4.5 完整神经网络样例程序</h4><ul>
-<li><p>样例程序</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> numpy.random <span class="keyword">import</span> RandomState</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义训练数据batch的大小</span></span><br><span class="line">batch_size = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义神经网络的参数</span></span><br><span class="line">w1 = tf.Variable(tf.random_normal([<span class="number">2</span>, <span class="number">3</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line">w2 = tf.Variable(tf.random_normal([<span class="number">3</span>, <span class="number">1</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用placeholder来定义输入数据</span></span><br><span class="line"><span class="comment"># 其中将shape的一个维度设置为None可以方便使用不同的batch大小</span></span><br><span class="line">x = tf.placeholder(tf.float32, shape=(<span class="keyword">None</span>, <span class="number">2</span>), name=<span class="string">"x-input"</span>)</span><br><span class="line">y_ = tf.placeholder(tf.float32, shape=(<span class="keyword">None</span>, <span class="number">1</span>), name=<span class="string">"y-input"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义神经网络前向传播的过程</span></span><br><span class="line">a = tf.matmul(x, w1)</span><br><span class="line">y = tf.matmul(a, w2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义损失函数</span></span><br><span class="line">y = tf.sigmoid(y)</span><br><span class="line">cross_entropy = -tf.reduce_mean(</span><br><span class="line">    y_ * tf.log(tf.clip_by_value(y, <span class="number">1e-10</span>, <span class="number">1.0</span>)) + (<span class="number">1</span>-y_) * tf.log(tf.clip_by_value(<span class="number">1</span>-y, <span class="number">1e-10</span>, <span class="number">1.0</span>))</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义优化过程</span></span><br><span class="line">train_step = tf.train.AdamOptimizer(<span class="number">0.001</span>).minimize(cross_entropy)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用Numpy生成随机数</span></span><br><span class="line">rdm = RandomState(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义数据集的大小</span></span><br><span class="line">dataset_size = <span class="number">128</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用前面的随机数来生成输入数据X和Y</span></span><br><span class="line">X = rdm.rand(dataset_size, <span class="number">2</span>)</span><br><span class="line">Y = [[int(x1+x2 &lt; <span class="number">1</span>)] <span class="keyword">for</span> (x1, x2) <span class="keyword">in</span> X]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启会话开始运算</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="comment"># 初始化所有变量</span></span><br><span class="line">    init_op = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init_op)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 训练开始之前打印参数</span></span><br><span class="line">    print(sess.run(w1))</span><br><span class="line">    print(sess.run(w2))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置训练的轮数</span></span><br><span class="line">    STEPS = <span class="number">5000</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 开启迭代的训练过程</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(STEPS):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 设置这一组batch的开始值和结束值</span></span><br><span class="line">        start = (i * batch_size) % dataset_size</span><br><span class="line">        end = min(start+batch_size, dataset_size)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 训练神经网络并更新参数</span></span><br><span class="line">        sess.run(train_step, feed_dict=&#123;</span><br><span class="line">            x: X[start:end],</span><br><span class="line">            y_: Y[start:end]</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 每隔1000轮算一遍交叉熵，以观察训练结果</span></span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">1000</span> == <span class="number">0</span>:</span><br><span class="line">            total_cross_entropy = sess.run(cross_entropy, feed_dict=&#123;x: X, y_: Y&#125;)</span><br><span class="line">            print(<span class="string">"After %d training step(s), cross entropy on all data is %g"</span> % (i, total_cross_entropy))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 训练结束打印参数</span></span><br><span class="line">    print(sess.run(w1))</span><br><span class="line">    print(sess.run(w2))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>训练神经网络的过程可以分为三个步骤</p>
-<ol>
-<li>定义神经网络的结构和前向传播的输出结果</li>
-<li>定义损失函数以及选择反向传播优化的算法</li>
-<li>生成会话(<code>tf.Session</code>)并且在训练数据上反复运行反向传播优化算法</li>
-</ol>
-<ul>
-<li>无论神经网络的结构如何变化，这三个步骤是不变的</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><hr>
-<ul>
-<li><p>计算图</p>
-<ul>
-<li>计算图是TensorFlow的计算模型</li>
-<li>所有TensorFlow的程序都是通过计算图的形式表示</li>
-<li>计算图的每一个节点都是一个运算</li>
-<li>计算图上的边表示了运算之间的数据传递关系</li>
-<li>计算图还保存了运行每个运算的设备信息以及运算之间的依赖关系</li>
-<li>计算图提供了管理不同集合的功能，并且TensorFlow会自动维护5个不同的默认集合</li>
-</ul>
-</li>
-<li><p>张量</p>
-<ul>
-<li>张量是TensorFlow的数据模型</li>
-<li>TensorFlow中所有运算的输入、输出都是张量</li>
-<li>张量本身并不存储任何数据，它只是对运算结果的引用</li>
-<li>通过张量，可以更好地组织TensorFlow程序</li>
-</ul>
-</li>
-<li><p>会话</p>
-<ul>
-<li>会话是TensorFlow的运算模型</li>
-<li>它管理一个TensorFlow程序拥有的系统资源</li>
-<li>所有的运算都是通过会话执行时</li>
+<li>维护由Saver类的某个实例持久化的所有TensorFlow模型文件的文件名</li>
+<li>用Saver自动生成且自动维护</li>
 </ul>
 </li>
 </ul>
@@ -837,7 +603,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -885,7 +651,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -896,7 +662,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -907,7 +673,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -963,7 +729,7 @@
         <h3 class="widget-title">TAGS</h3>
         <div id="myCanvasContainer" class="widget tagcloud">
           <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
           </canvas>
         </div>
       </div>
