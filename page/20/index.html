@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/03/YAML学习/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/07/树形动态规划-节点选择/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -268,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/03/YAML学习/" itemprop="url">YAML学习</a></h1>
+                <a class="post-title-link" href="/2019/03/07/树形动态规划-节点选择/" itemprop="url">树形动态规划--节点选择</a></h1>
         
 
         <div class="post-meta">
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-03T13:57:29+08:00">
-                2019-03-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-07T15:55:25+08:00">
+                2019-03-07
               </time>
             
 
@@ -303,8 +303,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/other/" itemprop="url" rel="index">
-                    <span itemprop="name">other</span>
+                  <a href="/categories/蓝桥杯/" itemprop="url" rel="index">
+                    <span itemprop="name">蓝桥杯</span>
                   </a>
                 </span>
 
@@ -342,75 +342,213 @@
       
         
           
-            <h2 id="YAML学习"><a href="#YAML学习" class="headerlink" title="YAML学习"></a>YAML学习</h2><h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h3><p>YAML语言的设计目标，就是方便人类书写。它实质上是一种通用的数据串行化格式</p>
-<h4 id="1-1-YAML的基本语法规则"><a href="#1-1-YAML的基本语法规则" class="headerlink" title="1.1 YAML的基本语法规则"></a>1.1 YAML的基本语法规则</h4><ol>
-<li><p>大小写敏感</p>
-</li>
-<li><p>使用缩进表示层级关系</p>
-</li>
-<li><p>缩进时不允许使用tab键，只允许使用空格</p>
-</li>
-<li><p>缩进的空格数目不重要，只要相同层级的元素左侧对齐即可</p>
-</li>
-<li><p>#表示注释，从这个字符一直到行尾，都会被解释器忽略</p>
-</li>
-</ol>
-<h4 id="1-2-YAML支持的数据结构有三种"><a href="#1-2-YAML支持的数据结构有三种" class="headerlink" title="1.2 YAML支持的数据结构有三种"></a>1.2 YAML支持的数据结构有三种</h4><ol>
-<li><p>对象: 键值对的集合, 又称为映射(mapping)/哈希(hashes)/字典(dictionary)</p>
-</li>
-<li><p>数组: 一组按次序排列的值, 又称为序列(sequence)/列表(list)</p>
-</li>
-<li><p>纯量(scalars): 单个的, 不可再分的值</p>
-</li>
-</ol>
-<h3 id="2-对象"><a href="#2-对象" class="headerlink" title="2 对象"></a>2 对象</h3><p>对象是一组键值对, 使用冒号结构表示<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">animal:</span> <span class="string">pets</span></span><br></pre></td></tr></table></figure></p>
-<p>转为JavaScript如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">animal</span>: <span class="string">'pets'</span>&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="3-数组"><a href="#3-数组" class="headerlink" title="3 数组"></a>3 数组</h3><p>一组连词线开头的行，构成一个数组</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="string">Cat</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">Dog</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">Goldfish</span></span><br></pre></td></tr></table></figure>
-<p>转为JavaScript如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">'Cat'</span>, <span class="string">'Dog'</span>, <span class="string">'Goldfish'</span>]</span><br></pre></td></tr></table></figure></p>
-<p>数据结构的子成员是一个数组，则可以在该项下面缩进一个空格<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span></span><br><span class="line"><span class="bullet"> -</span> <span class="string">Cat</span></span><br><span class="line"><span class="bullet"> -</span> <span class="string">Dog</span></span><br><span class="line"><span class="bullet"> -</span> <span class="string">Goldfish</span></span><br></pre></td></tr></table></figure></p>
-<p>转为 JavaScript 如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ [ <span class="string">'Cat'</span>, <span class="string">'Dog'</span>, <span class="string">'Goldfish'</span> ] ]</span><br></pre></td></tr></table></figure></p>
-<p>数组也可以采用行内表示法<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">animal:</span> <span class="string">[Cat,</span> <span class="string">Dog]</span></span><br></pre></td></tr></table></figure></p>
-<p>转为 JavaScript 如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">animal</span>: [ <span class="string">'Cat'</span>, <span class="string">'Dog'</span> ] &#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="4-复合结构"><a href="#4-复合结构" class="headerlink" title="4 复合结构"></a>4 复合结构</h3><p>对象和数组可以结合使用，形成复合结构。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">languages:</span></span><br><span class="line"><span class="bullet"> -</span> <span class="string">Ruby</span></span><br><span class="line"><span class="bullet"> -</span> <span class="string">Perl</span></span><br><span class="line"><span class="bullet"> -</span> <span class="string">Python</span> </span><br><span class="line"><span class="attr">websites:</span></span><br><span class="line"><span class="attr"> YAML:</span> <span class="string">yaml.org</span> </span><br><span class="line"><span class="attr"> Ruby:</span> <span class="string">ruby-lang.org</span> </span><br><span class="line"><span class="attr"> Python:</span> <span class="string">python.org</span> </span><br><span class="line"><span class="attr"> Perl:</span> <span class="string">use.perl.org</span></span><br></pre></td></tr></table></figure></p>
-<p>转为 JavaScript 如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">languages</span>: [ <span class="string">'Ruby'</span>, <span class="string">'Perl'</span>, <span class="string">'Python'</span> ],</span><br><span class="line">  websites: </span><br><span class="line">   &#123; <span class="attr">YAML</span>: <span class="string">'yaml.org'</span>,</span><br><span class="line">     Ruby: <span class="string">'ruby-lang.org'</span>,</span><br><span class="line">     Python: <span class="string">'python.org'</span>,</span><br><span class="line">     Perl: <span class="string">'use.perl.org'</span> &#125; &#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="5-纯量"><a href="#5-纯量" class="headerlink" title="5 纯量"></a>5 纯量</h3><p>纯量是最基本的、不可再分的值。以下数据类型都属于JavaScript纯量</p>
+            <h2 id="树形动态规划–节点选择"><a href="#树形动态规划–节点选择" class="headerlink" title="树形动态规划–节点选择"></a>树形动态规划–节点选择</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>有一棵 <code>n</code> 个节点的树，树上每个节点都有一个正整数权值。如果一个点被选择了，那么在树上和它相邻的点都不能被选择。求选出的点的权值和最大是多少？</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>此题目可以使用动态规划来求解，一个节点只有被选择和不被选择两种情况。</p>
+<p>首先构建一个名为dp的 <code>n * 2</code> 大小的矩阵，矩阵中的<code>dp[i][0]</code>表示不选择<code>i</code>节点时的权重最大值,<code>dp[i][1]</code>表示选择<code>i</code>节点时的权重最大值。最初时将矩阵中所有元素全部初始化为 <code>0</code> 。</p>
+<p>然后我们列出状态转移方程</p>
 <ul>
-<li>字符串</li>
-<li>布尔值</li>
-<li>整数</li>
-<li>浮点数</li>
-<li>Null</li>
-<li>时间</li>
-<li>日期</li>
+<li><p>假如 <code>i</code> 是叶子节点</p>
+<blockquote>
+<p>dp[i][0] = 0</p>
+<p>dp[i][1] = w(i)</p>
+</blockquote>
+</li>
+<li><p>假如 <code>i</code> 不是叶子节点</p>
+<blockquote>
+<p>dp[i][0] = ∑ max(dp[j][0], dp[j][1])</p>
+<p>dp[i][1] = w(i) + ∑ dp[j][0]</p>
+</blockquote>
+</li>
 </ul>
-<p>数值直接以字面量的形式表示。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">number:</span> <span class="number">12.30</span></span><br></pre></td></tr></table></figure>
-<p>转为 JavaScript 如下</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">number</span>: <span class="number">12.30</span> &#125;</span><br></pre></td></tr></table></figure>
-<p>布尔值用true和false表示</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">isSet:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p>转为 JavaScript 如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">isSet</span>: <span class="literal">true</span> &#125;</span><br></pre></td></tr></table></figure></p>
-<p><code>null</code>用<code>~</code>表示<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">parent:</span> <span class="string">~</span></span><br></pre></td></tr></table></figure></p>
-<p>转为 JavaScript 如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">parent</span>: <span class="literal">null</span> &#125;</span><br></pre></td></tr></table></figure></p>
-<p>时间采用 ISO8601 格式<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">start_time:</span> <span class="number">2001</span><span class="bullet">-12</span><span class="bullet">-14</span><span class="attr">t21:59:43.10-05:00</span></span><br></pre></td></tr></table></figure></p>
-<p>转为 JavaScript 如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">iso8601</span>: <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2001-12-14t21:59:43.10-05:00'</span>) &#125;</span><br></pre></td></tr></table></figure></p>
-<p>日期采用复合 iso8601 格式的年、月、日表示<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">date:</span> <span class="number">1976</span><span class="bullet">-07</span><span class="bullet">-31</span></span><br></pre></td></tr></table></figure></p>
-<p>转为JavaScript如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">date</span>: <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'1976-07-31'</span>) &#125;</span><br></pre></td></tr></table></figure></p>
-<p>YAML 允许使用两个感叹号，强制转换数据类型<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">e:</span> <span class="type">!!str</span> <span class="number">123</span></span><br><span class="line"><span class="attr">f:</span> <span class="type">!!str</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
-<p>转为 JavaScript 如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">e</span>: <span class="string">'123'</span>, <span class="attr">f</span>: <span class="string">'true'</span> &#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="6-字符串"><a href="#6-字符串" class="headerlink" title="6 字符串"></a>6 字符串</h3><p>字符串是最常见，也是最复杂的一种数据类型</p>
-<p>字符串默认不使用引号表示</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">str:</span> <span class="string">这是一行字符串</span></span><br></pre></td></tr></table></figure>
-<p>如果字符串之中包含空格或特殊字符，需要放在引号之中<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">str:</span> <span class="string">'内容： 字符串'</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="7-引用"><a href="#7-引用" class="headerlink" title="7 引用"></a>7 引用</h3><p>锚点<code>&amp;</code>和别名<code>*</code>，可以用来引用。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">defaults:</span> <span class="meta">&amp;defaults</span></span><br><span class="line"><span class="attr">  adapter:</span>  <span class="string">postgres</span></span><br><span class="line"><span class="attr">  host:</span>     <span class="string">localhost</span></span><br><span class="line"></span><br><span class="line"><span class="attr">development:</span></span><br><span class="line"><span class="attr">  database:</span> <span class="string">myapp_development</span></span><br><span class="line">  <span class="string">&lt;&lt;:</span> <span class="meta">*defaults</span></span><br><span class="line"></span><br><span class="line"><span class="attr">test:</span></span><br><span class="line"><span class="attr">  database:</span> <span class="string">myapp_test</span></span><br><span class="line">  <span class="string">&lt;&lt;:</span> <span class="meta">*defaults</span></span><br></pre></td></tr></table></figure>
-<p>等同于下面的代码<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">defaults:</span></span><br><span class="line"><span class="attr">  adapter:</span>  <span class="string">postgres</span></span><br><span class="line"><span class="attr">  host:</span>     <span class="string">localhost</span></span><br><span class="line"></span><br><span class="line"><span class="attr">development:</span></span><br><span class="line"><span class="attr">  database:</span> <span class="string">myapp_development</span></span><br><span class="line"><span class="attr">  adapter:</span>  <span class="string">postgres</span></span><br><span class="line"><span class="attr">  host:</span>     <span class="string">localhost</span></span><br><span class="line"></span><br><span class="line"><span class="attr">test:</span></span><br><span class="line"><span class="attr">  database:</span> <span class="string">myapp_test</span></span><br><span class="line"><span class="attr">  adapter:</span>  <span class="string">postgres</span></span><br><span class="line"><span class="attr">  host:</span>     <span class="string">localhost</span></span><br></pre></td></tr></table></figure></p>
-<p><code>&amp;</code>用来建立锚点（<code>defaults</code>），<code>&lt;&lt;</code>表示合并到当前数据，<code>*</code>用来引用锚点</p>
-<p>下面是另一个例子<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="meta">&amp;showell</span> <span class="string">Steve</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">Clark</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">Brian</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">Oren</span> </span><br><span class="line"><span class="bullet">-</span> <span class="meta">*showell</span></span><br></pre></td></tr></table></figure></p>
-<p>转为 JavaScript 代码如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ <span class="string">'Steve'</span>, <span class="string">'Clark'</span>, <span class="string">'Brian'</span>, <span class="string">'Oren'</span>, <span class="string">'Steve'</span> ]</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2019/03/03/YAML学习/IBM_5100.jpg" alt=""></p>
-<p><img src="/2019/03/03/YAML学习/zhizhi.jpg" alt=""></p>
+<p>接下来按照后序遍历的顺序遍历整个树，来完成dp矩阵中所有值的计算，举例如下</p>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><p>输入的树如图所示，共有五个节点，每个节点的权重值标注在其右侧。<br><img src="/2019/03/07/树形动态规划-节点选择/Tree_dp_0.png" alt=""></p>
+<p>按照后序遍历，节点遍历顺序为 <code>3 -&gt; 4 -&gt; 5 -&gt; 2 -&gt; 1</code></p>
+<h4 id="1-初始化状态"><a href="#1-初始化状态" class="headerlink" title="1 初始化状态"></a>1 初始化状态</h4><table>
+<thead>
+<tr>
+<th>Select\Node</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-后序遍历到3号节点"><a href="#2-后序遍历到3号节点" class="headerlink" title="2 后序遍历到3号节点"></a>2 后序遍历到3号节点</h4><table>
+<thead>
+<tr>
+<th>Select\Node</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-后序遍历到4号节点"><a href="#3-后序遍历到4号节点" class="headerlink" title="3 后序遍历到4号节点"></a>3 后序遍历到4号节点</h4><table>
+<thead>
+<tr>
+<th>Select\Node</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<h4 id="4-后序遍历到5号节点"><a href="#4-后序遍历到5号节点" class="headerlink" title="4 后序遍历到5号节点"></a>4 后序遍历到5号节点</h4><table>
+<thead>
+<tr>
+<th>Select\Node</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<h4 id="5-后序遍历到2号节点"><a href="#5-后序遍历到2号节点" class="headerlink" title="5 后序遍历到2号节点"></a>5 后序遍历到2号节点</h4><table>
+<thead>
+<tr>
+<th>Select\Node</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>9</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<h4 id="6-后序遍历到1号节点"><a href="#6-后序遍历到1号节点" class="headerlink" title="6 后序遍历到1号节点"></a>6 后序遍历到1号节点</h4><table>
+<thead>
+<tr>
+<th>Select\Node</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>5</td>
+<td>9</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>10</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>此时取根节点位置 <code>0</code> 和 位置 <code>1</code> 中值较大者即可，本例中显然 <code>5 &lt; 10</code> ,所以最终结果为 <code>10</code> </p>
+<h3 id="代码-java"><a href="#代码-java" class="headerlink" title="代码(java)"></a>代码(java)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> node_num;</span><br><span class="line">    <span class="keyword">int</span>[] weight;</span><br><span class="line">    ArrayList&lt;Integer&gt;[] adjacencyTable;</span><br><span class="line">    <span class="keyword">int</span>[][] dp;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">generate_dp</span><span class="params">(<span class="keyword">int</span> node_id, <span class="keyword">int</span> parent_id)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> temp_id: adjacencyTable[node_id]) &#123;</span><br><span class="line">            <span class="keyword">if</span>(temp_id != parent_id)&#123;</span><br><span class="line">                generate_dp(temp_id, node_id);</span><br><span class="line">                dp[node_id][<span class="number">0</span>] += Math.max(dp[temp_id][<span class="number">0</span>], dp[temp_id][<span class="number">1</span>]);</span><br><span class="line">                dp[node_id][<span class="number">1</span>] += dp[temp_id][<span class="number">0</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[node_id][<span class="number">1</span>] += weight[node_id];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Scanner scanner = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        node_num = scanner.nextInt();</span><br><span class="line">        weight = <span class="keyword">new</span> <span class="keyword">int</span>[node_num];</span><br><span class="line">        adjacencyTable = <span class="keyword">new</span> ArrayList[node_num];</span><br><span class="line">        dp = <span class="keyword">new</span> <span class="keyword">int</span>[node_num][<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; node_num; i ++)&#123;</span><br><span class="line">            weight[i] = scanner.nextInt();</span><br><span class="line">            adjacencyTable[i]= <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; node_num - <span class="number">1</span>; i ++)&#123;</span><br><span class="line">            <span class="keyword">int</span> node_1 = scanner.nextInt() - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> node_2 = scanner.nextInt() - <span class="number">1</span>;</span><br><span class="line">            adjacencyTable[node_1].add(node_2);</span><br><span class="line">            adjacencyTable[node_2].add(node_1);</span><br><span class="line">        &#125;</span><br><span class="line">        generate_dp(<span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line">        System.out.println(Math.max(dp[<span class="number">0</span>][<span class="number">0</span>], dp[<span class="number">0</span>][<span class="number">1</span>]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Main().run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注: oj只有50分，后5个点超时</p>
+<h3 id="代码-转-c"><a href="#代码-转-c" class="headerlink" title="代码(转, c ++)"></a>代码(转, c ++)</h3><p>原文链接 <a href="https://www.liuchuo.net/archives/3937" target="_blank" rel="noopener">蓝桥杯 ALGO-4 算法训练 结点选择</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">100010</span>][<span class="number">2</span>];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; v;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> node, <span class="keyword">int</span> pre)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v[node].size(); i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> temp = v[node][i];</span><br><span class="line">        <span class="keyword">if</span> (temp != pre) &#123;</span><br><span class="line">            dfs(temp, node);</span><br><span class="line">            dp[node][<span class="number">0</span>] += max(dp[temp][<span class="number">0</span>], dp[temp][<span class="number">1</span>]);</span><br><span class="line">            dp[node][<span class="number">1</span>] += dp[temp][<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, a, b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;dp[i][<span class="number">1</span>]);</span><br><span class="line">    v.resize(n + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">        v[a].push_back(b);</span><br><span class="line">        v[b].push_back(a);</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; max(dp[<span class="number">1</span>][<span class="number">0</span>], dp[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另: 柳神是我的!!!</p>
 
           
         
@@ -450,7 +588,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/19/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/21/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/19/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/21/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -498,7 +636,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -509,7 +647,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -520,7 +658,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -576,7 +714,7 @@
         <h3 class="widget-title">TAGS</h3>
         <div id="myCanvasContainer" class="widget tagcloud">
           <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
           </canvas>
         </div>
       </div>

@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="敏捷开发,敏捷原则,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="2 敏捷原则敏捷宣言的签订者很快对4则价值观达成共识，但是他们在宣言的12条附加原则上耗费的时间较长。 我们把这些原则分为四个类别：交付、沟通、执行和改进 客户不总是对的，要向人们提供真正需要的东西，而不是提供他们要求的东西 为了考虑变化，团队应当在项目中的很多时间点快速地改变自己的方向。“预先指定大计划”的瀑布流开发方式限制了团队响应这些变化的灵活性 2.1 交付项目2.1.1 原则1：最优先要">
+<meta name="keywords" content="敏捷开发,敏捷原则">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[敏捷开发][2][敏捷原则]">
+<meta property="og:url" content="http://yoursite.com/2019/05/22/敏捷开发-2-敏捷原则/index.html">
+<meta property="og:site_name" content="打怪升级日常">
+<meta property="og:description" content="2 敏捷原则敏捷宣言的签订者很快对4则价值观达成共识，但是他们在宣言的12条附加原则上耗费的时间较长。 我们把这些原则分为四个类别：交付、沟通、执行和改进 客户不总是对的，要向人们提供真正需要的东西，而不是提供他们要求的东西 为了考虑变化，团队应当在项目中的很多时间点快速地改变自己的方向。“预先指定大计划”的瀑布流开发方式限制了团队响应这些变化的灵活性 2.1 交付项目2.1.1 原则1：最优先要">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-22T15:13:16.297Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[敏捷开发][2][敏捷原则]">
+<meta name="twitter:description" content="2 敏捷原则敏捷宣言的签订者很快对4则价值观达成共识，但是他们在宣言的12条附加原则上耗费的时间较长。 我们把这些原则分为四个类别：交付、沟通、执行和改进 客户不总是对的，要向人们提供真正需要的东西，而不是提供他们要求的东西 为了考虑变化，团队应当在项目中的很多时间点快速地改变自己的方向。“预先指定大计划”的瀑布流开发方式限制了团队响应这些变化的灵活性 2.1 交付项目2.1.1 原则1：最优先要">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/22/敏捷开发-2-敏捷原则/">
+
+
+
+
+
+  <title>[敏捷开发][2][敏捷原则] | 打怪升级日常</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/T0UGH" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">打怪升级日常</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">两星炸弹人(╯‵□′)╯炸弹！•••</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/敏捷开发-2-敏捷原则/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="T0UGH(GuiPing Wang)">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/33653960?s=400&u=eb438b904ecb9d91f3aa9b777155a6488599493b&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="打怪升级日常">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[敏捷开发][2][敏捷原则]</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T23:12:35+08:00">
+                2019-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/敏捷开发/" itemprop="url" rel="index">
+                    <span itemprop="name">敏捷开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="2-敏捷原则"><a href="#2-敏捷原则" class="headerlink" title="2 敏捷原则"></a>2 敏捷原则</h2><p>敏捷宣言的签订者很快对4则价值观达成共识，但是他们在宣言的<strong>12条附加原则</strong>上耗费的时间较长。</p>
+<p>我们把这些原则分为四个<strong>类别</strong>：交付、沟通、执行和改进</p>
+<p><strong>客户不总是对的</strong>，要向人们提供真正需要的东西，而不是提供他们要求的东西</p>
+<p>为了考虑变化，团队应当在项目中的很多时间点<strong>快速地改变</strong>自己的方向。“预先指定大计划”的瀑布流开发方式限制了团队响应这些变化的灵活性</p>
+<h3 id="2-1-交付项目"><a href="#2-1-交付项目" class="headerlink" title="2.1 交付项目"></a>2.1 交付项目</h3><h4 id="2-1-1-原则1：最优先要做的是尽早、持续地交付有价值的软件，让客户满意"><a href="#2-1-1-原则1：最优先要做的是尽早、持续地交付有价值的软件，让客户满意" class="headerlink" title="2.1.1 原则1：最优先要做的是尽早、持续地交付有价值的软件，让客户满意"></a>2.1.1 原则1：最优先要做的是尽早、持续地交付有价值的软件，让客户满意</h4><p>这条原则包含三个<strong>独立概念</strong></p>
+<ul>
+<li>尽早发布软件</li>
+<li>持续交付价值</li>
+<li>让客户满意</li>
+</ul>
+<p>既然客户只有在看到了可工作的软件之后才能给你真实有信息量的反馈，那么<strong>获得反馈</strong>的最佳方式就是<strong>尽早交付</strong></p>
+<p>敏捷团队选择出能交付最大价值的特性和需求，并据此计划项目的迭代，来<strong>持续交付有价值的软件</strong></p>
+<h4 id="2-1-2-原则2：欣然面对需求变化，即使是在开发后期。敏捷过程利用变化位用户维持竞争优势"><a href="#2-1-2-原则2：欣然面对需求变化，即使是在开发后期。敏捷过程利用变化位用户维持竞争优势" class="headerlink" title="2.1.2 原则2：欣然面对需求变化，即使是在开发后期。敏捷过程利用变化位用户维持竞争优势"></a>2.1.2 原则2：欣然面对需求变化，即使是在开发后期。敏捷过程利用变化位用户维持竞争优势</h4><blockquote>
+<p>大多数软件工程师都是在<strong>技术自豪感</strong>的驱动下工作的：我们交付的产品我们能负责，而且能满足用户的需求。而项目中发生的<strong>变化</strong>则对这种自豪感产生了<strong>威胁</strong>，因为变化意味着质疑你采用的方法和设想</p>
+</blockquote>
+<p>可以尝试<strong>从客户的角度</strong>看问题，客户无法预测未来，所以肯定会发生变化，理想的客户是不存在的</p>
+<p>欣然面对变化意味着</p>
+<ul>
+<li>不要认为有变化就会有人<strong>倒霉</strong>。</li>
+<li>我们是一条绳子上的蚂蚱。<strong>团队中的每个成员</strong>，包括客户都要对需求和需求的变化<strong>负责</strong>。</li>
+<li>我们<strong>不把变化拖到最后</strong>。</li>
+<li>我们<strong>不要再把变化当成犯错</strong>。考虑到当时掌握的信息，我们已经做出了最好的决策，这个决策本身没有错误。</li>
+<li>我们通过变化<strong>学到东西</strong></li>
+</ul>
+<h4 id="2-1-3-原则3：频繁交付可工作的软件，从数周到数月，交付周期越短越好"><a href="#2-1-3-原则3：频繁交付可工作的软件，从数周到数月，交付周期越短越好" class="headerlink" title="2.1.3 原则3：频繁交付可工作的软件，从数周到数月，交付周期越短越好"></a>2.1.3 原则3：频繁交付可工作的软件，从数周到数月，交付周期越短越好</h4><p>传统的<strong>应对变化</strong>的方式：<strong>命令-控制</strong>模式</p>
+<ul>
+<li><strong>命令</strong>指的是项目经理给团队分配任务的方式，项目经理可以控制所有人的任务分配</li>
+<li><strong>控制</strong>指的是项目经理管理变化的方式。项目经理不断监控这些变化的发生并更新项目计划，来引入变化</li>
+</ul>
+<p>敏捷中<strong>应对变化</strong>的方式：<strong>频繁发布可工作的软件</strong></p>
+<ul>
+<li><p>团队通过<strong>迭代</strong>将项目分割至定期的截止时间。在每一轮迭代中，团队都要发布可工作软件</p>
+</li>
+<li><p>可预测的<strong>进度安排</strong>(每日站立会议和迭代启动会议)和<strong>持续检查</strong>(回顾会议)可以帮助团队尽早掌握变化，并且大家一起制订解决这些变化的方式</p>
+</li>
+</ul>
+<h3 id="2-2-沟通和合作"><a href="#2-2-沟通和合作" class="headerlink" title="2.2 沟通和合作"></a>2.2 沟通和合作</h3><p>在传统观念中，人们把软件文档看作是一种<strong>必须的文档管理系统</strong>。如果这个系统具有可以跟踪性，可以理清所有信息之间的所有关系，那么需要的产品、测试，以及部署和维护方式便<strong>一目了然</strong></p>
+<p>对于敏捷团队来说：只需要写<strong>够项目开发</strong>用的文档就行。敏捷并不是完全放弃文档，但是如果一种文档<strong>不能给团队开发软件带来帮助</strong>，那么<strong>就没有写下来的必要</strong>。</p>
+<h4 id="2-2-1-原则4：在团队内外，面对面交谈是最有效、也是最高效的沟通方式"><a href="#2-2-1-原则4：在团队内外，面对面交谈是最有效、也是最高效的沟通方式" class="headerlink" title="2.2.1 原则4：在团队内外，面对面交谈是最有效、也是最高效的沟通方式"></a>2.2.1 原则4：在团队内外，面对面交谈是最有效、也是最高效的沟通方式</h4><p>在软件团队中，<strong>面对面的沟通方式</strong>几乎总是优于文档沟通。敏捷沟通实践更关注个人与个人的沟通，而文档则用于记录那些以后需要回忆具体细节的复杂信息</p>
+<p>团队沟通的终极目标是形成一种<strong>集体意识</strong>，在成员之间建立不必直说就能领悟的共同知识</p>
+<h4 id="2-2-2-原则5：在整个项目过程中，业务人员和开发人员必须每天都在一起工作"><a href="#2-2-2-原则5：在整个项目过程中，业务人员和开发人员必须每天都在一起工作" class="headerlink" title="2.2.2 原则5：在整个项目过程中，业务人员和开发人员必须每天都在一起工作"></a>2.2.2 原则5：在整个项目过程中，业务人员和开发人员必须每天都在一起工作</h4><p>为了出色地完成软件开发，<strong>开发团队需要与业务人员进行大量面对面的讨论</strong>。业务人员了解需要什么软件，而开发团队可以通过讨论了解这些。</p>
+<p>当业务人员和开发人员同在团队中开发软件的时候，最有效的方式就是让他们<strong>在项目完整周期内每天坐在一起工作</strong>。这样可以<strong>尽早处理变化</strong>。</p>
+<p>而开发团队应该<strong>把最有价值的特性优先开发</strong>，这样的话，业务人员可以第一时间<strong>享用</strong>这些价值。</p>
+<h4 id="2-2-3-原则6：以受激励的个体为核心构建项目，为他们提供环境和支持，相信他们可以把工作做好"><a href="#2-2-3-原则6：以受激励的个体为核心构建项目，为他们提供环境和支持，相信他们可以把工作做好" class="headerlink" title="2.2.3 原则6：以受激励的个体为核心构建项目，为他们提供环境和支持，相信他们可以把工作做好"></a>2.2.3 原则6：以受激励的个体为核心构建项目，为他们提供环境和支持，相信他们可以把工作做好</h4><p>所有人的绩效应该根据<strong>团队交付的成果</strong>来评定，而不是根据每个人自己的角色来判定</p>
+<h3 id="2-3-项目实施"><a href="#2-3-项目实施" class="headerlink" title="2.3 项目实施"></a>2.3 项目实施</h3><h4 id="2-3-1-原则7：可工作的软件是衡量进度的首要标准"><a href="#2-3-1-原则7：可工作的软件是衡量进度的首要标准" class="headerlink" title="2.3.1 原则7：可工作的软件是衡量进度的首要标准"></a>2.3.1 原则7：可工作的软件是衡量进度的首要标准</h4><p><strong>可工作的软件</strong>可以更好的给所有人<strong>汇报项目最新进展</strong>，因为这是团队用来交流当前已经完成工作的最好方式</p>
+<h4 id="2-3-2-原则8：敏捷过程倡导可持续开发。赞助商、开发人员和用户要能够共同、长期维持其步调"><a href="#2-3-2-原则8：敏捷过程倡导可持续开发。赞助商、开发人员和用户要能够共同、长期维持其步调" class="headerlink" title="2.3.2 原则8：敏捷过程倡导可持续开发。赞助商、开发人员和用户要能够共同、长期维持其步调"></a>2.3.2 原则8：敏捷过程倡导可持续开发。赞助商、开发人员和用户要能够共同、长期维持其步调</h4><p>敏捷团队信奉的是<strong>维持可持续的开发节奏</strong>。他们会<strong>针对预留的时间制订切实可完成的计划</strong>。通过迭代式的开发，这种计划的可行性很高，因为预估接下来的两周、四周或六周的工作量远比预估未来一年半的工作量要简单的多。</p>
+<h4 id="2-3-3-原则9：坚持不懈地追求技术卓越和设计优越，以此增强敏捷的能力"><a href="#2-3-3-原则9：坚持不懈地追求技术卓越和设计优越，以此增强敏捷的能力" class="headerlink" title="2.3.3 原则9：坚持不懈地追求技术卓越和设计优越，以此增强敏捷的能力"></a>2.3.3 原则9：坚持不懈地追求技术卓越和设计优越，以此增强敏捷的能力</h4><p>设计良好并很好实现的软件可以最快交付，因为这种软件修改起来很容易。</p>
+<p>敏捷开发人员会培养起很好的编程习惯，从而帮助自己编写设计良好的代码</p>
+<h3 id="2-4-持续改进"><a href="#2-4-持续改进" class="headerlink" title="2.4 持续改进"></a>2.4 持续改进</h3><h4 id="2-4-1-原则10：简单是尽最大可能减少不必要工作的艺术，是敏捷的根本"><a href="#2-4-1-原则10：简单是尽最大可能减少不必要工作的艺术，是敏捷的根本" class="headerlink" title="2.4.1 原则10：简单是尽最大可能减少不必要工作的艺术，是敏捷的根本"></a>2.4.1 原则10：简单是尽最大可能减少不必要工作的艺术，是敏捷的根本</h4><p>采用<strong>迭代式</strong>开发以及在项目初期将<strong>文档量控制</strong>到最小，可以避免交付不必要的软件</p>
+<p>敏捷团队<strong>避免开发不必要的特性</strong>以及<strong>过于复杂</strong>的软件，保证给出的解决方案尽可能简单</p>
+<h4 id="2-4-2-原则11：最好的架构、需求和设计来自自组织的团队"><a href="#2-4-2-原则11：最好的架构、需求和设计来自自组织的团队" class="headerlink" title="2.4.2 原则11：最好的架构、需求和设计来自自组织的团队"></a>2.4.2 原则11：最好的架构、需求和设计来自自组织的团队</h4><p>在敏捷团队中，所有人都对<strong>架构</strong>负责</p>
+<p>自组织团队并没有明确的<strong>需求</strong>和<strong>设计</strong>环节。自组织团队不依赖某个负责计划的人，会用合作的方式对项目进行规划。他们先把<strong>项目分解为</strong>多个<strong>用户故事</strong>，从能够给公司带来最大价值的用户故事着手，<strong>然后再考虑</strong>详细的需求、设计和架构。</p>
+<h4 id="2-4-3-原则12：团队定期反思如何提升效率，并依次调整"><a href="#2-4-3-原则12：团队定期反思如何提升效率，并依次调整" class="headerlink" title="2.4.3 原则12：团队定期反思如何提升效率，并依次调整"></a>2.4.3 原则12：团队定期反思如何提升效率，并依次调整</h4><p>敏捷团队再每一轮迭代结束的时候和项目结束的时候会花时间总结过去，讨论总结经验，提高开发软件的能力</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/敏捷开发/" rel="tag"><i class="fa fa-tag"></i> 敏捷开发</a>
+          
+            <a href="/tags/敏捷原则/" rel="tag"><i class="fa fa-tag"></i> 敏捷原则</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/22/敏捷开发-1-敏捷宣言/" rel="next" title="[敏捷开发][1][敏捷宣言]">
+                <i class="fa fa-chevron-left"></i> [敏捷开发][1][敏捷宣言]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/22/敏捷开发-3-Scrum和自组织团队/" rel="prev" title="[敏捷开发][3][Scrum和自组织团队]">
+                [敏捷开发][3][Scrum和自组织团队] <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/33653960?s=400&u=eb438b904ecb9d91f3aa9b777155a6488599493b&v=4" alt="T0UGH(GuiPing Wang)">
+            
+              <p class="site-author-name" itemprop="name">T0UGH(GuiPing Wang)</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/T0UGH" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="tough.neu.edu@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-敏捷原则"><span class="nav-number">1.</span> <span class="nav-text">2 敏捷原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-交付项目"><span class="nav-number">1.1.</span> <span class="nav-text">2.1 交付项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-原则1：最优先要做的是尽早、持续地交付有价值的软件，让客户满意"><span class="nav-number">1.1.1.</span> <span class="nav-text">2.1.1 原则1：最优先要做的是尽早、持续地交付有价值的软件，让客户满意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-原则2：欣然面对需求变化，即使是在开发后期。敏捷过程利用变化位用户维持竞争优势"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.1.2 原则2：欣然面对需求变化，即使是在开发后期。敏捷过程利用变化位用户维持竞争优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-原则3：频繁交付可工作的软件，从数周到数月，交付周期越短越好"><span class="nav-number">1.1.3.</span> <span class="nav-text">2.1.3 原则3：频繁交付可工作的软件，从数周到数月，交付周期越短越好</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-沟通和合作"><span class="nav-number">1.2.</span> <span class="nav-text">2.2 沟通和合作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-原则4：在团队内外，面对面交谈是最有效、也是最高效的沟通方式"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.2.1 原则4：在团队内外，面对面交谈是最有效、也是最高效的沟通方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-原则5：在整个项目过程中，业务人员和开发人员必须每天都在一起工作"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2.2 原则5：在整个项目过程中，业务人员和开发人员必须每天都在一起工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3-原则6：以受激励的个体为核心构建项目，为他们提供环境和支持，相信他们可以把工作做好"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.2.3 原则6：以受激励的个体为核心构建项目，为他们提供环境和支持，相信他们可以把工作做好</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-项目实施"><span class="nav-number">1.3.</span> <span class="nav-text">2.3 项目实施</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-原则7：可工作的软件是衡量进度的首要标准"><span class="nav-number">1.3.1.</span> <span class="nav-text">2.3.1 原则7：可工作的软件是衡量进度的首要标准</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-原则8：敏捷过程倡导可持续开发。赞助商、开发人员和用户要能够共同、长期维持其步调"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.3.2 原则8：敏捷过程倡导可持续开发。赞助商、开发人员和用户要能够共同、长期维持其步调</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-原则9：坚持不懈地追求技术卓越和设计优越，以此增强敏捷的能力"><span class="nav-number">1.3.3.</span> <span class="nav-text">2.3.3 原则9：坚持不懈地追求技术卓越和设计优越，以此增强敏捷的能力</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-持续改进"><span class="nav-number">1.4.</span> <span class="nav-text">2.4 持续改进</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-1-原则10：简单是尽最大可能减少不必要工作的艺术，是敏捷的根本"><span class="nav-number">1.4.1.</span> <span class="nav-text">2.4.1 原则10：简单是尽最大可能减少不必要工作的艺术，是敏捷的根本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-2-原则11：最好的架构、需求和设计来自自组织的团队"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.4.2 原则11：最好的架构、需求和设计来自自组织的团队</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-3-原则12：团队定期反思如何提升效率，并依次调整"><span class="nav-number">1.4.3.</span> <span class="nav-text">2.4.3 原则12：团队定期反思如何提升效率，并依次调整</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    
+      <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+      <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+      <div class="widget-wrap">
+        <h3 class="widget-title">TAGS</h3>
+        <div id="myCanvasContainer" class="widget tagcloud">
+          <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+          </canvas>
+        </div>
+      </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">T0UGH(GuiPing Wang)</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

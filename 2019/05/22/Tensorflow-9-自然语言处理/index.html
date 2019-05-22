@@ -83,21 +83,21 @@
 <meta name="keywords" content="深度学习,Tensorflow,NLP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Tensorflow][9]自然语言处理">
-<meta property="og:url" content="http://yoursite.com/2019/03/10/Tensorflow-9-自然语言处理/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/05/22/Tensorflow-9-自然语言处理/index.html">
 <meta property="og:site_name" content="打怪升级日常">
 <meta property="og:description" content="第9章 自然语言处理 发展历程 在自然语言处理研究的早期，人们试图整理出关于自然语言的语法，并根据这些语法去理解和生成句子 从20世纪80年代起，随着硬件计算能力的增强和大型语料库的出现，使用统计方法对语言进行概率建模的方式开始变成主流 从2010年起，基于循环神经网络的方法在许多自然语言处理的问题上超越了传统的统计模型     9.1 语言模型的背景知识9.1.1 语言模型简介 语言模型简介">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-9-自然语言处理/n-gram概率公式.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-9-自然语言处理/n-gramMLE方法.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-9-自然语言处理/RNN自然语言建模.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-9-自然语言处理/将整个文档前后连接示意图.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-9-自然语言处理/按固定长度切分文档示意图.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/03/10/Tensorflow-9-自然语言处理/将长序列切分为batch示意图.jpg">
-<meta property="og:updated_time" content="2019-03-10T07:08:40.870Z">
+<meta property="og:image" content="http://yoursite.com/2019/05/22/Tensorflow-9-自然语言处理/n-gram概率公式.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/05/22/Tensorflow-9-自然语言处理/n-gramMLE方法.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/05/22/Tensorflow-9-自然语言处理/RNN自然语言建模.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/05/22/Tensorflow-9-自然语言处理/将整个文档前后连接示意图.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/05/22/Tensorflow-9-自然语言处理/按固定长度切分文档示意图.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/05/22/Tensorflow-9-自然语言处理/将长序列切分为batch示意图.jpg">
+<meta property="og:updated_time" content="2019-03-10T07:08:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Tensorflow][9]自然语言处理">
 <meta name="twitter:description" content="第9章 自然语言处理 发展历程 在自然语言处理研究的早期，人们试图整理出关于自然语言的语法，并根据这些语法去理解和生成句子 从20世纪80年代起，随着硬件计算能力的增强和大型语料库的出现，使用统计方法对语言进行概率建模的方式开始变成主流 从2010年起，基于循环神经网络的方法在许多自然语言处理的问题上超越了传统的统计模型     9.1 语言模型的背景知识9.1.1 语言模型简介 语言模型简介">
-<meta name="twitter:image" content="http://yoursite.com/2019/03/10/Tensorflow-9-自然语言处理/n-gram概率公式.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/22/Tensorflow-9-自然语言处理/n-gram概率公式.jpg">
 
 
 
@@ -127,7 +127,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/10/Tensorflow-9-自然语言处理/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/22/Tensorflow-9-自然语言处理/">
 
 
 
@@ -260,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Tensorflow-9-自然语言处理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Tensorflow-9-自然语言处理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -289,8 +289,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-10T15:05:25+08:00">
-                2019-03-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T21:57:03+08:00">
+                2019-05-22
               </time>
             
 
@@ -396,12 +396,12 @@
 <li><p>n-gram</p>
 <ul>
 <li>为了控制参数的数量，n-gram模型做了一个有限历史假设：当前单词的出现概率仅仅与前面的<code>n-1</code>个单词相关</li>
-<li>公式如下<br><img src="/2019/03/10/Tensorflow-9-自然语言处理/n-gram概率公式.jpg" alt=""></li>
+<li>公式如下<br><img src="/2019/05/22/Tensorflow-9-自然语言处理/n-gram概率公式.jpg" alt=""></li>
 <li>n-gram模型中的n指的是当前单词依赖它前面的单词的个数</li>
 <li>通常n可以取1、2、3、4，其中n取1、2、3时分别称为unigram、bigram、trigram</li>
 <li>假设某种语言的单词表大小为V，那么n-gram模型需要估计的不同参数数量为O(pow(v, n))量级</li>
 <li>当n越大时，n-gram模型在理论上越准确，但也越复杂，需要的计算量和训练语料数据量也越大</li>
-<li>n-gram模型的参数一般采用最大似然估计(Maximum Likelihood Estimation, MLE)方法计算<br><img src="/2019/03/10/Tensorflow-9-自然语言处理/n-gramMLE方法.jpg" alt=""></li>
+<li>n-gram模型的参数一般采用最大似然估计(Maximum Likelihood Estimation, MLE)方法计算<br><img src="/2019/05/22/Tensorflow-9-自然语言处理/n-gramMLE方法.jpg" alt=""></li>
 <li>训练语料的规模越大，参数估计的结果越可靠</li>
 <li>但即使训练数据的规模非常大时，还是有许多单词序列在训练语料中不会出现，这就导致许多参数为0，为了避免因为乘以0而导致整个句子概率为0，使用最大似然估计的方法时需要加入平滑避免参数取值为0</li>
 </ul>
@@ -444,7 +444,7 @@
 </li>
 <li><p>RNN自然语言模型DEMO</p>
 <ul>
-<li>如图<br><img src="/2019/03/10/Tensorflow-9-自然语言处理/RNN自然语言建模.jpg" alt=""></li>
+<li>如图<br><img src="/2019/05/22/Tensorflow-9-自然语言处理/RNN自然语言建模.jpg" alt=""></li>
 <li>工作原理<ul>
 <li>每个时刻的输入为一个句子中的单词wi</li>
 <li>每个时刻的输出为一个概率分布，表示句子中下一个位置为不同单词的概率p(wi+1 | w1, w2, w3,…, wi)</li>
@@ -488,7 +488,7 @@
 <li><p>解决方案1</p>
 <ul>
 <li>简介：如果模型大小不限，最理想的设计是将整个文档前后连接起来，当作一个句子来训练</li>
-<li>如图<br><img src="/2019/03/10/Tensorflow-9-自然语言处理/将整个文档前后连接示意图.jpg" alt=""></li>
+<li>如图<br><img src="/2019/05/22/Tensorflow-9-自然语言处理/将整个文档前后连接示意图.jpg" alt=""></li>
 <li>问题<ul>
 <li>这样会导致计算图过大</li>
 <li>另外序列过长还会导致梯度爆炸问题</li>
@@ -505,7 +505,7 @@
 <li>而在反向传播时，梯度则只会在每个子序列内部传播</li>
 </ul>
 </li>
-<li>如图<br><img src="/2019/03/10/Tensorflow-9-自然语言处理/按固定长度切分文档示意图.jpg" alt=""></li>
+<li>如图<br><img src="/2019/05/22/Tensorflow-9-自然语言处理/按固定长度切分文档示意图.jpg" alt=""></li>
 </ul>
 </li>
 <li><p>解决方案3</p>
@@ -521,7 +521,7 @@
 <li>再让batch中的每个位置负责其中一段</li>
 </ul>
 </li>
-<li>如图<br><img src="/2019/03/10/Tensorflow-9-自然语言处理/将长序列切分为batch示意图.jpg" alt=""></li>
+<li>如图<br><img src="/2019/05/22/Tensorflow-9-自然语言处理/将长序列切分为batch示意图.jpg" alt=""></li>
 </ul>
 </li>
 <li><p>下面的代码从文本文件中读取数据，并按照解决方案3将数据整理为batch</p>
@@ -620,8 +620,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/10/Tensorflow-8-循环神经网络/" rel="next" title="[Tensorflow][8]循环神经网络">
-                <i class="fa fa-chevron-left"></i> [Tensorflow][8]循环神经网络
+              <a href="/2019/03/24/C-3-处理数据/" rel="next" title="[C++][3][处理数据]">
+                <i class="fa fa-chevron-left"></i> [C++][3][处理数据]
               </a>
             
           </div>
@@ -630,8 +630,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/11/算法导论-15-动态规划/" rel="prev" title="算法导论[15][动态规划]">
-                算法导论[15][动态规划] <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/22/敏捷开发-1-敏捷宣言/" rel="prev" title="[敏捷开发][1][敏捷宣言]">
+                [敏捷开发][1][敏捷宣言] <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -711,7 +711,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -722,7 +722,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -733,7 +733,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -805,7 +805,7 @@
         <h3 class="widget-title">TAGS</h3>
         <div id="myCanvasContainer" class="widget tagcloud">
           <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
           </canvas>
         </div>
       </div>
