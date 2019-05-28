@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/16/流畅的Python-1-Python数据模式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/19/C-1-预备知识/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -268,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/16/流畅的Python-1-Python数据模式/" itemprop="url">[流畅的Python][1][Python数据模式]</a></h1>
+                <a class="post-title-link" href="/2019/03/19/C-1-预备知识/" itemprop="url">[C++][1][预备知识]</a></h1>
         
 
         <div class="post-meta">
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-16T20:24:58+08:00">
-                2019-03-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-19T19:03:31+08:00">
+                2019-03-19
               </time>
             
 
@@ -303,8 +303,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/流畅的Python/" itemprop="url" rel="index">
-                    <span itemprop="name">流畅的Python</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
                   </a>
                 </span>
 
@@ -342,182 +342,57 @@
       
         
           
-            <h2 id="第1章-Python数据模式"><a href="#第1章-Python数据模式" class="headerlink" title="第1章 Python数据模式"></a>第1章 Python数据模式</h2><blockquote>
-<p>Guido对语言设计美学的深入理解让人震惊。我认识不少很不错的编程语言设计者，它们设计出来的东西确实很精彩，但是从来都不会有用户。Guido知道如何在理论上做出一定妥协，设计出来的语言让使用者觉得如沐春风，这真是不可多得  —–Jim Hugunin</p>
+            <h2 id="第-1-章-预备知识"><a href="#第-1-章-预备知识" class="headerlink" title="第 1 章 预备知识"></a>第 1 章 预备知识</h2><p>它在 C 语言的基础上添加了对<strong>面向对象编程</strong>和<strong>泛型编程</strong>的支持</p>
+<p>C++ 继承了 C 语言高效、简洁、快速和可移植性的传统</p>
+<p>C++ 面向对象的特性带來了全新的编程方法，这种方法是为了应付复杂程度不断提商的现代编程任务而设计的</p>
+<p>C++ 的模板特性提供了一种全新的编程方法—–泛型编程。</p>
+<h3 id="1-1-C-简介"><a href="#1-1-C-简介" class="headerlink" title="1.1 C++ 简介"></a>1.1 C++ 简介</h3><p>C++ 融合了 3 种不同的编程方式</p>
+<ul>
+<li>C 语言代表的过程性语言</li>
+<li>C++ 在 C 语言基础上添加的类代表的面向对象语言</li>
+<li>C++ 模板支持的泛型编程</li>
+</ul>
+<h3 id="1-2-C-简史"><a href="#1-2-C-简史" class="headerlink" title="1.2 C++ 简史"></a>1.2 C++ 简史</h3><p>体积更大、功能更强的计算机引出了更大、更复杂的程序，而这些程序在程序管理和维护方面带来了新的问题</p>
+<p>C 和 Pascal 引领人们进入了结构化编程时代，这种机制把秩序和规程带进了迫切需要这种性质的领域中。</p>
+<p>人们也见证了一种新编程模式的成长：面向对象编程（OOP)。SmallTalk 和 C++ 语言具备这种功能。</p>
+<h4 id="1-2-1-C-语言"><a href="#1-2-1-C-语言" class="headerlink" title="1.2.1 C 语言"></a>1.2.1 C 语言</h4><p>1970年代，贝尔实验室的 Dennis Ritchie 致力于开发 UNIX 操作系统。为完成这项工作，Ritchie 需要一种语言，它必须简洁，能够生成简洁、快速的程序，并能有效地控制硬件。</p>
+<p>一种被称为编译器的特殊程序将高级语言翻译成特定计算机的内部语言。这样就可以通过每个平台使用不同的编译器来在不同的平台上使用同一个高级语言程序了。</p>
+<p>Ritchie希望有一种语言能将低级语言的效率、硬件访问能力和高级语言的通性、可移植性融合在一起，于是他在旧语言的基础上开发了C语言。</p>
+<h4 id="1-2-2-C-语言编程原理"><a href="#1-2-2-C-语言编程原理" class="headerlink" title="1.2.2 C 语言编程原理"></a>1.2.2 C 语言编程原理</h4><p>一般来说，计算机语言要处理两个概念—–<strong>数据和算法</strong>。数据是程序使用和处理的信息，算法是程序使用的方法</p>
+<p>过程化编程首先要确定计算机应采取的操作，然后使用编程语言来实现这些操作。程序命令计算机按照一系列流程生成特定的结果，就像菜谱指定了厨师做蛋糕时应遵循的一系列步骤一样。</p>
+<p>C语言具有<strong>结构化编程</strong>的特性，结构化编程将分支限制为一小组行为良好的结构。C语言的词汇表中就包含了这些结构(<code>for</code> 循环、<code>while</code>循环、<code>do while</code> 循环和 <code>if else</code>语句)</p>
+<p>另一个新原则是<strong>自顶向下</strong>（top-down) 的设计。在 C 语言中，其理念是将大型程序分解为小型、便于管理的任务</p>
+<h4 id="1-2-3-面向对象编程"><a href="#1-2-3-面向对象编程" class="headerlink" title="1.2.3 面向对象编程"></a>1.2.3 面向对象编程</h4><p>与强调算法的过程性编程不同的是，OOP<strong>强调</strong>的是<strong>数椐</strong>。OOP不像过程性编程那样，试图使问题满足语言的过程性方法，而是试图让语言满足问题的要求。</p>
+<p>在 C++ 中，类是一种规范，它描述了这种新型数据格式，对象是根据这种规范构造的特定数据结构。</p>
+<p>通常，类规定了可使用哪些数据来表示对象以及可以对这些数据执行哪些操作。</p>
+<h4 id="1-2-4-C-与泛型编程"><a href="#1-2-4-C-与泛型编程" class="headerlink" title="1.2.4 C++ 与泛型编程"></a>1.2.4 C++ 与泛型编程</h4><p>术语泛型是指创建独立于类型的代码</p>
+<p>泛型编程提供了执行常见任务(如数据排序或合并链表)的工具</p>
+<h4 id="1-2-5-C-的起源"><a href="#1-2-5-C-的起源" class="headerlink" title="1.2.5 C++ 的起源"></a>1.2.5 C++ 的起源</h4><p>C++ 也是在贝尔实验室诞生的， Bjarne Stroustrup于 20 世纪 80 年代在这里开发<br>出了这种语言。</p>
+<blockquote>
+<p>C++ 主要是为了我的朋友和我不必再使用汇编语言、C 语言或其他现代高级语言来编程而设计的。它的主要功能是可以更方便地编写出好程序，让每个程序员更加快乐。(Bjarne Stroustrup)</p>
 </blockquote>
-<ul>
-<li><p>Python最好的品质之一是一致性</p>
-</li>
-<li><p>数据模型</p>
-<ul>
-<li>数据模型所描述的API，为使用最地道的预言特性来构建你自己的对象提供了工具</li>
-<li>数据模型其实是对Python框架的描述，它规范了这门语言自身构建模块的接口，这些接口包括但不限于序列、迭代器、函数、类和上下文管理器</li>
-</ul>
-</li>
-<li><p>特殊方法</p>
-<ul>
-<li>Python解释器碰到特殊的句法时，会使用特殊方法去激活一些基本的对象操作</li>
-<li>这些特殊方法的名字以两个下划线开头，以两个下划线结尾</li>
-<li>举例：obj[key]的背后是<strong>getitem</strong>方法，为了能求得my_collection[key]的值，解释器实际上会调用my_collection.getitem(key)</li>
-<li>这些特殊方法名能让你自己的对象实现和支持一下的语言构架，并与之交互：<ul>
-<li>迭代</li>
-<li>集合类</li>
-<li>属性访问</li>
-<li>运算符重载</li>
-<li>函数和方法的调用</li>
-<li>对象的创建和销毁</li>
-<li>字符串表示形式和格式化</li>
-<li>管理上下文(即with块)</li>
-</ul>
-</li>
-<li>特殊方法也称为魔术方法(magic method)或者双下方法(dunder method)</li>
-</ul>
-</li>
-</ul>
-<h3 id="1-1-一摞Python风格的纸牌"><a href="#1-1-一摞Python风格的纸牌" class="headerlink" title="1.1 一摞Python风格的纸牌"></a>1.1 一摞Python风格的纸牌</h3><ul>
-<li><p>纸牌类代码实例</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> choice</span><br><span class="line">Card = collections.namedtuple(<span class="string">'Card'</span>, [<span class="string">'rank'</span>, <span class="string">'suit'</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FrenchDeck</span>:</span></span><br><span class="line">    ranks = [str(n) <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">2</span>, <span class="number">11</span>)] + list(<span class="string">'JQKA'</span>)</span><br><span class="line">    suits = <span class="string">'spades diamonds clubs hearts'</span>.split()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self._cards = [Card(rank, suit) <span class="keyword">for</span> suit <span class="keyword">in</span> self.suits <span class="keyword">for</span> rank <span class="keyword">in</span> self.ranks]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self._cards)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, position)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._cards[position]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>namedtuple(下面的内容跑题了)</p>
-<ul>
-<li>用来构建只有少数属性但是没有方法的对象</li>
-<li>例如：数据库条目</li>
-</ul>
-</li>
-<li><p>短小但强悍的FrenchDeck都可以做什么</p>
+<p>名称 C++ 来自 C 语言中的递增运算符，该运算符将变量加1。名称 C++ 表明，它是 C 的扩充版本。</p>
+<p>有些 OOP 正统派把为 C 添加 OOP 特性看作是<strong>为猪插上翅膀</strong>，虽然这是头瘦骨嶙峋、非常能干的猪</p>
+<p><img src="/2019/03/19/C-1-预备知识/0319_0.png" alt=""></p>
+<h3 id="1-3-可移植性和标准"><a href="#1-3-可移植性和标准" class="headerlink" title="1.3 可移植性和标准"></a>1.3 可移植性和标准</h3><p>可移植性的定义：如果在不修改代码的情况下，重新编译程序后，程序将运行良好，那么该程序是可移植的。</p>
+<p>可移植性的两大障碍</p>
 <ol>
-<li><p>可以跟任何标准Python集合类型一样，用<code>len()</code>函数查看一叠牌有多少张</p>
- <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deck = FrecnDeck()</span><br><span class="line">len(deck) <span class="comment"># 52</span></span><br></pre></td></tr></table></figure>
+<li><p>硬件。硬件特定的程序是不可移植的</p>
 </li>
-<li><p>从一叠牌中抽取特定一张卡牌是容易的</p>
- <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deck[<span class="number">0</span>] <span class="comment"># Card(rank='2', suit='spades')</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>我们并不需要单独写一个方法来抽取一张纸牌，只需调用内置函数<code>random.choice()</code></p>
- <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">choice(deck) <span class="comment"># Card(rank='K', suit='hearts')</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>我们的deck类已经可以支持切片(slicing)操作了，因为我们实现了<code>__getitem__</code>方法</p>
- <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deck[:<span class="number">3</span>] <span class="comment"># [Card(rank='2', suit='spades'), Card(rank='3', suit='spades'), Card(rank='4', suit='spades')]</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>另外，仅仅实现了<code>__getitem__</code>方法,这摞牌就可以迭代了</p>
-<ul>
-<li><p>input:</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> card <span class="keyword">in</span> deck:</span><br><span class="line">    print(card)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>output:</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">        ...</span><br><span class="line">        Card(rank=&apos;8&apos;, suit=&apos;hearts&apos;)</span><br><span class="line">        Card(rank=&apos;9&apos;, suit=&apos;hearts&apos;)</span><br><span class="line">        Card(rank=&apos;10&apos;, suit=&apos;hearts&apos;)</span><br><span class="line">        Card(rank=&apos;J&apos;, suit=&apos;hearts&apos;)   </span><br><span class="line">        Card(rank=&apos;Q&apos;, suit=&apos;hearts&apos;)</span><br><span class="line">        Card(rank=&apos;K&apos;, suit=&apos;hearts&apos;)</span><br><span class="line">        Card(rank=&apos;A&apos;, suit=&apos;hearts&apos;)</span><br><span class="line">        ...</span><br><span class="line">        ````  </span><br><span class="line">6. `in`运算符也可以用在我们的FrenchDeck类上了</span><br><span class="line">    - 代码</span><br><span class="line">        ````py</span><br><span class="line">        Card(&apos;Q&apos;, &apos;hearts&apos;) in deck # True</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>原因</p>
-<ul>
-<li>一个类型如果没有实现<code>__contains__</code>方法，那么<code>in</code>运算符就会按顺序做一次迭代搜索</li>
-<li>因为我们的<code>FrenchDeck</code>实现了<code>__getitem__</code>方法，所以可以迭代，所以支持<code>in</code>运算符</li>
-</ul>
-</li>
-</ul>
+<li><p>语言上的差异，虽然多数实现都希望其 C++ 版本与其他版本兼容，但如果没有准确描述语言工作方式的公开标准，这将很难做到</p>
 </li>
 </ol>
-</li>
-<li><p>通过实现特殊方法来利用Python数据模型的好处</p>
+<p>C++的第一个国际标准 : C++ 98</p>
+<h3 id="1-4-程序创建的技巧"><a href="#1-4-程序创建的技巧" class="headerlink" title="1.4 程序创建的技巧"></a>1.4 程序创建的技巧</h3><p>程序创建的步骤</p>
 <ol>
-<li>作为你的类的用户，它们不必去记住操作的格式名称<ul>
-<li>例如：得到元素个数是<code>size()</code>还是<code>len()</code>？</li>
-</ul>
+<li><p>使用文本编辑器<strong>编辑</strong>程序。并将其保存到文件中，这个文件就是程序的<strong>源代码</strong></p>
 </li>
-<li>可以更加方便地使用Python标准库，如<code>random.choice()</code>函数，而不用重新发明轮子</li>
-</ol>
+<li><p><strong>编译</strong>源代码。将源代码翻译为主机使用的机器语言(<strong>目标代码</strong>)</p>
 </li>
-<li><p>写在最后</p>
-<ul>
-<li>虽然<code>FrenchDeck</code>隐式地继承了<code>object</code>类，但是功能却不是继承而来的</li>
-<li>我们通过数据模型和一些合成来实现了这些功能</li>
-<li>通过实现<code>__len__</code>和<code>__getitem__</code>两个特殊方法,<code>FrenchDeck</code>就跟一个Python自有的序列数据类型一样，可以体现出Python语言的核心特性(例如迭代和切片)</li>
-</ul>
-</li>
-</ul>
-<h3 id="1-2-如何使用特殊方法"><a href="#1-2-如何使用特殊方法" class="headerlink" title="1.2 如何使用特殊方法"></a>1.2 如何使用特殊方法</h3><ol>
-<li><p>首先要明确，特殊方法的存在是为了被<strong>Python解释器</strong>调用的，你自己并不需要调用它们</p>
-<ul>
-<li>举例：在执行<code>len(my_obj)</code>的时候，如果<code>my_obj</code>是一个自定义类的对象，那么Python会自己去调用其中由你实现的<code>__len__</code>方法</li>
-</ul>
-</li>
-<li><p>如果是Python内置的类型，比如列表、字符串、字节序列等，那么CPython会抄近路以获得更快的执行速度</p>
-<ul>
-<li>举例：在内置类型中，<code>__len__</code>实际上会直接返回<code>PyVarObject</code>中的<code>ob_size</code>属性</li>
-</ul>
-</li>
-<li><p>很多时候，特殊方法的调用是隐式的</p>
-<ul>
-<li>举例：<code>for i in x:</code>背后实际用的是<code>iter(x)</code>，而这个函数的背后则是<code>__iter()__</code>方法</li>
-</ul>
-</li>
-<li><p>通常你的代码无需直接使用特殊方法</p>
-</li>
-<li><p>通过内置的函数(例如len、iter、str,等等)来使用特殊方法是最好的选择</p>
-</li>
-<li><p>不要自己想当然的随意添加特殊方法，比如<code>__foo__</code>之类的，因为虽然现在这个名字没有在Python内部被使用，以后就不一定了</p>
+<li><p>将目标代码与其他代码<strong>链接</strong>起来，例如一些库函数，最终生成<strong>可执行代码</strong></p>
 </li>
 </ol>
-<h4 id="1-2-1-模拟数值类型"><a href="#1-2-1-模拟数值类型" class="headerlink" title="1.2.1 模拟数值类型"></a>1.2.1 模拟数值类型</h4><p>此处我们实现一个二维向量类，作为例子<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> hypot</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x=<span class="number">0</span>, y=<span class="number">0</span>)</span>:</span></span><br><span class="line">        self.x = x</span><br><span class="line">        self.y = y</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Vector(%r,%r)'</span> % (self.x, self.y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__abs__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> hypot(self.x, self.y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bool__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> bool(abs(self))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__add__</span><span class="params">(self, other)</span>:</span></span><br><span class="line">        x = self.x + other.x</span><br><span class="line">        y = self.y + other.y</span><br><span class="line">        <span class="keyword">return</span> Vector(x, y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__mul__</span><span class="params">(self, scalar)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> Vector(self.x * scalar, self.y * scalar)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 因为实现的__add()__方法，所以我们可以使用加号运算符来完成向量相加</span></span><br><span class="line">v1 = Vector(<span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line">v2 = Vector(<span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line">print(v1 + v2)  <span class="comment"># Vector(4, 5)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 因为实现了__abs()__方法，所以我们可以调用abs()函数来完成求绝对值操作</span></span><br><span class="line">v = Vector(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">print(abs(v))   <span class="comment"># 5.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 因为实现了__mul()__方法，所以我们可以使用乘法运算符完成向量与数字相乘</span></span><br><span class="line">print(v * <span class="number">3</span>)    <span class="comment"># Vector(9, 12)</span></span><br></pre></td></tr></table></figure></p>
-<p>注意</p>
-<ul>
-<li>这些特殊方法并不会在这个类自身的代码中使用</li>
-<li>即便其他程序要使用这个类的这些方法，也不会直接调用它们</li>
-</ul>
-<h4 id="1-2-2-字符串表示形式"><a href="#1-2-2-字符串表示形式" class="headerlink" title="1.2.2 字符串表示形式"></a>1.2.2 字符串表示形式</h4><p><code>repr</code>函数</p>
-<ul>
-<li><p>Python的内置函数</p>
-</li>
-<li><p>可以把一个对象用字符串的形式表达出来以便辨认</p>
-</li>
-<li><p>这就是“字符串表示形式”</p>
-</li>
-</ul>
-<p><code>__repr__</code>所返回的字符串应该准确、无歧义并且尽可能表达出如何用代码创建出这个被打印的对象</p>
-<p>如果<code>__str__</code>函数没有被实现，而Python又需要调用它时，会用<code>__repr__</code>代替</p>
-<h4 id="1-2-3-算术运算符"><a href="#1-2-3-算术运算符" class="headerlink" title="1.2.3 算术运算符"></a>1.2.3 算术运算符</h4><p>通过<code>__add__</code>和<code>__mul__</code>，前面的向量类可以使用<code>+</code>和<code>*</code>这两个算术运算符</p>
-<p>这两个方法的返回值都是新创建的向量对象，被操作的两个向量还是原封不动，代码里只是读取它们的值而已</p>
-<p>中缀表达式的基本原则就是不改变操作对象，而是产出一个新的值</p>
-<h4 id="1-2-4-自定义的布尔值"><a href="#1-2-4-自定义的布尔值" class="headerlink" title="1.2.4 自定义的布尔值"></a>1.2.4 自定义的布尔值</h4><p>任何对象都可以用于需要布尔值的上下文中，Python调用bool(x)，判断x是真还是假</p>
-<p>判断boolean值的流程</p>
-<ul>
-<li><p>默认情况下，我们自己定义的类的实例总被认为是真的，除非这个类对<code>__bool__</code>或<code>__len__</code>函数有自己的实现</p>
-</li>
-<li><p><code>bool(x)</code>的背后是调用<code>x.__bool__()</code>的结果</p>
-</li>
-<li><p>如果不存在<code>x.__bool__()</code>，那么<code>bool(x)</code>会尝试调用<code>x.__len()__</code></p>
-<ul>
-<li>若返回0,则bool会返回False</li>
-<li>否则返回True</li>
-</ul>
-</li>
-</ul>
-<h3 id="1-3-特殊方法一览"><a href="#1-3-特殊方法一览" class="headerlink" title="1.3 特殊方法一览"></a>1.3 特殊方法一览</h3><p>跟运算符无关的特殊方法</p>
-<p><img src="/2019/03/16/流畅的Python-1-Python数据模式/0316_0.png" alt=""></p>
-<p>跟运算符相关的特殊方法</p>
-<p><img src="/2019/03/16/流畅的Python-1-Python数据模式/0316_1.png" alt=""><br><img src="/2019/03/16/流畅的Python-1-Python数据模式/0316_2.png" alt=""></p>
-<h3 id="1-4-为什么len不是普通方法"><a href="#1-4-为什么len不是普通方法" class="headerlink" title="1.4 为什么len不是普通方法"></a>1.4 为什么len不是普通方法</h3><p>为什么len不是普通方法</p>
-<ul>
-<li><p>Raymond Hetting的回答:“实用胜于纯粹”</p>
-</li>
-<li><p>如果x是一个内置类型的实例，那么len(x)的速度会非常快,也就是在str、list、memoryview等类型上，这个操作非常高效</p>
-</li>
-<li><p>len之所以是特殊方法，是为了让Python自带的数据结构可以走后门</p>
-</li>
-<li><p>这种处理方式在保持内置类型的效率和保证语言的一致性之间找到了一个平衡点</p>
-</li>
-</ul>
-<h3 id="1-5-本章小结"><a href="#1-5-本章小结" class="headerlink" title="1.5 本章小结"></a>1.5 本章小结</h3><ol>
-<li><p>通过实现特殊方法，自定义数据类型可以表现得像内置类型一样，从而让我们写出更具表达力的代码(更具Python风格的代码)</p>
-</li>
-<li><p>Python对象的一个基本要求就是它得有合理的字符串表达形式</p>
-<ul>
-<li>我们可以通过<code>__repr__</code>和<code>__str__</code>来满足这个要求</li>
-<li>前者便于我们调试和记录日志</li>
-<li>后者则是给终端用户看的</li>
-</ul>
-</li>
-<li><p>Python通过运算符重载这一模式提供了丰富的数值类型，除了内置的那些，还有<code>decimal.Decimal</code>和<code>fractions.Fraction</code>。这些数据类型都支持中缀算术运算符</p>
-</li>
-</ol>
+<p><img src="/2019/03/19/C-1-预备知识/0319_1.png" alt=""></p>
 
           
         
@@ -557,7 +432,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -605,7 +480,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -616,7 +491,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -627,7 +502,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -683,7 +558,7 @@
         <h3 class="widget-title">TAGS</h3>
         <div id="myCanvasContainer" class="widget tagcloud">
           <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
           </canvas>
         </div>
       </div>

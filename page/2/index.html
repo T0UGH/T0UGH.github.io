@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Docker-1-简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/github-1-git命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -268,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/22/Docker-1-简介/" itemprop="url">[Docker][1][简介]</a></h1>
+                <a class="post-title-link" href="/2019/05/28/github-1-git命令/" itemprop="url">[github][1][git命令]</a></h1>
         
 
         <div class="post-meta">
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T23:19:36+08:00">
-                2019-05-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-28T16:56:20+08:00">
+                2019-05-28
               </time>
             
 
@@ -303,8 +303,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/GitHub/" itemprop="url" rel="index">
+                    <span itemprop="name">GitHub</span>
                   </a>
                 </span>
 
@@ -342,78 +342,92 @@
       
         
           
-            <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h2><p>点此进入<a href="https://labs.play-with-docker.com/" target="_blank" rel="noopener">play with docker</a></p>
-<h3 id="1-1-容器发展之路"><a href="#1-1-容器发展之路" class="headerlink" title="1.1 容器发展之路"></a>1.1 容器发展之路</h3><ol>
-<li><p>曾经，每个服务器只能运行单一应用。Windows和Linux操作系统都没有相应的技术手段来保证在一台服务器上稳定运行多个应用</p>
+            <h2 id="1-通过实际操作学习Git"><a href="#1-通过实际操作学习Git" class="headerlink" title="1 通过实际操作学习Git"></a>1 通过实际操作学习Git</h2><p><a href="https://learngitbranching.js.org/" target="_blank" rel="noopener">一个很好的git学习网站</a></p>
+<h3 id="1-1-基本操作"><a href="#1-1-基本操作" class="headerlink" title="1.1 基本操作"></a>1.1 基本操作</h3><h4 id="1-1-1-git-init-初始化仓库"><a href="#1-1-1-git-init-初始化仓库" class="headerlink" title="1.1.1 git init-初始化仓库"></a>1.1.1 git init-初始化仓库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
+<p>执行<code>git init</code>命令后会生成<code>.git</code>目录，这个目录中存储了管理当前目录内容所需的仓库数据</p>
+<p>我们当前所在的目录称为”附属于该仓库的工作树”，在工作树中对文件进行编辑，然后记录到仓库中，以此管理文件的历史快照。若想要将文件恢复到之前的状态，可从仓库中调取之前的快照，在工作树种打开</p>
+<h4 id="1-1-2-git-status-查看仓库的状态"><a href="#1-1-2-git-status-查看仓库的状态" class="headerlink" title="1.1.2 git status-查看仓库的状态"></a>1.1.2 git status-查看仓库的状态</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/28/github-1-git命令/0523_0.png" alt=""></p>
+<h4 id="1-1-3-git-add-向暂存区中添加文件"><a href="#1-1-3-git-add-向暂存区中添加文件" class="headerlink" title="1.1.3 git add-向暂存区中添加文件"></a>1.1.3 git add-向暂存区中添加文件</h4><p>假如只是在工作树中创建了文件，那么该文件不会被记入Git仓库的版本管理对象</p>
+<p>要想让文件成为Git仓库的管理对象，需要用<code>git add</code>命令将其假如暂存区(Stage或Index)中，暂存区是提交之前的临时区域</p>
+<p><img src="/2019/05/28/github-1-git命令/0523_1.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add README.md</span><br></pre></td></tr></table></figure>
+<h4 id="1-1-4-git-commit-保存仓库中的历史记录"><a href="#1-1-4-git-commit-保存仓库中的历史记录" class="headerlink" title="1.1.4 git commit-保存仓库中的历史记录"></a>1.1.4 git commit-保存仓库中的历史记录</h4><p>git commit 命令可以将当前暂存区中的文件实际保存到仓库的历史记录中。通过这些记录，可以在工作树中复原文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;first commit&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="1-1-5-git-log-查看提交日志"><a href="#1-1-5-git-log-查看提交日志" class="headerlink" title="1.1.5 git log-查看提交日志"></a>1.1.5 git log-查看提交日志</h4><p><img src="/2019/05/28/github-1-git命令/0523_2.png" alt=""></p>
+<ul>
+<li><p><code>git log</code>:查看以往仓库中提交的日志</p>
 </li>
-<li><p>VM技术是一种允许多应用能够稳定、安全同时运行在一个服务器上的技术</p>
+<li><p><code>git log --pretty=short</code>:只显示提交日志的第一行</p>
 </li>
-<li><p>虚拟机缺点是依靠其专用的操作系统，OS会额外消耗资源</p>
+<li><p><code>git log -p</code>:显示提交后文件的改动</p>
 </li>
-<li><p>容器模型与虚拟机模型的区别是容器的运行不会独占操作系统</p>
+</ul>
+<h4 id="1-1-6-git-diff-查看更改前后的区别"><a href="#1-1-6-git-diff-查看更改前后的区别" class="headerlink" title="1.1.6 git diff-查看更改前后的区别"></a>1.1.6 git diff-查看更改前后的区别</h4><p><code>git diff</code>命令可以查看工作树、暂存区、最新提交之间的差别</p>
+<ul>
+<li><p><code>git diff</code>:查看当前工作树和暂存区的区别</p>
 </li>
-<li><p>容器的优点是启动快且便于迁移</p>
+<li><p><code>git add</code>:使用此指令将工作树中的文件加入暂存区，此时工作树和暂存区没有区别</p>
 </li>
-<li><p>Kubernetes是Docker之上的一个平台，现在采用Docker实现其底层容器相关的操作</p>
+<li><p><code>git diff HEAD</code>:查看暂存区与最新提交的区别</p>
+</li>
+</ul>
+<h3 id="1-2-分支的操作"><a href="#1-2-分支的操作" class="headerlink" title="1.2 分支的操作"></a>1.2 分支的操作</h3><p>在进行多个并行作业时，我们会用到分支。在这类分支中往往同时存在多个最新代码状态。</p>
+<p>master分支是Git默认创建的分支，因此基本上所有开发都是以这个分支为中心进行的</p>
+<h4 id="1-2-1-git-branch-展示分支一览表"><a href="#1-2-1-git-branch-展示分支一览表" class="headerlink" title="1.2.1 git branch-展示分支一览表"></a>1.2.1 git branch-展示分支一览表</h4><p><img src="/2019/05/28/github-1-git命令/0523_3.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br></pre></td></tr></table></figure>
+<p>分支左侧的星号，表示我们当前所在的分支</p>
+<h4 id="1-2-2-git-checkout-b-创建、切换分支"><a href="#1-2-2-git-checkout-b-创建、切换分支" class="headerlink" title="1.2.2 git checkout -b-创建、切换分支"></a>1.2.2 git checkout -b-创建、切换分支</h4><p><code>git checkout -b feature-A</code>:创建并切换到feature-A分支</p>
+<p><code>git checkout -</code>:切换回上一分支</p>
+<p><img src="/2019/05/28/github-1-git命令/0523_4.png" alt=""></p>
+<h4 id="1-2-3-特性分支"><a href="#1-2-3-特性分支" class="headerlink" title="1.2.3 特性分支"></a>1.2.3 特性分支</h4><p>特性分支是集中实现单一特性(功能)，除此之外不进行任何作业的分支。日常开发中往往会创建数个特性分支，并保留一个稳定分支，一般是master分支担当</p>
+<p>基于特性的工作在特性分支中进行，特性完成后再与master合并。这样可以保证master分支随时供人查看和创建新的特性分支</p>
+<h4 id="1-2-4-git-merge-合并分支"><a href="#1-2-4-git-merge-合并分支" class="headerlink" title="1.2.4 git merge-合并分支"></a>1.2.4 git merge-合并分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge --no-ff feature-A</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/28/github-1-git命令/0523_5.png" alt=""></p>
+<h4 id="1-2-5-git-log-–graph-以图表形式查看分支"><a href="#1-2-5-git-log-–graph-以图表形式查看分支" class="headerlink" title="1.2.5 git log –graph-以图表形式查看分支"></a>1.2.5 git log –graph-以图表形式查看分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --graph</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/28/github-1-git命令/0523_6.png" alt=""></p>
+<h4 id="1-2-6-git-reset-回溯历史版本"><a href="#1-2-6-git-reset-回溯历史版本" class="headerlink" title="1.2.6 git reset-回溯历史版本"></a>1.2.6 git reset-回溯历史版本</h4><p>借助分散仓库的优势，可以在不影响其他仓库的前提下对历史版本进行操作</p>
+<p><code>git reset --hard</code>根据目标时间点的哈希值，将当前仓库回溯到指定状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard fd0cbcsdfa</span><br><span class="line">HEAD is now at fd0cbf0 Add index</span><br></pre></td></tr></table></figure></p>
+<p><code>git reflog</code>查看当前仓库的操作日志，可以在日志中找到对应的哈希值</p>
+<h4 id="1-2-7-git-commit-–amend-修改提交信息"><a href="#1-2-7-git-commit-–amend-修改提交信息" class="headerlink" title="1.2.7 git commit –amend-修改提交信息"></a>1.2.7 git commit –amend-修改提交信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend</span><br></pre></td></tr></table></figure>
+<p>此命令可以修改上一条提交信息</p>
+<h3 id="1-3-合并冲突"><a href="#1-3-合并冲突" class="headerlink" title="1.3 合并冲突"></a>1.3 合并冲突</h3><p>此处合并时发生了冲突</p>
+<p><img src="/2019/05/28/github-1-git命令/0523_7.png" alt=""></p>
+<ol>
+<li><p>查看冲突部分并解决</p>
+</li>
+<li><p>冲突解决后，使用<code>git add</code>和<code>git commit</code>命令，将合并的处理结果提交</p>
 </li>
 </ol>
-<h3 id="1-2-走进Docker"><a href="#1-2-走进Docker" class="headerlink" title="1.2 走进Docker"></a>1.2 走进Docker</h3><ul>
-<li><p>Docker是一种运行于Linux和Windows上的软件，用于创建、管理和编排容器</p>
-</li>
-<li><p>Docker一词源于英国口语，意为码头工人，即从船上装卸货物的人</p>
-</li>
-<li><p>Moby是Github上Docker的开源项目</p>
-</li>
-<li><p>许多Docker内置的组件都是可拔插的，即可以替换为第三方的组件</p>
-</li>
-<li><p>OCI(开放容器计划)是一个旨在对容器基础架构中的基础组件进行标准化的机构。目前已经制订了镜像规范和运行时规范，将容器生态团结起来</p>
-</li>
-</ul>
-<h3 id="1-3-Docker安装"><a href="#1-3-Docker安装" class="headerlink" title="1.3 Docker安装"></a>1.3 Docker安装</h3><ul>
-<li><p>win10专业版，进bios开虚拟化，启动Hyper-x，去<a href="https://hub.docker.com/editions/community/docker-ce-desktop-windows" target="_blank" rel="noopener">这里</a>现在Docker for Windows版</p>
-</li>
-<li><p>每个Docker容器都有一个本地存储空间，本地存储是通过存储驱动(Storage Driver)进行管理的</p>
-</li>
-</ul>
-<h3 id="1-4-纵观Docker"><a href="#1-4-纵观Docker" class="headerlink" title="1.4 纵观Docker"></a>1.4 纵观Docker</h3><h4 id="1-4-1-运维视角"><a href="#1-4-1-运维视角" class="headerlink" title="1.4.1 运维视角"></a>1.4.1 运维视角</h4><ul>
-<li><p>Docker有两个主要组件:Docker客户端和Docker deamon(服务端或者引擎)</p>
-</li>
-<li><p>镜像</p>
+<p><img src="/2019/05/28/github-1-git命令/0523_8.png" alt=""></p>
+<h3 id="1-4-推送到远程仓库"><a href="#1-4-推送到远程仓库" class="headerlink" title="1.4 推送到远程仓库"></a>1.4 推送到远程仓库</h3><p>远程仓库，是与本地仓库相对独立的另一个仓库，主要部署在github上</p>
+<h4 id="1-4-1-在github上创建远程仓库"><a href="#1-4-1-在github上创建远程仓库" class="headerlink" title="1.4.1 在github上创建远程仓库"></a>1.4.1 在github上创建远程仓库</h4><h4 id="1-4-2-git-remote-add-添加远程仓库"><a href="#1-4-2-git-remote-add-添加远程仓库" class="headerlink" title="1.4.2 git remote add-添加远程仓库"></a>1.4.2 git remote add-添加远程仓库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add origin git@github.com:t0ugh/git-tutorial.git</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-3-git-push-推送到远程仓库"><a href="#1-4-3-git-push-推送到远程仓库" class="headerlink" title="1.4.3 git push 推送到远程仓库"></a>1.4.3 git push 推送到远程仓库</h4><ol>
+<li><p>推送到<code>master</code>分支</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push -u origin master</span><br></pre></td></tr></table></figure>
 <ul>
-<li>可将镜像理解为一个包含基础操作系统，以及应用程序运行所需的代码和依赖包</li>
-<li>实际等价于未运行的容器</li>
-<li>Docker的每个镜像都有自己唯一的id</li>
+<li><code>-u</code>参数可以在推送的同时将<code>origin</code>仓库的<code>master</code>分支设置为本地仓库当前分支的<code>upstream</code></li>
 </ul>
 </li>
-<li><p>容器</p>
+<li><p>推送到<code>master</code>之外的分支</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b feature-D</span><br><span class="line">$ git push -u origin feature-D</span><br></pre></td></tr></table></figure>
 <ul>
-<li>可以从容器来启动镜像</li>
-<li><code>docker run</code>可以运行镜像</li>
-<li><code>Ctrl-PQ</code>组合键可以在退出容器的同时保证容器运行</li>
-<li><code>docker ls</code>列出系统内部处于运行状态的容器</li>
+<li>我们在本地仓库中创建<code>feature-D</code>分支，然后将它<code>push</code>给远程仓库并保持分支名称不变</li>
+<li>现在，在远程仓库的GitHub页面就可以查看到<code>feature-D</code>分支S</li>
 </ul>
 </li>
-</ul>
-<h4 id="1-4-2-开发角度"><a href="#1-4-2-开发角度" class="headerlink" title="1.4.2 开发角度"></a>1.4.2 开发角度</h4><ul>
-<li><p>容器即应用</p>
-</li>
-<li><p>每个仓库都有一个名为<code>Dockerfile</code>的文件。<code>Dockerfile</code>是一个纯文本文件，其中描述了如何将应用构建到<code>Docker</code>镜像中</p>
-</li>
-<li><p>使用<code>docker image build</code>命令可以根据Dockerfile中的指令来创建新的镜像</p>
-</li>
-</ul>
-<h3 id="1-5-Docker引擎"><a href="#1-5-Docker引擎" class="headerlink" title="1.5 Docker引擎"></a>1.5 Docker引擎</h3><ul>
-<li><p>Docker引擎是用来运行和管理容器的核心软件</p>
-</li>
-<li><p>Docker引擎可以进行模块化，有很多可交换的组件组成</p>
-</li>
-<li><p>runc: 用于创建容器的组件</p>
-</li>
-<li><p>containerd: 用于容器生命周期管理</p>
-</li>
-<li><p>daemon:之前Docker的服务器，目前其中的越来越多功能被拆解出来</p>
-</li>
-</ul>
+</ol>
+<h3 id="1-5-从远程仓库获取"><a href="#1-5-从远程仓库获取" class="headerlink" title="1.5 从远程仓库获取"></a>1.5 从远程仓库获取</h3><h4 id="1-5-1-git-clone-获取远程仓库"><a href="#1-5-1-git-clone-获取远程仓库" class="headerlink" title="1.5.1 git clone-获取远程仓库"></a>1.5.1 git clone-获取远程仓库</h4><h5 id="1-获取远程仓库"><a href="#1-获取远程仓库" class="headerlink" title="1 获取远程仓库"></a>1 获取远程仓库</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@github.com:t0ugh/git-tutorial.git</span><br></pre></td></tr></table></figure>
+<p>执行<code>git clone</code>命令后，我们会默认位于<code>master</code>分支下，同时系统将<code>origin</code>设置为该远程仓库的标识符</p>
+<p>也就是说当前本地仓库的<code>master</code>分支与Github端远程仓库(<code>origin</code>)的<code>master</code>分支在内容上完全相同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -a</span><br><span class="line">* master</span><br><span class="line">  remotes/origin/HEAD -&gt; origin/master</span><br><span class="line">  remotes/origin/feature-D</span><br><span class="line">  remotes/origin/master</span><br></pre></td></tr></table></figure>
+<h5 id="2-获取远程的feature-D分支"><a href="#2-获取远程的feature-D分支" class="headerlink" title="2 获取远程的feature-D分支"></a>2 获取远程的feature-D分支</h5><p>将feature-D分支获取到本地仓库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b feature-D origin/feature-D</span><br></pre></td></tr></table></figure></p>
+<h5 id="3-修改并推送feature-D分支"><a href="#3-修改并推送feature-D分支" class="headerlink" title="3 修改并推送feature-D分支"></a>3 修改并推送feature-D分支</h5><p>以名为origin的feature-D分支为来源，在本地创建feature-D分支</p>
+<p>对本地内容进行修改和提交，提交后，推送到远程的feature-D分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+<h4 id="1-5-2-git-pull-获取最新的远程仓库分支"><a href="#1-5-2-git-pull-获取最新的远程仓库分支" class="headerlink" title="1.5.2 git pull-获取最新的远程仓库分支"></a>1.5.2 git pull-获取最新的远程仓库分支</h4><p>使用git pull命令，将本地的feature-D分支更新到最新状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull origin feature-D</span><br></pre></td></tr></table></figure>
+<p>如果两人同时修改了同一部分的源代码，push很容易发生冲突。所以多名开发者在同一个分支中进行工作时，为减少冲突情况的发生，建议更频繁的进行push和pull操作</p>
 
           
         
@@ -453,7 +467,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -501,7 +515,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -512,7 +526,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -523,7 +537,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -579,7 +593,7 @@
         <h3 class="widget-title">TAGS</h3>
         <div id="myCanvasContainer" class="widget tagcloud">
           <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
           </canvas>
         </div>
       </div>
