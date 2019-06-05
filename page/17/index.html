@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/11/算法导论-15-动态规划/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/算法导论-16-贪心算法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -268,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/11/算法导论-15-动态规划/" itemprop="url">算法导论[15][动态规划]</a></h1>
+                <a class="post-title-link" href="/2019/03/13/算法导论-16-贪心算法/" itemprop="url">[算法导论][16]贪心算法</a></h1>
         
 
         <div class="post-meta">
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-11T15:54:50+08:00">
-                2019-03-11
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-13T21:04:54+08:00">
+                2019-03-13
               </time>
             
 
@@ -342,135 +342,62 @@
       
         
           
-            <h2 id="第15章-动态规划"><a href="#第15章-动态规划" class="headerlink" title="第15章 动态规划"></a>第15章 动态规划</h2><p><strong>动态规划</strong>(dynamic programming)与分治方法相似，都是通过组合子问题的解来求解原问题。分治方法是将问题划分为互不相交的子问题，递归地求解子问题，再将它们的解结合起来，求出原问题的解。与之相反，动态规划用于子问题重叠的情况，即不同的子问题具有公共的子子问题。动态规划算法对每个子问题只求解一次，将其解保存到一个表格中，从而无需每次求解一个子子问题时都重新计算，避免了这种不必要的计算工作</p>
-<p>动态规划方法通常用来求解<strong>最优化问题</strong>。这类问题可以有很多可行解，每个解都有一个值，我们希望寻找具有最优值的解。我们称这个解为问题的一个最优解</p>
-<p>我们按照如下4个步骤来设计一个动态规划算法</p>
+            <h2 id="第16章-贪心算法"><a href="#第16章-贪心算法" class="headerlink" title="第16章 贪心算法"></a>第16章 贪心算法</h2><p>对于许多最优化问题，使用动态规划算法来求最优解有些杀鸡用牛刀了，可以使用更简单、更高效的算法。贪心算法(greedy algorithm)就是这样的算法，它在每一步都做出当时看起来最佳的选择。它总是做出局部最优的选择，寄希望这样的选择能导致全局最优解</p>
+<p>贪心算法并不保证得到最优解，但对很多问题确实可以求得最优解</p>
+<p>有很多利用贪心策略设计的算法，包括最小生成树(minimum-spanning-tree)算法、单源最短路径算法的Dijkstra算法，以及集合覆盖问题的Chvatal贪心启发式算法</p>
+<h3 id="16-1-活动选择问题"><a href="#16-1-活动选择问题" class="headerlink" title="16.1 活动选择问题"></a>16.1 活动选择问题</h3><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>假定有一个 n 个活动(activity)的集合 S = {a<sub>1</sub>, a<sub>2</sub>, …, a<sub>n</sub>}，这些活动使用同一个资源，而这个资源在某个时刻只能供一个活动使用。每个活动 a<sub>i</sub> 都有一个开始时间 s<sub>i</sub> 和一个结束时间 f<sub>i</sub>。</p>
+<p>如果两个活动 a<sub>i</sub> 和 a<sub>j</sub> 满足 [s<sub>i</sub>, f<sub>i</sub>) 和 [s<sub>j</sub>, f<sub>j</sub>) 不重叠，则称它们是兼容的。</p>
+<p>在活动选择问题中，我们希望选出一个最大兼容活动集。 </p>
+<p>假定活动已经按照时间的单调递增顺序排序</p>
+<p>f<sub>1</sub> &lt;= f<sub>2</sub> &lt;= … &lt;= f<sub>n-1</sub> &lt;= f<sub>n</sub></p>
+<h4 id="活动选择问题的最优子结构"><a href="#活动选择问题的最优子结构" class="headerlink" title="活动选择问题的最优子结构"></a>活动选择问题的最优子结构</h4><p>令 S<sub>ij</sub> 表示在 a<sub>i</sub> 结束之后开始，在 a<sub>j</sub> 开始之前结束的那些活动的集合。假定 A<sub>ij</sub> 是 S<sub>ij</sub> 的一个最大的相互兼容的活动子集，且包含活动 a<sub>k</sub>。由于最优解包含活动 a<sub>k</sub> ，我们得到了两个子问题: 寻找 S<sub>ik</sub> 中的最大兼容活动子集(在 a<sub>i</sub> 结束之后开始，在 a<sub>k</sub> 开始之前结束的活动)以及寻找 S<sub>kj</sub> 中的最大兼容活动子集(在 a<sub>k</sub> 结束之后开始，在 a<sub>j</sub> 开始之前结束的活动)。可得 |A<sub>ij</sub>| = |A<sub>ik</sub>| + |A<sub>kj</sub>| + 1 个活动</p>
+<p>我们容易用剪切-粘贴法证明最优解A<sub>ij</sub>必然包含两个子问题S<sub>ik</sub>和S<sub>kj</sub>的最优解</p>
+<p>可以得到如下递归式</p>
+<p><img src="/2019/03/13/算法导论-16-贪心算法/0312_0.png" alt=""></p>
+<p>于是接下来可以设计一种带备忘机制的递归算法或者使用自底向上法填写表项</p>
+<h4 id="贪心选择"><a href="#贪心选择" class="headerlink" title="贪心选择"></a>贪心选择</h4><p>对于活动选择问题，什么是贪心选择？ 直觉告诉我们，应该选择S中最早结束的活动，因为它剩下的资源可供它之后尽可能多的活动使用</p>
+<p>当做出贪心选择之后，只剩下一个子问题需要我们求解: 寻找在 a<sub>1</sub> 结束后开始的活动</p>
+<p>令 S<sub>k</sub> = { a<sub>i</sub> ∈ S: s<sub>i</sub> &gt;= f<sub>k</sub>}为在 a<sub>k</sub>结束后开始的任务集合。当我们做出贪心选择，选择了 a<sub>1</sub> 之后，剩下的 S<sub>1</sub> 是唯一需要求解的子问题</p>
+<p>可以证明我们的直觉是正确的，证明过程略</p>
+<p>贪心算法通常都是自顶而下的设计: 做出一个选择，然后求解剩下的那个子问题，而不是自底向上地求解出很多子问题，然后再做出选择</p>
+<h4 id="递归贪心算法"><a href="#递归贪心算法" class="headerlink" title="递归贪心算法"></a>递归贪心算法</h4><p>过程 <code>RECURSIVE-ACTIVITY-SELECTOR</code> 的输入为两个数组 s 和 f，表示活动的开始和结束时间，下标 k 指出要求解的子问题 S<sub>k</sub>，以及问题规模 n 。它返回 S<sub>k</sub> 的一个最大兼容活动集。我们假定输入的 n 个活动已经按照结束时间的单调递增顺序排序好。为了方便算法初始化，我们添加了一个虚拟活动 a<sub>0</sub>，其结束时间为 f<sub>0</sub> = 0，这样子问题 S<sub>0</sub> 就是完整的活动集S。求解原问题即可调用 <code>RECURSIVE-ACTIVITY-SELECTOR(s, f, 0, n)</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">RECURSIVE-ACTIVITY-SELECTOR(s, f, k, n)</span><br><span class="line">    m = k + 1</span><br><span class="line">    while m &lt;= n and s[m] &lt; f[k]</span><br><span class="line">        m += 1</span><br><span class="line">    if m &lt;= n</span><br><span class="line">        return &#123; am &#125; ∪ RECURSIVE-ACTIVITY-SELECTOR(s, f, m, n)</span><br><span class="line">    else </span><br><span class="line">        return ∅</span><br></pre></td></tr></table></figure>
+<p><code>RECURSIVE-ACTIVITY-SELECTOR</code> 算法运行时间 <code>Θ(n)</code></p>
+<h4 id="迭代贪心算法"><a href="#迭代贪心算法" class="headerlink" title="迭代贪心算法"></a>迭代贪心算法</h4><p>我们可以很容易地将算法转换为迭代形式。过程 <code>RECURSIVE-ACTIVITY-SELECTOR</code> 几乎就是”尾递归”: 它以一个对自身地递归调用再接一次并集操作结尾。将尾递归过程改为迭代过程是很直接的</p>
+<p>过程 <code>GREEDY-ACTIVITY-SELECTOR</code> 是过程 <code>RECURSIVE-ACTIVITY-SELECTOR</code> 的一个迭代版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GREEDY-ACTIVITY-SELECTOR(s, f)</span><br><span class="line">    n = s.length</span><br><span class="line">    A = &#123;a1&#125;</span><br><span class="line">    k = 1</span><br><span class="line">    for m = 2 to n</span><br><span class="line">        if s[m] &gt;= f[k]</span><br><span class="line">            A = A U &#123;am&#125;</span><br><span class="line">            k = m</span><br><span class="line">    return A</span><br></pre></td></tr></table></figure>
+<p><code>GREEDY-ACTIVITY-SELECTOR</code> 算法运行时间 <code>Θ(n)</code></p>
+<h3 id="16-2-贪心算法原理"><a href="#16-2-贪心算法原理" class="headerlink" title="16.2 贪心算法原理"></a>16.2 贪心算法原理</h3><p>贪心算法通过做出一系列选择来求出问题的最优解。在每个决策点，它做出在当时看起来最佳的选择</p>
+<p>我们可以按如下步骤设计贪心算法</p>
 <ol>
-<li>刻画一个最优解的结构特征</li>
-<li>递归地定义最优解的值</li>
-<li>计算最优解的值，通常采用自底向上的方法</li>
-<li>利用计算出来的信息构建最优解</li>
+<li>将最优化问题转化为这样的形式: 对其做出一次选择后，只剩下一个子问题需要求解</li>
+<li>证明做出贪心选择后，原问题总是存在最优解，即贪心选择总是安全的</li>
+<li>证明做出贪心选择后，剩余的子问题满足性质，其最优解与贪心选择组合即可得到原问题的最优解</li>
 </ol>
-<h3 id="15-1-钢条切割"><a href="#15-1-钢条切割" class="headerlink" title="15.1 钢条切割"></a>15.1 钢条切割</h3><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>给定一段长度为n英寸的钢条和一个价格表p<sub>i</sub>(i = 1, 2, …, n)，求切割钢条方案，使得销售收益r<sub>n</sub>最大</p>
-<h4 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h4><p>假设钢条的价格表如下</p>
-<p><img src="/2019/03/11/算法导论-15-动态规划/钢条价格表.PNG" alt=""></p>
-<p>考虑n=4的情况，下图给出了n=4的所有可能的切割情况</p>
-<p><img src="/2019/03/11/算法导论-15-动态规划/0310_1.PNG" alt=""></p>
-<p>我们用普通的加号来代表切割方案，例如: 将<code>7=2+2+3</code>表示为将长度7英寸的钢条切割为三段。</p>
-<p>对于上述价格表样例，我们可以观察所有最优收益值r<sub>i</sub> (i = 1, 2, …, 10)及对应的最初切割方案</p>
-<p><img src="/2019/03/11/算法导论-15-动态规划/0310_2.PNG" alt=""></p>
-<p>第一个参数p<sub>n</sub>表示不切割，直接出售长度为 <code>n</code> 英尺的钢条的方案。其他 <code>n-1</code> 个参数对应另外 <code>n - 1</code>种方案: 对每个 <code>i = 1, 2, ..., n-1</code>，首先把钢条切割为长度为<code>i</code>和<code>n-i</code>的两段，接着求解这两段的最优切割收益r<sub>n</sub>和r<sub>n-1</sub>。由于无法预知哪种方案会获得最优收益，我们必须考察所有可能的<code>i</code>，选取其中收益最大者。如果直接出售原钢条会获得最大收益，我们当然可以选择不做任何切割。</p>
-<p>注意到，为了求解规模为<code>n</code>的原问题，我们先求解形式完全相同，但规模更小的子问题。即当完成首次切割后，我们将两端钢条看成两个独立的钢条切割问题实例。我们通过组合两个相关子问题的最优解，并在所有可能的两段切割方案中提取组合收益最大者，构成原问题的最优解。我们称钢条切割问题满足最优子结构性质: 问题的最优解由相关子问题的最优解组合而成，而这些子问题可以独立求解</p>
-<h4 id="解决方案1—使用自顶向下的递归方法求解"><a href="#解决方案1—使用自顶向下的递归方法求解" class="headerlink" title="解决方案1—使用自顶向下的递归方法求解"></a>解决方案1—使用自顶向下的递归方法求解</h4><p>我们将钢条从左边切割下长度为 <code>i</code> 的一段，支队右边剩下的长度为 <code>n-i</code> 的一段继续进行切割(递归求解)，对左边的一段则不再进行切割。即问题分解的方式为：将长度为<code>n</code>的钢条分解为左边开始一段，以及剩余部分继续分解的结果。</p>
-<p>这样，不做任何切割的方案就可以描述为: 第一段的长度为 <code>n</code>，收益为 p<sub>n</sub>，剩余部分长度为0，对应的收益为r<sub>0</sub> = 0。</p>
-<p>公式如下<br><img src="/2019/03/11/算法导论-15-动态规划/0310_3.PNG" alt=""></p>
-<p>伪代码如下,它采用的是一种直接的自顶向下的递归方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CUT-ROD(p, n)</span><br><span class="line">    if n == 0</span><br><span class="line">        return 0</span><br><span class="line">    q = -∞</span><br><span class="line">    for i = 1 to n</span><br><span class="line">        q = max(q, p[i] + CUT-ROD(p, n-i))</span><br><span class="line">    return q</span><br></pre></td></tr></table></figure></p>
-<p>一旦输入规模稍微变大，程序运行时间会变得相当长。每当将 <code>n</code> 增加 <code>1</code> ，程序运行时间差不多会增加 <code>1</code> 倍。</p>
-<p>为什么<code>CUT-ROD</code>的效率如此差，原因是，<code>CUT-ROD</code>反复地用相同的参数值对自身进行递归调用，即它反复求解相同的子问题。如下图所示<br><img src="/2019/03/11/算法导论-15-动态规划/0310_4.PNG" alt=""></p>
-<p>此算法的时间复杂度为<br><img src="/2019/03/11/算法导论-15-动态规划/0310_5.PNG" alt=""></p>
-<h4 id="解决方案2—使用动态规划方法求解最优钢条切割问题"><a href="#解决方案2—使用动态规划方法求解最优钢条切割问题" class="headerlink" title="解决方案2—使用动态规划方法求解最优钢条切割问题"></a>解决方案2—使用动态规划方法求解最优钢条切割问题</h4><p>动态规划的思想如下所述。我们已经看到，朴素递归算法之所以效率很低，是因为它反复求解同样的子问题。因此，动态规划方法仔细安排求解顺序，对每个问题只求解一次，并将结果保存下来。如果随后再次需要此子问题的解，只需查找保存的结果，而不必重复计算。因此，动态规划方法是付出额外的内存空间来节省计算时间，是典型的时空权衡(time-memory-trade-off)的例子。而时间上的节省可能是非常巨大的:可能将指数时间的解转化为一个多项式时间的解。</p>
-<p>动态规划有两种等价的实现方法</p>
-<ol>
-<li><p>第一种方法称为带备忘的自顶向下法(top-down with memorization)。此方法仍按照自然的递归形式编写过程，但过程会保存每个子问题的解(通常保存在一个数组或散列表中)。当需要一个子问题的解时，过程首先检查是否已经保存过此解。如果是，则直接返回保存的值，从而节省了计算时间；否则，按通常方式计算这个子问题。我们称这个递归过程是带备忘的(memoized)，因为它记住了之前已经计算出的结果。</p>
+<p>在每个贪心算法之下，几乎总有一个更繁琐的动态规划算法</p>
+<h4 id="贪心选择性质"><a href="#贪心选择性质" class="headerlink" title="贪心选择性质"></a>贪心选择性质</h4><p>贪心算法的一个关键要素是，贪心选择性质。即，我们可以通过做出局部最优选择来构建全局最优解。当进行选择时，我们直接选择做出在当前问题中看起来最优的选择，而不必考虑子问题的解。</p>
+<p>贪心算法与动态规划</p>
+<ul>
+<li><p>在动态规划和贪心算法中，每个步骤都要进行一次选择</p>
 </li>
-<li><p>第二种方法称为自底向上法(bottom-up method)。这种方法一般需要恰当定义子问题”规模”的概念，使得任何子问题的求解都只依赖于”更小的”子问题的求解。因此我们可以将子问题按规模排序，按照由小至大的顺序进行求解。当求解某个子问题时，它所依赖的那些更小的子问题都已求解完毕，结果已经保存。每个子问题只需求解一次，当我们求解它时，它的所有前提子问题都已求解完成</p>
+<li><p>但动态规划中，选择通常依赖于子问题的选择。因此，我们通常以一种自底向上的方式求解动态规划问题，先求解较小的子问题，然后是较大的子问题</p>
 </li>
-</ol>
-<p>下面给出的是带备忘的自顶向下法的伪代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MEMOIZED-CUT-ROD(p,n)</span><br><span class="line">    let r[0..n] be a new array</span><br><span class="line">    for i = 0 to n</span><br><span class="line">        r[i] = -∞</span><br><span class="line">MEMORIZED-CUT-ROD-AUX(p,n,r)</span><br><span class="line">    if r[n] &gt;= 0</span><br><span class="line">        return r[n]</span><br><span class="line">    if n == 0</span><br><span class="line">        q = 0</span><br><span class="line">    else q = -∞</span><br><span class="line">        for i = 1 to n</span><br><span class="line">            q = max(q, p[i] + MEMOIZED-CUT-ROD-AUX(p, n-i, r))</span><br><span class="line">    r[n] = q</span><br><span class="line">    return q</span><br></pre></td></tr></table></figure></p>
-<p>自底向上版本更为简单<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">BOTTOM-UP-CUT-ROD(p, n)</span><br><span class="line">    let r[0..n] be a new array</span><br><span class="line">    r[0] = 0</span><br><span class="line">    for j = 1 to n</span><br><span class="line">        q = -∞</span><br><span class="line">        for i = 1 to j</span><br><span class="line">            q = max(q, p[i] + r[j - i])</span><br><span class="line">        r[j] = q</span><br><span class="line">    return r[n]</span><br></pre></td></tr></table></figure></p>
-<p>自底向上版本采用子问题的自然顺序；若 <code>i&lt;j</code>，则规模为 <code>i</code> 的子问题比规模为 <code>j</code> 的子问题”更小”。因此，过程依次求解规模为 <code>j = 0, 1, ..., n</code> 的子问题</p>
-<p>此算法的时间复杂度为 Θ(n<sup>2</sup>)</p>
-<h4 id="子问题图"><a href="#子问题图" class="headerlink" title="子问题图"></a>子问题图</h4><p>当思考一个动态规划问题时，我们应该弄清所涉及的子问题及子问题之间的依赖关系</p>
-<p>问题的子问题图准确地表达了这些信息，下图显示了 <code>n=4</code> 时钢条切割问题地子问题图。<br>它是一个有向图，每个顶点唯一地对应一个子问题。若求子问题x地最优解时需要直接用到子问题y地最优解，那么在子问题图中就会有一条从子问题x的定点到子问题y的定点的有向边。</p>
-<p><img src="/2019/03/11/算法导论-15-动态规划/0310_6.PNG" alt=""></p>
-<p>自底向上的动态规划方法处理子问题图中顶点的顺序为: 对于一个给定的子问题<code>x</code>，在求解它之前求解邻接它的子问题<code>y</code>。对于任何子问题，直至它依赖的所有子问题均已求解完成，才会求解它</p>
-<p>子问题图<code>G=(V, E)</code>的规模可以帮我们确定动态规划算法的运行时间。由于每个子问题只求解一次，因此算法运行时间等于每个子问题求解时间之和。通常，一个子问题的求解时间与子问题图中对应顶点的度(出射边的数目)成正比，而子问题的数目等于子问题图的顶点数。因此，通常情况下，动态规划算法的运行使劲按与顶点与边的数量呈线性关系</p>
-<h3 id="15-2-矩阵链乘法"><a href="#15-2-矩阵链乘法" class="headerlink" title="15.2 矩阵链乘法"></a>15.2 矩阵链乘法</h3><h4 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h4><p>给定一个 <code>n</code> 个矩阵的序列(矩阵链)(A<sub>1</sub>),我们希望计算它们的乘积如下</p>
-<p>A<sub>1</sub>A<sub>2</sub>…A<sub>n</sub></p>
-<p>由于矩阵乘法满足结合律，因此任何加括号的方法都会得到相同的计算结果。我们称有如下性质的矩阵乘积链为完全括号化的(fully parenthesized): 它是单一矩阵，或者是两个完全括号化的矩阵乘积链的积，且已外加括号。</p>
-<p>例如，如果矩阵链为(A1, A2, A3, A4)，则共有5种完全括号化的矩阵乘积链</p>
-<p>(A1(A2(A3A4)))<br>(A1((A2A3)A4))<br>((A1A2)(A3A4))<br>((A1(A2A3))A4)<br>(((A1A2)A3)A4)  </p>
-<p>对矩阵链加乘法的方式会对矩阵运算的代价产生重大影响</p>
-<p>两个矩阵 <code>A</code> 和 <code>B</code> 只有相容(compatible)，即 <code>A</code> 的列数等于 <code>B</code> 的行数时，才能相乘。如果 <code>A</code> 是 <code>p * q</code> 的矩阵,<code>B</code> 是 <code>q * r</code> 的矩阵，那么乘积 <code>C</code> 是 <code>p * r</code> 的矩阵。计算 <code>C</code> 所需时间由标量乘法的次数决定，即 <code>p * q * r</code></p>
-<p>以矩阵链 <code>(A1, A2, A3)</code> 相乘为例，来说明不同的加括号方式会导致不同的计算代价。假设三个矩阵的规模分别是 <code>10 * 100</code>、<code>100 * 5</code>、 <code>5 * 50</code>。如果按照 <code>((A1A2)A3)</code> 的顺序计算，为计算 <code>A1A2</code> ，需要做 <code>10 * 100 *5</code> 次标量乘法，再与A3相乘又需要做 <code>10 * 5 * 50</code> 次标量乘法，一共需要<code>7500</code>次。假如按照 <code>((A1)A2A3)</code> 的顺序，需要 <code>75000</code> 次</p>
-<p>矩阵链乘法问题(matrix-chain multiplication problem): 给定n个矩阵的链 <code>(A1, A2, ..., An)</code>, 矩阵<code>Ai</code> 的规模是p<sub>i-1</sub> * p<sub>i</sub>(1&lt;=i&lt;=n)，求完全括号化方案，使得计算乘积 <code>A1A2...An</code> 所需标量乘法次数最少</p>
-<h4 id="计算括号化方案的数量"><a href="#计算括号化方案的数量" class="headerlink" title="计算括号化方案的数量"></a>计算括号化方案的数量</h4><p>首先说明穷举所有可能的括号化方案不会产生一个高效的算法</p>
-<p>对于一个 <code>n</code> 个矩阵的链，令 <code>P(n)</code> 表示可供选择的括号化方案的数量。当 <code>n=1</code> 时，由于只有一个矩阵，因此只有一种完全括号化方案。当 <code>n&gt;=2</code> 时，完全括号化的矩阵乘积可描述为两个完全括号化的部分积相乘的形式，而两个部分积的划分点在第 <code>k</code> 个矩阵和第 <code>k+1</code> 个矩阵之间，<code>k</code> 为 <code>1, 2, ...., n - 1</code>中的任意一个值。可以得到递归式</p>
-<p><img src="/2019/03/11/算法导论-15-动态规划/0310_7.PNG" alt=""></p>
-<p>经过证明，这种方法的时间复杂度为 Ω(2<sup>n</sup>)。因此通过暴力搜索穷尽所有可能的括号化方案来寻求最优方案，是一个糟糕的策略</p>
-<h4 id="应用动态规划方法"><a href="#应用动态规划方法" class="headerlink" title="应用动态规划方法"></a>应用动态规划方法</h4><p>我们按照如下4个步骤来进行</p>
-<ol>
-<li>刻画一个最优解的结构特征(寻找最优子结构)</li>
-<li>递归地定义最优解的值</li>
-<li>计算最优解地值，通常采用自底向上的方法</li>
-<li>利用计算出的信息构建一个最优解</li>
-</ol>
-<h5 id="步骤1-最优括号化方案的结构特征-寻找最优子结构"><a href="#步骤1-最优括号化方案的结构特征-寻找最优子结构" class="headerlink" title="步骤1 : 最优括号化方案的结构特征(寻找最优子结构)"></a>步骤1 : 最优括号化方案的结构特征(寻找最优子结构)</h5><p>动态规划的第一步是寻找最优子结构，然后就可以利用这种子结构从子问题的最优解构造原问题的最优解</p>
-<p>下面给出本问题的最优子结构。假设<code>Ai Ai+1 ... Aj</code>的最优括号化方案的分割点在 <code>Ak</code> 和 <code>Ak+1</code> 之间。那么继续对子链<code>Ai Ai+1 ... Ak</code>和<code>Ak+1 ... Aj</code>进行括号化时，我们应该直接采用独立求解它时所得的最优方案</p>
-<p>我们已经看到，一个非平凡的矩阵链乘法问题的实例的任何解都需要划分链，而任何最优解都是由子问题实例的最优解构成的。因此，为了构建一个矩阵链乘法问题实例的最优解，我们可以将问题划分为两个子问题(<code>Ai Ai+1 ... Ak</code>和<code>Ak+1 ... Aj</code>的最优括号化问题)，求出子问题实例的最优解，然后将子问题的最优解组合起来。我们必须保证在确定分割点时，已经考察了所有可能的划分点，这样就可以保证不会遗漏最优解</p>
-<h5 id="步骤2-一个递归求解方案-递归地定义最优解的值"><a href="#步骤2-一个递归求解方案-递归地定义最优解的值" class="headerlink" title="步骤2 : 一个递归求解方案(递归地定义最优解的值)"></a>步骤2 : 一个递归求解方案(递归地定义最优解的值)</h5><p>下面用子问题的最优解来递归地定义原问题最优解地代价。对矩阵链乘法问题，我们可以将对所有 <code>1&lt;=i&lt;=j&lt;=n</code>确定<code>Ai Ai+1 ... Aj</code>的最小代价括号化方案作为子问题。令<code>m[i, j]</code>表示计算矩阵 A<sub>i <em> j</em></sub>所需标量乘法次数的最小值，那么。原问题的最优解—计算A<sub>1  n</sub>所需的最低代价就是<code>m[1, n]</code></p>
-<p>我们可以递归地定义<code>m[i, j]</code>如下。</p>
-<p>对于 i=j 时的平凡问题，矩阵链只包含唯一地矩阵A<sub>i * i</sub> = A<sub>i</sub>，不需要做任何标量乘法计算。所以，对所有 <code>i = 1, 2, ..., n</code> 来说，<code>m[i, i] = 0</code>。</p>
-<p>若 <code>i&lt;j</code>，我们利用步骤1中得到的最优子结构来计算<code>m[i, j]</code>。我们假设<code>Ai Ai+1 ... Aj</code>的最优括号化方案的分割点在矩阵<code>Ak</code>和<code>Ak+1</code>之间，其中<code>i&lt;=k&lt;j</code>。那么，<code>m[i, j]</code>就等于计算<code>Ai * k</code>和<code>Ak+1 * j</code>的代价加上两者相乘的代价的最小值。由于矩阵Ai的大小为 <code>pi-1 * pi</code>，易知<code>Ai * k</code>和<code>Ak+1 * j</code>相乘的代价为<code>pi-1 * pk * pj</code>次标量乘法运算。因此我们得到<br><img src="/2019/03/11/算法导论-15-动态规划/0310_8.PNG" alt=""></p>
-<p>上述递归公式假定最优分割点 <code>k</code> 是已知的，但实际上不知道。不过 <code>k</code> 只有 <code>j-i</code> 种可能的取值。我们只需检查这<code>j-i</code>种情况，找出最优者即可。一次迭代求解公式变为<br><img src="/2019/03/11/算法导论-15-动态规划/0310_9.PNG" alt=""></p>
-<h5 id="步骤3-计算最优代价"><a href="#步骤3-计算最优代价" class="headerlink" title="步骤3 : 计算最优代价"></a>步骤3 : 计算最优代价</h5><p>现在，我们可以很容易地基于上面的递归公式写出一个递归算法，来计算 <code>A1A2...An</code> 相乘的最小代价 <code>m[1, n]</code> 。此递归算法是指数时间的，并不比暴力搜索算法好</p>
-<p>此递归算法会在递归调用中多次遇到同一个子问题，这种子问题重叠的性质是应用动态规划的另一个标志</p>
-<p>我们采用自底向上表格法来计算最优代价。假定矩阵Ai的规模为 <code>pi-1 * pi(i = 1, 2, ..., n)</code>。它的输入是一个序列<code>p=(p0, p1, ..., pn)</code>，其长度为<code>p.length = n + 1</code>。过程用一个辅助表<code>m[1..n, 1..n]</code>来保存代码<code>m[i, j]</code>，用另一个辅助表<code>s[1..n-1, 2..n]</code>记录最优值<code>m[i, j]</code>对应的分割点<code>k</code>。我们就可以利用表s构建最优解。</p>
-<p>为了实现自底向上的方法，我们必须确定计算 <code>m[i, j]</code> 时需要访问哪些其他表项。<code>m[i, j]</code> 的值只依赖于那些少于 <code>j-i+1</code> 个矩阵链相乘的最优计算代价。因此算法应该按照长度递增的顺序求解矩阵链括号化问题，并按对应的顺序填写表<code>m</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">MATRIX-CHAIN-ORDER(p)</span><br><span class="line">    n = p.length - 1</span><br><span class="line">    let m[1..n,1..n] and s[1..n-1, 2..n]be new tables</span><br><span class="line">    for i = 1 to n</span><br><span class="line">        m[i, i] = 0</span><br><span class="line">    for l = 2 to n</span><br><span class="line">        for i = 1 to n - l + 1</span><br><span class="line">        j = i + l - 1</span><br><span class="line">        m[i, j] = ∞</span><br><span class="line">        for k = i to j - 1</span><br><span class="line">            q = m[i, k] + m[k+1, j] + p[i - 1] * p[k] * [pj]</span><br><span class="line">        if q &lt; m[i, j]</span><br><span class="line">            m[i, j] = q</span><br><span class="line">            s[i, j] = k</span><br><span class="line">    return m and s</span><br></pre></td></tr></table></figure>
-<p>下图展示了对一个长度为6的矩阵链执行此算法的过程<br><img src="/2019/03/11/算法导论-15-动态规划/0310_10.PNG" alt=""></p>
-<p>简单分析<code>MATRIX-CHAIN-ORDER</code>的嵌套循环结构，可以看到算法的运算时间为O(n<sup>3</sup>)。</p>
-<h5 id="步骤4-构建最优解"><a href="#步骤4-构建最优解" class="headerlink" title="步骤4: 构建最优解"></a>步骤4: 构建最优解</h5><p>我们可以根据表s记录的信息来递归地恢复最优解，算法如图<br><img src="/2019/03/11/算法导论-15-动态规划/0310_11.PNG" alt=""></p>
-<h3 id="15-3-动态规划原理"><a href="#15-3-动态规划原理" class="headerlink" title="15.3 动态规划原理"></a>15.3 动态规划原理</h3><p>在本节我们将关注适合应用动态规划方法求解的最优化问题应该具备的两个要素: 最优子结构和子问题重叠</p>
-<h4 id="最优子结构"><a href="#最优子结构" class="headerlink" title="最优子结构"></a>最优子结构</h4><p>用动态规划问题求解最优化问题的第一步就是刻画最优解的结构。如果一个问题的最优解包含其子问题的最优解，我们就称此问题具有最优子结构性质。因此，某个问题是否适合应用动态规划算法，它是否具有最优子结构性质是一个好结构(当然，具有最优子结构性质也可能意味着适合应用贪心策略)</p>
-<p>本章前面的两个问题都具有最优子结构性质。在15.1中，我们观察到，长度为 <code>n</code> 的钢条的最优切割方案是由第一次切割后得到的两端钢条的最优切割方案组成的。在15.2中，我们看到 <code>Ai Ai+1 ... Aj</code> 的最优括号化方案首先在 <code>Ak</code> 和 <code>Ak+1</code>之间进行划分，然后对 <code>Ai Ai+1 ... Ak</code> 和 <code>Ak+1 Ak+2 ... Aj</code>继续进行最优括号化</p>
-<p>发掘最优子结构性质的过程，遵循如下通用模式</p>
-<ol>
-<li><p>证明问题最优解的一个组成部分是做出一个选择，例如，选择钢条第一次切割位置，选择矩阵链的划分位置等，做出这次选择会产生一个或多个待解决的子问题</p>
+<li><p>在贪心算法中，我们总是做出当时看来最佳的选择，然后求解剩下的唯一的子问题。贪心算法进行选择时可能依赖之间做出的选择，但不依赖任何将来的选择或是子问题的解</p>
 </li>
-<li><p>对于一个给定问题，在其可能的第一步选择中，你假定已经知道哪种选择才会得到最优解，你现在并不关心这种选择具体是如何得到的，只是假定已经知道了这种选择</p>
+<li><p>贪心算法在进行第一次选择之前不求解任何子问题</p>
 </li>
-<li><p>给定可获得最优解的选择后，你确定这次选择会产生哪些子问题，以及如何最好地刻画子问题空间</p>
-</li>
-<li><p>利用”剪贴-粘贴”(cut-and-paste)技术证明: 作为构成子问题最优解的组成部分，每个子问题的解就是它本身的最优解。证明这一点可以用反证法: 假定子问题的解不是其自身的最优解，那么我们就可以从原问题的解中”剪切”掉哪些非最优解，将最优解”粘贴”进去，从而得到原问题一个更优的解，这与最初的解是原问题最优解的前提假设矛盾。</p>
-</li>
-</ol>
-<p>对于不同问题领域，最优子结构的不同体现在两个方面:</p>
-<ol>
-<li><p>原问题的最优解中涉及多少个子问题，以及</p>
-</li>
-<li><p>在确定最优解使用哪些子问题时，我们需要考察多少种选择</p>
-</li>
-</ol>
-<p>在钢条切割问题中，长度为 <code>n</code> 的钢条的最优切割方案仅仅使用一个子问题(长度为<code>n - i</code> 的钢条的最有切割)，但必须考察 <code>i</code> 的 <code>n</code> 种不同取值，来确定哪一个会产生最优解。 <code>Ai Ai+1 ... Aj</code> 的矩阵链乘法问题种，最优解使用两个子问题，我们需要考察 <code>j - i</code> 种情况。对于给定的矩阵链划分位置—-矩阵<code>Ak</code>，我们需要求解两个子问题—- <code>Ai Ai+1 ... Ak</code>和<code>Ak+1 Ak+2 .. Aj</code>的括号化方案—-而且两个子问题都必须求解最优方案。一旦确定了子问题的最优解，就可以在 <code>j - i</code> 个候选的 <code>k</code> 中选取最优者</p>
-<p>我们可以用子问题的总数和每个子问题需要考察多少种选择这两个因素来粗略分析动态规划算法的运行时间。对于钢条切割问题，共有 Θ(n)个子问题，每个子问题最多需要考察 n 种选择，因此运行时间为O(n<sup>2</sup>)</p>
-<h4 id="一些微妙之处—-子问题无关性"><a href="#一些微妙之处—-子问题无关性" class="headerlink" title="一些微妙之处—-子问题无关性"></a>一些微妙之处—-子问题无关性</h4><p>为什么最长简单路径问题的子结构与最短路径有这么大的差别？原因在于，虽然最长路径问题和最短路径问题的解都用到了两个子问题，但两个最长简单路径子问题是相关的，而两个最短路径子问题是无关的。这里，子问题无关的含义是，同一个原问题的一个子问题的解不影响另一个子问题的解。换个角度来开，我们所面临的困境就是：求解一个子问题时用到了某些资源，导致这些资源在求解其他子问题时不可用。</p>
-<h4 id="重叠子问题"><a href="#重叠子问题" class="headerlink" title="重叠子问题"></a>重叠子问题</h4><p>适合用动态规划方法求解的最优化问题应该具备的第二个性质是子问题空间必须足够小，即问题的递归算法会反复求解相同的子问题，而不是一直产生新的子问题，一般来讲，不同子问题的总数是输入规模的多项式函数为好。如果递归算法求解相同的子问题，我们就称最优化问题具有重叠子问题性质。与之相对的，适合用分治方法求解的问题通常在递归的每一步都生成一个全新的子问题。动态规划算法通常这样利用重叠子问题性质: 对每个子问题求解一次，将解存在一张表种，当再次需要这个子问题时，直接查表，每次查表代价为常数时间</p>
-<h4 id="重构最优解"><a href="#重构最优解" class="headerlink" title="重构最优解"></a>重构最优解</h4><p>从实际考虑，我们通常将每个子问题所作的选择存在一个表中，这样就不必根据代价值来重构这些信息</p>
-<h4 id="备忘"><a href="#备忘" class="headerlink" title="备忘"></a>备忘</h4><p>带备忘的递归算法为每个子问题维护一个表项来保存它的解。每个表项的初值设为一个特殊值，表示尚未填入子问题的解。当递归调用过程第一次遇到子问题时，计算其解，并存入对应表项，随后每次遇到同一个子问题，只是简单地查表，返回其解</p>
-<p>为求解矩阵链乘法问题，我们既可以用带备忘地自顶向下动态规划算法，也可以用自底向上的动态规划算法，时间复杂度均为 O(n<sup>3</sup>)。两个方法都利用了重叠子问题性质。不同的子问题一共只有Θ(n<sup>2</sup>)个，对每个子问题，两种方法都只计算一次。而没有备忘机制的自然递归算法的运行时间是指数阶，因为它会反复求解同样的子问题</p>
-<p>通常情况下，如果每个子问题必须至少求解一次，自底向上动态规划算法会比自顶向下备忘算法快(都是O(n<sup>3</sup>)时间，相差一个常量系数)，因为自底向下算法没有递归调用的开销，表的维护开销也更小。</p>
-<p>相反，如果子问题空间中的某些子问题完全不必求解，备忘方法就体现其优势了，因为它只会求解那些绝对必要的子问题</p>
-<h3 id="15-4-最长公共子序列"><a href="#15-4-最长公共子序列" class="headerlink" title="15.4 最长公共子序列"></a>15.4 最长公共子序列</h3><h4 id="问题定义"><a href="#问题定义" class="headerlink" title="问题定义"></a>问题定义</h4><p>一种衡量DNA串S<sub>1</sub>和S<sub>2</sub>的相似度的方式是：寻找第三个串S<sub>3</sub>，它的所有碱基也都出现在S<sub>1</sub>和S<sub>2</sub>中，且在三个串中出现的顺序都相同，但在S<sub>1</sub>和S<sub>2</sub>中不要求连续出现，可以找到的S<sub>3</sub>越长，就可以认为S<sub>1</sub>和S<sub>2</sub>的相似度越高, 这种相似度概念就是最大公共子序列问题。</p>
-<p>一个给定序列的子序列，就是将给定序列中零个或多个元素去掉之后得到的结果。其形式化定义如下: 给定一个序列 X = (x<sub>1</sub>, x<sub>2</sub>, …, x<sub>m</sub>),另一个序列 Z = (z<sub>1</sub>, z<sub>2</sub>, …, z<sub>k</sub>)满足如下条件时称为X的子序列(subsequence)，即存在一个严格递增的X的下标序列(i<sub>1</sub>, i<sub>2</sub>, …, i<sub>k</sub>),对所有j = 1, 2, …k,满足 x<sub>i<sub>j</sub></sub> = z<sub>j</sub>。</p>
-<p>最大公共子序列问题(longest-common-subsequence problem)给定两个序列 X = (x<sub>1</sub>, x<sub>2</sub>, …, x<sub>m</sub>) 和 Y = (y<sub>1</sub>, y<sub>2</sub>, …, y<sub>n</sub>),求 X 和 Y 长度最长的公共子序列。</p>
-<h4 id="步骤1-刻画最大公共子序列的特征"><a href="#步骤1-刻画最大公共子序列的特征" class="headerlink" title="步骤1: 刻画最大公共子序列的特征"></a>步骤1: 刻画最大公共子序列的特征</h4><p>如下面的定理所示，LCS问题具有最优子结构性质。子问题的自然分类对应两个输入序列的”前缀”对。</p>
-<p>定理 15.1 (LCS的最优子结构) 令 <code>X=&lt;x1, x2, ..., xm&gt;</code> 和 <code>Y=&lt;y1, y2, ..., yn&gt;</code> 为两个序列，<code>Z=&lt;z1, z2, ..., zk&gt;</code> 为 <code>X</code> 和 <code>Y</code> 的任意LCS</p>
-<ol>
-<li>如果 x<sub>m</sub> = y<sub>n</sub>，则z<sub>k</sub>=x<sub>m</sub>=y<sub>n</sub>,且Z<sub>k-1</sub>是X<sub>m-1</sub>和Y<sub>n-1</sub>的一个LCS</li>
-<li>如果 x<sub>m</sub> != y<sub>n</sub>，那么z<sub>k</sub> != x<sub>m</sub>,意味着Z是X<sub>m-1</sub>和Y的一个LCS</li>
-<li>如果 x<sub>m</sub> != y<sub>n</sub>，那么z<sub>k</sub> != y<sub>n</sub>,意味着Z是X和Y<sub>n-1</sub>的一个LCS</li>
-</ol>
-<p>定理15.1告诉我们，两个序列的LCS包含两个序列前缀的LCS。因此，LCS问题具有最优子结构性质</p>
-<h4 id="步骤2-一个递归的求解方案"><a href="#步骤2-一个递归的求解方案" class="headerlink" title="步骤2: 一个递归的求解方案"></a>步骤2: 一个递归的求解方案</h4><p>定理 15.1 意味着，在求 <code>X=&lt;x1, x2, ..., xm&gt;</code> 和 <code>Y=&lt;y1, y2, ..., yn&gt;</code> 的一个LCS时，我们需要求解一个或两个子问题。如果 x<sub>m</sub> = y<sub>n</sub>, 我们应该求解X<sub>m-1</sub>和Y<sub>n-1</sub>的一个LCS。将 x<sub>m</sub> = y<sub>n</sub> 追加到一个LCS的末尾，就得到 X 和 Y 的一个LCS。如果 x<sub>m</sub> != y<sub>n</sub>，我们必须求解两个子问题，求 X<sub>m-1</sub> 和 Y 的一个LCS与 X 和 Y<sub>n-1</sub> 的一个LCS。两个LCS较长者即为 X 和 Y 的一个LCS。</p>
-<p>可以看出LCS问题的重叠子问题性质。为了求  X 和 Y 的LCS，要求 X<sub>m-1</sub> 和 Y 的一个LCS与 X 和 Y<sub>n-1</sub> 的LCS。但者几个子问题都包含求X<sub>m-1</sub>和Y<sub>n-1</sub>的LCS。</p>
-<p>设计LCS问题首先要建立最优解的递归式，如下</p>
-<p><img src="/2019/03/11/算法导论-15-动态规划/0311_1.PNG" alt=""></p>
-<p>LCS问题是一个根据条件排除子问题的动态规划算法</p>
-<h4 id="步骤3-计算LCS的长度"><a href="#步骤3-计算LCS的长度" class="headerlink" title="步骤3: 计算LCS的长度"></a>步骤3: 计算LCS的长度</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">LCS-LENGTH(X, Y)</span><br><span class="line"></span><br><span class="line">m = X.length</span><br><span class="line">n = Y.length</span><br><span class="line">let b[1..m, 1..n] and c[0..m, 0..n] be new table</span><br><span class="line">for i = 1 to m</span><br><span class="line">    c[i, 0] = 0</span><br><span class="line">for j = 0 to n</span><br><span class="line">    c[0, j] = 0</span><br><span class="line">for i = 1 to m</span><br><span class="line">    for j = 1 to n</span><br><span class="line">        if xi == yi</span><br><span class="line">            c[i, i] = c[i - 1, j - 1] + 1</span><br><span class="line">            b[i, j] = &quot;↖&quot;</span><br><span class="line">        elseif c[i - 1, j] &gt;= c[i, j - 1]</span><br><span class="line">            c[i, j] = c[i - 1, j]</span><br><span class="line">            b[i, j] = &quot;↑&quot;</span><br><span class="line">        else </span><br><span class="line">            c[i, j] = c[i, j - 1]</span><br><span class="line">            b[i, j] = &quot;←&quot;</span><br></pre></td></tr></table></figure>
-<p>过程LCS-LENGTH接受两个序列  <code>X=&lt;x1, x2, ..., xm&gt;</code> 和 <code>Y=&lt;y1, y2, ..., yn&gt;</code> 作为输入。它将 <code>c[i, j]</code> 的值保存在表 <code>c[0..m, 0..n]</code>中，并按行主次序(row-major order)计算表项(即首先由左至右计算c的第一行，然后计算第二行，依次类推)。过程还维护一个表<code>b[0..m, 0..n]</code>，帮助构建最优解。<code>b[i, j]</code> 指向的表项对应计算 <code>c[i, j]</code> 时所选择的子问题最优解。过程返回表b和表c, <code>c[m, n]</code> 保存了 <code>X</code> 和 <code>Y</code> 的LCS的长度</p>
-<h4 id="步骤4-构造LCS"><a href="#步骤4-构造LCS" class="headerlink" title="步骤4: 构造LCS"></a>步骤4: 构造LCS</h4><p>略</p>
-<h4 id="算法改进"><a href="#算法改进" class="headerlink" title="算法改进"></a>算法改进</h4><p>略</p>
+</ul>
+<p>但是我们必须证明每个步骤做出贪心算法能生成全局最优解</p>
+<h4 id="最优子结构"><a href="#最优子结构" class="headerlink" title="最优子结构"></a>最优子结构</h4><p>如果一个问题的最优解包含其子问题的最优解，则称此问题具有最优子结构性质</p>
+<p>当应用贪心算法时，我们通常使用更为直接的最优子结构。如前所述，我们可以假定，通过对原问题应用贪心选择即可得到子问题。我们真正要做的全部工作就是论证: 将子问题的最优解与贪心选择组合在一起就能生成原问题的最优解。这种方法隐含地对子问题使用了数学归纳法，证明了在每个步骤进行贪心选择会生成原问题的最优解</p>
+<h4 id="贪心对动态规划"><a href="#贪心对动态规划" class="headerlink" title="贪心对动态规划"></a>贪心对动态规划</h4><p>为了说明贪心算法和动态规划之间的细微差别，我们研究一个经典最优化问题的两个变形</p>
+<p>0-1 背包问题的描述如下</p>
+<p><img src="/2019/03/13/算法导论-16-贪心算法/0314_0.png" alt=""></p>
+<p>分数背包问题的描述如下</p>
+<p><img src="/2019/03/13/算法导论-16-贪心算法/0314_1.png" alt=""></p>
+<p>我们用贪心策略可以求解分数背包问题，而不能求解 0-1 背包问题。为了求解分数背包问题，我们首先计算每个商品的每磅价值 v/w。遵循贪心策略，小偷首先尽量多地拿走每磅价值最高的商品。如果该商品已全部拿走而背包尚未满，他继续尽量多地拿走每磅价值第二高的产品，依次类推，直至达到重量上限W</p>
+<p>这种贪心算法的运行时间为 <code>O(nlgn)</code></p>
+<p>拿走商品1的策略对 0-1 背包问题无效是因为小偷无法装满背包，空闲空间降低了方案的有效每磅价值</p>
 
           
         
@@ -510,7 +437,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -558,7 +485,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -569,7 +496,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -580,7 +507,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -636,7 +563,7 @@
         <h3 class="widget-title">TAGS</h3>
         <div id="myCanvasContainer" class="widget tagcloud">
           <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
           </canvas>
         </div>
       </div>
