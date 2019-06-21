@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/动态规划/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/07/树形动态规划-节点选择/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -268,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/06/动态规划/" itemprop="url">动态规划</a></h1>
+                <a class="post-title-link" href="/2019/03/07/树形动态规划-节点选择/" itemprop="url">树形动态规划--节点选择</a></h1>
         
 
         <div class="post-meta">
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-06T20:16:50+08:00">
-                2019-03-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-07T15:55:25+08:00">
+                2019-03-07
               </time>
             
 
@@ -321,8 +321,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/06/动态规划/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/06/动态规划/" itemprop="commentCount"></span>
+                <a href="/2019/03/07/树形动态规划-节点选择/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/07/树形动态规划-节点选择/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -352,48 +352,213 @@
       
         
           
-            <h2 id="动态规划-Dynamic-Programing-DP"><a href="#动态规划-Dynamic-Programing-DP" class="headerlink" title="动态规划(Dynamic Programing, DP)"></a>动态规划(Dynamic Programing, DP)</h2><p>动态规划是一种通过把原问题分解为相对简单的子问题的方式求解复杂问题的方法</p>
-<p>动态规划常常适用于有重叠子问题和最优子结构性质的问题，动态规划方法所耗时间远少于朴素解法</p>
-<p>动态规划背后的基本思想非常简单。大致上，若要解一个给定问题，我们需要解其不同部分，再根据子问题的解以得出原问题的解</p>
-<p>通常许多子问题非常相似，为此动态规划法试图仅仅解决每个子问题一次，从而减少计算量：一旦某个给定子问题的解已经算出，则将其记忆化存储，以便下次需要同一个子问题解时直接查表。这种做法在重复子问题的数目关于输出的规模呈指数增长时特别有用</p>
-<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>动态规划在查找有许多重叠子问题的情况的最优解时有效，它将问题重新组合为子问题。为了避免多次解决这些子问题，它们的结果都逐渐被计算并被保存，从简单的问题直到整个问题都被解决。因此，动态规划保存递归时的结果，因而不会在解决同样的问题时花费时间。</p>
-<p>动态规划只能应用于有最优子结构的问题。最优子结构的意思是局部最优解能决定全局最优解。简单来说，问题可以被划分为子问题来解决</p>
-<h3 id="适用情况"><a href="#适用情况" class="headerlink" title="适用情况"></a>适用情况</h3><ol>
-<li>最优子结构性质: 如果问题的最优解所包含的子问题的解也是最优的，我们就称该问题具有最优子结构性质。最优子结构性质为动态规划算法解决问题提供了重要的线索</li>
-<li>无后效性: 即子问题的解一旦确定，就不再改变，不受在这之后、包含它的更大的问题的求解决策影响</li>
-<li>子问题重叠性质: 子问题重叠性质是指在用递归算法自顶向下对问题进行求解时，每次产生的子问题并不总是新问题，有些子问题会被重复计算多次。动态规划算法正是利用了这种子问题重叠性质，对每个子问题只计算一次，然后将其计算结果保存到一个表格中，当再次需要计算已经计算过的子问题时，只是在表格中简单地查看一下结果，从而获得较高的效率</li>
-</ol>
-<h3 id="实例–01背包问题"><a href="#实例–01背包问题" class="headerlink" title="实例–01背包问题"></a>实例–01背包问题</h3><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>有<code>N</code>件物品和一个容量为<code>V</code>的背包。第i件物品的费用是<code>c[i]</code>，价值为<code>w[i]</code>。求解将哪些物品装入背包可使价值总和最大</p>
-<h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><p>这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。 用子问题定义状态：即<code>f[i][v]</code>表示前<code>i</code>件物品恰放入一个容量为<code>v</code>的背包可以获得的最大价值。其状态转移方程为</p>
-<blockquote>
-<p>f[i][v]=max{f[i-1][v],f[i-1][v-c[i]]+w[i]}</p>
-</blockquote>
-<p>其中<code>i</code>表示放第<code>i</code>个物品</p>
-<p><code>v</code>表示背包所容纳的重量</p>
-<p><code>f[i][v]</code>表示前<code>i</code>件物品恰放入一个容量为<code>v</code>的背包可以获得的最大价值</p>
-<p><code>w[i]</code>表示第<code>i</code>件商品的价值</p>
-<p>若只考虑第<code>i</code>件物品的策略（放或不放），那么就可以转化为一个只牵扯前<code>i-1</code>件物品的问题。</p>
-<p>如果不放第<code>i</code>件物品，那么问题就转化为前<code>i-1</code>件物品放入容量为<code>v</code>的背包中，价值为<code>f[i-1][v]</code>；</p>
-<p>如果放第<code>i</code>件物品，那么问题就转化为前<code>i-1</code>件物品放入剩下的容量为<code>v-c[i]</code>的背包中”，此时能获得的最大价值就是<code>f[i-1][v-c[i]]</code>再加上通过放入第i件物品获得的价值<code>w[i]</code></p>
-<h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><p>假设现在有5件商品，每件商品的的价值和重量如下图所示，背包的容量 <code>C = 11</code>，现在来求解这个01背包问题</p>
-<p><img src="/2019/03/06/动态规划/dp_1.jpg" alt=""></p>
-<p>首先，我们制作一个表格</p>
-<p><img src="/2019/03/06/动态规划/dp_3.jpg" alt=""></p>
-<p>表格的每一列表示产品，列数等于产品数加一，即列数为6列。表格的行数等于背包的容量数加一，即行数为12行。</p>
-<p>假设我们按照商品序号从<code>1</code>到<code>5</code>的顺序放入商品，表格中的每个元素表示：当背包容量为j时，我们放到第<code>i</code>个商品时，背包价值的最大值。</p>
-<p>首先当背包为空时，价值为0，所以我们把第一行初始化为0。</p>
-<p>而当背包的容量为0时，我们无法放入任何商品，价值为0，所以我们把第一列初始化为0。</p>
-<p>对于其他元素，进行如下判断</p>
+            <h2 id="树形动态规划–节点选择"><a href="#树形动态规划–节点选择" class="headerlink" title="树形动态规划–节点选择"></a>树形动态规划–节点选择</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>有一棵 <code>n</code> 个节点的树，树上每个节点都有一个正整数权值。如果一个点被选择了，那么在树上和它相邻的点都不能被选择。求选出的点的权值和最大是多少？</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>此题目可以使用动态规划来求解，一个节点只有被选择和不被选择两种情况。</p>
+<p>首先构建一个名为dp的 <code>n * 2</code> 大小的矩阵，矩阵中的<code>dp[i][0]</code>表示不选择<code>i</code>节点时的权重最大值,<code>dp[i][1]</code>表示选择<code>i</code>节点时的权重最大值。最初时将矩阵中所有元素全部初始化为 <code>0</code> 。</p>
+<p>然后我们列出状态转移方程</p>
 <ul>
-<li><p>当商品重量大于背包容量时，我们一定无法放入商品，所以此时背包的价值继承自放入上一商品时的最大价值，即表格同列的上一个值。</p>
+<li><p>假如 <code>i</code> 是叶子节点</p>
+<blockquote>
+<p>dp[i][0] = 0</p>
+<p>dp[i][1] = w(i)</p>
+</blockquote>
 </li>
-<li><p>当重量小于总重时，我们需要考虑是否放入此商品。我们比较放与不放的价值哪个较大。对于放入商品的价值，我们将背包容量减去此商品的重量后，查表。对于不放入商品的价值，继承自放入上一商品时的最大价值。例如，当表格运算到<code>[{1,2,3}, 5]</code>时,我们首先考虑将商品放入背包，则此时背包重量为0，我们查询<code>[{1,2},0]</code>发现此时价值为0，则这种情况下的价值为<code>0 + 18 = 18</code>。然后我们考虑不将商品放入背包，此时背包的价值继承自放入上一商品时的最大价值，我们查询<code>[{1, 2}, 5]</code>,这种情况下的价值为 <code>7</code>。明显第一种情况更好，则我们将这个元素的值设置为<code>18</code>。</p>
+<li><p>假如 <code>i</code> 不是叶子节点</p>
+<blockquote>
+<p>dp[i][0] = ∑ max(dp[j][0], dp[j][1])</p>
+<p>dp[i][1] = w(i) + ∑ dp[j][0]</p>
+</blockquote>
 </li>
 </ul>
-<p>当我们计算到表格的右下角元素时，此问题已经解决了，就是右下角元素的值</p>
-<h4 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h4><p><img src="/2019/03/06/动态规划/dp_2.jpg" alt=""></p>
-<h3 id="与内容无关的部分"><a href="#与内容无关的部分" class="headerlink" title="与内容无关的部分"></a>与内容无关的部分</h3><p><img src="/2019/03/06/动态规划/Raspberry_Pi.png" alt=""></p>
-<p><img src="/2019/03/06/动态规划/ubuntu魔改MAC.png" alt=""></p>
+<p>接下来按照后序遍历的顺序遍历整个树，来完成dp矩阵中所有值的计算，举例如下</p>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><p>输入的树如图所示，共有五个节点，每个节点的权重值标注在其右侧。<br><img src="/2019/03/07/树形动态规划-节点选择/Tree_dp_0.png" alt=""></p>
+<p>按照后序遍历，节点遍历顺序为 <code>3 -&gt; 4 -&gt; 5 -&gt; 2 -&gt; 1</code></p>
+<h4 id="1-初始化状态"><a href="#1-初始化状态" class="headerlink" title="1 初始化状态"></a>1 初始化状态</h4><table>
+<thead>
+<tr>
+<th>Select\Node</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-后序遍历到3号节点"><a href="#2-后序遍历到3号节点" class="headerlink" title="2 后序遍历到3号节点"></a>2 后序遍历到3号节点</h4><table>
+<thead>
+<tr>
+<th>Select\Node</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-后序遍历到4号节点"><a href="#3-后序遍历到4号节点" class="headerlink" title="3 后序遍历到4号节点"></a>3 后序遍历到4号节点</h4><table>
+<thead>
+<tr>
+<th>Select\Node</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<h4 id="4-后序遍历到5号节点"><a href="#4-后序遍历到5号节点" class="headerlink" title="4 后序遍历到5号节点"></a>4 后序遍历到5号节点</h4><table>
+<thead>
+<tr>
+<th>Select\Node</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<h4 id="5-后序遍历到2号节点"><a href="#5-后序遍历到2号节点" class="headerlink" title="5 后序遍历到2号节点"></a>5 后序遍历到2号节点</h4><table>
+<thead>
+<tr>
+<th>Select\Node</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>9</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<h4 id="6-后序遍历到1号节点"><a href="#6-后序遍历到1号节点" class="headerlink" title="6 后序遍历到1号节点"></a>6 后序遍历到1号节点</h4><table>
+<thead>
+<tr>
+<th>Select\Node</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>5</td>
+<td>9</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>10</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>此时取根节点位置 <code>0</code> 和 位置 <code>1</code> 中值较大者即可，本例中显然 <code>5 &lt; 10</code> ,所以最终结果为 <code>10</code> </p>
+<h3 id="代码-java"><a href="#代码-java" class="headerlink" title="代码(java)"></a>代码(java)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> node_num;</span><br><span class="line">    <span class="keyword">int</span>[] weight;</span><br><span class="line">    ArrayList&lt;Integer&gt;[] adjacencyTable;</span><br><span class="line">    <span class="keyword">int</span>[][] dp;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">generate_dp</span><span class="params">(<span class="keyword">int</span> node_id, <span class="keyword">int</span> parent_id)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> temp_id: adjacencyTable[node_id]) &#123;</span><br><span class="line">            <span class="keyword">if</span>(temp_id != parent_id)&#123;</span><br><span class="line">                generate_dp(temp_id, node_id);</span><br><span class="line">                dp[node_id][<span class="number">0</span>] += Math.max(dp[temp_id][<span class="number">0</span>], dp[temp_id][<span class="number">1</span>]);</span><br><span class="line">                dp[node_id][<span class="number">1</span>] += dp[temp_id][<span class="number">0</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[node_id][<span class="number">1</span>] += weight[node_id];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Scanner scanner = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        node_num = scanner.nextInt();</span><br><span class="line">        weight = <span class="keyword">new</span> <span class="keyword">int</span>[node_num];</span><br><span class="line">        adjacencyTable = <span class="keyword">new</span> ArrayList[node_num];</span><br><span class="line">        dp = <span class="keyword">new</span> <span class="keyword">int</span>[node_num][<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; node_num; i ++)&#123;</span><br><span class="line">            weight[i] = scanner.nextInt();</span><br><span class="line">            adjacencyTable[i]= <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; node_num - <span class="number">1</span>; i ++)&#123;</span><br><span class="line">            <span class="keyword">int</span> node_1 = scanner.nextInt() - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> node_2 = scanner.nextInt() - <span class="number">1</span>;</span><br><span class="line">            adjacencyTable[node_1].add(node_2);</span><br><span class="line">            adjacencyTable[node_2].add(node_1);</span><br><span class="line">        &#125;</span><br><span class="line">        generate_dp(<span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line">        System.out.println(Math.max(dp[<span class="number">0</span>][<span class="number">0</span>], dp[<span class="number">0</span>][<span class="number">1</span>]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Main().run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注: oj只有50分，后5个点超时</p>
+<h3 id="代码-转-c"><a href="#代码-转-c" class="headerlink" title="代码(转, c ++)"></a>代码(转, c ++)</h3><p>原文链接 <a href="https://www.liuchuo.net/archives/3937" target="_blank" rel="noopener">蓝桥杯 ALGO-4 算法训练 结点选择</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">100010</span>][<span class="number">2</span>];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; v;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> node, <span class="keyword">int</span> pre)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v[node].size(); i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> temp = v[node][i];</span><br><span class="line">        <span class="keyword">if</span> (temp != pre) &#123;</span><br><span class="line">            dfs(temp, node);</span><br><span class="line">            dp[node][<span class="number">0</span>] += max(dp[temp][<span class="number">0</span>], dp[temp][<span class="number">1</span>]);</span><br><span class="line">            dp[node][<span class="number">1</span>] += dp[temp][<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, a, b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;dp[i][<span class="number">1</span>]);</span><br><span class="line">    v.resize(n + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">        v[a].push_back(b);</span><br><span class="line">        v[b].push_back(a);</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; max(dp[<span class="number">1</span>][<span class="number">0</span>], dp[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另: 柳神是我的!!!</p>
 
           
         
@@ -433,7 +598,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/31/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span><a class="page-number" href="/page/33/">33</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/33/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/31/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span><a class="page-number" href="/page/33/">33</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><a class="extend next" rel="next" href="/page/33/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -481,7 +646,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
