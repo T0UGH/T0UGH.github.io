@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/19/SSM-1-认识SSM框架和Redis/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/vue-1-vue基础/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -268,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/19/SSM-1-认识SSM框架和Redis/" itemprop="url">[SSM][1][认识SSM框架和Redis]</a></h1>
+                <a class="post-title-link" href="/2019/06/20/vue-1-vue基础/" itemprop="url">[vue][1][vue基础]</a></h1>
         
 
         <div class="post-meta">
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-19T00:37:54+08:00">
-                2019-06-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-20T13:12:26+08:00">
+                2019-06-20
               </time>
             
 
@@ -303,8 +303,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SSM/" itemprop="url" rel="index">
-                    <span itemprop="name">SSM</span>
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
                   </a>
                 </span>
 
@@ -321,8 +321,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/06/19/SSM-1-认识SSM框架和Redis/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/06/19/SSM-1-认识SSM框架和Redis/" itemprop="commentCount"></span>
+                <a href="/2019/06/20/vue-1-vue基础/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/06/20/vue-1-vue基础/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -352,202 +352,151 @@
       
         
           
-            <h2 id="第-1-章-认识SSM框架和Redis"><a href="#第-1-章-认识SSM框架和Redis" class="headerlink" title="第 1 章 认识SSM框架和Redis"></a>第 1 章 认识SSM框架和Redis</h2><h3 id="1-1-Spring框架"><a href="#1-1-Spring框架" class="headerlink" title="1.1 Spring框架"></a>1.1 Spring框架</h3><ul>
-<li><p>Spring框架是Java应用最广的框架，它的成功来源于理念而不是技术本身</p>
-</li>
-<li><p>它的理念包括IoC(Inversion of Control, 反转控制)和AOP(Aspect Oriented Programming, 面向切面编程)</p>
-</li>
-</ul>
-<h4 id="1-1-1-Spring-Ioc-简介"><a href="#1-1-1-Spring-Ioc-简介" class="headerlink" title="1.1.1 Spring Ioc 简介"></a>1.1.1 Spring Ioc 简介</h4><ul>
-<li><p>IoC定义: IoC是一个容器，在Spring中，它认为所有Java资源都是JavaBean，容器的目标就是管理这些Bean和它们之间的关系</p>
-</li>
-<li><p>控制反转: Spring是依靠描述来完成对象的创建及其依赖关系的。这是一种被动的行为，需要的资源通过描述信息就可以得到，其中的控制权在Spring IoC容器中，它会根据描述找到使用者需要的资源，这就是控制反转的含义</p>
-</li>
-<li><p>好处</p>
-<ul>
-<li>这样做的好处是Socket接口不再依赖于某个实现类，需要使用某个实现类时我们通过配置信息就可以完成了。</li>
-<li>这样想修改或者加入其他资源就可以通过配置信息完成，不需要再用<code>new</code>关键字创建对象，依赖关系也可以通过配置完成，从而完全可以即插即用地管理它们之间的关系</li>
-</ul>
-</li>
-<li><p>Spring IoC的理念</p>
-<ul>
-<li>你不需要去找资源，只要向IoC容器描述所需资源，IoC自己会找到你所需要的资源，这就是Spring IoC的理念</li>
-<li>这样就把Bean之间的依赖关系解耦了，更容易写出结构清晰的程序</li>
-</ul>
-</li>
-</ul>
-<h4 id="1-1-2-Spring-AOP"><a href="#1-1-2-Spring-AOP" class="headerlink" title="1.1.2 Spring AOP"></a>1.1.2 Spring AOP</h4><ul>
-<li>只用OOP并不完善，还需要面向切面的编程，通过它去管理在切面上的某些对象的协作</li>
-<li><p>AOP(面向切面编程)常用于数据库事务的编程</p>
-<ul>
-<li>在默认情况下，只要Spring接收到了异常消息，它就会将数据路的事务回滚，从而保障数据的一致性</li>
-<li>一些复杂的数据库代码、try..catch等被Spring隐藏了，只需要关注业务代码，知道只要发生了异常情况，Spring就会回滚事务即可</li>
-</ul>
-</li>
-<li><p>AOP举例</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Spring AOP 处理订单伪代码</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> order 订单</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">proceed</span><span class="params">(Order order)</span></span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> pflag = productionDept.isPass(order);</span><br><span class="line">    <span class="keyword">if</span>(pflag)&#123;</span><br><span class="line">        <span class="keyword">if</span>(financialDept.isOverBudget(order))&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"预算超额!!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="1-2-MyBatis简介"><a href="#1-2-MyBatis简介" class="headerlink" title="1.2 MyBatis简介"></a>1.2 MyBatis简介</h3><ul>
-<li><p>MyBatis的优势在于灵活，它几乎可以代替JDBC，同时提供了接口编程。</p>
-</li>
-<li><p>目前MyBatis的数据访问层DAO(Data Access Objects)是不需要实现类的，它只需要一个接口和XML</p>
-</li>
-<li><p>MyBatis提供自动映射、动态SQL、级联、缓存、注解、代码和SQL分离等特性，使用方便，同时也可以对SQL进行优化</p>
-</li>
-<li><p>Pojo: Plain Ordinary Java Object</p>
-</li>
-<li><p>无论是MyBatis还是Hibernate都是依靠某种方式，将数据库的表和POJO映射起来的，这样程序员就可以操作POJO来完成相关的逻辑了</p>
-</li>
-</ul>
-<h4 id="1-2-1-Hibernate简介"><a href="#1-2-1-Hibernate简介" class="headerlink" title="1.2.1 Hibernate简介"></a>1.2.1 Hibernate简介</h4><ul>
-<li><p>要将POJO和数据库映射起来需要给这些框架提供映射规则</p>
-</li>
-<li><p>在MyBatis或Hibernate中可以通过XML或者通过注解来提供映射规则</p>
-</li>
-<li><p>ORM: 我们把POJO对象和数据库表相互映射的框架称为对象关系映射(Object Relational Mapping, ORM)框架，无论Mybatis还是Hibernate都是ORM框架</p>
-</li>
-<li><p>Hibernate基本不再需要编写SQL就可以通过映射关系来操作数据库，是一种全表映射的体现;MyBatis不同，它需要我们提供SQL去运行</p>
-</li>
-<li><p>Hibernate是将POJO和数据库表对应的映射文件，如下所示</p>
-  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">!</span> <span class="attr">DOCTYPE</span> <span class="attr">hibernate-mapping</span> <span class="attr">PUBLIC</span> "<span class="attr">-</span>//<span class="attr">Hibernate</span>/<span class="attr">Hibernate</span> <span class="attr">Mapping</span> <span class="attr">DTD</span> <span class="attr">3.0</span>//<span class="attr">EN</span>" "<span class="attr">http:</span>//<span class="attr">www.hibernate.org</span>/<span class="attr">dtd</span>/<span class="attr">hibernate-mapping-3.0.dtd</span>"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hibernate-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">"com.learn.chapter1.pojo.Role"</span> <span class="attr">table</span>=<span class="string">"t_role"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">name</span>=<span class="string">"id"</span> <span class="attr">type</span>=<span class="string">"java.lang.Integer"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">generator</span> <span class="attr">class</span>=<span class="string">"identity"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"roleName"</span> <span class="attr">type</span>=<span class="string">"string"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">"role_name"</span> <span class="attr">length</span>=<span class="string">"60"</span> <span class="attr">not-null</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"note"</span> <span class="attr">type</span>=<span class="string">"string"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">"note"</span> <span class="attr">length</span>=<span class="string">"512"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">hibernate-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>首先对POJO和表t_role进行了映射配置，把两者映射起来。</li>
-<li>然后，对POJO进行操作，从而影响t_role表的数据</li>
-</ul>
-</li>
-<li><p>如何使用Hibernate操作数据库数据</p>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Session session = <span class="keyword">null</span>;</span><br><span class="line">Transaction tx = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="comment">//打开会话</span></span><br><span class="line">    session = HibernateUtil.getSessionFactory().openSession();</span><br><span class="line">    <span class="comment">//打开事务</span></span><br><span class="line">    tx = session.beginTransaction();</span><br><span class="line">    Role role = <span class="keyword">new</span> Role();</span><br><span class="line">    role.setId(<span class="number">1</span>);</span><br><span class="line">    role.setRoleName(<span class="string">"rolename1"</span>);</span><br><span class="line">    role.setNote(<span class="string">"note1"</span>);</span><br><span class="line">    session.save(role);<span class="comment">//保存</span></span><br><span class="line">    Role role2 = (Role)session.get(Role.class, <span class="number">1</span>);</span><br><span class="line">    role2.setNote(<span class="string">"修改备注"</span>);</span><br><span class="line">    session.update(role2);</span><br><span class="line">    System.out.println(role2.getRoleName());</span><br><span class="line">    session.delete(role2);</span><br><span class="line">    tx.commit();</span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception ex)&#123;</span><br><span class="line">    <span class="keyword">if</span>(tx != <span class="keyword">null</span> &amp;&amp; tx.isActive())&#123;</span><br><span class="line">        tx.rollback();</span><br><span class="line">    &#125;</span><br><span class="line">    ex.printStackTrace();</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(session != <span class="keyword">null</span> &amp;&amp; session.isOpen())&#123;</span><br><span class="line">        session.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="1-2-2-MyBatis"><a href="#1-2-2-MyBatis" class="headerlink" title="1.2.2 MyBatis"></a>1.2.2 MyBatis</h4><ul>
-<li><p>简介</p>
-<ul>
-<li>Mybatis不屏蔽SQL</li>
-<li>不屏蔽SQL的优势在于，程序员可以自己指定SQL规则，无需Hibernate自动生成规则，这样可以更加精确地定义SQL，从而优化性能。</li>
-<li>它更符合移动互联网高并发、大数据、高性能、高响应的要求</li>
-</ul>
-</li>
-<li><p>MyBatis需要一个映射文件把POJO和数据库的表对应起来</p>
-  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">!</span> <span class="attr">DOCTYPE</span> <span class="attr">mapper</span> <span class="attr">PUBLIC</span> "<span class="attr">-</span>//<span class="attr">mybatis.org</span>//<span class="attr">DTD</span> <span class="attr">Mapper</span> <span class="attr">3.0</span>//<span class="attr">EN</span>" "<span class="attr">http:</span>//<span class="attr">mybatis.org</span>/<span class="attr">dtd</span>/<span class="attr">mybatis-3-mapper.dtd</span>"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"roleMap"</span> <span class="attr">type</span>=<span class="string">"com.learn.chapter1.pojo.Role"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"roleName"</span> <span class="attr">column</span>=<span class="string">"role_name"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"note"</span> <span class="attr">column</span>=<span class="string">"note"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getRole"</span> <span class="attr">resultMap</span>=<span class="string">"roleMap"</span>&gt;</span></span><br><span class="line">        select id, role_name, note from t_role where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">delete</span> <span class="attr">id</span>=<span class="string">"deleteRole"</span> <span class="attr">parameterType</span>=<span class="string">"int"</span>&gt;</span></span><br><span class="line">        select form t_role where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">delete</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertRole"</span> <span class="attr">parameterType</span>=<span class="string">"com.learn.chapter1.pojo.Role"</span>&gt;</span></span><br><span class="line">        update t_role set</span><br><span class="line">        role_name = #&#123;roleName&#125;</span><br><span class="line">        note = #&#123;note&#125;</span><br><span class="line">        where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>这里的resultMap元素用于定义映射规则</li>
-<li>增删改查对应着insert、delete、select、update四大元素，十分明了</li>
-</ul>
-</li>
-<li><p>mapper元素中的namespace属性，它要和一个接口的全限定名一致，而里面的SQL的id也需要和接口定义的方法完全一致。Mybatis接口文件如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.learn.chapter1.mapper;</span><br><span class="line"><span class="keyword">import</span> com.learn.chapter1.pojo.Role;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RoleMapper</span></span>&#123;</span><br><span class="line"> </span><br><span class="line">  <span class="function"><span class="keyword">public</span> Role <span class="title">getRole</span><span class="params">(Integer id)</span></span>;</span><br><span class="line"> </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">deleteRole</span><span class="params">(Integer id)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insertRole</span><span class="params">(Role role)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">updateRole</span><span class="params">(Role role)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>定义完这个MyBatis映射文件后，并不需要定义一个实现类</li>
-</ul>
-</li>
-<li><p>MyBatis如何操作数据</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">SqlSession sqlSession = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    sqlSession = MyBatisUtil.getSqlSession();</span><br><span class="line">    RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);</span><br><span class="line">    Role role = roleMapper.getRole(<span class="number">1</span>);<span class="comment">//查询</span></span><br><span class="line">    System.out.printlen(role.getRoleName());</span><br><span class="line">    role.setRoleName(<span class="string">"update_role_name"</span>);</span><br><span class="line">    roleMapper.updateRole(role);</span><br><span class="line">    Role role2 = <span class="keyword">new</span> Role();</span><br><span class="line">    role2.setNote(<span class="string">"note2"</span>);</span><br><span class="line">    role2.setRoleName(<span class="string">"role2"</span>);</span><br><span class="line">    roleMapper.insertRole(role);</span><br><span class="line">    roleMapper.deleteRole(<span class="number">5</span>);</span><br><span class="line">    sqlSession.commit();</span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception ex)&#123;</span><br><span class="line">    ex.printStackTrace();</span><br><span class="line">    <span class="keyword">if</span>(sqlSession != <span class="keyword">null</span>)&#123;</span><br><span class="line">        sqlSession.rollback();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(sqlSession != <span class="keyword">null</span>)&#123;</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="1-2-3-比较Hibernate和MyBatis"><a href="#1-2-3-比较Hibernate和MyBatis" class="headerlink" title="1.2.3 比较Hibernate和MyBatis"></a>1.2.3 比较Hibernate和MyBatis</h4><ul>
-<li><p>Hibernate优缺点</p>
-<ul>
-<li>优点<ol>
-<li>不需要编写大量的SQL，就可以完成映射</li>
-<li>同时提供了日志、缓存、级联等特性</li>
-<li>此外提供了HQL(Hibernate Query Language)对POJO进行操作，十分方便</li>
+            <h2 id="1-Vue-js-基础"><a href="#1-Vue-js-基础" class="headerlink" title="1 Vue.js 基础"></a>1 Vue.js 基础</h2><p>参考</p>
+<ol>
+<li>《Vue.js快跑构建触手可及的高性能Web应用》</li>
+<li><a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">vue官方文档</a></li>
+</ol>
+<h3 id="1-1-为什么选择Vue-js"><a href="#1-1-为什么选择Vue-js" class="headerlink" title="1.1 为什么选择Vue.js"></a>1.1 为什么选择Vue.js</h3><h4 id="1-1-1-简介"><a href="#1-1-1-简介" class="headerlink" title="1.1.1 简介"></a>1.1.1 简介</h4><ul>
+<li>Vue是一套用于构建用户界面的渐进式框架</li>
+<li>Vue被设计为可以自底向上逐层应用</li>
+<li>Vue的核心库只关注视图层<ol>
+<li>便于与第三方库或既有项目整合</li>
+<li>当与现代化的工具链以及各种支持类库结合使用时，Vue也完全能够为复杂的单页应用提供驱动</li>
 </ol>
 </li>
-<li>缺点<ol>
-<li>由于无须SQL，当多表关联超过3个的时候，通过Hibernate的级联会造成太多性能的丢失</li>
-<li>遇到存储过程，Hibernate只能就此作罢</li>
-<li>不适用性能要求苛刻的系统</li>
+<li>vue实现了应用逻辑和视图逻辑的完全隔离</li>
+</ul>
+<h4 id="1-1-2-相同的功能用jquery和vue分别实现"><a href="#1-1-2-相同的功能用jquery和vue分别实现" class="headerlink" title="1.1.2 相同的功能用jquery和vue分别实现"></a>1.1.2 相同的功能用jquery和vue分别实现</h4><ol>
+<li><p><code>vue</code>实现</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">”</span> <span class="attr">js-items</span>”&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-if</span>=<span class="string">"!items.length"</span>&gt;</span>Sorry, there are no items.<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">" item in items"</span> <span class="attr">:class</span>=<span class="string">"&#123;'is-blue':item.includes('blue')&#125;"</span>&gt;</span></span><br><span class="line">        &#123;% raw %&#125;&#123;&#123; item &#125;&#125;&#123;% endraw %&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">        el: <span class="string">'.js-items'</span>,</span></span><br><span class="line"><span class="undefined">        data: &#123;</span></span><br><span class="line"><span class="undefined">            items: []</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        created()&#123;</span></span><br><span class="line"><span class="javascript">            fetch(<span class="string">'https://example.com/items.json'</span>)</span></span><br><span class="line"><span class="javascript">            .then(<span class="function"><span class="params">res</span> =&gt;</span> res.json())</span></span><br><span class="line"><span class="javascript">            .then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">this</span>.items = data.items;</span></span><br><span class="line"><span class="undefined">            &#125;);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>jquery</code>实现</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">”</span> <span class="attr">js-items</span> ”&gt;</span><span class="tag">&lt;/<span class="name">Ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    $(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        $.get (<span class="string">'https://example.com/items.json'</span>)</span></span><br><span class="line"><span class="javascript">        .then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> $itemsUl = $(<span class="string">'.js-items'</span>);</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (!data.items.length) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> $noitems = $(<span class="string">'li'</span>);</span></span><br><span class="line"><span class="javascript">                $noitems.text(<span class="string">'Sorry, there are no items.'</span>);</span></span><br><span class="line"><span class="undefined">                $itemUI.append($noitems);</span></span><br><span class="line"><span class="javascript">            &#125;<span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="javascript">                data.items.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">var</span> $newItem = $(<span class="string">'li'</span>);</span></span><br><span class="line"><span class="undefined">                    $newItem.text(item);</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">if</span>(item.includes(<span class="string">'blue'</span>))&#123;</span></span><br><span class="line"><span class="javascript">                        $newItem.addClass(<span class="string">'is-blue'</span>);</span></span><br><span class="line"><span class="undefined">                    &#125;</span></span><br><span class="line"><span class="undefined">                    $itemUI.append($newItem);</span></span><br><span class="line"><span class="undefined">                &#125;)</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
+<h3 id="1-2-安装和设置"><a href="#1-2-安装和设置" class="headerlink" title="1.2 安装和设置"></a>1.2 安装和设置</h3><ul>
+<li>vue-loader:是一个 <code>webpack</code> 的加载器，允许你将一个组件的所有 <code>HTML</code> 、<code>JavaScript</code> 和<code>CSS</code>代码编写到同一个文件中</li>
+</ul>
+<h3 id="1-3-模板-Template-、数据-Data-和指令-Directive"><a href="#1-3-模板-Template-、数据-Data-和指令-Directive" class="headerlink" title="1.3 模板(Template)、数据(Data)和指令(Directive)"></a>1.3 模板(Template)、数据(Data)和指令(Directive)</h3><ul>
+<li><code>Vue</code>的核心是将数据显示在页面上，这一功能通过模板实现。为正常的<code>HTML</code>添加特殊的属性-被称作指令-借助它来告诉<code>Vue</code>我们想要实现的效果以及如何处理提供给它数据。  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">"hours &lt; 12"</span>&gt;</span>早上好！<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">"hours &gt;= 12 &amp;&amp; hours &lt; 18"</span>&gt;</span>中午好！<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">"hours &gt;= 18"</span>&gt;</span>晚上好！<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">        el: <span class="string">'#app'</span>,</span></span><br><span class="line"><span class="undefined">        data: &#123;</span></span><br><span class="line"><span class="javascript">            hours: <span class="keyword">new</span> <span class="built_in">Date</span>().getHours()</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="1-4-v-if-vs-v-show"><a href="#1-4-v-if-vs-v-show" class="headerlink" title="1.4 v-if vs v-show"></a>1.4 v-if vs v-show</h3><ul>
+<li><p><code>v-if</code>: 假如取值为假，则DOM不会生成</p>
+</li>
+<li><p><code>v-show</code>: 假如取值为假，DOM会生成只是此DOM被隐藏</p>
+</li>
+<li><p>使用 <code>v-if</code> 会有性能开销。每次插入或者移除元素时都必须要生成元素内部的 <code>DOM</code> 树，这在某些时候是非常大的工作量。而 <code>v-show</code> 除了在初始创建开销时之外没有额外的开销。如果希望频繁地切换某些内容，那么<code>v-show</code>会是最好的选择。</p>
+</li>
+</ul>
+<h3 id="1-5-模板中的循环-v-for"><a href="#1-5-模板中的循环-v-for" class="headerlink" title="1.5 模板中的循环(v-for)"></a>1.5 模板中的循环(v-for)</h3><ul>
+<li><p><code>v-for</code>指令通过遍历一个数组或者对象，将指令所绑定的元素循环输出到页面上</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span> =<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"dog in dogs"</span>&gt;</span>&#123;% raw %&#125;&#123;&#123; dog &#125;&#125;&#123;% endraw %&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">    el :<span class="string">'#app'</span>,</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="javascript">        dogs: [<span class="string">'Rex'</span>, <span class="string">'Rove'</span>, <span class="string">'Hen'</span>, <span class="string">'Alan'</span>］</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">&#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>v-for</code>中键值的参数顺序是(value, key)</p>
+</li>
+</ul>
+<h3 id="1-6-属性绑定-v-bind"><a href="#1-6-属性绑定-v-bind" class="headerlink" title="1.6 属性绑定(v-bind)"></a>1.6 属性绑定(v-bind)</h3><ul>
+<li><p><code>v-bind</code>用于将一个值绑定在一个HTML属性上</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">v-bind:disabled</span>=<span class="string">"buttonDisabled"</span>&gt;</span>Test button<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">        el :<span class="string">'#app'</span>,</span></span><br><span class="line"><span class="undefined">        data: &#123;</span></span><br><span class="line"><span class="javascript">            buttonDisabled: <span class="literal">true</span></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>v-bind</code>可以简写，直接用<code>:</code>代替</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">:disabled</span>=<span class="string">"buttonDisabled"</span>&gt;</span>Test Button<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="1-7-响应式"><a href="#1-7-响应式" class="headerlink" title="1.7 响应式"></a>1.7 响应式</h3><p>Vue监控<code>data</code>对象的变化，井在数据变化时更新DOM。</p>
+<h3 id="1-8-双向数据绑定-v-model"><a href="#1-8-双向数据绑定-v-model" class="headerlink" title="1.8 双向数据绑定(v-model)"></a>1.8 双向数据绑定(v-model)</h3><ul>
+<li><code>v-model</code>作用于输入框元素，将输入框的值绑定到<code>data</code>对象的对应属性上，</li>
+<li>因此输入框不但会接收<code>data</code>的初始值，而且当输入内容更新时,<code>data</code>上的属性值也会更新</li>
+<li>使用 <code>v-model</code> 时一定要记住，如果设置了<code>value</code>、<code>checked</code>和<code>selected</code>属性，这些属性会被忽略。如果想设置输入元素的初始值， 应该在<code>data</code>对象中设置</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"inputText"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>inputText: &#123;% raw %&#125;&#123;&#123; inputText &#125;&#125;&#123;% endraw %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-9-动态设置HTML"><a href="#1-9-动态设置HTML" class="headerlink" title="1.9 动态设置HTML"></a>1.9 动态设置HTML</h3><p>如果想将HTML渲染到页面上，可以像下面这样使用<code>v-html</code>指令：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-html</span>=<span class="string">'yourHtml'</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-9-方法-methods"><a href="#1-9-方法-methods" class="headerlink" title="1.9 方法(methods)"></a>1.9 方法(methods)</h3><ul>
+<li><p>在Vue的模板里，只要将一个函数存储为<code>methods</code>对象的一个属性，就可以在模板中使用它</p>
+</li>
+<li><p>关于方法中的<code>this</code></p>
+<ul>
+<li>在方法中，<code>this</code>指向该方怯所属的组件</li>
+<li>可以使用<code>this</code>访问<code>data</code>对象的属性和其他方法</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>当前状态: &#123;% raw %&#125;&#123;&#123; statusFromId(status) &#125;&#125;&#123;% endraw %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">        el: <span class="string">'#app'</span>,</span></span><br><span class="line"><span class="undefined">        data:&#123;</span></span><br><span class="line"><span class="undefined">            status: 2</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        methods:&#123;</span></span><br><span class="line"><span class="undefined">            statusFromId(id) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">const</span> status= (&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="number">0</span> : <span class="string">'吃包子'</span>,</span></span><br><span class="line"><span class="javascript">                    <span class="number">1</span> : <span class="string">'睡觉'</span>,</span></span><br><span class="line"><span class="javascript">                    <span class="number">2</span> : <span class="string">'打包子'</span></span></span><br><span class="line"><span class="undefined">                &#125;)[id];</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> status || <span class="string">'未知状态'</span> + id;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-10-计算属性-computed"><a href="#1-10-计算属性-computed" class="headerlink" title="1.10 计算属性(computed)"></a>1.10 计算属性(computed)</h3><h4 id="1-10-1-计算属性"><a href="#1-10-1-计算属性" class="headerlink" title="1.10.1 计算属性"></a>1.10.1 计算属性</h4><ul>
+<li>计算属性介于<code>data</code>和<code>method</code>两者之间：可以像访问<code>data</code>对象的属性那样访问它，但需要以函数的方式定义它。</li>
+<li>计算属性会被缓存<ul>
+<li>如果在模板中多次调用一个方法，方法中的代码在每一次调用时都会执行一遍</li>
+<li>但如果计算属性被多次调用，其中的代码只会执行一次，之后的每次调用都会使用被缓存的值</li>
+<li>只有当计算属性的依赖、发生变化时，代码才会被再次执行<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">“</span> <span class="attr">app</span>”&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>数字的总和是:&#123;% raw %&#125;&#123;&#123; numberTotal&#125;&#125;&#123;% endraw %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">new</span> Vue (&#123;</span></span><br><span class="line"><span class="javascript">        el:<span class="string">'#app'</span>,</span></span><br><span class="line"><span class="undefined">        data:&#123;</span></span><br><span class="line"><span class="undefined">            numbers: [5, 8, 3]</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        computed: &#123;</span></span><br><span class="line"><span class="undefined">            numberTotal() &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> numbers.reduce(<span class="function">(<span class="params">sum, val</span>) =&gt;</span> sum + val) ;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
-<li><p>MyBatis优缺点</p>
-<ul>
-<li>优点<ol>
-<li>MyBatis可以自由书写SQL、支持动态SQL、处理列表、动态生成表名、支持存储过程</li>
-<li>可以灵活的定义查询语句，满足各类需求和性能优化的需要</li>
+</ul>
+<h4 id="1-10-2-使用data对象、方法还是计算属性"><a href="#1-10-2-使用data对象、方法还是计算属性" class="headerlink" title="1.10.2 使用data对象、方法还是计算属性"></a>1.10.2 使用data对象、方法还是计算属性</h4><ul>
+<li><code>data</code> 对象最适合纯粹的数据：如果想将数据放在某处，然后在模板、方法或者计算属性中使用，那么可以把它放在<code>data</code>对象中。后面也许还会更新它。</li>
+<li>当你希望为模板添加函数功能时，最好使用方法: 给方法传递数据，然后它们会对数据进行处理，最终可能返回不同的数据结果。</li>
+<li>计算属性达用于执行更加复杂的表达式，这些表达式往往太长或者需要频繁地重复使用，所以不想在模板中直接使用。计算属性往往和其他计算属性或者 <code>data</code> 对象一起使用，基本上就像是 <code>data</code> 对象的一个扩展和增强版本</li>
+</ul>
+<h3 id="1-11-侦听器-watch"><a href="#1-11-侦听器-watch" class="headerlink" title="1.11 侦听器(watch)"></a>1.11 侦听器(watch)</h3><ul>
+<li>侦听器可以监听 <code>data</code> 对象属性或者计算属性的变化。</li>
+<li>侦听器使用起来很简单： 只要设置要监听的属性名就可以。</li>
+<li>侦听器很适合用于处理异步操作<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">"#app"</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        count: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    watch: &#123;</span><br><span class="line">        count()&#123;</span><br><span class="line">            <span class="comment">//变化时会调用此处</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="1-11-1-监听data对象中某个对象的属性"><a href="#1-11-1-监听data对象中某个对象的属性" class="headerlink" title="1.11.1 监听data对象中某个对象的属性"></a>1.11.1 监听data对象中某个对象的属性</h4><p>有些时候会将一整个对象存储在 <code>data</code> 对象中。为了监听这个对象的属性变化，可以在侦听器的名称中使用<code>.</code>操作符，就像访问这个对象属性一样：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    data: &#123;</span><br><span class="line">        formData: &#123;</span><br><span class="line">            username: <span class="string">""</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    watch: &#123;</span><br><span class="line">        <span class="string">'formData.username'</span>()&#123;</span><br><span class="line">            <span class="comment">//变化时会调用此处</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-11-2-获取旧值"><a href="#1-11-2-获取旧值" class="headerlink" title="1.11.2 获取旧值"></a>1.11.2 获取旧值</h4><p>当监听的属性发生变化时，侦听器会被传入两个参数：所监听属性的当前值和原来的旧值。这一特性可以用来了解到底发生了什么变化<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">watch: &#123;</span><br><span class="line">    inputValue( val, oldVal) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(val, oldVal);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-11-3-深度监听"><a href="#1-11-3-深度监听" class="headerlink" title="1.11.3 深度监听"></a>1.11.3 深度监听</h4><ul>
+<li>当监听一个对象时，可能想监听整个对象的变化，而不仅仅是某个属性。</li>
+<li>但在默认情况下，如果你正在监听<code>formData</code>对象井且修改了<code>formData.username</code> ，对应的侦听器井不会触发，它只在<code>formData</code>对象被整个替换时触发。</li>
+<li>监听整个对象被称作深度监听，通过将<code>deep</code>选项设置为<code>true</code>来开启这一特性</li>
+</ul>
+<h3 id="1-12-过滤器-fliter"><a href="#1-12-过滤器-fliter" class="headerlink" title="1.12 过滤器(fliter)"></a>1.12 过滤器(fliter)</h3><h4 id="1-12-1-过滤器"><a href="#1-12-1-过滤器" class="headerlink" title="1.12.1 过滤器"></a>1.12.1 过滤器</h4><ul>
+<li>过滤器是一种在模板中处理数据的便捷方式</li>
+<li>它们特别适合对字符串和数字进行简单的显示变化：例如，将字符串变为正确的大小写格式，或者用更容易阅读的格式显示数字。</li>
+<li>可以用链式调用的方式在一个表达式中使用多个过滤器。<code>{{productOneCost | round |formatCost}}</code></li>
+<li>除了在插值中使用，还可以在<code>v-bind</code> 中使用过滤器（当绑定数值到属性时）</li>
+<li>也可以使用<code>Vue.filter()</code>来注册一个全局的过滤器， 而不是将过滤器逐一注册到各个组件上</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>商品一花费了：&#123;% raw %&#125;&#123;&#123;productOneCost | formatCost &#125;&#125;&#123;% endraw %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>商品二花费了：&#123;% raw %&#125;&#123;&#123;productTwoCost | formatCost &#125;&#125;&#123;% endraw %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>商品三花费了：&#123;% raw %&#125;&#123;&#123;productThreeCost | formatCost &#125;&#125;&#123;% endraw %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">    el :<span class="string">'#app'</span>,</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="undefined">        productOneCost: 998,</span></span><br><span class="line"><span class="undefined">        productTwoCost: 2399,</span></span><br><span class="line"><span class="undefined">        productThreeCost: 5300</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    filters: &#123;</span></span><br><span class="line"><span class="undefined">        formatCost(value) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="string">'$'</span> + (value / <span class="number">100</span>).toFixed(<span class="number">2</span>);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">&#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="1-12-2-使用过滤器有两个注意事项。"><a href="#1-12-2-使用过滤器有两个注意事项。" class="headerlink" title="1.12.2 使用过滤器有两个注意事项。"></a>1.12.2 使用过滤器有两个注意事项。</h4><ol>
+<li>过滤器是组件中唯一不能使用<code>this</code> 来访问数据或者方法的地方。</li>
+<li>只可以在插值和<code>v-bind</code>指令中使用过滤器</li>
 </ol>
+<h3 id="1-13-使用-ref-直接访问元素-ref"><a href="#1-13-使用-ref-直接访问元素-ref" class="headerlink" title="1.13 使用 ref 直接访问元素(ref)"></a>1.13 使用 ref 直接访问元素(ref)</h3><ul>
+<li>有时你会发现需要直接访问一个<code>DOM</code>元素</li>
+<li>也许你正在使用一个不支持<code>Vue</code>的第三方库，或者希望做一些<code>Vue</code>自身不能完全处理的事情</li>
+<li>可以使用 <code>ref</code> 直接访问元素，而不需要使用<code>querySelector</code>或者其他选择<code>DOM</code>节点的原生方法。</li>
+</ul>
+<h4 id="1-13-1-ref的用法"><a href="#1-13-1-ref的用法" class="headerlink" title="1.13.1 ref的用法"></a>1.13.1 ref的用法</h4><ol>
+<li><p>在<code>HTML</code>中绑定<code>ref</code>属性</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">ref</span>=<span class="string">"myCanvas"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>缺点<ol>
-<li>要编写SQL和映射规则，其工作量大于Hibernate</li>
-<li>它支持的工具也很有限，不能像Hibernate那样有许多的插件可以帮助生成映射代码和关联关系</li>
+<li><p>然后在<code>js</code>中通过<code>this.$ref</code>取得DOM元素</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> canvas = <span class="keyword">this</span>.$refs.myCanvas;</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-</li>
+<h3 id="1-14-输入和事件-v-on"><a href="#1-14-输入和事件-v-on" class="headerlink" title="1.14 输入和事件(v-on)"></a>1.14 输入和事件(v-on)</h3><ul>
+<li>可以使用 <code>v-on</code> 指令将事件侦听器绑定到元素上。这个指令将事件名称作为参数，然后将事件侦听器作为传入值</li>
+<li><code>v-on</code> 指令同样有一个简写方式。可以将<code>v-on:click</code> 简写为<code>＠click</code> </li>
 </ul>
-</li>
-<li><p>使用场景</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app-5"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;% raw %&#125;&#123;&#123; message &#125;&#125;&#123;% endraw %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"reverseMessage"</span>&gt;</span>逆转消息<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> app5 = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">    el: <span class="string">'#app-5'</span>,</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="javascript">        message: <span class="string">'Hello Vue.js!'</span></span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    methods: &#123;</span></span><br><span class="line"><span class="javascript">        reverseMessage: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">this</span>.message = <span class="keyword">this</span>.message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">&#125;)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-15-生命周期钩子"><a href="#1-15-生命周期钩子" class="headerlink" title="1.15 生命周期钩子"></a>1.15 生命周期钩子</h3><p><img src="/2019/06/20/vue-1-vue基础/0620_0.png" alt=""></p>
 <ul>
-<li>对于性能要求不太严苛的系统，比如管理系统、ERP等推荐使用Hibernate</li>
-<li>对于性能要求高、响应快、灵活的系统推荐使用MyBatis</li>
-</ul>
+<li><p>简介: 生命周期钩子是一系列会在组件生命周期(从组件被创建并添加到DOM到组件被销毁的整个过程的各个阶段)被调用的函数</p>
 </li>
-</ul>
-<h3 id="1-3-SpringMVC-简介"><a href="#1-3-SpringMVC-简介" class="headerlink" title="1.3 SpringMVC 简介"></a>1.3 SpringMVC 简介</h3><ul>
-<li><p>长期以来Struts2与Spring的结合一直存在很多问题，比如兼容性和类臃肿</p>
-</li>
-<li><p>SpringMVC结构层次清晰，类比较简单，并且与Spring的核心IoC和AOP无缝衔接</p>
-</li>
-<li><p>MVC模式把应用程序分成不同的方面，同时提供了这些元素之间的松耦合</p>
+<li><p>八大生命周期钩子</p>
 <ul>
-<li>Model(模型): 封装了应用程序的数据和由它们组成的POJO</li>
-<li>View(视图): 负责吧模型数据渲染到视图上，将数据以一定的形式展现给用户</li>
-<li>Controller(控制器): 负责处理用户请求，并建立适当的模型把它传递给视图渲染</li>
-</ul>
-</li>
-<li><p>SpringMVC的重点在于它的流程和一些重要的注解，包括控制器、视图解析器、视图等重要内容</p>
-</li>
-</ul>
-<h3 id="1-4-NoSQL与Redis"><a href="#1-4-NoSQL与Redis" class="headerlink" title="1.4 NoSQL与Redis"></a>1.4 NoSQL与Redis</h3><ul>
-<li><p>NoSQL(Not Only SQL)</p>
-<ul>
-<li>它具备一定持久层的功能<ul>
-<li>它存储的数据是半结构化的，这就意味着计算机在读入内存中有更少的规则，读入速度更快</li>
-</ul>
-</li>
-<li>也可以作为一种缓存工具<ul>
-<li>它可以支持大数据存入内存中，只要命中率高，它就能快速响应</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>NoSQL的作用</p>
-<ul>
-<li>对于常见的数据，第一次从数据库读出，然后就存放到NoSQL中，这样以后就无须再访问数据库，只需从NoSQL中读出即可，可提高性能</li>
-<li>对于一些高并发的操作，可以再NoSQL上先完成写入，等待某个时刻再批量写入数据库，这样就能满足系统的性能要求</li>
-</ul>
-</li>
-<li><p>传统数据库的好处</p>
-<ul>
-<li>更好的规范性和数据完整性</li>
-<li>功能更强大，作为持久层更完善，安全性更高</li>
-</ul>
-</li>
-<li><p>Redis作为主要的NoSQL工具的优点</p>
-<ul>
-<li>响应快速</li>
-<li>支持六种数据类型:字符串、哈希结构、列表、集合、可排序集合和基数</li>
-<li>操作都是原子的</li>
-<li>MultiUtility工具: Redis可以在如缓存、消息队列中使用，在应用程序如Web程序会话、网站页面点击数等任何短暂的数据中使用</li>
-</ul>
-</li>
-<li><p>NoSQL的优势</p>
-<ul>
-<li>一方面，使用NoSQL从数据库中读取数据进入缓存，就可以从内存中读取数据，而不像数据库从磁盘读数据。现实是读操作远比写操作多得多，所以缓存很多常用的数据，提高其命中率有助于整体性能的提高，并且缓解数据库的压力，对互联网系统架构十分有用</li>
-<li>另一方面，它能满足互联网高并发需要高速处理数据的场合，比如抢红包、商品秒杀等场景，这些场景需要高速处理，并保证并发数据安全和一致性</li>
-</ul>
-</li>
-</ul>
-<h3 id="1-5-SSM-Redis结构框图及概述"><a href="#1-5-SSM-Redis结构框图及概述" class="headerlink" title="1.5 SSM+Redis结构框图及概述"></a>1.5 SSM+Redis结构框图及概述</h3><ul>
-<li><p>结构框图如下</p>
-</li>
-<li><p>各自承担的功能</p>
-<ul>
-<li>Spring IoC承担一个资源管理、整合、即插即用的功能</li>
-<li>Spring AOP可以提供切面管理，特别是数据库事务管理的功能</li>
-<li>SpringMVC可以把模型、视图和控制器分层，组合成一个有机灵活的系统</li>
-<li>MyBatis提供了一个数据库访问的持久层，通过MyBatis-Spring项目，它便能和Spring无缝对接</li>
-<li>Redis作为缓存工具，提供高速处理数据和缓存数据的功能，使得系统大部分是需要访问缓存，而无需从数据库磁盘中重复读/写</li>
+<li><code>beforeCreate</code>在实例初始化前被触发。</li>
+<li><code>created</code>会在实例初始化之后、被添加到DOM之前触发。</li>
+<li><code>beforeMount</code>会在元素已经准备好被添加到DOM，但还没有添加的时候触发。</li>
+<li><code>mounted</code>会在元素创建后触发(但并不一定已经添加到了DOM,可以用<code>nextTick</code>来保证这一点)。</li>
+<li><code>beforeUpdate</code>会在由于数据更新将要对<code>DOM</code>做一些更改时触发。</li>
+<li><code>updated</code>会在<code>DOM</code>的更改已经完成后触发。</li>
+<li><code>beforeDestroy</code> 会在组件即将被销毁井且从DOM上移除时触发。</li>
+<li><code>destroyed</code> 会在组件被销毁后触发</li>
 </ul>
 </li>
 </ul>
@@ -590,7 +539,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -638,7 +587,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
