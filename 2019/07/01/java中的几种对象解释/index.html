@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="java的几种对象解释1 PO(持久对象) PO(persistant object, 持久对象)，可以看成是与数据库中的表相映射的java对象 最简单的PO就是对应数据库中某个表中的一条记录 多个记录可以用PO的集合，PO中应不包含任何对数据库的操作 最形象的理解就是一个PO就是数据库中的一条记录。  2 VO(值对象) VO(value object, 值对象)，通常用于业务层之间的数据传递，">
+<meta name="description" content="java的几种对象解释1 PO(持久对象) PO(persistant object, 持久对象)，可以看成是与数据库中的表相映射的java对象 最形象的理解就是一个PO就是数据库中的一条记录，多个记录可以用PO的集合 PO中应不包含任何对数据库的操作  2 VO(值对象) VO(value object, 值对象)，通常用于业务层之间的数据传递，仅仅包含数据，是抽象出来的业务对象 根据业务需要，">
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java中的几种对象解释">
 <meta property="og:url" content="http://yoursite.com/2019/07/01/java中的几种对象解释/index.html">
 <meta property="og:site_name" content="打怪升级日常">
-<meta property="og:description" content="java的几种对象解释1 PO(持久对象) PO(persistant object, 持久对象)，可以看成是与数据库中的表相映射的java对象 最简单的PO就是对应数据库中某个表中的一条记录 多个记录可以用PO的集合，PO中应不包含任何对数据库的操作 最形象的理解就是一个PO就是数据库中的一条记录。  2 VO(值对象) VO(value object, 值对象)，通常用于业务层之间的数据传递，">
+<meta property="og:description" content="java的几种对象解释1 PO(持久对象) PO(persistant object, 持久对象)，可以看成是与数据库中的表相映射的java对象 最形象的理解就是一个PO就是数据库中的一条记录，多个记录可以用PO的集合 PO中应不包含任何对数据库的操作  2 VO(值对象) VO(value object, 值对象)，通常用于业务层之间的数据传递，仅仅包含数据，是抽象出来的业务对象 根据业务需要，">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-01T14:54:02.256Z">
+<meta property="og:updated_time" content="2019-07-01T15:04:38.132Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java中的几种对象解释">
-<meta name="twitter:description" content="java的几种对象解释1 PO(持久对象) PO(persistant object, 持久对象)，可以看成是与数据库中的表相映射的java对象 最简单的PO就是对应数据库中某个表中的一条记录 多个记录可以用PO的集合，PO中应不包含任何对数据库的操作 最形象的理解就是一个PO就是数据库中的一条记录。  2 VO(值对象) VO(value object, 值对象)，通常用于业务层之间的数据传递，">
+<meta name="twitter:description" content="java的几种对象解释1 PO(持久对象) PO(persistant object, 持久对象)，可以看成是与数据库中的表相映射的java对象 最形象的理解就是一个PO就是数据库中的一条记录，多个记录可以用PO的集合 PO中应不包含任何对数据库的操作  2 VO(值对象) VO(value object, 值对象)，通常用于业务层之间的数据传递，仅仅包含数据，是抽象出来的业务对象 根据业务需要，">
 
 
 
@@ -369,37 +369,31 @@
       
         <h3 id="java的几种对象解释"><a href="#java的几种对象解释" class="headerlink" title="java的几种对象解释"></a>java的几种对象解释</h3><h4 id="1-PO-持久对象"><a href="#1-PO-持久对象" class="headerlink" title="1 PO(持久对象)"></a>1 PO(持久对象)</h4><ul>
 <li>PO(persistant object, 持久对象)，可以看成是与数据库中的表相映射的java对象</li>
-<li>最简单的PO就是对应数据库中某个表中的一条记录</li>
-<li>多个记录可以用PO的集合，PO中应不包含任何对数据库的操作</li>
-<li>最形象的理解就是一个PO就是数据库中的一条记录。</li>
+<li>最形象的理解就是一个PO就是数据库中的一条记录，多个记录可以用PO的集合</li>
+<li>PO中应不包含任何对数据库的操作</li>
 </ul>
 <h4 id="2-VO-值对象"><a href="#2-VO-值对象" class="headerlink" title="2 VO(值对象)"></a>2 VO(值对象)</h4><ul>
-<li>VO(value object, 值对象)，通常用于业务层之间的数据传递，和PO一样也是仅仅包含数据而已，但应是是抽象出来的业务对象</li>
+<li>VO(value object, 值对象)，通常用于业务层之间的数据传递，仅仅包含数据，是抽象出来的业务对象</li>
 <li>根据业务需要，VO可以和数据库表对应，也可以不对应</li>
-<li>同DTO一样在web上传递</li>
 <li>主要对应界面显示的数据对象。对于一个WEB页面，或者SWT、SWING的一个界面，用一个VO对象对应整个界面的值。</li>
 </ul>
 <h4 id="3-DAO-数据访问对象"><a href="#3-DAO-数据访问对象" class="headerlink" title="3 DAO(数据访问对象)"></a>3 DAO(数据访问对象)</h4><ul>
 <li>DAO(data access object, 数据访问对象)对象用于访问数据库。</li>
-<li>通常和PO结合使用，DAO包含了各种数据库的操作方法</li>
-<li>通过它的方法，结合PO对数据库进行相关操作，提供数据库的CRUD操作</li>
+<li>DAO包含了各种数据库的操作方法，结合PO对数据库进行相关操作，提供数据库的CRUD操作</li>
 </ul>
 <h4 id="4-BO-业务对象"><a href="#4-BO-业务对象" class="headerlink" title="4 BO(业务对象)"></a>4 BO(业务对象)</h4><ul>
-<li>BO(business object, 业务对象)</li>
-<li>封装业务逻辑的java对象，通过调用DAO方法，结合PO，VO进行业务操作</li>
-<li>这个对象可以包括一个或其他的对象</li>
-<li>例如: 一个简历，包括教育经历、工作经历、关系等等，教育经历对应一个PO，工作经历对应一个PO，关系对应一个PO，此时工作简历可以作为一个BO，每个BO包含这些PO</li>
+<li>BO(business object, 业务对象)是封装业务逻辑的java对象</li>
+<li>通过调用DAO方法，结合PO，VO进行业务操作</li>
+<li>这个对象可以包括一个或其他的对象，例如: 一个简历，包括教育经历、工作经历、关系等等，教育经历对应一个PO，工作经历对应一个PO，关系对应一个PO，此时工作简历可以作为一个BO，每个BO包含这些PO</li>
 </ul>
 <h4 id="5-POJO"><a href="#5-POJO" class="headerlink" title="5 POJO"></a>5 POJO</h4><ul>
-<li>plain ordinary java object 简单无规则的java对象，和其他不是一个层面</li>
+<li>plain ordinary java object 简单无规则的java对象</li>
 <li>VO和PO应该都属于POJO</li>
 <li>一个POJO用于持久化就是PO，直接用它传递、传递过程中就是DTO，直接用来对应表示层就是VO</li>
 </ul>
 <h4 id="6-DTO-数据传输对象"><a href="#6-DTO-数据传输对象" class="headerlink" title="6 DTO(数据传输对象)"></a>6 DTO(数据传输对象)</h4><ul>
-<li>DTO(Data Transfer Object, 数据传输对象)</li>
-<li>DTO是一组需要跨进程或网络边界传输的聚合数据的简单容器</li>
-<li>它不应该包含业务逻辑，并将其行为限制为诸如内部一致性检查和基本验证之类的活动</li>
-<li>主要用于远程调用等需要大量传输对象的地方。</li>
+<li>DTO(Data Transfer Object, 数据传输对象)是一组需要跨进程或网络边界传输的聚合数据的简单容器</li>
+<li>它不应该包含业务逻辑，并将其行为限制为诸如内部一致性检查和基本验证之类的活动，主要用于远程调用等需要大量传输对象的地方。</li>
 <li>比如我们一张表有100个字段，那么对应的PO就有100个属性。但是我们界面上只要显示10个字段，客户端用WEB service来获取数据，没有必要把整个PO对象传递到客户端，这时我们就可以用只有这10个属性的DTO来传递结果到客户端，这样也不会暴露服务端表结构.到达客户端以后，如果用这个对象来对应界面显示，那此时它的身份就转为VO</li>
 </ul>
 
