@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/20/算法导论-4-分治策略/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/03/YAML学习/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/20/算法导论-4-分治策略/" itemprop="url">[算法导论][4]分治策略</a></h1>
+                <a class="post-title-link" href="/2019/03/03/YAML学习/" itemprop="url">YAML学习</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-20T19:51:16+08:00">
-                2019-01-20
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-03T13:57:29+08:00">
+                2019-03-03
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法导论/" itemprop="url" rel="index">
-                    <span itemprop="name">算法导论</span>
+                  <a href="/categories/other/" itemprop="url" rel="index">
+                    <span itemprop="name">other</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/01/20/算法导论-4-分治策略/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/20/算法导论-4-分治策略/" itemprop="commentCount"></span>
+                <a href="/2019/03/03/YAML学习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/03/YAML学习/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,75 +362,75 @@
       
         
           
-            <h2 id="第4章-分治策略"><a href="#第4章-分治策略" class="headerlink" title="第4章 分治策略"></a>第4章 分治策略</h2><ul>
-<li><p>在分治策略中，我们递归地求解一个问题，在每层递归中运用如下三个步骤</p>
-<ol>
-<li><strong>分解</strong>(Divide)：将问题划分为一些子问题，子问题的形式与原问题一样，只是规模更小</li>
-<li><strong>解决</strong>(Comquer)：递归的求解出子问题，如果子问题的规模足够小，则停止递归，直接求解</li>
-<li><strong>合并</strong>(Combine)：将子问题的解组合成原问题的解</li>
+            <h2 id="YAML学习"><a href="#YAML学习" class="headerlink" title="YAML学习"></a>YAML学习</h2><h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h3><p>YAML语言的设计目标，就是方便人类书写。它实质上是一种通用的数据串行化格式</p>
+<h4 id="1-1-YAML的基本语法规则"><a href="#1-1-YAML的基本语法规则" class="headerlink" title="1.1 YAML的基本语法规则"></a>1.1 YAML的基本语法规则</h4><ol>
+<li><p>大小写敏感</p>
+</li>
+<li><p>使用缩进表示层级关系</p>
+</li>
+<li><p>缩进时不允许使用tab键，只允许使用空格</p>
+</li>
+<li><p>缩进的空格数目不重要，只要相同层级的元素左侧对齐即可</p>
+</li>
+<li><p>#表示注释，从这个字符一直到行尾，都会被解释器忽略</p>
+</li>
 </ol>
+<h4 id="1-2-YAML支持的数据结构有三种"><a href="#1-2-YAML支持的数据结构有三种" class="headerlink" title="1.2 YAML支持的数据结构有三种"></a>1.2 YAML支持的数据结构有三种</h4><ol>
+<li><p>对象: 键值对的集合, 又称为映射(mapping)/哈希(hashes)/字典(dictionary)</p>
 </li>
-<li><p>递归情况和基本情况</p>
-<ul>
-<li>当子问题足够大时，需要地柜求解，我们称之为<strong>递归情况</strong>(recursive case)</li>
-<li>当子问题变得足够小，不再需要递归时，我们说递归已经”触底”，进入<strong>基本情况</strong>(base case)</li>
-</ul>
+<li><p>数组: 一组按次序排列的值, 又称为序列(sequence)/列表(list)</p>
 </li>
-<li><p>递归式</p>
-<ul>
-<li>一个递归式(recurrence)就是一个等式或不等式，它通过更小的输入上的函数值来描述一个函数</li>
-<li>例如<br><img src="/2019/01/20/算法导论-4-分治策略/递归式例子.png" alt=""></li>
-<li>三种求解递归式的方法<ul>
-<li>代入法：我们猜测一个界，然后用数学归纳法证明其正确性</li>
-<li>递归树法：将递归式转换为一棵树，其节点表示不同层次的递归调用的代价，然后采用边界和技术求解</li>
-<li>主方法：可求解形如下式的递归式<br><img src="/2019/01/20/算法导论-4-分治策略/主方法递归式.png" alt=""></li>
-</ul>
+<li><p>纯量(scalars): 单个的, 不可再分的值</p>
 </li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="4-1-最大子数组问题"><a href="#4-1-最大子数组问题" class="headerlink" title="4.1 最大子数组问题"></a>4.1 最大子数组问题</h3><h4 id="4-1-1-问题描述"><a href="#4-1-1-问题描述" class="headerlink" title="4.1.1 问题描述"></a>4.1.1 问题描述</h4><ul>
-<li><p>寻找一个数组的<strong>和最大</strong>的非空连续子数组，这样的数组我们称为<strong>最大子数组</strong>(maximum subarray)</p>
-</li>
-<li><p>注意：只有<strong>当数组中包含负数</strong>时，最大子数组问题才<strong>有意义</strong>。如果所有数组元素都是非负的，最大子数组问题没有任何难度，因为整个数组的和肯定是最大的</p>
-</li>
-</ul>
-<h4 id="4-1-2-暴力求解方法"><a href="#4-1-2-暴力求解方法" class="headerlink" title="4.1.2 暴力求解方法"></a>4.1.2 暴力求解方法</h4><ul>
-<li><p>简单的尝试每对可能的{数组下标,数组上标},寻找最大值</p>
-</li>
-<li><p>时间复杂度:O(n<sub>2</sub>),一共有(n-1)*n/2种情况</p>
-</li>
-<li><p>样例</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_maximum_subarray</span><span class="params">(A)</span>:</span></span><br><span class="line">    low = <span class="number">0</span></span><br><span class="line">    high = <span class="number">0</span></span><br><span class="line">    max_val = float(<span class="string">'-inf'</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(A)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i, len(A)):</span><br><span class="line">            sum = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> s <span class="keyword">in</span> range(i, j + <span class="number">1</span>):</span><br><span class="line">                sum += A[s]</span><br><span class="line">            <span class="keyword">if</span> sum &gt; max_val:</span><br><span class="line">                max_val = sum</span><br><span class="line">                low = i</span><br><span class="line">                high = j</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> low, high, max_val</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    A = [<span class="number">13</span>, <span class="number">-3</span>, <span class="number">-25</span>, <span class="number">20</span>, <span class="number">-3</span>, <span class="number">-16</span>, <span class="number">-23</span>, <span class="number">18</span>, <span class="number">20</span>, <span class="number">-7</span>, <span class="number">12</span>, <span class="number">-5</span>, <span class="number">-22</span>, <span class="number">15</span>, <span class="number">-4</span>, <span class="number">7</span>]</span><br><span class="line">    print(find_maximum_subarray(A))</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">(7, 10, 43)</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="4-1-3-使用分治策略的求解方法"><a href="#4-1-3-使用分治策略的求解方法" class="headerlink" title="4.1.3 使用分治策略的求解方法"></a>4.1.3 使用分治策略的求解方法</h4><ul>
-<li><p>首先我们把数组 <code>A[low..high]</code> 划分为两个规模尽量相等的子数组: <code>A[low..mid]</code> 和 <code>A[mid+1..high]</code></p>
-</li>
-<li><p><code>A[low..high]</code> 的任何连续子数组<code>A[i..j]</code>所处的位置必然是一下三种情况之一,如下图</p>
-<ol>
-<li>完全位于子数组 <code>A[low..mid]</code> 中，因此 <code>low&lt;=i&lt;=j&lt;=mid</code></li>
-<li>完全位于子数组 <code>A[mid+1..high]</code> 中，因此 <code>mid&lt;i&lt;=j&lt;=high</code></li>
-<li>跨越了中点,因此 <code>low&lt;=i&lt;=mid&lt;j&lt;=high</code><br><img src="/2019/01/20/算法导论-4-分治策略/子数组的三种情况.png" alt=""></li>
 </ol>
-</li>
-<li><p>因此 <code>A[low..high]</code> 的一个最大子数组所处的位置必定是这三种情况之一.我们可以递归的求解 <code>A[low..mid]</code> 和 <code>A[mid+1..high]</code> 的最大子数组，因为这两个子问题仍然是最大子数组问题，只是规模更小.因此，剩下的问题就是寻找跨越中点的最大子数组,然后在三种情况中选取和最大者</p>
-</li>
-<li><p>我们可以很容易地使用线性时间(O(n))内求出跨越中点的最大子数组，算法如下</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_max_crossing_subarray</span><span class="params">(A, low, mid, high)</span>:</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">求解跨越了中点的最大子数组</span></span><br><span class="line"><span class="string">:param A: 数组</span></span><br><span class="line"><span class="string">:param low: 数组下标</span></span><br><span class="line"><span class="string">:param mid: 数组中点</span></span><br><span class="line"><span class="string">:param high: 数组上标</span></span><br><span class="line"><span class="string">:return:</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">print(<span class="string">"find_max_crossing_subarray:"</span>, A, low, mid, high)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里需要考虑一种特殊情况,可以忽略但不影响逻辑理解</span></span><br><span class="line"><span class="keyword">if</span> low == mid:</span><br><span class="line">    <span class="keyword">return</span> find_max_crossing_subarray_base_case(A, low)</span><br><span class="line"></span><br><span class="line">left_sum = float(<span class="string">"-inf"</span>)</span><br><span class="line">sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(mid, low - <span class="number">1</span>, <span class="number">-1</span>):</span><br><span class="line">    sum += A[i]</span><br><span class="line">    <span class="keyword">if</span> sum &gt; left_sum:</span><br><span class="line">        left_sum = sum</span><br><span class="line">        max_left = i</span><br><span class="line"></span><br><span class="line">right_sum = float(<span class="string">"-inf"</span>)</span><br><span class="line">sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(mid + <span class="number">1</span>, high + <span class="number">1</span>):</span><br><span class="line">    sum += A[i]</span><br><span class="line">    <span class="keyword">if</span> sum &gt; right_sum:</span><br><span class="line">        right_sum = sum</span><br><span class="line">        max_right = i</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> max_left, max_right, left_sum + right_sum</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>有了一个线性的<code>find_max_crossing_subarray</code>在手，我们就可以设计求解最大子数组问题的分治算法了</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_maximum_subarray</span><span class="params">(A, low, high)</span>:</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">通过分治方法递归的求解最大子数组</span></span><br><span class="line"><span class="string">:param A: 数组</span></span><br><span class="line"><span class="string">:param low: 数组下标</span></span><br><span class="line"><span class="string">:param high: 数组上标</span></span><br><span class="line"><span class="string">:return:</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">print(<span class="string">"find_maximum_subarray:"</span>, A, low, high)</span><br><span class="line"><span class="keyword">if</span> low == high:</span><br><span class="line">    <span class="keyword">return</span> low, high, A[low]</span><br><span class="line"></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">    mid = int((low + high) / <span class="number">2</span>)</span><br><span class="line">    (left_low, left_high, left_sum) = find_maximum_subarray(A, low, mid)</span><br><span class="line">    (right_low, right_high, right_sum) = find_maximum_subarray(A, mid + <span class="number">1</span>, high)</span><br><span class="line">    (cross_low, cross_high, cross_sum) = find_max_crossing_subarray(A, low, mid, high)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> left_sum &gt;= right_sum <span class="keyword">and</span> left_sum &gt;= cross_sum:</span><br><span class="line">        <span class="keyword">return</span> left_low, left_high, left_sum</span><br><span class="line">    <span class="keyword">elif</span> right_sum &gt;= left_sum <span class="keyword">and</span> right_sum &gt;= cross_sum:</span><br><span class="line">        <span class="keyword">return</span> right_low, right_high, right_sum</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> cross_low, cross_high, cross_sum</span><br></pre></td></tr></table></figure>
-</li>
+<h3 id="2-对象"><a href="#2-对象" class="headerlink" title="2 对象"></a>2 对象</h3><p>对象是一组键值对, 使用冒号结构表示<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">animal:</span> <span class="string">pets</span></span><br></pre></td></tr></table></figure></p>
+<p>转为JavaScript如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">animal</span>: <span class="string">'pets'</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-数组"><a href="#3-数组" class="headerlink" title="3 数组"></a>3 数组</h3><p>一组连词线开头的行，构成一个数组</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="string">Cat</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">Dog</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">Goldfish</span></span><br></pre></td></tr></table></figure>
+<p>转为JavaScript如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">'Cat'</span>, <span class="string">'Dog'</span>, <span class="string">'Goldfish'</span>]</span><br></pre></td></tr></table></figure></p>
+<p>数据结构的子成员是一个数组，则可以在该项下面缩进一个空格<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span></span><br><span class="line"><span class="bullet"> -</span> <span class="string">Cat</span></span><br><span class="line"><span class="bullet"> -</span> <span class="string">Dog</span></span><br><span class="line"><span class="bullet"> -</span> <span class="string">Goldfish</span></span><br></pre></td></tr></table></figure></p>
+<p>转为 JavaScript 如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ [ <span class="string">'Cat'</span>, <span class="string">'Dog'</span>, <span class="string">'Goldfish'</span> ] ]</span><br></pre></td></tr></table></figure></p>
+<p>数组也可以采用行内表示法<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">animal:</span> <span class="string">[Cat,</span> <span class="string">Dog]</span></span><br></pre></td></tr></table></figure></p>
+<p>转为 JavaScript 如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">animal</span>: [ <span class="string">'Cat'</span>, <span class="string">'Dog'</span> ] &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-复合结构"><a href="#4-复合结构" class="headerlink" title="4 复合结构"></a>4 复合结构</h3><p>对象和数组可以结合使用，形成复合结构。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">languages:</span></span><br><span class="line"><span class="bullet"> -</span> <span class="string">Ruby</span></span><br><span class="line"><span class="bullet"> -</span> <span class="string">Perl</span></span><br><span class="line"><span class="bullet"> -</span> <span class="string">Python</span> </span><br><span class="line"><span class="attr">websites:</span></span><br><span class="line"><span class="attr"> YAML:</span> <span class="string">yaml.org</span> </span><br><span class="line"><span class="attr"> Ruby:</span> <span class="string">ruby-lang.org</span> </span><br><span class="line"><span class="attr"> Python:</span> <span class="string">python.org</span> </span><br><span class="line"><span class="attr"> Perl:</span> <span class="string">use.perl.org</span></span><br></pre></td></tr></table></figure></p>
+<p>转为 JavaScript 如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">languages</span>: [ <span class="string">'Ruby'</span>, <span class="string">'Perl'</span>, <span class="string">'Python'</span> ],</span><br><span class="line">  websites: </span><br><span class="line">   &#123; <span class="attr">YAML</span>: <span class="string">'yaml.org'</span>,</span><br><span class="line">     Ruby: <span class="string">'ruby-lang.org'</span>,</span><br><span class="line">     Python: <span class="string">'python.org'</span>,</span><br><span class="line">     Perl: <span class="string">'use.perl.org'</span> &#125; &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="5-纯量"><a href="#5-纯量" class="headerlink" title="5 纯量"></a>5 纯量</h3><p>纯量是最基本的、不可再分的值。以下数据类型都属于JavaScript纯量</p>
+<ul>
+<li>字符串</li>
+<li>布尔值</li>
+<li>整数</li>
+<li>浮点数</li>
+<li>Null</li>
+<li>时间</li>
+<li>日期</li>
 </ul>
-<h4 id="4-1-4-分治算法的分析"><a href="#4-1-4-分治算法的分析" class="headerlink" title="4.1.4 分治算法的分析"></a>4.1.4 分治算法的分析</h4><ul>
-<li><p>接下来我们建立一个递归式来分析分治算法<br>  <img src="/2019/01/20/算法导论-4-分治策略/分治法递归式.png" alt=""></p>
-</li>
-<li><p>最终可以求得时间复杂度为:O(nlgn)</p>
-</li>
-</ul>
-<hr>
+<p>数值直接以字面量的形式表示。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">number:</span> <span class="number">12.30</span></span><br></pre></td></tr></table></figure>
+<p>转为 JavaScript 如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">number</span>: <span class="number">12.30</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>布尔值用true和false表示</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">isSet:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>转为 JavaScript 如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">isSet</span>: <span class="literal">true</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>null</code>用<code>~</code>表示<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">parent:</span> <span class="string">~</span></span><br></pre></td></tr></table></figure></p>
+<p>转为 JavaScript 如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">parent</span>: <span class="literal">null</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>时间采用 ISO8601 格式<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">start_time:</span> <span class="number">2001</span><span class="bullet">-12</span><span class="bullet">-14</span><span class="attr">t21:59:43.10-05:00</span></span><br></pre></td></tr></table></figure></p>
+<p>转为 JavaScript 如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">iso8601</span>: <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2001-12-14t21:59:43.10-05:00'</span>) &#125;</span><br></pre></td></tr></table></figure></p>
+<p>日期采用复合 iso8601 格式的年、月、日表示<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">date:</span> <span class="number">1976</span><span class="bullet">-07</span><span class="bullet">-31</span></span><br></pre></td></tr></table></figure></p>
+<p>转为JavaScript如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">date</span>: <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'1976-07-31'</span>) &#125;</span><br></pre></td></tr></table></figure></p>
+<p>YAML 允许使用两个感叹号，强制转换数据类型<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">e:</span> <span class="type">!!str</span> <span class="number">123</span></span><br><span class="line"><span class="attr">f:</span> <span class="type">!!str</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>转为 JavaScript 如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">e</span>: <span class="string">'123'</span>, <span class="attr">f</span>: <span class="string">'true'</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="6-字符串"><a href="#6-字符串" class="headerlink" title="6 字符串"></a>6 字符串</h3><p>字符串是最常见，也是最复杂的一种数据类型</p>
+<p>字符串默认不使用引号表示</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">str:</span> <span class="string">这是一行字符串</span></span><br></pre></td></tr></table></figure>
+<p>如果字符串之中包含空格或特殊字符，需要放在引号之中<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">str:</span> <span class="string">'内容： 字符串'</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="7-引用"><a href="#7-引用" class="headerlink" title="7 引用"></a>7 引用</h3><p>锚点<code>&amp;</code>和别名<code>*</code>，可以用来引用。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">defaults:</span> <span class="meta">&amp;defaults</span></span><br><span class="line"><span class="attr">  adapter:</span>  <span class="string">postgres</span></span><br><span class="line"><span class="attr">  host:</span>     <span class="string">localhost</span></span><br><span class="line"></span><br><span class="line"><span class="attr">development:</span></span><br><span class="line"><span class="attr">  database:</span> <span class="string">myapp_development</span></span><br><span class="line">  <span class="string">&lt;&lt;:</span> <span class="meta">*defaults</span></span><br><span class="line"></span><br><span class="line"><span class="attr">test:</span></span><br><span class="line"><span class="attr">  database:</span> <span class="string">myapp_test</span></span><br><span class="line">  <span class="string">&lt;&lt;:</span> <span class="meta">*defaults</span></span><br></pre></td></tr></table></figure>
+<p>等同于下面的代码<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">defaults:</span></span><br><span class="line"><span class="attr">  adapter:</span>  <span class="string">postgres</span></span><br><span class="line"><span class="attr">  host:</span>     <span class="string">localhost</span></span><br><span class="line"></span><br><span class="line"><span class="attr">development:</span></span><br><span class="line"><span class="attr">  database:</span> <span class="string">myapp_development</span></span><br><span class="line"><span class="attr">  adapter:</span>  <span class="string">postgres</span></span><br><span class="line"><span class="attr">  host:</span>     <span class="string">localhost</span></span><br><span class="line"></span><br><span class="line"><span class="attr">test:</span></span><br><span class="line"><span class="attr">  database:</span> <span class="string">myapp_test</span></span><br><span class="line"><span class="attr">  adapter:</span>  <span class="string">postgres</span></span><br><span class="line"><span class="attr">  host:</span>     <span class="string">localhost</span></span><br></pre></td></tr></table></figure></p>
+<p><code>&amp;</code>用来建立锚点（<code>defaults</code>），<code>&lt;&lt;</code>表示合并到当前数据，<code>*</code>用来引用锚点</p>
+<p>下面是另一个例子<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="meta">&amp;showell</span> <span class="string">Steve</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">Clark</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">Brian</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">Oren</span> </span><br><span class="line"><span class="bullet">-</span> <span class="meta">*showell</span></span><br></pre></td></tr></table></figure></p>
+<p>转为 JavaScript 代码如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ <span class="string">'Steve'</span>, <span class="string">'Clark'</span>, <span class="string">'Brian'</span>, <span class="string">'Oren'</span>, <span class="string">'Steve'</span> ]</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/03/03/YAML学习/IBM_5100.jpg" alt=""></p>
+<p><img src="/2019/03/03/YAML学习/zhizhi.jpg" alt=""></p>
 
           
         
@@ -470,7 +470,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/39/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/39/">39</a><span class="page-number current">40</span><a class="page-number" href="/page/41/">41</a><a class="extend next" rel="next" href="/page/41/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/39/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/39/">39</a><span class="page-number current">40</span><a class="page-number" href="/page/41/">41</a><a class="page-number" href="/page/42/">42</a><a class="extend next" rel="next" href="/page/41/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -518,7 +518,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -529,7 +529,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -540,7 +540,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

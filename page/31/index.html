@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Tensorflow-5-MNIST数字识别问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Tensorflow-6-图像识别与卷积神经网络/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/10/Tensorflow-5-MNIST数字识别问题/" itemprop="url">[Tensorflow][5]MNIST数字识别问题</a></h1>
+                <a class="post-title-link" href="/2019/03/10/Tensorflow-6-图像识别与卷积神经网络/" itemprop="url">[Tensorflow][6]图像识别与卷积神经网络</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-10T14:47:02+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-10T14:49:47+08:00">
                 2019-03-10
               </time>
             
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/10/Tensorflow-5-MNIST数字识别问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/10/Tensorflow-5-MNIST数字识别问题/" itemprop="commentCount"></span>
+                <a href="/2019/03/10/Tensorflow-6-图像识别与卷积神经网络/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/10/Tensorflow-6-图像识别与卷积神经网络/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,229 +362,428 @@
       
         
           
-            <h2 id="第五章-MNIST数字识别问题"><a href="#第五章-MNIST数字识别问题" class="headerlink" title="第五章 MNIST数字识别问题"></a>第五章 MNIST数字识别问题</h2><h3 id="5-1-MNIST数据处理"><a href="#5-1-MNIST数据处理" class="headerlink" title="5.1 MNIST数据处理"></a>5.1 MNIST数据处理</h3><ul>
-<li><p>MNIST数据集简介</p>
+            <h2 id="第6章-图像识别与卷积神经网络"><a href="#第6章-图像识别与卷积神经网络" class="headerlink" title="第6章 图像识别与卷积神经网络"></a>第6章 图像识别与卷积神经网络</h2><p>卷积神经网络(Convolutional Neural Network,CNN)</p>
+<h3 id="6-1-图像识别问题简介及经典数据集"><a href="#6-1-图像识别问题简介及经典数据集" class="headerlink" title="6.1 图像识别问题简介及经典数据集"></a>6.1 图像识别问题简介及经典数据集</h3><ul>
+<li><p>图像识别问题简介</p>
 <ul>
-<li><p>MNIST数据集是NIST数据集的一个子集，是一个手写体数字识别数据集</p>
+<li>图像识别问题希望借助计算机程序来处理、分析和理解图片中的内容，使得计算机可以从图片中自动识别各种不同模式的目标和对象</li>
+<li>卷积神经网络是图像识别问题取得突破性进展的最主要技术支持</li>
+<li>在NNIST上，相比其他算法，卷积神经网络可以得到更低的错误率。而且通过卷积神经网络达到的错误率已经非常接近人工标注的错误率</li>
+</ul>
 </li>
-<li><p>它包含60000张图片作为训练数据，10000张图片作为测试数据</p>
+<li><p>CIFAR数据集</p>
+<ul>
+<li>CIFAR数据集分为CIFAR-10和CIFAR-100两个问题，它们都是图像词典项目(Visual Dictionary)中800万张图片的一个子集</li>
+<li>CIFAR数据集中的图片为32*32的彩色图片</li>
+<li>CIFAR-10问题收集了来自10个不同种类的60000张图片</li>
+<li><a href="https://www.cs.toronto.edu/~kriz/cifar.html" target="_blank" rel="noopener">CIFAR官网</a>提供不同格式的数据集下载</li>
+<li>CIFAR-10中的图片大小都是固定的且每一张图片中仅包含一个种类的实体</li>
+<li>样例<br><img src="/2019/03/10/Tensorflow-6-图像识别与卷积神经网络/cifar.jpg" alt=""></li>
+</ul>
 </li>
-<li><p>在MNIST数据集中的每一张图片都代表了0~9中的一个数字，图片的大小都是28*28，且数字都出现在图片的正中间</p>
+<li><p>MNIST和CIFAR相对于真实环境的2个问题</p>
+<ol>
+<li>现实生活中的图片分辨率要远高于32*32，而且图像的分辨率也不会是固定的</li>
+<li>现实生活中的物体类别很多，而且一张图片中不会只出现一个种类的物体</li>
+</ol>
 </li>
-<li><p>如图所示，一张数字图片及和它对应的像素矩阵<br><img src="/2019/03/10/Tensorflow-5-MNIST数字识别问题/数字图片及其像素矩阵.jpg" alt=""></p>
-</li>
-<li><p>为了验证模型训练的效果，一般还需要从训练数据中划分出一部分数据作为验证数据</p>
+<li><p>ImageNet图像数据库</p>
+<ul>
+<li>ImageNet是一个基于WordNet的大型图像数据库</li>
+<li>在ImageNet中，将近1500万图片被关联到了WorkNet的大约20000个名词同义词集上</li>
+<li><p>如图</p>
+<ul>
+<li>在这张图片上用几个矩形框出了不同实物的轮廓</li>
+<li>在物体识别问题上，一般将用于框出实体的矩形称为bounding box</li>
+</ul>
 </li>
 </ul>
 </li>
-<li><p>TensorFlow中的封装（基本过时）</p>
+<li><p>ILSVRC：ImageNet每年都举办图像识别相关的竞赛(ImageNet Large Scale Visual Recognition Challenge)</p>
+</li>
+<li><p>top-N正确率：指的是图像识别算法给出前N个答案的正确率作为比较的方法，其中N的取值一般为3或5</p>
+</li>
+</ul>
+<h3 id="6-2-卷积神经网络简介"><a href="#6-2-卷积神经网络简介" class="headerlink" title="6.2 卷积神经网络简介"></a>6.2 卷积神经网络简介</h3><ul>
+<li><p>全连接神经网络：每两层之间的所有节点都是有边相连的</p>
+</li>
+<li><p>卷积神经网络简介</p>
 <ul>
-<li><p>样例程序</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 载入MNIST数据集，如果指定地址/path/to/MNIST_data下没有已经下载好的数据</span></span><br><span class="line"><span class="comment"># 那么TensorFlow会自动下载数据</span></span><br><span class="line">mnist = input_data.read_data_sets(<span class="string">"/path/to/MNIST_data/"</span>, one_hot=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印训练集的数据量</span></span><br><span class="line">print(<span class="string">"Training data size:"</span>, mnist.train.num_examples)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印验证集的数据量</span></span><br><span class="line">print(<span class="string">"Validating data size:"</span>, mnist.validation.num_examples)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印测试集的数据量</span></span><br><span class="line">print(<span class="string">"Testing data size:"</span>, mnist.test.num_examples)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印训练集中某一样例数据</span></span><br><span class="line"><span class="comment"># 一张数字图片，它的每个像素点都被放到这个长度为128一维数组中</span></span><br><span class="line"><span class="comment"># 如果一个像素点越接近于1，则颜色越深；越接近于0，则颜色越浅</span></span><br><span class="line">print(<span class="string">"Example training data:"</span>, mnist.train.images[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印训练集中某一样例数据的标记</span></span><br><span class="line"><span class="comment"># 一个大小为10的一维数组</span></span><br><span class="line"><span class="comment"># 数组中其中一个数字取值为1,其余数字取值为0</span></span><br><span class="line">print(<span class="string">"Example training data label:"</span>, mnist.train.labels[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置batch的大小</span></span><br><span class="line">batch_size = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用next_batch()方法来获得下一个batch的输入数据</span></span><br><span class="line">xs, ys = mnist.train.next_batch(batch_size)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"X shape:"</span>, xs.shape)</span><br><span class="line">print(<span class="string">"Y shape"</span>, ys.shape)</span><br></pre></td></tr></table></figure>
+<li>卷积神经网络也是通过一层一层的节点组织起来的</li>
+<li>卷积神经网络中的每个节点都是一个神经元</li>
+<li>卷积神经网络中相邻两层之间只有部分节点相连</li>
+<li>为了展示每一层神经元的维度，一般会将每一层卷积层的节点组织成一个三维矩阵</li>
+<li>卷积神经网络的输入层就是图像的原始像素，而输出层中的每一个节点代表了不同类别的可信度，这和全连接神经网络的输入输出是一致的</li>
+</ul>
 </li>
-<li><p>解读</p>
+<li><p>卷积与全连接的区别：神经网络中相邻两层的连接方式</p>
+</li>
+<li><p>为什么全连接神经网络无法很好地处理图像数据</p>
+<ul>
+<li>使用全连接神经网络处理图像的最大问题在于全连接的参数太多</li>
+<li>参数增多除了导致计算速度减慢，还很容易导致过拟合问题</li>
+</ul>
+</li>
+<li><p>在卷积神经网络的前几层，每一层的节点都被组织成一个三维矩阵</p>
+<ul>
+<li>比如处理CIFAR-10数据集中的图片时，可以将输入层组织为一个32<em>32</em>3的三维矩阵</li>
+</ul>
+</li>
+<li><p>一个卷积神经网络主要由以下5种结构组成</p>
 <ol>
-<li><p>MNIST数据集被划分为train、validation和test三个数据集</p>
+<li>输入层<ul>
+<li>输入层是整个神经网络的输入，在处理图像的卷积神经网络中，它一般代表了一张图片的像素矩阵</li>
+<li>三维矩阵的长和宽代表了图像的大小，而三维矩阵的深度代表了图像的色彩通道<ul>
+<li>比如黑白图片的深度为1，而在RGB色彩模式下，图像的深度为3</li>
+</ul>
 </li>
-<li><p>处理后的每一张图片都是一个长度为784的一维数组，因为神经网络的输入是一个特征向量，所以在此把一张二维图像的像素矩阵放到一个一维数组中可以方便TensorFlow将图片的像素矩阵提供给神经网络的输入层</p>
+<li>卷积神经网络通过不同的神经网络结构将上一层的三维矩阵转化为下一层的三维矩阵</li>
+</ul>
 </li>
-<li><p>像素矩阵中元素的取值范围为[0,1]，它代表了颜色的深浅</p>
+<li>卷积层<ul>
+<li>卷积层中每个节点的输入只是上一层神经网络的一小块，这个小块常用的大小有3<em>3或者5</em>5</li>
+<li>卷积层试图将神经网络中的每一小块进行更加深入地分析从而得到抽象程度更高的特征</li>
+<li>一般来说，通过卷积层处理过的节点矩阵会变得更深</li>
+</ul>
 </li>
-<li><p>使用mnist.train.next_batch()可以从所有的训练数据中读取一小部分作为一个batch</p>
+<li>池化层(Pooling)<ul>
+<li>池化层神经网络不会改变三维矩阵的深度，但是它可以缩小矩阵的大小</li>
+<li>池化操作可以认为是将一张分辨率较高的图片转化为分辨率较低的图片</li>
+<li>通过池化层，可以进一步缩小最后全连接层中节点的个数，从而达到减少整个神经网络中参数的目的</li>
+</ul>
+</li>
+<li>全连接层<ul>
+<li>我们可以将卷积层和池化层看作自动图像特征提取的过程</li>
+<li>在特征提取完成之后，仍然需要使用全连接层来完成分类任务</li>
+</ul>
+</li>
+<li>Softmax层<ul>
+<li>Softmax层主要用于分类问题</li>
+<li>通过Softmax层，可以得到当前样例属于不同种类的概率分布情况</li>
+</ul>
 </li>
 </ol>
 </li>
 </ul>
+<h3 id="6-3-卷积神经网络常用结构"><a href="#6-3-卷积神经网络常用结构" class="headerlink" title="6.3 卷积神经网络常用结构"></a>6.3 卷积神经网络常用结构</h3><h4 id="6-3-1-卷积层"><a href="#6-3-1-卷积层" class="headerlink" title="6.3.1 卷积层"></a>6.3.1 卷积层</h4><ul>
+<li><p>过滤器</p>
+<ul>
+<li>如图<br><img src="/2019/03/10/Tensorflow-6-图像识别与卷积神经网络/过滤器结构示意图.jpg" alt=""></li>
+<li>简介<ul>
+<li>过滤器可以将当前层神经网络上的一个子节点矩阵转化为下一层神经网络上的一个单位节点矩阵</li>
+<li>单位节点矩阵指的是一个长和宽都为1，但深度不限的节点矩阵</li>
+</ul>
+</li>
+<li>过滤器的尺寸<ul>
+<li>过滤器所处理的节点矩阵的长和宽都是由人工指定的，这个节点矩阵的尺寸也被称为过滤器的尺寸</li>
+<li>过滤器处理的矩阵深度和当前层神经网络节点矩阵的深度是一致的，也就是深度上不做切割，有多深就用多深</li>
+</ul>
+</li>
+<li>过滤器的深度<ul>
+<li>过滤器另一个需要人工指定的设置是输出的单位节点矩阵的深度，这个设置称为过滤器的深度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>过滤器的前向传播过程</p>
+<ul>
+<li>简介：就是通过左侧小矩阵中的节点计算出右侧单位矩阵中节点的过程</li>
+<li>计算公式<ul>
+<li>公式<br><img src="/2019/03/10/Tensorflow-6-图像识别与卷积神经网络/过滤器计算公式.jpg" alt=""></li>
+<li>解读<ul>
+<li><code>ax,y,z</code>：过滤器中节点<code>(x,y,z)</code>的取值</li>
+<li><code>f</code>：激活函数</li>
+<li><code>wix,y,z</code>：输入节点<code>(x,y,z)</code>相对于第<code>i</code>个输出节点的权重参数</li>
+<li><code>bi</code>：第<code>i</code>个输出节点的偏置值</li>
+</ul>
+</li>
+<li>假设矩阵的size为2 <em> 2 </em> 3,过滤器的深度为5，则参数值为：2 <em> 2 </em> 3 * 5 + 5 = 65</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>卷积层结构的前向传播过程</p>
+<ul>
+<li>简介：卷积层结构的前向传播过程就是通过将一个过滤器从神经网络的左上角移动到右下角，并且在移动中计算每一个对应的单位矩阵得到的</li>
+<li>过滤器每移动一次，可以计算得到一个单位矩阵（深度为k），将这些数值拼接成一个新的矩阵，就完成了卷积层前向传播的过程</li>
+</ul>
+</li>
+<li><p>如何避免卷积层运算前后矩阵尺寸的变化</p>
+<ul>
+<li>背景：当过滤器的大小不为1*1时，卷积层前向传播得到的矩阵的尺寸要小于当前层矩阵的尺寸</li>
+<li>解决：为了避免尺寸的变化，可以在当前层矩阵的边界上加入全0填充</li>
+<li>如图<br><img src="/2019/03/10/Tensorflow-6-图像识别与卷积神经网络/全0填充.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>通过设置过滤器移动的步长来调整结果矩阵的大小</p>
+<ul>
+<li>如图：显示了当移动步长为2且使用全0填充时，卷积层前向传播的过程<br><img src="/2019/03/10/Tensorflow-6-图像识别与卷积神经网络/步长为2.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>卷积层中过滤器参数的设定</p>
+<ul>
+<li>简介：在卷积神经网络中，每一个卷积层中使用的过滤器中的参数都是一样的</li>
+<li>直观理解：从直观上理解，共享过滤器的参数可以使得图像上的内容不受位置的影响</li>
+<li>好处<ul>
+<li>共享每一个卷积层中过滤器中的参数可以巨幅减少神经网络上的参数</li>
+<li>卷积层的参数个数要远远小于全连接层</li>
+<li>而且卷积层的参数个数和图片的大小无关，它只和过滤器的尺寸、深度以及当前层节点矩阵的深度有关，这使得卷积神经网络可以很好的扩展到更大的图像数据上</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>举例：使用全0填充、步长为2的卷积层前向传播的计算流程</p>
+<ul>
+<li>如图<br><img src="/2019/03/10/Tensorflow-6-图像识别与卷积神经网络/卷积层前向传播举例.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>使用TensorFlow实现前向传播过程</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过tf.get_variable的方式创建过滤器的权重变量</span></span><br><span class="line"><span class="comment"># 卷积层的参数个数只和过滤器的尺寸、深度以及当前层节点矩阵的深度有关</span></span><br><span class="line"><span class="comment"># 此处声明的四维矩阵，前两维表示的是过滤器的尺寸，第三维是当前层的深度，第四维是过滤层的深度</span></span><br><span class="line">filter_weight = tf.get_variable(<span class="string">'weights'</span>, [<span class="number">5</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">16</span>], initializer=tf.truncated_normal_initializer(stddev=<span class="number">0.1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过tf.get_variable的方式创建过滤器的偏重变量</span></span><br><span class="line"><span class="comment"># 偏置向量的大小等于过滤层的深度</span></span><br><span class="line"><span class="comment"># 原因是卷积层不仅共享权重矩阵也共享偏置向量</span></span><br><span class="line">biases = tf.get_variable(<span class="string">'biases'</span>, [<span class="number">16</span>], initializer=tf.constant_initializer(<span class="number">0.1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># tf.nn.conv2d是用来实现卷积层前向传播的函数</span></span><br><span class="line"><span class="comment"># 第一个参数为当前层的节点矩阵，这个矩阵为4维矩阵，后面三个维度表示一个节点矩阵，前面一个维度表示一个输入batch</span></span><br><span class="line"><span class="comment"># 第二个参数为卷积层的权重</span></span><br><span class="line"><span class="comment"># 第三个参数为不同维度上的步长，是一个长度为4的数组，但第一维和最后一维都是1，因为步长只对矩阵的长和宽有用</span></span><br><span class="line"><span class="comment"># 第四个参数为填充方法，其中"SAME"表示全0填充，"VALID"表示不填充</span></span><br><span class="line">conv = tf.nn.conv2d(input, filter_weight, strides=[<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], padding=<span class="string">'SAME'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># tf.nn.bias_add提供了方便的函数给每一个节点加上偏置项</span></span><br><span class="line"><span class="comment"># 这里不能直接使用加法</span></span><br><span class="line"><span class="comment"># 因为矩阵上不同位置上的节点都需要加上同样的偏置项，但是偏置项只有一个数</span></span><br><span class="line">bias = tf.nn.bias_add(conv, biases)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最后使用ReLU激活函数完成去线性化</span></span><br><span class="line">actived_conv = tf.nn.relu(bias)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
-<h3 id="5-2-神经网络模型训练及不同模型结果对比"><a href="#5-2-神经网络模型训练及不同模型结果对比" class="headerlink" title="5.2 神经网络模型训练及不同模型结果对比"></a>5.2 神经网络模型训练及不同模型结果对比</h3><hr>
-<h4 id="5-2-1-TensorFlow训练神经网络"><a href="#5-2-1-TensorFlow训练神经网络" class="headerlink" title="5.2.1 TensorFlow训练神经网络"></a>5.2.1 TensorFlow训练神经网络</h4><ul>
-<li><p>回顾主要概念</p>
+<h4 id="6-3-2-池化层-Pooling-Layer"><a href="#6-3-2-池化层-Pooling-Layer" class="headerlink" title="6.3.2 池化层(Pooling Layer)"></a>6.3.2 池化层(Pooling Layer)</h4><ul>
+<li><p>池化层背景</p>
 <ul>
-<li>在神经网络的结构上，深度学习一方面需要使用激活函数实现神经网络模型的去线性化，另一方面需要使用一个或多个隐藏层使得神经网络的结构更深，以解决复杂问题</li>
-<li>使用带指数衰减的学习率设置、使用正则化来避免过度拟合，以及使用滑动平均模型可以使得神经网络模型更加健壮</li>
+<li>池化层可以非常有效地缩小矩阵的尺寸，从而减少最后全连接层中的参数</li>
+<li>使用池化层既可以加快计算速度也有防止过拟合问题的作用</li>
 </ul>
 </li>
-<li><p>直接给出<a href="https://github.com/T0UGH/TFDemo/blob/master/5.2.1MNISTSolution.py" target="_blank" rel="noopener">代码</a></p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line"></span><br><span class="line"><span class="comment"># MNIST数据集相关参数</span></span><br><span class="line">INPUT_NODE = <span class="number">784</span>                <span class="comment"># 输入层的节点数，等于图片的像素</span></span><br><span class="line">OUTPUT_NODE = <span class="number">10</span>                <span class="comment"># 输出层的节点数，等于类别的数目。0-9这10个数字，所以是10</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置神经网络的参数</span></span><br><span class="line">LAYER1_NODE = <span class="number">500</span>               <span class="comment"># 隐藏层节点数，这里只有一个隐藏层，此隐藏层有500个节点</span></span><br><span class="line">BATCH_NODE = <span class="number">100</span>                <span class="comment"># batch的大小</span></span><br><span class="line">LEARNING_RATE_BASE = <span class="number">0.8</span>        <span class="comment"># 基础的学习率</span></span><br><span class="line">LEARNING_RATE_DECAY = <span class="number">0.99</span>      <span class="comment"># 学习率的衰减率</span></span><br><span class="line">REGULARIZATION_RATE = <span class="number">0.0001</span>    <span class="comment"># 正则化项在损失函数中的系数</span></span><br><span class="line">TRAINING_STEPS = <span class="number">30000</span>          <span class="comment"># 训练轮数</span></span><br><span class="line">MOVING_AVERAGE_DECAY = <span class="number">0.99</span>     <span class="comment"># 滑动平均衰减率</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给定神经网络的输入和所有参数，计算神经网络的前向传播结果</span></span><br><span class="line"><span class="comment"># 在这里定义了一个使用ReLU激活函数的三层全连接网络</span></span><br><span class="line"><span class="comment"># 通过一层隐藏层实现了多层网络结构</span></span><br><span class="line"><span class="comment"># 通过ReLU激活函数实现了去线性化</span></span><br><span class="line"><span class="comment"># 并且提供了对滑动平均模型的支持，此时需要传入avg_class</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inference</span><span class="params">(input_tensor, avg_class, weights1, biases1, weights2, biases2)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> avg_class <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        layer1 = tf.nn.relu(tf.matmul(input_tensor, weights1) + biases1)</span><br><span class="line">        <span class="keyword">return</span> tf.matmul(layer1, weights2) + biases2</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        layer1 = tf.nn.relu(tf.matmul(input_tensor, avg_class.average(weights1)) + avg_class.average(biases1))</span><br><span class="line">        <span class="keyword">return</span> tf.matmul(layer1, avg_class.average(weights2)) + avg_class.average(biases2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练模型的整个过程</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(mnist)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 首先定义输入数据，使用了placeholder</span></span><br><span class="line">    x = tf.placeholder(tf.float32, [<span class="keyword">None</span>, INPUT_NODE], <span class="string">'x-input'</span>)</span><br><span class="line">    y_ = tf.placeholder(tf.float32, [<span class="keyword">None</span>, OUTPUT_NODE], <span class="string">'y-input'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义并初始化隐藏层的权重和偏置值</span></span><br><span class="line">    weight1 = tf.Variable(tf.truncated_normal([INPUT_NODE, LAYER1_NODE], stddev=<span class="number">0.1</span>))</span><br><span class="line">    biases1 = tf.Variable(tf.constant(<span class="number">0.1</span>, shape=[LAYER1_NODE]))</span><br><span class="line">    <span class="comment"># 定义并初始化输出层的权重和偏置值</span></span><br><span class="line">    weight2 = tf.Variable(tf.truncated_normal([LAYER1_NODE, OUTPUT_NODE], stddev=<span class="number">0.1</span>))</span><br><span class="line">    biases2 = tf.Variable(tf.constant(<span class="number">0.1</span>, shape=[OUTPUT_NODE]))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用inference函数计算前向传播的结果(不带滑动平均的)</span></span><br><span class="line">    y = inference(x, <span class="keyword">None</span>, weight1, biases1, weight2, biases2)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义一个储存训练轮数的变量，用于滑动平均模型和指数衰减的学习率</span></span><br><span class="line">    global_step = tf.Variable(<span class="number">0</span>, trainable=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 给定滑动平均衰减率和训练轮数的变量，初始化滑动平均类</span></span><br><span class="line">    variable_averages = tf.train.ExponentialMovingAverage(MOVING_AVERAGE_DECAY, global_step)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 在所有代表神经网络参数的变量上使用滑动平均，即所有tf.trainable_variables集合中的变量</span></span><br><span class="line">    variable_averages_op = variable_averages.apply(tf.trainable_variables())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算使用了滑动平均之后的前向传播结果</span></span><br><span class="line">    average_y = inference(x, variable_averages, weight1, biases1, weight2, biases2)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算交叉熵</span></span><br><span class="line">    cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=y, labels=tf.argmax(y_, <span class="number">1</span>))</span><br><span class="line">    <span class="comment"># 对整个batch的交叉熵求平均</span></span><br><span class="line">    cross_entropy_mean = tf.reduce_mean(cross_entropy)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 生成一个L2正则化损失函数</span></span><br><span class="line">    regularizer = tf.contrib.layers.l2_regularizer(REGULARIZATION_RATE)</span><br><span class="line">    <span class="comment"># 计算模型的正则化损失</span></span><br><span class="line">    regularization = regularizer(weight1) + regularizer(weight2)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将交叉熵和正则化损失求和，得到模型的总损失</span></span><br><span class="line">    loss = cross_entropy_mean + regularization</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置指数衰减的学习率</span></span><br><span class="line">    learning_rate = tf.train.exponential_decay(</span><br><span class="line">        LEARNING_RATE_BASE,                     <span class="comment"># 基础的学习率，随着迭代的进行，在这个学习率的基础上递减</span></span><br><span class="line">        global_step,                            <span class="comment"># 之前定义的用于储存训练轮数的变量</span></span><br><span class="line">        mnist.train.num_examples/BATCH_NODE,    <span class="comment"># 衰减速度</span></span><br><span class="line">        LEARNING_RATE_DECAY)                    <span class="comment"># 衰减系数，若衰减速度为100，衰减系数为.96，则说明每过100轮学习率变成之前的.96</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用梯度下降算法定义优化过程</span></span><br><span class="line">    train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss, global_step)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 因为使用了滑动平均模型，所以在训练神经网络时，每过一遍数据既需要通过反向传播来更新神经网络中的参数，又需要</span></span><br><span class="line">    <span class="comment"># 更新每个参数的滑动平均值。为了一次完成多个操作，可以使用tf.group()来将两个计算合并起来执行</span></span><br><span class="line">    train_op = tf.group(train_step, variable_averages_op)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 检验对于batch中的每个数据，预测结果是否等于标记值</span></span><br><span class="line">    correct_prediction = tf.equal(tf.argmax(average_y, <span class="number">1</span>), tf.argmax(y_, <span class="number">1</span>))</span><br><span class="line">    <span class="comment"># 计算模型在这一组数据中的正确率</span></span><br><span class="line">    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 开启一个会话，开始计算过程</span></span><br><span class="line">    <span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 对所有变量进行初始化</span></span><br><span class="line">        tf.global_variables_initializer().run()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 准备验证数据，一般可以在神经网络的训练过程中通过验证数据来大致判断停止的条件和评判训练的效果</span></span><br><span class="line">        validate_feed = &#123;</span><br><span class="line">            x: mnist.validation.images,</span><br><span class="line">            y_: mnist.validation.labels</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 准备测试数据，作为模型训练结束之后的最终评价标准</span></span><br><span class="line">        test_feed = &#123;</span><br><span class="line">            x: mnist.test.images,</span><br><span class="line">            y_: mnist.test.labels</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 迭代地训练神经网络</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(TRAINING_STEPS):</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 每过1000轮使用验证数据评价模型</span></span><br><span class="line">            <span class="keyword">if</span> i % <span class="number">1000</span> == <span class="number">0</span>:</span><br><span class="line">                validate_acc = sess.run(accuracy, feed_dict=validate_feed)</span><br><span class="line">                print(<span class="string">"After %d training step(s), validation accuracy using average model is %g"</span> % (i, validate_acc))</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 每轮都提取一个batch的数据，训练神经网络</span></span><br><span class="line">            xs, ys = mnist.train.next_batch(BATCH_NODE)</span><br><span class="line">            sess.run(train_op, feed_dict=&#123;x: xs, y_: ys&#125;)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 在训练结束之后，在测试数据上检测神经网络模型的最终正确率</span></span><br><span class="line">        test_acc = sess.run(accuracy, feed_dict=test_feed)</span><br><span class="line">        print(<span class="string">"After %d training step(s), test accuracy using average model is %g"</span> % (i, test_acc))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 主程序入口</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(argv=None)</span>:</span></span><br><span class="line">    mnist = input_data.read_data_sets(<span class="string">"/tmp/data"</span>, one_hot=<span class="keyword">True</span>)</span><br><span class="line">    train(mnist)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># TensorFlow提供的一个主程序入口，tf.app.run()会调用上面定义的main函数</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    tf.app.run()</span><br></pre></td></tr></table></figure>
+<li><p>池化层的前向传播过程</p>
+<ul>
+<li>简介<ul>
+<li>池化层前向传播也是通过移动一个类似过滤器的结构完成的</li>
+<li>但是池化层过滤器中的计算不是节点的加权和，而是采用更加简单的最大值或者平均值运算</li>
+</ul>
 </li>
-<li><p>输出</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">After 0 training step(s), validation accuracy using average model is 0.0778</span><br><span class="line">After 1000 training step(s), validation accuracy using average model is 0.9758</span><br><span class="line">After 2000 training step(s), validation accuracy using average model is 0.9802</span><br><span class="line">After 3000 training step(s), validation accuracy using average model is 0.9818</span><br><span class="line">After 4000 training step(s), validation accuracy using average model is 0.983</span><br><span class="line">After 5000 training step(s), validation accuracy using average model is 0.9826</span><br><span class="line">After 6000 training step(s), validation accuracy using average model is 0.9828</span><br><span class="line">After 7000 training step(s), validation accuracy using average model is 0.9838</span><br><span class="line">After 8000 training step(s), validation accuracy using average model is 0.985</span><br><span class="line">After 9000 training step(s), validation accuracy using average model is 0.9836</span><br><span class="line">After 10000 training step(s), validation accuracy using average model is 0.9852</span><br><span class="line">After 11000 training step(s), validation accuracy using average model is 0.9836</span><br><span class="line">After 12000 training step(s), validation accuracy using average model is 0.9846</span><br><span class="line">After 13000 training step(s), validation accuracy using average model is 0.9852</span><br><span class="line">After 14000 training step(s), validation accuracy using average model is 0.9846</span><br><span class="line">After 15000 training step(s), validation accuracy using average model is 0.9842</span><br><span class="line">After 16000 training step(s), validation accuracy using average model is 0.9844</span><br><span class="line">After 17000 training step(s), validation accuracy using average model is 0.9846</span><br><span class="line">After 18000 training step(s), validation accuracy using average model is 0.9848</span><br><span class="line">After 19000 training step(s), validation accuracy using average model is 0.9844</span><br><span class="line">After 20000 training step(s), validation accuracy using average model is 0.9848</span><br><span class="line">After 21000 training step(s), validation accuracy using average model is 0.9844</span><br><span class="line">After 22000 training step(s), validation accuracy using average model is 0.9842</span><br><span class="line">After 23000 training step(s), validation accuracy using average model is 0.9852</span><br><span class="line">After 24000 training step(s), validation accuracy using average model is 0.9852</span><br><span class="line">After 25000 training step(s), validation accuracy using average model is 0.9854</span><br><span class="line">After 26000 training step(s), validation accuracy using average model is 0.9852</span><br><span class="line">After 27000 training step(s), validation accuracy using average model is 0.9854</span><br><span class="line">After 28000 training step(s), validation accuracy using average model is 0.9852</span><br><span class="line">After 29000 training step(s), validation accuracy using average model is 0.9856</span><br><span class="line">After 29999 training step(s), test accuracy using average model is 0.9837</span><br></pre></td></tr></table></figure>
+<li>几种池化层结构<ul>
+<li>最大池化层(max pooling)<ul>
+<li>使用最大值操作</li>
+<li>被使用最多</li>
+</ul>
+</li>
+<li>平均池化层(average pooling)<ul>
+<li>使用平均值操作</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>池化层过滤器参数设定：也需要人工设定过滤器的大小、是否使用全0填充以及过滤器移动的步长等设置</p>
+</li>
+<li><p>池化层和卷积层过滤器的区别</p>
+<ul>
+<li>卷积层使用的过滤器是横跨整个深度的，而池化层使用的过滤器只影响一个深度上的节点</li>
+<li>池化层的过滤器除了在长和宽两个维度移动，还需要在深度这个维度上移动</li>
+</ul>
+</li>
+<li><p>举例：</p>
+<ul>
+<li>如图所示，是一个最大池化层前向传播计算过程<br><img src="/2019/03/10/Tensorflow-6-图像识别与卷积神经网络/池化层前向传播举例.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>TensorFlow实现最大池化层的前向传播算法</p>
+<ul>
+<li><p>代码</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tf.nn.max_pool实现了最大池化层的前向传播过程</span></span><br><span class="line"><span class="comment"># 第一个参数代表输入矩阵</span></span><br><span class="line"><span class="comment"># ksize提供了过滤器的尺寸，其中第一维和最后一维必须是1，因为过滤器不可以跨不同输入样例或者节点矩阵的深度</span></span><br><span class="line"><span class="comment"># strides提供了步长信息，同样的，第一维和最后一维也只能是1</span></span><br><span class="line"><span class="comment"># padding表示填充方式</span></span><br><span class="line">pool = tf.nn.max_pool(actived_conv, ksize=[<span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">1</span>], strides=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>], padding=<span class="string">'SAME'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>除此之外，TensorFlow还提供了<code>tf.nn.avg_pool</code>来实现平均池化层</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-4-经典卷积网络模型"><a href="#6-4-经典卷积网络模型" class="headerlink" title="6.4 经典卷积网络模型"></a>6.4 经典卷积网络模型</h3><ul>
+<li>通过这些经典的卷积神经网络的网络结构可以总结出卷积神经网络结构设计的一些模式</li>
+</ul>
+<hr>
+<h4 id="6-4-1-LeNet-5-模型"><a href="#6-4-1-LeNet-5-模型" class="headerlink" title="6.4.1 LeNet-5 模型"></a>6.4.1 LeNet-5 模型</h4><ul>
+<li><p>简介：</p>
+<ul>
+<li>LeNet-5模型是第一个成功应用于数字识别问题的卷积神经网络</li>
+<li>在MNIST数据集上，LeNet-5模型可以达到99.2%的正确率</li>
+<li>LeNet-5模型总共有7层</li>
+</ul>
+</li>
+<li><p>结构图<br><img src="/2019/03/10/Tensorflow-6-图像识别与卷积神经网络/LeNet-5模型图.jpg" alt=""></p>
+</li>
+<li><p>结构详解</p>
+<ol>
+<li>第一层：卷积层<ul>
+<li>输入：原始的图像像素，大小为<code>32*32*1</code></li>
+<li>过滤器：尺寸为<code>5*5</code>，深度为<code>6</code>，不使用全0填充，步长为<code>1</code></li>
+<li>输出：因为不使用全0填充，所以输出大小为<code>28*28*6</code></li>
+</ul>
+</li>
+<li>第二层：池化层<ul>
+<li>输入：第一层的大小为<code>28*28*6</code>的输出矩阵</li>
+<li>过滤器：大小为<code>2*2</code>，步长也为<code>2</code>，采用max过滤器</li>
+<li>输出：输出矩阵的大小为<code>14*14*6</code></li>
+</ul>
+</li>
+<li>第三层：卷积层<ul>
+<li>输入：第二层的大小为<code>14*14*6</code>的输出矩阵</li>
+<li>过滤器：尺寸为<code>5*5</code>，深度为<code>16</code>，不使用全0填充，步长为<code>1</code></li>
+<li>输出：输出矩阵的大小为<code>10*10*16</code></li>
+</ul>
+</li>
+<li>第四层：池化层<ul>
+<li>输入：第三层的大小为<code>10*10*16</code>的输出矩阵</li>
+<li>过滤器：大小为<code>2*2</code>，步长为<code>2</code>，采用max过滤器</li>
+<li>输出：输出矩阵的大小为<code>5*5*16</code></li>
+</ul>
+</li>
+<li>第五层：全连接层<ul>
+<li>输入：第四层的大小为<code>5*5*16</code>的输出矩阵</li>
+<li>如何将卷积层的输出转化为全连接的输入?<ul>
+<li>就是将这个三维数组，转化为一维数组，很简单</li>
+<li>将<code>5*5*16</code>矩阵中的节点拉成一个向量</li>
+<li>所以实际的输入为长度为400的一维数组</li>
+</ul>
+</li>
+<li>输出：输出节点有120个</li>
+</ul>
+</li>
+<li>第六层：全连接层<ul>
+<li>本层的输入节点个数为120个，输出节点为84个</li>
+</ul>
+</li>
+<li>第七层：全连接层<ul>
+<li>这一层输出节点为10个，然后再使用softmax处理得到分类问题的答案即可</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>代码实现：完整的LeNet-5的TensorFlow实现</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line"></span><br><span class="line">INPUT_NODE = <span class="number">784</span>                <span class="comment"># 输入节点数</span></span><br><span class="line">OUTPUT_NODE = <span class="number">10</span>                <span class="comment"># 输出节点数</span></span><br><span class="line"></span><br><span class="line">IMAGE_SIZE = <span class="number">28</span>                 <span class="comment"># 图片的长和宽</span></span><br><span class="line">NUM_CHANNELS = <span class="number">1</span>                <span class="comment"># 图片的频道数，单色频道为1，多色RGB频道为3</span></span><br><span class="line">NUM_LABELS = <span class="number">10</span>                 <span class="comment"># 标记的数目</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第一层卷积层的尺寸和深度</span></span><br><span class="line">CONV1_DEEP = <span class="number">32</span>                 <span class="comment"># 第一层卷积层的深度</span></span><br><span class="line">CONV1_SIZE = <span class="number">5</span>                  <span class="comment"># 第一层卷积层的尺寸</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二层卷积层的尺寸和深度</span></span><br><span class="line">CONV2_DEEP = <span class="number">64</span>                 <span class="comment"># 第二层卷积层的深度</span></span><br><span class="line">CONV2_SIZE = <span class="number">5</span>                  <span class="comment"># 第二层卷积层的尺寸</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 全连接层的节点数</span></span><br><span class="line">FC_SIZE = <span class="number">512</span></span><br><span class="line"></span><br><span class="line">BATCH_NODE = <span class="number">200</span>                <span class="comment"># batch的大小</span></span><br><span class="line">LEARNING_RATE_BASE = <span class="number">0.1</span>        <span class="comment"># 基础的学习率</span></span><br><span class="line">LEARNING_RATE_DECAY = <span class="number">0.99</span>      <span class="comment"># 学习率的衰减率</span></span><br><span class="line">REGULARIZATION_RATE = <span class="number">0.0001</span>    <span class="comment"># 正则化项在损失函数中的系数</span></span><br><span class="line">TRAINING_STEPS = <span class="number">30000</span>          <span class="comment"># 训练轮数</span></span><br><span class="line"></span><br><span class="line">MODEL_SAVE_PATH = <span class="string">"/PycharmProjects/TFDemo/data/model/531/"</span></span><br><span class="line">MODEL_NAME = <span class="string">"model.ckpt"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义卷积神经网络的前向传播过程</span></span><br><span class="line"><span class="comment"># 这里添加了一个参数regularizer，用来为全连接层添加正则化损失</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inference</span><span class="params">(input_tensor, regularizer)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 声明第一层卷积层并实现前向传播过程</span></span><br><span class="line">    <span class="comment"># 此层的输入为28*28*1的原始MNIST图片像素</span></span><br><span class="line">    <span class="comment"># 因为卷积层使用了全0填充，所以输出为28*28*32的矩阵</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'layer1-conv1'</span>):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 定义和初始化第一层的权重和偏置</span></span><br><span class="line">        conv1_weights = tf.get_variable(<span class="string">"weight"</span>, [CONV1_SIZE, CONV1_SIZE, NUM_CHANNELS, CONV1_DEEP], initializer=tf.truncated_normal_initializer(stddev=<span class="number">0.1</span>))</span><br><span class="line">        conv1_biases = tf.get_variable(<span class="string">"bias"</span>, [CONV1_DEEP], initializer=tf.constant_initializer(<span class="number">0.0</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 使用边长为5，深度为32的过滤器，过滤器移动的步长为1，且使用全0填充</span></span><br><span class="line">        conv1 = tf.nn.conv2d(input_tensor, filter=conv1_weights, strides=[<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], padding=<span class="string">"SAME"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 使用ReLu作为激活函数实现去线性化</span></span><br><span class="line">        relu1 = tf.nn.relu(tf.nn.bias_add(conv1, conv1_biases))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 实现第二层池化层的前向传播过程</span></span><br><span class="line">    <span class="keyword">with</span> tf.name_scope(<span class="string">'layer2-pool1'</span>):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 这里使用的是最大池化层</span></span><br><span class="line">        <span class="comment"># 池化层过滤器的尺寸为2，使用全0填充并且步长为2</span></span><br><span class="line">        pool1 = tf.nn.max_pool(relu1, ksize=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>], strides=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>], padding=<span class="string">"SAME"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 声明第三层卷积层的变量并实现前向传播过程，与第一层相似</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'layer3-conv2'</span>):</span><br><span class="line">        conv2_weights = tf.get_variable(<span class="string">"weight"</span>, [CONV2_SIZE, CONV2_SIZE, CONV1_DEEP, CONV2_DEEP], initializer=tf.truncated_normal_initializer(stddev=<span class="number">0.1</span>))</span><br><span class="line">        conv2_biases = tf.get_variable(<span class="string">"bias"</span>, [CONV2_DEEP], initializer=tf.constant_initializer(<span class="number">0.0</span>))</span><br><span class="line">        conv2 = tf.nn.conv2d(pool1, conv2_weights, strides=[<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], padding=<span class="string">"SAME"</span>)</span><br><span class="line">        relu2 = tf.nn.relu(tf.nn.bias_add(conv2, conv2_biases))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 实现第四层池化层的前向传播过程，与第二层相似</span></span><br><span class="line">    <span class="keyword">with</span> tf.name_scope(<span class="string">'layer4-pool2'</span>):</span><br><span class="line">        pool2 = tf.nn.max_pool(relu2, ksize=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>], strides=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>], padding=<span class="string">"SAME"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将第四层池化层的输出转化为第五层全连接层的输入格式</span></span><br><span class="line">    pool_shape = pool2.get_shape().as_list()</span><br><span class="line">    <span class="comment"># 计算出向量的长度</span></span><br><span class="line">    nodes = pool_shape[<span class="number">1</span>] * pool_shape[<span class="number">2</span>] * pool_shape[<span class="number">3</span>]</span><br><span class="line">    <span class="comment"># -1代表的是此位置的参数根据实际情况给出，并不直接提供定值</span></span><br><span class="line">    reshaped = tf.reshape(pool2, [<span class="number">-1</span>, nodes])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 声明第五层全连接层的变量并实现前向传播过程</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'layer5-fc1'</span>):</span><br><span class="line">        fc1_weights = tf.get_variable(<span class="string">"weight"</span>, [nodes, FC_SIZE], initializer=tf.truncated_normal_initializer(stddev=<span class="number">0.1</span>))</span><br><span class="line">        <span class="keyword">if</span> regularizer <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            tf.add_to_collection(<span class="string">"losses"</span>, regularizer(fc1_weights))</span><br><span class="line">        fc1_biases = tf.get_variable(<span class="string">"bias"</span>, [FC_SIZE], initializer=tf.constant_initializer(<span class="number">0.1</span>))</span><br><span class="line">        fc1 = tf.nn.relu(tf.matmul(reshaped, fc1_weights) + fc1_biases)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 声明第六层全连接层的变量并实现前向传播过程</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'layer6-fc2'</span>):</span><br><span class="line">        fc2_weights = tf.get_variable(<span class="string">"weight"</span>, [FC_SIZE, NUM_LABELS], initializer=tf.truncated_normal_initializer(stddev=<span class="number">0.1</span>))</span><br><span class="line">        <span class="keyword">if</span> regularizer <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            tf.add_to_collection(<span class="string">'losses'</span>, regularizer(fc2_weights))</span><br><span class="line">        fc2_biases = tf.get_variable(<span class="string">"bias"</span>, [NUM_LABELS], initializer=tf.constant_initializer(<span class="number">0.1</span>))</span><br><span class="line">        logit = tf.matmul(fc1, fc2_weights) + fc2_biases</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> logit</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练过程</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(mnist)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 首先定义输入数据，使用了placeholder</span></span><br><span class="line">    x = tf.placeholder(tf.float32, [<span class="keyword">None</span>, IMAGE_SIZE, IMAGE_SIZE, NUM_CHANNELS], <span class="string">'x-input'</span>)</span><br><span class="line">    y_ = tf.placeholder(tf.float32, [<span class="keyword">None</span>, OUTPUT_NODE], <span class="string">'y-input'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义一个储存训练轮数的变量，用于滑动平均模型和指数衰减的学习率</span></span><br><span class="line">    global_step = tf.Variable(<span class="number">0</span>, trainable=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 生成一个L2正则化损失函数</span></span><br><span class="line">    regularizer = tf.contrib.layers.l2_regularizer(REGULARIZATION_RATE)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用inference函数计算前向传播的结果</span></span><br><span class="line">    y = inference(x, regularizer)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算交叉熵</span></span><br><span class="line">    cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=y, labels=tf.argmax(y_, <span class="number">1</span>))</span><br><span class="line">    <span class="comment"># 对整个batch的交叉熵求平均</span></span><br><span class="line">    cross_entropy_mean = tf.reduce_mean(cross_entropy)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将loss集合中所有元素相加，得到所有的正则化损失</span></span><br><span class="line">    regularization = tf.add_n(tf.get_collection(<span class="string">'losses'</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将交叉熵和正则化损失求和，得到模型的总损失</span></span><br><span class="line">    loss = cross_entropy_mean + regularization</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置指数衰减的学习率</span></span><br><span class="line">    learning_rate = tf.train.exponential_decay(</span><br><span class="line">        LEARNING_RATE_BASE,                     <span class="comment"># 基础的学习率，随着迭代的进行，在这个学习率的基础上递减</span></span><br><span class="line">        global_step,                            <span class="comment"># 之前定义的用于储存训练轮数的变量</span></span><br><span class="line">        mnist.train.num_examples/BATCH_NODE,    <span class="comment"># 衰减速度</span></span><br><span class="line">        LEARNING_RATE_DECAY)                    <span class="comment"># 衰减系数，若衰减速度为100，衰减系数为.96，则说明每过100轮学习率变成之前的.96</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用梯度下降算法定义优化过程</span></span><br><span class="line">    train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss, global_step)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 检验对于batch中的每个数据，预测结果是否等于标记值</span></span><br><span class="line">    correct_prediction = tf.equal(tf.argmax(y, <span class="number">1</span>), tf.argmax(y_, <span class="number">1</span>))</span><br><span class="line">    <span class="comment"># 计算模型在这一组数据中的正确率</span></span><br><span class="line">    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 声明saver用于持久化训练模型</span></span><br><span class="line">    saver = tf.train.Saver()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 开启一个会话，开始计算过程</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">calculate</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 对所有变量进行初始化</span></span><br><span class="line">            tf.global_variables_initializer().run()</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 准备验证数据，一般可以在神经网络的训练过程中通过验证数据来大致判断停止的条件和评判训练的效果</span></span><br><span class="line">            validate_xs, validate_ys = mnist.validation.next_batch(BATCH_NODE)</span><br><span class="line">            reshaped_validate_xs = np.reshape(validate_xs, [BATCH_NODE, IMAGE_SIZE, IMAGE_SIZE, NUM_CHANNELS])</span><br><span class="line">            validate_feed = &#123;</span><br><span class="line">                x: reshaped_validate_xs,</span><br><span class="line">                y_: validate_ys</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 准备测试数据，作为模型训练结束之后的最终评价标准</span></span><br><span class="line">            test_xs = mnist.test.images</span><br><span class="line">            reshaped_test_xs = np.reshape(test_xs, [mnist.test.num_examples, IMAGE_SIZE, IMAGE_SIZE, NUM_CHANNELS])</span><br><span class="line">            test_feed = &#123;</span><br><span class="line">                x: reshaped_test_xs,</span><br><span class="line">                y_: mnist.test.labels</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 迭代地训练神经网络</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(TRAINING_STEPS):</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 每过1000轮使用验证数据评价模型并对模型进行持久化</span></span><br><span class="line">                <span class="keyword">if</span> i % <span class="number">1000</span> == <span class="number">0</span>:</span><br><span class="line">                    validate_acc = sess.run(accuracy, feed_dict=validate_feed)</span><br><span class="line">                    <span class="comment"># 使用saver对模型持久化</span></span><br><span class="line">                    saver.save(sess, os.path.join(MODEL_SAVE_PATH, MODEL_NAME), global_step=global_step)</span><br><span class="line">                    print(<span class="string">"After %d training step(s), validation accuracy using average model is %g"</span> % (i, validate_acc))</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 如果3000轮正确率还没到90%，就重新生成随机数，重新开始</span></span><br><span class="line">                <span class="keyword">if</span> i == <span class="number">3000</span> <span class="keyword">and</span> float(validate_acc) &lt;= <span class="number">0.9</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 每轮都提取一个batch的数据，训练神经网络</span></span><br><span class="line">                xs, ys = mnist.train.next_batch(BATCH_NODE)</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 将输入的xs调整为四维矩阵，以训练卷积神经网络</span></span><br><span class="line">                reshaped_xs = np.reshape(xs, [BATCH_NODE, IMAGE_SIZE, IMAGE_SIZE, NUM_CHANNELS])</span><br><span class="line"></span><br><span class="line">                sess.run(train_step, feed_dict=&#123;x: reshaped_xs, y_: ys&#125;)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 在训练结束之后，在测试数据上检测神经网络模型的最终正确率</span></span><br><span class="line">            test_acc = sess.run(accuracy, feed_dict=test_feed)</span><br><span class="line">            print(<span class="string">"After %d training step(s), test accuracy using average model is %g"</span> % (i, test_acc))</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">    flag = <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">while</span> flag:</span><br><span class="line">        flag = <span class="keyword">not</span> calculate()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 主程序入口</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(args=None)</span>:</span></span><br><span class="line">    mnist = input_data.read_data_sets(<span class="string">"/PycharmProjects/TFDemo/data/MNIST"</span>, one_hot=<span class="keyword">True</span>)</span><br><span class="line">    train(mnist)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># TensorFlow提供的一个主程序入口，tf.app.run()会调用上面定义的main函数</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    tf.app.run()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>经典的用于图片分类问题的卷积网络架构</p>
+<ul>
+<li>公式：输入层 -&gt; (卷积层+ -&gt; 池化层? )+ -&gt; 全连接层+</li>
+<li>解释<ul>
+<li>“卷积层+”<ul>
+<li>代表一层或多层卷积层</li>
+<li>大部分卷积神经网络一般最多连续使用三层卷积层</li>
+</ul>
+</li>
+<li>“池化层？”<ul>
+<li>代表没有或者一层池化层</li>
+<li>池化层虽然可以起到减少参数防止过拟合的作用，但是在部分论文中也发现可以直接通过调整卷积层步长来完成</li>
+<li>所以有些卷积神经网络没有池化层</li>
+</ul>
+</li>
+<li>卷积神经网络在输出之前一般会经过1-2个全连接层</li>
+</ul>
+</li>
+<li>举例：LeNet-5模型结构<ul>
+<li>输入层 -&gt; 卷积层 -&gt; 池化层 -&gt; 卷积层 -&gt; 池化层 -&gt; 全连接层 -&gt;全连接层 -&gt; 输出层</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>VGGNet</p>
+<ul>
+<li>简介：Very Deep Convolutional Networks for Large-Scale Image Recognization</li>
+<li>尝试过的不同神经网络结构<br><img src="/2019/03/10/Tensorflow-6-图像识别与卷积神经网络/VGGNet.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>每一层卷积层中参数的配置</p>
+<ul>
+<li>尺寸<ul>
+<li>VGGNet中过滤器尺寸一般为3或1</li>
+<li>LeNet-5中使用尺寸为5的过滤器</li>
+<li>一般卷积层过滤器边长不会超过5</li>
+</ul>
+</li>
+<li>深度<ul>
+<li>在过滤器的深度上，大部分卷积神经网络都采用逐层递增的方式</li>
+<li>在VGGNet中一般每经过一次池化层，卷积层过滤器的深度就乘2</li>
+</ul>
+</li>
+<li>步长<ul>
+<li>卷积层的步长一般为1，但有些模型也会使用2或者3</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>每一层池化层中参数的配置</p>
+<ul>
+<li>一般采用最大池化层</li>
+<li>过滤器的尺寸一般为2或者3</li>
+<li>步长也一般为2或者3</li>
+</ul>
 </li>
 </ul>
 <hr>
-<h4 id="5-2-2-使用验证数据集判断模型效果"><a href="#5-2-2-使用验证数据集判断模型效果" class="headerlink" title="5.2.2 使用验证数据集判断模型效果"></a>5.2.2 使用验证数据集判断模型效果</h4><ul>
-<li><p>超参数</p>
+<h4 id="6-4-2-Inception-v3-模型"><a href="#6-4-2-Inception-v3-模型" class="headerlink" title="6.4.2 Inception-v3 模型"></a>6.4.2 Inception-v3 模型</h4><ul>
+<li><p>Inception-v3简介</p>
 <ul>
-<li>简介：一般无法通过学习获得，由程序员根据经验手动调整</li>
-<li>例如：初始学习率、学习率衰减率、隐藏层节点数、迭代轮数等等</li>
+<li>Inception-v3模型中的Inception结构是将不同的卷积层通过并联的方式结合在一起</li>
+<li>卷积层可以使用边长为1、3、5的过滤器，Inception同时使用所有不同尺寸的过滤器，然后再将矩阵拼接起来</li>
 </ul>
 </li>
-<li><p>如何设置超参数的取值</p>
+<li><p>Inception模块的思想</p>
 <ul>
-<li>配置这些超参数都是需要通过实验去调整的</li>
+<li>如图<br><img src="/2019/03/10/Tensorflow-6-图像识别与卷积神经网络/Inception模块示意图.jpg" alt=""></li>
+<li>Inception模块会首先使用不同尺寸的过滤器处理输入矩阵</li>
+<li>不同的矩阵代表了Inception模块中的一条计算路径</li>
+<li>虽然过滤器的大小不同，但如果所有的过滤器都使用全0填充且步长为1，那么前向传播得到的结果矩阵的长和宽与输入矩阵一致</li>
+<li>这样经过不同过滤器处理的结果矩阵可以拼接为一个更深的矩阵</li>
 </ul>
 </li>
-<li><p>使用测试数据来选取超参数会导致神经网络模型过度拟合测试数据，从而导致失去对未知数据的预测能力</p>
-</li>
-<li><p>为了评估神经网络模型在不同超参数下的效果，一般会从训练数据中抽取一部分作为验证数据，使用验证数据来验证模型效果</p>
-</li>
-<li><p>交叉验证</p>
+<li><p>Inception-v3模型的架构</p>
 <ul>
-<li>另一种验证模型效果的方式</li>
-<li>适用于训练数据不够的情况，但整体速度偏慢</li>
+<li>如图<br><img src="/2019/03/10/Tensorflow-6-图像识别与卷积神经网络/Inception-v3模型架构图.jpg" alt=""></li>
+<li>Inception-v3模型总共有46层，由11个Inception模块组成</li>
+<li>在Inception-v3模型中有大概96个卷积层</li>
 </ul>
 </li>
-<li><p>在MNIST问题上，完全可以通过模型在验证数据上的表现来判断一个模型的优劣<br><img src="/2019/03/10/Tensorflow-5-MNIST数字识别问题/测试与验证对比.jpg" alt=""></p>
+<li><p>TensorFlow-Slim工具</p>
+<ul>
+<li>可以用来更加简洁地实现卷积神经网络</li>
+<li>代码对比  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow.contrib.slim <span class="keyword">as</span> slim</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接使用TensorFlow原始API实现卷积层</span></span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(<span class="string">'scope-name'</span>):</span><br><span class="line">    weights = tf.get_variable(<span class="string">'weights'</span>, [<span class="number">32</span>, <span class="number">32</span>, <span class="number">1</span>, <span class="number">5</span>], initializer=tf.truncated_normal_initializer(stddev=<span class="number">0.1</span>))</span><br><span class="line">    biases = tf.get_variable(<span class="string">'biases'</span>, [<span class="number">5</span>], initializer=tf.constant_initializer(<span class="number">0.0</span> ))</span><br><span class="line">    <span class="comment"># 这里用input代表上一层的输入，并不是实际存在的变量</span></span><br><span class="line">    conv = tf.nn.conv2d(input, weights, strides=[<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], padding=<span class="string">"SAME"</span>)</span><br><span class="line">    relu = tf.nn.relu(tf.nn.bias_add(conv, biases))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用slim实现卷积层</span></span><br><span class="line"><span class="comment"># slim.conv2d函数有3个必填参数</span></span><br><span class="line"><span class="comment"># 第一个参数为输入矩阵</span></span><br><span class="line"><span class="comment"># 第二个参数为当前卷积层过滤器的深度</span></span><br><span class="line"><span class="comment"># 第三个参数为过滤器的尺寸</span></span><br><span class="line"><span class="comment"># 可选参数有过滤器移动的步长，是否使用全0填充，激活函数的选择，变量的命名空间等</span></span><br><span class="line">net = slim.conv2d(input, <span class="number">32</span>, [<span class="number">3</span>, <span class="number">3</span>])</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>一般来说选取的验证数据分布越接近测试数据分布，模型在验证数据上的表现越可以体现模型在测试数据上的表现</p>
+</ul>
+</li>
+<li><p>使用Slim工具实现Inception-v3中某个模块的前向传播</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> tensorflow.contrib.slim <span class="keyword">as</span> slim</span><br><span class="line"></span><br><span class="line"><span class="comment"># slim.arg_scope函数可以用于设置默认的参数取值</span></span><br><span class="line"><span class="comment"># 第一个参数是一个函数列表</span></span><br><span class="line"><span class="comment"># 后面的参数都是可选参数，代表默认的参数取值</span></span><br><span class="line"><span class="comment"># 在函数列表中的所有函数将使用默认的参数取值</span></span><br><span class="line"><span class="comment"># 例如：在调用slim.conv2d(net, 320, [1,1])函数时会自动加上stride=1和padding='SAME'的参数</span></span><br><span class="line"><span class="comment"># 如果在函数调用时指定了stride，那么默认的stride不会被调用</span></span><br><span class="line"><span class="comment"># 这进一步减少了代码冗余</span></span><br><span class="line"><span class="keyword">with</span> slim.arg_scope([slim.conv2d, slim.max_pool2d, slim.avg_pool2d], stride=<span class="number">1</span>, padding=<span class="string">'SAME'</span>):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 这里省略了Inception-v3其他模块的代码，并假设net代表上一次的输出结果</span></span><br><span class="line">    net = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">32</span>, <span class="number">32</span>, <span class="number">1</span>], <span class="string">'x-input'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 为一个Inception模块声明一个统一的变量命名空间</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'Mixed_7c'</span>):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 为Inception模块中每一条路径声明一个命名空间</span></span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'Branch_0'</span>):</span><br><span class="line">            branch_0 = slim.conv2d(net, <span class="number">320</span>, [<span class="number">1</span>, <span class="number">1</span>], scope=<span class="string">'Conv2d_0a_1x1'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Inception模块的第二条路径，这条计算路径上的结构本身也是一个Inception结构</span></span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'Branch_1'</span>):</span><br><span class="line">            branch_1 = slim.conv2d(net, <span class="number">384</span>, [<span class="number">1</span>, <span class="number">1</span>], scope=<span class="string">'Conv2d_0a_1x1'</span>)</span><br><span class="line">            branch_1 = tf.concat(<span class="number">3</span>, [</span><br><span class="line">                slim.conv2d(branch_1, <span class="number">384</span>, [<span class="number">1</span>, <span class="number">3</span>], scope=<span class="string">'Conv2d_0b_1x3'</span>),</span><br><span class="line">                slim.conv2d(branch_1, <span class="number">384</span>, [<span class="number">3</span>, <span class="number">1</span>], scope=<span class="string">'Conv2d_0c_3x1'</span>)</span><br><span class="line">            ])</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Inception模块的第三条路径，这条计算路径上的结构本身也是一个Inception结构</span></span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'Branch_2'</span>):</span><br><span class="line">            branch_2 = slim.conv2d(net, <span class="number">448</span>, [<span class="number">1</span>, <span class="number">1</span>], scope=<span class="string">'Conv2d_0a_1x1'</span>)</span><br><span class="line">            branch_2 = slim.conv2d(branch_2, <span class="number">384</span>, [<span class="number">3</span>, <span class="number">3</span>], scope=<span class="string">'Conv2d_0b_3x3'</span>)</span><br><span class="line">            branch_2 = tf.concat(<span class="number">3</span>, [</span><br><span class="line">                slim.conv2d(branch_2, <span class="number">384</span>, [<span class="number">1</span>, <span class="number">3</span>], scope=<span class="string">'Conv2d_0c_1x3'</span>),</span><br><span class="line">                slim.conv2d(branch_2, <span class="number">384</span>, [<span class="number">3</span>, <span class="number">1</span>], scope=<span class="string">'Conv2d_0d_3x1'</span>)</span><br><span class="line">            ])</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Inception模块的第四条路径，这条计算路径上的结构本身也是一个Inception结构</span></span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'Branch_3'</span>):</span><br><span class="line">            branch_3 = slim.avg_pool2d(net, [<span class="number">3</span>, <span class="number">3</span>], scope=<span class="string">'AvgPool_0a_3x3'</span>)</span><br><span class="line">            branch_3 = slim.conv2d(branch_3, <span class="number">192</span>, [<span class="number">1</span>, <span class="number">1</span>], scope=<span class="string">'Conv2d_0b_1x1'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 当前Inception模块的最后输出是由上面4个计算结果拼接得到的</span></span><br><span class="line">    net = tf.concat(<span class="number">3</span>, [branch_0, branch_1, branch_2, branch_3])</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
-<h4 id="5-2-3-不同模型效果比较"><a href="#5-2-3-不同模型效果比较" class="headerlink" title="5.2.3 不同模型效果比较"></a>5.2.3 不同模型效果比较</h4><ul>
-<li><p>五种优化方法：</p>
+<h3 id="6-5-卷积神经网络迁移学习"><a href="#6-5-卷积神经网络迁移学习" class="headerlink" title="6.5 卷积神经网络迁移学习"></a>6.5 卷积神经网络迁移学习</h3><h4 id="6-5-1-迁移学习介绍"><a href="#6-5-1-迁移学习介绍" class="headerlink" title="6.5.1 迁移学习介绍"></a>6.5.1 迁移学习介绍</h4><ul>
+<li><p>背景</p>
 <ul>
-<li>在神经网络的设计上，需要使用<strong>激活函数</strong>和<strong>多层隐藏层</strong>。</li>
-<li>在神经网络优化时，可以使用<strong>指数衰减的学习率</strong>、<strong>加入正则化的损失函数</strong>以及<strong>滑动平均模型</strong></li>
+<li>随着模型层数及复杂度的增加，模型在ImageNet上的错误率也随之降低</li>
+<li>然而训练复杂的卷积神经网络需要非常多的标注数据</li>
+<li>并且训练一个复杂的神经网络需要几天甚至几周的时间</li>
 </ul>
 </li>
-<li><p>在超参数相同的情况下，使用不同优化方法，经过30000训练迭代后，得到的最终模型的正确率<br><img src="/2019/03/10/Tensorflow-5-MNIST数字识别问题/不同模型的正确率.jpg" alt=""></p>
-<ul>
-<li>神经网络的结构对最终模型的效果有本质性的影响</li>
-<li>使用滑动平均、指数衰减和正则化带来的影响并不特别明显</li>
-</ul>
-</li>
-<li><p>由于MNIST问题本身相对简单，所以滑动平均、指数衰减和正则化带来的提升效果并不特别明显</p>
-</li>
-<li><p>正则化和不使用正则化的损失函数的变化趋势<br><img src="/2019/03/10/Tensorflow-5-MNIST数字识别问题/不同模型的损失函数的变化趋势.jpg" alt=""></p>
-</li>
-</ul>
-<hr>
-<h3 id="5-3-变量管理"><a href="#5-3-变量管理" class="headerlink" title="5.3 变量管理"></a>5.3 变量管理</h3><hr>
-<ul>
 <li><p>简介</p>
 <ul>
-<li><p>TensorFlow提供了通过变量名称来创建或者获得一个变量的机制</p>
-</li>
-<li><p>通过这个机制，在不同的函数中可以直接通过变量的名字来使用变量，而不需要将变量通过参数的形式到处传递</p>
-</li>
-<li><p>TensorFlow中通过变量名称获得变量的机制主要通过<code>tf.get_variable()</code>和<code>tf.variable_scope()</code>来实现</p>
-</li>
+<li>所谓迁移学习，就是将一个问题上训练好的模型通过简单的调整使其适用于一个新的问题</li>
 </ul>
 </li>
-<li><p>当<code>tf.get_variable()</code>用来创建变量时，它和tf.Variable()的功能是基本等价的</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面两个定义是等价的</span></span><br><span class="line">v = tf.get_variable(<span class="string">"v"</span>, shape=[<span class="number">1</span>], initializer=tf.constant_initializer(<span class="number">1.0</span>))</span><br><span class="line">v = tf.Variable(tf.constant(<span class="number">1.0</span>, shape=[<span class="number">1</span>], name=<span class="string">"v"</span>))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>对于<code>tf.get_variable()</code>，变量名称是一个必填的参数</p>
+<li><p>瓶颈层</p>
 <ul>
-<li><code>tf.get_variable()</code>会根据这个名字去创建或者获取变量</li>
-<li><code>tf.get_variable()</code>首先试图去创建一个名字为v的参数，如果创建失败，这个程序会报错，这是为了避免无意识的变量复用造成的问题</li>
+<li>迁移到新问题时，可以保留训练好的Inception-v3模型中所有卷积层的参数，只是替换最后一层全连接层，在<strong>最后这一层全连接层之前</strong>的网络层称为<strong>瓶颈层</strong></li>
 </ul>
 </li>
-<li><p>如果需要通过<code>tf.get_variable()</code>获得一个已经创建的变量，需要通过<code>tf.variable_scope()</code>函数来生成一个上下文管理器，并明确指定在这个上下文管理器中，<code>tf.get_variable()</code>将直接获得已经生成的变量</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在名字为foo的命名空间内创建名字为v的变量</span></span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(<span class="string">"foo"</span>):</span><br><span class="line">    v = tf.get_variable(</span><br><span class="line">        <span class="string">"v"</span>, [<span class="number">1</span>], initializer=tf.constant_initializer(<span class="number">1.0</span>)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 因为在命名空间foo中已经存在名字为v的变量，所以以下代码将会报错</span></span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(<span class="string">"foo"</span>):</span><br><span class="line">    v = tf.get_variable(<span class="string">"v"</span>, [<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在生成上下文管理器时，将参数reuse设置为True。这样tf.get_variable()函数将直接获得已经声明的变量</span></span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(<span class="string">"foo"</span>, reuse=<span class="keyword">True</span>):</span><br><span class="line">    v1 = tf.get_variable(<span class="string">"v"</span>, [<span class="number">1</span>])</span><br><span class="line">    print(v == v1)      <span class="comment"># 输出为True，代表v,v1表示的是相同的TensorFlow中变量</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将参数reuse设置为True时，tf.variable_scope将只能获得已经创建过的变量，因为在命名空间bar中还没有创建变量v，所以下面会报错</span></span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(<span class="string">"bar"</span>, reuse=<span class="keyword">True</span>):</span><br><span class="line">    v3 = tf.get_variable(<span class="string">"v"</span>, [<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<li><p>思想</p>
 <ul>
-<li>当<code>tf.variable_scope()</code>函数使用参数reuse=True生成上下文管理器时，这个上下文管理器内所有的<code>tf.get_variable()</code>函数会直接获得已经创建的变量,如果变量不存在就会报错</li>
-<li>当<code>tf.variable_scope()</code>函数不使用参数reuse=True生成上下文管理器时，<code>tf.get_variable()</code>会创建新的变量，如果同名的变量已经存在,则<code>tf.get_variable()</code>函数会报错</li>
+<li>将新的图像通过训练好的卷积神经网络直到瓶颈层的过程可以看作是对图像进行特征提取的过程</li>
+<li>在训练好的Inception-v3模型中，因为将瓶颈层的输出再通过一个单层的全连接层神经网络可以很好地区分1000种类别的图像，所以有理由认为瓶颈层输出的节点向量可以被作为任意图像的要给更加精简且表达能力更强的特征向量</li>
+<li>在新数据集上，可以先用这个训练好的神经网络对图像进行特征提取，然后再将提取得到的特征向量作为输入来训练一个新的单层全连接神经网络处理新的分类问题</li>
 </ul>
 </li>
-<li><p><code>tf.variable_scope()</code>不仅生成上下文管理器，也会生成命名空间，在命名空间中创建的所有变量名称都会带上这个命名空间名的前缀</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">v1 = tf.get_variable(<span class="string">"v"</span>, [<span class="number">1</span>])</span><br><span class="line">print(v1.name)          <span class="comment"># 输出v:0, "v"为变量名称, ":0"表示此变量是生成这个变量的运算的第一个输出</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(<span class="string">"foo"</span>):</span><br><span class="line">    v2 = tf.get_variable(<span class="string">"v"</span>, [<span class="number">1</span>])</span><br><span class="line">    print(v2.name)      <span class="comment"># 输出foo/v:0, 因为在名字空间中，所以变量名称前会加入名字空间的名称</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(<span class="string">"foo"</span>):</span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">"bar"</span>):</span><br><span class="line">        v3 = tf.get_variable(<span class="string">"v"</span>, [<span class="number">1</span>])</span><br><span class="line">        print(v3.name)  <span class="comment"># 输出foo/bar/v:0,</span></span><br><span class="line">    v4 = tf.get_variable(<span class="string">"v1"</span>, [<span class="number">1</span>])</span><br><span class="line">    print(v4.name)      <span class="comment"># 输出foo/v1:0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个名称为空的名字空间，并设置reuse=True</span></span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(<span class="string">""</span>, reuse=<span class="keyword">True</span>):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 可以直接通过带名字空间名称的变量名来获取其他名字空间下的变量</span></span><br><span class="line">    <span class="comment"># 比如这里直接通过指定"foo/bar/v"，来获得名字空间foo/bar下的v变量</span></span><br><span class="line">    v5 = tf.get_variable(<span class="string">"foo/bar/v"</span>, [<span class="number">1</span>])</span><br><span class="line">    print(v5 == v3)     <span class="comment"># 输出True</span></span><br><span class="line"></span><br><span class="line">    v6 = tf.get_variable(<span class="string">"foo/v"</span>, [<span class="number">1</span>])</span><br><span class="line">    print(v6 == v2)     <span class="comment"># 输出True</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h3 id="5-4-TensorFlow模型持久化"><a href="#5-4-TensorFlow模型持久化" class="headerlink" title="5.4 TensorFlow模型持久化"></a>5.4 TensorFlow模型持久化</h3><ul>
-<li>为了让训练结果可以复用，需要将训练得到的神经网络模型持久化</li>
-</ul>
-<hr>
-<h4 id="5-4-1-持久化代码实现"><a href="#5-4-1-持久化代码实现" class="headerlink" title="5.4.1 持久化代码实现"></a>5.4.1 持久化代码实现</h4><ul>
-<li><p>简介：TensorFlow提供了<code>tf.train.Saver</code>类来保存和还原一个神经网络模型</p>
-</li>
-<li><p>保存TensorFlow计算图的代码样例</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明两个变量并计算它们的和</span></span><br><span class="line">v1 = tf.Variable(tf.constant(<span class="number">1.0</span>, shape=[<span class="number">1</span>]), name=<span class="string">"v1"</span>)</span><br><span class="line">v2 = tf.Variable(tf.constant(<span class="number">2.0</span>, shape=[<span class="number">1</span>]), name=<span class="string">"v2"</span>)</span><br><span class="line">result = v1 + v2</span><br><span class="line"></span><br><span class="line">init_op = tf.global_variables_initializer()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明tf.train.Saver类用来保存模型</span></span><br><span class="line">saver = tf.train.Saver()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    </span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 将模型保存到D:PycharmProjects/TFDemo/data/model/540/model.ckpt</span></span><br><span class="line">    saver.save(sess, <span class="string">"/PycharmProjects/TFDemo/data/model/540/model.ckpt"</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>TensorFlow模型的文件组织</p>
+<li><p>优劣</p>
 <ul>
-<li>TensorFlow模型一般会存在后缀为<code>.ckpt</code>的文件中</li>
-<li>在这个文件目录下会出现三个文件<ul>
-<li><code>model.ckpt.meta</code>：保存TensorFlow计算图的结构</li>
-<li><code>model.ckpt</code>：保存TensorFlow程序中每一个变量的取值</li>
-<li><code>checkpoint</code>：保存了一个目录下所有的模型文件列表</li>
-</ul>
-</li>
-<li>如图<br><img src="/2019/03/10/Tensorflow-5-MNIST数字识别问题/文件组织.jpg" alt=""></li>
-</ul>
-</li>
-<li><p>加载已经保存的TensorFlow模型的代码样例</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用和保存模型代码中一样的方式来声明变量</span></span><br><span class="line">v1 = tf.Variable(tf.constant(<span class="number">1.0</span>, shape=[<span class="number">1</span>]), name=<span class="string">"v1"</span>)</span><br><span class="line">v2 = tf.Variable(tf.constant(<span class="number">2.0</span>, shape=[<span class="number">1</span>]), name=<span class="string">"v2"</span>)</span><br><span class="line">result = v1 + v2</span><br><span class="line"></span><br><span class="line">saver = tf.train.Saver()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="comment"># 通过saver.restore加载v1和v2的具体取值，不需要初始化过程</span></span><br><span class="line">    saver.restore(sess, <span class="string">"/PycharmProjects/TFDemo/data/model</span></span><br><span class="line"><span class="string">    /540/model.ckpt"</span>)</span><br><span class="line">    print(sess.run(result))</span><br></pre></td></tr></table></figure>
-<ul>
-<li>此处并没有运行变量的初始化过程，而是将变量的值通过已经保存的模型加载进来</li>
-</ul>
-</li>
-<li><p>直接加载已经持久化的图的代码样例（为了不重复定义图上的运算）</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接加载持久化的图</span></span><br><span class="line">saver = tf.train.import_meta_graph(<span class="string">"/PycharmProjects/TFDemo/data/model/540/model.ckpt.meta"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过名字获得result变量</span></span><br><span class="line">result = tf.get_default_graph().get_tensor_by_name(<span class="string">"add:0"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过saver.restore加载v1和v2的具体取值，不需要初始化过程</span></span><br><span class="line">    saver.restore(sess, <span class="string">"/PycharmProjects/TFDemo/data/model/540/model.ckpt"</span>)</span><br><span class="line">    <span class="comment"># 输出[3.]</span></span><br><span class="line">    print(sess.run(result))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如何在保存和加载时对变量进行重命名</p>
-<ul>
-<li>在声明 <code>tf.train.Saver</code> 类时可以提供一个列表来指定需要保存或者加载的变量，比如 <code>saver = tf.train.Saver([v1])</code></li>
-<li>TensorFlow通过字典将模型保存时的变量名和需要加载的变量联系起来<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里声明的变量名称与已经保存的模型中的变量的名称不同</span></span><br><span class="line">v1 = tf.Variable(tf.constant(<span class="number">1.0</span>, shape=[<span class="number">1</span>]), name=<span class="string">"other-v1"</span>)</span><br><span class="line">v2 = tf.Variable(tf.constant(<span class="number">2.0</span>, shape=[<span class="number">1</span>]), name=<span class="string">"other-v2"</span>)</span><br><span class="line">result = v1 + v2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 若直接使用tf.train.Saver()加载模型会报变量找不到的错误</span></span><br><span class="line"><span class="comment"># 使用一个字典来重命名变量可以加载原来的模型</span></span><br><span class="line">saver = tf.train.Saver(&#123;<span class="string">"v1"</span>: v1, <span class="string">"v2"</span>: v2&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    saver.restore(sess, <span class="string">"/PycharmProjects/TFDemo/data/model/540/model.ckpt"</span>)</span><br><span class="line">    print(sess.run(result))</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>使用Saver保存和加载滑动平均</p>
-<ul>
-<li>每个变量的滑动平均值是通过影子变量维护的，所以要获得变量的滑动平均值实际上就是获得这个影子变量的取值。</li>
-<li>如果在加载模型时直接将影子变量映射到变量自身，那么在使用训练好的模型时就不需要再调用函数来获得变量的滑动平均值了</li>
-</ul>
-</li>
-<li><p>将计算图中的变量及其取值通过常量的形式保存</p>
-<ul>
-<li>背景：使用<code>Saver</code>会保存运行TensorFlow程序所需要的全部信息，但是有时并不需要某些信息。比如，在离线预测时，只需要知道如何从神经网络的输入层经过前向传播计算得到输出层即可，而不需要类似于变量初始化、模型保存等辅助节点的信息</li>
-<li><p>解决：TensorFlow提供了<code>convert_variables_to_constants()</code>将计算图中的变量及其取值通过常量的方式保存</p>
-<ul>
-<li><p>导出为常量</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework <span class="keyword">import</span> graph_util</span><br><span class="line"></span><br><span class="line">v1 = tf.Variable(tf.constant(<span class="number">1.0</span>, shape=[<span class="number">1</span>]), name=<span class="string">"v1"</span>)</span><br><span class="line">v2 = tf.Variable(tf.constant(<span class="number">2.0</span>, shape=[<span class="number">1</span>]), name=<span class="string">"v2"</span>)</span><br><span class="line">result = v1 + v2</span><br><span class="line"></span><br><span class="line">init_op = tf.global_variables_initializer()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    <span class="comment"># 导出当前计算图的GraphDef部分，只需要这一部分就可以完成从输入层到输出层的计算过程</span></span><br><span class="line">    graph_def = tf.get_default_graph().as_graph_def()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 将图中的变量及其取值转化为常量，同时将图中不必要的节点去掉</span></span><br><span class="line">    output_graph_def = graph_util.convert_variables_to_constants(sess, graph_def, [<span class="string">'add'</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 将导出的模型存入文件</span></span><br><span class="line">    <span class="keyword">with</span> tf.gfile.GFile(<span class="string">"/PycharmProjects/TFDemo/data/model/547/combined_model.pb"</span>, <span class="string">"wb"</span>) <span class="keyword">as</span> file:</span><br><span class="line">        file.write(output_graph_def.SerializeToString())</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>导入常量</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.platform <span class="keyword">import</span> gfile</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    model_filename = <span class="string">"/PycharmProjects/TFDemo/data/model/547/combined_model.pb"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 读取保存的模型文件，将文件解析为对应的GraphDef Protocal Buffer</span></span><br><span class="line">    <span class="keyword">with</span> gfile.FastGFile(model_filename, <span class="string">'rb'</span>) <span class="keyword">as</span> file:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(file.read())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将graph_def中保存的图加载到当前的图中。</span></span><br><span class="line">    <span class="comment"># return_elements给出了返回的张量的名称。在保存时给出的是计算节点的名称，所以为"add"，在加载时给出的是张量的名称，所以为add:0</span></span><br><span class="line">    result = tf.import_graph_def(graph_def, return_elements=[<span class="string">"add:0"</span>])</span><br><span class="line">    <span class="comment"># 输出[3.0]　　</span></span><br><span class="line">    print(sess.run(result))</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
+<li>一般来说，如果数据量足够，迁移学习的效果不如完全重新训练</li>
+<li>但是迁移学习所需的训练时间和训练样本数要远远小于训练完整的模型</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h4 id="5-4-2-持久化原理及数据格式"><a href="#5-4-2-持久化原理及数据格式" class="headerlink" title="5.4.2 持久化原理及数据格式"></a>5.4.2 持久化原理及数据格式</h4><ul>
-<li><p>当调用<code>Saver.save()</code>时，会生成4个文件。TensorFlow持久化通过这四个文件实现</p>
-</li>
-<li><p>MetaGraphDef(model.ckpt.meta)</p>
-<ul>
-<li>TensorFlow通过元图(MetaGraph)来记录计算图中节点的信息以及一些运行所需的元数据</li>
-<li>具体信息<ul>
-<li>meta_info_def：记录计算图中的元数据和TensorFlow中使用的所有运算的信息</li>
-<li>graph_def：记录TensorFlow计算图上的节点信息</li>
-<li>saver_def：记录持久化模型时所需的一些参数信息</li>
-<li>collection_def：在TensorFlow计算图中可以维护不同集合，而维护这些集合的底层实现是通过collection_def实现的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>model.ckpt.data和model.ckpt.index</p>
-<ul>
-<li>用于持久化TensorFlow中所有变量的取值</li>
-<li>其中model.ckpt.data是通过SSTable格式存储的，可以理解为一个键值对列表</li>
-</ul>
-</li>
-<li><p>checkpoint</p>
-<ul>
-<li>维护由Saver类的某个实例持久化的所有TensorFlow模型文件的文件名</li>
-<li>用Saver自动生成且自动维护</li>
-</ul>
-</li>
-</ul>
-<hr>
-
+<h4 id="6-5-2-TensorFlow实现迁移学习"><a href="#6-5-2-TensorFlow实现迁移学习" class="headerlink" title="6.5.2 TensorFlow实现迁移学习"></a>6.5.2 TensorFlow实现迁移学习</h4>
           
         
       
@@ -623,7 +822,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/30/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><span class="page-number current">31</span><a class="page-number" href="/page/32/">32</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><a class="extend next" rel="next" href="/page/32/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/30/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><span class="page-number current">31</span><a class="page-number" href="/page/32/">32</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><a class="extend next" rel="next" href="/page/32/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -671,7 +870,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -682,7 +881,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -693,7 +892,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
