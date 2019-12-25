@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/25/数据结构考研-3-栈和队列/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/25/SSM-3-认识MyBatis核心组件/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/25/数据结构考研-3-栈和队列/" itemprop="url">[数据结构考研][3][栈和队列]</a></h1>
+                <a class="post-title-link" href="/2019/12/25/SSM-3-认识MyBatis核心组件/" itemprop="url">[SSM][3][认识MyBatis核心组件]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-25T12:26:47+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-25T12:44:47+08:00">
                 2019-12-25
               </time>
             
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
+                  <a href="/categories/SSM/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/12/25/数据结构考研-3-栈和队列/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/25/数据结构考研-3-栈和队列/" itemprop="commentCount"></span>
+                <a href="/2019/12/25/SSM-3-认识MyBatis核心组件/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/25/SSM-3-认识MyBatis核心组件/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,126 +362,238 @@
       
         
           
-            <h2 id="第三章-栈和队列"><a href="#第三章-栈和队列" class="headerlink" title="第三章 栈和队列"></a>第三章 栈和队列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">digraph demo&#123;</span><br><span class="line">    线性表-&gt;操作受限[dir=none];</span><br><span class="line">    线性表-&gt;推广[dir=none];</span><br><span class="line">    操作受限-&gt;栈[dir=none];</span><br><span class="line">    操作受限-&gt;队列[dir=none];</span><br><span class="line">    栈-&gt;顺序栈[dir=none];</span><br><span class="line">    栈-&gt;链栈[dir=none];</span><br><span class="line">    栈-&gt;共享栈[dir=none];</span><br><span class="line">    队列-&gt;循环队列[dir=none];</span><br><span class="line">    队列-&gt;链式队列[dir=none];</span><br><span class="line">    队列-&gt;双端队列[dir=none];</span><br><span class="line">    推广-&gt;数组[dir=none];</span><br><span class="line">    数组-&gt;一维数组[dir=none];</span><br><span class="line">    数组-&gt;多维数组[dir=none];</span><br><span class="line">    多维数组-&gt;压缩存储[dir=none];</span><br><span class="line">    多维数组-&gt;稀疏矩阵[dir=none];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-1-栈"><a href="#3-1-栈" class="headerlink" title="3.1 栈"></a>3.1 栈</h3><h4 id="3-1-1-栈的基本概念"><a href="#3-1-1-栈的基本概念" class="headerlink" title="3.1.1 栈的基本概念"></a>3.1.1 栈的基本概念</h4><h5 id="1-栈的定义"><a href="#1-栈的定义" class="headerlink" title="1 栈的定义"></a>1 栈的定义</h5><p>栈(Stack)，只允许在一端进行插入或删除操作的线性表</p>
-<p>栈顶(Top)，线性表允许进行插入和删除的那一端</p>
-<p>栈底(Bottom)，固定的，不允许进行插入和删除的那一端</p>
-<p>空栈，不含任何元素的空表</p>
-<p>栈是一种后进先出(Last In First Out, LIFO)的结构</p>
-<h5 id="2-栈的基本操作"><a href="#2-栈的基本操作" class="headerlink" title="2 栈的基本操作"></a>2 栈的基本操作</h5><p><code>InitStact()</code>: 初始化空栈</p>
-<p><code>StackEmpty()</code>: 判断一个栈是否为空</p>
-<p><code>Push()</code>: 进栈，若栈未满，则将新元素加入使其成为新的栈顶</p>
-<p><code>Pop()</code>: 出栈，若栈未空，则弹出栈顶元素</p>
-<p><code>GetTop()</code>: 获得栈顶元素的值</p>
-<p><code>ClearStack()</code>: 摧毁栈，并释放栈所占的内存空间</p>
-<h4 id="3-1-2-栈的顺序存储结构"><a href="#3-1-2-栈的顺序存储结构" class="headerlink" title="3.1.2 栈的顺序存储结构"></a>3.1.2 栈的顺序存储结构</h4><h5 id="1-顺序栈的实现"><a href="#1-顺序栈的实现" class="headerlink" title="1 顺序栈的实现"></a>1 顺序栈的实现</h5><p>采用顺序存储的栈称为顺序栈，它利用一组地址连续的存储单元存放自栈底到栈顶的数据元素，同时设附一个指针(top)指示当前栈顶的位置</p>
-<p>栈的顺序存储类型可描述为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType *elem;</span><br><span class="line">    <span class="keyword">int</span> length;</span><br><span class="line">    <span class="keyword">int</span> listsize;</span><br><span class="line">&#125;SqStack;</span><br></pre></td></tr></table></figure></p>
-<h5 id="2-顺序栈的基本运算"><a href="#2-顺序栈的基本运算" class="headerlink" title="2 顺序栈的基本运算"></a>2 顺序栈的基本运算</h5><ol>
-<li><p>初始化</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">InitStack</span><span class="params">(SqStack *s)</span></span>&#123;</span><br><span class="line">    s-&gt;elem = (ElemType *)<span class="built_in">malloc</span>(LIST_INIT_SIZE * <span class="keyword">sizeof</span>(ElemType));</span><br><span class="line">    <span class="keyword">if</span>(!s-&gt;elem)</span><br><span class="line">        <span class="keyword">return</span> OVERFLOW;</span><br><span class="line">    s-&gt;length = <span class="number">0</span>;</span><br><span class="line">    s-&gt;listsize = LIST_INIT_SIZE;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>判栈空</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">StackEmpty</span><span class="params">(SqStack *s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">0</span> == s-&gt;length)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>进栈</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Push</span><span class="params">(SqStack *s, ElemType e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(s-&gt;length &gt;= s-&gt;listsize &amp;&amp; OVERFLOW == ReAllocStack(s))&#123;</span><br><span class="line">            <span class="keyword">return</span> OVERFLOW;</span><br><span class="line">    &#125;</span><br><span class="line">    s-&gt;elem[s-&gt;length] = e;</span><br><span class="line">    s-&gt;length++;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>出栈</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Pop</span><span class="params">(SqStack *s, ElemType *e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(StackEmpty(s))&#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *e = s-&gt;elem[s-&gt;length<span class="number">-1</span>];</span><br><span class="line">    s-&gt;length--;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>读栈顶元素</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">GetTop</span><span class="params">(SqStack *s, ElemType *e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(StackEmpty(s))&#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *e = s-&gt;elem[s-&gt;length<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h5 id="3-共享栈"><a href="#3-共享栈" class="headerlink" title="3 共享栈"></a>3 共享栈</h5><p>利用栈底位置相对不变的特性，可让两个顺序栈共享一个一维数据空间，将两个栈的栈底分别设置在共享空间的两端，两个栈顶向共享空间的中间延伸</p>
-<p>两个栈的栈顶指针都指向栈顶元素</p>
+            <h2 id="第-3-章-认识MyBatis核心组件"><a href="#第-3-章-认识MyBatis核心组件" class="headerlink" title="第 3 章 认识MyBatis核心组件"></a>第 3 章 认识MyBatis核心组件</h2><h3 id="3-1-持久层的概念和MyBatis的特点"><a href="#3-1-持久层的概念和MyBatis的特点" class="headerlink" title="3.1 持久层的概念和MyBatis的特点"></a>3.1 持久层的概念和MyBatis的特点</h3><ul>
+<li><p>持久层概念</p>
 <ul>
-<li><code>top=-1</code>时0号栈为空，<code>top1=MaxSize</code>时1号栈为空</li>
-<li>仅当两个栈顶指针相邻(<code>top1-top0=1</code>)，判断为栈满</li>
-<li>当0号栈进栈时<code>top0</code>先加<code>1</code>再赋值，1号栈进栈时<code>top1</code>先减<code>1</code>再赋值；出栈时则刚好相反</li>
+<li>持久层可以将业务数据存储到磁盘，具备长期存储能力</li>
+<li>一般执行持久任务的都是数据库系统，持久层可以使用巨大的磁盘空间，也比较廉价，缺点是比较慢</li>
 </ul>
-<h4 id="3-1-3-栈的链式存储结构"><a href="#3-1-3-栈的链式存储结构" class="headerlink" title="3.1.3 栈的链式存储结构"></a>3.1.3 栈的链式存储结构</h4><p>采用链式存储的栈称为链栈</p>
+</li>
+<li><p>Java互联网应用可以通过MyBatis框架访问数据库<br>  <img src="/2019/12/25/SSM-3-认识MyBatis核心组件/0425_0.png" alt=""></p>
+</li>
+<li><p>MyBatis最大的成功有三点</p>
 <ul>
-<li>链栈的优点是便于多个栈共享存储空间和提高其效率，且不存在栈满上溢的情况</li>
-<li>通常用单链表实现，并规定所有操作都是再单链表的表头进行。</li>
+<li>不屏蔽SQL<ul>
+<li>意味着可以更为精确的定位SQL语句，可以对其进行优化和改造</li>
+<li>这有利于互联网系统性能的提高，符合互联网需要性能优化的特点</li>
 </ul>
-<p>栈的链式存储类型可描述为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">LinkNode</span>&#123;</span></span><br><span class="line">    ElemType data;          <span class="comment">//数据域</span></span><br><span class="line">    Struct LinkNode *next;  <span class="comment">//指针栈</span></span><br><span class="line">&#125;*LinkStack;                <span class="comment">//栈类型定义</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="3-1-4-其他"><a href="#3-1-4-其他" class="headerlink" title="3.1.4 其他"></a>3.1.4 其他</h4><p>对于$n$个不同的元素进栈，出栈序列的个数为<br>
-$$\frac{1}{n+1}C_{2n}^n=\frac{1}{n+1}\frac{2n!}{{n!}\times{n!}}$$ 
-</p>
-<h3 id="3-2-队列"><a href="#3-2-队列" class="headerlink" title="3.2 队列"></a>3.2 队列</h3><h4 id="3-2-1-队列的基本概念"><a href="#3-2-1-队列的基本概念" class="headerlink" title="3.2.1 队列的基本概念"></a>3.2.1 队列的基本概念</h4><h5 id="1-队列的定义"><a href="#1-队列的定义" class="headerlink" title="1 队列的定义"></a>1 队列的定义</h5><p>队列是一种操作受限的线性表，只允许在表的一端进行插入，而在表的另一端进行删除</p>
+</li>
+<li>提供强大、灵活的映射机制，方便Java开发者的使用<ul>
+<li>提供动态SQL的功能，允许我们根据不同条件组装SQL，这个功能远比其他工具或者Java编码的可读性和可维护性高得多，满足各种应用系统的同时也满足了需求经常需要变化的互联网应用的要求 </li>
+</ul>
+</li>
+<li>在MyBatis中，提供了使用Mapper的接口编程，只要一个接口和一个XML就能创建映射器</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-准备MyBatis环境"><a href="#3-2-准备MyBatis环境" class="headerlink" title="3.2 准备MyBatis环境"></a>3.2 准备MyBatis环境</h3><ul>
+<li>我们只要在工程中加入MyBatis包即可，它包含MyBatis工程包和其依赖包</li>
+</ul>
+<h3 id="3-3-MyBatis的核心组件"><a href="#3-3-MyBatis的核心组件" class="headerlink" title="3.3 MyBatis的核心组件"></a>3.3 MyBatis的核心组件</h3><ul>
+<li><p><code>MyBatis</code>的核心组件分为4个部分</p>
 <ul>
-<li>其操作的特性为先进先出</li>
-<li>队头(Front):允许删除的一端，又称队首</li>
-<li>队尾(Rear):允许插入的一端</li>
-<li>空队列: 不含任何元素的空表</li>
+<li><code>SqlSessionFactoryBuilder</code>(构造器)：它根据配置或者代码来生成<code>SqlSessionFactory</code>，采用的是分布构建的<code>Builder</code>模式</li>
+<li><code>SqlSessionFactory</code>(工厂接口)：依靠它来生成<code>SqlSession</code>，使用的是工厂模式</li>
+<li><code>SqlSession</code>(会话)：一个既可以发送<code>SQL</code>执行返回结果，也可以获取<code>Mapper</code>的接口。在现有的技术中，一般我们会让其在业务逻辑代码中消失，而使用的是<code>MyBatis</code>提供的<code>SQL Mapper</code>接口编程技术，它能提高代码的可读性和可维护性</li>
+<li><code>SQL Mapper</code>(映射器)：<code>MyBatis</code>新设计存在的组件，它由一个<code>Java</code>接口和<code>XML</code>文件构成，需要给出对应的<code>SQL</code>和映射规则。它负责发送<code>SQL</code>去执行，并返回结果</li>
 </ul>
-<h5 id="2-队列常见的基本操作"><a href="#2-队列常见的基本操作" class="headerlink" title="2 队列常见的基本操作"></a>2 队列常见的基本操作</h5><ul>
-<li><code>InitQueue()</code>:初始化队列，构建一个空队列Q</li>
-<li><code>QueueEmpty()</code>:判队列空</li>
-<li><code>EnQueue()</code>:入队</li>
-<li><code>DeQueue()</code>:出队</li>
-<li><code>GetHead()</code>:读取队头元素</li>
+</li>
+<li><p><code>MyBatis</code>核心组件之间的关系<br>  <img src="/2019/12/25/SSM-3-认识MyBatis核心组件/0425_1.png" alt=""></p>
+</li>
+<li><p>注意: 无论是映射器还是<code>SQLSession</code>都可以发送<code>SQL</code>到数据库执行</p>
+</li>
 </ul>
-<h4 id="3-2-2-队列的顺序存储结构"><a href="#3-2-2-队列的顺序存储结构" class="headerlink" title="3.2.2 队列的顺序存储结构"></a>3.2.2 队列的顺序存储结构</h4><h5 id="1-队列的顺序存储"><a href="#1-队列的顺序存储" class="headerlink" title="1 队列的顺序存储"></a>1 队列的顺序存储</h5><p>队列的顺序实现是值分配一块连续的存储单元存放队列中的元素，并附设两个指针<code>front</code>和<code>rear</code>分别指示队头元素和队尾元素</p>
-<h5 id="2-循环队列"><a href="#2-循环队列" class="headerlink" title="2 循环队列"></a>2 循环队列</h5><p>将顺序队列设想为一个环状的空间，即把存储队列元素的表从逻辑上视为一个环，称为循环队列。当队首指针<code>Q.front=MaxSize-1</code>后，再前进一个位置就自动为<code>0</code></p>
-<p>为了区分队空还是队满的情况</p>
+<h3 id="3-4-SqlSessionFactory-工厂接口"><a href="#3-4-SqlSessionFactory-工厂接口" class="headerlink" title="3.4 SqlSessionFactory(工厂接口)"></a>3.4 SqlSessionFactory(工厂接口)</h3><ul>
+<li>概述<ul>
+<li>使用MyBatis首先是使用配置或者代码去生产SqlSessionFactory</li>
+<li>每个基于MyBatis的应用都是以一个SqlSessionFactory的实例为中心的，而SqlSessionFactory的唯一作用是生产MyBatis的核心接口对象SqlSession，所以它是职责单一的</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>如何生成<code>SqlSessionFactory</code></p>
+<ul>
+<li>而MyBatis提供了构造器SqlSessionFactoryBuilder。它提供了一个类<code>org.apache.ibatis.session.Configuration</code>作为引导，采用的是Builder模式</li>
+<li>在MyBatis中，既可以通过读取<code>XML</code>配置文件的方式生成<code>SqlSessionFactory</code>，也可以通过Java代码的形式生成<code>SqlSessionFactory</code></li>
+<li>当配置了XML或者提供了代码后，MyBatis会读取配置文件，通过<code>Configuration</code>类对象构建整个<code>MyBatis</code>的上下文</li>
+</ul>
+</li>
+<li><p>SqlSessionFactory接口的结构<br>  <img src="/2019/12/25/SSM-3-认识MyBatis核心组件/0425_2.png" alt=""></p>
+</li>
+</ul>
+<h4 id="3-4-1-使用XML构建SqlSessionFactory"><a href="#3-4-1-使用XML构建SqlSessionFactory" class="headerlink" title="3.4.1 使用XML构建SqlSessionFactory"></a>3.4.1 使用XML构建SqlSessionFactory</h4><ul>
+<li><p>MyBatis中的XML分为两类</p>
 <ol>
-<li>牺牲一个单元来区分队空和队满，入队时少用一个队列单元</li>
-<li>类型中增设表示元素个数的数据成员</li>
-<li>类型中增设<code>tag</code>数据成员，以区分是队满还是队空</li>
-</ol>
-<h5 id="3-循环队列的操作"><a href="#3-循环队列的操作" class="headerlink" title="3 循环队列的操作"></a>3 循环队列的操作</h5><p>当删除元素时，队头指针<code>+1</code></p>
-<p>当插入元素时，队尾指针<code>+1</code></p>
-<h4 id="3-2-3-队列的链式存储"><a href="#3-2-3-队列的链式存储" class="headerlink" title="3.2.3 队列的链式存储"></a>3.2.3 队列的链式存储</h4><h5 id="1-队列的链式存储"><a href="#1-队列的链式存储" class="headerlink" title="1 队列的链式存储"></a>1 队列的链式存储</h5><p>队列的链式表示称为链队列，它实际上是一个同时带有队头指针和队尾指针的单链表</p>
-<ul>
-<li>出队时，首先判断队是否为空，若不空，则取出队头元素，将其从链表中摘除</li>
-<li>入队时，建立一个新节点，将新节点插入到链表的尾部，并改让<code>Q.rear</code>指向这个新插入的节点</li>
-</ul>
-<h5 id="2-链式队列的基本操作"><a href="#2-链式队列的基本操作" class="headerlink" title="2 链式队列的基本操作"></a>2 链式队列的基本操作</h5><p>略</p>
-<h4 id="3-2-4-双端队列"><a href="#3-2-4-双端队列" class="headerlink" title="3.2.4 双端队列"></a>3.2.4 双端队列</h4><p>双端队列: 双端队列是指允许两端都可以进行入队和出队操作的队列，将队列的两端分别称为前端和后端，两端都可以入队和出队。</p>
-<p>输出受限的双端队列:允许在一端进行插入和删除，但在另一端只允许插入的双端队列称为输出受限的双端队列</p>
-<p>输入受限的双端队列:允许在一端进行插入和删除，但在另一端只允许删除的双端队列称为输入受限的双端队列</p>
-<h3 id="3-3-栈和队列的应用"><a href="#3-3-栈和队列的应用" class="headerlink" title="3.3 栈和队列的应用"></a>3.3 栈和队列的应用</h3><h4 id="3-3-1-栈在括号匹配中的应用"><a href="#3-3-1-栈在括号匹配中的应用" class="headerlink" title="3.3.1 栈在括号匹配中的应用"></a>3.3.1 栈在括号匹配中的应用</h4><p>思想如下</p>
-<ul>
-<li>初始设置一个空栈，顺序读入括号</li>
-<li>若是右括号，则或者使置于栈顶的元素得以消解，或者不合法输入</li>
-<li>若是左括号，则将其压入栈中</li>
-<li>当算法结束时，要保证栈为空</li>
-</ul>
-<h4 id="3-3-2-栈在表达式求值中的应用"><a href="#3-3-2-栈在表达式求值中的应用" class="headerlink" title="3.3.2 栈在表达式求值中的应用"></a>3.3.2 栈在表达式求值中的应用</h4><p>中缀表达式</p>
-<ul>
-<li>通常表达式</li>
-<li>例如<code>(a+b)*c</code></li>
-</ul>
-<p>后缀表达式</p>
-<ul>
-<li>运算符在操作数后面，在后缀表达式中已经考虑了运算符的优先级，没有括号</li>
-<li>例如<code>ab+c*</code></li>
-</ul>
-<p>中缀表达式转后缀表达式</p>
-<ol>
-<li>遇到操作数直接输出</li>
-<li>遇到操作符<ol>
-<li>若优先级大于栈顶元素，则压入栈中</li>
-<li>若优先级小于或等于栈顶元素，则弹出栈中操作符，直到优先级大于栈顶元素，然后压入栈中</li>
+<li>基础配置文件: 通常只有一个，主要是配置一些最基本的上下文参数和运行环境</li>
+<li>映射文件: 它可以配置映射关系、SQL、参数等信息</li>
 </ol>
 </li>
-<li>遇到左括号，压入栈中</li>
-<li>遇到右括号，弹出栈顶元素直到弹出一个左括号</li>
-</ol>
-<h4 id="3-3-3-栈在递归中的应用"><a href="#3-3-3-栈在递归中的应用" class="headerlink" title="3.3.3 栈在递归中的应用"></a>3.3.3 栈在递归中的应用</h4><p>可以将递归算法转换为非递归算法，通常需要借助栈来实现这种转换</p>
-<h4 id="3-3-4-队列在层次遍历中的应用"><a href="#3-3-4-队列在层次遍历中的应用" class="headerlink" title="3.3.4 队列在层次遍历中的应用"></a>3.3.4 队列在层次遍历中的应用</h4><p>可以用队列实现二叉树的层次遍历，思路如下</p>
+<li><p>示例: 一份基础配置文件</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">type</span>=<span class="string">"MyBatisDemo.Role"</span> <span class="attr">alias</span>=<span class="string">"role"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">environments</span> <span class="attr">default</span>=<span class="string">"development"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">"development"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">"JDBC"</span>&gt;</span><span class="tag">&lt;/<span class="name">transactionManager</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"POOLED"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driver"</span> <span class="attr">value</span>=<span class="string">"com.mysql.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://localhost:3306/ssm"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"123456"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">environments</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">"MybatisDemo/RoleMapper.xml"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>MyBatis基础配置文件的结构</p>
+<ul>
+<li><code>&lt;typeAlias&gt;</code>:用于定义别名，定义之后，在MyBatis上下文中就可以使用别名代替全限定名</li>
+<li><code>&lt;environment&gt;</code>:这里描述的是数据库。其中<code>&lt;transactionManager&gt;</code>元素是配置事务管理器。然后采用<code>&lt;dataSource&gt;</code>元素配置数据库</li>
+<li><code>&lt;mapper&gt;</code>: 代表引入的那些映射器，在谈到映射器时会详细讨论它</li>
+</ul>
+</li>
+<li><p>有了这些配置文件，就可以用一段简短的代码来生成<code>SqlSessionFactory</code></p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SqlSessionFactory sqlSessionFactory = <span class="keyword">null</span>;</span><br><span class="line">String resource = <span class="string">"mybatis-config.xml"</span>;</span><br><span class="line">InputStream inputStream;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">    sqlSessionFactory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">&#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="3-4-2-使用代码构建SqlSessionFactory"><a href="#3-4-2-使用代码构建SqlSessionFactory" class="headerlink" title="3.4.2 使用代码构建SqlSessionFactory"></a>3.4.2 使用代码构建SqlSessionFactory</h4><ul>
+<li><p>示例: 使用代码构建SqlSessionFactory</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数据库连接池信息</span></span><br><span class="line">PooledDataSource dataSource = <span class="keyword">new</span> PooledDataSource();</span><br><span class="line">dataSource.setDriver(<span class="string">"com.mysql.jdbc.Driver"</span>);</span><br><span class="line">dataSource.setUsername(<span class="string">"root"</span>);</span><br><span class="line">dataSource.setPassword(<span class="string">"123456"</span>);</span><br><span class="line">dataSource.setUrl(<span class="string">"jdbc://localhost:3306/ssm"</span>);</span><br><span class="line">dataSource.setDefaultAutoCommit(<span class="keyword">false</span>);</span><br><span class="line"><span class="comment">//采用MyBatis的JDBC事务方式</span></span><br><span class="line">TransactionFactory transactionFactory = <span class="keyword">new</span> JdbcTransactionFactory();</span><br><span class="line">Environment environment = <span class="keyword">new</span> Environment(<span class="string">"development"</span>, transactionFactory, dataSource);</span><br><span class="line">Configuration configuration = <span class="keyword">new</span> Configuration(environment);</span><br><span class="line">configuration.getTypeAliasRegistry().registerAlias(<span class="string">"role"</span>, Role,<span class="class"><span class="keyword">class</span>)</span>;</span><br><span class="line">configuration.addMapper(RoleMapper.class);</span><br><span class="line">SqlSessionFactory sqlSessionFactory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(configuration);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意: 但是代码冗长，如果系统发生修改，那么有可能重新编译代码才能继续，所以这不是一个很好的方式。</p>
+</li>
+</ul>
+<h3 id="2-5-SqlSession"><a href="#2-5-SqlSession" class="headerlink" title="2.5 SqlSession"></a>2.5 SqlSession</h3><ul>
+<li><p>简介</p>
+<ul>
+<li>在<code>MyBatis</code>中，<code>SqlSession</code>是其核心接口</li>
+<li>在<code>MyBatis</code>中有两个实现类，<code>DefaultSqlSession</code>和<code>SqlSessionManager</code>，<code>DefaultSqlSession</code>是单线程使用的，<code>SqlSessionManager</code>在多线程环境下使用</li>
+<li><code>SqlSession</code>的作用类似于一个<code>JDBC</code>中的<code>Connection</code>对象，代表着一个连续资源的启用</li>
+</ul>
+</li>
+<li><p><code>SqlSession</code>的主要作用</p>
+<ul>
+<li>获取<code>Mapper</code>接口</li>
+<li>发送<code>Sql</code>给数据库</li>
+<li>控制数据库事务</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><code>SqlSession</code>只是一个门面(<code>Facade</code>)接口，它有很多方法，可以直接发送<code>SQL</code></p>
+<ul>
+<li>它就好像一家软件公司的商务人员，是一个门面，而实际干活的是软件工程师</li>
+<li>在<code>MyBatis</code>中，真正干活的是<code>Executor</code></li>
+</ul>
+</li>
+<li><p>示例: <code>SqlSession</code>控制事务的伪代码</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">SqlSession sqlSession = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    sqlSession = SqlSessionFactory.openSession();</span><br><span class="line">    sqlSession.commit();</span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception ex)&#123;</span><br><span class="line">    sqlSession.rollback();</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(sqlSession != <span class="keyword">null</span>)&#123;</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="3-6-映射器-Mapper"><a href="#3-6-映射器-Mapper" class="headerlink" title="3.6 映射器(Mapper)"></a>3.6 映射器(Mapper)</h3><ul>
+<li><p>简介</p>
+<ul>
+<li>映射器是<code>MyBatis</code>中最重要、最复杂的组件</li>
+<li>它由一个接口和对应的<code>XML</code>文件组成</li>
+</ul>
+</li>
+<li><p>映射器可以配置以下内容</p>
+<ul>
+<li>描述映射规则</li>
+<li>提供<code>SQL</code>语句，并可以配置<code>SQL</code>参数类型、返回类型、缓存刷新等信息</li>
+<li>配置缓存</li>
+<li>提供动态<code>SQL</code></li>
+</ul>
+</li>
+<li><p>映射器的主要功能</p>
+<ul>
+<li>将<code>SQL</code>查询到的结果映射为一个<code>POJO</code></li>
+<li>将<code>POJO</code>的数据插入到数据库</li>
+<li>定义一些关于缓存等的重要内容</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-6-1-用XML实现映射器"><a href="#3-6-1-用XML实现映射器" class="headerlink" title="3.6.1 用XML实现映射器"></a>3.6.1 用XML实现映射器</h4><ul>
+<li><p>步骤</p>
 <ol>
-<li>根节点入队</li>
-<li>若队空，则结束遍历，否则重复步骤3</li>
-<li>队列中的第一个节点出队，访问它，若其有左孩子，左孩子入队；若其有右孩子，右孩子入队。</li>
+<li><p>先定义一个映射器接口</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RoleMapper</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Role <span class="title">getRole</span><span class="params">(Long id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用XML的方式创建映射器</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"myBatisDemo.RoleMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getRole"</span> <span class="attr">parameterType</span>=<span class="string">"long"</span> <span class="attr">resultType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">        select id, role_name as roleName, note from t_role where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h4 id="3-3-5-队列在计算机系统中的应用"><a href="#3-3-5-队列在计算机系统中的应用" class="headerlink" title="3.3.5 队列在计算机系统中的应用"></a>3.3.5 队列在计算机系统中的应用</h4><ol>
-<li>解决主机与外部设备之间速度不匹配的问题</li>
-<li>解决由多用户引起的资源竞争问题</li>
-</ol>
-<h3 id="3-4-特殊矩阵的压缩存储"><a href="#3-4-特殊矩阵的压缩存储" class="headerlink" title="3.4 特殊矩阵的压缩存储"></a>3.4 特殊矩阵的压缩存储</h3>
+</li>
+<li><p>上面XML文件的解读</p>
+<ul>
+<li><code>&lt;mapper&gt;</code>元素中的属性<code>namespace</code>所对应的是一个接口的全限定名，于是<code>MyBatis</code>上下文就可以通过它找到对应的接口</li>
+<li><code>&lt;select&gt;</code>元素表明这是一条查询语句，而属性<code>id</code>标识了这条<code>SQL</code>，属性<code>parameterType=&quot;long&quot;</code>说明传递给<code>SQL</code>的是一个<code>long</code>型参数，而<code>resultType=&quot;role&quot;</code>表示返回的是一个<code>role</code>类型的返回值</li>
+<li>这条<code>SQL</code>中的<code>#{id}</code>表示传递进去的参数</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-6-2-注解实现映射器"><a href="#3-6-2-注解实现映射器" class="headerlink" title="3.6.2 注解实现映射器"></a>3.6.2 注解实现映射器</h4><ul>
+<li><p>还可以采用注解的方式定义映射器，它只需要一个接口就可以通过<code>MyBatis</code>的注解来注入SQL</p>
+</li>
+<li><p>示例: 通过注解实现映射器</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RoleMapper2</span></span>&#123;</span><br><span class="line">    <span class="meta">@Select</span>(<span class="string">"select id, role name as roleName, note from t_role where id=#&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Role <span class="title">getRole</span><span class="params">(Long id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意: 如果它和XML方式同时定义时，XML方式将覆盖掉注解方式，所以<code>MyBatis</code>官方推荐使用的是<code>XML</code>的方式</p>
+</li>
+<li><p>注解方式的缺点</p>
+<ul>
+<li>如果把大量的SQL放入到java代码中，显然代码的可读性会降低</li>
+<li>如果同时还要考虑使用动态SQL，会使得注解更加复杂，不利于日后的维护和修改</li>
+<li>XML可以相互引入，而注解则不可以</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-6-3-SqlSession发送SQL"><a href="#3-6-3-SqlSession发送SQL" class="headerlink" title="3.6.3 SqlSession发送SQL"></a>3.6.3 SqlSession发送SQL</h4><ul>
+<li><p>有了映射器就可以通过SqlSession发送SQL</p>
+</li>
+<li><p>示例: 使用SqlSession发送SQL</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Role role = (Role)sqlSession.selectOne(<span class="string">"mapper.RoleMapper.getRole"</span>, <span class="number">1l</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>代码解释</p>
+<ul>
+<li><code>selectOne</code>方法表示使用查询并且只返回一个对象，而参数则是一个<code>String</code>对象和一个<code>Object</code>对象</li>
+<li><code>String</code>对象是由一个命名空间加上<code>SQL id</code>组合而成的，它完全定位了一条<code>SQL</code>，这样<code>MyBatis</code>就会找到对应的<code>SQL</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="3-6-4-用Mapper接口发送SQL"><a href="#3-6-4-用Mapper接口发送SQL" class="headerlink" title="3.6.4 用Mapper接口发送SQL"></a>3.6.4 用Mapper接口发送SQL</h4><ul>
+<li><p><code>SqlSession</code>还可以获得<code>Mapper</code>接口，通过<code>Mapper</code>接口发送<code>SQL</code></p>
+</li>
+<li><p>示例:通过<code>Mapper</code>接口发送<code>SQL</code></p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);</span><br><span class="line">Role role = roleMapper.getRole(<span class="number">1L</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="3-6-5-对比两种发送SQL的方式"><a href="#3-6-5-对比两种发送SQL的方式" class="headerlink" title="3.6.5 对比两种发送SQL的方式"></a>3.6.5 对比两种发送SQL的方式</h4><ul>
+<li>笔者建议使用<code>SqlSession</code>获取<code>Mapper</code>的方式来发送<code>SQL</code><ul>
+<li>使用<code>Mapper</code>接口编程可以消除<code>SqlSession</code>带来的功能性代码，提高可读性，类似<code>roleMapper.getRole(1L)</code>是完全面向对象的语言，更能体现业务逻辑</li>
+<li>使用<code>mapper.getRole(1L)</code>的方式，IDE会提示错误和校验</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-7-生命周期"><a href="#3-7-生命周期" class="headerlink" title="3.7 生命周期"></a>3.7 生命周期</h3><ul>
+<li>生命周期: 生命周期就是每个对象应该存活的时间，比如一些对象一次用完后就要关闭，使它们被JVM销毁</li>
+</ul>
+<h4 id="3-7-1-SqlSessionFactoryBuilder"><a href="#3-7-1-SqlSessionFactoryBuilder" class="headerlink" title="3.7.1 SqlSessionFactoryBuilder"></a>3.7.1 SqlSessionFactoryBuilder</h4><ul>
+<li><p><code>SqlSessionFactoryBuilder</code> 的作用在于创建<code>SqlSessionFactory</code>，创建成功后，<code>SqlSessionFactoryBuilder</code> 就失去了作用</p>
+</li>
+<li><p>所以它只能存在于创建<code>SqlSessionFactory</code> 的方法中，而不要让其长期存在。</p>
+</li>
+</ul>
+<h4 id="3-7-2-SqlSessionFactory"><a href="#3-7-2-SqlSessionFactory" class="headerlink" title="3.7.2 SqlSessionFactory"></a>3.7.2 SqlSessionFactory</h4><ul>
+<li><p><code>SqlSessionFactory</code> 可以被认为是一个数据库连接池，它的作用是创建 <code>SqlSession</code> 接口对象。</p>
+</li>
+<li><p>因为 <code>MyBatis</code> 的本质就是 <code>Java</code> 对数据库的操作，所以 <code>SqlSessionFactory</code> 的生命周期存在于整个 <code>MyBatis</code> 的应用之中，所以一旦创建了<code>SqlSessionFactory</code>，就要长期保存它，直至不再使用<code>MyBatis</code>应用</p>
+</li>
+<li><p>在一般的应用中我们往往希望 <code>SqlSessionFactory</code> 作为一个单例，让它在应用中被共享。</p>
+</li>
+</ul>
+<h4 id="3-7-3-SqlSession"><a href="#3-7-3-SqlSession" class="headerlink" title="3.7.3 SqlSession"></a>3.7.3 SqlSession</h4><ul>
+<li><p><code>SqlSession</code> 就相当于一个数据库连接(<code>Connection</code> 对象)</p>
+</li>
+<li><p>它应该存活在一个业务请求中，处理完整个请求后，应该关闭这条连接，让它归还给<code>SqlSessionFactory</code> ， 否则数据库资源就很快被耗费精光，系统就会瘫痪，所以用<code>try... catch ... finally ...</code>语句来保证其正确关闭。</p>
+</li>
+</ul>
+<h4 id="3-7-4-Mapper"><a href="#3-7-4-Mapper" class="headerlink" title="3.7.4 Mapper"></a>3.7.4 Mapper</h4><ul>
+<li><p><code>Mapper</code> 是一个接口，它由 <code>SqlSession</code> 所创建，所以它的最大生命周期至多和 <code>SqlSession</code> 保持一致</p>
+</li>
+<li><p><code>Mapper</code> 代表的是一个请求中的业务处理，所以它应该在一个请求中，一旦处理完了相关的业务，就应该废弃它。</p>
+</li>
+</ul>
+<h4 id="3-7-5-总结"><a href="#3-7-5-总结" class="headerlink" title="3.7.5 总结"></a>3.7.5 总结</h4><ul>
+<li><code>MyBatis</code>组件的生命周期<br>  <img src="/2019/12/25/SSM-3-认识MyBatis核心组件/0428_0.png" alt=""></li>
+</ul>
+
           
         
       
@@ -520,7 +632,7 @@ $$\frac{1}{n+1}C_{2n}^n=\frac{1}{n+1}\frac{2n!}{{n!}\times{n!}}$$
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/53/">53</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -568,7 +680,7 @@ $$\frac{1}{n+1}C_{2n}^n=\frac{1}{n+1}\frac{2n!}{{n!}\times{n!}}$$
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -590,7 +702,7 @@ $$\frac{1}{n+1}C_{2n}^n=\frac{1}{n+1}\frac{2n!}{{n!}\times{n!}}$$
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

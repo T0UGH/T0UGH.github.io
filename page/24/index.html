@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Docker-1-简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/github-2-github相关/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/22/Docker-1-简介/" itemprop="url">[Docker][1][简介]</a></h1>
+                <a class="post-title-link" href="/2019/05/28/github-2-github相关/" itemprop="url">[github][2][github相关]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T23:19:36+08:00">
-                2019-05-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-28T17:00:51+08:00">
+                2019-05-28
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/GitHub/" itemprop="url" rel="index">
+                    <span itemprop="name">GitHub</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/05/22/Docker-1-简介/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/22/Docker-1-简介/" itemprop="commentCount"></span>
+                <a href="/2019/05/28/github-2-github相关/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/28/github-2-github相关/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,78 +362,57 @@
       
         
           
-            <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h2><p>点此进入<a href="https://labs.play-with-docker.com/" target="_blank" rel="noopener">play with docker</a></p>
-<h3 id="1-1-容器发展之路"><a href="#1-1-容器发展之路" class="headerlink" title="1.1 容器发展之路"></a>1.1 容器发展之路</h3><ol>
-<li><p>曾经，每个服务器只能运行单一应用。Windows和Linux操作系统都没有相应的技术手段来保证在一台服务器上稳定运行多个应用</p>
+            <h2 id="2-github相关"><a href="#2-github相关" class="headerlink" title="2 github相关"></a>2 github相关</h2><h3 id="2-2-Issue"><a href="#2-2-Issue" class="headerlink" title="2.2 Issue"></a>2.2 Issue</h3><p>开发者为了跟踪bug并进行软件相关讨论，进而方便管理，创建了Issue</p>
+<ul>
+<li><p>GitHub的Issue和评论可以使用GFM语法进行描述</p>
 </li>
-<li><p>VM技术是一种允许多应用能够稳定、安全同时运行在一个服务器上的技术</p>
+<li><p>Issue可以通过添加标签(Label)来进行整理，标签可以自由创建</p>
 </li>
-<li><p>虚拟机缺点是依靠其专用的操作系统，OS会额外消耗资源</p>
+<li><p>可以通过添加里程碑来管理Issue，设置里程碑就可以通过Issue来管理任务</p>
 </li>
-<li><p>容器模型与虚拟机模型的区别是容器的运行不会独占操作系统</p>
+<li><p>只要按照特定的格式描述提交信息，就可以像一般BTS带有的功能那样对Issue进行操作</p>
+<ul>
+<li>每个Issue标题下面都分配了一个诸如”#24”一样的序号，只要在提交信息的描述中加入”#24”，就可以在Issue中显示相关信息</li>
+<li>当一个处于<code>open</code>状态的<code>Issue</code>处理完毕，只要在该提交中以下列任意一种格式描述提交信息，对应的<code>Issue</code>就会被<code>close</code>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fix #24</span><br><span class="line">fixes #24</span><br><span class="line">fixed #24</span><br><span class="line">close #24</span><br><span class="line">closes #24</span><br><span class="line">closed #24</span><br><span class="line">resolve #24</span><br><span class="line">resolves #24</span><br><span class="line">resolved #24</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>容器的优点是启动快且便于迁移</p>
+</ul>
 </li>
-<li><p>Kubernetes是Docker之上的一个平台，现在采用Docker实现其底层容器相关的操作</p>
+</ul>
+<h3 id="2-2-发送-Pull-Request"><a href="#2-2-发送-Pull-Request" class="headerlink" title="2.2 发送 Pull Request"></a>2.2 发送 Pull Request</h3><ul>
+<li><p>Pull Request是自己修改源代码后，请求对方仓库采纳该修改时采取的一种行为</p>
 </li>
+<li><p>在Github上发送Pull Request后，接收方的仓库会创建一个附带源代码的Issue，我们在这个Issue中记录详细内容。这就是Pull Request</p>
+</li>
+<li><p>发送过来的Pull Request是否被采纳，要由接收方仓库的管理者进行判断</p>
+</li>
+<li><p>一般说来，在Github上修改对方的代码，需要先将仓库fork到本地，然后再修改代码，发送Pull Request。但是，如果用户对该仓库有编辑权限，则可以直接创建分支，从分支上发送Pull Request。利用这一设计，团队开发时不妨为每一个成员赋予编辑权限，免去<code>fork</code>仓库的麻烦。这样，成员在有需要时就可以创建自己的分支，然后直接向master分支等发送Pull Request</p>
+</li>
+</ul>
+<h3 id="2-3-接收-Pull-Request"><a href="#2-3-接收-Pull-Request" class="headerlink" title="2.3 接收 Pull Request"></a>2.3 接收 Pull Request</h3><p>有两种Pull Request方式:</p>
+<ol>
+<li>直接在github上接受此次Pull Request</li>
+<li>拉取到本地，然后校验，校验之后，执行<code>git merge</code>，解决冲突后，push到远端</li>
 </ol>
-<h3 id="1-2-走进Docker"><a href="#1-2-走进Docker" class="headerlink" title="1.2 走进Docker"></a>1.2 走进Docker</h3><ul>
-<li><p>Docker是一种运行于Linux和Windows上的软件，用于创建、管理和编排容器</p>
-</li>
-<li><p>Docker一词源于英国口语，意为码头工人，即从船上装卸货物的人</p>
-</li>
-<li><p>Moby是Github上Docker的开源项目</p>
-</li>
-<li><p>许多Docker内置的组件都是可拔插的，即可以替换为第三方的组件</p>
-</li>
-<li><p>OCI(开放容器计划)是一个旨在对容器基础架构中的基础组件进行标准化的机构。目前已经制订了镜像规范和运行时规范，将容器生态团结起来</p>
-</li>
-</ul>
-<h3 id="1-3-Docker安装"><a href="#1-3-Docker安装" class="headerlink" title="1.3 Docker安装"></a>1.3 Docker安装</h3><ul>
-<li><p>win10专业版，进bios开虚拟化，启动Hyper-x，去<a href="https://hub.docker.com/editions/community/docker-ce-desktop-windows" target="_blank" rel="noopener">这里</a>现在Docker for Windows版</p>
-</li>
-<li><p>每个Docker容器都有一个本地存储空间，本地存储是通过存储驱动(Storage Driver)进行管理的</p>
-</li>
-</ul>
-<h3 id="1-4-纵观Docker"><a href="#1-4-纵观Docker" class="headerlink" title="1.4 纵观Docker"></a>1.4 纵观Docker</h3><h4 id="1-4-1-运维视角"><a href="#1-4-1-运维视角" class="headerlink" title="1.4.1 运维视角"></a>1.4.1 运维视角</h4><ul>
-<li><p>Docker有两个主要组件:Docker客户端和Docker deamon(服务端或者引擎)</p>
-</li>
-<li><p>镜像</p>
-<ul>
-<li>可将镜像理解为一个包含基础操作系统，以及应用程序运行所需的代码和依赖包</li>
-<li>实际等价于未运行的容器</li>
-<li>Docker的每个镜像都有自己唯一的id</li>
-</ul>
-</li>
-<li><p>容器</p>
-<ul>
-<li>可以从容器来启动镜像</li>
-<li><code>docker run</code>可以运行镜像</li>
-<li><code>Ctrl-PQ</code>组合键可以在退出容器的同时保证容器运行</li>
-<li><code>docker ls</code>列出系统内部处于运行状态的容器</li>
-</ul>
-</li>
-</ul>
-<h4 id="1-4-2-开发角度"><a href="#1-4-2-开发角度" class="headerlink" title="1.4.2 开发角度"></a>1.4.2 开发角度</h4><ul>
-<li><p>容器即应用</p>
-</li>
-<li><p>每个仓库都有一个名为<code>Dockerfile</code>的文件。<code>Dockerfile</code>是一个纯文本文件，其中描述了如何将应用构建到<code>Docker</code>镜像中</p>
-</li>
-<li><p>使用<code>docker image build</code>命令可以根据Dockerfile中的指令来创建新的镜像</p>
-</li>
-</ul>
-<h3 id="1-5-Docker引擎"><a href="#1-5-Docker引擎" class="headerlink" title="1.5 Docker引擎"></a>1.5 Docker引擎</h3><ul>
-<li><p>Docker引擎是用来运行和管理容器的核心软件</p>
-</li>
-<li><p>Docker引擎可以进行模块化，有很多可交换的组件组成</p>
-</li>
-<li><p>runc: 用于创建容器的组件</p>
-</li>
-<li><p>containerd: 用于容器生命周期管理</p>
-</li>
-<li><p>daemon:之前Docker的服务器，目前其中的越来越多功能被拆解出来</p>
-</li>
-</ul>
+<h3 id="2-4-团队开发的步骤"><a href="#2-4-团队开发的步骤" class="headerlink" title="2.4 团队开发的步骤"></a>2.4 团队开发的步骤</h3><p>自己总结的开发流程</p>
+<ol>
+<li>git pull 更新本地</li>
+<li>从master新建分支并切换到该分支，以开发新功能</li>
+<li>开发新功能</li>
+<li>将此分支推送到远程仓库</li>
+<li>在github上发送pull request请求</li>
+<li>管理员将此分支拉取到本地</li>
+<li>在本地将此分支合并到master分支并消除冲突</li>
+</ol>
+<p>Github Flow的开发流程</p>
+<ol>
+<li>令master分支时常保持可以部署的状态</li>
+<li>进行新的工作时要从master分支创建新分支，新分支名称要具有描述性</li>
+<li>在<code>2</code>新建的本地仓库分支中进行提交</li>
+<li>在Github端仓库创建同名分支，定期push</li>
+<li>需要帮助或者反馈时创建Pull Request，以Pull Request进行交流和讨论</li>
+<li>让其他开发者进行审查，确定作业完成后与master分支合并</li>
+<li>与master分支合并后立即部署</li>
+</ol>
 
           
         
@@ -473,7 +452,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/23/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="extend next" rel="next" href="/page/25/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/23/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><span class="space">&hellip;</span><a class="page-number" href="/page/53/">53</a><a class="extend next" rel="next" href="/page/25/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -521,7 +500,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -543,7 +522,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

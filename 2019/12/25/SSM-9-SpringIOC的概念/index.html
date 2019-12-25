@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SpringIOC,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第九章 SpringIOC的概念9.1 Spring的概括 Spring简介  它的成功来自于理念，而不是技术，它最为核心的理念是IoC(控制反转)和AOP(面向切面编程) 其中IoC是Spring的基础，而AOP则是其重要的功能，最为典型的当属数据库事务的使用 在Spring中，它会认为一切Java类都是资源，而资源都是Bean，容纳这些Bean的是Spring所提供的IoC容器，所以Sprin">
+<meta name="keywords" content="SpringIOC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[SSM][9][SpringIOC的概念]">
+<meta property="og:url" content="http://yoursite.com/2019/12/25/SSM-9-SpringIOC的概念/index.html">
+<meta property="og:site_name" content="打怪升级日常">
+<meta property="og:description" content="第九章 SpringIOC的概念9.1 Spring的概括 Spring简介  它的成功来自于理念，而不是技术，它最为核心的理念是IoC(控制反转)和AOP(面向切面编程) 其中IoC是Spring的基础，而AOP则是其重要的功能，最为典型的当属数据库事务的使用 在Spring中，它会认为一切Java类都是资源，而资源都是Bean，容纳这些Bean的是Spring所提供的IoC容器，所以Sprin">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/12/25/SSM-9-SpringIOC的概念/0430_0.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/25/SSM-9-SpringIOC的概念/0501_0.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/25/SSM-9-SpringIOC的概念/0501_1.png">
+<meta property="og:updated_time" content="2019-12-25T05:00:08.639Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[SSM][9][SpringIOC的概念]">
+<meta name="twitter:description" content="第九章 SpringIOC的概念9.1 Spring的概括 Spring简介  它的成功来自于理念，而不是技术，它最为核心的理念是IoC(控制反转)和AOP(面向切面编程) 其中IoC是Spring的基础，而AOP则是其重要的功能，最为典型的当属数据库事务的使用 在Spring中，它会认为一切Java类都是资源，而资源都是Bean，容纳这些Bean的是Spring所提供的IoC容器，所以Sprin">
+<meta name="twitter:image" content="http://yoursite.com/2019/12/25/SSM-9-SpringIOC的概念/0430_0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/25/SSM-9-SpringIOC的概念/">
+
+
+
+
+
+  <title>[SSM][9][SpringIOC的概念] | 打怪升级日常</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/T0UGH" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">打怪升级日常</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">两星炸弹人(╯‵□′)╯炸弹！•••</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/25/SSM-9-SpringIOC的概念/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="T0UGH(GuiPing Wang)">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/33653960?s=400&u=eb438b904ecb9d91f3aa9b777155a6488599493b&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="打怪升级日常">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[SSM][9][SpringIOC的概念]</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-25T12:49:37+08:00">
+                2019-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/SSM/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/12/25/SSM-9-SpringIOC的概念/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/25/SSM-9-SpringIOC的概念/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第九章-SpringIOC的概念"><a href="#第九章-SpringIOC的概念" class="headerlink" title="第九章 SpringIOC的概念"></a>第九章 SpringIOC的概念</h2><h3 id="9-1-Spring的概括"><a href="#9-1-Spring的概括" class="headerlink" title="9.1 Spring的概括"></a>9.1 Spring的概括</h3><ul>
+<li><p><code>Spring</code>简介</p>
+<ul>
+<li>它的成功来自于理念，而不是技术，它最为核心的理念是<code>IoC</code>(控制反转)和<code>AOP</code>(面向切面编程)</li>
+<li>其中<code>IoC</code>是Spring的基础，而<code>AOP</code>则是其重要的功能，最为典型的当属数据库事务的使用</li>
+<li>在<code>Spring</code>中，它会认为一切<code>Java</code>类都是资源，而资源都是<code>Bean</code>，容纳这些<code>Bean</code>的是<code>Spring</code>所提供的<code>IoC</code>容器，所以<code>Spring</code>是一种基于<code>Bean</code>的编程</li>
+</ul>
+</li>
+<li><p><code>Spring</code>的理念</p>
+<ul>
+<li>基于接口的编程是一种理念，强调<code>OOD</code>的设计理念，比技术实现更为重要</li>
+<li><code>Java</code>开发的一大通病是大量使用<code>try...catch...finally...</code>，<code>Spring</code>尝试改善它们</li>
+<li>在当时的<code>Java</code>技术中，很多框架都是侵略性的，也就是必须使用当前框架所提供的类库，才能实现功能，这样会造成应用对框架的依赖</li>
+<li><code>Spring</code>技术不是为了取代现有的技术，而是提供更好的整合模板使它们能够整合到<code>Spring</code>技术上来</li>
+</ul>
+</li>
+<li><p><code>Spring</code>的策略</p>
+<ul>
+<li>对于<code>POJO</code>的潜力开发，提供轻量级和低侵入的编程，可以通过配置（ <code>XML</code> 、注解等）来扩展<code>POJO</code>的功能，通过依赖注入的理念去扩展功能，建议通过接口编程，强调<code>OOD</code> 的开发模式理念，降低系统稿合度，提高系统可读性和可扩展性。</li>
+<li>提供切面编程，尤其是把企业的核心应用一一数据库应用，通过切面消除了以前复杂的<code>try... catch ... finally ...</code>代码结构，使得开发人员能够把精力更加集中于业务开发而不是技术本身</li>
+<li>为了整合各个框架和技术的应用，<code>Spring</code>提供了模板类，通过模板可以整合各个框架和技术，比如支持<code>Hibernate</code> 开发的<code>Hibernate Template</code>、支持<code>MyBatis</code>开发的<code>SqlSessionTemplate</code>、支持<code>Redis</code>开发的<code>RedisTemplate</code> 等，这样就把各种企业用到的技术框架整合到<code>Spring</code>中，提供了统一的模板，从而使得各种技术用起来更简单。</li>
+</ul>
+<h3 id="2-SpringIoC-阐述"><a href="#2-SpringIoC-阐述" class="headerlink" title="2 SpringIoC 阐述"></a>2 SpringIoC 阐述</h3></li>
+<li><p>控制反转:控制反转是一种通过描述(在<code>Java</code>中可以是<code>XML</code>或者<code>注解</code>)并通过第三方去产生或获取特定对象的方式</p>
+</li>
+<li><p>IoC 容器</p>
+<ul>
+<li>在<code>Spring</code>中实现控制反转的是<code>IoC</code>容器，其实现的方式是依赖注入(Dependency Injection, DI)</li>
+<li><code>Spring</code>会提供<code>IoC</code>容器来管理对应的资源，正如上面例子中的饮品店和订单资源，由它们产生依赖注入的关系</li>
+</ul>
+</li>
+<li><p>示例<br>  <img src="/2019/12/25/SSM-9-SpringIOC的概念/0430_0.png" alt=""></p>
+</li>
+<li><p>对于交易开发人员:</p>
+<ul>
+<li>当熟悉财务的同事完成对财务接口模块的开发，就可以将其服务发布到<code>Spring IoC</code>的容器里，</li>
+<li>这个时候你只需要过程描述得到对应的财务接口，就可以完成对应的财务操作了，</li>
+<li>而财务模块是如何工作的，它又需要依赖哪些对象，都是由熟悉财务模块的同事完成的，这些并不需要你去理解，你只需要知道它能完成对应的财务操作即可</li>
+</ul>
+</li>
+<li><p>对于测试人员</p>
+<ul>
+<li>对于测试人员也一样，也许他早早把财务模块测试好了，需要测试交易模块</li>
+<li>他并不希望非常细致地了解交易模块，他只需要从<code>Spring IoC</code>容器中获取就可以了。而他的测试代码也只需要从<code>Spring IoC</code>容器获取交易模块的内容,至于内部复杂的依赖并不是他所需要关注的内容</li>
+<li>这样就有利于测试人员对模块的测试，降低测试人员测试的复杂度</li>
+</ul>
+</li>
+<li><p>总结: 降低开发难度，对模块解耦，同时更利于测试</p>
+</li>
+</ul>
+<h3 id="9-3-Spring-IoC-容器"><a href="#9-3-Spring-IoC-容器" class="headerlink" title="9.3 Spring IoC 容器"></a>9.3 Spring IoC 容器</h3><ul>
+<li>Spring IoC容器的作用是容纳我们所开发的各种Bean，并且我们可以从中获取各种发布在Spring IoC容器里的Bean，并且通过描述可以得到它</li>
+</ul>
+<h4 id="9-3-1-Spring-IoC-容器的设计"><a href="#9-3-1-Spring-IoC-容器的设计" class="headerlink" title="9.3.1 Spring IoC 容器的设计"></a>9.3.1 Spring IoC 容器的设计</h4><ul>
+<li><p>Spring IoC 接口设计</p>
+<ul>
+<li>Spring IoC 容器的设计主要基于<code>BeanFactory</code>和<code>ApplicationContext</code>两个接口</li>
+<li><code>BeanFactory</code>是Spring IoC容器所定义的最底层的接口</li>
+<li><code>ApplicationContext</code>是高级接口之一，并且对<code>BeanFactory</code>的功能做了许多有用的扩展</li>
+<li>Spring IoC 容器接口类图<br>  <img src="/2019/12/25/SSM-9-SpringIOC的概念/0501_0.png" alt=""></li>
+</ul>
+</li>
+<li><p><code>BeanFactory</code>接口解读</p>
+<ul>
+<li><code>getBean</code>的多个方法用来获取配置给Spring IoC容器的<code>Bean</code></li>
+<li><code>isSingleton</code>用来判断是否单例，如果判断为真，其意思是该<code>Bean</code>在容器中是作为唯一单例存在的</li>
+<li><code>isPrototype</code>如果判断为真，意思是当你从容器中获取<code>Bean</code>，容器就为你生成一个新的实例</li>
+<li><code>type</code>是一个按照<code>java</code>类型匹配的方法</li>
+<li><code>getAliases</code>方法是获取别名的方法</li>
+</ul>
+</li>
+</ul>
+<h4 id="9-3-2-Spring-IoC容器的初始化和依赖注入"><a href="#9-3-2-Spring-IoC容器的初始化和依赖注入" class="headerlink" title="9.3.2 Spring IoC容器的初始化和依赖注入"></a>9.3.2 Spring IoC容器的初始化和依赖注入</h4><ul>
+<li><p><code>Bean</code>的定义步骤</p>
+<ol>
+<li><code>Resource</code>定位</li>
+<li><code>BeanDefinition</code>的载入</li>
+<li><code>BeanDefinition</code>的注册</li>
+</ol>
+</li>
+<li><p>依赖注入: </p>
+<ul>
+<li>依赖注入的观念就是将所有东西先在”外面”准备好，然后再带入“内部”的程式中，如此一来你就能够在检视程式码的时候，一目了然地知道这个程式依赖著哪些类别。</li>
+<li>通过控制反转，对象在被创建的时候，由一个调控系统内所有对象的外界实体，将其所依赖的对象的引用传递给它。也可以说，依赖被注入到对象中。</li>
+<li>技术描述:<code>Class A</code>中用到了<code>Class B</code>的对象<code>b</code>，一般情况下，需要在<code>A</code>的代码中显式的<code>new</code>一个<code>B</code>的对象。采用依赖注入技术之后，<code>A</code>的代码只需要定义一个私有的<code>B</code>对象，不需要直接<code>new</code>来获得这个对象，而是通过相关的容器控制程序来将<code>B</code>对象在外部<code>new</code>出来并注入到<code>A</code>类里的引用中。而具体获取的方法、对象被获取时的状态由配置文件（如XML）来指定。</li>
+</ul>
+</li>
+</ul>
+<h4 id="9-3-3-Spring-Bean-的生命周期"><a href="#9-3-3-Spring-Bean-的生命周期" class="headerlink" title="9.3.3 Spring Bean 的生命周期"></a>9.3.3 Spring Bean 的生命周期</h4><ul>
+<li><p><code>Bean</code>在容器中存在其生命周期，它的初始化和销毁也需要一个过程，在一些需要自定义的过程中，我们可以插入代码来改变它们的一些行为</p>
+</li>
+<li><p><code>Bean</code>的生命周期<br>  <img src="/2019/12/25/SSM-9-SpringIOC的概念/0501_1.png" alt=""></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SpringIOC/" rel="tag"><i class="fa fa-tag"></i> SpringIOC</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/25/SSM-3-认识MyBatis核心组件/" rel="next" title="[SSM][3][认识MyBatis核心组件]">
+                <i class="fa fa-chevron-left"></i> [SSM][3][认识MyBatis核心组件]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/25/SSM-10-装配SpringBean/" rel="prev" title="[SSM][10][装配SpringBean]">
+                [SSM][10][装配SpringBean] <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/33653960?s=400&u=eb438b904ecb9d91f3aa9b777155a6488599493b&v=4" alt="T0UGH(GuiPing Wang)">
+            
+              <p class="site-author-name" itemprop="name">T0UGH(GuiPing Wang)</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/T0UGH" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="tough.neu.edu@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Friends
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://neusoftware.top/solo" title="ChengYi" target="_blank">ChengYi</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://mike4ellis.github.io/" title="Mike" target="_blank">Mike</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第九章-SpringIOC的概念"><span class="nav-number">1.</span> <span class="nav-text">第九章 SpringIOC的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-Spring的概括"><span class="nav-number">1.1.</span> <span class="nav-text">9.1 Spring的概括</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-SpringIoC-阐述"><span class="nav-number">1.2.</span> <span class="nav-text">2 SpringIoC 阐述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-Spring-IoC-容器"><span class="nav-number">1.3.</span> <span class="nav-text">9.3 Spring IoC 容器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#9-3-1-Spring-IoC-容器的设计"><span class="nav-number">1.3.1.</span> <span class="nav-text">9.3.1 Spring IoC 容器的设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-3-2-Spring-IoC容器的初始化和依赖注入"><span class="nav-number">1.3.2.</span> <span class="nav-text">9.3.2 Spring IoC容器的初始化和依赖注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-3-3-Spring-Bean-的生命周期"><span class="nav-number">1.3.3.</span> <span class="nav-text">9.3.3 Spring Bean 的生命周期</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">T0UGH(GuiPing Wang)</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'E1MH6h0YP3yhA0PJsohNBgiT-gzGzoHsz',
+        appKey: 'YOiN6zLq3XGfKmlR0b8vyHtN',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
