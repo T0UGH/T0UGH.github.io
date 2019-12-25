@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/linux-1-vim命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/18/了解SpringBoot/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/linux-1-vim命令/" itemprop="url">[linux][1][vim命令]</a></h1>
+                <a class="post-title-link" href="/2019/07/18/了解SpringBoot/" itemprop="url">了解SpringBoot</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T11:15:48+08:00">
-                2019-07-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-18T17:27:25+08:00">
+                2019-07-18
               </time>
             
 
@@ -313,19 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/vim/" itemprop="url" rel="index">
-                    <span itemprop="name">vim</span>
+                  <a href="/categories/other/" itemprop="url" rel="index">
+                    <span itemprop="name">other</span>
                   </a>
                 </span>
 
@@ -342,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/07/02/linux-1-vim命令/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/02/linux-1-vim命令/" itemprop="commentCount"></span>
+                <a href="/2019/07/18/了解SpringBoot/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/18/了解SpringBoot/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -373,268 +362,23 @@
       
         
           
-            <h3 id="1-vim-命令说明"><a href="#1-vim-命令说明" class="headerlink" title="1 vim 命令说明"></a>1 vim 命令说明</h3><h4 id="1-1-移动光标"><a href="#1-1-移动光标" class="headerlink" title="1.1 移动光标"></a>1.1 移动光标</h4><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>h / ←</td>
-<td>左移一个字符</td>
-</tr>
-<tr>
-<td>j / ↓</td>
-<td>下移一个字符</td>
-</tr>
-<tr>
-<td>k / ↑</td>
-<td>上移一个字符</td>
-</tr>
-<tr>
-<td>j / →</td>
-<td>右移一个字符</td>
-</tr>
-<tr>
-<td>30j</td>
-<td>右移30个字符</td>
-</tr>
-<tr>
-<td>ctrl + f</td>
-<td>下移一页</td>
-</tr>
-<tr>
-<td>ctrl + f</td>
-<td>上移一页</td>
-</tr>
-<tr>
-<td>20 + space</td>
-<td>向右移动20</td>
-</tr>
-<tr>
-<td>0</td>
-<td>移动到这一行开头</td>
-</tr>
-<tr>
-<td>$</td>
-<td>移动到这一行的最后字符</td>
-</tr>
-<tr>
-<td>H</td>
-<td>移动到屏幕最上方一行</td>
-</tr>
-<tr>
-<td>M</td>
-<td>移动到屏幕中央一行</td>
-</tr>
-<tr>
-<td>L</td>
-<td>移动到屏幕最下方一行</td>
-</tr>
-<tr>
-<td>G</td>
-<td><strong>移动到这个文件的最后一行</strong></td>
-</tr>
-<tr>
-<td>20G</td>
-<td>移动到这个文件的第20行</td>
-</tr>
-<tr>
-<td>gg</td>
-<td>移动到这个文件的第1行</td>
-</tr>
-<tr>
-<td>20 + enter</td>
-<td>下移20行</td>
-</tr>
-</tbody>
-</table>
-<h4 id="1-2-搜索替换"><a href="#1-2-搜索替换" class="headerlink" title="1.2 搜索替换"></a>1.2 搜索替换</h4><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>/word</td>
-<td>向后寻找名称为word的字符串</td>
-</tr>
-<tr>
-<td>?word</td>
-<td>向前寻找名称为word的字符串</td>
-</tr>
-<tr>
-<td>n</td>
-<td>向后移动到下一个名称为word的字符串</td>
-</tr>
-<tr>
-<td>N</td>
-<td>向前移动到下一个名称为word的字符串</td>
-</tr>
-</tbody>
-</table>
-<h4 id="1-3-删除、复制和粘贴"><a href="#1-3-删除、复制和粘贴" class="headerlink" title="1.3 删除、复制和粘贴"></a>1.3 删除、复制和粘贴</h4><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>x, X</td>
-<td>x向后删除一个字符, X向前删除一个字符</td>
-</tr>
-<tr>
-<td>10x</td>
-<td>向后删除10个字符</td>
-</tr>
-<tr>
-<td>dd</td>
-<td>删除整行</td>
-</tr>
-<tr>
-<td>10dd</td>
-<td>删除向下10行</td>
-</tr>
-<tr>
-<td>d$</td>
-<td>删除游标所在行，到该行的最后一个字符</td>
-</tr>
-<tr>
-<td>d0</td>
-<td>删除游标所在行，到该行的最前面一个字符</td>
-</tr>
-<tr>
-<td>yy</td>
-<td>复制游标所在的那一行</td>
-</tr>
-<tr>
-<td>20yy</td>
-<td>复制光标所在的向下20行</td>
-</tr>
-<tr>
-<td>y1G</td>
-<td>复制游标所在行到第一行的所有数据</td>
-</tr>
-<tr>
-<td>yG</td>
-<td>复制游标所在行到最后一行的所有数据</td>
-</tr>
-<tr>
-<td>y$</td>
-<td>复制游标所在行，到该行的最后一个字符</td>
-</tr>
-<tr>
-<td>y0</td>
-<td>复制游标所在行，到该行的最前面一个字符</td>
-</tr>
-<tr>
-<td>p,P</td>
-<td>粘贴</td>
-</tr>
-<tr>
-<td>J</td>
-<td>将光标所在行和下一行的数据结合为同一行</td>
-</tr>
-<tr>
-<td>u</td>
-<td>复原上一个动作</td>
-</tr>
-<tr>
-<td>ctrl + r</td>
-<td>重做上一个动作</td>
-</tr>
-<tr>
-<td>.</td>
-<td>重复前一个动作</td>
-</tr>
-</tbody>
-</table>
-<h4 id="1-4-一般模式切换到编辑模式"><a href="#1-4-一般模式切换到编辑模式" class="headerlink" title="1.4 一般模式切换到编辑模式"></a>1.4 一般模式切换到编辑模式</h4><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>i</td>
-<td>进入输入模式</td>
-</tr>
-<tr>
-<td>a</td>
-<td>进入输入模式</td>
-</tr>
-<tr>
-<td>o,O</td>
-<td>从下一行或上一行进入输入模式</td>
-</tr>
-<tr>
-<td>r,R</td>
-<td>进入取代模式, r会取代一次, R会一直取代</td>
-</tr>
-<tr>
-<td>esc</td>
-<td>退出编辑模式，回到一般模式</td>
-</tr>
-</tbody>
-</table>
-<h4 id="1-5-命令模式下的常用命令"><a href="#1-5-命令模式下的常用命令" class="headerlink" title="1.5 命令模式下的常用命令"></a>1.5 命令模式下的常用命令</h4><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>:w</td>
-<td>报错</td>
-</tr>
-<tr>
-<td>:w!</td>
-<td>若文件属性为只读，强制写入</td>
-</tr>
-<tr>
-<td>:q</td>
-<td>退出</td>
-</tr>
-<tr>
-<td>:q!</td>
-<td>不保存退出</td>
-</tr>
-<tr>
-<td>:wq</td>
-<td>报错后退出</td>
-</tr>
-<tr>
-<td>:w [filename]</td>
-<td>另存为</td>
-</tr>
-<tr>
-<td>:r [filename]</td>
-<td>在编辑的数据中，读入另一个档案的数据</td>
-</tr>
-<tr>
-<td>:! command</td>
-<td>调用系统命令，如<code>:! ls</code></td>
-</tr>
-<tr>
-<td>:set nu</td>
-<td>显示行号</td>
-</tr>
-<tr>
-<td>:set nonu</td>
-<td>不显示行号</td>
-</tr>
-</tbody>
-</table>
+            <h2 id="了解SpringBoot"><a href="#了解SpringBoot" class="headerlink" title="了解SpringBoot"></a>了解SpringBoot</h2><h3 id="1-什么是SpringBoot"><a href="#1-什么是SpringBoot" class="headerlink" title="1 什么是SpringBoot"></a>1 什么是SpringBoot</h3><p>Spring Boot 是由 Pivotal 团队提供的全新框架，其设计目的是用来简化新 Spring 应用的初始搭建以及开发过程。</p>
+<p>该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。</p>
+<p>Spring Boot 其实不是什么新的框架，它默认配置了很多框架的使用方式，就像 Maven 整合了所有的 Jar 包，Spring Boot 整合了所有的框架。</p>
+<h3 id="2-使用SpringBoot的好处"><a href="#2-使用SpringBoot的好处" class="headerlink" title="2 使用SpringBoot的好处"></a>2 使用SpringBoot的好处</h3><p>开箱即用、简单、快速、方便</p>
+<h3 id="3-使用SpringBoot搭建项目"><a href="#3-使用SpringBoot搭建项目" class="headerlink" title="3 使用SpringBoot搭建项目"></a>3 使用SpringBoot搭建项目</h3><ol>
+<li><p>访问 <a href="http://start.spring.io/" target="_blank" rel="noopener">http://start.spring.io/</a></p>
+</li>
+<li><p>配置工程的基本信息<br><img src="/2019/07/18/了解SpringBoot/0718_0.png" alt=""></p>
+</li>
+<li><p>点击Generate Project下载项目压缩包</p>
+</li>
+<li><p>解压后用idea打开即可，maven会自动下载依赖</p>
+</li>
+<li><p>建议的目录类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">com</span><br><span class="line">  +- example</span><br><span class="line">    +- myproject</span><br><span class="line">      +- Application.java</span><br><span class="line">      |</span><br><span class="line">      +- model</span><br><span class="line">      |  +- Customer.java</span><br><span class="line">      |  +- CustomerRepository.java</span><br><span class="line">      |</span><br><span class="line">      +- service</span><br><span class="line">      |  +- CustomerService.java</span><br><span class="line">      |</span><br><span class="line">      +- controller</span><br><span class="line">      |  +- CustomerController.java</span><br><span class="line">      |</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 
           
         
@@ -674,7 +418,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -722,7 +466,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第三章 栈和队列1234567891011121314151617digraph demo&amp;#123;    线性表-&amp;gt;操作受限[dir=none];    线性表-&amp;gt;推广[dir=none];    操作受限-&amp;gt;栈[dir=none];    操作受限-&amp;gt;队列[dir=none];    栈-&amp;gt;顺序栈[dir=none];    栈-&amp;gt;链栈[dir=none]">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[数据结构考研][3][栈和队列]">
+<meta property="og:url" content="http://yoursite.com/2019/12/25/数据结构考研-3-栈和队列/index.html">
+<meta property="og:site_name" content="打怪升级日常">
+<meta property="og:description" content="第三章 栈和队列1234567891011121314151617digraph demo&amp;#123;    线性表-&amp;gt;操作受限[dir=none];    线性表-&amp;gt;推广[dir=none];    操作受限-&amp;gt;栈[dir=none];    操作受限-&amp;gt;队列[dir=none];    栈-&amp;gt;顺序栈[dir=none];    栈-&amp;gt;链栈[dir=none]">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-12-25T04:30:53.276Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[数据结构考研][3][栈和队列]">
+<meta name="twitter:description" content="第三章 栈和队列1234567891011121314151617digraph demo&amp;#123;    线性表-&amp;gt;操作受限[dir=none];    线性表-&amp;gt;推广[dir=none];    操作受限-&amp;gt;栈[dir=none];    操作受限-&amp;gt;队列[dir=none];    栈-&amp;gt;顺序栈[dir=none];    栈-&amp;gt;链栈[dir=none]">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/25/数据结构考研-3-栈和队列/">
+
+
+
+
+
+  <title>[数据结构考研][3][栈和队列] | 打怪升级日常</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/T0UGH" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">打怪升级日常</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">两星炸弹人(╯‵□′)╯炸弹！•••</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/25/数据结构考研-3-栈和队列/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="T0UGH(GuiPing Wang)">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/33653960?s=400&u=eb438b904ecb9d91f3aa9b777155a6488599493b&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="打怪升级日常">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[数据结构考研][3][栈和队列]</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-25T12:26:47+08:00">
+                2019-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/12/25/数据结构考研-3-栈和队列/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/25/数据结构考研-3-栈和队列/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第三章-栈和队列"><a href="#第三章-栈和队列" class="headerlink" title="第三章 栈和队列"></a>第三章 栈和队列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">digraph demo&#123;</span><br><span class="line">    线性表-&gt;操作受限[dir=none];</span><br><span class="line">    线性表-&gt;推广[dir=none];</span><br><span class="line">    操作受限-&gt;栈[dir=none];</span><br><span class="line">    操作受限-&gt;队列[dir=none];</span><br><span class="line">    栈-&gt;顺序栈[dir=none];</span><br><span class="line">    栈-&gt;链栈[dir=none];</span><br><span class="line">    栈-&gt;共享栈[dir=none];</span><br><span class="line">    队列-&gt;循环队列[dir=none];</span><br><span class="line">    队列-&gt;链式队列[dir=none];</span><br><span class="line">    队列-&gt;双端队列[dir=none];</span><br><span class="line">    推广-&gt;数组[dir=none];</span><br><span class="line">    数组-&gt;一维数组[dir=none];</span><br><span class="line">    数组-&gt;多维数组[dir=none];</span><br><span class="line">    多维数组-&gt;压缩存储[dir=none];</span><br><span class="line">    多维数组-&gt;稀疏矩阵[dir=none];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-1-栈"><a href="#3-1-栈" class="headerlink" title="3.1 栈"></a>3.1 栈</h3><h4 id="3-1-1-栈的基本概念"><a href="#3-1-1-栈的基本概念" class="headerlink" title="3.1.1 栈的基本概念"></a>3.1.1 栈的基本概念</h4><h5 id="1-栈的定义"><a href="#1-栈的定义" class="headerlink" title="1 栈的定义"></a>1 栈的定义</h5><p>栈(Stack)，只允许在一端进行插入或删除操作的线性表</p>
+<p>栈顶(Top)，线性表允许进行插入和删除的那一端</p>
+<p>栈底(Bottom)，固定的，不允许进行插入和删除的那一端</p>
+<p>空栈，不含任何元素的空表</p>
+<p>栈是一种后进先出(Last In First Out, LIFO)的结构</p>
+<h5 id="2-栈的基本操作"><a href="#2-栈的基本操作" class="headerlink" title="2 栈的基本操作"></a>2 栈的基本操作</h5><p><code>InitStact()</code>: 初始化空栈</p>
+<p><code>StackEmpty()</code>: 判断一个栈是否为空</p>
+<p><code>Push()</code>: 进栈，若栈未满，则将新元素加入使其成为新的栈顶</p>
+<p><code>Pop()</code>: 出栈，若栈未空，则弹出栈顶元素</p>
+<p><code>GetTop()</code>: 获得栈顶元素的值</p>
+<p><code>ClearStack()</code>: 摧毁栈，并释放栈所占的内存空间</p>
+<h4 id="3-1-2-栈的顺序存储结构"><a href="#3-1-2-栈的顺序存储结构" class="headerlink" title="3.1.2 栈的顺序存储结构"></a>3.1.2 栈的顺序存储结构</h4><h5 id="1-顺序栈的实现"><a href="#1-顺序栈的实现" class="headerlink" title="1 顺序栈的实现"></a>1 顺序栈的实现</h5><p>采用顺序存储的栈称为顺序栈，它利用一组地址连续的存储单元存放自栈底到栈顶的数据元素，同时设附一个指针(top)指示当前栈顶的位置</p>
+<p>栈的顺序存储类型可描述为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType *elem;</span><br><span class="line">    <span class="keyword">int</span> length;</span><br><span class="line">    <span class="keyword">int</span> listsize;</span><br><span class="line">&#125;SqStack;</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-顺序栈的基本运算"><a href="#2-顺序栈的基本运算" class="headerlink" title="2 顺序栈的基本运算"></a>2 顺序栈的基本运算</h5><ol>
+<li><p>初始化</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">InitStack</span><span class="params">(SqStack *s)</span></span>&#123;</span><br><span class="line">    s-&gt;elem = (ElemType *)<span class="built_in">malloc</span>(LIST_INIT_SIZE * <span class="keyword">sizeof</span>(ElemType));</span><br><span class="line">    <span class="keyword">if</span>(!s-&gt;elem)</span><br><span class="line">        <span class="keyword">return</span> OVERFLOW;</span><br><span class="line">    s-&gt;length = <span class="number">0</span>;</span><br><span class="line">    s-&gt;listsize = LIST_INIT_SIZE;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>判栈空</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">StackEmpty</span><span class="params">(SqStack *s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">0</span> == s-&gt;length)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进栈</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Push</span><span class="params">(SqStack *s, ElemType e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(s-&gt;length &gt;= s-&gt;listsize &amp;&amp; OVERFLOW == ReAllocStack(s))&#123;</span><br><span class="line">            <span class="keyword">return</span> OVERFLOW;</span><br><span class="line">    &#125;</span><br><span class="line">    s-&gt;elem[s-&gt;length] = e;</span><br><span class="line">    s-&gt;length++;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>出栈</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Pop</span><span class="params">(SqStack *s, ElemType *e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(StackEmpty(s))&#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *e = s-&gt;elem[s-&gt;length<span class="number">-1</span>];</span><br><span class="line">    s-&gt;length--;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>读栈顶元素</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">GetTop</span><span class="params">(SqStack *s, ElemType *e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(StackEmpty(s))&#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *e = s-&gt;elem[s-&gt;length<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h5 id="3-共享栈"><a href="#3-共享栈" class="headerlink" title="3 共享栈"></a>3 共享栈</h5><p>利用栈底位置相对不变的特性，可让两个顺序栈共享一个一维数据空间，将两个栈的栈底分别设置在共享空间的两端，两个栈顶向共享空间的中间延伸</p>
+<p>两个栈的栈顶指针都指向栈顶元素</p>
+<ul>
+<li><code>top=-1</code>时0号栈为空，<code>top1=MaxSize</code>时1号栈为空</li>
+<li>仅当两个栈顶指针相邻(<code>top1-top0=1</code>)，判断为栈满</li>
+<li>当0号栈进栈时<code>top0</code>先加<code>1</code>再赋值，1号栈进栈时<code>top1</code>先减<code>1</code>再赋值；出栈时则刚好相反</li>
+</ul>
+<h4 id="3-1-3-栈的链式存储结构"><a href="#3-1-3-栈的链式存储结构" class="headerlink" title="3.1.3 栈的链式存储结构"></a>3.1.3 栈的链式存储结构</h4><p>采用链式存储的栈称为链栈</p>
+<ul>
+<li>链栈的优点是便于多个栈共享存储空间和提高其效率，且不存在栈满上溢的情况</li>
+<li>通常用单链表实现，并规定所有操作都是再单链表的表头进行。</li>
+</ul>
+<p>栈的链式存储类型可描述为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">LinkNode</span>&#123;</span></span><br><span class="line">    ElemType data;          <span class="comment">//数据域</span></span><br><span class="line">    Struct LinkNode *next;  <span class="comment">//指针栈</span></span><br><span class="line">&#125;*LinkStack;                <span class="comment">//栈类型定义</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="3-1-4-其他"><a href="#3-1-4-其他" class="headerlink" title="3.1.4 其他"></a>3.1.4 其他</h4><p>对于$n$个不同的元素进栈，出栈序列的个数为<br>
+$$\frac{1}{n+1}C_{2n}^n=\frac{1}{n+1}\frac{2n!}{{n!}\times{n!}}$$ 
+</p>
+<h3 id="3-2-队列"><a href="#3-2-队列" class="headerlink" title="3.2 队列"></a>3.2 队列</h3><h4 id="3-2-1-队列的基本概念"><a href="#3-2-1-队列的基本概念" class="headerlink" title="3.2.1 队列的基本概念"></a>3.2.1 队列的基本概念</h4><h5 id="1-队列的定义"><a href="#1-队列的定义" class="headerlink" title="1 队列的定义"></a>1 队列的定义</h5><p>队列是一种操作受限的线性表，只允许在表的一端进行插入，而在表的另一端进行删除</p>
+<ul>
+<li>其操作的特性为先进先出</li>
+<li>队头(Front):允许删除的一端，又称队首</li>
+<li>队尾(Rear):允许插入的一端</li>
+<li>空队列: 不含任何元素的空表</li>
+</ul>
+<h5 id="2-队列常见的基本操作"><a href="#2-队列常见的基本操作" class="headerlink" title="2 队列常见的基本操作"></a>2 队列常见的基本操作</h5><ul>
+<li><code>InitQueue()</code>:初始化队列，构建一个空队列Q</li>
+<li><code>QueueEmpty()</code>:判队列空</li>
+<li><code>EnQueue()</code>:入队</li>
+<li><code>DeQueue()</code>:出队</li>
+<li><code>GetHead()</code>:读取队头元素</li>
+</ul>
+<h4 id="3-2-2-队列的顺序存储结构"><a href="#3-2-2-队列的顺序存储结构" class="headerlink" title="3.2.2 队列的顺序存储结构"></a>3.2.2 队列的顺序存储结构</h4><h5 id="1-队列的顺序存储"><a href="#1-队列的顺序存储" class="headerlink" title="1 队列的顺序存储"></a>1 队列的顺序存储</h5><p>队列的顺序实现是值分配一块连续的存储单元存放队列中的元素，并附设两个指针<code>front</code>和<code>rear</code>分别指示队头元素和队尾元素</p>
+<h5 id="2-循环队列"><a href="#2-循环队列" class="headerlink" title="2 循环队列"></a>2 循环队列</h5><p>将顺序队列设想为一个环状的空间，即把存储队列元素的表从逻辑上视为一个环，称为循环队列。当队首指针<code>Q.front=MaxSize-1</code>后，再前进一个位置就自动为<code>0</code></p>
+<p>为了区分队空还是队满的情况</p>
+<ol>
+<li>牺牲一个单元来区分队空和队满，入队时少用一个队列单元</li>
+<li>类型中增设表示元素个数的数据成员</li>
+<li>类型中增设<code>tag</code>数据成员，以区分是队满还是队空</li>
+</ol>
+<h5 id="3-循环队列的操作"><a href="#3-循环队列的操作" class="headerlink" title="3 循环队列的操作"></a>3 循环队列的操作</h5><p>当删除元素时，队头指针<code>+1</code></p>
+<p>当插入元素时，队尾指针<code>+1</code></p>
+<h4 id="3-2-3-队列的链式存储"><a href="#3-2-3-队列的链式存储" class="headerlink" title="3.2.3 队列的链式存储"></a>3.2.3 队列的链式存储</h4><h5 id="1-队列的链式存储"><a href="#1-队列的链式存储" class="headerlink" title="1 队列的链式存储"></a>1 队列的链式存储</h5><p>队列的链式表示称为链队列，它实际上是一个同时带有队头指针和队尾指针的单链表</p>
+<ul>
+<li>出队时，首先判断队是否为空，若不空，则取出队头元素，将其从链表中摘除</li>
+<li>入队时，建立一个新节点，将新节点插入到链表的尾部，并改让<code>Q.rear</code>指向这个新插入的节点</li>
+</ul>
+<h5 id="2-链式队列的基本操作"><a href="#2-链式队列的基本操作" class="headerlink" title="2 链式队列的基本操作"></a>2 链式队列的基本操作</h5><p>略</p>
+<h4 id="3-2-4-双端队列"><a href="#3-2-4-双端队列" class="headerlink" title="3.2.4 双端队列"></a>3.2.4 双端队列</h4><p>双端队列: 双端队列是指允许两端都可以进行入队和出队操作的队列，将队列的两端分别称为前端和后端，两端都可以入队和出队。</p>
+<p>输出受限的双端队列:允许在一端进行插入和删除，但在另一端只允许插入的双端队列称为输出受限的双端队列</p>
+<p>输入受限的双端队列:允许在一端进行插入和删除，但在另一端只允许删除的双端队列称为输入受限的双端队列</p>
+<h3 id="3-3-栈和队列的应用"><a href="#3-3-栈和队列的应用" class="headerlink" title="3.3 栈和队列的应用"></a>3.3 栈和队列的应用</h3><h4 id="3-3-1-栈在括号匹配中的应用"><a href="#3-3-1-栈在括号匹配中的应用" class="headerlink" title="3.3.1 栈在括号匹配中的应用"></a>3.3.1 栈在括号匹配中的应用</h4><p>思想如下</p>
+<ul>
+<li>初始设置一个空栈，顺序读入括号</li>
+<li>若是右括号，则或者使置于栈顶的元素得以消解，或者不合法输入</li>
+<li>若是左括号，则将其压入栈中</li>
+<li>当算法结束时，要保证栈为空</li>
+</ul>
+<h4 id="3-3-2-栈在表达式求值中的应用"><a href="#3-3-2-栈在表达式求值中的应用" class="headerlink" title="3.3.2 栈在表达式求值中的应用"></a>3.3.2 栈在表达式求值中的应用</h4><p>中缀表达式</p>
+<ul>
+<li>通常表达式</li>
+<li>例如<code>(a+b)*c</code></li>
+</ul>
+<p>后缀表达式</p>
+<ul>
+<li>运算符在操作数后面，在后缀表达式中已经考虑了运算符的优先级，没有括号</li>
+<li>例如<code>ab+c*</code></li>
+</ul>
+<p>中缀表达式转后缀表达式</p>
+<ol>
+<li>遇到操作数直接输出</li>
+<li>遇到操作符<ol>
+<li>若优先级大于栈顶元素，则压入栈中</li>
+<li>若优先级小于或等于栈顶元素，则弹出栈中操作符，直到优先级大于栈顶元素，然后压入栈中</li>
+</ol>
+</li>
+<li>遇到左括号，压入栈中</li>
+<li>遇到右括号，弹出栈顶元素直到弹出一个左括号</li>
+</ol>
+<h4 id="3-3-3-栈在递归中的应用"><a href="#3-3-3-栈在递归中的应用" class="headerlink" title="3.3.3 栈在递归中的应用"></a>3.3.3 栈在递归中的应用</h4><p>可以将递归算法转换为非递归算法，通常需要借助栈来实现这种转换</p>
+<h4 id="3-3-4-队列在层次遍历中的应用"><a href="#3-3-4-队列在层次遍历中的应用" class="headerlink" title="3.3.4 队列在层次遍历中的应用"></a>3.3.4 队列在层次遍历中的应用</h4><p>可以用队列实现二叉树的层次遍历，思路如下</p>
+<ol>
+<li>根节点入队</li>
+<li>若队空，则结束遍历，否则重复步骤3</li>
+<li>队列中的第一个节点出队，访问它，若其有左孩子，左孩子入队；若其有右孩子，右孩子入队。</li>
+</ol>
+<h4 id="3-3-5-队列在计算机系统中的应用"><a href="#3-3-5-队列在计算机系统中的应用" class="headerlink" title="3.3.5 队列在计算机系统中的应用"></a>3.3.5 队列在计算机系统中的应用</h4><ol>
+<li>解决主机与外部设备之间速度不匹配的问题</li>
+<li>解决由多用户引起的资源竞争问题</li>
+</ol>
+<h3 id="3-4-特殊矩阵的压缩存储"><a href="#3-4-特殊矩阵的压缩存储" class="headerlink" title="3.4 特殊矩阵的压缩存储"></a>3.4 特殊矩阵的压缩存储</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/25/数据结构考研-2-线性表/" rel="next" title="[数据结构考研][2][线性表]">
+                <i class="fa fa-chevron-left"></i> [数据结构考研][2][线性表]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/25/数据结构考研-4-树与二叉树/" rel="prev" title="[数据结构考研][4][树与二叉树]">
+                [数据结构考研][4][树与二叉树] <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/33653960?s=400&u=eb438b904ecb9d91f3aa9b777155a6488599493b&v=4" alt="T0UGH(GuiPing Wang)">
+            
+              <p class="site-author-name" itemprop="name">T0UGH(GuiPing Wang)</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/T0UGH" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="tough.neu.edu@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Friends
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://neusoftware.top/solo" title="ChengYi" target="_blank">ChengYi</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://mike4ellis.github.io/" title="Mike" target="_blank">Mike</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章-栈和队列"><span class="nav-number">1.</span> <span class="nav-text">第三章 栈和队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-栈"><span class="nav-number">1.1.</span> <span class="nav-text">3.1 栈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-栈的基本概念"><span class="nav-number">1.1.1.</span> <span class="nav-text">3.1.1 栈的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-栈的定义"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">1 栈的定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-栈的基本操作"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">2 栈的基本操作</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-栈的顺序存储结构"><span class="nav-number">1.1.2.</span> <span class="nav-text">3.1.2 栈的顺序存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-顺序栈的实现"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1 顺序栈的实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-顺序栈的基本运算"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">2 顺序栈的基本运算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-共享栈"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">3 共享栈</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-3-栈的链式存储结构"><span class="nav-number">1.1.3.</span> <span class="nav-text">3.1.3 栈的链式存储结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-4-其他"><span class="nav-number">1.1.4.</span> <span class="nav-text">3.1.4 其他</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-队列"><span class="nav-number">1.2.</span> <span class="nav-text">3.2 队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-队列的基本概念"><span class="nav-number">1.2.1.</span> <span class="nav-text">3.2.1 队列的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-队列的定义"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">1 队列的定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-队列常见的基本操作"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">2 队列常见的基本操作</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-队列的顺序存储结构"><span class="nav-number">1.2.2.</span> <span class="nav-text">3.2.2 队列的顺序存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-队列的顺序存储"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">1 队列的顺序存储</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-循环队列"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2 循环队列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-循环队列的操作"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">3 循环队列的操作</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-3-队列的链式存储"><span class="nav-number">1.2.3.</span> <span class="nav-text">3.2.3 队列的链式存储</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-队列的链式存储"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">1 队列的链式存储</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-链式队列的基本操作"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">2 链式队列的基本操作</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-4-双端队列"><span class="nav-number">1.2.4.</span> <span class="nav-text">3.2.4 双端队列</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-栈和队列的应用"><span class="nav-number">1.3.</span> <span class="nav-text">3.3 栈和队列的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-栈在括号匹配中的应用"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.3.1 栈在括号匹配中的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-2-栈在表达式求值中的应用"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.3.2 栈在表达式求值中的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-3-栈在递归中的应用"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3.3 栈在递归中的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-4-队列在层次遍历中的应用"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.3.4 队列在层次遍历中的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-5-队列在计算机系统中的应用"><span class="nav-number">1.3.5.</span> <span class="nav-text">3.3.5 队列在计算机系统中的应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-特殊矩阵的压缩存储"><span class="nav-number">1.4.</span> <span class="nav-text">3.4 特殊矩阵的压缩存储</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">T0UGH(GuiPing Wang)</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'E1MH6h0YP3yhA0PJsohNBgiT-gzGzoHsz',
+        appKey: 'YOiN6zLq3XGfKmlR0b8vyHtN',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
