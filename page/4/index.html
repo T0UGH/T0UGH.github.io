@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/linux-1-vim命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/18/了解SpringCloud/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/linux-1-vim命令/" itemprop="url">[linux][1][vim命令]</a></h1>
+                <a class="post-title-link" href="/2019/07/18/了解SpringCloud/" itemprop="url">了解SpringCloud</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T11:15:48+08:00">
-                2019-07-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-18T16:11:27+08:00">
+                2019-07-18
               </time>
             
 
@@ -313,19 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/vim/" itemprop="url" rel="index">
-                    <span itemprop="name">vim</span>
+                  <a href="/categories/other/" itemprop="url" rel="index">
+                    <span itemprop="name">other</span>
                   </a>
                 </span>
 
@@ -342,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/07/02/linux-1-vim命令/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/02/linux-1-vim命令/" itemprop="commentCount"></span>
+                <a href="/2019/07/18/了解SpringCloud/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/18/了解SpringCloud/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -373,268 +362,95 @@
       
         
           
-            <h3 id="1-vim-命令说明"><a href="#1-vim-命令说明" class="headerlink" title="1 vim 命令说明"></a>1 vim 命令说明</h3><h4 id="1-1-移动光标"><a href="#1-1-移动光标" class="headerlink" title="1.1 移动光标"></a>1.1 移动光标</h4><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>h / ←</td>
-<td>左移一个字符</td>
-</tr>
-<tr>
-<td>j / ↓</td>
-<td>下移一个字符</td>
-</tr>
-<tr>
-<td>k / ↑</td>
-<td>上移一个字符</td>
-</tr>
-<tr>
-<td>j / →</td>
-<td>右移一个字符</td>
-</tr>
-<tr>
-<td>30j</td>
-<td>右移30个字符</td>
-</tr>
-<tr>
-<td>ctrl + f</td>
-<td>下移一页</td>
-</tr>
-<tr>
-<td>ctrl + f</td>
-<td>上移一页</td>
-</tr>
-<tr>
-<td>20 + space</td>
-<td>向右移动20</td>
-</tr>
-<tr>
-<td>0</td>
-<td>移动到这一行开头</td>
-</tr>
-<tr>
-<td>$</td>
-<td>移动到这一行的最后字符</td>
-</tr>
-<tr>
-<td>H</td>
-<td>移动到屏幕最上方一行</td>
-</tr>
-<tr>
-<td>M</td>
-<td>移动到屏幕中央一行</td>
-</tr>
-<tr>
-<td>L</td>
-<td>移动到屏幕最下方一行</td>
-</tr>
-<tr>
-<td>G</td>
-<td><strong>移动到这个文件的最后一行</strong></td>
-</tr>
-<tr>
-<td>20G</td>
-<td>移动到这个文件的第20行</td>
-</tr>
-<tr>
-<td>gg</td>
-<td>移动到这个文件的第1行</td>
-</tr>
-<tr>
-<td>20 + enter</td>
-<td>下移20行</td>
-</tr>
-</tbody>
-</table>
-<h4 id="1-2-搜索替换"><a href="#1-2-搜索替换" class="headerlink" title="1.2 搜索替换"></a>1.2 搜索替换</h4><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>/word</td>
-<td>向后寻找名称为word的字符串</td>
-</tr>
-<tr>
-<td>?word</td>
-<td>向前寻找名称为word的字符串</td>
-</tr>
-<tr>
-<td>n</td>
-<td>向后移动到下一个名称为word的字符串</td>
-</tr>
-<tr>
-<td>N</td>
-<td>向前移动到下一个名称为word的字符串</td>
-</tr>
-</tbody>
-</table>
-<h4 id="1-3-删除、复制和粘贴"><a href="#1-3-删除、复制和粘贴" class="headerlink" title="1.3 删除、复制和粘贴"></a>1.3 删除、复制和粘贴</h4><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>x, X</td>
-<td>x向后删除一个字符, X向前删除一个字符</td>
-</tr>
-<tr>
-<td>10x</td>
-<td>向后删除10个字符</td>
-</tr>
-<tr>
-<td>dd</td>
-<td>删除整行</td>
-</tr>
-<tr>
-<td>10dd</td>
-<td>删除向下10行</td>
-</tr>
-<tr>
-<td>d$</td>
-<td>删除游标所在行，到该行的最后一个字符</td>
-</tr>
-<tr>
-<td>d0</td>
-<td>删除游标所在行，到该行的最前面一个字符</td>
-</tr>
-<tr>
-<td>yy</td>
-<td>复制游标所在的那一行</td>
-</tr>
-<tr>
-<td>20yy</td>
-<td>复制光标所在的向下20行</td>
-</tr>
-<tr>
-<td>y1G</td>
-<td>复制游标所在行到第一行的所有数据</td>
-</tr>
-<tr>
-<td>yG</td>
-<td>复制游标所在行到最后一行的所有数据</td>
-</tr>
-<tr>
-<td>y$</td>
-<td>复制游标所在行，到该行的最后一个字符</td>
-</tr>
-<tr>
-<td>y0</td>
-<td>复制游标所在行，到该行的最前面一个字符</td>
-</tr>
-<tr>
-<td>p,P</td>
-<td>粘贴</td>
-</tr>
-<tr>
-<td>J</td>
-<td>将光标所在行和下一行的数据结合为同一行</td>
-</tr>
-<tr>
-<td>u</td>
-<td>复原上一个动作</td>
-</tr>
-<tr>
-<td>ctrl + r</td>
-<td>重做上一个动作</td>
-</tr>
-<tr>
-<td>.</td>
-<td>重复前一个动作</td>
-</tr>
-</tbody>
-</table>
-<h4 id="1-4-一般模式切换到编辑模式"><a href="#1-4-一般模式切换到编辑模式" class="headerlink" title="1.4 一般模式切换到编辑模式"></a>1.4 一般模式切换到编辑模式</h4><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>i</td>
-<td>进入输入模式</td>
-</tr>
-<tr>
-<td>a</td>
-<td>进入输入模式</td>
-</tr>
-<tr>
-<td>o,O</td>
-<td>从下一行或上一行进入输入模式</td>
-</tr>
-<tr>
-<td>r,R</td>
-<td>进入取代模式, r会取代一次, R会一直取代</td>
-</tr>
-<tr>
-<td>esc</td>
-<td>退出编辑模式，回到一般模式</td>
-</tr>
-</tbody>
-</table>
-<h4 id="1-5-命令模式下的常用命令"><a href="#1-5-命令模式下的常用命令" class="headerlink" title="1.5 命令模式下的常用命令"></a>1.5 命令模式下的常用命令</h4><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>:w</td>
-<td>报错</td>
-</tr>
-<tr>
-<td>:w!</td>
-<td>若文件属性为只读，强制写入</td>
-</tr>
-<tr>
-<td>:q</td>
-<td>退出</td>
-</tr>
-<tr>
-<td>:q!</td>
-<td>不保存退出</td>
-</tr>
-<tr>
-<td>:wq</td>
-<td>报错后退出</td>
-</tr>
-<tr>
-<td>:w [filename]</td>
-<td>另存为</td>
-</tr>
-<tr>
-<td>:r [filename]</td>
-<td>在编辑的数据中，读入另一个档案的数据</td>
-</tr>
-<tr>
-<td>:! command</td>
-<td>调用系统命令，如<code>:! ls</code></td>
-</tr>
-<tr>
-<td>:set nu</td>
-<td>显示行号</td>
-</tr>
-<tr>
-<td>:set nonu</td>
-<td>不显示行号</td>
-</tr>
-</tbody>
-</table>
+            <h2 id="SpringCloud初步了解"><a href="#SpringCloud初步了解" class="headerlink" title="SpringCloud初步了解"></a>SpringCloud初步了解</h2><p><a href="http://www.ityouknow.com/spring-cloud.html" target="_blank" rel="noopener">原文地址</a></p>
+<h3 id="1-大话SpringCloud"><a href="#1-大话SpringCloud" class="headerlink" title="1 大话SpringCloud"></a>1 大话SpringCloud</h3><p>Spring Cloud从技术架构上降低了对大型系统构建的要求，使我们以非常低的成本（技术或者硬件）搭建一套高效、分布式、容错的平台</p>
+<h4 id="1-1-SpringCloud"><a href="#1-1-SpringCloud" class="headerlink" title="1.1 SpringCloud"></a>1.1 SpringCloud</h4><p>Spring Cloud是一系列框架的集合。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。</p>
+<p>微服务是可以独立部署、水平扩展、独立访问（或者有独立的数据库）的服务单元，springcloud就是这些微服务的管家，采用了微服务这种架构之后，项目的数量会非常多</p>
+<h4 id="1-2-和SpringBoot的关系"><a href="#1-2-和SpringBoot的关系" class="headerlink" title="1.2 和SpringBoot的关系"></a>1.2 和SpringBoot的关系</h4><ul>
+<li>Spring Boot 是 Spring 的一套快速配置脚手架，可以基于Spring Boot 快速开发单个微服务</li>
+<li>Spring Cloud是一个基于Spring Boot实现的云应用开发工具</li>
+<li>Spring Boot专注于快速、方便集成的单个个体，Spring Cloud是关注全局的服务治理框架</li>
+<li>Spring Boot使用了默认大于配置的理念，很多集成方案已经帮你选择好了，能不配置就不配置</li>
+<li>Spring Cloud很大的一部分是基于Spring Boot来实现，但Spring Boot可以离开Spring Cloud独立使用开发项目</li>
+</ul>
+<h4 id="1-3-Spring-Cloud的优势"><a href="#1-3-Spring-Cloud的优势" class="headerlink" title="1.3 Spring Cloud的优势"></a>1.3 Spring Cloud的优势</h4><ul>
+<li>产出于spring大家族，可以保证后续的更新、完善</li>
+<li>Spring Boot提供的开箱即用性</li>
+<li>作为一个微服务治理的大家伙，考虑的很全面，几乎服务治理的方方面面都考虑到了</li>
+<li>Spring Cloud 活跃度很高，教程很丰富，遇到问题很容易找到解决方案</li>
+<li>轻轻松松几行代码就完成了熔断、均衡负载、服务中心的各种平台功能</li>
+</ul>
+<h4 id="1-4-其他"><a href="#1-4-其他" class="headerlink" title="1.4 其他"></a>1.4 其他</h4><ul>
+<li><p>Spring Cloud对于中小型互联网公司来说是一种福音，因为这类公司往往没有实力或者没有足够的资金投入去开发自己的分布式系统基础设施，使用Spring Cloud一站式解决方案能在从容应对业务发展的同时大大减少开发成本。</p>
+</li>
+<li><p>同时，随着近几年微服务架构和Docker容器概念的火爆，也会让Spring Cloud在未来越来越“云”化的软件开发风格中立有一席之地，尤其是在目前五花八门的分布式解决方案中提供了标准化的、全站式的技术方案，意义可能会堪比当前Servlet规范的诞生，有效推进服务端软件系统技术水平的进步。</p>
+</li>
+</ul>
+<h3 id="2-注册中心Eureka"><a href="#2-注册中心Eureka" class="headerlink" title="2 注册中心Eureka"></a>2 注册中心Eureka</h3><h4 id="2-1-注册中心"><a href="#2-1-注册中心" class="headerlink" title="2.1 注册中心"></a>2.1 注册中心</h4><p>注册中心，管理各种服务功能包括服务的注册、发现、熔断、负载、降级等</p>
+<p>正常调用项目A请求项目B<br><img src="/2019/07/18/了解SpringCloud/0718_1.jpg" alt=""></p>
+<p>有了服务中心之后，任何一个服务都不能直接去调用，都需要通过服务中心来调用<br><img src="/2019/07/18/了解SpringCloud/0718_0.jpg" alt=""></p>
+<p>通过服务中心来获取服务你不需要关注你调用的项目IP地址，由几台服务器组成，每次直接去服务中心获取可以使用的服务去调用即可</p>
+<p>由于各种服务都注册到了服务中心，就有了去做很多高级功能条件</p>
+<ol>
+<li>几台服务提供相同服务来做均衡负载</li>
+<li>监控服务器调用成功率来做熔断，移除服务列表中的故障点</li>
+<li>监控服务调用时间来对不同的服务器设置不同的权重等等。</li>
+</ol>
+<h4 id="2-2-Eureka"><a href="#2-2-Eureka" class="headerlink" title="2.2 Eureka"></a>2.2 Eureka</h4><p><img src="/2019/07/18/了解SpringCloud/0718_2.png" alt=""></p>
+<p>Eureka的基础架构</p>
+<ol>
+<li>Eureka Server: 提供服务注册和发现</li>
+<li>Service Provider: 服务提供方，将自身服务注册到Eureka中，从而使得服务消费方能够找到</li>
+<li>Service Consumer: 服务消费方，从Eureka获取注册服务列表，从而能够消费服务</li>
+</ol>
+<h3 id="3-熔断器Hystrix"><a href="#3-熔断器Hystrix" class="headerlink" title="3 熔断器Hystrix"></a>3 熔断器Hystrix</h3><h4 id="3-1-雪崩效应"><a href="#3-1-雪崩效应" class="headerlink" title="3.1 雪崩效应"></a>3.1 雪崩效应</h4><p>在微服务架构中通常会有多个服务层调用，基础服务的故障可能会导致级联故障，进而造成整个系统不可用的情况，这种现象被称为服务雪崩效应。</p>
+<p>服务雪崩效应是一种因服务提供者的不可用导致服务消费者的不可用,并将不可用逐渐放大的过程。</p>
+<p>如下图所示: A作为服务提供者，B为A的服务消费者，C和D是B的服务消费者。A不可用引起了B不可用，并将不可用像滚雪球一样放大到C和D，雪崩效应形成了</p>
+<p><img src="/2019/07/18/了解SpringCloud/0718_3.png" alt=""></p>
+<h4 id="3-2-熔断器"><a href="#3-2-熔断器" class="headerlink" title="3.2 熔断器"></a>3.2 熔断器</h4><p>熔断器可以实现快速失败，如果它在一段时间内侦测到许多类似的错误，会强迫其以后的多个调用快速失败，不再访问远程服务器，使得应用程序继续执行而不浪费CPU时间去等待长时间的超时产生。</p>
+<p>熔断器也可以使应用程序能够诊断错误是否已经修正，如果已经修正，应用程序会再次尝试调用操作。</p>
+<p>熔断器模式就像是那些容易导致错误的操作的一种代理。这种代理能够记录最近调用发生错误的次数，然后决定是允许操作继续，还是快速失败。熔断器开关相互转换的逻辑如下图：</p>
+<p><img src="/2019/07/18/了解SpringCloud/0719_4.png" alt=""></p>
+<h4 id="3-2-3-Hystrix特性"><a href="#3-2-3-Hystrix特性" class="headerlink" title="3.2.3 Hystrix特性"></a>3.2.3 Hystrix特性</h4><ol>
+<li><p>断路器机制</p>
+<ul>
+<li>当Hystrix Command请求后端服务失败数量超过一定比例(默认50%), 断路器会切换到开路状态(Open). 这时所有请求会直接失败而不会发送到后端服务</li>
+<li>断路器保持在开路状态一段时间后(默认5秒), 自动切换到半开路状态(HALF-OPEN). 这时会判断下一次请求的返回情况, 如果请求成功, 断路器切回闭路状态(CLOSED), 否则重新切换到开路状态(OPEN)</li>
+<li>一旦后端服务不可用, 断路器会直接切断请求链, 避免发送大量无效请求影响系统吞吐量, 并且断路器有自我检测并恢复的能力.</li>
+</ul>
+</li>
+<li><p>Fallback</p>
+<ul>
+<li>Fallback相当于是降级操作</li>
+<li>对于查询操作, 我们可以实现一个fallback方法, 当请求后端服务出现异常的时候, 可以使用fallback方法返回的值</li>
+<li>fallback方法的返回值一般是设置的默认值或者来自缓存.</li>
+</ul>
+</li>
+<li><p>资源隔离</p>
+<ul>
+<li>在Hystrix中, 主要通过线程池来实现资源隔离</li>
+<li>通常在使用的时候我们会根据调用的远程服务划分出多个线程池. 例如调用产品服务的Command放入A线程池, 调用账户服务的Command放入B线程池. 这样做的主要优点是运行环境被隔离开了. </li>
+<li>这样就算调用服务的代码存在bug或者由于其他原因导致自己所在线程池被耗尽时, 不会对系统的其他服务造成影响. </li>
+</ul>
+</li>
+</ol>
+<h3 id="4-服务网关Zuul"><a href="#4-服务网关Zuul" class="headerlink" title="4 服务网关Zuul"></a>4 服务网关Zuul</h3><p>在微服务架构中，后端服务往往不直接开放给调用端，而是通过一个API网关根据请求的url，路由到相应的服务。</p>
+<p>当添加API网关后，在第三方调用端和服务提供方之间就创建了一面墙，这面墙直接与调用方通信进行权限控制，后将请求均衡分发给后台服务端。</p>
+<h4 id="4-1-为什么需要API-GateWay"><a href="#4-1-为什么需要API-GateWay" class="headerlink" title="4.1 为什么需要API GateWay"></a>4.1 为什么需要API GateWay</h4><p>在微服务架构模式下后端服务的实例数一般是动态的，对于客户端而言很难发现动态改变的服务实例的访问地址信息。<br>因此在基于微服务的项目中为了简化前端的调用逻辑，通常会引入API Gateway作为轻量级网关，同时API Gateway中也会实现相关的认证逻辑从而简化内部服务之间相互调用的复杂度。</p>
+<p><img src="/2019/07/18/了解SpringCloud/0718_4.png" alt=""></p>
+<h3 id="5-Spring-Cloud-Config配置中心"><a href="#5-Spring-Cloud-Config配置中心" class="headerlink" title="5 Spring Cloud Config配置中心"></a>5 Spring Cloud Config配置中心</h3><p>随着线上项目变的日益庞大，每个项目都散落着各种配置文件，如果采用分布式的开发模式，需要的配置文件随着服务增加而不断增多。</p>
+<p>某一个基础服务信息变更，都会引起一系列的更新和重启，配置中心便是解决此类问题的灵丹妙药。</p>
+<h4 id="5-1-配置中心提供的核心功能"><a href="#5-1-配置中心提供的核心功能" class="headerlink" title="5.1 配置中心提供的核心功能"></a>5.1 配置中心提供的核心功能</h4><ul>
+<li>提供服务端和客户端支持</li>
+<li>集中管理各环境的配置文件</li>
+<li>配置文件修改之后，可以快速的生效</li>
+<li>可以进行版本管理</li>
+<li>支持大的并发查询</li>
+<li>支持各种语言</li>
+</ul>
+<h4 id="5-2-Spring-Cloud-Config"><a href="#5-2-Spring-Cloud-Config" class="headerlink" title="5.2 Spring Cloud Config"></a>5.2 Spring Cloud Config</h4><p>Spring Cloud Config项目是一个解决分布式系统的配置管理方案。</p>
+<p>它包含了Client和Server两个部分，server提供配置文件的存储、以接口的形式将配置文件的内容提供出去，client通过接口获取数据、并依据此数据初始化自己的应用。</p>
+<p>Spring cloud使用git或svn存放配置文件，默认情况下使用git</p>
 
           
         
@@ -674,7 +490,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/45/">45</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/">46</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -722,7 +538,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -733,7 +549,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -744,7 +560,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
