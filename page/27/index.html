@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Docker-1-简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Docker-2-核心技术/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/22/Docker-1-简介/" itemprop="url">[Docker][1][简介]</a></h1>
+                <a class="post-title-link" href="/2019/05/22/Docker-2-核心技术/" itemprop="url">[Docker][2][核心技术]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T23:19:36+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T23:19:50+08:00">
                 2019-05-22
               </time>
             
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/05/22/Docker-1-简介/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/22/Docker-1-简介/" itemprop="commentCount"></span>
+                <a href="/2019/05/22/Docker-2-核心技术/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/22/Docker-2-核心技术/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,76 +362,320 @@
       
         
           
-            <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h2><p>点此进入<a href="https://labs.play-with-docker.com/" target="_blank" rel="noopener">play with docker</a></p>
-<h3 id="1-1-容器发展之路"><a href="#1-1-容器发展之路" class="headerlink" title="1.1 容器发展之路"></a>1.1 容器发展之路</h3><ol>
-<li><p>曾经，每个服务器只能运行单一应用。Windows和Linux操作系统都没有相应的技术手段来保证在一台服务器上稳定运行多个应用</p>
+            <h2 id="2-核心技术"><a href="#2-核心技术" class="headerlink" title="2 核心技术"></a>2 核心技术</h2><h3 id="2-1-Docker镜像"><a href="#2-1-Docker镜像" class="headerlink" title="2.1 Docker镜像"></a>2.1 Docker镜像</h3><h4 id="2-1-1-Docker镜像"><a href="#2-1-1-Docker镜像" class="headerlink" title="2.1.1 Docker镜像"></a>2.1.1 Docker镜像</h4><ul>
+<li><p>Docker镜像就像停止运行的容器</p>
 </li>
-<li><p>VM技术是一种允许多应用能够稳定、安全同时运行在一个服务器上的技术</p>
+<li><p>可以从镜像仓库服务中拉取镜像，拉取操作会将镜像下载到本地Docker主机</p>
 </li>
-<li><p>虚拟机缺点是依靠其专用的操作系统，OS会额外消耗资源</p>
+<li><p>使用镜像可以启动多个容器</p>
 </li>
-<li><p>容器模型与虚拟机模型的区别是容器的运行不会独占操作系统</p>
+<li><p>镜像由很多层组成，每层叠加之后，在外部看就像一个独立的对象。</p>
 </li>
-<li><p>容器的优点是启动快且便于迁移</p>
+<li><p>镜像内部是一个精简的操作系统，其中包含应用运行所必须的文件和依赖包</p>
 </li>
-<li><p>Kubernetes是Docker之上的一个平台，现在采用Docker实现其底层容器相关的操作</p>
+</ul>
+<h4 id="2-1-2-镜像与容器"><a href="#2-1-2-镜像与容器" class="headerlink" title="2.1.2 镜像与容器"></a>2.1.2 镜像与容器</h4><ul>
+<li><p>镜像可以启动一个或多个容器</p>
+</li>
+<li><p>一旦容器从镜像启动后，二者就是相互依赖的，并且在镜像上启动的容器全部停止之前，镜像是无法被删除的</p>
+</li>
+</ul>
+<h4 id="2-1-3-镜像通常较小"><a href="#2-1-3-镜像通常较小" class="headerlink" title="2.1.3 镜像通常较小"></a>2.1.3 镜像通常较小</h4><ul>
+<li><p>镜像中包含了应用/服务运行时必须的操作系统和应用文件</p>
+</li>
+<li><p>构建镜像时通常要剪裁掉不必要的部分，保持较小的体积</p>
+</li>
+<li><p>镜像不包含内核，共享操作系统内核</p>
+</li>
+</ul>
+<h4 id="2-1-4-镜像拉取和镜像仓库"><a href="#2-1-4-镜像拉取和镜像仓库" class="headerlink" title="2.1.4 镜像拉取和镜像仓库"></a>2.1.4 镜像拉取和镜像仓库</h4><ul>
+<li><p>通过 <code>docker pull</code>可将镜像拉取到本地主机</p>
+</li>
+<li><p>Docker镜像存储在镜像仓库服务中。镜像仓库服务包含了多个镜像仓库。同样，一个镜像仓库包含多个镜像</p>
+</li>
+<li><p>官方仓库中的镜像是安全可靠的，大多数流行的操作系统和应用在Docker Hub的官方仓库中都有其对应得镜像</p>
+</li>
+</ul>
+<h4 id="2-1-5-镜像命名和标签"><a href="#2-1-5-镜像命名和标签" class="headerlink" title="2.1.5 镜像命名和标签"></a>2.1.5 镜像命名和标签</h4><ul>
+<li><p>只需要给出镜像的名字和标签，就可以从官方仓库定位一个镜像，例如<code>alpine:latest</code></p>
+</li>
+<li><p>从非官方仓库拉取镜像，需要在仓库名称面前加上对应作者Docker Hub的用户名，例如:<code>tough/test:v1</code></p>
+</li>
+</ul>
+<h4 id="2-1-6-镜像与分层"><a href="#2-1-6-镜像与分层" class="headerlink" title="2.1.6 镜像与分层"></a>2.1.6 镜像与分层</h4><ul>
+<li><p>Docker镜像由一些松耦合的只读镜像层组成</p>
+</li>
+<li><p>Docker负责堆叠这些镜像层，并且表示为单个统一的对象</p>
+</li>
+<li><p>所有的Docker镜像都起始于一个基础镜像层，当进行修改或增加新的内容时，就会在当前的镜像层之上创建新的镜像层，如下图所示</p>
+<p>  <img src="/2019/05/22/Docker-2-核心技术/0521_0.jpg" alt=""></p>
+</li>
+<li>docker通过存储引擎的方式来实现镜像层堆叠，并对外展示为统一的文件系统</li>
+</ul>
+<h4 id="2-1-7-共享镜像层"><a href="#2-1-7-共享镜像层" class="headerlink" title="2.1.7 共享镜像层"></a>2.1.7 共享镜像层</h4><ul>
+<li><p>Docker可以识别出要拉取的镜像中，哪几层已经在本地存在了，然后共享这几层，可以有效节省空间并提升性能</p>
+</li>
+<li><p>每个存储引擎都有自己的镜像分层、镜像层共享以及写时复制</p>
+</li>
+</ul>
+<h4 id="2-1-8-镜像散列值-摘要"><a href="#2-1-8-镜像散列值-摘要" class="headerlink" title="2.1.8 镜像散列值(摘要)"></a>2.1.8 镜像散列值(摘要)</h4><ul>
+<li><p>内容散列: 散列值与镜像中所有文件的内容有关，修改镜像的配置或者修改任意的镜像层，都会导致加密散列值的变化</p>
+</li>
+<li><p>内容寻址模型极大提升了安全性，提供了一种方式来保证镜像和镜像层数据是一致的</p>
+</li>
+</ul>
+<h3 id="2-2-Docker容器"><a href="#2-2-Docker容器" class="headerlink" title="2.2 Docker容器"></a>2.2 Docker容器</h3><h4 id="2-2-1-Docker容器"><a href="#2-2-1-Docker容器" class="headerlink" title="2.2.1 Docker容器"></a>2.2.1 Docker容器</h4><ul>
+<li><p>容器是镜像的运行时实例，可以从单个镜像上启动一个或多个容器</p>
+</li>
+<li><p>容器会随着其中运行应用的退出而终止</p>
+</li>
+<li><p>常用命令</p>
+<ul>
+<li>使用<code>docker run</code>命令可以启动容器</li>
+<li>使用<code>docker stop</code>命令可以暂停容器</li>
+<li>使用<code>docker start</code>命令可以重启容器</li>
+<li>使用<code>docker rm</code>命令可以删除容器</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-2-容器vs虚拟机"><a href="#2-2-2-容器vs虚拟机" class="headerlink" title="2.2.2 容器vs虚拟机"></a>2.2.2 容器vs虚拟机</h4><ul>
+<li><p>容器和虚拟机都依赖于宿主机才能运行</p>
+</li>
+<li><p>容器模型</p>
+<ol>
+<li>首先，OS也占用全部硬件资源</li>
+<li>在OS层之上要安装容器引擎，容器引擎可以获得系统资源，</li>
+<li>接着把资源分割为安全的互相隔离的资源结构，称之为容器</li>
+<li>每个容器看起来像一个真实的操作系统，在其内部可以运行应用</li>
+</ol>
+</li>
+<li><p>更多的</p>
+<ul>
+<li>Hypervisor是硬件虚拟化(Hardware Virtualization)将硬件物理资源划分为虚拟资源</li>
+<li>容器是操作系统虚拟化，将操作系统资源划分为虚拟资源</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-3-虚拟机的额外开销"><a href="#2-2-3-虚拟机的额外开销" class="headerlink" title="2.2.3 虚拟机的额外开销"></a>2.2.3 虚拟机的额外开销</h4><ul>
+<li><p>每个虚拟机都有一份OS损耗，而容器只有一份OS损耗</p>
+</li>
+<li><p>虚拟机因为需要启动操作系统，启动速度慢，容器只需要启动位于下层操作系统的共享内核，启动速度快</p>
+</li>
+</ul>
+<h4 id="2-2-4-容器进程"><a href="#2-2-4-容器进程" class="headerlink" title="2.2.4 容器进程"></a>2.2.4 容器进程</h4><ul>
+<li><p>容器中的进程是精简的，比普通操作系统要少</p>
+</li>
+<li><p>杀死容器中的主进程，则容器也会被杀死，这个主进程一般是<code>pid</code>为<code>1</code>的进程，但是这种进程一般是杀不死的</p>
+</li>
+</ul>
+<h4 id="2-2-5-容器生命周期"><a href="#2-2-5-容器生命周期" class="headerlink" title="2.2.5 容器生命周期"></a>2.2.5 容器生命周期</h4><p>生命周期</p>
+<ol>
+<li><p><code>docker run</code> 启动容器</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --name percy -it ubuntu:latest:/bin/bash</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>docker stop</code> 停止容器</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker stop percy</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>docker start</code> 重启容器</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker start percy</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除容器需要两步，先停止容器再删除容器</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker stop percy</span><br><span class="line">$ docker rm percy</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h3 id="1-2-走进Docker"><a href="#1-2-走进Docker" class="headerlink" title="1.2 走进Docker"></a>1.2 走进Docker</h3><ul>
-<li><p>Docker是一种运行于Linux和Windows上的软件，用于创建、管理和编排容器</p>
-</li>
-<li><p>Docker一词源于英国口语，意为码头工人，即从船上装卸货物的人</p>
-</li>
-<li><p>Moby是Github上Docker的开源项目</p>
-</li>
-<li><p>许多Docker内置的组件都是可拔插的，即可以替换为第三方的组件</p>
-</li>
-<li><p>OCI(开放容器计划)是一个旨在对容器基础架构中的基础组件进行标准化的机构。目前已经制订了镜像规范和运行时规范，将容器生态团结起来</p>
-</li>
-</ul>
-<h3 id="1-3-Docker安装"><a href="#1-3-Docker安装" class="headerlink" title="1.3 Docker安装"></a>1.3 Docker安装</h3><ul>
-<li><p>win10专业版，进bios开虚拟化，启动Hyper-x，去<a href="https://hub.docker.com/editions/community/docker-ce-desktop-windows" target="_blank" rel="noopener">这里</a>现在Docker for Windows版</p>
-</li>
-<li><p>每个Docker容器都有一个本地存储空间，本地存储是通过存储驱动(Storage Driver)进行管理的</p>
-</li>
-</ul>
-<h3 id="1-4-纵观Docker"><a href="#1-4-纵观Docker" class="headerlink" title="1.4 纵观Docker"></a>1.4 纵观Docker</h3><h4 id="1-4-1-运维视角"><a href="#1-4-1-运维视角" class="headerlink" title="1.4.1 运维视角"></a>1.4.1 运维视角</h4><ul>
-<li><p>Docker有两个主要组件:Docker客户端和Docker deamon(服务端或者引擎)</p>
-</li>
-<li><p>镜像</p>
+<p>其他</p>
 <ul>
-<li>可将镜像理解为一个包含基础操作系统，以及应用程序运行所需的代码和依赖包</li>
-<li>实际等价于未运行的容器</li>
-<li>Docker的每个镜像都有自己唯一的id</li>
+<li>直到明确删除容器前，容器的数据都不会丢弃</li>
+<li>就算删除了容器，如果将容器数据存储到卷中，数据也会被保存</li>
+<li>尽量使用两步来删除容器，让容器有机会正常停止手头的工作</li>
 </ul>
+<h4 id="2-2-6-重启策略"><a href="#2-2-6-重启策略" class="headerlink" title="2.2.6 重启策略"></a>2.2.6 重启策略</h4><ol>
+<li><p><code>always</code>: 除非容器被明确停止，否则该策略会一直尝试重启处于停止状态的容器</p>
 </li>
-<li><p>容器</p>
+<li><p><code>unless-stopped</code>: 哪些处于Stopped状态的容器，不会在Docker daemon 重启的时候重启</p>
+</li>
+<li><p><code>on-failure</code>: 在退出容器且返回值不是0的时候，重启容器</p>
+</li>
+</ol>
+<h4 id="2-2-7-docker-run的一些参数"><a href="#2-2-7-docker-run的一些参数" class="headerlink" title="2.2.7 docker run的一些参数"></a>2.2.7 <code>docker run</code>的一些参数</h4><p>例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --name webserver -p 80:8080 nige/dock</span><br></pre></td></tr></table></figure></p>
 <ul>
-<li>可以从容器来启动镜像</li>
-<li><code>docker run</code>可以运行镜像</li>
-<li><code>Ctrl-PQ</code>组合键可以在退出容器的同时保证容器运行</li>
-<li><code>docker ls</code>列出系统内部处于运行状态的容器</li>
+<li><p><code>-d</code>：表示后台模式，告知容器在后台运行</p>
+</li>
+<li><p><code>-p</code>将Docker主机的端口映射到容器内，这里是将Docker主机的80端口映射到容器内的8080端口，这意味着当有流量访问主机的80端口时，流量会直接映射到容器的8080端口</p>
+</li>
+</ul>
+<h3 id="2-3-应用的容器化"><a href="#2-3-应用的容器化" class="headerlink" title="2.3 应用的容器化"></a>2.3 应用的容器化</h3><ul>
+<li>Docker的核心思想就是如何将应用整合到容器中，并且能在容器中实际运行，这个过程称为容器化</li>
+</ul>
+<h4 id="2-3-1-容器化简介"><a href="#2-3-1-容器化简介" class="headerlink" title="2.3.1 容器化简介"></a>2.3.1 容器化简介</h4><ul>
+<li><p>容器是为应用而生</p>
+</li>
+<li><p>容器化的步骤</p>
+<ol>
+<li>编写应用代码</li>
+<li>创建一个<code>Dockerfile</code>，其中包括当前应用的描述、依赖以及该如何运行这个应用</li>
+<li>对该<code>Dockerfile</code>执行<code>docker image build</code>命令</li>
+<li>等待Docker将应用程序构建到<code>Docker</code>镜像中</li>
+<li>运行，从镜像中产生容器</li>
+</ol>
+</li>
+<li><p>容器化的基本过程<br>  <img src="/2019/05/22/Docker-2-核心技术/0522_2.jpg" alt=""></p>
+</li>
+</ul>
+<h4 id="2-3-2-单体应用容器化"><a href="#2-3-2-单体应用容器化" class="headerlink" title="2.3.2 单体应用容器化"></a>2.3.2 单体应用容器化</h4><h5 id="1-获取应用代码"><a href="#1-获取应用代码" class="headerlink" title="1 获取应用代码"></a>1 获取应用代码</h5><ul>
+<li><p>这里先介绍如何完成单节点应用的容器化，也可以使用Docker Compose完成多节点应用容器化</p>
+</li>
+<li><p><a href="https://github.com/nigelpoulton/psweb" target="_blank" rel="noopener">应用代码地址</a></p>
+</li>
+</ul>
+<h5 id="2-分析Docker文件"><a href="#2-分析Docker文件" class="headerlink" title="2 分析Docker文件"></a>2 分析Docker文件</h5><ul>
+<li><p>源码</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># Test web-app to use with Pluralsight courses and Docker Deep Dive book</span><br><span class="line"># Linux x64</span><br><span class="line">FROM alpine</span><br><span class="line"></span><br><span class="line">LABEL maintainer=&quot;nigelpoulton@hotmail.com&quot;</span><br><span class="line"></span><br><span class="line"># Install Node and NPM</span><br><span class="line">RUN apk add --update nodejs nodejs-npm</span><br><span class="line"></span><br><span class="line"># Copy app to /src</span><br><span class="line">COPY . /src</span><br><span class="line"></span><br><span class="line">WORKDIR /src</span><br><span class="line"></span><br><span class="line"># Install dependencies</span><br><span class="line">RUN  npm install</span><br><span class="line"></span><br><span class="line">EXPOSE 8080</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [&quot;node&quot;, &quot;./app.js&quot;]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Dockerfile通常放到构建上下文的根目录</p>
+</li>
+<li><p>Dockerfile的主要用途</p>
+<ul>
+<li>Dockerfile对当前应用及其依赖有个清晰的描述</li>
+<li>可以指导Docker完成应用的容器化</li>
+</ul>
+</li>
+<li><p>上述docker文件的步骤</p>
+<ol>
+<li>以alpine镜像为当前镜像基础<ul>
+<li>每个Dockerfile的第一行都是<code>FROM</code>指令</li>
+<li><code>FROM</code>指令指定的镜像，会作为当前镜像的一个基础镜像</li>
+</ul>
+</li>
+<li>指定维护者，使用<code>LABEL</code>标签</li>
+<li>安装Node.js和NPM<ul>
+<li><code>RUN apk add --update nodejs nodejs-npm</code>指令使用alpine中的apk包管理器将nodejs和npm安装到当前镜像中</li>
+<li><code>RUN</code>指令会在<code>FROM</code>指定的alpine基础镜像之上，新建一个镜像层来存储这些安装内容</li>
+</ul>
+</li>
+<li>将应用的代码复制到镜像当中<ul>
+<li><code>COPY . /src</code>指令将应用相关文件从构建上下文复制到当前镜像中，并新建一个镜像层来存储</li>
+</ul>
+</li>
+<li>设置新的工作目录<ul>
+<li>Dockerfile通过<code>WORKDIR</code>命令，为Dockerfile中尚未执行的指令设置工作目录</li>
+</ul>
+</li>
+<li>安装依赖包<ul>
+<li><code>npm install</code>用来安装当前应用的相关依赖包，并且新建镜像层来保存相关的依赖文件</li>
+</ul>
+</li>
+<li>配置应用的网络端口<ul>
+<li><code>EXPOSE 8080</code>指令可以完成相应端口的设置</li>
+<li>这个配置信息会作为镜像的元数据保存，不会产生新的镜像层</li>
+</ul>
+</li>
+<li>将<code>app.js</code>设置为默认运行的应用<ul>
+<li>通过<code>ENTRYPOINT</code>指令指定当前镜像的入口程序。</li>
+<li>这个配置信息会作为镜像的元数据保存，不会产生新的镜像层</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h5 id="3-构建镜像"><a href="#3-构建镜像" class="headerlink" title="3 构建镜像"></a>3 构建镜像</h5><ul>
+<li><p>执行如下指令</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker image build -t web:latest .</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>其中，命令最后的<code>.</code>表示Docker在构建过程中，使用当前目录作为上下文</p>
+</li>
+</ul>
+<h5 id="4-推送镜像到仓库"><a href="#4-推送镜像到仓库" class="headerlink" title="4 推送镜像到仓库"></a>4 推送镜像到仓库</h5><ul>
+<li><p>可以将镜像保存在一个镜像仓库服务，这样存储比较安全，且可以被其他人访问到</p>
+</li>
+<li><p>需要为镜像打标签，且置于自己用户名的二级目录下，例如</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker image tag web:latest t0ugh/web:latest</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过执行如下命令，将镜像推到仓库</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker image push t0ugh/web:latest</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="5-运行应用程序"><a href="#5-运行应用程序" class="headerlink" title="5 运行应用程序"></a>5 运行应用程序</h5><ul>
+<li><p>运行如下指令，基于上述镜像启动容器</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --name -c1 -p 80:8080 web:latest</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这个命令会把容器内部的8080端口映射到Docker主机的80端口</p>
+</li>
+</ul>
+<h5 id="6-其他"><a href="#6-其他" class="headerlink" title="6 其他"></a>6 其他</h5><ul>
+<li><p>Dockerfile中的注释，使用<code>#</code>开头</p>
+</li>
+<li><p>除了注释之外，都是指令</p>
+</li>
+<li><p><code>Docker image build</code>命令会按行解析Dockerfile中的指令并且顺序执行</p>
+</li>
+<li><p>如果指令的作用是向镜像中增添新的文件或者程序，那么这条指令就会新建镜像层；如果只是告诉Docker如何完成构建或者如何运行程序，那么只会增加镜像的元数据</p>
+</li>
+<li><p><code>docker image history</code>查看构建过程中的历史</p>
+</li>
+<li><p><code>docker image inspect</code>查看镜像元数据</p>
+</li>
+</ul>
+<h4 id="2-3-3-生产环境中的多阶段构建"><a href="#2-3-3-生产环境中的多阶段构建" class="headerlink" title="2.3.3 生产环境中的多阶段构建"></a>2.3.3 生产环境中的多阶段构建</h4><ul>
+<li><p>背景：如前所示，正常的构建过程有可能引入大量并不必须的内容，比如，下载完对应的包后，就不再需要NPM或者Maven。再比如，用webpack打包完js文件后，就不再需要node了</p>
+</li>
+<li><p>多阶段构建可以解决这个问题，让镜像的体积更小</p>
+</li>
+<li><p>它可以从之前的构建阶段中仅复制生产环境相关的应用代码，而不复制生产环境不需要的构件</p>
+</li>
+</ul>
+<h4 id="2-3-4-其他"><a href="#2-3-4-其他" class="headerlink" title="2.3.4 其他"></a>2.3.4 其他</h4><ol>
+<li><p>利用构建缓存</p>
+</li>
+<li><p>合并镜像</p>
+</li>
+<li><p>使用no-install-recommends:它可以保证使用API包管理器时，只安装核心依赖</p>
+</li>
+<li><p>不要安装MSI包</p>
+</li>
+</ol>
+<h3 id="2-4-使用Docker-Compose部署应用"><a href="#2-4-使用Docker-Compose部署应用" class="headerlink" title="2.4 使用Docker Compose部署应用"></a>2.4 使用Docker Compose部署应用</h3><h4 id="2-4-1-简介"><a href="#2-4-1-简介" class="headerlink" title="2.4.1 简介"></a>2.4.1 简介</h4><ul>
+<li><p>Docker Compose主要用于部署分布在多容器中的应用</p>
+</li>
+<li><p>它是一个需要在Docker主机上进行安装的Python工具，使用时需要编写定义多容器应用的<code>YAML</code>文件，然后将其交给<code>docker-compose</code>命令处理，<code>docker-compose</code>会基于Docker引擎API完成应用的部署</p>
+</li>
+<li><p>还提供了一系列命令来管理应用的完整生命周期</p>
+</li>
+<li><p>可以将Docker Compose的配置文件置于版本管理系统中管理</p>
+<p>  <img src="/2019/05/22/Docker-2-核心技术/0522_0.png" alt=""></p>
+</li>
+</ul>
+<h4 id="2-4-2-在Linux上安装Docker-Compose"><a href="#2-4-2-在Linux上安装Docker-Compose" class="headerlink" title="2.4.2 在Linux上安装Docker Compose"></a>2.4.2 在Linux上安装Docker Compose</h4><ol>
+<li><p>使用curl命令下载二进制文件</p>
+</li>
+<li><p>使用chmod命令将其置为可运行</p>
+</li>
+</ol>
+<h4 id="2-4-3-解读Compose文件"><a href="#2-4-3-解读Compose文件" class="headerlink" title="2.4.3 解读Compose文件"></a>2.4.3 解读Compose文件</h4><ul>
+<li><p>Docker Compose使用YAML文件来定义多服务的应用</p>
+</li>
+<li><p>示例: docker-compose.yml</p>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3.5"</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">    web-fe:</span></span><br><span class="line"><span class="attr">        build:</span> <span class="string">.</span></span><br><span class="line"><span class="attr">        command:</span> <span class="string">python</span> <span class="string">app.py</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">            - target:</span> <span class="number">5000</span></span><br><span class="line"><span class="attr">            - published:</span> <span class="number">5000</span></span><br><span class="line"><span class="attr">        networks:</span></span><br><span class="line"><span class="bullet">            -</span> <span class="string">counter-net</span></span><br><span class="line"><span class="attr">        volumes:</span></span><br><span class="line"><span class="attr">            - type:</span> <span class="string">volume</span></span><br><span class="line"><span class="attr">              source:</span> <span class="string">conter-val</span></span><br><span class="line"><span class="attr">              target:</span> <span class="string">/code</span></span><br><span class="line"><span class="attr">        redis:</span></span><br><span class="line"><span class="attr">            image:</span> <span class="string">"redis:alpine"</span></span><br><span class="line"><span class="attr">            networks:</span></span><br><span class="line"><span class="attr">                counter-net:</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line"><span class="attr">    counter-net:</span></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line"><span class="attr">    counter-vol:</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>version是必须要指定的，而且要放到文件的第一行</p>
+</li>
+<li><p>services用来定义不同的应用服务</p>
+<ul>
+<li>每个Service会部署到一个容器中</li>
+<li>会使用key来作为容器名字的一部分</li>
 </ul>
 </li>
 </ul>
-<h4 id="1-4-2-开发角度"><a href="#1-4-2-开发角度" class="headerlink" title="1.4.2 开发角度"></a>1.4.2 开发角度</h4><ul>
-<li><p>容器即应用</p>
+<h4 id="2-4-3-常用指令"><a href="#2-4-3-常用指令" class="headerlink" title="2.4.3 常用指令"></a>2.4.3 常用指令</h4><ul>
+<li><p><code>docker-compose up</code>: 用来部署一个Compose应用。默认情况下该命令会读取名为<code>docker-compose.yml</code>或<code>docker-compose.yaml</code>的文件</p>
 </li>
-<li><p>每个仓库都有一个名为<code>Dockerfile</code>的文件。<code>Dockerfile</code>是一个纯文本文件，其中描述了如何将应用构建到<code>Docker</code>镜像中</p>
+<li><p><code>docker-compose stop</code>命令会停止Compose应用相关的所有容器，但不会删除它们</p>
 </li>
-<li><p>使用<code>docker image build</code>命令可以根据Dockerfile中的指令来创建新的镜像</p>
+<li><p><code>docker-compose rm</code>命令用来删除已停止的Compose应用，它会删除容器和网络，但不会删除卷和镜像</p>
 </li>
-</ul>
-<h3 id="1-5-Docker引擎"><a href="#1-5-Docker引擎" class="headerlink" title="1.5 Docker引擎"></a>1.5 Docker引擎</h3><ul>
-<li><p>Docker引擎是用来运行和管理容器的核心软件</p>
+<li><p><code>docker-compose restart</code>命令会重启已停止的<code>Compose</code>应用。如果用户在停止之后对该应用进行了变更。变更的内容不会反映到重启后的应用中</p>
 </li>
-<li><p>Docker引擎可以进行模块化，有很多可交换的组件组成</p>
-</li>
-<li><p>runc: 用于创建容器的组件</p>
-</li>
-<li><p>containerd: 用于容器生命周期管理</p>
-</li>
-<li><p>daemon:之前Docker的服务器，目前其中的越来越多功能被拆解出来</p>
+<li><p><code>docker-compose ps</code>列出<code>Compose</code>应用中的各个容器。输出内容包括当前的状态、容器运行的命令以及网络端口</p>
 </li>
 </ul>
 
@@ -473,7 +717,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/53/">53</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/54/">54</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -521,7 +765,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -543,7 +787,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -613,7 +857,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
