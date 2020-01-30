@@ -88,7 +88,7 @@
 <meta property="og:description" content="第5章 映射器映射器由一个接口加上 XML 文件(或者注解)组成。在映射器中可以配置参数、各类的SQL语句、存储过程、缓存、级联等复杂的内容，并且通过简易的映射规则映射到指定的POJO或者其他对象上，映射器能有效消除JDBC底层的代码。 MyBatis的映射器也可以使用注解完成，但是应用不广，原因主要来自3个方面  面对复杂性，SQL会显得无力，尤其是长SQL 注解的可读性较差 在功能上，注解丢失">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2020/01/30/SSM-5-映射器/200130_0.png">
-<meta property="og:updated_time" content="2020-01-30T09:32:44.367Z">
+<meta property="og:updated_time" content="2020-01-30T10:26:31.204Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[SSM][5][映射器]">
 <meta name="twitter:description" content="第5章 映射器映射器由一个接口加上 XML 文件(或者注解)组成。在映射器中可以配置参数、各类的SQL语句、存储过程、缓存、级联等复杂的内容，并且通过简易的映射规则映射到指定的POJO或者其他对象上，映射器能有效消除JDBC底层的代码。 MyBatis的映射器也可以使用注解完成，但是应用不广，原因主要来自3个方面  面对复杂性，SQL会显得无力，尤其是长SQL 注解的可读性较差 在功能上，注解丢失">
@@ -376,7 +376,53 @@
 <li>注解的可读性较差</li>
 <li>在功能上，注解丢失了XML 上下文相互引用的功能</li>
 </ol>
-<h3 id="5-1-概述"><a href="#5-1-概述" class="headerlink" title="5.1 概述"></a>5.1 概述</h3><p>映射器的配备元素如下<br>|元素名称|描述|备注|<br>|–|–|–|<br>|select|查询语句|可以自定义参数，返回结果集等|<br>|insert|插入语句|执行后返回一个整数，代表插入的条数|<br>|update|更新语句|执行后返回一个整数，代表删除的条数|<br>|sql|允许定义一部分SQL，然后在其他地方引用它|例如，一张表列名，一次定义，可以在多个SQL语句中使用|<br>|resultMap|用来描述从数据库结果集中来加载对象|它将提供映射规则|<br>|cache|给定命名空间的缓存配置||<br>|cache-ref|其他命名空间缓存配置的引用||</p>
+<h3 id="5-1-概述"><a href="#5-1-概述" class="headerlink" title="5.1 概述"></a>5.1 概述</h3><p>映射器的配备元素如下</p>
+<table>
+<thead>
+<tr>
+<th>元素名称</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>select</td>
+<td>查询语句</td>
+<td>可以自定义参数，返回结果集等</td>
+</tr>
+<tr>
+<td>insert</td>
+<td>插入语句</td>
+<td>执行后返回一个整数，代表插入的条数</td>
+</tr>
+<tr>
+<td>update</td>
+<td>更新语句</td>
+<td>执行后返回一个整数，代表删除的条数</td>
+</tr>
+<tr>
+<td>sql</td>
+<td>允许定义一部分SQL，然后在其他地方引用它</td>
+<td>例如，一张表列名，一次定义，可以在多个SQL语句中使用</td>
+</tr>
+<tr>
+<td>resultMap</td>
+<td>用来描述从数据库结果集中来加载对象</td>
+<td>它将提供映射规则</td>
+</tr>
+<tr>
+<td>cache</td>
+<td>给定命名空间的缓存配置</td>
+<td>无</td>
+</tr>
+<tr>
+<td>cache-ref</td>
+<td>其他命名空间缓存配置的引用</td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
 <h3 id="5-2-select元素-查询语句"><a href="#5-2-select元素-查询语句" class="headerlink" title="5.2 select元素(查询语句)"></a>5.2 select元素(查询语句)</h3><h4 id="5-2-1-简单的select元素的应用"><a href="#5-2-1-简单的select元素的应用" class="headerlink" title="5.2.1 简单的select元素的应用"></a>5.2.1 简单的select元素的应用</h4><p>先学习一个简单的例子: 统计用户表中同一个姓氏的用户数量<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"countUserByFirstName"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultType</span>=<span class="string">"int"</span>&gt;</span></span><br><span class="line">    select count(*) total from t_user</span><br><span class="line">    where user_name like concat(#&#123;firstName&#125;, '%')</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>然后解释这个例子</p>
 <ul>
@@ -405,8 +451,7 @@
 <p>先定义一个参数的<code>POJO</code>:<code>RoleParams</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RoleParams</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String roleName;</span><br><span class="line">    <span class="keyword">private</span> String note;</span><br><span class="line">    <span class="comment">/**set ter and getter**/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>把接口方法定义为<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Role&gt; <span class="title">findRolesByBean</span><span class="params">(RoleParams roleParam)</span></span>;</span><br></pre></td></tr></table></figure></p>
 <p>此时映射文件定义为：其中<code>parameterType</code>设置为上文定义的POJO的路径</p>
-<select id="findRolesByBean" parametertype="com.learn.ssm.chapterS.param.RoleParams" resulttype="role"><br>    select id, role name as roleName, note from t role<br>    where role name like concat (‘%’, #{roleName}, ‘%’)<br>    and note like concat (‘%’, #{note}, ‘%’)<br></select>
-
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRolesByBean"</span> <span class="attr">parameterType</span>= <span class="string">"com.learn.ssm.chapterS.param.RoleParams"</span></span></span><br><span class="line"><span class="tag"><span class="attr">resultType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    select id, role name as roleName, note from t role</span><br><span class="line">    where role name like concat ('%', #&#123;roleName&#125;, '%')</span><br><span class="line">    and note like concat ('%', #&#123;note&#125;, '%')</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>引用<code>JavaBean</code>定义的属性作为参数，然后查询<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);</span><br><span class="line">RoleParams roleParams = <span class="keyword">new</span> RoleParams();</span><br><span class="line">roleParams.setRoleName(<span class="string">"1"</span>);</span><br><span class="line">roleParams.setNote(<span class="string">"1"</span>);</span><br><span class="line">List&lt;Role&gt; roles = roleMapper.findRolesByBean(roleParams);</span><br></pre></td></tr></table></figure></p>
 <h5 id="5-2-3-4-混合使用"><a href="#5-2-3-4-混合使用" class="headerlink" title="5.2.3.4 混合使用"></a>5.2.3.4 混合使用</h5><p>略</p>
 <h5 id="5-2-3-5-总结"><a href="#5-2-3-5-总结" class="headerlink" title="5.2.3.5 总结"></a>5.2.3.5 总结</h5><ul>
