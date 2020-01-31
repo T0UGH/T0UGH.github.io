@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Docker-2-核心技术/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/github-1-git命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/22/Docker-2-核心技术/" itemprop="url">[Docker][2][核心技术]</a></h1>
+                <a class="post-title-link" href="/2019/05/28/github-1-git命令/" itemprop="url">[github][1][git命令]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T23:19:50+08:00">
-                2019-05-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-28T16:56:20+08:00">
+                2019-05-28
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/GitHub/" itemprop="url" rel="index">
+                    <span itemprop="name">GitHub</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/05/22/Docker-2-核心技术/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/22/Docker-2-核心技术/" itemprop="commentCount"></span>
+                <a href="/2019/05/28/github-1-git命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/28/github-1-git命令/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,322 +362,92 @@
       
         
           
-            <h2 id="2-核心技术"><a href="#2-核心技术" class="headerlink" title="2 核心技术"></a>2 核心技术</h2><h3 id="2-1-Docker镜像"><a href="#2-1-Docker镜像" class="headerlink" title="2.1 Docker镜像"></a>2.1 Docker镜像</h3><h4 id="2-1-1-Docker镜像"><a href="#2-1-1-Docker镜像" class="headerlink" title="2.1.1 Docker镜像"></a>2.1.1 Docker镜像</h4><ul>
-<li><p>Docker镜像就像停止运行的容器</p>
-</li>
-<li><p>可以从镜像仓库服务中拉取镜像，拉取操作会将镜像下载到本地Docker主机</p>
-</li>
-<li><p>使用镜像可以启动多个容器</p>
-</li>
-<li><p>镜像由很多层组成，每层叠加之后，在外部看就像一个独立的对象。</p>
-</li>
-<li><p>镜像内部是一个精简的操作系统，其中包含应用运行所必须的文件和依赖包</p>
-</li>
-</ul>
-<h4 id="2-1-2-镜像与容器"><a href="#2-1-2-镜像与容器" class="headerlink" title="2.1.2 镜像与容器"></a>2.1.2 镜像与容器</h4><ul>
-<li><p>镜像可以启动一个或多个容器</p>
-</li>
-<li><p>一旦容器从镜像启动后，二者就是相互依赖的，并且在镜像上启动的容器全部停止之前，镜像是无法被删除的</p>
-</li>
-</ul>
-<h4 id="2-1-3-镜像通常较小"><a href="#2-1-3-镜像通常较小" class="headerlink" title="2.1.3 镜像通常较小"></a>2.1.3 镜像通常较小</h4><ul>
-<li><p>镜像中包含了应用/服务运行时必须的操作系统和应用文件</p>
-</li>
-<li><p>构建镜像时通常要剪裁掉不必要的部分，保持较小的体积</p>
-</li>
-<li><p>镜像不包含内核，共享操作系统内核</p>
-</li>
-</ul>
-<h4 id="2-1-4-镜像拉取和镜像仓库"><a href="#2-1-4-镜像拉取和镜像仓库" class="headerlink" title="2.1.4 镜像拉取和镜像仓库"></a>2.1.4 镜像拉取和镜像仓库</h4><ul>
-<li><p>通过 <code>docker pull</code>可将镜像拉取到本地主机</p>
-</li>
-<li><p>Docker镜像存储在镜像仓库服务中。镜像仓库服务包含了多个镜像仓库。同样，一个镜像仓库包含多个镜像</p>
-</li>
-<li><p>官方仓库中的镜像是安全可靠的，大多数流行的操作系统和应用在Docker Hub的官方仓库中都有其对应得镜像</p>
-</li>
-</ul>
-<h4 id="2-1-5-镜像命名和标签"><a href="#2-1-5-镜像命名和标签" class="headerlink" title="2.1.5 镜像命名和标签"></a>2.1.5 镜像命名和标签</h4><ul>
-<li><p>只需要给出镜像的名字和标签，就可以从官方仓库定位一个镜像，例如<code>alpine:latest</code></p>
-</li>
-<li><p>从非官方仓库拉取镜像，需要在仓库名称面前加上对应作者Docker Hub的用户名，例如:<code>tough/test:v1</code></p>
-</li>
-</ul>
-<h4 id="2-1-6-镜像与分层"><a href="#2-1-6-镜像与分层" class="headerlink" title="2.1.6 镜像与分层"></a>2.1.6 镜像与分层</h4><ul>
-<li><p>Docker镜像由一些松耦合的只读镜像层组成</p>
-</li>
-<li><p>Docker负责堆叠这些镜像层，并且表示为单个统一的对象</p>
-</li>
-<li><p>所有的Docker镜像都起始于一个基础镜像层，当进行修改或增加新的内容时，就会在当前的镜像层之上创建新的镜像层，如下图所示</p>
-<p>  <img src="/2019/05/22/Docker-2-核心技术/0521_0.jpg" alt=""></p>
-</li>
-<li>docker通过存储引擎的方式来实现镜像层堆叠，并对外展示为统一的文件系统</li>
-</ul>
-<h4 id="2-1-7-共享镜像层"><a href="#2-1-7-共享镜像层" class="headerlink" title="2.1.7 共享镜像层"></a>2.1.7 共享镜像层</h4><ul>
-<li><p>Docker可以识别出要拉取的镜像中，哪几层已经在本地存在了，然后共享这几层，可以有效节省空间并提升性能</p>
-</li>
-<li><p>每个存储引擎都有自己的镜像分层、镜像层共享以及写时复制</p>
-</li>
-</ul>
-<h4 id="2-1-8-镜像散列值-摘要"><a href="#2-1-8-镜像散列值-摘要" class="headerlink" title="2.1.8 镜像散列值(摘要)"></a>2.1.8 镜像散列值(摘要)</h4><ul>
-<li><p>内容散列: 散列值与镜像中所有文件的内容有关，修改镜像的配置或者修改任意的镜像层，都会导致加密散列值的变化</p>
-</li>
-<li><p>内容寻址模型极大提升了安全性，提供了一种方式来保证镜像和镜像层数据是一致的</p>
-</li>
-</ul>
-<h3 id="2-2-Docker容器"><a href="#2-2-Docker容器" class="headerlink" title="2.2 Docker容器"></a>2.2 Docker容器</h3><h4 id="2-2-1-Docker容器"><a href="#2-2-1-Docker容器" class="headerlink" title="2.2.1 Docker容器"></a>2.2.1 Docker容器</h4><ul>
-<li><p>容器是镜像的运行时实例，可以从单个镜像上启动一个或多个容器</p>
-</li>
-<li><p>容器会随着其中运行应用的退出而终止</p>
-</li>
-<li><p>常用命令</p>
+            <h2 id="1-通过实际操作学习Git"><a href="#1-通过实际操作学习Git" class="headerlink" title="1 通过实际操作学习Git"></a>1 通过实际操作学习Git</h2><p><a href="https://learngitbranching.js.org/" target="_blank" rel="noopener">一个很好的git学习网站</a></p>
+<h3 id="1-1-基本操作"><a href="#1-1-基本操作" class="headerlink" title="1.1 基本操作"></a>1.1 基本操作</h3><h4 id="1-1-1-git-init-初始化仓库"><a href="#1-1-1-git-init-初始化仓库" class="headerlink" title="1.1.1 git init-初始化仓库"></a>1.1.1 git init-初始化仓库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
+<p>执行<code>git init</code>命令后会生成<code>.git</code>目录，这个目录中存储了管理当前目录内容所需的仓库数据</p>
+<p>我们当前所在的目录称为”附属于该仓库的工作树”，在工作树中对文件进行编辑，然后记录到仓库中，以此管理文件的历史快照。若想要将文件恢复到之前的状态，可从仓库中调取之前的快照，在工作树种打开</p>
+<h4 id="1-1-2-git-status-查看仓库的状态"><a href="#1-1-2-git-status-查看仓库的状态" class="headerlink" title="1.1.2 git status-查看仓库的状态"></a>1.1.2 git status-查看仓库的状态</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/28/github-1-git命令/0523_0.png" alt=""></p>
+<h4 id="1-1-3-git-add-向暂存区中添加文件"><a href="#1-1-3-git-add-向暂存区中添加文件" class="headerlink" title="1.1.3 git add-向暂存区中添加文件"></a>1.1.3 git add-向暂存区中添加文件</h4><p>假如只是在工作树中创建了文件，那么该文件不会被记入Git仓库的版本管理对象</p>
+<p>要想让文件成为Git仓库的管理对象，需要用<code>git add</code>命令将其假如暂存区(Stage或Index)中，暂存区是提交之前的临时区域</p>
+<p><img src="/2019/05/28/github-1-git命令/0523_1.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add README.md</span><br></pre></td></tr></table></figure>
+<h4 id="1-1-4-git-commit-保存仓库中的历史记录"><a href="#1-1-4-git-commit-保存仓库中的历史记录" class="headerlink" title="1.1.4 git commit-保存仓库中的历史记录"></a>1.1.4 git commit-保存仓库中的历史记录</h4><p>git commit 命令可以将当前暂存区中的文件实际保存到仓库的历史记录中。通过这些记录，可以在工作树中复原文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;first commit&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="1-1-5-git-log-查看提交日志"><a href="#1-1-5-git-log-查看提交日志" class="headerlink" title="1.1.5 git log-查看提交日志"></a>1.1.5 git log-查看提交日志</h4><p><img src="/2019/05/28/github-1-git命令/0523_2.png" alt=""></p>
 <ul>
-<li>使用<code>docker run</code>命令可以启动容器</li>
-<li>使用<code>docker stop</code>命令可以暂停容器</li>
-<li>使用<code>docker start</code>命令可以重启容器</li>
-<li>使用<code>docker rm</code>命令可以删除容器</li>
-</ul>
+<li><p><code>git log</code>:查看以往仓库中提交的日志</p>
+</li>
+<li><p><code>git log --pretty=short</code>:只显示提交日志的第一行</p>
+</li>
+<li><p><code>git log -p</code>:显示提交后文件的改动</p>
 </li>
 </ul>
-<h4 id="2-2-2-容器vs虚拟机"><a href="#2-2-2-容器vs虚拟机" class="headerlink" title="2.2.2 容器vs虚拟机"></a>2.2.2 容器vs虚拟机</h4><ul>
-<li><p>容器和虚拟机都依赖于宿主机才能运行</p>
+<h4 id="1-1-6-git-diff-查看更改前后的区别"><a href="#1-1-6-git-diff-查看更改前后的区别" class="headerlink" title="1.1.6 git diff-查看更改前后的区别"></a>1.1.6 git diff-查看更改前后的区别</h4><p><code>git diff</code>命令可以查看工作树、暂存区、最新提交之间的差别</p>
+<ul>
+<li><p><code>git diff</code>:查看当前工作树和暂存区的区别</p>
 </li>
-<li><p>容器模型</p>
+<li><p><code>git add</code>:使用此指令将工作树中的文件加入暂存区，此时工作树和暂存区没有区别</p>
+</li>
+<li><p><code>git diff HEAD</code>:查看暂存区与最新提交的区别</p>
+</li>
+</ul>
+<h3 id="1-2-分支的操作"><a href="#1-2-分支的操作" class="headerlink" title="1.2 分支的操作"></a>1.2 分支的操作</h3><p>在进行多个并行作业时，我们会用到分支。在这类分支中往往同时存在多个最新代码状态。</p>
+<p>master分支是Git默认创建的分支，因此基本上所有开发都是以这个分支为中心进行的</p>
+<h4 id="1-2-1-git-branch-展示分支一览表"><a href="#1-2-1-git-branch-展示分支一览表" class="headerlink" title="1.2.1 git branch-展示分支一览表"></a>1.2.1 git branch-展示分支一览表</h4><p><img src="/2019/05/28/github-1-git命令/0523_3.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br></pre></td></tr></table></figure>
+<p>分支左侧的星号，表示我们当前所在的分支</p>
+<h4 id="1-2-2-git-checkout-b-创建、切换分支"><a href="#1-2-2-git-checkout-b-创建、切换分支" class="headerlink" title="1.2.2 git checkout -b-创建、切换分支"></a>1.2.2 git checkout -b-创建、切换分支</h4><p><code>git checkout -b feature-A</code>:创建并切换到feature-A分支</p>
+<p><code>git checkout -</code>:切换回上一分支</p>
+<p><img src="/2019/05/28/github-1-git命令/0523_4.png" alt=""></p>
+<h4 id="1-2-3-特性分支"><a href="#1-2-3-特性分支" class="headerlink" title="1.2.3 特性分支"></a>1.2.3 特性分支</h4><p>特性分支是集中实现单一特性(功能)，除此之外不进行任何作业的分支。日常开发中往往会创建数个特性分支，并保留一个稳定分支，一般是master分支担当</p>
+<p>基于特性的工作在特性分支中进行，特性完成后再与master合并。这样可以保证master分支随时供人查看和创建新的特性分支</p>
+<h4 id="1-2-4-git-merge-合并分支"><a href="#1-2-4-git-merge-合并分支" class="headerlink" title="1.2.4 git merge-合并分支"></a>1.2.4 git merge-合并分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge --no-ff feature-A</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/28/github-1-git命令/0523_5.png" alt=""></p>
+<h4 id="1-2-5-git-log-–graph-以图表形式查看分支"><a href="#1-2-5-git-log-–graph-以图表形式查看分支" class="headerlink" title="1.2.5 git log –graph-以图表形式查看分支"></a>1.2.5 git log –graph-以图表形式查看分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --graph</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/28/github-1-git命令/0523_6.png" alt=""></p>
+<h4 id="1-2-6-git-reset-回溯历史版本"><a href="#1-2-6-git-reset-回溯历史版本" class="headerlink" title="1.2.6 git reset-回溯历史版本"></a>1.2.6 git reset-回溯历史版本</h4><p>借助分散仓库的优势，可以在不影响其他仓库的前提下对历史版本进行操作</p>
+<p><code>git reset --hard</code>根据目标时间点的哈希值，将当前仓库回溯到指定状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard fd0cbcsdfa</span><br><span class="line">HEAD is now at fd0cbf0 Add index</span><br></pre></td></tr></table></figure></p>
+<p><code>git reflog</code>查看当前仓库的操作日志，可以在日志中找到对应的哈希值</p>
+<h4 id="1-2-7-git-commit-–amend-修改提交信息"><a href="#1-2-7-git-commit-–amend-修改提交信息" class="headerlink" title="1.2.7 git commit –amend-修改提交信息"></a>1.2.7 git commit –amend-修改提交信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend</span><br></pre></td></tr></table></figure>
+<p>此命令可以修改上一条提交信息</p>
+<h3 id="1-3-合并冲突"><a href="#1-3-合并冲突" class="headerlink" title="1.3 合并冲突"></a>1.3 合并冲突</h3><p>此处合并时发生了冲突</p>
+<p><img src="/2019/05/28/github-1-git命令/0523_7.png" alt=""></p>
 <ol>
-<li>首先，OS也占用全部硬件资源</li>
-<li>在OS层之上要安装容器引擎，容器引擎可以获得系统资源，</li>
-<li>接着把资源分割为安全的互相隔离的资源结构，称之为容器</li>
-<li>每个容器看起来像一个真实的操作系统，在其内部可以运行应用</li>
-</ol>
+<li><p>查看冲突部分并解决</p>
 </li>
-<li><p>更多的</p>
+<li><p>冲突解决后，使用<code>git add</code>和<code>git commit</code>命令，将合并的处理结果提交</p>
+</li>
+</ol>
+<p><img src="/2019/05/28/github-1-git命令/0523_8.png" alt=""></p>
+<h3 id="1-4-推送到远程仓库"><a href="#1-4-推送到远程仓库" class="headerlink" title="1.4 推送到远程仓库"></a>1.4 推送到远程仓库</h3><p>远程仓库，是与本地仓库相对独立的另一个仓库，主要部署在github上</p>
+<h4 id="1-4-1-在github上创建远程仓库"><a href="#1-4-1-在github上创建远程仓库" class="headerlink" title="1.4.1 在github上创建远程仓库"></a>1.4.1 在github上创建远程仓库</h4><h4 id="1-4-2-git-remote-add-添加远程仓库"><a href="#1-4-2-git-remote-add-添加远程仓库" class="headerlink" title="1.4.2 git remote add-添加远程仓库"></a>1.4.2 git remote add-添加远程仓库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add origin git@github.com:t0ugh/git-tutorial.git</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-3-git-push-推送到远程仓库"><a href="#1-4-3-git-push-推送到远程仓库" class="headerlink" title="1.4.3 git push 推送到远程仓库"></a>1.4.3 git push 推送到远程仓库</h4><ol>
+<li><p>推送到<code>master</code>分支</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push -u origin master</span><br></pre></td></tr></table></figure>
 <ul>
-<li>Hypervisor是硬件虚拟化(Hardware Virtualization)将硬件物理资源划分为虚拟资源</li>
-<li>容器是操作系统虚拟化，将操作系统资源划分为虚拟资源</li>
+<li><code>-u</code>参数可以在推送的同时将<code>origin</code>仓库的<code>master</code>分支设置为本地仓库当前分支的<code>upstream</code></li>
 </ul>
 </li>
-</ul>
-<h4 id="2-2-3-虚拟机的额外开销"><a href="#2-2-3-虚拟机的额外开销" class="headerlink" title="2.2.3 虚拟机的额外开销"></a>2.2.3 虚拟机的额外开销</h4><ul>
-<li><p>每个虚拟机都有一份OS损耗，而容器只有一份OS损耗</p>
-</li>
-<li><p>虚拟机因为需要启动操作系统，启动速度慢，容器只需要启动位于下层操作系统的共享内核，启动速度快</p>
-</li>
-</ul>
-<h4 id="2-2-4-容器进程"><a href="#2-2-4-容器进程" class="headerlink" title="2.2.4 容器进程"></a>2.2.4 容器进程</h4><ul>
-<li><p>容器中的进程是精简的，比普通操作系统要少</p>
-</li>
-<li><p>杀死容器中的主进程，则容器也会被杀死，这个主进程一般是<code>pid</code>为<code>1</code>的进程，但是这种进程一般是杀不死的</p>
-</li>
-</ul>
-<h4 id="2-2-5-容器生命周期"><a href="#2-2-5-容器生命周期" class="headerlink" title="2.2.5 容器生命周期"></a>2.2.5 容器生命周期</h4><p>生命周期</p>
-<ol>
-<li><p><code>docker run</code> 启动容器</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --name percy -it ubuntu:latest:/bin/bash</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>docker stop</code> 停止容器</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker stop percy</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>docker start</code> 重启容器</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker start percy</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除容器需要两步，先停止容器再删除容器</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker stop percy</span><br><span class="line">$ docker rm percy</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>其他</p>
+<li><p>推送到<code>master</code>之外的分支</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b feature-D</span><br><span class="line">$ git push -u origin feature-D</span><br></pre></td></tr></table></figure>
 <ul>
-<li>直到明确删除容器前，容器的数据都不会丢弃</li>
-<li>就算删除了容器，如果将容器数据存储到卷中，数据也会被保存</li>
-<li>尽量使用两步来删除容器，让容器有机会正常停止手头的工作</li>
-</ul>
-<h4 id="2-2-6-重启策略"><a href="#2-2-6-重启策略" class="headerlink" title="2.2.6 重启策略"></a>2.2.6 重启策略</h4><ol>
-<li><p><code>always</code>: 除非容器被明确停止，否则该策略会一直尝试重启处于停止状态的容器</p>
-</li>
-<li><p><code>unless-stopped</code>: 哪些处于Stopped状态的容器，不会在Docker daemon 重启的时候重启</p>
-</li>
-<li><p><code>on-failure</code>: 在退出容器且返回值不是0的时候，重启容器</p>
-</li>
-</ol>
-<h4 id="2-2-7-docker-run的一些参数"><a href="#2-2-7-docker-run的一些参数" class="headerlink" title="2.2.7 docker run的一些参数"></a>2.2.7 <code>docker run</code>的一些参数</h4><p>例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --name webserver -p 80:8080 nige/dock</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li><p><code>-d</code>：表示后台模式，告知容器在后台运行</p>
-</li>
-<li><p><code>-p</code>将Docker主机的端口映射到容器内，这里是将Docker主机的80端口映射到容器内的8080端口，这意味着当有流量访问主机的80端口时，流量会直接映射到容器的8080端口</p>
-</li>
-</ul>
-<h3 id="2-3-应用的容器化"><a href="#2-3-应用的容器化" class="headerlink" title="2.3 应用的容器化"></a>2.3 应用的容器化</h3><ul>
-<li>Docker的核心思想就是如何将应用整合到容器中，并且能在容器中实际运行，这个过程称为容器化</li>
-</ul>
-<h4 id="2-3-1-容器化简介"><a href="#2-3-1-容器化简介" class="headerlink" title="2.3.1 容器化简介"></a>2.3.1 容器化简介</h4><ul>
-<li><p>容器是为应用而生</p>
-</li>
-<li><p>容器化的步骤</p>
-<ol>
-<li>编写应用代码</li>
-<li>创建一个<code>Dockerfile</code>，其中包括当前应用的描述、依赖以及该如何运行这个应用</li>
-<li>对该<code>Dockerfile</code>执行<code>docker image build</code>命令</li>
-<li>等待Docker将应用程序构建到<code>Docker</code>镜像中</li>
-<li>运行，从镜像中产生容器</li>
-</ol>
-</li>
-<li><p>容器化的基本过程<br>  <img src="/2019/05/22/Docker-2-核心技术/0522_2.jpg" alt=""></p>
-</li>
-</ul>
-<h4 id="2-3-2-单体应用容器化"><a href="#2-3-2-单体应用容器化" class="headerlink" title="2.3.2 单体应用容器化"></a>2.3.2 单体应用容器化</h4><h5 id="1-获取应用代码"><a href="#1-获取应用代码" class="headerlink" title="1 获取应用代码"></a>1 获取应用代码</h5><ul>
-<li><p>这里先介绍如何完成单节点应用的容器化，也可以使用Docker Compose完成多节点应用容器化</p>
-</li>
-<li><p><a href="https://github.com/nigelpoulton/psweb" target="_blank" rel="noopener">应用代码地址</a></p>
-</li>
-</ul>
-<h5 id="2-分析Docker文件"><a href="#2-分析Docker文件" class="headerlink" title="2 分析Docker文件"></a>2 分析Docker文件</h5><ul>
-<li><p>源码</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># Test web-app to use with Pluralsight courses and Docker Deep Dive book</span><br><span class="line"># Linux x64</span><br><span class="line">FROM alpine</span><br><span class="line"></span><br><span class="line">LABEL maintainer=&quot;nigelpoulton@hotmail.com&quot;</span><br><span class="line"></span><br><span class="line"># Install Node and NPM</span><br><span class="line">RUN apk add --update nodejs nodejs-npm</span><br><span class="line"></span><br><span class="line"># Copy app to /src</span><br><span class="line">COPY . /src</span><br><span class="line"></span><br><span class="line">WORKDIR /src</span><br><span class="line"></span><br><span class="line"># Install dependencies</span><br><span class="line">RUN  npm install</span><br><span class="line"></span><br><span class="line">EXPOSE 8080</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [&quot;node&quot;, &quot;./app.js&quot;]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Dockerfile通常放到构建上下文的根目录</p>
-</li>
-<li><p>Dockerfile的主要用途</p>
-<ul>
-<li>Dockerfile对当前应用及其依赖有个清晰的描述</li>
-<li>可以指导Docker完成应用的容器化</li>
-</ul>
-</li>
-<li><p>上述docker文件的步骤</p>
-<ol>
-<li>以alpine镜像为当前镜像基础<ul>
-<li>每个Dockerfile的第一行都是<code>FROM</code>指令</li>
-<li><code>FROM</code>指令指定的镜像，会作为当前镜像的一个基础镜像</li>
-</ul>
-</li>
-<li>指定维护者，使用<code>LABEL</code>标签</li>
-<li>安装Node.js和NPM<ul>
-<li><code>RUN apk add --update nodejs nodejs-npm</code>指令使用alpine中的apk包管理器将nodejs和npm安装到当前镜像中</li>
-<li><code>RUN</code>指令会在<code>FROM</code>指定的alpine基础镜像之上，新建一个镜像层来存储这些安装内容</li>
-</ul>
-</li>
-<li>将应用的代码复制到镜像当中<ul>
-<li><code>COPY . /src</code>指令将应用相关文件从构建上下文复制到当前镜像中，并新建一个镜像层来存储</li>
-</ul>
-</li>
-<li>设置新的工作目录<ul>
-<li>Dockerfile通过<code>WORKDIR</code>命令，为Dockerfile中尚未执行的指令设置工作目录</li>
-</ul>
-</li>
-<li>安装依赖包<ul>
-<li><code>npm install</code>用来安装当前应用的相关依赖包，并且新建镜像层来保存相关的依赖文件</li>
-</ul>
-</li>
-<li>配置应用的网络端口<ul>
-<li><code>EXPOSE 8080</code>指令可以完成相应端口的设置</li>
-<li>这个配置信息会作为镜像的元数据保存，不会产生新的镜像层</li>
-</ul>
-</li>
-<li>将<code>app.js</code>设置为默认运行的应用<ul>
-<li>通过<code>ENTRYPOINT</code>指令指定当前镜像的入口程序。</li>
-<li>这个配置信息会作为镜像的元数据保存，不会产生新的镜像层</li>
+<li>我们在本地仓库中创建<code>feature-D</code>分支，然后将它<code>push</code>给远程仓库并保持分支名称不变</li>
+<li>现在，在远程仓库的GitHub页面就可以查看到<code>feature-D</code>分支S</li>
 </ul>
 </li>
 </ol>
-</li>
-</ul>
-<h5 id="3-构建镜像"><a href="#3-构建镜像" class="headerlink" title="3 构建镜像"></a>3 构建镜像</h5><ul>
-<li><p>执行如下指令</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker image build -t web:latest .</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>其中，命令最后的<code>.</code>表示Docker在构建过程中，使用当前目录作为上下文</p>
-</li>
-</ul>
-<h5 id="4-推送镜像到仓库"><a href="#4-推送镜像到仓库" class="headerlink" title="4 推送镜像到仓库"></a>4 推送镜像到仓库</h5><ul>
-<li><p>可以将镜像保存在一个镜像仓库服务，这样存储比较安全，且可以被其他人访问到</p>
-</li>
-<li><p>需要为镜像打标签，且置于自己用户名的二级目录下，例如</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker image tag web:latest t0ugh/web:latest</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过执行如下命令，将镜像推到仓库</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker image push t0ugh/web:latest</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h5 id="5-运行应用程序"><a href="#5-运行应用程序" class="headerlink" title="5 运行应用程序"></a>5 运行应用程序</h5><ul>
-<li><p>运行如下指令，基于上述镜像启动容器</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --name -c1 -p 80:8080 web:latest</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>这个命令会把容器内部的8080端口映射到Docker主机的80端口</p>
-</li>
-</ul>
-<h5 id="6-其他"><a href="#6-其他" class="headerlink" title="6 其他"></a>6 其他</h5><ul>
-<li><p>Dockerfile中的注释，使用<code>#</code>开头</p>
-</li>
-<li><p>除了注释之外，都是指令</p>
-</li>
-<li><p><code>Docker image build</code>命令会按行解析Dockerfile中的指令并且顺序执行</p>
-</li>
-<li><p>如果指令的作用是向镜像中增添新的文件或者程序，那么这条指令就会新建镜像层；如果只是告诉Docker如何完成构建或者如何运行程序，那么只会增加镜像的元数据</p>
-</li>
-<li><p><code>docker image history</code>查看构建过程中的历史</p>
-</li>
-<li><p><code>docker image inspect</code>查看镜像元数据</p>
-</li>
-</ul>
-<h4 id="2-3-3-生产环境中的多阶段构建"><a href="#2-3-3-生产环境中的多阶段构建" class="headerlink" title="2.3.3 生产环境中的多阶段构建"></a>2.3.3 生产环境中的多阶段构建</h4><ul>
-<li><p>背景：如前所示，正常的构建过程有可能引入大量并不必须的内容，比如，下载完对应的包后，就不再需要NPM或者Maven。再比如，用webpack打包完js文件后，就不再需要node了</p>
-</li>
-<li><p>多阶段构建可以解决这个问题，让镜像的体积更小</p>
-</li>
-<li><p>它可以从之前的构建阶段中仅复制生产环境相关的应用代码，而不复制生产环境不需要的构件</p>
-</li>
-</ul>
-<h4 id="2-3-4-其他"><a href="#2-3-4-其他" class="headerlink" title="2.3.4 其他"></a>2.3.4 其他</h4><ol>
-<li><p>利用构建缓存</p>
-</li>
-<li><p>合并镜像</p>
-</li>
-<li><p>使用no-install-recommends:它可以保证使用API包管理器时，只安装核心依赖</p>
-</li>
-<li><p>不要安装MSI包</p>
-</li>
-</ol>
-<h3 id="2-4-使用Docker-Compose部署应用"><a href="#2-4-使用Docker-Compose部署应用" class="headerlink" title="2.4 使用Docker Compose部署应用"></a>2.4 使用Docker Compose部署应用</h3><h4 id="2-4-1-简介"><a href="#2-4-1-简介" class="headerlink" title="2.4.1 简介"></a>2.4.1 简介</h4><ul>
-<li><p>Docker Compose主要用于部署分布在多容器中的应用</p>
-</li>
-<li><p>它是一个需要在Docker主机上进行安装的Python工具，使用时需要编写定义多容器应用的<code>YAML</code>文件，然后将其交给<code>docker-compose</code>命令处理，<code>docker-compose</code>会基于Docker引擎API完成应用的部署</p>
-</li>
-<li><p>还提供了一系列命令来管理应用的完整生命周期</p>
-</li>
-<li><p>可以将Docker Compose的配置文件置于版本管理系统中管理</p>
-<p>  <img src="/2019/05/22/Docker-2-核心技术/0522_0.png" alt=""></p>
-</li>
-</ul>
-<h4 id="2-4-2-在Linux上安装Docker-Compose"><a href="#2-4-2-在Linux上安装Docker-Compose" class="headerlink" title="2.4.2 在Linux上安装Docker Compose"></a>2.4.2 在Linux上安装Docker Compose</h4><ol>
-<li><p>使用curl命令下载二进制文件</p>
-</li>
-<li><p>使用chmod命令将其置为可运行</p>
-</li>
-</ol>
-<h4 id="2-4-3-解读Compose文件"><a href="#2-4-3-解读Compose文件" class="headerlink" title="2.4.3 解读Compose文件"></a>2.4.3 解读Compose文件</h4><ul>
-<li><p>Docker Compose使用YAML文件来定义多服务的应用</p>
-</li>
-<li><p>示例: docker-compose.yml</p>
-  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3.5"</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">    web-fe:</span></span><br><span class="line"><span class="attr">        build:</span> <span class="string">.</span></span><br><span class="line"><span class="attr">        command:</span> <span class="string">python</span> <span class="string">app.py</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">            - target:</span> <span class="number">5000</span></span><br><span class="line"><span class="attr">            - published:</span> <span class="number">5000</span></span><br><span class="line"><span class="attr">        networks:</span></span><br><span class="line"><span class="bullet">            -</span> <span class="string">counter-net</span></span><br><span class="line"><span class="attr">        volumes:</span></span><br><span class="line"><span class="attr">            - type:</span> <span class="string">volume</span></span><br><span class="line"><span class="attr">              source:</span> <span class="string">conter-val</span></span><br><span class="line"><span class="attr">              target:</span> <span class="string">/code</span></span><br><span class="line"><span class="attr">        redis:</span></span><br><span class="line"><span class="attr">            image:</span> <span class="string">"redis:alpine"</span></span><br><span class="line"><span class="attr">            networks:</span></span><br><span class="line"><span class="attr">                counter-net:</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line"><span class="attr">    counter-net:</span></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line"><span class="attr">    counter-vol:</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>version是必须要指定的，而且要放到文件的第一行</p>
-</li>
-<li><p>services用来定义不同的应用服务</p>
-<ul>
-<li>每个Service会部署到一个容器中</li>
-<li>会使用key来作为容器名字的一部分</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-4-3-常用指令"><a href="#2-4-3-常用指令" class="headerlink" title="2.4.3 常用指令"></a>2.4.3 常用指令</h4><ul>
-<li><p><code>docker-compose up</code>: 用来部署一个Compose应用。默认情况下该命令会读取名为<code>docker-compose.yml</code>或<code>docker-compose.yaml</code>的文件</p>
-</li>
-<li><p><code>docker-compose stop</code>命令会停止Compose应用相关的所有容器，但不会删除它们</p>
-</li>
-<li><p><code>docker-compose rm</code>命令用来删除已停止的Compose应用，它会删除容器和网络，但不会删除卷和镜像</p>
-</li>
-<li><p><code>docker-compose restart</code>命令会重启已停止的<code>Compose</code>应用。如果用户在停止之后对该应用进行了变更。变更的内容不会反映到重启后的应用中</p>
-</li>
-<li><p><code>docker-compose ps</code>列出<code>Compose</code>应用中的各个容器。输出内容包括当前的状态、容器运行的命令以及网络端口</p>
-</li>
-</ul>
+<h3 id="1-5-从远程仓库获取"><a href="#1-5-从远程仓库获取" class="headerlink" title="1.5 从远程仓库获取"></a>1.5 从远程仓库获取</h3><h4 id="1-5-1-git-clone-获取远程仓库"><a href="#1-5-1-git-clone-获取远程仓库" class="headerlink" title="1.5.1 git clone-获取远程仓库"></a>1.5.1 git clone-获取远程仓库</h4><h5 id="1-获取远程仓库"><a href="#1-获取远程仓库" class="headerlink" title="1 获取远程仓库"></a>1 获取远程仓库</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@github.com:t0ugh/git-tutorial.git</span><br></pre></td></tr></table></figure>
+<p>执行<code>git clone</code>命令后，我们会默认位于<code>master</code>分支下，同时系统将<code>origin</code>设置为该远程仓库的标识符</p>
+<p>也就是说当前本地仓库的<code>master</code>分支与Github端远程仓库(<code>origin</code>)的<code>master</code>分支在内容上完全相同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -a</span><br><span class="line">* master</span><br><span class="line">  remotes/origin/HEAD -&gt; origin/master</span><br><span class="line">  remotes/origin/feature-D</span><br><span class="line">  remotes/origin/master</span><br></pre></td></tr></table></figure>
+<h5 id="2-获取远程的feature-D分支"><a href="#2-获取远程的feature-D分支" class="headerlink" title="2 获取远程的feature-D分支"></a>2 获取远程的feature-D分支</h5><p>将feature-D分支获取到本地仓库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b feature-D origin/feature-D</span><br></pre></td></tr></table></figure></p>
+<h5 id="3-修改并推送feature-D分支"><a href="#3-修改并推送feature-D分支" class="headerlink" title="3 修改并推送feature-D分支"></a>3 修改并推送feature-D分支</h5><p>以名为origin的feature-D分支为来源，在本地创建feature-D分支</p>
+<p>对本地内容进行修改和提交，提交后，推送到远程的feature-D分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+<h4 id="1-5-2-git-pull-获取最新的远程仓库分支"><a href="#1-5-2-git-pull-获取最新的远程仓库分支" class="headerlink" title="1.5.2 git pull-获取最新的远程仓库分支"></a>1.5.2 git pull-获取最新的远程仓库分支</h4><p>使用git pull命令，将本地的feature-D分支更新到最新状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull origin feature-D</span><br></pre></td></tr></table></figure>
+<p>如果两人同时修改了同一部分的源代码，push很容易发生冲突。所以多名开发者在同一个分支中进行工作时，为减少冲突情况的发生，建议更频繁的进行push和pull操作</p>
 
           
         
@@ -717,7 +487,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/55/">55</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/56/">56</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -765,7 +535,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="MyBatis,">
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="打怪升级日常">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="第6章 动态SQL如果使用JDBC或者类似于Hibernate的其他框架，很多时候要根据需要去拼装SQL,这是一个麻烦的事情。因为某些查询需要许多条件，比如查询角色，可以根据角色名称或者备注等信息查询，当不输入名称时使用名称作条件就不合适了。 通常使用其他框架需要大量的Java代码进行判断，可读性比较差，而MyBatis提供对SQL语句动态的组装能力，使用XML的几个简单的元素，便能完成动态SQL">
+<meta name="keywords" content="MyBatis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[SSM][6][动态SQL]">
+<meta property="og:url" content="http://yoursite.com/2020/01/31/SSM-6-动态SQL/index.html">
 <meta property="og:site_name" content="打怪升级日常">
+<meta property="og:description" content="第6章 动态SQL如果使用JDBC或者类似于Hibernate的其他框架，很多时候要根据需要去拼装SQL,这是一个麻烦的事情。因为某些查询需要许多条件，比如查询角色，可以根据角色名称或者备注等信息查询，当不输入名称时使用名称作条件就不合适了。 通常使用其他框架需要大量的Java代码进行判断，可读性比较差，而MyBatis提供对SQL语句动态的组装能力，使用XML的几个简单的元素，便能完成动态SQL">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-01-31T03:11:14.386Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="打怪升级日常">
+<meta name="twitter:title" content="[SSM][6][动态SQL]">
+<meta name="twitter:description" content="第6章 动态SQL如果使用JDBC或者类似于Hibernate的其他框架，很多时候要根据需要去拼装SQL,这是一个麻烦的事情。因为某些查询需要许多条件，比如查询角色，可以根据角色名称或者备注等信息查询，当不输入名称时使用名称作条件就不合适了。 通常使用其他框架需要大量的Java代码进行判断，可读性比较差，而MyBatis提供对SQL语句动态的组装能力，使用XML的几个简单的元素，便能完成动态SQL">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2020/01/31/SSM-6-动态SQL/">
 
 
 
 
 
-  <title>打怪升级日常</title>
+  <title>[SSM][6][动态SQL] | 打怪升级日常</title>
   
 
 
@@ -140,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/T0UGH" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -244,9 +248,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -276,9 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/31/SSM-6-动态SQL/" itemprop="url">[SSM][6][动态SQL]</a></h1>
+          <h1 class="post-title" itemprop="name headline">[SSM][6][动态SQL]</h1>
         
 
         <div class="post-meta">
@@ -342,6 +344,11 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
 
           
 
@@ -360,9 +367,7 @@
       
 
       
-        
-          
-            <h2 id="第6章-动态SQL"><a href="#第6章-动态SQL" class="headerlink" title="第6章 动态SQL"></a>第6章 动态SQL</h2><p>如果使用<code>JDBC</code>或者类似于<code>Hibernate</code>的其他框架，很多时候要根据需要去拼装<code>SQL</code>,这是一个麻烦的事情。因为某些查询需要许多条件，比如查询角色，可以根据角色名称或者备注等信息查询，当不输入名称时使用名称作条件就不合适了。</p>
+        <h2 id="第6章-动态SQL"><a href="#第6章-动态SQL" class="headerlink" title="第6章 动态SQL"></a>第6章 动态SQL</h2><p>如果使用<code>JDBC</code>或者类似于<code>Hibernate</code>的其他框架，很多时候要根据需要去拼装<code>SQL</code>,这是一个麻烦的事情。因为某些查询需要许多条件，比如查询角色，可以根据角色名称或者备注等信息查询，当不输入名称时使用名称作条件就不合适了。</p>
 <p>通常使用其他框架需要大量的<code>Java</code>代码进行判断，可读性比较差，而<code>MyBatis</code>提供对<code>SQL</code>语句动态的组装能力，使用<code>XML</code>的几个简单的元素，便能完成动态<code>SQL</code>的功能。大量的判断都可以在<code>MyBatis</code>的映射<code>XML</code>里面配置，以达到许多需要大量代码才能实现的功能，大大减少了代码量，这体现了<code>MyBatis</code>的灵活、高度可配置性和可维护性。</p>
 <h3 id="6-1-概述"><a href="#6-1-概述" class="headerlink" title="6.1 概述"></a>6.1 概述</h3><p>MyBatis的动态SQL包括以下一个元素</p>
 <table>
@@ -433,8 +438,6 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRole"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultType</span>=<span class="string">"com.bean.RoleBean"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bind</span> <span class="attr">name</span>=<span class="string">"pattern"</span> <span class="attr">value</span>=<span class="string">"'%' + _parameter + '%'"</span>&gt;</span></span><br><span class="line">    SELECT id, role_name as roleName, create_date as createDate, end_date as endFlag, note FROM t_role</span><br><span class="line">    WHERE role_name like #&#123;pattern&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>这里的<code>_parameter</code>代表的是传递进来的参数，它和通配符(<code>%</code>)连接后赋给了<code>pattern</code>,然后就可以在<code>select</code>语句中使用这个变量进行模糊查询了。无论是<code>MySQL</code>还是<code>Oracle</code>都可以使用这样的语旬，提高了代码的可移植性。</p>
 
-          
-        
       
     </div>
     
@@ -449,14 +452,36 @@
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/MyBatis/" rel="tag"><i class="fa fa-tag"></i> MyBatis</a>
+          
+        </div>
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/30/SSM-5-映射器/" rel="next" title="[SSM][5][映射器]">
+                <i class="fa fa-chevron-left"></i> [SSM][5][映射器]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </div>
@@ -466,14 +491,11 @@
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/56/">56</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -481,6 +503,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -501,8 +530,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -598,6 +636,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第6章-动态SQL"><span class="nav-number">1.</span> <span class="nav-text">第6章 动态SQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-概述"><span class="nav-number">1.1.</span> <span class="nav-text">6.1 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-if元素"><span class="nav-number">1.2.</span> <span class="nav-text">6.2 if元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-choose、when、otherwise元素"><span class="nav-number">1.3.</span> <span class="nav-text">6.3 choose、when、otherwise元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-trim、where、set元素"><span class="nav-number">1.4.</span> <span class="nav-text">6.4 trim、where、set元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-4-1-where元素"><span class="nav-number">1.4.1.</span> <span class="nav-text">6.4.1 where元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-4-2-trim元素"><span class="nav-number">1.4.2.</span> <span class="nav-text">6.4.2 trim元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-4-3-set元素"><span class="nav-number">1.4.3.</span> <span class="nav-text">6.4.3 set元素</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-foreach元素"><span class="nav-number">1.5.</span> <span class="nav-text">6.5 foreach元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-6-用test的属性判断字符串"><span class="nav-number">1.6.</span> <span class="nav-text">6.6 用test的属性判断字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-7-bind元素"><span class="nav-number">1.7.</span> <span class="nav-text">6.7 bind元素</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -757,6 +811,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -836,26 +894,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
