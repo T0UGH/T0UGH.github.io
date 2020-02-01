@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/敏捷开发-3-Scrum和自组织团队/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/16/微服务设计-1-微服务简介/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/22/敏捷开发-3-Scrum和自组织团队/" itemprop="url">[敏捷开发][3][Scrum和自组织团队]</a></h1>
+                <a class="post-title-link" href="/2019/06/16/微服务设计-1-微服务简介/" itemprop="url">[微服务设计][1][微服务简介]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T23:13:55+08:00">
-                2019-05-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-16T16:45:40+08:00">
+                2019-06-16
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/敏捷开发/" itemprop="url" rel="index">
-                    <span itemprop="name">敏捷开发</span>
+                  <a href="/categories/微服务设计/" itemprop="url" rel="index">
+                    <span itemprop="name">微服务设计</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/05/22/敏捷开发-3-Scrum和自组织团队/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/22/敏捷开发-3-Scrum和自组织团队/" itemprop="commentCount"></span>
+                <a href="/2019/06/16/微服务设计-1-微服务简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/06/16/微服务设计-1-微服务简介/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,133 +362,80 @@
       
         
           
-            <h2 id="3-Scrum和自组织团队"><a href="#3-Scrum和自组织团队" class="headerlink" title="3 Scrum和自组织团队"></a>3 Scrum和自组织团队</h2><h3 id="3-1-Scrum基本模式"><a href="#3-1-Scrum基本模式" class="headerlink" title="3.1 Scrum基本模式"></a>3.1 Scrum基本模式</h3><ul>
-<li><p>Scrum中有3种主要的<strong>角色</strong>：产品所有者、Scrum主管和团队成员</p>
+            <h2 id="1-微服务"><a href="#1-微服务" class="headerlink" title="1 微服务"></a>1 微服务</h2><h3 id="1-1-什么是微服务"><a href="#1-1-什么是微服务" class="headerlink" title="1.1 什么是微服务"></a>1.1 什么是微服务</h3><p>简介: 微服务就是一些协同工作的小而自治的服务</p>
+<h4 id="1-1-1-很小，专注于做好一件事"><a href="#1-1-1-很小，专注于做好一件事" class="headerlink" title="1.1.1 很小，专注于做好一件事"></a>1.1.1 很小，专注于做好一件事</h4><p>单一职责原则: 把因相同原因而变化的东西聚合到一起，而把因不同原因而变化的东西分离开来</p>
+<p>微服务将单一职责原则应用于独立的服务中。根据业务的边界来确定服务的边界，这样就很容易确定某个功能代码应该方法哪里。由于该服务专注于某个边界之内，因此可以很多地避免由于代码库过大衍生出的很多相关问题</p>
+<p>服务大小的权衡</p>
+<ul>
+<li>服务越小，微服务架构的优点和缺点也就约明显</li>
+<li>使用的服务越小，独立性带来的好处就越多，但是管理大量服务也会越复杂</li>
+</ul>
+<h4 id="1-1-2-自治性"><a href="#1-1-2-自治性" class="headerlink" title="1.1.2 自治性"></a>1.1.2 自治性</h4><ol>
+<li><p>一个微服务就是一个独立的实体:</p>
+<ul>
+<li>它可以独立的部署在PAAS平台上</li>
+<li>也可以作为一个操作系统进程存在</li>
+<li>我们要尽量避免把多个服务部署在同一机器上，这会大大简化分布式系统的构建</li>
+</ul>
 </li>
-<li><p><strong>产品所有者</strong>和团队成员一起工作，负责维护<strong>产品积压工作表</strong>(production backlog)，并对表中的项指定优先级</p>
+<li><p>服务之间通过网络调用通信，从而加强服务之间的隔离性，避免紧耦合</p>
 </li>
-<li><p>软件在多轮时间限定的迭代中完成开发，这些迭代称为<strong>冲刺</strong>。在每一轮冲刺开始，团队进行<strong>冲刺规划</strong>，从积压工作表中选择本轮要开发的特性。所确定的列表成为<strong>冲刺挤压工作表</strong></p>
+<li><p>这些服务可以彼此间独立地进行修改，并且某一个服务地部署不应该引起该服务消费方地变动</p>
 </li>
-<li><p>团队每天碰面，开一个短会，更新成员各自的进度，并讨论遇到的问题。称为<strong>每日Scrum会议</strong>。每个成员回答三个问题</p>
-<ol>
-<li>自上一次每日Scrum会议以来，我都<strong>做了什么</strong></li>
-<li>从现在起到下一次每日Scrum会议的时间内我<strong>要做什么</strong></li>
-<li>我遇到了什么<strong>困难</strong></li>
+<li><p>服务会暴露出API，然后服务之间通过API通信</p>
+<ul>
+<li>API通常是技术无关的，以保证技术的选择不被限制</li>
+</ul>
+</li>
 </ol>
-</li>
-<li><p><strong>Scrum主管</strong>要和整个团队一同工作，帮助团队成员克服困难，保证项目正常运转。在每轮冲刺结束的时候，会有一次<strong>冲刺评审</strong>，向产品所有者和其他利益干系人展示可工作的软件。团队还会召开<strong>回顾会议</strong>，找出要从这一轮冲刺中吸取的经验。</p>
-</li>
+<h3 id="1-2-主要好处"><a href="#1-2-主要好处" class="headerlink" title="1.2 主要好处"></a>1.2 主要好处</h3><p>微服务有很多好处，其中<strong>一些好处也适用于任何一个分布式系统</strong>，但相对于分布式系统或者面向服务的架构而言，微服务要更胜一筹，它会把这些好处推向极致</p>
+<h4 id="1-2-1-技术异构性"><a href="#1-2-1-技术异构性" class="headerlink" title="1.2.1 技术异构性"></a>1.2.1 技术异构性</h4><ol>
+<li><p>在一个由多个服务相互协作的系统中，可以在不同的服务中使用最适合该服务的技术</p>
+<ul>
+<li>例如: 如果系统中一部分需要做性能提升，额可以使用性能更好的技术栈重新构建该部分</li>
+<li>再例如：系统的不同部分可以使用不同的存储技术，社交网络可以使用图数据库，而文本可以使用对象存储技术等等<br><img src="/2019/06/16/微服务设计-1-微服务简介/0616_0.png" alt=""></li>
 </ul>
-<p><img src="/2019/05/22/敏捷开发-3-Scrum和自组织团队/0520_0.jpg" alt=""></p>
-<h3 id="3-2-Scrum的规则"><a href="#3-2-Scrum的规则" class="headerlink" title="3.2 Scrum的规则"></a>3.2 Scrum的规则</h3><ul>
-<li><p>每个冲刺<strong>开始时</strong>，需要进行<strong>冲刺启动会</strong>。会议开始前，产品所有者要提前准备好一份按照优先级排序的<strong>产品积压工作表</strong>。在会议的前半部分，产品所有者和团队<strong>一起选择出要在这一轮冲刺结束时交付的特性</strong>，时长为4小时。在会议的后半部分，团队成员在产品所有者的帮助下<strong>整理出实现这些特性要用到的具体任务</strong>，时长为4小时。</p>
 </li>
-<li><p>团队<strong>每天召开Scrum会议</strong>。所有成员必须参加，会议时长15分钟，所有人回答三个问题</p>
-<ol>
-<li>自上一次每日Scrum会议以来，我都<strong>做了什么</strong></li>
-<li>从现在起到下一次每日Scrum会议的时间内我<strong>要做什么</strong></li>
-<li>我遇到了什么<strong>困难</strong></li>
+<li><p>微服务可以帮助我们更好的采用新技术</p>
+<ul>
+<li>在一个服务中采用新技术的风险要远远小于在整个系统中引入新技术</li>
+</ul>
+</li>
 </ol>
-</li>
-<li><p>冲刺要<strong>限定在规划的时间</strong>内，一般为30个自然日</p>
-</li>
-<li><p>冲刺结束后，团队召开<strong>冲刺评审会</strong>，向客户和利益干系人展示可工作的软件。团队不能展示中间产物。</p>
-</li>
-<li><p>冲刺结束后，召开<strong>冲刺回顾会议</strong>，讨论可以改进工作方式的地方。团队和Scrum主管参会(产品所有者也可以参加)。每个人回答两个问题</p>
-<ol>
-<li>在这一轮冲刺中有哪些事情做得不错</li>
-<li>未来有哪些事情可以改进</li>
-</ol>
-</li>
-</ul>
-<h3 id="3-3-Scrum中的成员角色"><a href="#3-3-Scrum中的成员角色" class="headerlink" title="3.3 Scrum中的成员角色"></a>3.3 Scrum中的成员角色</h3><h4 id="3-3-1-Scrum主管指导团队的决策"><a href="#3-3-1-Scrum主管指导团队的决策" class="headerlink" title="3.3.1 Scrum主管指导团队的决策"></a>3.3.1 Scrum主管指导团队的决策</h4><ul>
-<li>Scrum项目中<strong>没有单独负责计划的人</strong></li>
-<li>因为如果团队中负责计划和负责执行的人不同，那么一旦遇到麻烦，成员很容易互相指责</li>
-<li>Scrum主管并不负责计划，他可以<strong>帮助团队制订计划</strong></li>
-<li>更重要的，他会指导团队使用Scrum及其相关实践，<strong>让所有人觉得计划是大家一起制订的</strong></li>
-</ul>
-<h4 id="3-3-2-产品所有者帮助团队了解软件的价值"><a href="#3-3-2-产品所有者帮助团队了解软件的价值" class="headerlink" title="3.3.2 产品所有者帮助团队了解软件的价值"></a>3.3.2 产品所有者帮助团队了解软件的价值</h4><ul>
-<li>在Scrum团队中，产品所有者就是<strong>对公司做出承诺</strong>的人</li>
-<li>这个人必须站出来，保证在项目结束时能交付某个具体的东西</li>
-<li>产品所有者要<strong>对积压工作表负责</strong>并制订优先级，还要让大家理解一项挤压工作表怎么就算完成了</li>
-<li>在冲刺的过程中，产品所有者每天都会与团队成员一起工作，回答大量的细节问题，<strong>向团队成员就软件以及用户体验回答具体问题</strong>，还会<strong>做出很多关于产品工作方式的小决策</strong></li>
-<li>Scrum依赖产品所有者<strong>对业务的决策能力</strong>，产品所有者要花时间<strong>与用户和利益干系人沟通</strong>，以获得开发人员需要的答案并负责让产品积压工作表反应公司需求的最新变化</li>
-<li>产品所有者并<strong>不一定了解技术细节</strong>，但没有问题</li>
-</ul>
-<h4 id="3-3-3-每个人都对项目负责"><a href="#3-3-3-每个人都对项目负责" class="headerlink" title="3.3.3 每个人都对项目负责"></a>3.3.3 每个人都对项目负责</h4><ul>
-<li>Scrum要求: 冲刺的时候，<strong>让项目成功这件事情比你的其他任何职业目标都要重要</strong></li>
-</ul>
-<h3 id="3-4-Scrum的价值观"><a href="#3-4-Scrum的价值观" class="headerlink" title="3.4 Scrum的价值观"></a>3.4 Scrum的价值观</h3><h4 id="3-4-1-每一位成员都承诺实现项目的目标"><a href="#3-4-1-每一位成员都承诺实现项目的目标" class="headerlink" title="3.4.1 每一位成员都承诺实现项目的目标"></a>3.4.1 每一位成员都承诺实现项目的目标</h4><ul>
-<li><p>只有在团队、Scrum主管以及产品所有者能够作出决策的时候才能真正做到这一点</p>
-</li>
-<li><p>他们不需要层层官僚审批就可以做出这样的决策</p>
-</li>
-</ul>
-<h4 id="3-4-2-团队成员互相尊重"><a href="#3-4-2-团队成员互相尊重" class="headerlink" title="3.4.2 团队成员互相尊重"></a>3.4.2 团队成员互相尊重</h4><ul>
-<li><p>很多程序员，特别是技术水平很高的程序员，往往纯粹根据技术能力建立尊重，这是高效采用Scrum的一个障碍</p>
-</li>
-<li><p>好的Scrum主管会让程序员指导产品所有者对用户思考方式以及公司的需求有着深入的理解</p>
-</li>
-</ul>
-<h4 id="3-4-3-所有人都专注于工作"><a href="#3-4-3-所有人都专注于工作" class="headerlink" title="3.4.3 所有人都专注于工作"></a>3.4.3 所有人都专注于工作</h4><ul>
-<li><p>当团队中所有成员都专注于冲刺目标并且有足够的自由完成满足这些目标所需要的工作，那么整个团队就能够发生自组织，在需求变化的时候很轻松地调整方向</p>
-</li>
-<li><p>因为背景切换需要消耗大量的认知，所以执行多任务没有什么意义</p>
-</li>
-<li><p>好的Scrum团队有权忽略被要求参加的无关会议、各种不相干的组织等让人分心的事情，而不用担心影响自己的事业或晋升</p>
-</li>
-</ul>
-<h4 id="3-4-4-团队重视开放"><a href="#3-4-4-团队重视开放" class="headerlink" title="3.4.4 团队重视开放"></a>3.4.4 团队重视开放</h4><ul>
-<li><p>在Scrum团队工作的时候，团队中的其他所有人都应该了解你当前正在做的工作是如何朝着当前目标前进的</p>
-</li>
-<li><p>通过任务板，大家可以看到其他所有人要做的工作，以及还没有完成的工作量</p>
-</li>
-<li><p>通过燃尽图，大家可以自己度量冲刺达成目标的速度</p>
-</li>
-<li><p>高效的每日Scrum会议是纯粹的开放性实践，每个人都会分享自己的任务、遇到的困难以及当前的进度，让整个团队都了解这些事项</p>
-</li>
-<li><p>缺乏透明的组织更容易要求团队去达成一个不切实际的目标，并迫使团队加班</p>
-</li>
-</ul>
-<h4 id="3-4-5-团队成员有勇气全力支持项目"><a href="#3-4-5-团队成员有勇气全力支持项目" class="headerlink" title="3.4.5 团队成员有勇气全力支持项目"></a>3.4.5 团队成员有勇气全力支持项目</h4><ul>
-<li><p>要应对与Scrum以及敏捷价值观冲突的公司阻力是需要勇气的</p>
-</li>
-<li><p>每个人都要相信，交付有价值的软件可以帮助自己克服针对这些价值观的阻力</p>
-</li>
-</ul>
-<h3 id="3-5-Scrum的实践"><a href="#3-5-Scrum的实践" class="headerlink" title="3.5 Scrum的实践"></a>3.5 Scrum的实践</h3><h4 id="3-5-1-每日Scrum例会"><a href="#3-5-1-每日Scrum例会" class="headerlink" title="3.5.1 每日Scrum例会"></a>3.5.1 每日Scrum例会</h4><p>“可见” - “检查” - “调整”周期</p>
+<h4 id="1-2-2-弹性"><a href="#1-2-2-弹性" class="headerlink" title="1.2.2 弹性"></a>1.2.2 弹性</h4><p>舱壁:</p>
 <ul>
-<li>“可见”:每个人每天讲述手头的工作</li>
-<li>“检查”:全体成员倾听讲述</li>
-<li>“调整”:同事给出某些方面的改进建议</li>
+<li>如果系统中的一个组件不可用，但并没有导致级联故障，那么系统的其他部分还可以正常运行</li>
+<li>系统边界就是一个很显然的舱壁</li>
 </ul>
-<p>最后责任时刻</p>
+<p>优点</p>
 <ul>
-<li>在最后责任时刻做出决策可以保留灵活的选择权，更容易针对变化进行调整</li>
-<li>任务分配</li>
+<li>在单块系统中，如果服务不可用，那么所有的功能都会不可用</li>
+<li>而微服务系统中，只会导致部分功能不可用</li>
 </ul>
-<p>在每日Scrum例会中，每一位团队成员都要<strong>回答三个问题</strong>：从上一次例会到现在我都干了些什么？到下一次例会前我要干什么？什么事情阻碍了我的进度？</p>
-<p><strong>团队每天都通过这些问题集体检查项目的计划</strong>，并且针对项目中发生的变化进行调整。在某个项目中，这些问题的答案给团队提供了持续的反馈</p>
-<p>Scrum团队<strong>在最终责任时刻作出决策</strong>，这样可以保留灵活的选择权，更容易针对变化进行调整</p>
-<p>每日Scrum例会是<strong>整个团队的事情</strong>，并不只限于Scrum主管和产品所有者，所有人都要平等参会</p>
-<p>召开有效的每日Scrum会议</p>
+<h4 id="1-2-3-扩展-性能层面"><a href="#1-2-3-扩展-性能层面" class="headerlink" title="1.2.3 扩展(性能层面)"></a>1.2.3 扩展(性能层面)</h4><p>庞大的单块服务只能作为一个整体进行扩展。即使系统中只有一小部分存在性能问题，也需要对整个服务进行扩展。如果使用较小的多个服务，则可以只对需要扩展的服务进行扩展，这样就可以把那些不需要扩展的服务运行在更小的、性能稍差的硬件上</p>
+<p>例如<br><img src="/2019/06/16/微服务设计-1-微服务简介/0616_1.png" alt=""></p>
 <ul>
-<li>表现得像猪一样</li>
-<li>细节会后讨论</li>
-<li>轮流先行</li>
-<li>不要当作例行公事</li>
-<li>所有人都要参与</li>
-<li>不要开成最新状态汇报会</li>
-<li>检查每一项任务</li>
-<li>计划需要则改变</li>
+<li>图片部分需要进行性能提升，所以部署4个实例</li>
+<li>而朋友部分不需要扩展，可以部署在比较差的硬件上</li>
 </ul>
-<h4 id="3-5-2-冲刺、计划和回顾会议"><a href="#3-5-2-冲刺、计划和回顾会议" class="headerlink" title="3.5.2 冲刺、计划和回顾会议"></a>3.5.2 冲刺、计划和回顾会议</h4><p>Scrum既是<strong>增量式</strong>的也是<strong>迭代式</strong>的</p>
+<h4 id="1-2-4-简化部署"><a href="#1-2-4-简化部署" class="headerlink" title="1.2.4 简化部署"></a>1.2.4 简化部署</h4><p>在微服务架构中，各个服务的部署是独立的，这样可以更快地对特定部分的代码进行部署。如果真的出现了问题，也只会影响一个服务，并且容易快速回滚</p>
+<h4 id="1-2-5-与组织结构相匹配"><a href="#1-2-5-与组织结构相匹配" class="headerlink" title="1.2.5 与组织结构相匹配"></a>1.2.5 与组织结构相匹配</h4><p>微服务架构可以很好地将架构与组织结构相匹配，避免出现过大的代码库，从而获得理想的团队大小及生产力</p>
+<h4 id="1-2-6-可组合性"><a href="#1-2-6-可组合性" class="headerlink" title="1.2.6 可组合性"></a>1.2.6 可组合性</h4><p>先略，没看懂</p>
+<h4 id="1-2-7-对可替代性的优化"><a href="#1-2-7-对可替代性的优化" class="headerlink" title="1.2.7 对可替代性的优化"></a>1.2.7 对可替代性的优化</h4><p>使用微服务架构的团队可以在需要时轻易地重写服务，或者删除不再使用地服务。当一个代码块只有几百行时，人们也不会对它有太多感情地依赖，所以很容易替换它</p>
+<h3 id="1-3-面向服务的架构"><a href="#1-3-面向服务的架构" class="headerlink" title="1.3 面向服务的架构"></a>1.3 面向服务的架构</h3><p>SOA(Service-Oriented Architecture, 面向服务的架构)是一种设计方法</p>
 <ul>
-<li>增量是指Scrum把任务分解为连续的冲刺</li>
-<li>迭代是在于团队在每一轮新的冲刺中都会根据项目中发生的变化进行调整</li>
+<li>其中包含多个服务， 而服务之间通过配合最终会提供一系列功能</li>
+<li>一个服务通常以独立的形式存在于操作系统进程中</li>
+<li>服务之间通过网络调用，而非通过进程内调用的方式进行通信</li>
 </ul>
-<p>当真正的Scrum团队说他们被“<strong>交付价值</strong>”所激励的时候。他们的意思是说他们最重要的目标是开发出改善用户生活的软件</p>
-<p><strong>产品所有者</strong>的职责是<strong>帮助团队理解他们的用户</strong>、理解用户所做的工作以及理解用户如何使用软件，通过这种方式可以让团队能一直受到交付价值的激励</p>
+<p>在现实世界中，由于我们对项目的系统和架构有着更好的了解，所以能够更好地实施SOA，而这事实上就是微服务架构。可以认为微服务架构是SOA的一种特定方法</p>
+<h3 id="1-4-其他分解技术"><a href="#1-4-其他分解技术" class="headerlink" title="1.4 其他分解技术"></a>1.4 其他分解技术</h3><h4 id="1-4-1-共享库"><a href="#1-4-1-共享库" class="headerlink" title="1.4.1 共享库"></a>1.4.1 共享库</h4><p>基本上所有语言都支持将整个代码库分解为多个库，这是一种非常标准的分解技术。这些库可以由第三方或自己的组织提供</p>
+<h4 id="1-4-2-模块"><a href="#1-4-2-模块" class="headerlink" title="1.4.2 模块"></a>1.4.2 模块</h4><p>除了简单的库之外，有些语言提供了自己的模块分解技术。</p>
+<ul>
+<li>它们允许对模块进行生命周期管理，这样就可以把模块部署到运行的进程中，</li>
+<li>并且可以在不停止整个进程的前提下对某个模块进行修改</li>
+</ul>
+<h3 id="1-5-没有银弹"><a href="#1-5-没有银弹" class="headerlink" title="1.5 没有银弹"></a>1.5 没有银弹</h3><p>微服务不是免费的午餐，更不是银弹。我们需要面对微服务带来的复杂性，需要在部署、测试和监控等方面做很多的工作，还需要考虑如何扩展系统</p>
 
           
         
@@ -528,7 +475,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/32/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/57/">57</a><a class="extend next" rel="next" href="/page/34/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/32/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/34/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -576,7 +523,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Tensorflow-4-深层神经网络/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/16/流畅的Python-2-序列构成的数组/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/10/Tensorflow-4-深层神经网络/" itemprop="url">[Tensorflow][4]深层神经网络</a></h1>
+                <a class="post-title-link" href="/2019/03/16/流畅的Python-2-序列构成的数组/" itemprop="url">[流畅的Python][2][序列构成的数组]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-10T14:43:21+08:00">
-                2019-03-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-16T20:45:52+08:00">
+                2019-03-16
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tensorflow/" itemprop="url" rel="index">
-                    <span itemprop="name">Tensorflow</span>
+                  <a href="/categories/流畅的Python/" itemprop="url" rel="index">
+                    <span itemprop="name">流畅的Python</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/10/Tensorflow-4-深层神经网络/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/10/Tensorflow-4-深层神经网络/" itemprop="commentCount"></span>
+                <a href="/2019/03/16/流畅的Python-2-序列构成的数组/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/16/流畅的Python-2-序列构成的数组/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,397 +362,503 @@
       
         
           
-            <h2 id="第四章-深层神经网络"><a href="#第四章-深层神经网络" class="headerlink" title="第四章 深层神经网络"></a>第四章 深层神经网络</h2><hr>
-<h3 id="4-1-深度学习与深层网络"><a href="#4-1-深度学习与深层网络" class="headerlink" title="4.1 深度学习与深层网络"></a>4.1 深度学习与深层网络</h3><ul>
-<li><p>深度学习的精确定义：一类通过多层非线性变换对高复杂性数据建模算法的合集</p>
-</li>
-<li><p>深层神经网络</p>
+            <h2 id="第2章-序列构成的数组"><a href="#第2章-序列构成的数组" class="headerlink" title="第2章 序列构成的数组"></a>第2章 序列构成的数组</h2><blockquote>
+<p>你可能注意到了，之前提到的几个操作可以无差别地应用于文本、列表和表格上，我们把文本、列表和表格叫做<strong>数据火车</strong>，for命令通常能作用于数据火车上。—Geurts、Meertens和Pemberton, ABC Programmer’s Handbook</p>
+</blockquote>
 <ul>
-<li>深层神经网络是实现“多层非线性变换”最常用的一种方法</li>
-<li>实际中深度学习基本上就是深层神经网络的代名词</li>
+<li><p>ABC语言很多点子在现在看起来都很有Python风格</p>
+<ul>
+<li>序列的泛型操作</li>
+<li>内置的元组和映射类型</li>
+<li>用缩进来架构的源码</li>
+<li>无需变量声明的强类型</li>
+<li>用同一的风格处理序列数据</li>
 </ul>
 </li>
-<li><p>深度学习的两个特性</p>
+<li><p>Python从ABC继承了用统一的风格处理序列数据这一特点</p>
+<ul>
+<li>无论哪种数据结构，字符串、列表、字节序列、数组、XML元素，亦或是数据库查询结果</li>
+<li>它们都共用一套丰富的操作：迭代、切片、排序，还有拼接</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-1-内置序列类型概览"><a href="#2-1-内置序列类型概览" class="headerlink" title="2.1 内置序列类型概览"></a>2.1 内置序列类型概览</h3><ul>
+<li><p>第一种分类方法</p>
+<ul>
+<li>容器序列<ul>
+<li>简介<ul>
+<li>存放的是不同类型的数据</li>
+<li>即存放它们所包含的任意类型的对象的引用</li>
+</ul>
+</li>
+<li>例如：list、tuple和collections.deque等</li>
+</ul>
+</li>
+<li>扁平序列<ul>
+<li>简介<ul>
+<li>存放的是相同类型的数据</li>
+<li>扁平序列其实是一段连续的内存空间，更加紧凑</li>
+<li>但是只能存放诸如字符、字节和数值这种基础类型</li>
+</ul>
+</li>
+<li>例如：str、bytes、bytearray、memoryview和array.array</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>第二种分类方法</p>
+<ul>
+<li>可变序列<ul>
+<li>例如：list、bytearray、array.array、collections.deque和memoryview</li>
+</ul>
+</li>
+<li>不可变序列<ul>
+<li>例如：tuple、str和bytes</li>
+</ul>
+</li>
+<li>可变序列与不可变序列的差别和联系<ul>
+<li>如图<br><img src="/2019/03/16/流畅的Python-2-序列构成的数组/0316_6.png" alt=""></li>
+<li>可变序列从不可变序列中继承了一些方法</li>
+<li>同时可变序列又自己实现了一些方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-列表推导和生成器表达式"><a href="#2-2-列表推导和生成器表达式" class="headerlink" title="2.2 列表推导和生成器表达式"></a>2.2 列表推导和生成器表达式</h3><ul>
+<li><p>列表推导：是构建列表的快捷方式，它异常强大，但相关语法比较晦涩</p>
+</li>
+<li><p>生成器表达式：具有生成各种类型的元素并用它们来填充序列的功能</p>
+</li>
+</ul>
+<h4 id="2-2-1-列表推导与和可读性"><a href="#2-2-1-列表推导与和可读性" class="headerlink" title="2.2.1 列表推导与和可读性"></a>2.2.1 列表推导与和可读性</h4><ul>
+<li><p>列表推导：列表推导可以帮助我们把一个序列或是其他可迭代类型中的元素过滤或是加工，然后新建一个列表</p>
+</li>
+<li><p>比较使用列表推导和不使用列表推导代码的可读性</p>
+<ul>
+<li><p>把一个字符串变成Unicode码位的列表</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">symbols = <span class="string">'αλνοηπ'</span></span><br><span class="line">codes = []</span><br><span class="line"><span class="keyword">for</span> symbol <span class="keyword">in</span> symbols:</span><br><span class="line">    codes.append(ord(symbol))</span><br><span class="line">print(codes)</span><br><span class="line"><span class="comment"># [945, 955, 957, 959, 951, 960]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把字符串变成Unicode码位的另外一种写法</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">symbols = <span class="string">'αλνοηπ'</span></span><br><span class="line">codes = [ord(symbol) <span class="keyword">for</span> symbol <span class="keyword">in</span> symbols]</span><br><span class="line">print(codes)</span><br><span class="line"><span class="comment"># [945, 955, 957, 959, 951, 960]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>使用列表推导的原则</p>
+<ul>
+<li>只用列表推导来创建新的列表，并且尽量保持简短</li>
+<li>如果列表推导过于复杂，要考虑用for循环重写</li>
+</ul>
+</li>
+<li><p>Python3中列表推导不存在变量泄漏的问题</p>
+<ul>
+<li>解释<ul>
+<li>列表推导、生成器表达式、结合推导和字典推导在Python3中都有了自己的局部作用域</li>
+<li>表达式内部的变量和赋值只在局部起作用</li>
+<li>表达式的上下文里的同名变量还可以正常引用，局部变量并不会影响它们</li>
+</ul>
+</li>
+<li>举例  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="string">'ABC'</span></span><br><span class="line">dummy = [ord(x) <span class="keyword">for</span> x <span class="keyword">in</span> x]</span><br><span class="line">print(x)        <span class="comment"># ABC</span></span><br><span class="line">print(dummy)    <span class="comment"># [65, 66, 67]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-2-列表推导同filter和map的比较"><a href="#2-2-2-列表推导同filter和map的比较" class="headerlink" title="2.2.2 列表推导同filter和map的比较"></a>2.2.2 列表推导同filter和map的比较</h4><ul>
+<li><p>举例：用列表推导和map/filter组合来创建同样的表单</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">symbols = <span class="string">'αλνοηπ'</span></span><br><span class="line">codes = [ord(symbol) <span class="keyword">for</span> symbol <span class="keyword">in</span> symbols <span class="keyword">if</span> ord(symbol) &gt; <span class="number">127</span>]</span><br><span class="line">print(codes)</span><br></pre></td></tr></table></figure>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">symbols = <span class="string">'αλνοηπ'</span></span><br><span class="line">codes = list(filter(<span class="keyword">lambda</span> c: c &gt; <span class="number">127</span>, map(ord, symbols)))</span><br><span class="line">print(codes)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>总结</p>
+<ul>
+<li>filter和map合起来能做的事，列表推导也能做，而且还不需要借助难以理解和阅读的lambda表达式</li>
+<li>而且map/filter组合起来的效果不一定比列表推导快</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-3-笛卡尔积"><a href="#2-2-3-笛卡尔积" class="headerlink" title="2.2.3 笛卡尔积"></a>2.2.3 笛卡尔积</h4><ul>
+<li><p>笛卡尔积</p>
+<ul>
+<li>简介：两个或以上的列表中的元素对构成的<strong>元组</strong>，这些元组构成的<strong>列表</strong>就是笛卡尔积</li>
+<li>举例如图<br><img src="/2019/03/16/流畅的Python-2-序列构成的数组/0316_3.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>使用列表推导计算笛卡尔积</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">colors = [<span class="string">'black'</span>, <span class="string">'white'</span>]</span><br><span class="line">sizes = [<span class="string">'S'</span>, <span class="string">'M'</span>, <span class="string">'L'</span>]</span><br><span class="line"></span><br><span class="line">tshirts = [(color, size) <span class="keyword">for</span> color <span class="keyword">in</span> colors <span class="keyword">for</span> size <span class="keyword">in</span> sizes]</span><br><span class="line">print(tshirts)</span><br><span class="line"><span class="comment"># 此处先按照颜色排列，再按照尺码排列</span></span><br><span class="line"><span class="comment"># [('black', 'S'), ('black', 'M'), ('black', 'L'), ('white', 'S'), ('white', 'M'), ('white', 'L')]</span></span><br><span class="line"></span><br><span class="line">tshirts = [(color, size) <span class="keyword">for</span> size <span class="keyword">in</span> sizes <span class="keyword">for</span> color <span class="keyword">in</span> colors]</span><br><span class="line">print(tshirts)</span><br><span class="line"><span class="comment"># 此处先按照尺码排列，再按照颜色排列</span></span><br><span class="line"><span class="comment"># [('black', 'S'), ('white', 'S'), ('black', 'M'), ('white', 'M'), ('black', 'L'), ('white', 'L')]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-2-4-生成器表达式"><a href="#2-2-4-生成器表达式" class="headerlink" title="2.2.4 生成器表达式"></a>2.2.4 生成器表达式</h4><ul>
+<li><p>生成器表达式</p>
+<ul>
+<li>具有生成各种类型的元素并用它们来填充序列的功能</li>
+<li>生成器表达式背后遵守了迭代器协议，可以逐个地产出元素，而不是先建立一个完整的列表，然后再把这个列表传递到某个构造函数里</li>
+<li>这样可以大幅节省内存</li>
+</ul>
+</li>
+<li><p>生成器表达式语法与列表推导差不多，只不过把方括号换成了圆括号</p>
+</li>
+<li><p>如何用生成器表达式建立元组和数组</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> array</span><br><span class="line"></span><br><span class="line">symbols = <span class="string">'black'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果生成器表达式是要给函数调用过程中唯一的参数，那么不需要额外再用括号把它围起来</span></span><br><span class="line">symboltuple = tuple(ord(symbol) <span class="keyword">for</span> symbol <span class="keyword">in</span> symbols)</span><br><span class="line">print(symboltuple)</span><br><span class="line"><span class="comment"># (98, 108, 97, 99, 107)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># array的构造方法需要两个参数，因此括号是必须的</span></span><br><span class="line">symbolarray = array.array(<span class="string">'I'</span>, (ord(symbol) <span class="keyword">for</span> symbol <span class="keyword">in</span> symbols))</span><br><span class="line">print(symbolarray)</span><br><span class="line"><span class="comment"># array('I', [98, 108, 97, 99, 107])</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用生成器表达式计算笛卡尔积</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">colors = [<span class="string">'black'</span>, <span class="string">'white'</span>]</span><br><span class="line">sizes = [<span class="string">'S'</span>, <span class="string">'M'</span>, <span class="string">'L'</span>]</span><br><span class="line"><span class="keyword">for</span> tshirt <span class="keyword">in</span> (<span class="string">'%s %s'</span> % (c, s) <span class="keyword">for</span> c <span class="keyword">in</span> colors <span class="keyword">for</span> s <span class="keyword">in</span> sizes):</span><br><span class="line">    print(tshirt)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成器表达式最大的优点：逐个产出元素，可以节省内存</p>
+</li>
+</ul>
+<h3 id="2-3-元组不仅仅是不可变的列表"><a href="#2-3-元组不仅仅是不可变的列表" class="headerlink" title="2.3 元组不仅仅是不可变的列表"></a>2.3 元组不仅仅是不可变的列表</h3><h4 id="2-3-1-元组和记录"><a href="#2-3-1-元组和记录" class="headerlink" title="2.3.1 元组和记录"></a>2.3.1 元组和记录</h4><ul>
+<li><p>元组其实是对数据的记录：元组中的每个元素都存放了记录中一个字段的数据，外加这个字段的位置，正是这个位置信息给数据赋予了意义</p>
+</li>
+<li><p>如果在任何的表达式里我们在元组内对元素排序，这些元素所携带的信息就会丢失，因为这些信息是跟它们的位置有关的</p>
+</li>
+<li><p>把元组用作记录</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 洛杉矶国际机场的经纬度信息</span></span><br><span class="line">lax_coordinates = (<span class="number">33.9425</span>, <span class="number">-118.408056</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 东京市的一些信息：市名、年份、人口、人口变化率和面积</span></span><br><span class="line">city, year, pop, chg, area = (<span class="string">'Tokyo'</span>, <span class="number">2003</span>, <span class="number">32450</span>, <span class="number">0.66</span>, <span class="number">8014</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一个元组列表，元组的形式为(country_code, passport_number)</span></span><br><span class="line">traveler_ids = [(<span class="string">'USA'</span>, <span class="string">'31195855'</span>), (<span class="string">'BRA'</span>, <span class="string">'CE342567'</span>), (<span class="string">'ESP'</span>, <span class="string">'XDA205856'</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在迭代过程中，passport变量被绑定到每个元组上</span></span><br><span class="line"><span class="keyword">for</span> passport <span class="keyword">in</span> sorted(traveler_ids):</span><br><span class="line">    print(<span class="string">'%s/%s'</span> % passport)</span><br><span class="line"></span><br><span class="line"><span class="comment"># for循环可以分别提取元组中的元素，也叫做拆包</span></span><br><span class="line"><span class="comment"># 因为元组中的第二个元素对当前情景没有什么用，所以它赋值给"_"占位符</span></span><br><span class="line"><span class="keyword">for</span> country, _ <span class="keyword">in</span> traveler_ids:</span><br><span class="line">    print(country)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">BRA/CE342567</span></span><br><span class="line"><span class="string">ESP/XDA205856</span></span><br><span class="line"><span class="string">USA/31195855</span></span><br><span class="line"><span class="string">USA</span></span><br><span class="line"><span class="string">BRA</span></span><br><span class="line"><span class="string">ESP</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-3-2-元组拆包"><a href="#2-3-2-元组拆包" class="headerlink" title="2.3.2 元组拆包"></a>2.3.2 元组拆包</h4><ul>
+<li><p>元组拆包举例</p>
 <ol>
-<li>多层</li>
-<li>非线性</li>
+<li><p>平行赋值：把一个可迭代对象中的元素，一并赋值到由对应的变量组成的元组中</p>
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 平行赋值demo</span></span><br><span class="line">lax_coordinates = (<span class="number">33.9425</span>, <span class="number">-118.408056</span>)</span><br><span class="line"></span><br><span class="line">latitude, longitude = lax_coordinates</span><br><span class="line"></span><br><span class="line">print(latitude)</span><br><span class="line">print(longitude)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">33.9425</span></span><br><span class="line"><span class="string">-118.408056</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不使用中间变量交换两个变量的值</p>
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b, a = a, b</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用<code>*</code>运算符把一个可迭代对象拆开作为函数的参数</p>
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">print(divmod(<span class="number">20</span>, <span class="number">8</span>))</span><br><span class="line"></span><br><span class="line">t = (<span class="number">20</span>, <span class="number">8</span>)</span><br><span class="line"><span class="comment"># 使用*运算符将元组拆开作为函数的参数</span></span><br><span class="line">print(divmod(*t))</span><br><span class="line"></span><br><span class="line">quotient, remainder = divmod(*t)</span><br><span class="line">print(quotient)</span><br><span class="line">print(remainder)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">(2, 4)</span></span><br><span class="line"><span class="string">(2, 4)</span></span><br><span class="line"><span class="string">2</span></span><br><span class="line"><span class="string">4</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用元组拆包接收函数以元组形式返回的多个值</p>
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用元组拆包接收函数以元组形式返回的多个值</span></span><br><span class="line">_, filename = os.path.split(<span class="string">'C:/Users/admin/Desktop/NoTe/FluentPython-note/ch2-序列构成的数组/3-元组不仅仅是不可变列表.md'</span>)</span><br><span class="line">print(filename)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">3-元组不仅仅是不可变列表.md</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>在拆包时，我们不总是对元组里所有的数据都感兴趣，_占位符可以帮助处理这种情况</li>
+</ul>
+</li>
 </ol>
 </li>
-</ul>
-<hr>
-<h4 id="4-1-1-线性模型的局限性"><a href="#4-1-1-线性模型的局限性" class="headerlink" title="4.1.1 线性模型的局限性"></a>4.1.1 线性模型的局限性</h4><ul>
-<li><p>线性模型定义：假设一个模型的输入y和输入xi满足以下关系，那么这个模型就是一个线性模型<br>  <img src="/2019/03/10/Tensorflow-4-深层神经网络/线性模型公式.jpg" alt=""></p>
-</li>
-<li><p>线性模型特点：线性模型的最大特点是任意线性模型的组合仍然是线性模型</p>
-</li>
-<li><p>为什么被称为线性模型？</p>
+<li><p>元组拆包注意</p>
 <ul>
-<li>当模型的输入只有一个的时候，x和y形成了二维坐标系上的一条直线</li>
-<li>当模型有n个输入时，x和y形成了n+1维空间中的一个平面</li>
+<li>元组拆包可以应用到任何可迭代对象上</li>
+<li>唯一的硬性要求是：被迭代对象中的元素个数必须要跟接受这些元素的元组的空挡数一致</li>
+<li>除非我们用<code>*</code>来表示忽略多余的元素</li>
 </ul>
 </li>
-<li><p>线性模型局限性：</p>
+<li><p>用<code>*</code>处理剩下的元素</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">a, b, *rest = range(<span class="number">5</span>)</span><br><span class="line">print(a, b, rest)</span><br><span class="line"></span><br><span class="line">a, b, *rest = range(<span class="number">3</span>)</span><br><span class="line">print(a, b, rest)</span><br><span class="line"></span><br><span class="line">a, b, *rest = range(<span class="number">2</span>)</span><br><span class="line">print(a, b, rest)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">0 1 [2, 3, 4]</span></span><br><span class="line"><span class="string">0 1 [2]</span></span><br><span class="line"><span class="string">0 1 []</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在平行赋值时，*前缀最多只能用于一个变量，但是这个变量可以出现在赋值表达式的任意位置</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a, b, *body, d = range(<span class="number">5</span>)</span><br><span class="line">print(a, b, body, d)</span><br><span class="line"></span><br><span class="line">*head, b, c, d = range(<span class="number">5</span>)</span><br><span class="line">print(head, b, c, d)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">0 1 [2, 3] 4</span></span><br><span class="line"><span class="string">[0, 1] 2 3 4</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-3-3-嵌套元组拆包"><a href="#2-3-3-嵌套元组拆包" class="headerlink" title="2.3.3 嵌套元组拆包"></a>2.3.3 嵌套元组拆包</h4><ul>
+<li><p>接受表达式的元组可以是嵌套式的，例如(a, b, (c, d))</p>
+</li>
+<li><p>只要这个接受元组的嵌套结构符合表达式本身的嵌套结构，Python就可以做出正确的对应</p>
+</li>
+<li><p>嵌套元组Demo</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每个元组内有4个元素，其中最后一个元素是一对坐标</span></span><br><span class="line">metro_areas = [</span><br><span class="line">    (<span class="string">'Tokyo'</span>, <span class="string">'JP'</span>, <span class="number">36.933</span>, (<span class="number">35.689722</span>, <span class="number">139.691667</span>)),</span><br><span class="line">    (<span class="string">'Delhi NCR'</span>, <span class="string">'IN'</span>, <span class="number">21.935</span>, (<span class="number">28.613889</span>, <span class="number">77.208889</span>)),</span><br><span class="line">    (<span class="string">'Mexico City'</span>, <span class="string">'MX'</span>, <span class="number">20.142</span>, (<span class="number">19.433333</span>, <span class="number">-99.133333</span>)),</span><br><span class="line">    (<span class="string">'New York-Newark'</span>, <span class="string">'US'</span>, <span class="number">20.104</span>, (<span class="number">40.808611</span>, <span class="number">-74.020386</span>)),</span><br><span class="line">    (<span class="string">'Sao Paulo'</span>, <span class="string">'BR'</span>, <span class="number">19.649</span>, (<span class="number">-23.547778</span>, <span class="number">-46.635833</span>))</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">print(<span class="string">'&#123;:15&#125;|&#123;:^9&#125;|&#123;:^9&#125;'</span>.format(<span class="string">''</span>,<span class="string">'lat.'</span>,<span class="string">'long.'</span>))</span><br><span class="line">fmt = <span class="string">'&#123;:15&#125;|&#123;:9.4f&#125;|&#123;:9.4f&#125;'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 把输入元组的最后一个元素拆包到由变量构成的元组里，这样就获得了坐标</span></span><br><span class="line"><span class="keyword">for</span> name, cc, pop, (latitude, longitude) <span class="keyword">in</span> metro_areas:</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 这个条件用来把输出限定在西半球的城市</span></span><br><span class="line">    <span class="keyword">if</span> longitude &lt;= <span class="number">0</span>:</span><br><span class="line">        print(fmt.format(name, latitude, longitude))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">               |  lat.   |  long.  </span></span><br><span class="line"><span class="string">Mexico City    |  19.4333| -99.1333</span></span><br><span class="line"><span class="string">New York-Newark|  40.8086| -74.0204</span></span><br><span class="line"><span class="string">Sao Paulo      | -23.5478| -46.6358</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意</p>
 <ul>
-<li>只通过线性变换，任意层的全连接神经网络和单层神经网络模型的表达能力没有任何区别，而且它们都是线性模型</li>
-<li>线性模型只能解决线性可分问题，但是绝大多数问题都是无法线性分割的</li>
+<li>在Python3之前，元组可以作为形参放到函数声明中，例如<code>def fn(a, (b, c), d):</code></li>
+<li>然而Python3不再支持这种格式</li>
 </ul>
 </li>
-<li><p>样例</p>
+</ul>
+<h4 id="2-3-4-具名元组"><a href="#2-3-4-具名元组" class="headerlink" title="2.3.4 具名元组"></a>2.3.4 具名元组</h4><ul>
+<li><p><code>collections.namedtuple</code>是一个工厂函数，它可以用来构建一个带字段名的元组和一个有名字的类</p>
+</li>
+<li><p><code>namedtuple</code>创建的类的大小</p>
 <ul>
-<li><p>使用线性模型无法解决线性不可分问题<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/线性模型解决线性不可分问题.jpg" alt=""></p>
-</li>
-<li><p>使用线性模型可以解决线性可分问题<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/线性模型解决线性可分问题.jpg" alt=""></p>
-</li>
-<li><p>使用非线性模可以解决线性不可分问题<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/非线性模型解决线性不可分问题.jpg" alt=""></p>
-</li>
+<li>用namedtuple创建的类的实例所消耗的内存跟元组是一样的，因为字段名都被存在对应的类中</li>
+<li>但是这个实例跟普通的对象实例比起来要小一些，因为Python不会用<code>__dict__</code>来存放这些实例的属性</li>
 </ul>
 </li>
-</ul>
-<hr>
-<h4 id="4-1-2-激活函数实现去线性化"><a href="#4-1-2-激活函数实现去线性化" class="headerlink" title="4.1.2 激活函数实现去线性化"></a>4.1.2 激活函数实现去线性化</h4><ul>
-<li><p>激活函数简介</p>
+<li><p>用具名元组来记录一个城市的信息</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个具名元组需要两个参数，一个是类名，另一个是类的各个字段的名字</span></span><br><span class="line"><span class="comment"># 后者可以是由多个字符串组成的可迭代对象，或者是由空格分隔开的字段名组成的字符串</span></span><br><span class="line">City = namedtuple(<span class="string">'City'</span>, <span class="string">'name country population coordinates'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 存放在对应字段中的数据要以一串参数的形式传入构造函数中</span></span><br><span class="line">tokyo = City(<span class="string">'Tokyo'</span>, <span class="string">'JP'</span>, <span class="number">36.933</span>, (<span class="number">35.689722</span>, <span class="number">139.691667</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以通过字段名或者位置来获得一个字段的信息</span></span><br><span class="line">print(tokyo)</span><br><span class="line">print(tokyo.population)</span><br><span class="line">print(tokyo.country)</span><br><span class="line">print(tokyo[<span class="number">1</span>])</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">City(name='Tokyo', country='JP', population=36.933, coordinates=(35.689722, 139.691667))</span></span><br><span class="line"><span class="string">36.933</span></span><br><span class="line"><span class="string">JP</span></span><br><span class="line"><span class="string">JP</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>具名元组还有一些自己专有的属性</p>
 <ul>
-<li>如果将每个神经元的输出通过一个非线性函数，那么整个神经网络的模型也就不再是线性了</li>
-<li>这个非线性函数就是激活函数</li>
-</ul>
-</li>
-<li><p>加入了激活函数和偏置项之后的<strong>神经元</strong>结构<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/加入偏置项和激活函数的神经元结构.jpg" alt=""></p>
-</li>
-<li><p>常见的非线性激活函数<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/常见的激活函数.jpg" alt=""><br>这些激活函数的函数图像都不是一条直线，所以通过这些激活函数，每个节点不再是线性变换，于是整个神经网络模型也就不再是线性的</p>
-</li>
-<li><p>加入了激活函数和偏置项之后的<strong>神经网络</strong><br><img src="/2019/03/10/Tensorflow-4-深层神经网络/加入偏置项和激活函数的神经网络.jpg" alt=""><br>此处偏置项可以表达为一个永远输出为1的节点</p>
-</li>
-<li><p>TensorFlow中的激活函数</p>
-<ul>
-<li>TensorFlow目前提供7种非线性激活函数</li>
-<li>比较常见的有<ul>
-<li><code>tf.nn.relu</code></li>
-<li><code>tf.sigmoid</code></li>
-<li><code>tf.tanh</code></li>
-</ul>
-</li>
-<li>使用激活函数  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = tf.nn.relu(tf.matmul(x, w1) + biases1)</span><br><span class="line">y = tf.nn.relu(tf.matmul(a, w2) + biases2)</span><br></pre></td></tr></table></figure>
+<li>例如：<code>_fields</code>类属性、类方法<code>_make(iterable)</code>、实例方法<code>_asdict()</code><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个具名元组需要两个参数，一个是类名，另一个是类的各个字段的名字</span></span><br><span class="line"><span class="comment"># 后者可以是由多个字符串组成的可迭代对象，或者是由空格分隔开的字段名组成的字符串</span></span><br><span class="line">City = namedtuple(<span class="string">'City'</span>, <span class="string">'name country population coordinates'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># fields属性是一个包含这个类所有字段名称的元组</span></span><br><span class="line">print(City._fields)</span><br><span class="line"></span><br><span class="line">LatLong = namedtuple(<span class="string">"LatLong"</span>, <span class="string">"lat long"</span>)</span><br><span class="line">delhi_data = (<span class="string">'Delhi NCR'</span>, <span class="string">'IN'</span>, <span class="number">21.935</span>, LatLong(<span class="number">28.613889</span>, <span class="number">77.208889</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用_make()通过接受一个可迭代对象来生成这个类的一个实例，它的作用与City(*delhi_data)是一样的</span></span><br><span class="line">delhi = City._make(delhi_data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># _asdict()可以把剧名元组以collections.OrderedDict的形式返回，我们可以利用它来把元组里的信息友好地呈现出来</span></span><br><span class="line">print(delhi._asdict())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> key, value <span class="keyword">in</span> delhi._asdict().items():</span><br><span class="line">    print(key + <span class="string">": "</span>, value)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
 </ul>
-<hr>
-<h4 id="4-1-3-多层网络解决异或运算"><a href="#4-1-3-多层网络解决异或运算" class="headerlink" title="4.1.3 多层网络解决异或运算"></a>4.1.3 多层网络解决异或运算</h4><ul>
-<li><p>异或运算：如果两个输入的符号相同时则输出为0，否则输出为1</p>
-</li>
-<li><p>感知机：可以理解为单层的神经网络<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/加入偏置项和激活函数的神经元结构.jpg" alt=""></p>
-</li>
-<li><p>感知机的缺陷：感知机无法模拟异或运算<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/感知机无法解决异或问题.jpg" alt=""></p>
-</li>
-<li><p>当加入隐藏层以后，异或问题可以得到很好的解决</p>
-<ul>
-<li>如图<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/加入隐藏层解决异或问题.jpg" alt=""></li>
-<li>另外<ul>
-<li>隐藏层的4个节点中，每个节点都有一个角是黑色的</li>
-<li>这4个隐藏节点可以被认为代表了从输入特征中抽取的更高维的特征</li>
-<li>深层神经网络实际上有组合特征提取的功能</li>
-<li>这个特性对于解决不易提取特征向量的问题有很大帮助</li>
+<h4 id="2-3-5-作为不可变列表的元组"><a href="#2-3-5-作为不可变列表的元组" class="headerlink" title="2.3.5 作为不可变列表的元组"></a>2.3.5 作为不可变列表的元组</h4><ul>
+<li>除了跟增减元素相关的方法之外，元组支持列表的其他所有方法<br><img src="/2019/03/16/流畅的Python-2-序列构成的数组/0316_4.jpg" alt=""><br><img src="/2019/03/16/流畅的Python-2-序列构成的数组/0316_5.jpg" alt=""></li>
 </ul>
-</li>
+<h3 id="2-4-切片"><a href="#2-4-切片" class="headerlink" title="2.4 切片"></a>2.4 切片</h3><ul>
+<li>在Python中，像列表(list)、元组(tuple)、字符串(str)这类序列类型都支持切片操作</li>
 </ul>
+<h4 id="2-4-1-为什么切片和区间会忽略最后一个元素"><a href="#2-4-1-为什么切片和区间会忽略最后一个元素" class="headerlink" title="2.4.1 为什么切片和区间会忽略最后一个元素"></a>2.4.1 为什么切片和区间会忽略最后一个元素</h4><ul>
+<li><p>在切片和区间操作里不包含区间范围的最后一个元素是Python的风格</p>
 </li>
-</ul>
-<hr>
-<h3 id="4-2-损失函数定义"><a href="#4-2-损失函数定义" class="headerlink" title="4.2 损失函数定义"></a>4.2 损失函数定义</h3><ul>
-<li>损失函数简介：神经网络模型的效果以及优化的目标是通过损失函数来定义的</li>
-</ul>
-<hr>
-<h4 id="4-2-1-经典损失函数"><a href="#4-2-1-经典损失函数" class="headerlink" title="4.2.1 经典损失函数"></a>4.2.1 经典损失函数</h4><ul>
-<li><p>分类问题</p>
-<ul>
-<li>简介：分类问题希望解决的是将不同的样本分到事先定义好的类别中</li>
-<li>例子<ul>
-<li>判断一个零件是否合格的问题就是一个二分类问题</li>
-<li>手写体数字识别问题可以归纳为一个十分类问题</li>
-</ul>
-</li>
-<li>如何通过神经网络解决分类问题<ul>
-<li>通过神经网络解决多分类问题最常用的方法是设置n个输出节点，其中n为类别的个数</li>
-<li>在理想情况下，如果一个样本属于类别k，那么这个类别所对应的输出节点的输出值应该为1，而其他节点的输出都为0</li>
-<li>例如：[1,0,0,0,0,0,0,0,0]</li>
-</ul>
-</li>
-<li>如何判断一个输出向量和期望的向量有多接近？<ul>
-<li>交叉熵(cross entropy)是常用的评判方法之一</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>交叉熵</p>
-<ul>
-<li>用途：交叉熵用来判断一个输出向量与期望的向量有多接近</li>
-<li>公式<ul>
-<li>给定两个概率分布p和q，通过q来表示p的交叉熵为<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/交叉熵公式.jpg" alt=""></li>
-</ul>
-</li>
-<li>简介<ul>
-<li>交叉熵刻画的是两个概率分布之间的距离</li>
-<li>也可以理解为，交叉熵刻画的是通过概率分布q来表达概率分布p的困难程度</li>
-<li>交叉熵越小，两个概率分布越接近</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>但是神经网络的输出却不一定是一个概率分布，如何将神经网络前向传播得到的结果也变成概率分布呢？</p>
-<ul>
-<li><p>如图<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/将神经网络输出转化为概率分布.jpg" alt=""></p>
-</li>
-<li><p>使用Softmax函数作为一层额外的处理层，把神经网络的输出变成一个概率分布</p>
-</li>
-<li><p>假设原始的神经网络输出为y1,y2,…yn，那么经过Softmax回归处理之后的输出为：<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/Softmax函数.jpg" alt=""></p>
-</li>
-<li><p>原始神经网络的输出被用作置信值来生成新的输出，而新的输出满足概率分布的所有要求</p>
-</li>
-<li><p>这个新的输出可以理解为经过神经网络的推导，一个样例为不同类别的概率分别是多大。</p>
-</li>
-<li><p>这样就把神经网络的输出也变成了一个概率分布，从而可以通过交叉熵来计算预测的概率分布与真实答案的概率分布之间的距离了</p>
-</li>
-</ul>
-</li>
-<li><p>使用TensorFlow实现交叉熵</p>
-<ul>
-<li><p>样例代码</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cross_entropy = - tf.reduce_mean(y_ * </span><br><span class="line">tf.log(tf.clip_by_value(y,<span class="number">1e-10</span>,<span class="number">1.0</span>)))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>解读</p>
-<ul>
-<li><code>y_</code>：代表正确结果，来自于输入</li>
-<li><code>y</code>：代表预测结果，来自于神经网络的运算结果</li>
-<li><code>tf.clip_by_value()</code>：把一个张量中的数值限制在一个范围之内</li>
-<li><code>tf.log()</code>：对张量中所有元素依次求对数</li>
-<li><code>*</code>：不是矩阵乘法，而是张量之间的每个元素相乘，矩阵乘法要用<code>tf.matmul()</code></li>
-<li><code>tf.reduce_mean()</code>：对张量中所有元素求平均，并输出一个数字作为平均值</li>
-</ul>
-</li>
-<li>另外<ul>
-<li>可以直接使用<code>tf.nn.softmax_cross_entropy_with_logits()</code>函数实现上述过程<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cross_entropy = tf.nn.softmax_cross_entropy_with_logits(</span><br><span class="line">    labels=y_, logits=y)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>回归问题</p>
-<ul>
-<li>简介<ul>
-<li>回归问题解决的是对具体数值的预测</li>
-<li>这些问题需要预测的不是一个事先定义好的类别，而是一个任意实数</li>
-<li>解决回归问题的神经网络一般只有一个输出节点，这个节点的输出值就是预测值</li>
-</ul>
-</li>
-<li>回归问题常用损失函数—–均方误差(MSE,mean squared error)<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/均方误差公式.jpg" alt=""></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="4-2-2-自定义损失函数"><a href="#4-2-2-自定义损失函数" class="headerlink" title="4.2.2 自定义损失函数"></a>4.2.2 自定义损失函数</h4><ul>
-<li><p>TensorFlow支持自定义损失函数，使得神经网络优化的结果更加接近实际问题的需求</p>
-</li>
-<li><p>不同的损失函数会对训练得到的模型产生重大影响</p>
-</li>
-<li><p><code>tf.greater()</code>：输入两个向量，比较两个输入向量中每个元素的大小，并返回比较结果</p>
-</li>
-<li><p><code>tf.where()</code>：当第一参数为True时，选择第二个参数的值，否则选择第三个参数的值</p>
-</li>
-</ul>
-<hr>
-<h3 id="4-3-神经网络优化算法"><a href="#4-3-神经网络优化算法" class="headerlink" title="4.3 神经网络优化算法"></a>4.3 神经网络优化算法</h3><hr>
-<ul>
-<li><p>梯度下降算法(gradient decent)</p>
-<ul>
-<li>主要用于优化单个参数的取值</li>
-<li>目前还没有一个通用的方法可以对任意损失函数直接求解<strong>最佳的参数</strong>取值</li>
-<li>梯度下降算法会迭代式更新参数，不断沿着梯度的反方向让参数朝着总损失更小的方向更新</li>
-</ul>
-</li>
-<li><p>反向传播算法(backpropagation)</p>
-<ul>
-<li>反向传播算法给出了一个高效的方式在所有参数上使用梯度下降算法，从而使神经网络模型在训练数据上的损失函数尽可能小</li>
-<li>换句话说，反向传播算法就是根据定义好的损失函数优化神经网络中参数的取值，从而使神经网络模型在训练数据集上的损失函数达到一个较小值</li>
-</ul>
-</li>
-<li><p>参数的梯度：可以通过求偏导的方式计算</p>
-</li>
-<li><p>学习率(learning rate)：用来定义每次参数更新的幅度</p>
-</li>
-<li><p>神经网络的优化过程可以分为两个阶段</p>
+<li><p>切片和区间忽略最后一个元素的好处</p>
 <ol>
-<li>通过前向传播算法计算得到的预测值，并将预测值和真实值做对比得出两者之间的差距(损失函数)</li>
-<li>通过反向传播算法计算损失函数对每一个参数的梯度，再根据梯度和学习率使用梯度下降算法更新每一个参数</li>
-</ol>
-</li>
-<li><p>需要注意</p>
-<ul>
-<li>梯度下降算法并不能保证被优化的函数达到全局最优解<ul>
-<li>当函数的偏导为0，参数就不再更新了，因此梯度下降算法只能达到局部最优解</li>
+<li>当只有最后一个位置消息时，我们可以快速看出切片和区间里有几个元素<ul>
+<li>比如：range(3)和my_list[:3]都返回3个元素</li>
 </ul>
 </li>
-<li>在海量训练数据下，要计算所有训练数据的损失函数是非常消耗时间的<ul>
-<li>使用随机梯度下降算法加速训练过程：这个算法优化的不是在全部训练数据上的损失函数，而是在每一轮迭代，随机优化某一条训练数据上的损失函数</li>
-<li>但是在某一条数据上损失函数更小并不代表在全部数据上损失函数更小，甚至无法达到局部最优</li>
+<li>当起止位置信息都可见时，我们可以快速计算出切片和区间的长度，用后一个数减去第一个下标(stop - start)即可</li>
+<li>这样做也可以让我们可以利用任意一个下标来把序列分割成不重叠的两部分<ul>
+<li>只要写成my_list[:x]和my_list[x:]即可</li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p>为了综合梯度下降算法和随机梯度下降算法的优缺点</p>
-<ul>
-<li>每次计算一小部分训练数据的损失函数，这一小部分数据被称为一个batch</li>
-<li>通过矩阵运算，每次在一个batch上优化神经网络的参数并不会比单个数据慢太多</li>
-<li>每次使用一个batch可以大大减少收敛所需要的迭代次数，同时可以使收敛到的结果更加接近梯度下降的效果</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="4-4-神经网络进一步优化"><a href="#4-4-神经网络进一步优化" class="headerlink" title="4.4 神经网络进一步优化"></a>4.4 神经网络进一步优化</h3><hr>
-<h4 id="4-4-1-学习率的设置"><a href="#4-4-1-学习率的设置" class="headerlink" title="4.4.1 学习率的设置"></a>4.4.1 学习率的设置</h4><ul>
-<li><p>学习率：学习率决定参数每次更新的幅度</p>
-</li>
-<li><p>背景</p>
-<ul>
-<li>如果学习率过大，可能会导致参数在极优值的两侧来回移动</li>
-<li>如果学习率过小，虽然能保证收敛性，但是会大大降低优化速度</li>
-</ul>
-</li>
-<li><p>指数衰减法</p>
-<ul>
-<li>简介：可以在训练的前期使用较大的学习率来快速得到一个比较优的解，然后随着迭代的继续逐步减小学习率，使得模型在训练的后期表现较为稳定</li>
-<li>公式：<code>decayed_learning_rate = learning_rate * decay_rate ** (global_step / decay_steps)</code><ul>
-<li><code>decayed_learning_rate</code>：每一轮优化时使用的学习率</li>
-<li><code>learning_rate</code>：事先设置的初始学习率</li>
-<li><code>decay_rate</code>：衰减系数</li>
-<li><code>global_steps</code>：当前的迭代轮数</li>
-<li><code>decay_steps</code>：衰减速度</li>
-<li>例如：若 <code>decay_rate = 0.96</code>，并且 <code>decay_steps = 100</code>；则说明每训练100轮，学习率就是100轮之前的0.96倍</li>
-</ul>
-</li>
-<li>TensorFlow的实现：<code>tf.train.expoential_decay()</code>  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 声明一个变量</span></span><br><span class="line">global_step = tf.Variable(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过exponential_decay函数生成学习率</span></span><br><span class="line">learning_rate = tf.train.exponential_decay(<span class="number">0.1</span>, global_step, <span class="number">100</span>, <span class="number">0.96</span>, staircase=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用指数衰减的学习率，首先在构造器中传入learning_rate,然后在minimize函数中传入global_step将自动更新global_step参数，从而使得学习率也得到相应更新</span></span><br><span class="line"></span><br><span class="line">learning_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss_func, global_step=global_step)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>对 <code>tf.train.exponential</code>中<code>staircase</code> 参数的解释</p>
-<ul>
-<li>如图<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/指数衰减.jpg" alt=""></li>
-<li>通过设置 <code>staircase</code> 参数可以选择不同的衰减方式</li>
-<li>当 <code>staircase = False</code> 时<ul>
-<li>学习率随迭代轮次变化的趋势如图中灰线所示</li>
-</ul>
-</li>
-<li>当 <code>staircase = True</code> 时<ul>
-<li>global_step / decay_steps会被转化为整数</li>
-<li>如图中黑线所示</li>
-<li>在这种设置下，<code>decay_steps</code> 通常代表了完整的使用一遍训练数据所需要的迭代轮数，这种设置的常用场景是每完整过完一遍训练数据，学习率就减小一次，这可以使得训练数据集中的所有数据对模型训练有相等的作用</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>一般来说初始学习率、衰减系数和衰减速度都是根据经验设置的</p>
-</li>
-</ul>
-<hr>
-<h4 id="4-4-2-过拟合问题"><a href="#4-4-2-过拟合问题" class="headerlink" title="4.4.2 过拟合问题"></a>4.4.2 过拟合问题</h4><ul>
-<li><p>背景</p>
-<ul>
-<li>在真实的应用中想要的并不是让模型尽量模拟训练数据的行为，而是希望通过训练出来的模型对<strong>未知数据</strong>给出判断</li>
-<li>模型在训练数据上的表现并不一定代表了它在<strong>未知数据</strong>上的表现</li>
-</ul>
-</li>
-<li><p>过拟合问题</p>
-<ul>
-<li>简介：过拟合指的是当一个模型过于复杂之后，它可以很好地记忆每个训练数据中随机噪音的部分而“忘记”了要去学习训练数据中通用的趋势</li>
-<li>问题：过度拟合训练数据中的随机噪音虽然可以得到非常小的损失函数，但是对于未知数据可能无法做出可靠的判断</li>
-<li>例子<br>  <img src="/2019/03/10/Tensorflow-4-深层神经网络/神经网络模型的三种情况.jpg" alt=""><ol>
-<li>第一种情况下，模型过于简单，无法刻画问题的趋势，也可以称之为欠拟合</li>
-<li>第二个模型是合理的，它既不会过于关注训练数据中的噪音，又能比较好地刻画问题的整体趋势</li>
-<li>第三个模型就是过拟合了，虽然它完美地划分了不同形状的点，但是这样的划分并不能很好地对未知数据做出判断，因为它<strong>过度拟合</strong>了训练数据中的噪音而忽视了问题的整体规律</li>
 </ol>
 </li>
 </ul>
-</li>
-<li><p>正则化（regularization）</p>
+<h4 id="2-4-2-切片对象"><a href="#2-4-2-切片对象" class="headerlink" title="2.4.2 切片对象"></a>2.4.2 切片对象</h4><ul>
+<li><p>一个众所周知的秘密是，我们还可以用s[a:b:c]的形式对s在a和b之间以c为间隔取值</p>
 <ul>
-<li>背景：为了避免过拟合问题，可以使用正则化</li>
-<li>思想：<ul>
-<li>正则化的思想就是在损失函数中加入刻画模型复杂程度的指标：<code>R(w)</code></li>
-<li>其中 <code>w</code> 表示每条边上的权重，也就是训练的参数</li>
-<li>这样通过限制权重的大小，使得模型不能任意拟合训练数据中的随机噪音</li>
-</ul>
+<li>例如  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">'bicycle'</span></span><br><span class="line">print(s[::<span class="number">3</span>])</span><br><span class="line">print(s[::<span class="number">-1</span>])</span><br><span class="line">print(s[::<span class="number">-2</span>])</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">bye</span></span><br><span class="line"><span class="string">elcycib</span></span><br><span class="line"><span class="string">eccb</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
-<li><p>常用的刻画模型复杂度的函数 <code>R(w)</code> 有两种</p>
+<li><p>可以使用<code>slice()</code>数据类型声明切片变量，这样可以增加代码可读性</p>
 <ul>
-<li>L1正则化<ul>
-<li>公式<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/L1正则化.jpg" alt=""></li>
-<li>特点<ul>
-<li>会使参数变得更稀疏，即有大量参数取值为0</li>
-<li>L1正则化的计算公式不可导，因此优化更加复杂，优化方法更多</li>
+<li>代码略</li>
 </ul>
 </li>
 </ul>
-</li>
-<li>L2正则化<ul>
-<li>公式<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/L2正则化.jpg" alt=""></li>
-<li>特点<ul>
-<li>不会使参数变得稀疏</li>
-<li>L2正则化的计算公式可导，因此优化要更加简洁</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>TensorFlow实现正则化</p>
+<h4 id="2-4-3-多维切片和省略"><a href="#2-4-3-多维切片和省略" class="headerlink" title="2.4.3 多维切片和省略"></a>2.4.3 多维切片和省略</h4><ul>
+<li><p>[]运算符还可以使用以逗号分开的多个索引或者是切片</p>
 <ul>
-<li>TensorFlow提供了<code>tf.contrib.layers.l2_regularizer()</code>函数，它可以返回一个函数，这个函数可以计算一个给定参数的L2正则化项的值</li>
-<li><p>样例</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">w = tf.Variable(tf.random_normal([<span class="number">2</span>, <span class="number">1</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line">y = tf.matmul(x, w)</span><br><span class="line"><span class="comment"># 在损失函数中额外添加R(w)项，以正则化</span></span><br><span class="line"><span class="comment"># 其中lamb表示正则化的权重</span></span><br><span class="line">loss = tf.reduce_mean(tf.square(y_ - y)) + tf.contrib.layers.l2_regularizer(lamb)(w)</span><br></pre></td></tr></table></figure>
+<li>例如,<code>numpy.ndarray</code>就可以用<code>a[i, j]</code>这种形式来获取二维矩阵中的元素</li>
+<li>也可以使用<code>a[m:n, k:l]</code>的方式来得到二维切片</li>
+</ul>
 </li>
-<li><p>样例2：使用集合来为多层复杂神经网络添加正则项</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> numpy.random <span class="keyword">import</span> RandomState</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机生成并返回一层神经网络边上的权重，并将这个权重的L2正则化损失加入名称为'losses'的集合中</span></span><br><span class="line"><span class="comment"># lamb代表权重的大小</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_weight</span><span class="params">(shape, lamb)</span>:</span></span><br><span class="line">    <span class="comment"># 生成一个变量</span></span><br><span class="line">    var = tf.Variable(tf.random_normal(shape), dtype=tf.float32)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将新生成变量的L2正则化损失项加入集合</span></span><br><span class="line">    tf.add_to_collection(<span class="string">'losses'</span>, tf.contrib.layers.l2_regularizer(lamb)(var))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 返回这个变量</span></span><br><span class="line">    <span class="keyword">return</span> var</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印所有可训练参数的值</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_weights</span><span class="params">(sess)</span>:</span></span><br><span class="line">    variables = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES)</span><br><span class="line">    print()</span><br><span class="line">    <span class="keyword">for</span> var <span class="keyword">in</span> variables:</span><br><span class="line">        print()</span><br><span class="line">        print(var)</span><br><span class="line">        print(sess.run(var))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义输入数据</span></span><br><span class="line">x = tf.placeholder(tf.float32, (<span class="keyword">None</span>, <span class="number">2</span>))</span><br><span class="line">y_ = tf.placeholder(tf.float32, (<span class="keyword">None</span>, <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义batch的大小</span></span><br><span class="line">batch_size = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义每层网络中神经元的个数</span></span><br><span class="line">layer_dimension = [<span class="number">2</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">1</span>]</span><br><span class="line"><span class="comment"># 神经网络的层数</span></span><br><span class="line">n_layers = len(layer_dimension)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当前层的神经元，初始化为输入层神经元</span></span><br><span class="line">cur_layer = x</span><br><span class="line"><span class="comment"># 当前层的神经元个数</span></span><br><span class="line">in_dimension = layer_dimension[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过一个循环来生成5层全连接的神经网络</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n_layers):</span><br><span class="line">    <span class="comment"># 下一层的节点个数</span></span><br><span class="line">    out_dimension = layer_dimension[i]</span><br><span class="line">    <span class="comment"># 根据这一层和下一层的节点数来生成当前层的权重，并将L2正则添加到集合</span></span><br><span class="line">    weight = get_weight([in_dimension, out_dimension], <span class="number">0.001</span>)</span><br><span class="line">    bias = tf.Variable(tf.constant(<span class="number">0.1</span>, shape=[out_dimension]))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用RuLU激活函数计算下一层的节点，并赋值给当前层变量</span></span><br><span class="line">    cur_layer = tf.nn.relu(tf.matmul(cur_layer, weight) + bias)</span><br><span class="line">    <span class="comment"># 进入下一层之前将下一层的节点数更新为当前层的节点数</span></span><br><span class="line">    in_dimension = layer_dimension[i]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用均方误差作为损失函数</span></span><br><span class="line">mes_loss = tf.reduce_mean(tf.square(y_ - cur_layer))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将均方误差添加到losses集合</span></span><br><span class="line">tf.add_to_collection(<span class="string">'losses'</span>, mes_loss)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将loess集合中所有元素相加，得到最后的损失函数（包括MSE和正则）</span></span><br><span class="line">loss = tf.add_n(tf.get_collection(<span class="string">'losses'</span>))</span><br><span class="line"></span><br><span class="line">global_step = tf.Variable(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用指数衰减来设置学习率</span></span><br><span class="line">learning_rate = tf.train.exponential_decay(<span class="number">0.1</span>, global_step, <span class="number">100</span>, <span class="number">0.96</span>, staircase=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义优化过程,带指数衰减的梯度下降算法</span></span><br><span class="line">learning_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss, global_step=global_step)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用Numpy生成随机数</span></span><br><span class="line">rdm = RandomState(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义数据集的大小</span></span><br><span class="line">dataset_size = <span class="number">128</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用前面的随机数来生成输入数据X和Y</span></span><br><span class="line">X = rdm.rand(dataset_size, <span class="number">2</span>)</span><br><span class="line">Y = [[int(x1+x2 &lt; <span class="number">1</span>)] <span class="keyword">for</span> (x1, x2) <span class="keyword">in</span> X]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启会话开始运算</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="comment"># 初始化所有变量</span></span><br><span class="line">    init_op = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init_op)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 打印所有参数</span></span><br><span class="line">    print_weights(sess)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置训练的轮数</span></span><br><span class="line">    STEPS = <span class="number">5000</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 开启迭代的训练过程</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(STEPS):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 设置当前组batch的开始值和结束值</span></span><br><span class="line">        start = (i * batch_size) % dataset_size</span><br><span class="line">        end = min(start+batch_size, dataset_size)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 训练神经网络并更新参数</span></span><br><span class="line">        sess.run(learning_step, feed_dict=&#123;</span><br><span class="line">            x: X[start:end],</span><br><span class="line">            y_: Y[start:end]</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 打印所有参数</span></span><br><span class="line">    print_weights(sess)</span><br></pre></td></tr></table></figure>
+<li><p>Python内置的序列类型都是一维的，因此它们只支持单一的索引，成对出现的索引大部分在外部库中使用，例如Numpy等</p>
 </li>
 </ul>
+<ul>
+<li>另外，在Numpy中, … 用作多维数组切片的快捷方式<ul>
+<li>比如，如果x是四维数组，那么x[i,…]就是x[i, :, :, :]的缩写</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-4-4-给切片赋值"><a href="#2-4-4-给切片赋值" class="headerlink" title="2.4.4 给切片赋值"></a>2.4.4 给切片赋值</h4><ul>
+<li><p>如果把切片放在赋值语句的左边，或者把它作为del操作的对象，我们就可以对序列进行嫁接、切除或就地修改操作</p>
+</li>
+<li><p>注意：如果赋值的对象是一个切片的话，那么赋值语句的右侧必须是一个可迭代对象，即便只有单独一个值，也要转换成可迭代序列</p>
+</li>
+<li><p>例如</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">l = list(range(<span class="number">10</span>))</span><br><span class="line">print(l)</span><br><span class="line"><span class="comment">#  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</span></span><br><span class="line">l[<span class="number">2</span>: <span class="number">5</span>] = [<span class="number">20</span>, <span class="number">30</span>]</span><br><span class="line">print(l)</span><br><span class="line"><span class="comment"># [0, 1, 20, 30, 5, 6, 7, 8, 9]</span></span><br><span class="line"><span class="keyword">del</span> l[<span class="number">5</span>: <span class="number">7</span>]</span><br><span class="line">print(l)</span><br><span class="line"><span class="comment"># [0, 1, 20, 30, 5, 8, 9]</span></span><br><span class="line">l[<span class="number">3</span>::<span class="number">2</span>] = [<span class="number">11</span>, <span class="number">22</span>]</span><br><span class="line">print(l)</span><br><span class="line"><span class="comment"># [0, 1, 20, 11, 5, 22, 9]</span></span><br><span class="line">l[<span class="number">2</span>:<span class="number">5</span>] = [<span class="number">100</span>]</span><br><span class="line">print(l)</span><br><span class="line"><span class="comment"># [0, 1, 100, 22, 9]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-5-对序列使用-和"><a href="#2-5-对序列使用-和" class="headerlink" title="2.5 对序列使用+和*"></a>2.5 对序列使用+和*</h3><hr>
+<ul>
+<li><p>Python程序员会默认序列是支持<code>+</code>和<code>*</code>操作的</p>
+</li>
+<li><p>通常<code>+</code>号两侧的序列由相同类型的数据所构成</p>
+</li>
+<li><p>在拼接过程中，两个被操作的序列都不会被修改，Python会<strong>新建</strong>一个包含同样类型数据的序列来作为拼接的结果</p>
+</li>
+<li><p>如果想把一个序列复制几份然后再拼接起来，更快捷的做法是把这个序列乘以一个整数，同样这个操作也会产生一个<strong>新序列</strong></p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">l = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">print(l * <span class="number">5</span>)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
-<h4 id="滑动平均模型"><a href="#滑动平均模型" class="headerlink" title="滑动平均模型"></a>滑动平均模型</h4><ul>
-<li><p>背景：在采用随机梯度下降算法训练神经网络时，使用滑动平均模型在很多应用中都可以在一定程度上提高最终模型在测试数据上的表现</p>
+<h4 id="2-5-1-建立由列表组成的列表"><a href="#2-5-1-建立由列表组成的列表" class="headerlink" title="2.5.1 建立由列表组成的列表"></a>2.5.1 建立由列表组成的列表</h4><ul>
+<li>有时我们需要初始化一个嵌套着几个列表的列表</li>
+</ul>
+<ol>
+<li><p>方案一：使用列表推导</p>
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">board = [[<span class="string">'_'</span>] * <span class="number">3</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">3</span>)]</span><br><span class="line">print(board)</span><br><span class="line">board[<span class="number">1</span>][<span class="number">2</span>] = <span class="string">'X'</span></span><br><span class="line">print(board)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]</span></span><br><span class="line"><span class="string">[['_', '_', '_'], ['_', '_', 'X'], ['_', '_', '_']]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>TensorFlow使用<code>tf.train.ExponentialMovingAverage()</code>来实现滑动平均模型</p>
+<li><p>方案二：一种错的方法，此时列表中嵌套的三个子列表全部指向同一对象</p>
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">board = [[<span class="string">'_'</span>] * <span class="number">3</span>] * <span class="number">3</span></span><br><span class="line">print(board)</span><br><span class="line">board[<span class="number">1</span>][<span class="number">2</span>] = <span class="string">'X'</span></span><br><span class="line">print(board)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]</span></span><br><span class="line"><span class="string">[['_', '_', 'X'], ['_', '_', 'X'], ['_', '_', 'X']]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>衰减率(decay)：用来控制模型更新的速度，decay越大模型就越趋于稳定</p>
+<li><p>方案三：等价于方案一，只是不够简洁</p>
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">board = []</span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">    <span class="comment"># 每次迭代都新建一个列表(row)，作为新的一行追加到游戏板(board)</span></span><br><span class="line">    row = [<span class="string">'_'</span>] * <span class="number">3</span></span><br><span class="line">    board.append(row)</span><br><span class="line">print(board)</span><br><span class="line">board[<span class="number">2</span>][<span class="number">0</span>] = <span class="string">'X'</span></span><br><span class="line">print(board)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]</span></span><br><span class="line"><span class="string">[['_', '_', '_'], ['_', '_', '_'], ['X', '_', '_']]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>影子变量</p>
+<li><p>方案四：等价于方案二，所以也是错误的</p>
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">row = [<span class="string">'_'</span>] * <span class="number">3</span></span><br><span class="line">board = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">    <span class="comment"># 追加同一个行对象(row)3次到游戏板(board)</span></span><br><span class="line">    board.append(row)</span><br><span class="line">print(board)</span><br><span class="line">board[<span class="number">2</span>][<span class="number">0</span>] = <span class="string">'X'</span></span><br><span class="line">print(board)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]</span></span><br><span class="line"><span class="string">[['X', '_', '_'], ['X', '_', '_'], ['X', '_', '_']]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="2-6-序列的增量赋值"><a href="#2-6-序列的增量赋值" class="headerlink" title="2.6 序列的增量赋值"></a>2.6 序列的增量赋值</h3><ul>
+<li><p>增量赋值运算符 <code>+=</code> 和 <code>*=</code> 的表现取决于它们的第一个操作对象</p>
+</li>
+<li><p>+=背后的特殊方法是<code>__iadd__</code>(用于’就地加法’)，工作原理如下</p>
 <ul>
-<li>公式：<code>shadow_variable = decay * shadow_variable + (1 - decay) * variable</code><ul>
-<li><code>shadow_variable</code>：影子变量</li>
-<li><code>variable</code>：待更新的变量</li>
-<li><code>decay</code>：衰减率</li>
+<li>例如<code>a += b</code></li>
+<li>如果a实现了<code>__iadd__</code>方法，就调用这个方法</li>
+<li>同时对于可变序列(list等)，a会就地改变，就像调用<code>a.extend(b)</code>一样</li>
+<li>如果a没有实现<code>__iadd__</code>方法，<code>a += b</code>这个表达式的效果就变得与<code>a = a + b</code>一样了<ul>
+<li>首先计算 <code>a + b</code>，得到一个新的对象</li>
+<li>然后赋值给<code>a</code></li>
 </ul>
 </li>
-<li>影子变量的初始值为相应变量的初始值，而每次运行变量更新后，影子变量会按照上述公式来更新自己的值</li>
 </ul>
 </li>
-<li><p>动态设置衰减率</p>
+<li><p>总体来说，可变序列一般都实现了<code>__iadd__</code>方法，而不可变序列根本不支持这个操作，对这个方法的实现也无从谈起</p>
+</li>
+<li><p>但是不可变序列是支持 <code>+=</code> 运算符的，它只是把这个运算当作<code>a = a + b</code>处理</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">row = tuple(i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>))</span><br><span class="line">print(row)</span><br><span class="line">row += (<span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line">print(row)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">(0, 1, 2)</span></span><br><span class="line"><span class="string">(0, 1, 2, 4, 5)</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-7-list-sort方法和内置函数sorted"><a href="#2-7-list-sort方法和内置函数sorted" class="headerlink" title="2.7 list.sort方法和内置函数sorted"></a>2.7 list.sort方法和内置函数sorted</h3><ul>
+<li><p><code>list.sort</code></p>
 <ul>
-<li>背景：为了使得模型在训练前期可以更新得更快</li>
-<li>简介<ul>
-<li>通过设置<code>num_updates</code>参数来动态设置<code>decay</code>的大小</li>
-<li>此时衰减率为 <code>min(decay, ((1 + num_updates) / (10 + num_updates))</code></li>
+<li><code>list.sort</code>方法会就地排序列表，也就是说不会把原列表复制一份</li>
+<li>所以这个方法的返回值为<code>None</code>，提醒你本方法不会新建一个列表</li>
+<li>在这个情况下返回<code>None</code>其实是Python的一个惯例<ul>
+<li>如果一个函数或则好方法对对象进行的是就地改动，那它就应该返回<code>None</code></li>
+<li>这样调用者就知道传入的参数发生了改动，而不是产生新的对象</li>
+</ul>
+</li>
+<li>用返回None来表示就地改动有一个缺点<ul>
+<li>调用者无法将其串联起来</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>样例代码</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个变量用来计算滑动平均，这个变量的初始值为0</span></span><br><span class="line">v1 = tf.Variable(<span class="number">0</span>, dtype=tf.float32)</span><br><span class="line"><span class="comment"># 定义step用来模拟神经网络迭代的轮数，可以用来动态控制衰减率</span></span><br><span class="line">step = tf.Variable(<span class="number">0</span>, trainable=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个滑动平均的类，初始化时给定了衰减率(0.99)和控制衰减率的变量step</span></span><br><span class="line">ema = tf.train.ExponentialMovingAverage(<span class="number">0.99</span>, step)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个更新变量滑动平均的操作，这里需要给定一个列表，每次执行这个操作时，这个列表中的变量都会被更新</span></span><br><span class="line">maintain_averages_op = ema.apply([v1])</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    init_op = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init_op)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过ema.average(v1)来获得滑动平均之后变量的取值</span></span><br><span class="line">    print(sess.run([v1, ema.average(v1)]))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 更新变量v1的值到5</span></span><br><span class="line">    sess.run(tf.assign(v1, <span class="number">5</span>))</span><br><span class="line">    <span class="comment"># 使用maintain_averages_op操作来更新v1的滑动平均值</span></span><br><span class="line">    sess.run(maintain_averages_op)</span><br><span class="line">    print(sess.run([v1, ema.average(v1)]))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 更新变量step的值到10000</span></span><br><span class="line">    sess.run(tf.assign(step, <span class="number">10000</span>))</span><br><span class="line">    <span class="comment"># 更新变量v1的值到10</span></span><br><span class="line">    sess.run(tf.assign(v1, <span class="number">10</span>))</span><br><span class="line">    <span class="comment"># 使用maintain_averages_op操作来更新v1的滑动平均值</span></span><br><span class="line">    sess.run(maintain_averages_op)</span><br><span class="line">    print(sess.run([v1, ema.average(v1)]))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 再次更新滑动平均值</span></span><br><span class="line">    sess.run(maintain_averages_op)</span><br><span class="line">    print(sess.run([v1, ema.average(v1)]))</span><br></pre></td></tr></table></figure>
+<li><p><code>sorted</code></p>
+<ul>
+<li><code>sorted</code>方法会新建一个列表作为返回值</li>
+<li>这个方法接受<strong>任何形式的可迭代对象</strong>作为参数，甚至包括不可变序列或者生成器</li>
+<li>不管<code>sorted</code>接受的是什么参数，都将返回一个列表</li>
+</ul>
+</li>
+<li><p><code>list.sort</code>和<code>sorted</code>方法都有两个可选的关键字参数</p>
+<ul>
+<li><code>reserve</code><ul>
+<li>如果被设置为<code>True</code>，被排序的序列里的元素都会以降序输出</li>
+</ul>
+</li>
+<li><code>key</code><ul>
+<li>这个参数需要传入一个只有一个参数的函数</li>
+<li>这个函数会被用到序列里的每一个元素，所产生的结果将是排序算法依赖的对比关键字</li>
+<li>比如<ul>
+<li>key=str.lower可以实现忽略大小写的排序</li>
+<li>key=len进行基于字符串长度的排序</li>
+</ul>
 </li>
 </ul>
-<hr>
+</li>
+</ul>
+</li>
+<li><p>sortDemo</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fruits = [<span class="string">'grape'</span>, <span class="string">'raspberry'</span>, <span class="string">'apple'</span>, <span class="string">'banana'</span>]</span><br><span class="line">print(sorted(fruits))</span><br><span class="line"><span class="comment"># ['apple', 'banana', 'grape', 'raspberry']</span></span><br><span class="line">print(fruits)</span><br><span class="line"><span class="comment"># ['grape', 'raspberry', 'apple', 'banana']</span></span><br><span class="line"></span><br><span class="line">print(sorted(fruits, reverse=<span class="keyword">True</span>))</span><br><span class="line"><span class="comment"># ['raspberry', 'grape', 'banana', 'apple']</span></span><br><span class="line">print(sorted(fruits, key=len, reverse=<span class="keyword">True</span>))</span><br><span class="line"><span class="comment"># ['raspberry', 'banana', 'grape', 'apple']</span></span><br><span class="line"></span><br><span class="line">print(fruits)</span><br><span class="line"><span class="comment"># ['grape', 'raspberry', 'apple', 'banana']</span></span><br><span class="line">fruits.sort()</span><br><span class="line">print(fruits)</span><br><span class="line"><span class="comment"># ['apple', 'banana', 'grape', 'raspberry']</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-8-用bisect来管理已排序的序列"><a href="#2-8-用bisect来管理已排序的序列" class="headerlink" title="2.8 用bisect来管理已排序的序列"></a>2.8 用bisect来管理已排序的序列</h3><ul>
+<li><p>标准库的bisect模块给我们提供了二分查找算法</p>
+</li>
+<li><p>bisect模块包含两个主要函数,<code>bisect</code>和<code>insort</code>，两个函数都利用二分查找算法来在有序序列中查找或插入元素</p>
+</li>
+</ul>
+<h4 id="2-8-1-用bisect来搜索"><a href="#2-8-1-用bisect来搜索" class="headerlink" title="2.8.1 用bisect来搜索"></a>2.8.1 用bisect来搜索</h4><ul>
+<li><p>简介</p>
+<ul>
+<li><code>bisect(haystack, needle)</code>在haystack(干草垛)里搜索needle(针)的位置</li>
+<li>该位置满足的条件是，把needle插入这个位置之后，haystack还能保持升序</li>
+<li>也就是说这个函数返回的位置前面的值，都小于或等于needle的值</li>
+</ul>
+</li>
+<li><p><code>bisect</code>的可选参数</p>
+<ul>
+<li><code>lo</code>：表示搜索范围的下标，<strong>包括</strong>这个元素(老规矩)，默认为<code>0</code></li>
+<li><code>hi</code>：表示搜索范围的上标，<strong>不包括</strong>这个元素(老规矩)，默认为<code>len()</code></li>
+</ul>
+</li>
+<li><p><code>bisect_left</code>和<code>bisect_right</code></p>
+<ul>
+<li><code>bisect</code>函数其实就是<code>bisect_right</code>函数</li>
+<li><code>bisect_left</code>返回的插入位置是跟它相等的元素之前的位置</li>
+<li><code>bisect_right</code>返回的插入位置是跟它相等的元素之后的位置</li>
+</ul>
+</li>
+<li><p>demo：根据一个分数，找到它所对应的成绩</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> bisect</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">grade</span><span class="params">(score, breakpoints=[<span class="number">60</span>, <span class="number">70</span>, <span class="number">80</span>, <span class="number">90</span>], grades=<span class="string">'FDCBA'</span>)</span>:</span></span><br><span class="line">    i = bisect.bisect(breakpoints, score)</span><br><span class="line">    <span class="keyword">return</span>  grades[i]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print([grade(score) <span class="keyword">for</span> score <span class="keyword">in</span> [<span class="number">33</span>, <span class="number">99</span>, <span class="number">77</span>, <span class="number">70</span>, <span class="number">89</span>, <span class="number">90</span>, <span class="number">100</span>]])</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">['F', 'A', 'C', 'C', 'B', 'A', 'A']</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-8-2-用bisect-insort插入新元素"><a href="#2-8-2-用bisect-insort插入新元素" class="headerlink" title="2.8.2 用bisect.insort插入新元素"></a>2.8.2 用bisect.insort插入新元素</h4><ul>
+<li><p><code>insort(seq, item)</code>把变量item插入到序列seq中，并能保持seq的升序排序</p>
+</li>
+<li><p><code>insort</code>和<code>bisect</code>一样，有<code>lo</code>和<code>hi</code>两个可选参数用来控制查找的范围</p>
+</li>
+<li><p>它也有个变体叫<code>insort_left</code></p>
+</li>
+</ul>
+<h3 id="2-9-当列表不是首选时"><a href="#2-9-当列表不是首选时" class="headerlink" title="2.9 当列表不是首选时"></a>2.9 当列表不是首选时</h3><ul>
+<li><p>比如，要存放1000万个浮点数的话，数组(array)要高效得多，因为数组在背后存放的并不是float对象，而是数字的机器翻译，也就是字节描述</p>
+</li>
+<li><p>再比如，如果需要频繁对序列做先进先出的操作，deque(双端队列)的速度应该会更快</p>
+</li>
+<li><p>如果在你的代码里，<strong>包含操作</strong>的频率很高，用set(集合)会更合适，因为set是无序的</p>
+</li>
+</ul>
+<h4 id="2-9-1-数组"><a href="#2-9-1-数组" class="headerlink" title="2.9.1 数组"></a>2.9.1 数组</h4><ul>
+<li><p>简介</p>
+<ul>
+<li>如果我们需要一个只包含数字的列表，那么<code>array.array</code>比<code>list</code>是更好的选择</li>
+<li>数组支持所有跟可变序列有关的操作，包括<code>.pop</code>、<code>.insert</code>、<code>.extend</code></li>
+<li>数组还提供了从文件读取和存入文件的更快的方法，如<code>.frombytes</code>和<code>.tofile</code></li>
+</ul>
+</li>
+<li><p>创建数组需要一个类型码，这个类型码用来表示在底层的C语言应该存放怎样的数据类型</p>
+</li>
+<li><p>Python不会允许你在数组里存放除指定数据类型之外的数据</p>
+</li>
+<li><p>从Python3.4开始，数组(array)类型不再支持诸如<code>list.sort()</code>这种就地排序方法</p>
+</li>
+<li><p>arrayDemo</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> array <span class="keyword">import</span> array</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用一个可迭代对象生成双精度浮点数组，这里使用的可迭代对象是一个生成器表达式</span></span><br><span class="line">floats = array(<span class="string">'d'</span>, (random() <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">10</span> ** <span class="number">5</span>)))</span><br><span class="line">print(floats[<span class="number">-1</span>])</span><br><span class="line">fp = open(<span class="string">'floats.bin'</span>, <span class="string">'wb'</span>)</span><br><span class="line"><span class="comment"># 把所有元素以机器值的形式存入一个文件</span></span><br><span class="line">floats.tofile(fp)</span><br><span class="line">fp.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建一个双精度浮点空数组</span></span><br><span class="line">floats2 = array(<span class="string">'d'</span>)</span><br><span class="line">fp = open(<span class="string">'floats.bin'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="comment"># 把1000万个浮点数从二进制文件里读取出来</span></span><br><span class="line">floats2.fromfile(fp, <span class="number">10</span>**<span class="number">5</span>)</span><br><span class="line">fp.close()</span><br><span class="line">print(floats2[<span class="number">-1</span>])</span><br><span class="line"><span class="comment"># 对比两个数组的内容是否完全一致</span></span><br><span class="line">print(floats2 == floats)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-9-2-内存视图"><a href="#2-9-2-内存视图" class="headerlink" title="2.9.2 内存视图"></a>2.9.2 内存视图</h4><ul>
+<li><p><code>memoryview</code>是一个内置类，它能让用户在不需要复制内容的前提下，在数据结构之间共享内存</p>
+</li>
+<li><p>其中<code>memoryview.cast</code>可以用不同的方式读写同一块内存数据，而且内容字节不会随意移动</p>
+</li>
+<li><p>memoryviewDemo</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> array <span class="keyword">import</span> array</span><br><span class="line"></span><br><span class="line">numbers = array(<span class="string">'h'</span>, [<span class="number">-2</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line">memv = memoryview(numbers)</span><br><span class="line">print(len(memv))</span><br><span class="line">print(memv[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用cast将memv里的内容转换为无符合类型('B')</span></span><br><span class="line">memv_oct = memv.cast(<span class="string">'B'</span>)</span><br><span class="line">print(memv_oct.tolist())</span><br><span class="line"><span class="comment"># 修改位于位置5的字节赋值为4</span></span><br><span class="line">memv_oct[<span class="number">5</span>] = <span class="number">4</span></span><br><span class="line"><span class="comment"># 因为我们把占了两个字节的整数的高位字节改成了4，所以这个有符号整数的值就变成了1024</span></span><br><span class="line">print(numbers)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">5</span></span><br><span class="line"><span class="string">-2</span></span><br><span class="line"><span class="string">[254, 255, 255, 255, 0, 0, 1, 0, 2, 0]</span></span><br><span class="line"><span class="string">array('h', [-2, -1, 1024, 1, 2])</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-9-3-NumPy和SciPy"><a href="#2-9-3-NumPy和SciPy" class="headerlink" title="2.9.3 NumPy和SciPy"></a>2.9.3 NumPy和SciPy</h4><ul>
+<li><p>Numpy实现了多维同质数组(homogeneous array)和矩阵</p>
+</li>
+<li><p>Scipy是基于Numpy的另一个库，提供了很多跟科学计算有关的算法，专为线性代数、数值分析和统计学而设计</p>
+</li>
+<li><p>Scipy把基于C和Fortran的工业级数学计算功能用交互式且高度抽象的Python包装起来，让科学家如鱼得水</p>
+</li>
+<li><p>NumpyDemo</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建一个0-11的整数的numpy.ndarray，然后把它打印出来</span></span><br><span class="line">a = np.arange(<span class="number">12</span>)</span><br><span class="line">print(a)</span><br><span class="line">print(type(a))</span><br><span class="line"><span class="comment"># 查看数组的维度</span></span><br><span class="line">print(a.shape)</span><br><span class="line"><span class="comment"># 改变数组的维度</span></span><br><span class="line">a.shape = <span class="number">3</span>, <span class="number">4</span></span><br><span class="line">print(a)</span><br><span class="line"><span class="comment"># 打印第二行</span></span><br><span class="line">print(a[<span class="number">2</span>])</span><br><span class="line"><span class="comment"># 打印第二行第一个元素</span></span><br><span class="line">print(a[<span class="number">2</span>, <span class="number">1</span>])</span><br><span class="line"><span class="comment"># 打印第二行第一列元素</span></span><br><span class="line">print(a[:<span class="number">-1</span>])</span><br><span class="line"><span class="comment"># 将数组行列交换</span></span><br><span class="line">print(a.transpose())</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[ 0  1  2  3  4  5  6  7  8  9 10 11]</span></span><br><span class="line"><span class="string">&lt;class 'numpy.ndarray'&gt;</span></span><br><span class="line"><span class="string">(12,)</span></span><br><span class="line"><span class="string">[[ 0  1  2  3]</span></span><br><span class="line"><span class="string">[ 4  5  6  7]</span></span><br><span class="line"><span class="string">[ 8  9 10 11]]</span></span><br><span class="line"><span class="string">[ 8  9 10 11]</span></span><br><span class="line"><span class="string">9</span></span><br><span class="line"><span class="string">[[0 1 2 3]</span></span><br><span class="line"><span class="string">[4 5 6 7]]</span></span><br><span class="line"><span class="string">[[ 0  4  8]</span></span><br><span class="line"><span class="string">[ 1  5  9]</span></span><br><span class="line"><span class="string">[ 2  6 10]</span></span><br><span class="line"><span class="string">[ 3  7 11]]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-9-4-双向队列和其他形式的队列"><a href="#2-9-4-双向队列和其他形式的队列" class="headerlink" title="2.9.4 双向队列和其他形式的队列"></a>2.9.4 双向队列和其他形式的队列</h4><ul>
+<li><p>利用.append和.pop方法，我们可以把列表当作栈或者队列使用，但是删除列表的第一个元素之类的操作是很费时的</p>
+</li>
+<li><p><code>collections.deque</code>类(双向队列)是个线程安全、可以快速从两端添加或者删除元素的数据类型</p>
+</li>
+<li><p><code>append</code>和<code>popleft</code>都是原子操作，也就是deque可以在多线程程序中安全地当作先进先出的队列使用，而使用者不必担心资源锁问题</p>
+</li>
+<li><p>dequeDemo</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"><span class="comment"># maxlen是可选参数，代表这个队列可以容纳的元素的个数，而且一旦设定，这个属性无法改变</span></span><br><span class="line">dq = deque(range(<span class="number">10</span>), maxlen=<span class="number">10</span>)</span><br><span class="line">print(dq)</span><br><span class="line"><span class="comment"># 队列的旋转操作接受一个参数n,当n&gt;0时，队列中最右边的n个元素被移动到队列的左边，当n&lt;0时，队列中最左边的n个元素被移动到队列的右边</span></span><br><span class="line">dq.rotate(<span class="number">3</span>)</span><br><span class="line">print(dq)</span><br><span class="line">dq.rotate(<span class="number">-4</span>)</span><br><span class="line">print(dq)</span><br><span class="line"><span class="comment"># 当试图对一个已满的队列头部做添加操作，它尾部的元素会被山除掉</span></span><br><span class="line">dq.appendleft(<span class="number">-1</span>)</span><br><span class="line">print(dq)</span><br><span class="line"><span class="comment"># 在尾部添加3个元素会挤掉-1, 1和2</span></span><br><span class="line">dq.extend([<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>])</span><br><span class="line">print(dq)</span><br><span class="line"><span class="comment"># extendleft(iter)会把可迭代里的元素逐个添加到双向队列的左边，因此列表中的元素会逆序出现在队列中</span></span><br><span class="line">dq.extendleft([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>])</span><br><span class="line">print(dq)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">deque([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], maxlen=10)</span></span><br><span class="line"><span class="string">deque([7, 8, 9, 0, 1, 2, 3, 4, 5, 6], maxlen=10)</span></span><br><span class="line"><span class="string">deque([1, 2, 3, 4, 5, 6, 7, 8, 9, 0], maxlen=10)</span></span><br><span class="line"><span class="string">deque([-1, 1, 2, 3, 4, 5, 6, 7, 8, 9], maxlen=10)</span></span><br><span class="line"><span class="string">deque([3, 4, 5, 6, 7, 8, 9, 11, 22, 33], maxlen=10)</span></span><br><span class="line"><span class="string">deque([40, 30, 20, 10, 3, 4, 5, 6, 7, 8], maxlen=10)</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-10-本章小结"><a href="#2-10-本章小结" class="headerlink" title="2.10 本章小结"></a>2.10 本章小结</h3><ol>
+<li><p>Python序列类型最常见的分类为可变和不可变序列，另外一种分类方式也很有用，那就是把它们分成扁平序列和容器序列</p>
+</li>
+<li><p>列表推导和生成器表达式则提供了灵活构建和初始化序列的方式</p>
+</li>
+<li><p>元组在Python中扮演两种角色</p>
+<ul>
+<li>用作无名称的字段的记录</li>
+<li>看作不可变的列表</li>
+</ul>
+</li>
+<li><p>序列切片</p>
+</li>
+<li><p>重复拼接<code>seq * n</code>在正确使用的前提下，能让我们方便地初始化含有不可变元素的多维列表</p>
+</li>
+<li><p>增量赋值 <code>+=</code> 和 <code>*=</code> 会区别对待可变和不可变序列</p>
+</li>
+<li><p>序列的sort方法和内置的sorted函数可以实现就地排序和新建序列排序</p>
+</li>
+<li><p>bisect.bisect实现了二分查找</p>
+</li>
+<li><p>array.array、deque、Numpy等提供了除了列表之外的其他选择</p>
+</li>
+</ol>
 
           
         
@@ -792,7 +898,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/47/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><span class="page-number current">48</span><a class="page-number" href="/page/49/">49</a><span class="space">&hellip;</span><a class="page-number" href="/page/57/">57</a><a class="extend next" rel="next" href="/page/49/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/47/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><span class="page-number current">48</span><a class="page-number" href="/page/49/">49</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/49/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -840,7 +946,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

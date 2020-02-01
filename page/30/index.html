@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Docker-2-核心技术/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/vue-1-vue基础/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/22/Docker-2-核心技术/" itemprop="url">[Docker][2][核心技术]</a></h1>
+                <a class="post-title-link" href="/2019/06/20/vue-1-vue基础/" itemprop="url">[vue][1][vue基础]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T23:19:50+08:00">
-                2019-05-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-20T13:12:26+08:00">
+                2019-06-20
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/05/22/Docker-2-核心技术/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/22/Docker-2-核心技术/" itemprop="commentCount"></span>
+                <a href="/2019/06/20/vue-1-vue基础/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/06/20/vue-1-vue基础/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,320 +362,152 @@
       
         
           
-            <h2 id="2-核心技术"><a href="#2-核心技术" class="headerlink" title="2 核心技术"></a>2 核心技术</h2><h3 id="2-1-Docker镜像"><a href="#2-1-Docker镜像" class="headerlink" title="2.1 Docker镜像"></a>2.1 Docker镜像</h3><h4 id="2-1-1-Docker镜像"><a href="#2-1-1-Docker镜像" class="headerlink" title="2.1.1 Docker镜像"></a>2.1.1 Docker镜像</h4><ul>
-<li><p>Docker镜像就像停止运行的容器</p>
-</li>
-<li><p>可以从镜像仓库服务中拉取镜像，拉取操作会将镜像下载到本地Docker主机</p>
-</li>
-<li><p>使用镜像可以启动多个容器</p>
-</li>
-<li><p>镜像由很多层组成，每层叠加之后，在外部看就像一个独立的对象。</p>
-</li>
-<li><p>镜像内部是一个精简的操作系统，其中包含应用运行所必须的文件和依赖包</p>
-</li>
-</ul>
-<h4 id="2-1-2-镜像与容器"><a href="#2-1-2-镜像与容器" class="headerlink" title="2.1.2 镜像与容器"></a>2.1.2 镜像与容器</h4><ul>
-<li><p>镜像可以启动一个或多个容器</p>
-</li>
-<li><p>一旦容器从镜像启动后，二者就是相互依赖的，并且在镜像上启动的容器全部停止之前，镜像是无法被删除的</p>
-</li>
-</ul>
-<h4 id="2-1-3-镜像通常较小"><a href="#2-1-3-镜像通常较小" class="headerlink" title="2.1.3 镜像通常较小"></a>2.1.3 镜像通常较小</h4><ul>
-<li><p>镜像中包含了应用/服务运行时必须的操作系统和应用文件</p>
-</li>
-<li><p>构建镜像时通常要剪裁掉不必要的部分，保持较小的体积</p>
-</li>
-<li><p>镜像不包含内核，共享操作系统内核</p>
-</li>
-</ul>
-<h4 id="2-1-4-镜像拉取和镜像仓库"><a href="#2-1-4-镜像拉取和镜像仓库" class="headerlink" title="2.1.4 镜像拉取和镜像仓库"></a>2.1.4 镜像拉取和镜像仓库</h4><ul>
-<li><p>通过 <code>docker pull</code>可将镜像拉取到本地主机</p>
-</li>
-<li><p>Docker镜像存储在镜像仓库服务中。镜像仓库服务包含了多个镜像仓库。同样，一个镜像仓库包含多个镜像</p>
-</li>
-<li><p>官方仓库中的镜像是安全可靠的，大多数流行的操作系统和应用在Docker Hub的官方仓库中都有其对应得镜像</p>
-</li>
-</ul>
-<h4 id="2-1-5-镜像命名和标签"><a href="#2-1-5-镜像命名和标签" class="headerlink" title="2.1.5 镜像命名和标签"></a>2.1.5 镜像命名和标签</h4><ul>
-<li><p>只需要给出镜像的名字和标签，就可以从官方仓库定位一个镜像，例如<code>alpine:latest</code></p>
-</li>
-<li><p>从非官方仓库拉取镜像，需要在仓库名称面前加上对应作者Docker Hub的用户名，例如:<code>tough/test:v1</code></p>
-</li>
-</ul>
-<h4 id="2-1-6-镜像与分层"><a href="#2-1-6-镜像与分层" class="headerlink" title="2.1.6 镜像与分层"></a>2.1.6 镜像与分层</h4><ul>
-<li><p>Docker镜像由一些松耦合的只读镜像层组成</p>
-</li>
-<li><p>Docker负责堆叠这些镜像层，并且表示为单个统一的对象</p>
-</li>
-<li><p>所有的Docker镜像都起始于一个基础镜像层，当进行修改或增加新的内容时，就会在当前的镜像层之上创建新的镜像层，如下图所示</p>
-<p>  <img src="/2019/05/22/Docker-2-核心技术/0521_0.jpg" alt=""></p>
-</li>
-<li>docker通过存储引擎的方式来实现镜像层堆叠，并对外展示为统一的文件系统</li>
-</ul>
-<h4 id="2-1-7-共享镜像层"><a href="#2-1-7-共享镜像层" class="headerlink" title="2.1.7 共享镜像层"></a>2.1.7 共享镜像层</h4><ul>
-<li><p>Docker可以识别出要拉取的镜像中，哪几层已经在本地存在了，然后共享这几层，可以有效节省空间并提升性能</p>
-</li>
-<li><p>每个存储引擎都有自己的镜像分层、镜像层共享以及写时复制</p>
-</li>
-</ul>
-<h4 id="2-1-8-镜像散列值-摘要"><a href="#2-1-8-镜像散列值-摘要" class="headerlink" title="2.1.8 镜像散列值(摘要)"></a>2.1.8 镜像散列值(摘要)</h4><ul>
-<li><p>内容散列: 散列值与镜像中所有文件的内容有关，修改镜像的配置或者修改任意的镜像层，都会导致加密散列值的变化</p>
-</li>
-<li><p>内容寻址模型极大提升了安全性，提供了一种方式来保证镜像和镜像层数据是一致的</p>
-</li>
-</ul>
-<h3 id="2-2-Docker容器"><a href="#2-2-Docker容器" class="headerlink" title="2.2 Docker容器"></a>2.2 Docker容器</h3><h4 id="2-2-1-Docker容器"><a href="#2-2-1-Docker容器" class="headerlink" title="2.2.1 Docker容器"></a>2.2.1 Docker容器</h4><ul>
-<li><p>容器是镜像的运行时实例，可以从单个镜像上启动一个或多个容器</p>
-</li>
-<li><p>容器会随着其中运行应用的退出而终止</p>
-</li>
-<li><p>常用命令</p>
-<ul>
-<li>使用<code>docker run</code>命令可以启动容器</li>
-<li>使用<code>docker stop</code>命令可以暂停容器</li>
-<li>使用<code>docker start</code>命令可以重启容器</li>
-<li>使用<code>docker rm</code>命令可以删除容器</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-2-2-容器vs虚拟机"><a href="#2-2-2-容器vs虚拟机" class="headerlink" title="2.2.2 容器vs虚拟机"></a>2.2.2 容器vs虚拟机</h4><ul>
-<li><p>容器和虚拟机都依赖于宿主机才能运行</p>
-</li>
-<li><p>容器模型</p>
+            <h2 id="1-Vue-js-基础"><a href="#1-Vue-js-基础" class="headerlink" title="1 Vue.js 基础"></a>1 Vue.js 基础</h2><p>参考</p>
 <ol>
-<li>首先，OS也占用全部硬件资源</li>
-<li>在OS层之上要安装容器引擎，容器引擎可以获得系统资源，</li>
-<li>接着把资源分割为安全的互相隔离的资源结构，称之为容器</li>
-<li>每个容器看起来像一个真实的操作系统，在其内部可以运行应用</li>
+<li>《Vue.js快跑构建触手可及的高性能Web应用》</li>
+<li><a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">vue官方文档</a></li>
+</ol>
+<h3 id="1-1-为什么选择Vue-js"><a href="#1-1-为什么选择Vue-js" class="headerlink" title="1.1 为什么选择Vue.js"></a>1.1 为什么选择Vue.js</h3><h4 id="1-1-1-简介"><a href="#1-1-1-简介" class="headerlink" title="1.1.1 简介"></a>1.1.1 简介</h4><ul>
+<li>Vue是一套用于构建用户界面的渐进式框架</li>
+<li>Vue被设计为可以自底向上逐层应用</li>
+<li>Vue的核心库只关注视图层<ol>
+<li>便于与第三方库或既有项目整合</li>
+<li>当与现代化的工具链以及各种支持类库结合使用时，Vue也完全能够为复杂的单页应用提供驱动</li>
 </ol>
 </li>
-<li><p>更多的</p>
+<li>vue实现了应用逻辑和视图逻辑的完全隔离</li>
+</ul>
+<h4 id="1-1-2-相同的功能用jquery和vue分别实现"><a href="#1-1-2-相同的功能用jquery和vue分别实现" class="headerlink" title="1.1.2 相同的功能用jquery和vue分别实现"></a>1.1.2 相同的功能用jquery和vue分别实现</h4><ol>
+<li><p><code>vue</code>实现</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">”</span> <span class="attr">js-items</span>”&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-if</span>=<span class="string">"!items.length"</span>&gt;</span>Sorry, there are no items.<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">" item in items"</span> <span class="attr">:class</span>=<span class="string">"&#123;'is-blue':item.includes('blue')&#125;"</span>&gt;</span></span><br><span class="line">        &#123;% raw %&#125;&#123;&#123; item &#125;&#125;&#123;% endraw %&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">        el: <span class="string">'.js-items'</span>,</span></span><br><span class="line"><span class="undefined">        data: &#123;</span></span><br><span class="line"><span class="undefined">            items: []</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        created()&#123;</span></span><br><span class="line"><span class="javascript">            fetch(<span class="string">'https://example.com/items.json'</span>)</span></span><br><span class="line"><span class="javascript">            .then(<span class="function"><span class="params">res</span> =&gt;</span> res.json())</span></span><br><span class="line"><span class="javascript">            .then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">this</span>.items = data.items;</span></span><br><span class="line"><span class="undefined">            &#125;);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>jquery</code>实现</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">”</span> <span class="attr">js-items</span> ”&gt;</span><span class="tag">&lt;/<span class="name">Ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    $(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        $.get (<span class="string">'https://example.com/items.json'</span>)</span></span><br><span class="line"><span class="javascript">        .then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> $itemsUl = $(<span class="string">'.js-items'</span>);</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (!data.items.length) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> $noitems = $(<span class="string">'li'</span>);</span></span><br><span class="line"><span class="javascript">                $noitems.text(<span class="string">'Sorry, there are no items.'</span>);</span></span><br><span class="line"><span class="undefined">                $itemUI.append($noitems);</span></span><br><span class="line"><span class="javascript">            &#125;<span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="javascript">                data.items.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">var</span> $newItem = $(<span class="string">'li'</span>);</span></span><br><span class="line"><span class="undefined">                    $newItem.text(item);</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">if</span>(item.includes(<span class="string">'blue'</span>))&#123;</span></span><br><span class="line"><span class="javascript">                        $newItem.addClass(<span class="string">'is-blue'</span>);</span></span><br><span class="line"><span class="undefined">                    &#125;</span></span><br><span class="line"><span class="undefined">                    $itemUI.append($newItem);</span></span><br><span class="line"><span class="undefined">                &#125;)</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="1-2-安装和设置"><a href="#1-2-安装和设置" class="headerlink" title="1.2 安装和设置"></a>1.2 安装和设置</h3><ul>
+<li>vue-loader:是一个 <code>webpack</code> 的加载器，允许你将一个组件的所有 <code>HTML</code> 、<code>JavaScript</code> 和<code>CSS</code>代码编写到同一个文件中</li>
+</ul>
+<h3 id="1-3-模板-Template-、数据-Data-和指令-Directive"><a href="#1-3-模板-Template-、数据-Data-和指令-Directive" class="headerlink" title="1.3 模板(Template)、数据(Data)和指令(Directive)"></a>1.3 模板(Template)、数据(Data)和指令(Directive)</h3><ul>
+<li><code>Vue</code>的核心是将数据显示在页面上，这一功能通过模板实现。为正常的<code>HTML</code>添加特殊的属性-被称作指令-借助它来告诉<code>Vue</code>我们想要实现的效果以及如何处理提供给它数据。  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">"hours &lt; 12"</span>&gt;</span>早上好！<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">"hours &gt;= 12 &amp;&amp; hours &lt; 18"</span>&gt;</span>中午好！<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">"hours &gt;= 18"</span>&gt;</span>晚上好！<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">        el: <span class="string">'#app'</span>,</span></span><br><span class="line"><span class="undefined">        data: &#123;</span></span><br><span class="line"><span class="javascript">            hours: <span class="keyword">new</span> <span class="built_in">Date</span>().getHours()</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="1-4-v-if-vs-v-show"><a href="#1-4-v-if-vs-v-show" class="headerlink" title="1.4 v-if vs v-show"></a>1.4 v-if vs v-show</h3><ul>
+<li><p><code>v-if</code>: 假如取值为假，则DOM不会生成</p>
+</li>
+<li><p><code>v-show</code>: 假如取值为假，DOM会生成只是此DOM被隐藏</p>
+</li>
+<li><p>使用 <code>v-if</code> 会有性能开销。每次插入或者移除元素时都必须要生成元素内部的 <code>DOM</code> 树，这在某些时候是非常大的工作量。而 <code>v-show</code> 除了在初始创建开销时之外没有额外的开销。如果希望频繁地切换某些内容，那么<code>v-show</code>会是最好的选择。</p>
+</li>
+</ul>
+<h3 id="1-5-模板中的循环-v-for"><a href="#1-5-模板中的循环-v-for" class="headerlink" title="1.5 模板中的循环(v-for)"></a>1.5 模板中的循环(v-for)</h3><ul>
+<li><p><code>v-for</code>指令通过遍历一个数组或者对象，将指令所绑定的元素循环输出到页面上</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span> =<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"dog in dogs"</span>&gt;</span>&#123;% raw %&#125;&#123;&#123; dog &#125;&#125;&#123;% endraw %&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">    el :<span class="string">'#app'</span>,</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="javascript">        dogs: [<span class="string">'Rex'</span>, <span class="string">'Rove'</span>, <span class="string">'Hen'</span>, <span class="string">'Alan'</span>］</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">&#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>v-for</code>中键值的参数顺序是(value, key)</p>
+</li>
+</ul>
+<h3 id="1-6-属性绑定-v-bind"><a href="#1-6-属性绑定-v-bind" class="headerlink" title="1.6 属性绑定(v-bind)"></a>1.6 属性绑定(v-bind)</h3><ul>
+<li><p><code>v-bind</code>用于将一个值绑定在一个HTML属性上</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">v-bind:disabled</span>=<span class="string">"buttonDisabled"</span>&gt;</span>Test button<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">        el :<span class="string">'#app'</span>,</span></span><br><span class="line"><span class="undefined">        data: &#123;</span></span><br><span class="line"><span class="javascript">            buttonDisabled: <span class="literal">true</span></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>v-bind</code>可以简写，直接用<code>:</code>代替</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">:disabled</span>=<span class="string">"buttonDisabled"</span>&gt;</span>Test Button<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="1-7-响应式"><a href="#1-7-响应式" class="headerlink" title="1.7 响应式"></a>1.7 响应式</h3><p>Vue监控<code>data</code>对象的变化，井在数据变化时更新DOM。</p>
+<h3 id="1-8-双向数据绑定-v-model"><a href="#1-8-双向数据绑定-v-model" class="headerlink" title="1.8 双向数据绑定(v-model)"></a>1.8 双向数据绑定(v-model)</h3><ul>
+<li><code>v-model</code>作用于输入框元素，将输入框的值绑定到<code>data</code>对象的对应属性上，</li>
+<li>因此输入框不但会接收<code>data</code>的初始值，而且当输入内容更新时,<code>data</code>上的属性值也会更新</li>
+<li>使用 <code>v-model</code> 时一定要记住，如果设置了<code>value</code>、<code>checked</code>和<code>selected</code>属性，这些属性会被忽略。如果想设置输入元素的初始值， 应该在<code>data</code>对象中设置</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"inputText"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>inputText: &#123;% raw %&#125;&#123;&#123; inputText &#125;&#125;&#123;% endraw %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-9-动态设置HTML"><a href="#1-9-动态设置HTML" class="headerlink" title="1.9 动态设置HTML"></a>1.9 动态设置HTML</h3><p>如果想将HTML渲染到页面上，可以像下面这样使用<code>v-html</code>指令：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-html</span>=<span class="string">'yourHtml'</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-9-方法-methods"><a href="#1-9-方法-methods" class="headerlink" title="1.9 方法(methods)"></a>1.9 方法(methods)</h3><ul>
+<li><p>在Vue的模板里，只要将一个函数存储为<code>methods</code>对象的一个属性，就可以在模板中使用它</p>
+</li>
+<li><p>关于方法中的<code>this</code></p>
 <ul>
-<li>Hypervisor是硬件虚拟化(Hardware Virtualization)将硬件物理资源划分为虚拟资源</li>
-<li>容器是操作系统虚拟化，将操作系统资源划分为虚拟资源</li>
+<li>在方法中，<code>this</code>指向该方怯所属的组件</li>
+<li>可以使用<code>this</code>访问<code>data</code>对象的属性和其他方法</li>
 </ul>
 </li>
 </ul>
-<h4 id="2-2-3-虚拟机的额外开销"><a href="#2-2-3-虚拟机的额外开销" class="headerlink" title="2.2.3 虚拟机的额外开销"></a>2.2.3 虚拟机的额外开销</h4><ul>
-<li><p>每个虚拟机都有一份OS损耗，而容器只有一份OS损耗</p>
-</li>
-<li><p>虚拟机因为需要启动操作系统，启动速度慢，容器只需要启动位于下层操作系统的共享内核，启动速度快</p>
-</li>
-</ul>
-<h4 id="2-2-4-容器进程"><a href="#2-2-4-容器进程" class="headerlink" title="2.2.4 容器进程"></a>2.2.4 容器进程</h4><ul>
-<li><p>容器中的进程是精简的，比普通操作系统要少</p>
-</li>
-<li><p>杀死容器中的主进程，则容器也会被杀死，这个主进程一般是<code>pid</code>为<code>1</code>的进程，但是这种进程一般是杀不死的</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>当前状态: &#123;% raw %&#125;&#123;&#123; statusFromId(status) &#125;&#125;&#123;% endraw %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">        el: <span class="string">'#app'</span>,</span></span><br><span class="line"><span class="undefined">        data:&#123;</span></span><br><span class="line"><span class="undefined">            status: 2</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        methods:&#123;</span></span><br><span class="line"><span class="undefined">            statusFromId(id) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">const</span> status= (&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="number">0</span> : <span class="string">'吃包子'</span>,</span></span><br><span class="line"><span class="javascript">                    <span class="number">1</span> : <span class="string">'睡觉'</span>,</span></span><br><span class="line"><span class="javascript">                    <span class="number">2</span> : <span class="string">'打包子'</span></span></span><br><span class="line"><span class="undefined">                &#125;)[id];</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> status || <span class="string">'未知状态'</span> + id;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-10-计算属性-computed"><a href="#1-10-计算属性-computed" class="headerlink" title="1.10 计算属性(computed)"></a>1.10 计算属性(computed)</h3><h4 id="1-10-1-计算属性"><a href="#1-10-1-计算属性" class="headerlink" title="1.10.1 计算属性"></a>1.10.1 计算属性</h4><ul>
+<li>计算属性介于<code>data</code>和<code>method</code>两者之间：可以像访问<code>data</code>对象的属性那样访问它，但需要以函数的方式定义它。</li>
+<li>计算属性会被缓存<ul>
+<li>如果在模板中多次调用一个方法，方法中的代码在每一次调用时都会执行一遍</li>
+<li>但如果计算属性被多次调用，其中的代码只会执行一次，之后的每次调用都会使用被缓存的值</li>
+<li>只有当计算属性的依赖、发生变化时，代码才会被再次执行<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">“</span> <span class="attr">app</span>”&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>数字的总和是:&#123;% raw %&#125;&#123;&#123; numberTotal&#125;&#125;&#123;% endraw %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">new</span> Vue (&#123;</span></span><br><span class="line"><span class="javascript">        el:<span class="string">'#app'</span>,</span></span><br><span class="line"><span class="undefined">        data:&#123;</span></span><br><span class="line"><span class="undefined">            numbers: [5, 8, 3]</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        computed: &#123;</span></span><br><span class="line"><span class="undefined">            numberTotal() &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> numbers.reduce(<span class="function">(<span class="params">sum, val</span>) =&gt;</span> sum + val) ;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="2-2-5-容器生命周期"><a href="#2-2-5-容器生命周期" class="headerlink" title="2.2.5 容器生命周期"></a>2.2.5 容器生命周期</h4><p>生命周期</p>
-<ol>
-<li><p><code>docker run</code> 启动容器</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --name percy -it ubuntu:latest:/bin/bash</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><code>docker stop</code> 停止容器</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker stop percy</span><br></pre></td></tr></table></figure>
+</ul>
+<h4 id="1-10-2-使用data对象、方法还是计算属性"><a href="#1-10-2-使用data对象、方法还是计算属性" class="headerlink" title="1.10.2 使用data对象、方法还是计算属性"></a>1.10.2 使用data对象、方法还是计算属性</h4><ul>
+<li><code>data</code> 对象最适合纯粹的数据：如果想将数据放在某处，然后在模板、方法或者计算属性中使用，那么可以把它放在<code>data</code>对象中。后面也许还会更新它。</li>
+<li>当你希望为模板添加函数功能时，最好使用方法: 给方法传递数据，然后它们会对数据进行处理，最终可能返回不同的数据结果。</li>
+<li>计算属性达用于执行更加复杂的表达式，这些表达式往往太长或者需要频繁地重复使用，所以不想在模板中直接使用。计算属性往往和其他计算属性或者 <code>data</code> 对象一起使用，基本上就像是 <code>data</code> 对象的一个扩展和增强版本</li>
+</ul>
+<h3 id="1-11-侦听器-watch"><a href="#1-11-侦听器-watch" class="headerlink" title="1.11 侦听器(watch)"></a>1.11 侦听器(watch)</h3><ul>
+<li>侦听器可以监听 <code>data</code> 对象属性或者计算属性的变化。</li>
+<li>侦听器使用起来很简单： 只要设置要监听的属性名就可以。</li>
+<li>侦听器很适合用于处理异步操作<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">"#app"</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        count: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    watch: &#123;</span><br><span class="line">        count()&#123;</span><br><span class="line">            <span class="comment">//变化时会调用此处</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><code>docker start</code> 重启容器</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker start percy</span><br></pre></td></tr></table></figure>
+</ul>
+<h4 id="1-11-1-监听data对象中某个对象的属性"><a href="#1-11-1-监听data对象中某个对象的属性" class="headerlink" title="1.11.1 监听data对象中某个对象的属性"></a>1.11.1 监听data对象中某个对象的属性</h4><p>有些时候会将一整个对象存储在 <code>data</code> 对象中。为了监听这个对象的属性变化，可以在侦听器的名称中使用<code>.</code>操作符，就像访问这个对象属性一样：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    data: &#123;</span><br><span class="line">        formData: &#123;</span><br><span class="line">            username: <span class="string">""</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    watch: &#123;</span><br><span class="line">        <span class="string">'formData.username'</span>()&#123;</span><br><span class="line">            <span class="comment">//变化时会调用此处</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-11-2-获取旧值"><a href="#1-11-2-获取旧值" class="headerlink" title="1.11.2 获取旧值"></a>1.11.2 获取旧值</h4><p>当监听的属性发生变化时，侦听器会被传入两个参数：所监听属性的当前值和原来的旧值。这一特性可以用来了解到底发生了什么变化<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">watch: &#123;</span><br><span class="line">    inputValue( val, oldVal) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(val, oldVal);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-11-3-深度监听"><a href="#1-11-3-深度监听" class="headerlink" title="1.11.3 深度监听"></a>1.11.3 深度监听</h4><ul>
+<li>当监听一个对象时，可能想监听整个对象的变化，而不仅仅是某个属性。</li>
+<li>但在默认情况下，如果你正在监听<code>formData</code>对象井且修改了<code>formData.username</code> ，对应的侦听器井不会触发，它只在<code>formData</code>对象被整个替换时触发。</li>
+<li>监听整个对象被称作深度监听，通过将<code>deep</code>选项设置为<code>true</code>来开启这一特性</li>
+</ul>
+<h3 id="1-12-过滤器-fliter"><a href="#1-12-过滤器-fliter" class="headerlink" title="1.12 过滤器(fliter)"></a>1.12 过滤器(fliter)</h3><h4 id="1-12-1-过滤器"><a href="#1-12-1-过滤器" class="headerlink" title="1.12.1 过滤器"></a>1.12.1 过滤器</h4><ul>
+<li>过滤器是一种在模板中处理数据的便捷方式</li>
+<li>它们特别适合对字符串和数字进行简单的显示变化：例如，将字符串变为正确的大小写格式，或者用更容易阅读的格式显示数字。</li>
+<li>可以用链式调用的方式在一个表达式中使用多个过滤器。<code>{{productOneCost | round |formatCost}}</code></li>
+<li>除了在插值中使用，还可以在<code>v-bind</code> 中使用过滤器（当绑定数值到属性时）</li>
+<li>也可以使用<code>Vue.filter()</code>来注册一个全局的过滤器， 而不是将过滤器逐一注册到各个组件上</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>商品一花费了：&#123;% raw %&#125;&#123;&#123;productOneCost | formatCost &#125;&#125;&#123;% endraw %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>商品二花费了：&#123;% raw %&#125;&#123;&#123;productTwoCost | formatCost &#125;&#125;&#123;% endraw %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>商品三花费了：&#123;% raw %&#125;&#123;&#123;productThreeCost | formatCost &#125;&#125;&#123;% endraw %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">    el :<span class="string">'#app'</span>,</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="undefined">        productOneCost: 998,</span></span><br><span class="line"><span class="undefined">        productTwoCost: 2399,</span></span><br><span class="line"><span class="undefined">        productThreeCost: 5300</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    filters: &#123;</span></span><br><span class="line"><span class="undefined">        formatCost(value) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="string">'$'</span> + (value / <span class="number">100</span>).toFixed(<span class="number">2</span>);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">&#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="1-12-2-使用过滤器有两个注意事项。"><a href="#1-12-2-使用过滤器有两个注意事项。" class="headerlink" title="1.12.2 使用过滤器有两个注意事项。"></a>1.12.2 使用过滤器有两个注意事项。</h4><ol>
+<li>过滤器是组件中唯一不能使用<code>this</code> 来访问数据或者方法的地方。</li>
+<li>只可以在插值和<code>v-bind</code>指令中使用过滤器</li>
+</ol>
+<h3 id="1-13-使用-ref-直接访问元素-ref"><a href="#1-13-使用-ref-直接访问元素-ref" class="headerlink" title="1.13 使用 ref 直接访问元素(ref)"></a>1.13 使用 ref 直接访问元素(ref)</h3><ul>
+<li>有时你会发现需要直接访问一个<code>DOM</code>元素</li>
+<li>也许你正在使用一个不支持<code>Vue</code>的第三方库，或者希望做一些<code>Vue</code>自身不能完全处理的事情</li>
+<li>可以使用 <code>ref</code> 直接访问元素，而不需要使用<code>querySelector</code>或者其他选择<code>DOM</code>节点的原生方法。</li>
+</ul>
+<h4 id="1-13-1-ref的用法"><a href="#1-13-1-ref的用法" class="headerlink" title="1.13.1 ref的用法"></a>1.13.1 ref的用法</h4><ol>
+<li><p>在<code>HTML</code>中绑定<code>ref</code>属性</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">ref</span>=<span class="string">"myCanvas"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>删除容器需要两步，先停止容器再删除容器</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker stop percy</span><br><span class="line">$ docker rm percy</span><br></pre></td></tr></table></figure>
+<li><p>然后在<code>js</code>中通过<code>this.$ref</code>取得DOM元素</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> canvas = <span class="keyword">this</span>.$refs.myCanvas;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>其他</p>
+<h3 id="1-14-输入和事件-v-on"><a href="#1-14-输入和事件-v-on" class="headerlink" title="1.14 输入和事件(v-on)"></a>1.14 输入和事件(v-on)</h3><ul>
+<li>可以使用 <code>v-on</code> 指令将事件侦听器绑定到元素上。这个指令将事件名称作为参数，然后将事件侦听器作为传入值</li>
+<li><code>v-on</code> 指令同样有一个简写方式。可以将<code>v-on:click</code> 简写为<code>＠click</code> </li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app-5"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;% raw %&#125;&#123;&#123; message &#125;&#125;&#123;% endraw %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"reverseMessage"</span>&gt;</span>逆转消息<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> app5 = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">    el: <span class="string">'#app-5'</span>,</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="javascript">        message: <span class="string">'Hello Vue.js!'</span></span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    methods: &#123;</span></span><br><span class="line"><span class="javascript">        reverseMessage: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">this</span>.message = <span class="keyword">this</span>.message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">&#125;)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-15-生命周期钩子"><a href="#1-15-生命周期钩子" class="headerlink" title="1.15 生命周期钩子"></a>1.15 生命周期钩子</h3><p><img src="/2019/06/20/vue-1-vue基础/0620_0.png" alt=""></p>
 <ul>
-<li>直到明确删除容器前，容器的数据都不会丢弃</li>
-<li>就算删除了容器，如果将容器数据存储到卷中，数据也会被保存</li>
-<li>尽量使用两步来删除容器，让容器有机会正常停止手头的工作</li>
-</ul>
-<h4 id="2-2-6-重启策略"><a href="#2-2-6-重启策略" class="headerlink" title="2.2.6 重启策略"></a>2.2.6 重启策略</h4><ol>
-<li><p><code>always</code>: 除非容器被明确停止，否则该策略会一直尝试重启处于停止状态的容器</p>
+<li><p>简介: 生命周期钩子是一系列会在组件生命周期(从组件被创建并添加到DOM到组件被销毁的整个过程的各个阶段)被调用的函数</p>
 </li>
-<li><p><code>unless-stopped</code>: 哪些处于Stopped状态的容器，不会在Docker daemon 重启的时候重启</p>
-</li>
-<li><p><code>on-failure</code>: 在退出容器且返回值不是0的时候，重启容器</p>
-</li>
-</ol>
-<h4 id="2-2-7-docker-run的一些参数"><a href="#2-2-7-docker-run的一些参数" class="headerlink" title="2.2.7 docker run的一些参数"></a>2.2.7 <code>docker run</code>的一些参数</h4><p>例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --name webserver -p 80:8080 nige/dock</span><br></pre></td></tr></table></figure></p>
+<li><p>八大生命周期钩子</p>
 <ul>
-<li><p><code>-d</code>：表示后台模式，告知容器在后台运行</p>
-</li>
-<li><p><code>-p</code>将Docker主机的端口映射到容器内，这里是将Docker主机的80端口映射到容器内的8080端口，这意味着当有流量访问主机的80端口时，流量会直接映射到容器的8080端口</p>
-</li>
+<li><code>beforeCreate</code>在实例初始化前被触发。</li>
+<li><code>created</code>会在实例初始化之后、被添加到DOM之前触发。</li>
+<li><code>beforeMount</code>会在元素已经准备好被添加到DOM，但还没有添加的时候触发。</li>
+<li><code>mounted</code>会在元素创建后触发(但并不一定已经添加到了DOM,可以用<code>nextTick</code>来保证这一点)。</li>
+<li><code>beforeUpdate</code>会在由于数据更新将要对<code>DOM</code>做一些更改时触发。</li>
+<li><code>updated</code>会在<code>DOM</code>的更改已经完成后触发。</li>
+<li><code>beforeDestroy</code> 会在组件即将被销毁井且从DOM上移除时触发。</li>
+<li><code>destroyed</code> 会在组件被销毁后触发</li>
 </ul>
-<h3 id="2-3-应用的容器化"><a href="#2-3-应用的容器化" class="headerlink" title="2.3 应用的容器化"></a>2.3 应用的容器化</h3><ul>
-<li>Docker的核心思想就是如何将应用整合到容器中，并且能在容器中实际运行，这个过程称为容器化</li>
-</ul>
-<h4 id="2-3-1-容器化简介"><a href="#2-3-1-容器化简介" class="headerlink" title="2.3.1 容器化简介"></a>2.3.1 容器化简介</h4><ul>
-<li><p>容器是为应用而生</p>
-</li>
-<li><p>容器化的步骤</p>
-<ol>
-<li>编写应用代码</li>
-<li>创建一个<code>Dockerfile</code>，其中包括当前应用的描述、依赖以及该如何运行这个应用</li>
-<li>对该<code>Dockerfile</code>执行<code>docker image build</code>命令</li>
-<li>等待Docker将应用程序构建到<code>Docker</code>镜像中</li>
-<li>运行，从镜像中产生容器</li>
-</ol>
-</li>
-<li><p>容器化的基本过程<br>  <img src="/2019/05/22/Docker-2-核心技术/0522_2.jpg" alt=""></p>
-</li>
-</ul>
-<h4 id="2-3-2-单体应用容器化"><a href="#2-3-2-单体应用容器化" class="headerlink" title="2.3.2 单体应用容器化"></a>2.3.2 单体应用容器化</h4><h5 id="1-获取应用代码"><a href="#1-获取应用代码" class="headerlink" title="1 获取应用代码"></a>1 获取应用代码</h5><ul>
-<li><p>这里先介绍如何完成单节点应用的容器化，也可以使用Docker Compose完成多节点应用容器化</p>
-</li>
-<li><p><a href="https://github.com/nigelpoulton/psweb" target="_blank" rel="noopener">应用代码地址</a></p>
-</li>
-</ul>
-<h5 id="2-分析Docker文件"><a href="#2-分析Docker文件" class="headerlink" title="2 分析Docker文件"></a>2 分析Docker文件</h5><ul>
-<li><p>源码</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># Test web-app to use with Pluralsight courses and Docker Deep Dive book</span><br><span class="line"># Linux x64</span><br><span class="line">FROM alpine</span><br><span class="line"></span><br><span class="line">LABEL maintainer=&quot;nigelpoulton@hotmail.com&quot;</span><br><span class="line"></span><br><span class="line"># Install Node and NPM</span><br><span class="line">RUN apk add --update nodejs nodejs-npm</span><br><span class="line"></span><br><span class="line"># Copy app to /src</span><br><span class="line">COPY . /src</span><br><span class="line"></span><br><span class="line">WORKDIR /src</span><br><span class="line"></span><br><span class="line"># Install dependencies</span><br><span class="line">RUN  npm install</span><br><span class="line"></span><br><span class="line">EXPOSE 8080</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [&quot;node&quot;, &quot;./app.js&quot;]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Dockerfile通常放到构建上下文的根目录</p>
-</li>
-<li><p>Dockerfile的主要用途</p>
-<ul>
-<li>Dockerfile对当前应用及其依赖有个清晰的描述</li>
-<li>可以指导Docker完成应用的容器化</li>
-</ul>
-</li>
-<li><p>上述docker文件的步骤</p>
-<ol>
-<li>以alpine镜像为当前镜像基础<ul>
-<li>每个Dockerfile的第一行都是<code>FROM</code>指令</li>
-<li><code>FROM</code>指令指定的镜像，会作为当前镜像的一个基础镜像</li>
-</ul>
-</li>
-<li>指定维护者，使用<code>LABEL</code>标签</li>
-<li>安装Node.js和NPM<ul>
-<li><code>RUN apk add --update nodejs nodejs-npm</code>指令使用alpine中的apk包管理器将nodejs和npm安装到当前镜像中</li>
-<li><code>RUN</code>指令会在<code>FROM</code>指定的alpine基础镜像之上，新建一个镜像层来存储这些安装内容</li>
-</ul>
-</li>
-<li>将应用的代码复制到镜像当中<ul>
-<li><code>COPY . /src</code>指令将应用相关文件从构建上下文复制到当前镜像中，并新建一个镜像层来存储</li>
-</ul>
-</li>
-<li>设置新的工作目录<ul>
-<li>Dockerfile通过<code>WORKDIR</code>命令，为Dockerfile中尚未执行的指令设置工作目录</li>
-</ul>
-</li>
-<li>安装依赖包<ul>
-<li><code>npm install</code>用来安装当前应用的相关依赖包，并且新建镜像层来保存相关的依赖文件</li>
-</ul>
-</li>
-<li>配置应用的网络端口<ul>
-<li><code>EXPOSE 8080</code>指令可以完成相应端口的设置</li>
-<li>这个配置信息会作为镜像的元数据保存，不会产生新的镜像层</li>
-</ul>
-</li>
-<li>将<code>app.js</code>设置为默认运行的应用<ul>
-<li>通过<code>ENTRYPOINT</code>指令指定当前镜像的入口程序。</li>
-<li>这个配置信息会作为镜像的元数据保存，不会产生新的镜像层</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-<h5 id="3-构建镜像"><a href="#3-构建镜像" class="headerlink" title="3 构建镜像"></a>3 构建镜像</h5><ul>
-<li><p>执行如下指令</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker image build -t web:latest .</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>其中，命令最后的<code>.</code>表示Docker在构建过程中，使用当前目录作为上下文</p>
-</li>
-</ul>
-<h5 id="4-推送镜像到仓库"><a href="#4-推送镜像到仓库" class="headerlink" title="4 推送镜像到仓库"></a>4 推送镜像到仓库</h5><ul>
-<li><p>可以将镜像保存在一个镜像仓库服务，这样存储比较安全，且可以被其他人访问到</p>
-</li>
-<li><p>需要为镜像打标签，且置于自己用户名的二级目录下，例如</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker image tag web:latest t0ugh/web:latest</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过执行如下命令，将镜像推到仓库</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker image push t0ugh/web:latest</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h5 id="5-运行应用程序"><a href="#5-运行应用程序" class="headerlink" title="5 运行应用程序"></a>5 运行应用程序</h5><ul>
-<li><p>运行如下指令，基于上述镜像启动容器</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --name -c1 -p 80:8080 web:latest</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>这个命令会把容器内部的8080端口映射到Docker主机的80端口</p>
-</li>
-</ul>
-<h5 id="6-其他"><a href="#6-其他" class="headerlink" title="6 其他"></a>6 其他</h5><ul>
-<li><p>Dockerfile中的注释，使用<code>#</code>开头</p>
-</li>
-<li><p>除了注释之外，都是指令</p>
-</li>
-<li><p><code>Docker image build</code>命令会按行解析Dockerfile中的指令并且顺序执行</p>
-</li>
-<li><p>如果指令的作用是向镜像中增添新的文件或者程序，那么这条指令就会新建镜像层；如果只是告诉Docker如何完成构建或者如何运行程序，那么只会增加镜像的元数据</p>
-</li>
-<li><p><code>docker image history</code>查看构建过程中的历史</p>
-</li>
-<li><p><code>docker image inspect</code>查看镜像元数据</p>
-</li>
-</ul>
-<h4 id="2-3-3-生产环境中的多阶段构建"><a href="#2-3-3-生产环境中的多阶段构建" class="headerlink" title="2.3.3 生产环境中的多阶段构建"></a>2.3.3 生产环境中的多阶段构建</h4><ul>
-<li><p>背景：如前所示，正常的构建过程有可能引入大量并不必须的内容，比如，下载完对应的包后，就不再需要NPM或者Maven。再比如，用webpack打包完js文件后，就不再需要node了</p>
-</li>
-<li><p>多阶段构建可以解决这个问题，让镜像的体积更小</p>
-</li>
-<li><p>它可以从之前的构建阶段中仅复制生产环境相关的应用代码，而不复制生产环境不需要的构件</p>
-</li>
-</ul>
-<h4 id="2-3-4-其他"><a href="#2-3-4-其他" class="headerlink" title="2.3.4 其他"></a>2.3.4 其他</h4><ol>
-<li><p>利用构建缓存</p>
-</li>
-<li><p>合并镜像</p>
-</li>
-<li><p>使用no-install-recommends:它可以保证使用API包管理器时，只安装核心依赖</p>
-</li>
-<li><p>不要安装MSI包</p>
-</li>
-</ol>
-<h3 id="2-4-使用Docker-Compose部署应用"><a href="#2-4-使用Docker-Compose部署应用" class="headerlink" title="2.4 使用Docker Compose部署应用"></a>2.4 使用Docker Compose部署应用</h3><h4 id="2-4-1-简介"><a href="#2-4-1-简介" class="headerlink" title="2.4.1 简介"></a>2.4.1 简介</h4><ul>
-<li><p>Docker Compose主要用于部署分布在多容器中的应用</p>
-</li>
-<li><p>它是一个需要在Docker主机上进行安装的Python工具，使用时需要编写定义多容器应用的<code>YAML</code>文件，然后将其交给<code>docker-compose</code>命令处理，<code>docker-compose</code>会基于Docker引擎API完成应用的部署</p>
-</li>
-<li><p>还提供了一系列命令来管理应用的完整生命周期</p>
-</li>
-<li><p>可以将Docker Compose的配置文件置于版本管理系统中管理</p>
-<p>  <img src="/2019/05/22/Docker-2-核心技术/0522_0.png" alt=""></p>
-</li>
-</ul>
-<h4 id="2-4-2-在Linux上安装Docker-Compose"><a href="#2-4-2-在Linux上安装Docker-Compose" class="headerlink" title="2.4.2 在Linux上安装Docker Compose"></a>2.4.2 在Linux上安装Docker Compose</h4><ol>
-<li><p>使用curl命令下载二进制文件</p>
-</li>
-<li><p>使用chmod命令将其置为可运行</p>
-</li>
-</ol>
-<h4 id="2-4-3-解读Compose文件"><a href="#2-4-3-解读Compose文件" class="headerlink" title="2.4.3 解读Compose文件"></a>2.4.3 解读Compose文件</h4><ul>
-<li><p>Docker Compose使用YAML文件来定义多服务的应用</p>
-</li>
-<li><p>示例: docker-compose.yml</p>
-  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3.5"</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">    web-fe:</span></span><br><span class="line"><span class="attr">        build:</span> <span class="string">.</span></span><br><span class="line"><span class="attr">        command:</span> <span class="string">python</span> <span class="string">app.py</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">            - target:</span> <span class="number">5000</span></span><br><span class="line"><span class="attr">            - published:</span> <span class="number">5000</span></span><br><span class="line"><span class="attr">        networks:</span></span><br><span class="line"><span class="bullet">            -</span> <span class="string">counter-net</span></span><br><span class="line"><span class="attr">        volumes:</span></span><br><span class="line"><span class="attr">            - type:</span> <span class="string">volume</span></span><br><span class="line"><span class="attr">              source:</span> <span class="string">conter-val</span></span><br><span class="line"><span class="attr">              target:</span> <span class="string">/code</span></span><br><span class="line"><span class="attr">        redis:</span></span><br><span class="line"><span class="attr">            image:</span> <span class="string">"redis:alpine"</span></span><br><span class="line"><span class="attr">            networks:</span></span><br><span class="line"><span class="attr">                counter-net:</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line"><span class="attr">    counter-net:</span></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line"><span class="attr">    counter-vol:</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>version是必须要指定的，而且要放到文件的第一行</p>
-</li>
-<li><p>services用来定义不同的应用服务</p>
-<ul>
-<li>每个Service会部署到一个容器中</li>
-<li>会使用key来作为容器名字的一部分</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-4-3-常用指令"><a href="#2-4-3-常用指令" class="headerlink" title="2.4.3 常用指令"></a>2.4.3 常用指令</h4><ul>
-<li><p><code>docker-compose up</code>: 用来部署一个Compose应用。默认情况下该命令会读取名为<code>docker-compose.yml</code>或<code>docker-compose.yaml</code>的文件</p>
-</li>
-<li><p><code>docker-compose stop</code>命令会停止Compose应用相关的所有容器，但不会删除它们</p>
-</li>
-<li><p><code>docker-compose rm</code>命令用来删除已停止的Compose应用，它会删除容器和网络，但不会删除卷和镜像</p>
-</li>
-<li><p><code>docker-compose restart</code>命令会重启已停止的<code>Compose</code>应用。如果用户在停止之后对该应用进行了变更。变更的内容不会反映到重启后的应用中</p>
-</li>
-<li><p><code>docker-compose ps</code>列出<code>Compose</code>应用中的各个容器。输出内容包括当前的状态、容器运行的命令以及网络端口</p>
 </li>
 </ul>
 
@@ -717,7 +549,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/29/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/page/31/">31</a><span class="space">&hellip;</span><a class="page-number" href="/page/57/">57</a><a class="extend next" rel="next" href="/page/31/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/29/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/page/31/">31</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/31/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -765,7 +597,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

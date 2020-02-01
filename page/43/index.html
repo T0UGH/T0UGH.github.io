@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/算法导论-16-贪心算法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/敏捷开发-1-敏捷宣言/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/13/算法导论-16-贪心算法/" itemprop="url">[算法导论][16]贪心算法</a></h1>
+                <a class="post-title-link" href="/2019/05/22/敏捷开发-1-敏捷宣言/" itemprop="url">[敏捷开发][1][敏捷宣言]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-13T21:04:54+08:00">
-                2019-03-13
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T23:10:55+08:00">
+                2019-05-22
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法导论/" itemprop="url" rel="index">
-                    <span itemprop="name">算法导论</span>
+                  <a href="/categories/敏捷开发/" itemprop="url" rel="index">
+                    <span itemprop="name">敏捷开发</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/13/算法导论-16-贪心算法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/13/算法导论-16-贪心算法/" itemprop="commentCount"></span>
+                <a href="/2019/05/22/敏捷开发-1-敏捷宣言/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/22/敏捷开发-1-敏捷宣言/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,62 +362,40 @@
       
         
           
-            <h2 id="第16章-贪心算法"><a href="#第16章-贪心算法" class="headerlink" title="第16章 贪心算法"></a>第16章 贪心算法</h2><p>对于许多最优化问题，使用动态规划算法来求最优解有些杀鸡用牛刀了，可以使用更简单、更高效的算法。贪心算法(greedy algorithm)就是这样的算法，它在每一步都做出当时看起来最佳的选择。它总是做出局部最优的选择，寄希望这样的选择能导致全局最优解</p>
-<p>贪心算法并不保证得到最优解，但对很多问题确实可以求得最优解</p>
-<p>有很多利用贪心策略设计的算法，包括最小生成树(minimum-spanning-tree)算法、单源最短路径算法的Dijkstra算法，以及集合覆盖问题的Chvatal贪心启发式算法</p>
-<h3 id="16-1-活动选择问题"><a href="#16-1-活动选择问题" class="headerlink" title="16.1 活动选择问题"></a>16.1 活动选择问题</h3><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>假定有一个 n 个活动(activity)的集合 S = {a<sub>1</sub>, a<sub>2</sub>, …, a<sub>n</sub>}，这些活动使用同一个资源，而这个资源在某个时刻只能供一个活动使用。每个活动 a<sub>i</sub> 都有一个开始时间 s<sub>i</sub> 和一个结束时间 f<sub>i</sub>。</p>
-<p>如果两个活动 a<sub>i</sub> 和 a<sub>j</sub> 满足 [s<sub>i</sub>, f<sub>i</sub>) 和 [s<sub>j</sub>, f<sub>j</sub>) 不重叠，则称它们是兼容的。</p>
-<p>在活动选择问题中，我们希望选出一个最大兼容活动集。 </p>
-<p>假定活动已经按照时间的单调递增顺序排序</p>
-<p>f<sub>1</sub> &lt;= f<sub>2</sub> &lt;= … &lt;= f<sub>n-1</sub> &lt;= f<sub>n</sub></p>
-<h4 id="活动选择问题的最优子结构"><a href="#活动选择问题的最优子结构" class="headerlink" title="活动选择问题的最优子结构"></a>活动选择问题的最优子结构</h4><p>令 S<sub>ij</sub> 表示在 a<sub>i</sub> 结束之后开始，在 a<sub>j</sub> 开始之前结束的那些活动的集合。假定 A<sub>ij</sub> 是 S<sub>ij</sub> 的一个最大的相互兼容的活动子集，且包含活动 a<sub>k</sub>。由于最优解包含活动 a<sub>k</sub> ，我们得到了两个子问题: 寻找 S<sub>ik</sub> 中的最大兼容活动子集(在 a<sub>i</sub> 结束之后开始，在 a<sub>k</sub> 开始之前结束的活动)以及寻找 S<sub>kj</sub> 中的最大兼容活动子集(在 a<sub>k</sub> 结束之后开始，在 a<sub>j</sub> 开始之前结束的活动)。可得 |A<sub>ij</sub>| = |A<sub>ik</sub>| + |A<sub>kj</sub>| + 1 个活动</p>
-<p>我们容易用剪切-粘贴法证明最优解A<sub>ij</sub>必然包含两个子问题S<sub>ik</sub>和S<sub>kj</sub>的最优解</p>
-<p>可以得到如下递归式</p>
-<p><img src="/2019/03/13/算法导论-16-贪心算法/0312_0.png" alt=""></p>
-<p>于是接下来可以设计一种带备忘机制的递归算法或者使用自底向上法填写表项</p>
-<h4 id="贪心选择"><a href="#贪心选择" class="headerlink" title="贪心选择"></a>贪心选择</h4><p>对于活动选择问题，什么是贪心选择？ 直觉告诉我们，应该选择S中最早结束的活动，因为它剩下的资源可供它之后尽可能多的活动使用</p>
-<p>当做出贪心选择之后，只剩下一个子问题需要我们求解: 寻找在 a<sub>1</sub> 结束后开始的活动</p>
-<p>令 S<sub>k</sub> = { a<sub>i</sub> ∈ S: s<sub>i</sub> &gt;= f<sub>k</sub>}为在 a<sub>k</sub>结束后开始的任务集合。当我们做出贪心选择，选择了 a<sub>1</sub> 之后，剩下的 S<sub>1</sub> 是唯一需要求解的子问题</p>
-<p>可以证明我们的直觉是正确的，证明过程略</p>
-<p>贪心算法通常都是自顶而下的设计: 做出一个选择，然后求解剩下的那个子问题，而不是自底向上地求解出很多子问题，然后再做出选择</p>
-<h4 id="递归贪心算法"><a href="#递归贪心算法" class="headerlink" title="递归贪心算法"></a>递归贪心算法</h4><p>过程 <code>RECURSIVE-ACTIVITY-SELECTOR</code> 的输入为两个数组 s 和 f，表示活动的开始和结束时间，下标 k 指出要求解的子问题 S<sub>k</sub>，以及问题规模 n 。它返回 S<sub>k</sub> 的一个最大兼容活动集。我们假定输入的 n 个活动已经按照结束时间的单调递增顺序排序好。为了方便算法初始化，我们添加了一个虚拟活动 a<sub>0</sub>，其结束时间为 f<sub>0</sub> = 0，这样子问题 S<sub>0</sub> 就是完整的活动集S。求解原问题即可调用 <code>RECURSIVE-ACTIVITY-SELECTOR(s, f, 0, n)</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">RECURSIVE-ACTIVITY-SELECTOR(s, f, k, n)</span><br><span class="line">    m = k + 1</span><br><span class="line">    while m &lt;= n and s[m] &lt; f[k]</span><br><span class="line">        m += 1</span><br><span class="line">    if m &lt;= n</span><br><span class="line">        return &#123; am &#125; ∪ RECURSIVE-ACTIVITY-SELECTOR(s, f, m, n)</span><br><span class="line">    else </span><br><span class="line">        return ∅</span><br></pre></td></tr></table></figure>
-<p><code>RECURSIVE-ACTIVITY-SELECTOR</code> 算法运行时间 <code>Θ(n)</code></p>
-<h4 id="迭代贪心算法"><a href="#迭代贪心算法" class="headerlink" title="迭代贪心算法"></a>迭代贪心算法</h4><p>我们可以很容易地将算法转换为迭代形式。过程 <code>RECURSIVE-ACTIVITY-SELECTOR</code> 几乎就是”尾递归”: 它以一个对自身地递归调用再接一次并集操作结尾。将尾递归过程改为迭代过程是很直接的</p>
-<p>过程 <code>GREEDY-ACTIVITY-SELECTOR</code> 是过程 <code>RECURSIVE-ACTIVITY-SELECTOR</code> 的一个迭代版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GREEDY-ACTIVITY-SELECTOR(s, f)</span><br><span class="line">    n = s.length</span><br><span class="line">    A = &#123;a1&#125;</span><br><span class="line">    k = 1</span><br><span class="line">    for m = 2 to n</span><br><span class="line">        if s[m] &gt;= f[k]</span><br><span class="line">            A = A U &#123;am&#125;</span><br><span class="line">            k = m</span><br><span class="line">    return A</span><br></pre></td></tr></table></figure>
-<p><code>GREEDY-ACTIVITY-SELECTOR</code> 算法运行时间 <code>Θ(n)</code></p>
-<h3 id="16-2-贪心算法原理"><a href="#16-2-贪心算法原理" class="headerlink" title="16.2 贪心算法原理"></a>16.2 贪心算法原理</h3><p>贪心算法通过做出一系列选择来求出问题的最优解。在每个决策点，它做出在当时看起来最佳的选择</p>
-<p>我们可以按如下步骤设计贪心算法</p>
-<ol>
-<li>将最优化问题转化为这样的形式: 对其做出一次选择后，只剩下一个子问题需要求解</li>
-<li>证明做出贪心选择后，原问题总是存在最优解，即贪心选择总是安全的</li>
-<li>证明做出贪心选择后，剩余的子问题满足性质，其最优解与贪心选择组合即可得到原问题的最优解</li>
-</ol>
-<p>在每个贪心算法之下，几乎总有一个更繁琐的动态规划算法</p>
-<h4 id="贪心选择性质"><a href="#贪心选择性质" class="headerlink" title="贪心选择性质"></a>贪心选择性质</h4><p>贪心算法的一个关键要素是，贪心选择性质。即，我们可以通过做出局部最优选择来构建全局最优解。当进行选择时，我们直接选择做出在当前问题中看起来最优的选择，而不必考虑子问题的解。</p>
-<p>贪心算法与动态规划</p>
+            <h3 id="1-敏捷宣言"><a href="#1-敏捷宣言" class="headerlink" title="1 敏捷宣言"></a>1 敏捷宣言</h3><p>敏捷软件开发宣言也称<a href="http://www.agilemanifesto.org" target="_blank" rel="noopener">敏捷宣言</a>，由17位志同道合的IT人于2001年在犹他州盐湖城外群山中的Snowbirt Retreat旅馆写就。</p>
+<p>下面是宣言的完整内容</p>
+<blockquote>
+<p>我们一直在实践中探寻更好的软件开发方法，身体力行的同时也帮助他人<br>由此我们建立了如下价值观<br><strong>个体和互动</strong>高于<em>流程和工具</em><br><strong>可工作的软件</strong>高于<em>详细的文档</em><br><strong>客户协作</strong>高于<em>合同谈判</em><br><strong>响应变化</strong>高于<em>遵循计划</em><br>也就是说，虽然右项有其价值，但是我们更重视左项的价值</p>
+</blockquote>
+<h4 id="1-1-个体和互动高于流程和工具"><a href="#1-1-个体和互动高于流程和工具" class="headerlink" title="1.1 个体和互动高于流程和工具"></a>1.1 个体和互动高于流程和工具</h4><p>有很多支持个体和互动的<strong>敏捷实践</strong>，例如每日站立会议和回顾会议。</p>
+<p>在<strong>回顾会议</strong>上，大家讨论当前项目或迭代的进展情况，以及可以吸取的教训。</p>
+<p><strong>用户故事</strong>也是这样一种实践，故事本身并不重要，重要的是这些故事可以帮助团队一起讨论故事代表的真正意义</p>
+<h4 id="1-2-可工作的软件高于详细的文档"><a href="#1-2-可工作的软件高于详细的文档" class="headerlink" title="1.2 可工作的软件高于详细的文档"></a>1.2 可工作的软件高于详细的文档</h4><p><strong>可工作的软件</strong>是可以给公司组织带来<em>价值</em>的软件。可以是公司出售的软件，也可以是帮助公司员工提高工作效率的软件</p>
+<p><strong>文档</strong>还是要写的，但是通常撰写文档的人通常就是编写软件的人</p>
+<p><strong>测试驱动开发</strong>就是这样一种敏捷实践</p>
 <ul>
-<li><p>在动态规划和贪心算法中，每个步骤都要进行一次选择</p>
-</li>
-<li><p>但动态规划中，选择通常依赖于子问题的选择。因此，我们通常以一种自底向上的方式求解动态规划问题，先求解较小的子问题，然后是较大的子问题</p>
-</li>
-<li><p>在贪心算法中，我们总是做出当时看来最佳的选择，然后求解剩下的唯一的子问题。贪心算法进行选择时可能依赖之间做出的选择，但不依赖任何将来的选择或是子问题的解</p>
-</li>
-<li><p>贪心算法在进行第一次选择之前不求解任何子问题</p>
-</li>
+<li>程序员首先开发自动化的<strong>单元测试</strong>，再开发被测试的模块</li>
+<li>自动化的测试代码和软件本身的代码并列保存</li>
+<li>自动化的测试可以<strong>当作文档使用</strong>，因为测试可以帮助程序员记录代码应该完成的功能</li>
 </ul>
-<p>但是我们必须证明每个步骤做出贪心算法能生成全局最优解</p>
-<h4 id="最优子结构"><a href="#最优子结构" class="headerlink" title="最优子结构"></a>最优子结构</h4><p>如果一个问题的最优解包含其子问题的最优解，则称此问题具有最优子结构性质</p>
-<p>当应用贪心算法时，我们通常使用更为直接的最优子结构。如前所述，我们可以假定，通过对原问题应用贪心选择即可得到子问题。我们真正要做的全部工作就是论证: 将子问题的最优解与贪心选择组合在一起就能生成原问题的最优解。这种方法隐含地对子问题使用了数学归纳法，证明了在每个步骤进行贪心选择会生成原问题的最优解</p>
-<h4 id="贪心对动态规划"><a href="#贪心对动态规划" class="headerlink" title="贪心对动态规划"></a>贪心对动态规划</h4><p>为了说明贪心算法和动态规划之间的细微差别，我们研究一个经典最优化问题的两个变形</p>
-<p>0-1 背包问题的描述如下</p>
-<p><img src="/2019/03/13/算法导论-16-贪心算法/0314_0.png" alt=""></p>
-<p>分数背包问题的描述如下</p>
-<p><img src="/2019/03/13/算法导论-16-贪心算法/0314_1.png" alt=""></p>
-<p>我们用贪心策略可以求解分数背包问题，而不能求解 0-1 背包问题。为了求解分数背包问题，我们首先计算每个商品的每磅价值 v/w。遵循贪心策略，小偷首先尽量多地拿走每磅价值最高的商品。如果该商品已全部拿走而背包尚未满，他继续尽量多地拿走每磅价值第二高的产品，依次类推，直至达到重量上限W</p>
-<p>这种贪心算法的运行时间为 <code>O(nlgn)</code></p>
-<p>拿走商品1的策略对 0-1 背包问题无效是因为小偷无法装满背包，空闲空间降低了方案的有效每磅价值</p>
+<h4 id="1-3-客户协作高于合同谈判"><a href="#1-3-客户协作高于合同谈判" class="headerlink" title="1.3 客户协作高于合同谈判"></a>1.3 客户协作高于合同谈判</h4><p>如果程序员、测试员、产品所有者和项目经理<em>在不同团队中工作</em>，而且<em>不是真正</em>朝着交付可工作软件这个单一目标努力，他们的工作方式就好像是<strong>互相遵照合约合作</strong></p>
+<p>敏捷团队落实这项价值观的一种方法是在团队中安置一名<strong>产品所有者</strong>。</p>
+<ul>
+<li>这位产品所有者<strong>可能不参与代码</strong>的开发，但是他会参加会议，贡献想法。</li>
+<li>最重要的是，他要把<strong>最终的产品当作自己的东西</strong>。</li>
+<li>产品所有者通常通过<strong>用户故事</strong>与团队中的其他成员合作</li>
+</ul>
+<h4 id="1-4-响应变化高于遵循计划"><a href="#1-4-响应变化高于遵循计划" class="headerlink" title="1.4 响应变化高于遵循计划"></a>1.4 响应变化高于遵循计划</h4><p>开发团队需要<strong>不断地发现变化</strong>，当用户需求发生变化，或者软件构建方式需要变化地时候，团队要保证正确地<strong>响应变化</strong></p>
+<p>制定计划的人<strong>抗拒变化</strong>是很常见的事情，因为改变计划需要<em>耗费精力</em></p>
+<p><strong>任务板</strong>是一种良好的实践，可以帮助团队做出响应变化的正确决策。</p>
+<ul>
+<li>他们会把任务或用户故事写在<strong>索引卡</strong>上</li>
+<li>然后根据项目的进展<strong>移动卡片</strong></li>
+<li>很多团队还在任务板上<strong>画图</strong>跟踪进度</li>
+</ul>
+<h4 id="1-5-原则高于实践"><a href="#1-5-原则高于实践" class="headerlink" title="1.5 原则高于实践"></a>1.5 原则高于实践</h4><blockquote>
+<p>没有具体的实践，原则是瘠薄的；但是如果缺乏原则，实践则是没有生命、没有个性、没有勇气。伟大的产品来自伟大的团队，而伟大的团队有原则、有个性、有勇气、有坚持、有胆量。<br>[Jim Highsmith, 《敏捷项目管理》]</p>
+</blockquote>
 
           
         
@@ -457,7 +435,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/42/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><span class="page-number current">43</span><a class="page-number" href="/page/44/">44</a><span class="space">&hellip;</span><a class="page-number" href="/page/57/">57</a><a class="extend next" rel="next" href="/page/44/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/42/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><span class="page-number current">43</span><a class="page-number" href="/page/44/">44</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/44/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -505,7 +483,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

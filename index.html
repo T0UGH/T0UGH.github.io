@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/31/SSM-7-MyBatis的解析和运行原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-10-序列的修改、散列和切片/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/01/31/SSM-7-MyBatis的解析和运行原理/" itemprop="url">[SSM][7][MyBatis的解析和运行原理]</a></h1>
+                <a class="post-title-link" href="/2020/02/01/流畅的Python-10-序列的修改、散列和切片/" itemprop="url">[流畅的Python][9][序列的修改、散列和切片]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-31T16:25:37+08:00">
-                2020-01-31
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:49:56+08:00">
+                2020-02-01
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SSM/" itemprop="url" rel="index">
-                    <span itemprop="name">SSM</span>
+                  <a href="/categories/流畅的Python/" itemprop="url" rel="index">
+                    <span itemprop="name">流畅的Python</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/01/31/SSM-7-MyBatis的解析和运行原理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/31/SSM-7-MyBatis的解析和运行原理/" itemprop="commentCount"></span>
+                <a href="/2020/02/01/流畅的Python-10-序列的修改、散列和切片/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-10-序列的修改、散列和切片/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,70 +362,64 @@
       
         
           
-            <h2 id="第-7-章-MyBatis的解析和运行原理"><a href="#第-7-章-MyBatis的解析和运行原理" class="headerlink" title="第 7 章 MyBatis的解析和运行原理"></a>第 7 章 MyBatis的解析和运行原理</h2><p>MyBatis的运行过程分为两大步</p>
-<ol>
-<li>读取配置文件缓存到<code>Configuration</code>对象，用以创建<code>SqlSessionFactory</code></li>
-<li><code>SqlSession</code>的执行过程</li>
-</ol>
-<h3 id="7-1-构建SqlSessionFactory过程"><a href="#7-1-构建SqlSessionFactory过程" class="headerlink" title="7.1 构建SqlSessionFactory过程"></a>7.1 构建SqlSessionFactory过程</h3><p><code>SqlSessionFactory</code>是<code>MyBatis</code>的核心类之一，其最重要的功能就是提供创建<code>MyBatis</code>的核心接口<code>SqlSession</code>，所以要先创建<code>SqlSessionFactory</code>，为此要提供配置文件和相关的参数。</p>
-<p><code>MyBatis</code>采用了<code>Builder</code>模式去创建<code>SqlSessionFactory</code>，在实际中可以通过<code>SqlSessionF actoryBuilder</code>去构建，其构建分为两步。</p>
-<ol>
-<li>通过<code>XMLConfigBuilder</code>解析配置的<code>XML</code>文件，读出所配置的参数，并将读取的内容存入<code>Configuration</code> 类对象中。</li>
-<li>使用<code>Confinguration</code> 对象去创建<code>SqlSessionFactory</code></li>
-</ol>
-<h4 id="7-1-1-构建Configuration"><a href="#7-1-1-构建Configuration" class="headerlink" title="7.1.1 构建Configuration"></a>7.1.1 构建Configuration</h4><p>在<code>SqlSessionFactory</code>构建中，<code>Configuration</code>是最重要的，它的作用是：</p>
+            <h2 id="第10章-序列的修改、散列和切片"><a href="#第10章-序列的修改、散列和切片" class="headerlink" title="第10章 序列的修改、散列和切片"></a>第10章 序列的修改、散列和切片</h2><blockquote>
+<p>不要检查它是不是鸭子，它的叫声像不像鸭子、它的走路姿势像不像鸭子，等等。具体检查什么取决于你想使用语言的哪些行为</p>
+</blockquote>
 <ul>
-<li>读入配置文件，包括基础配置的<code>XML</code>和映射器<code>XML</code>(或注解)。</li>
-<li>初始化一些基础配置，比如<code>MyBatis</code>的别名等，一些重要的类对象(比如插件、映<br>射器、<code>Object</code>工厂、<code>typeHandlers</code>对象等)。</li>
-<li>提供单例，为后续创建<code>SessionFactorγ</code>服务，提供配置的参数。</li>
-<li>执行一些重要对象的初始化方法。</li>
+<li>在大量代码之间，我们将穿插讨论一个概念：把协议当作正式接口。我们将说明协议与鸭子类型之间的关系，以及对自定义类型的实际影响</li>
 </ul>
-<p><code>Configuration</code>是通过<code>XMLConfigBuilder</code>去构建的，首先它会读出所有<code>XML</code>配置的信息，然后把它们解析并保存在<code>Configuration</code>单例中。它会做如下初始化：</p>
+<h3 id="10-1-Vector类：用户定义的序列类型"><a href="#10-1-Vector类：用户定义的序列类型" class="headerlink" title="10.1 Vector类：用户定义的序列类型"></a>10.1 Vector类：用户定义的序列类型</h3><ul>
+<li><p>我们将使用组合模式实现<code>Vector</code>类，而不使用继承</p>
+</li>
+<li><p>向量的分量存储在浮点数数组中，而且还将实现不可变扁平序列所需的方法</p>
+</li>
+</ul>
+<hr>
+<h3 id="10-2-Vector类第1版：与Vector2d类兼容"><a href="#10-2-Vector类第1版：与Vector2d类兼容" class="headerlink" title="10.2 Vector类第1版：与Vector2d类兼容"></a>10.2 Vector类第1版：与Vector2d类兼容</h3><ul>
+<li><p>示例：第 1 版 <code>Vector</code> 类的实现代码</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> array <span class="keyword">import</span> array</span><br><span class="line"><span class="keyword">import</span> reprlib</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector</span>:</span></span><br><span class="line">    typecode = <span class="string">'d'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># self._components是“受保护的”实例属性，把Vector的分量保存在一个数组中</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, components)</span>:</span></span><br><span class="line">        self._components = array(self.typecode, components)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 为了迭代，我们使用self._components构建一个迭代器</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> iter(self._components)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 使用reprlib.repr()函数获取self._components的有限长度表示形式(如array('d', [0.0, 1.0, 2.0, 3.0, ...]))</span></span><br><span class="line">        components = reprlib.repr(self._components)</span><br><span class="line">        <span class="comment"># 把字符串插入Vector的构造方法调用之前，去掉前面的 array('d' 和后面的 )</span></span><br><span class="line">        components = components[components.find(<span class="string">'('</span>):<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Vector(&#123;&#125;)'</span>.format(components)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> str(tuple(self))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bytes__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 直接使用self._components构建bytes对象</span></span><br><span class="line">        <span class="keyword">return</span> bytes([ord(self.typecode)]) + bytes(self._components)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__eq__</span><span class="params">(self, other)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> tuple(self) == tuple(other)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__abs__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 先计算各分量的平方之和，然后再使用sqrt方法开平方</span></span><br><span class="line">        <span class="keyword">return</span> math.sqrt(sum(x * x <span class="keyword">for</span> x <span class="keyword">in</span> self))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bool__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> bool(abs(self))</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">frombytes</span><span class="params">(cls, octets)</span>:</span></span><br><span class="line">        typecode = chr(octets[<span class="number">0</span>])</span><br><span class="line">        memv = memoryview(octets[<span class="number">1</span>:]).cast(typecode)</span><br><span class="line">        <span class="keyword">return</span> cls(memv)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对 <code>repr()</code>函数的理解</p>
 <ul>
-<li><code>properties</code> 全局参数。</li>
-<li><code>typeAliases</code> 别名。</li>
-<li><code>Plugins</code> 插件。</li>
-<li><code>objectFactory</code> 对象工厂。</li>
-<li><code>objectWrapperFactory</code> 对象包装工厂。</li>
-<li><code>reflectionFactory</code> 反射工厂。</li>
-<li><code>settings</code> 环境设置。</li>
-<li><code>environments</code> 数据库环境。</li>
-<li><code>databaseldProvider</code> 数据库标识。</li>
-<li><code>typeHandlers</code> 类型转换器。</li>
-<li><code>Mappers</code> 映射器。</li>
+<li>调用<code>repr()</code>函数的目的是调试，因此绝对不能抛出异常</li>
+<li>如果<code>__repr__</code>方法的实现有问题，那么必须处理，尽量输出有用的内容，让用户能够识别目标对象</li>
 </ul>
-<p>它们都会以类似<code>typeHandler</code>注册那样的方法被存放到<code>Configuration</code>单例中，以便未来将其取出。</p>
-<h4 id="7-1-2-构建映射器的内部组成"><a href="#7-1-2-构建映射器的内部组成" class="headerlink" title="7.1.2 构建映射器的内部组成"></a>7.1.2 构建映射器的内部组成</h4><p>当<code>XMLConfigBuilder</code>解析<code>XML</code>时，会将每一个<code>SQL</code>和其配置的内容保存起来。一般而言，在<code>MyBatis</code>中一条<code>SQL</code>和它相关的配置信息是由3个部分组成的，它们分别是<code>MappedStatement</code>、<code>SqlSource</code>和<code>BoundSql</code></p>
+</li>
+<li><p>使用<code>reprlib.repr()</code>的方式</p>
 <ul>
-<li><code>MappedStatement</code>的作用是保存一个映射器节点(<code>select|insert|delete|update</code>)的内容。它是一个类，包括许多我们配置的<code>SQL</code>、<code>SQL</code>的<code>id</code>、缓存信息、<code>resultMap</code>、<code>parameterType</code>、<code>resultType</code>、<code>resultMap</code>、<code>languageDriver</code>等重要配置内容。</li>
-<li><code>SqlSource</code>是提供<code>BoundSql</code>对象的地方，它是<code>MappedStatement</code>的一个属性。它的作用是根据上下文和参数解析生成需要的<code>SQL</code></li>
-<li><code>BoundSql</code>是一个结果对象，也就是<code>SqlSource</code>通过解析得到的<code>SQL</code>和参数</li>
+<li>这个函数用于生成大型结构或递归结构的安全表示形式</li>
+<li>它会限制输出字符串的长度，用’…’表示截断的部分</li>
 </ul>
-<p><img src="/2020/01/31/SSM-7-MyBatis的解析和运行原理/200131_0.png" alt=""></p>
-<p>对于最终的参数和SQL 都反映在<code>BoundSql</code>类对象上，在插件中往往需要拿到它进而可以拿到当前运行的<code>SQL</code>和参数，从而对运行过程做出必要的修改，来满足特殊的需求</p>
-<p><code>BoundSql</code>会提供3个主要的属性：<code>parameterMappings</code>、<code>parameterObject</code>和<code>sql</code></p>
-<ol>
-<li><code>parameterObject</code>为参数本身，可以传递简单对象、<code>POJO</code>或者<code>Map</code>、<code>＠Param</code>注解的参数</li>
-<li><code>parameterMappings</code>是一个<code>List</code>，它的每一个元素都是<code>ParameterMapping</code>对象。对象会描述参数，参数包括属性名称、表达式、<code>javaType</code>、<code>jdbcType</code>、<code>typeHandler</code>等重要信息</li>
-<li><code>sql</code>属性就是书写在映射器里面的一条被<code>SqlSource</code>解析后的<code>SQL</code></li>
-</ol>
-<h3 id="7-2-SqlSession运行过程"><a href="#7-2-SqlSession运行过程" class="headerlink" title="7.2 SqlSession运行过程"></a>7.2 SqlSession运行过程</h3><h4 id="7-2-1-映射器-Mapper-的动态代理"><a href="#7-2-1-映射器-Mapper-的动态代理" class="headerlink" title="7.2.1 映射器(Mapper)的动态代理"></a>7.2.1 映射器(Mapper)的动态代理</h4><p>略(没看懂)</p>
-<h4 id="7-2-2-SqlSession下的四大对象"><a href="#7-2-2-SqlSession下的四大对象" class="headerlink" title="7.2.2 SqlSession下的四大对象"></a>7.2.2 SqlSession下的四大对象</h4><p><code>SqlSession</code>的执行过程是通过<code>Executor</code>、<code>StatementHandler</code>、<code>ParameterHandler</code>和<code>ResultSetHandler</code>来完成数据库操作和结果返回的</p>
+</li>
+<li><p>示例：测试 <code>Vector.__init__</code> 和 <code>Vector.__repr__</code></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Vector([<span class="number">3.1</span>, <span class="number">4.2</span>])</span><br><span class="line">Vector([<span class="number">3.1</span>, <span class="number">4.2</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Vector([<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">Vector([<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Vector(range(<span class="number">10</span>))</span><br><span class="line">Vector([<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>, ...])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="10-3-协议和鸭子类型"><a href="#10-3-协议和鸭子类型" class="headerlink" title="10.3 协议和鸭子类型"></a>10.3 协议和鸭子类型</h3><ul>
+<li>协议<ul>
+<li>在Python中创建功能完善的序列类型无需使用<strong>继承</strong>，只需<strong>实现符合序列协议的方法</strong></li>
+<li>在面向对象编程中，<strong>协议</strong>是非正式的<strong>接口</strong>，只在文档中定义，在代码中不定义</li>
+<li>例如，Python的序列协议只需要 <code>__len__</code> 和 <code>__getitem__</code>两个方法。任何类，只要使用标准的签名和语义实现了这两个方法，就能用在任何期待序列的地方</li>
+</ul>
+</li>
+</ul>
 <ul>
-<li><code>Executor</code>代表执行器，由它调度<code>StatementHandler</code>、<code>ParameterHandler</code>、<code>ResultSetHandler</code><br>等来执行对应的<code>SQL</code>。其中<code>StatementHandler</code>是最重要的。</li>
-<li><code>StatementHandler</code>的作用是使用数据库的<code>Statement</code>执行操作</li>
-<li><code>ParameterHandler</code>是用来处理<code>SQL</code>参数的。</li>
-<li><code>ResultSetHandler</code>是进行数据集<code>ResultSet</code>的封装返回处理的，它相当复杂，好在我们不常用它。</li>
-</ul>
-<h4 id="7-2-3-SqlSession的运行"><a href="#7-2-3-SqlSession的运行" class="headerlink" title="7.2.3 SqlSession的运行"></a>7.2.3 SqlSession的运行</h4><p><img src="/2020/01/31/SSM-7-MyBatis的解析和运行原理/200131_1.png" alt=""></p>
-<p><code>SqlSession</code>是通过执行器<code>Executor</code>调度<code>StatementHandler</code>来运行的。而<code>StatementHandler</code>经过3步</p>
+<li><p>鸭子类型</p>
 <ul>
-<li><code>prepared</code>预编译<code>SQL</code></li>
-<li><code>parameterize</code>设置参数</li>
-<li><code>query/update</code>执行<code>SQL</code></li>
+<li>不要检查它是不是鸭子，它的叫声像不像鸭子、它的走路姿势像不像鸭子，等等。具体检查什么取决于你想使用语言的哪些行为</li>
+<li>我们说它是序列，因为它的行为像序列，这才是重点</li>
 </ul>
-<p>其中，<code>parameterize</code>是调用<code>parameterHandler</code>的方法设置的，而参数是根据类型处理器<code>typeHandler</code>处理的。<code>query/update</code>方法通过<code>ResultSetHandler</code>进行处理结果的封装，如果是<code>update</code>语句，就返回整数，否则就通过<code>typeHandler</code>处理结果类型，然后用<code>ObjectFactory</code>提供的规则组装对象，返回给调用者</p>
-
+</li>
+<li><p>另外</p>
+<ul>
+<li>协议是非正式的，没有强制力。因此如果你知道类的具体使用场景，通常只需要实现一个协议的部分</li>
+<li>例如，为了支持迭代，只需要实现 <code>__getitem__</code> 方法，没必要提供 <code>__len__</code> 方法</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="10-4-Vector类第2版：可切片的序列"><a href="#10-4-Vector类第2版：可切片的序列" class="headerlink" title="10.4 Vector类第2版：可切片的序列"></a>10.4 Vector类第2版：可切片的序列</h3>
           
         
       
@@ -464,7 +458,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/57/">57</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -512,7 +506,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

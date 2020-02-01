@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/19/C-1-预备知识/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Docker-1-简介/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/19/C-1-预备知识/" itemprop="url">[C++][1][预备知识]</a></h1>
+                <a class="post-title-link" href="/2019/05/22/Docker-1-简介/" itemprop="url">[Docker][1][简介]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-19T19:03:31+08:00">
-                2019-03-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T23:19:36+08:00">
+                2019-05-22
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/19/C-1-预备知识/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/19/C-1-预备知识/" itemprop="commentCount"></span>
+                <a href="/2019/05/22/Docker-1-简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/22/Docker-1-简介/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,57 +362,78 @@
       
         
           
-            <h2 id="第-1-章-预备知识"><a href="#第-1-章-预备知识" class="headerlink" title="第 1 章 预备知识"></a>第 1 章 预备知识</h2><p>它在 C 语言的基础上添加了对<strong>面向对象编程</strong>和<strong>泛型编程</strong>的支持</p>
-<p>C++ 继承了 C 语言高效、简洁、快速和可移植性的传统</p>
-<p>C++ 面向对象的特性带來了全新的编程方法，这种方法是为了应付复杂程度不断提商的现代编程任务而设计的</p>
-<p>C++ 的模板特性提供了一种全新的编程方法—–泛型编程。</p>
-<h3 id="1-1-C-简介"><a href="#1-1-C-简介" class="headerlink" title="1.1 C++ 简介"></a>1.1 C++ 简介</h3><p>C++ 融合了 3 种不同的编程方式</p>
-<ul>
-<li>C 语言代表的过程性语言</li>
-<li>C++ 在 C 语言基础上添加的类代表的面向对象语言</li>
-<li>C++ 模板支持的泛型编程</li>
+            <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h2><p>点此进入<a href="https://labs.play-with-docker.com/" target="_blank" rel="noopener">play with docker</a></p>
+<h3 id="1-1-容器发展之路"><a href="#1-1-容器发展之路" class="headerlink" title="1.1 容器发展之路"></a>1.1 容器发展之路</h3><ol>
+<li><p>曾经，每个服务器只能运行单一应用。Windows和Linux操作系统都没有相应的技术手段来保证在一台服务器上稳定运行多个应用</p>
+</li>
+<li><p>VM技术是一种允许多应用能够稳定、安全同时运行在一个服务器上的技术</p>
+</li>
+<li><p>虚拟机缺点是依靠其专用的操作系统，OS会额外消耗资源</p>
+</li>
+<li><p>容器模型与虚拟机模型的区别是容器的运行不会独占操作系统</p>
+</li>
+<li><p>容器的优点是启动快且便于迁移</p>
+</li>
+<li><p>Kubernetes是Docker之上的一个平台，现在采用Docker实现其底层容器相关的操作</p>
+</li>
+</ol>
+<h3 id="1-2-走进Docker"><a href="#1-2-走进Docker" class="headerlink" title="1.2 走进Docker"></a>1.2 走进Docker</h3><ul>
+<li><p>Docker是一种运行于Linux和Windows上的软件，用于创建、管理和编排容器</p>
+</li>
+<li><p>Docker一词源于英国口语，意为码头工人，即从船上装卸货物的人</p>
+</li>
+<li><p>Moby是Github上Docker的开源项目</p>
+</li>
+<li><p>许多Docker内置的组件都是可拔插的，即可以替换为第三方的组件</p>
+</li>
+<li><p>OCI(开放容器计划)是一个旨在对容器基础架构中的基础组件进行标准化的机构。目前已经制订了镜像规范和运行时规范，将容器生态团结起来</p>
+</li>
 </ul>
-<h3 id="1-2-C-简史"><a href="#1-2-C-简史" class="headerlink" title="1.2 C++ 简史"></a>1.2 C++ 简史</h3><p>体积更大、功能更强的计算机引出了更大、更复杂的程序，而这些程序在程序管理和维护方面带来了新的问题</p>
-<p>C 和 Pascal 引领人们进入了结构化编程时代，这种机制把秩序和规程带进了迫切需要这种性质的领域中。</p>
-<p>人们也见证了一种新编程模式的成长：面向对象编程（OOP)。SmallTalk 和 C++ 语言具备这种功能。</p>
-<h4 id="1-2-1-C-语言"><a href="#1-2-1-C-语言" class="headerlink" title="1.2.1 C 语言"></a>1.2.1 C 语言</h4><p>1970年代，贝尔实验室的 Dennis Ritchie 致力于开发 UNIX 操作系统。为完成这项工作，Ritchie 需要一种语言，它必须简洁，能够生成简洁、快速的程序，并能有效地控制硬件。</p>
-<p>一种被称为编译器的特殊程序将高级语言翻译成特定计算机的内部语言。这样就可以通过每个平台使用不同的编译器来在不同的平台上使用同一个高级语言程序了。</p>
-<p>Ritchie希望有一种语言能将低级语言的效率、硬件访问能力和高级语言的通性、可移植性融合在一起，于是他在旧语言的基础上开发了C语言。</p>
-<h4 id="1-2-2-C-语言编程原理"><a href="#1-2-2-C-语言编程原理" class="headerlink" title="1.2.2 C 语言编程原理"></a>1.2.2 C 语言编程原理</h4><p>一般来说，计算机语言要处理两个概念—–<strong>数据和算法</strong>。数据是程序使用和处理的信息，算法是程序使用的方法</p>
-<p>过程化编程首先要确定计算机应采取的操作，然后使用编程语言来实现这些操作。程序命令计算机按照一系列流程生成特定的结果，就像菜谱指定了厨师做蛋糕时应遵循的一系列步骤一样。</p>
-<p>C语言具有<strong>结构化编程</strong>的特性，结构化编程将分支限制为一小组行为良好的结构。C语言的词汇表中就包含了这些结构(<code>for</code> 循环、<code>while</code>循环、<code>do while</code> 循环和 <code>if else</code>语句)</p>
-<p>另一个新原则是<strong>自顶向下</strong>（top-down) 的设计。在 C 语言中，其理念是将大型程序分解为小型、便于管理的任务</p>
-<h4 id="1-2-3-面向对象编程"><a href="#1-2-3-面向对象编程" class="headerlink" title="1.2.3 面向对象编程"></a>1.2.3 面向对象编程</h4><p>与强调算法的过程性编程不同的是，OOP<strong>强调</strong>的是<strong>数椐</strong>。OOP不像过程性编程那样，试图使问题满足语言的过程性方法，而是试图让语言满足问题的要求。</p>
-<p>在 C++ 中，类是一种规范，它描述了这种新型数据格式，对象是根据这种规范构造的特定数据结构。</p>
-<p>通常，类规定了可使用哪些数据来表示对象以及可以对这些数据执行哪些操作。</p>
-<h4 id="1-2-4-C-与泛型编程"><a href="#1-2-4-C-与泛型编程" class="headerlink" title="1.2.4 C++ 与泛型编程"></a>1.2.4 C++ 与泛型编程</h4><p>术语泛型是指创建独立于类型的代码</p>
-<p>泛型编程提供了执行常见任务(如数据排序或合并链表)的工具</p>
-<h4 id="1-2-5-C-的起源"><a href="#1-2-5-C-的起源" class="headerlink" title="1.2.5 C++ 的起源"></a>1.2.5 C++ 的起源</h4><p>C++ 也是在贝尔实验室诞生的， Bjarne Stroustrup于 20 世纪 80 年代在这里开发<br>出了这种语言。</p>
-<blockquote>
-<p>C++ 主要是为了我的朋友和我不必再使用汇编语言、C 语言或其他现代高级语言来编程而设计的。它的主要功能是可以更方便地编写出好程序，让每个程序员更加快乐。(Bjarne Stroustrup)</p>
-</blockquote>
-<p>名称 C++ 来自 C 语言中的递增运算符，该运算符将变量加1。名称 C++ 表明，它是 C 的扩充版本。</p>
-<p>有些 OOP 正统派把为 C 添加 OOP 特性看作是<strong>为猪插上翅膀</strong>，虽然这是头瘦骨嶙峋、非常能干的猪</p>
-<p><img src="/2019/03/19/C-1-预备知识/0319_0.png" alt=""></p>
-<h3 id="1-3-可移植性和标准"><a href="#1-3-可移植性和标准" class="headerlink" title="1.3 可移植性和标准"></a>1.3 可移植性和标准</h3><p>可移植性的定义：如果在不修改代码的情况下，重新编译程序后，程序将运行良好，那么该程序是可移植的。</p>
-<p>可移植性的两大障碍</p>
-<ol>
-<li><p>硬件。硬件特定的程序是不可移植的</p>
+<h3 id="1-3-Docker安装"><a href="#1-3-Docker安装" class="headerlink" title="1.3 Docker安装"></a>1.3 Docker安装</h3><ul>
+<li><p>win10专业版，进bios开虚拟化，启动Hyper-x，去<a href="https://hub.docker.com/editions/community/docker-ce-desktop-windows" target="_blank" rel="noopener">这里</a>现在Docker for Windows版</p>
 </li>
-<li><p>语言上的差异，虽然多数实现都希望其 C++ 版本与其他版本兼容，但如果没有准确描述语言工作方式的公开标准，这将很难做到</p>
+<li><p>每个Docker容器都有一个本地存储空间，本地存储是通过存储驱动(Storage Driver)进行管理的</p>
 </li>
-</ol>
-<p>C++的第一个国际标准 : C++ 98</p>
-<h3 id="1-4-程序创建的技巧"><a href="#1-4-程序创建的技巧" class="headerlink" title="1.4 程序创建的技巧"></a>1.4 程序创建的技巧</h3><p>程序创建的步骤</p>
-<ol>
-<li><p>使用文本编辑器<strong>编辑</strong>程序。并将其保存到文件中，这个文件就是程序的<strong>源代码</strong></p>
+</ul>
+<h3 id="1-4-纵观Docker"><a href="#1-4-纵观Docker" class="headerlink" title="1.4 纵观Docker"></a>1.4 纵观Docker</h3><h4 id="1-4-1-运维视角"><a href="#1-4-1-运维视角" class="headerlink" title="1.4.1 运维视角"></a>1.4.1 运维视角</h4><ul>
+<li><p>Docker有两个主要组件:Docker客户端和Docker deamon(服务端或者引擎)</p>
 </li>
-<li><p><strong>编译</strong>源代码。将源代码翻译为主机使用的机器语言(<strong>目标代码</strong>)</p>
+<li><p>镜像</p>
+<ul>
+<li>可将镜像理解为一个包含基础操作系统，以及应用程序运行所需的代码和依赖包</li>
+<li>实际等价于未运行的容器</li>
+<li>Docker的每个镜像都有自己唯一的id</li>
+</ul>
 </li>
-<li><p>将目标代码与其他代码<strong>链接</strong>起来，例如一些库函数，最终生成<strong>可执行代码</strong></p>
+<li><p>容器</p>
+<ul>
+<li>可以从容器来启动镜像</li>
+<li><code>docker run</code>可以运行镜像</li>
+<li><code>Ctrl-PQ</code>组合键可以在退出容器的同时保证容器运行</li>
+<li><code>docker ls</code>列出系统内部处于运行状态的容器</li>
+</ul>
 </li>
-</ol>
-<p><img src="/2019/03/19/C-1-预备知识/0319_1.png" alt=""></p>
+</ul>
+<h4 id="1-4-2-开发角度"><a href="#1-4-2-开发角度" class="headerlink" title="1.4.2 开发角度"></a>1.4.2 开发角度</h4><ul>
+<li><p>容器即应用</p>
+</li>
+<li><p>每个仓库都有一个名为<code>Dockerfile</code>的文件。<code>Dockerfile</code>是一个纯文本文件，其中描述了如何将应用构建到<code>Docker</code>镜像中</p>
+</li>
+<li><p>使用<code>docker image build</code>命令可以根据Dockerfile中的指令来创建新的镜像</p>
+</li>
+</ul>
+<h3 id="1-5-Docker引擎"><a href="#1-5-Docker引擎" class="headerlink" title="1.5 Docker引擎"></a>1.5 Docker引擎</h3><ul>
+<li><p>Docker引擎是用来运行和管理容器的核心软件</p>
+</li>
+<li><p>Docker引擎可以进行模块化，有很多可交换的组件组成</p>
+</li>
+<li><p>runc: 用于创建容器的组件</p>
+</li>
+<li><p>containerd: 用于容器生命周期管理</p>
+</li>
+<li><p>daemon:之前Docker的服务器，目前其中的越来越多功能被拆解出来</p>
+</li>
+</ul>
 
           
         
@@ -452,7 +473,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/38/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><span class="page-number current">39</span><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/57/">57</a><a class="extend next" rel="next" href="/page/40/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/38/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><span class="page-number current">39</span><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/40/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -500,7 +521,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

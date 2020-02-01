@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/31/SSM-6-动态SQL/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-9-符合Python风格的对象/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/01/31/SSM-6-动态SQL/" itemprop="url">[SSM][6][动态SQL]</a></h1>
+                <a class="post-title-link" href="/2020/02/01/流畅的Python-9-符合Python风格的对象/" itemprop="url">[流畅的Python][9][符合Python风格的对象]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-31T11:10:49+08:00">
-                2020-01-31
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:46:31+08:00">
+                2020-02-01
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SSM/" itemprop="url" rel="index">
-                    <span itemprop="name">SSM</span>
+                  <a href="/categories/流畅的Python/" itemprop="url" rel="index">
+                    <span itemprop="name">流畅的Python</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/01/31/SSM-6-动态SQL/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/31/SSM-6-动态SQL/" itemprop="commentCount"></span>
+                <a href="/2020/02/01/流畅的Python-9-符合Python风格的对象/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-9-符合Python风格的对象/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,77 +362,202 @@
       
         
           
-            <h2 id="第6章-动态SQL"><a href="#第6章-动态SQL" class="headerlink" title="第6章 动态SQL"></a>第6章 动态SQL</h2><p>如果使用<code>JDBC</code>或者类似于<code>Hibernate</code>的其他框架，很多时候要根据需要去拼装<code>SQL</code>,这是一个麻烦的事情。因为某些查询需要许多条件，比如查询角色，可以根据角色名称或者备注等信息查询，当不输入名称时使用名称作条件就不合适了。</p>
-<p>通常使用其他框架需要大量的<code>Java</code>代码进行判断，可读性比较差，而<code>MyBatis</code>提供对<code>SQL</code>语句动态的组装能力，使用<code>XML</code>的几个简单的元素，便能完成动态<code>SQL</code>的功能。大量的判断都可以在<code>MyBatis</code>的映射<code>XML</code>里面配置，以达到许多需要大量代码才能实现的功能，大大减少了代码量，这体现了<code>MyBatis</code>的灵活、高度可配置性和可维护性。</p>
-<h3 id="6-1-概述"><a href="#6-1-概述" class="headerlink" title="6.1 概述"></a>6.1 概述</h3><p>MyBatis的动态SQL包括以下一个元素</p>
-<table>
-<thead>
-<tr>
-<th>元素</th>
-<th>作用</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>if</td>
-<td>判断语句</td>
-<td>单条件分支判断</td>
-</tr>
-<tr>
-<td>choose(when, otherwise)</td>
-<td>相当于JAVA中的switch和case语句</td>
-<td>多条件分支判断</td>
-</tr>
-<tr>
-<td>trim(where, set)</td>
-<td>辅助元素，用于处理特定的SQL组装问题，比如去掉多余的and、or等</td>
-<td>用于处理SQL拼装的问题</td>
-</tr>
-<tr>
-<td>foreach</td>
-<td>循环语句</td>
-<td>在in语句等列举条件常用</td>
-</tr>
-</tbody>
-</table>
-<h3 id="6-2-if元素"><a href="#6-2-if元素" class="headerlink" title="6.2 if元素"></a>6.2 if元素</h3><p><code>if</code>元素相当于<code>Java</code>中的<code>if</code>语句，它常与<code>test</code>属性联合使用</p>
-<p>下面用一个场景来说明，根据角色名称(<code>roleName</code>)来查找角色，如果<code>roleName</code>不为空，则采取构造对<code>roleName</code>的模糊查询，否则不要去构造这个条件</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRoles"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultMap</span>=<span class="string">"roleResultMap"</span>&gt;</span></span><br><span class="line">    select role_no, role_name, note from t_role where 1 = 1</span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"roleName != null and roleName != ''"</span>&gt;</span></span><br><span class="line">        and role_name like concat('%', #&#123;roleName&#125;, '%')</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="6-3-choose、when、otherwise元素"><a href="#6-3-choose、when、otherwise元素" class="headerlink" title="6.3 choose、when、otherwise元素"></a>6.3 choose、when、otherwise元素</h3><p><code>choose、when、otherwise</code>元素相当于<code>java</code>中的<code>switch...case...default..</code></p>
-<p>下面用一个场景来说明</p>
+            <h2 id="第9章-符合Python风格的对象"><a href="#第9章-符合Python风格的对象" class="headerlink" title="第9章 符合Python风格的对象"></a>第9章 符合Python风格的对象</h2><blockquote>
+<p>绝对不要使用两个前导下划线，这是很烦人的自私行为—Ian Bicking</p>
+</blockquote>
 <ul>
-<li>如果角色编号(<code>roleNo</code>)不为空，则只用角色编号作为条件查询。</li>
-<li>当角色编号为空，而角色名称不为空，则用角色名称作为条件进行模糊查询。</li>
-<li>当角色编号和角色名称都为空，则要求角色备注不为空。</li>
+<li><p>得益于Python数据模型，自定义类型的行为可以像内置类型那样自然</p>
+</li>
+<li><p>实现如此自然的行为，靠的不是继承，而是鸭子类型：我们只需按照行为实现对象所需的方法即可</p>
+</li>
 </ul>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRoles"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span> <span class="attr">resultMap</span>=<span class="string">"roleResultMap"</span>&gt;</span></span><br><span class="line">    select role_no, role_name, note from t_role</span><br><span class="line">    where 1=1</span><br><span class="line">    <span class="tag">&lt;<span class="name">choose</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"roleNo != null and roleNo != ''"</span>&gt;</span></span><br><span class="line">            and role_no = #&#123;roleNo&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"roleName != null and roleName !=''"</span>&gt;</span></span><br><span class="line">            and role_name like concat('%', #&#123;roleName&#125;, '%')</span><br><span class="line">        <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line">            and note is not null</span><br><span class="line">        <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">choose</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="6-4-trim、where、set元素"><a href="#6-4-trim、where、set元素" class="headerlink" title="6.4 trim、where、set元素"></a>6.4 trim、where、set元素</h3><h4 id="6-4-1-where元素"><a href="#6-4-1-where元素" class="headerlink" title="6.4.1 where元素"></a>6.4.1 where元素</h4><p>在6.3节的<code>SQL</code>语句上的动态元素的<code>SQL</code>中都加入了一个条件<code>1=1</code>，如果没有加入这个条件，那么可能就变为了这样一条错误的语句：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select role_no, role_name, note from t_role where and role_name like concat('%', #&#123;roleName&#125;, '%')</span><br></pre></td></tr></table></figure></p>
-<p>我们可以使用<code>where</code>元素来避免加入<code>1=1</code>这个条件</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRoles"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span> <span class="attr">resultMap</span>=<span class="string">"roleResultMap"</span>&gt;</span></span><br><span class="line">    select role_no, role_name, note from t_role</span><br><span class="line">    <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"roleName != null and roleName !=''"</span>&gt;</span></span><br><span class="line">            and role_name like concat('%', #&#123;roleName&#125;, '%')</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"note != null and note !=''"</span>&gt;</span></span><br><span class="line">            and note like concat('%', #&#123;note&#125;, '%')</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>当<code>where</code>元素里面的条件成立时，才会加入<code>where</code>这个<code>SQL</code>关键字到组装的<code>SQL</code>里面，否则就不加入</p>
-<h4 id="6-4-2-trim元素"><a href="#6-4-2-trim元素" class="headerlink" title="6.4.2 trim元素"></a>6.4.2 trim元素</h4><p>有时候要去掉的是一些特殊的<code>SQL</code>语法，比如常见的<code>and</code>、<code>or</code>。而使用<code>trim</code>元素也可以达到预期效果</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRoles"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultMap</span>=<span class="string">"roleResultMap"</span>&gt;</span></span><br><span class="line">    select role_no, role_name, note from t_role</span><br><span class="line">    <span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">"where"</span> <span class="attr">prefixOverrides</span>=<span class="string">"and"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"roleName != null and roleName !=''"</span>&gt;</span></span><br><span class="line">            and role_name like concat('%', #&#123;roleName&#125;, '%')</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="9-1-对象的表示形式"><a href="#9-1-对象的表示形式" class="headerlink" title="9.1 对象的表示形式"></a>9.1 对象的表示形式</h3><ul>
+<li><p>Python提供两种<strong>获取对象的字符串表示形式</strong>的标准方法</p>
 <ul>
-<li><code>trim</code>代表要去掉一些特殊的字符串</li>
-<li><code>prefix</code>代表的是语句的前缀，而<code>prefixOverrides</code>代表的是要去掉哪种字符串</li>
+<li><code>repr()</code>:以便于开发者理解的方式返回对象的字符串表示形式</li>
+<li><code>str()</code>:以便于用户理解的方式返回对象的字符串表示形式</li>
+<li>我们可以通过实现<code>__repr__</code>和<code>__str__</code>特殊方法，为<code>repr()</code>和<code>str()</code>提供支持</li>
 </ul>
-<h4 id="6-4-3-set元素"><a href="#6-4-3-set元素" class="headerlink" title="6.4.3 set元素"></a>6.4.3 set元素</h4><p>在<code>Hibernate</code>中常常因为要更新某一对象，而发送所有的字段给持久对象，而现实中的场景是，只想更新某一个字段。在<code>MyBatis</code>中， 常常可以使用<code>set</code>元素来避免这样的问题，比如要更新一个角色的数据<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateRole"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    update t_role</span><br><span class="line">    <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"roleName != null and roleName !=''"</span>&gt;</span></span><br><span class="line">            role_name = #&#123;roleName&#125;,</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"note != null and note != ''"</span>&gt;</span></span><br><span class="line">            note = #&#123;note&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">    where role_no = #&#123;roleNo&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="6-5-foreach元素"><a href="#6-5-foreach元素" class="headerlink" title="6.5 foreach元素"></a>6.5 foreach元素</h3><p><code>foreach</code>元素是一个循环语旬，它的作用是遍历集合，它能够很好地支持数组和<code>List</code>、<code>Set</code>接口的集合，对此提供遍历功能。它往往用于<code>SQL</code>中的<code>in</code>关键字。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findUserBySex"</span> <span class="attr">resultType</span>=<span class="string">"user"</span>&gt;</span></span><br><span class="line">    select * from t role where role no in</span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">item</span>=<span class="string">"roleNo"</span> <span class="attr">index</span>=<span class="string">"index"</span> <span class="attr">collection</span>=<span class="string">"roleNoList"</span> <span class="attr">open</span>=<span class="string">"("</span> <span class="attr">separator</span>=<span class="string">","</span> <span class="attr">close</span>=<span class="string">")"</span>&gt;</span></span><br><span class="line">        #&#123;roleNo&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Python还为对象提供了其他的表示形式</p>
 <ul>
-<li><code>collection</code>配置的<code>roleNoList</code>是传递进来的参数名称，它可以是一个数组、<code>List</code>、<code>Set</code>等集合</li>
-<li><code>index</code>配置的是循环中当前的元素</li>
-<li><code>index</code>配置的是当前元素在集合的位置下标</li>
-<li><code>open</code>和<code>close</code>配置的是以什么符号将这些集合元素包装起来</li>
-<li><code>separator</code>是各个元素的间隔符</li>
+<li><code>bytes()</code>函数调用对象的<code>__byte__</code>方法来获取对象的字节序列表示形式</li>
+<li><code>format</code>函数调用对象的<code>__format__</code>，使用特殊的格式代码显示对象的字符串表示形式</li>
 </ul>
-<p>在<code>SQL</code>中常常用到<code>in</code>语句，但是对于大量数据的<code>in</code>语句要特别注意，因为它会消耗大量的性能</p>
-<h3 id="6-6-用test的属性判断字符串"><a href="#6-6-用test的属性判断字符串" class="headerlink" title="6.6 用test的属性判断字符串"></a>6.6 用test的属性判断字符串</h3><p><code>test</code>用于条件判断语句，作用相当于判断真假</p>
-<h3 id="6-7-bind元素"><a href="#6-7-bind元素" class="headerlink" title="6.7 bind元素"></a>6.7 bind元素</h3><p>在进行模糊查询时，如果是<code>MySQL</code>数据库，常常用到的是一个<code>concat</code>，它用<code>%</code>和参数相连。然而在<code>Oracle</code>数据库则没有，<code>Oracle</code>数据库用连接符号<code>||</code>，这样<code>SQL</code>就需要提供两种形式去实现。但是有了<code>bind</code>元素，就不必使用数据库的语言，而是使用<code>MyBatis</code>的动态<code>SQL</code>即可完成。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRole"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultType</span>=<span class="string">"com.bean.RoleBean"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bind</span> <span class="attr">name</span>=<span class="string">"pattern"</span> <span class="attr">value</span>=<span class="string">"'%' + _parameter + '%'"</span>&gt;</span></span><br><span class="line">    SELECT id, role_name as roleName, create_date as createDate, end_date as endFlag, note FROM t_role</span><br><span class="line">    WHERE role_name like #&#123;pattern&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这里的<code>_parameter</code>代表的是传递进来的参数，它和通配符(<code>%</code>)连接后赋给了<code>pattern</code>,然后就可以在<code>select</code>语句中使用这个变量进行模糊查询了。无论是<code>MySQL</code>还是<code>Oracle</code>都可以使用这样的语旬，提高了代码的可移植性。</p>
-
+</li>
+<li><p>注意</p>
+<ul>
+<li>在 Python 3 中,<code>__repr__</code>、<code>__str__</code> 和 <code>__format__</code> 都必须返回 Unicode 字符串(<code>str</code> 类型)</li>
+<li>只有 <code>__bytes__</code> 方法应该返回字节序列(<code>bytes</code> 类型)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="9-2-再谈向量类"><a href="#9-2-再谈向量类" class="headerlink" title="9.2 再谈向量类"></a>9.2 再谈向量类</h3><ul>
+<li><p>为了说明用于生成对象表示形式的众多方法,我们将使用一个 <code>Vector2d</code> 类</p>
+</li>
+<li><p>我们期望 Vector2d 实例具有的基本行为如下所示</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = Vector2d(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="comment"># Vector2d 实例的分量可以直接通过属性访问(无需调用读值方法)</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(v1.x, v1.y) </span><br><span class="line"><span class="number">3.0</span> <span class="number">4.0</span></span><br><span class="line"><span class="comment"># Vector2d 实例可以拆包成变量元组</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x, y = v1 </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x, y</span><br><span class="line">(<span class="number">3.0</span>, <span class="number">4.0</span>)</span><br><span class="line"><span class="comment"># repr 函数调用 Vector2d 实例,得到的结果类似于构建实例的源码</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 </span><br><span class="line">Vector2d(<span class="number">3.0</span>, <span class="number">4.0</span>)</span><br><span class="line"><span class="comment"># 这里使用 eval 函数,表明 repr 函数调用 Vector2d 实例得到的是对构造方法的准确表述</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1_clone = eval(repr(v1)) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 == v1_clone </span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># print 函数会调用 str 函数,对 Vector2d 来说,输出的是一个有序对</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(v1) </span><br><span class="line">(<span class="number">3.0</span>, <span class="number">4.0</span>)</span><br><span class="line"><span class="comment"># bytes 函数会调用 __bytes__ 方法,生成实例的二进制表示形式</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets = bytes(v1) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets</span><br><span class="line"><span class="string">b'd\\x00\\x00\\x00\\x00\\x00\\x00\\x08@\\x00\\x00\\x00\\x00\\x00\\x00\\x10@'</span></span><br><span class="line"><span class="comment"># abs 函数会调用 __abs__ 方法,返回 Vector2d 实例的模</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>abs(v1) </span><br><span class="line"><span class="number">5.0</span></span><br><span class="line"><span class="comment"># bool 函数会调用 __bool__ 方法,如果 Vector2d 实例的模为零,返回 False,否则返回 True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bool(v1), bool(Vector2d(<span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line"><span class="keyword">True</span>, <span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我们对vector2d类的实现如下所示，现在,Vector2d 用到了几个特殊方法,这些方法提供的操作是 Python 高手期待设计良好的对象所提供的</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> array <span class="keyword">import</span> array</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector2d</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># typecode 是类属性,在 Vector2d 实例和字节序列之间转换时使用</span></span><br><span class="line">    typecode = <span class="string">'d'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 在 __init__ 方法中把 x 和 y 转换成浮点数,尽早捕获错误,以防调用 Vector2d 函数时传入不当参数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x, y)</span>:</span></span><br><span class="line">        self.x = float(x)</span><br><span class="line">        self.y = float(y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义 __iter__ 方法,把 Vector2d 实例变成可迭代的对象,这样才能拆包(例如,x, y = my_vector)。这个方法的实现方式很简单,直接调用生成器表达式一个接一个产出分量</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (i <span class="keyword">for</span> i <span class="keyword">in</span> (self.x, self.y))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># __repr__ 方法使用 &#123;!r&#125; 获取各个分量的表示形式,然后插值,构成一个字符串;因为 Vector2d 实例是可迭代的对象,所以 *self 会把 x 和 y 分量提供给 format 函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        class_name = type(self).__name__</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&#123;&#125;(&#123;!r&#125;, &#123;!r&#125;)'</span>.format(class_name, *self)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 从可迭代的 Vector2d 实例中可以轻松地得到一个元组,显示为一个有序对</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> str(tuple(self))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 为了生成字节序列,我们把 typecode 转换成字节序列,然后迭代 Vector2d 实例,得到一个数组,再把数组转换成字节序列</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bytes__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> bytes([ord(self.typecode)]) + bytes(array(self.typecode, self))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 为了快速比较所有分量,在操作数中构建元组</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__eq__</span><span class="params">(self, other)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> tuple(self) == tuple(other)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 模是 x 和 y 分量构成的直角三角形的斜边长</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__abs__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> math.hypot(self.x, self.y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># __bool__ 方法使用 abs(self) 计算模,然后把结果转换成布尔值,因此,0.0 是 False,非零值是 True</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bool__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> bool(abs(self))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="9-3-备选构造方法"><a href="#9-3-备选构造方法" class="headerlink" title="9.3 备选构造方法"></a>9.3 备选构造方法</h3><ul>
+<li>我们可以把Vector2d实例转换成字节序列；同理，应该能从字节序列转换成Vector2d实例，如下所示  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 类方法使用classmethod装饰器修饰</span></span><br><span class="line"><span class="meta">@classmethod</span></span><br><span class="line"><span class="comment"># 不用传入self参数；相反，要通过cls传入类本身</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">frombytes</span><span class="params">(cls, octets)</span>:</span></span><br><span class="line">    <span class="comment"># 从第一个字节中读取typecode</span></span><br><span class="line">    typecode = chr(octets[<span class="number">0</span>])</span><br><span class="line">    <span class="comment"># 使用传入的octets字节序列创建一个memoryview，然后使用typecode转换，就是转换成typecode表示的类型</span></span><br><span class="line">    memv = memoryview(octets[<span class="number">1</span>:]).cast(typecode)</span><br><span class="line">    <span class="comment"># 拆包转换后的memoryview，得到构造方法所需的一对参数</span></span><br><span class="line">    <span class="keyword">return</span> cls(*memv)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="9-4-classmethod与staticmethod"><a href="#9-4-classmethod与staticmethod" class="headerlink" title="9.4 classmethod与staticmethod"></a>9.4 classmethod与staticmethod</h3><h4 id="9-4-1-classmethod"><a href="#9-4-1-classmethod" class="headerlink" title="9.4.1 classmethod"></a>9.4.1 classmethod</h4><ul>
+<li><p>用来定义操作类(而不是操作实例)的方法</p>
+</li>
+<li><p>classmethod改变了调用方法的方式，因此类方法的第一个参数是类本身，而不是实例</p>
+</li>
+<li><p>classmethod最常用的用途是定义备选构造方法，如上一节所示</p>
+</li>
+<li><p>按照约定，类方法的第一个参数名为cls(但是Python不介意具体怎么命名)</p>
+</li>
+</ul>
+<h4 id="9-4-2-staticmethod"><a href="#9-4-2-staticmethod" class="headerlink" title="9.4.2 staticmethod"></a>9.4.2 staticmethod</h4><ul>
+<li><p>staticmethod装饰器也会改变方法的调用方式，但是第一个参数不是特殊的值</p>
+</li>
+<li><p>其实静态方法就是普通的函数，只是碰巧在类的定义体中，而不是在模块层定义</p>
+</li>
+<li><p>staticmethod不是特别有用</p>
+<ul>
+<li>如果想定义不需要与类交互的函数,那么在模块中定义就好了</li>
+<li>有时,函数虽然从不处理类,但是函数的功能与类紧密相关,因此想把它放在近处</li>
+<li>即便如此,在同一模块中的类前面或后面定义函数也就行了</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="9-5-格式化显示"><a href="#9-5-格式化显示" class="headerlink" title="9.5 格式化显示"></a>9.5 格式化显示</h3><ul>
+<li><p>内置的<code>format()</code>函数和<code>str.format()</code>方法把各个类型的格式化方法委托给相应的<code>.__format__(format_spec)</code>方法</p>
+</li>
+<li><p><code>format_spec</code>是格式说明符，它是:</p>
+<ul>
+<li><code>format(my_obj, format_spec)</code>的第二个参数</li>
+<li><code>str.format()</code>方法的格式字符串,{}里代换字段中冒号后面的部分</li>
+</ul>
+</li>
+<li><p>示例:<code>format</code>和<code>str.format</code>的使用方法</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>brl = <span class="number">1</span>/<span class="number">2.43</span> <span class="comment"># BRL到USD的货币兑换比价</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>brl</span><br><span class="line"><span class="number">0.4115226337448559</span></span><br><span class="line"><span class="comment"># 格式说明符是 '0.4f'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(brl, <span class="string">'0.4f'</span>) </span><br><span class="line"><span class="string">'0.4115'</span></span><br><span class="line"><span class="comment"># 格式说明符是 '0.2f'。代换字段中的 'rate' 子串是字段名称,与格式说明符无关,但是它决定把 .format() 的哪个参数传给代换字段</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'1 BRL = &#123;rate:0.2f&#125; USD'</span>.format(rate=brl)</span><br><span class="line"><span class="string">'1 BRL = 0.41 USD'</span></span><br></pre></td></tr></table></figure>
+<p>  ‘{0.mass:5.3e}’ 这样的格式字符串其实包含两部分,冒号左边的 ‘0.mass’ 在代换字段句法中是字段名,冒号后面的 ‘5.3e’ 是格式说明符</p>
+</li>
+<li><p>格式规范微语言为一些内置类型提供了专用的表示代码</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(<span class="number">42</span>, <span class="string">'b'</span>)</span><br><span class="line"><span class="string">'101010'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(<span class="number">2</span>/<span class="number">3</span>, <span class="string">'.1%'</span>)</span><br><span class="line"><span class="string">'66.7%'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(format(<span class="number">2</span>/<span class="number">3</span>, <span class="string">'.1%'</span>))</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">str</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>格式规范微语言是可扩展的，因为各个类可以自行决定如何解释<code>format_spec</code>参数</p>
+</li>
+<li><p>相关文献：<a href="https://docs.python.org/3/library/string.html#formatspec" target="_blank" rel="noopener">“Format Specification Mini-<br>Language”</a></p>
+</li>
+</ul>
+<hr>
+<h3 id="9-6-可散列的Vector2d"><a href="#9-6-可散列的Vector2d" class="headerlink" title="9.6 可散列的Vector2d"></a>9.6 可散列的Vector2d</h3><ul>
+<li><p>为了把Vector2d实例变成可散列的</p>
+<ul>
+<li>必须使用<code>__hash__</code>方法和<code>__eq__</code>方法</li>
+<li>此外，还要让向量是不可变的，我们可以把x和y分量设置为只读特性，这样向量就不可变了</li>
+</ul>
+</li>
+<li><p>实例9-7:让向量不可变</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector2d</span>:</span></span><br><span class="line">    typecode = <span class="string">'d'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x, y)</span>:</span></span><br><span class="line">        <span class="comment"># 使用两个前导下划线，把属性设为私有的</span></span><br><span class="line">        self.__x = float(x)</span><br><span class="line">        self.__y = float(y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># property装饰器把读值方法标记为特性</span></span><br><span class="line">    <span class="comment"># 读值方法与公开属性同名，都是x</span></span><br><span class="line"><span class="meta">    @ property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">x</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__x</span><br><span class="line"></span><br><span class="line"><span class="meta">    @ property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">y</span><span class="params">(self)</span></span></span><br><span class="line"><span class="function">        <span class="title">return</span> <span class="title">self</span>.<span class="title">__y</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">    # 这里使用<span class="title">self</span>.<span class="title">x</span>而不是<span class="title">self</span>.<span class="title">__x</span>是为了保持访问一致性</span></span><br><span class="line"><span class="function">    <span class="title">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (i <span class="keyword">for</span> i <span class="keyword">in</span> (self.x, self.y))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下面我们只要实现<code>__hash__</code>方法即可，这个方法返回一个整数</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__hash__</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="comment"># 我们使用运算符异或(^)混合各分量的散列值，我觉得这种方法有一些问题,hash值会重复</span></span><br><span class="line">    <span class="keyword">return</span> hash(self.x) ^ hash(self.y)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果定义的类型有标量数值，可能还要实现<code>__int__</code>和<code>__float__</code>方法(分别被<code>int()</code>和<code>float()</code>构造函数调用)，以便在某些情况下进行强制类型转换</p>
+</li>
+</ul>
+<h3 id="9-7-Python的私有属性和”受保护的”属性"><a href="#9-7-Python的私有属性和”受保护的”属性" class="headerlink" title="9.7 Python的私有属性和”受保护的”属性"></a>9.7 Python的私有属性和”受保护的”属性</h3><ul>
+<li><p>Python不能像Java那样使用private修饰符创建私有属性，但是Python有个简单的机制，能避免子类意外覆盖”私有属性”</p>
+</li>
+<li><p><strong>名称改写—用来避免子类意外覆盖”私有属性”</strong></p>
+<ul>
+<li>举个例子：<ul>
+<li>有人编写了一个名为 Dog 的类， 这个类的内部用到了 mood实例属性， 但是没有将其开放</li>
+<li>现在， 你创建了 Dog 类的子类： Beagle</li>
+<li>如果你<strong>在毫不知情的情况下又创建了名为 mood 的实例属性</strong>， 那么在继承的方法中就<strong>会把 Dog 类的 mood 属性覆盖掉</strong>。 这是个难以调试的问题。</li>
+</ul>
+</li>
+<li>解决方法<ul>
+<li>如果以 <code>__mood</code> 的形式（两个前导下划线， 尾部没有或最多有一个下划线） 命名实例属性， Python 会把属性名存入实例的 <code>__dict__</code> 属性中， 而且会在前面加上一个下划线和类名。 </li>
+<li>因此， 对Dog 类来说， <code>__mood</code> 会变成 <code>_Dog__mood</code>； 对 Beagle 类来说， 会变成<code>_Beagle__mood</code>。 这个语言特性叫<strong>名称改写（name mangling）</strong></li>
+</ul>
+</li>
+<li>注意：<ul>
+<li>名称改写是一种安全措施，不能保证万无一失，它的目的是避免意外访问</li>
+<li>如下图<br><img src="/2020/02/01/流畅的Python-9-符合Python风格的对象/把手上的盖子.png" alt=""></li>
+<li>只要知道改写私有属性名的机制，任何人都能直接读取和修改私有属性  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = Vector2d(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1.__dict__</span><br><span class="line">&#123;<span class="string">'_Vector2d__y'</span>: <span class="number">4.0</span>, <span class="string">'_Vector2d_x'</span>: <span class="number">3.0</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1._Vector2d_x</span><br><span class="line"><span class="number">3.0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1._Vector2d_x = <span class="number">7</span></span><br><span class="line"><span class="number">7.0</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>约定俗成的”受保护”属性</strong></p>
+<ul>
+<li>不是所有 Python 程序员都喜欢名称改写功能， 也不是所有人都喜欢self.__x 这种不对称的名称。</li>
+<li>有些人不喜欢这种句法， 他们约定使用一个下划线前缀编写“受保护”的属性（如 self._x）</li>
+<li>Python 解释器不会对使用单个下划线的属性名做特殊处理， 不过这是很多 Python 程序员严格遵守的约定， 他们不会在类外部访问这种属性</li>
+<li>遵守使用一个下划线标记对象的私有属性很容易，就像遵守使用全大写字母编写常量那样容易</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="9-8-使用slot属性节省空间"><a href="#9-8-使用slot属性节省空间" class="headerlink" title="9.8 使用slot属性节省空间"></a>9.8 使用<strong>slot</strong>属性节省空间</h3><ul>
+<li><p>背景</p>
+<ul>
+<li>默认情况下，Python在各个实例中名为<code>__dict__</code>的字典里存储实例属性</li>
+<li>然后为了使用底层的散列表提升访问速度，字典会消耗大量内存(散列表一般装不满，所以会浪费内存)</li>
+<li>如果要处理<strong>数百万个属性不多</strong>的实例，通过<code>__slots__</code>类属性，能节省大量内存</li>
+</ul>
+</li>
+<li><p>如何使用<code>__slot__</code>属性</p>
+<ul>
+<li><p>定义 <code>__slots__</code> 的方式是， 创建一个类属性， 使用 <code>__slots__</code> 这个名字， 并把它的值设为一个字符串构成的可迭代对象， 其中各个元素表示各个实例属性,如下所示</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector2d</span>:</span></span><br><span class="line">    __slots__ = (<span class="string">'__x'</span>, <span class="string">'__y'</span>)</span><br><span class="line">    typecode = <span class="string">'d'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在类中定义 <code>__slots__</code> 属性的目的是告诉解释器： “这个类中的所有实例属性都在这儿了！ ”这样， Python 会在各个实例中使用类似元组的结构存储实例变量， 从而避免使用消耗内存的 <code>__dict__</code> 属性</p>
+</li>
+</ul>
+</li>
+<li><p>注意</p>
+<ol>
+<li>继承自超类的<code>__slots__</code>属性没有效果，Python只会使用各个类中定义的<code>__slots__</code>属性</li>
+<li>在类中定义<code>__slots__</code>属性之后，实例不能再有<code>__slots__</code>中所列出名称之外的其他属性</li>
+<li>如果类中定义了 <code>__slots__</code> 属性， 而且想把实例作为弱引用的目标， 那么要把 <code>__weakref__</code> 添加到 <code>__slots__</code> 中</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="9-9-覆盖类属性"><a href="#9-9-覆盖类属性" class="headerlink" title="9.9 覆盖类属性"></a>9.9 覆盖类属性</h3><ul>
+<li><p>背景</p>
+<ul>
+<li>Python 有个很独特的特性： <strong>类属性可用于为实例属性提供默认值</strong> </li>
+<li><code>Vector2d</code> 中有个 <code>typecode</code> 类属性， <code>__bytes__</code> 方法两次用到了它， 而且都故意使用 <code>self.typecode</code> 读取它的值 </li>
+<li>因为 <code>Vector2d</code> 实例本身没有 <code>typecode</code> 属性， 所以 <code>self.typecode</code> 默认获取的是<code>Vector2d.typecode</code> 类属性的值</li>
+</ul>
+</li>
+<li><p>可以为各个实例的 <code>typecode</code> 属性定制不同的值</p>
+<ul>
+<li>如果为不存在的实例属性赋值， 会新建实例属性</li>
+<li>假如我们为 <code>typecode</code> 实例属性赋值， 那么同名类属性不受影响,然而，自此之后，实例读取的 <code>self.typecode</code> 是实例属性 <code>typecode</code>， 也就是把同名类属性遮盖了</li>
+<li>借助这一特性， 可以为各个实例的 <code>typecode</code> 属性定制不同的值,如下所示  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> vector2d_v3 <span class="keyword">import</span> Vector2d</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = Vector2d(<span class="number">1.1</span>, <span class="number">2.2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dumpd = bytes(v1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dumpd</span><br><span class="line"><span class="string">b'd\x9a\x99\x99\x99\x99\x99\xf1?\x9a\x99\x99\x99\x99\x99\x01@'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(dumpd) </span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1.typecode = <span class="string">'f'</span> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dumpf = bytes(v1)&gt;&gt;&gt; dumpf</span><br><span class="line"><span class="string">b'f\xcd\xcc\x8c?\xcd\xcc\x0c@'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(dumpf) </span><br><span class="line"><span class="number">9</span>&gt;</span><br><span class="line">&gt;&gt; Vector2d.typecode </span><br><span class="line"><span class="string">'d'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>如果想修改类属性的值，必须直接在类上修改，如下所示</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Vector2d.typecode = <span class="string">'f'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过创建一个只用于定制类的数据属性的子类，也可以修改类属性，并且更符合Python风格</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> vector2d_v3 <span class="keyword">import</span> Vector2d</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">ShortVector2d</span><span class="params">(Vector2d)</span>:</span> </span><br><span class="line"><span class="meta">... </span>typecode = <span class="string">'f'</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sv = ShortVector2d(<span class="number">1</span>/<span class="number">11</span>, <span class="number">1</span>/<span class="number">27</span>) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sv</span><br><span class="line">ShortVector2d(<span class="number">0.09090909090909091</span>, <span class="number">0.037037037037037035</span>)</span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="9-10-本章小结"><a href="#9-10-本章小结" class="headerlink" title="9.10 本章小结"></a>9.10 本章小结</h3>
           
         
       
@@ -471,7 +596,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/57/">57</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -519,7 +644,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

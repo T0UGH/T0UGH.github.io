@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/25/数据结构考研-3-栈和队列/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/31/SSM-6-动态SQL/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/25/数据结构考研-3-栈和队列/" itemprop="url">[数据结构考研][3][栈和队列]</a></h1>
+                <a class="post-title-link" href="/2020/01/31/SSM-6-动态SQL/" itemprop="url">[SSM][6][动态SQL]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-25T12:26:47+08:00">
-                2019-12-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-31T11:10:49+08:00">
+                2020-01-31
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
+                  <a href="/categories/SSM/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/12/25/数据结构考研-3-栈和队列/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/25/数据结构考研-3-栈和队列/" itemprop="commentCount"></span>
+                <a href="/2020/01/31/SSM-6-动态SQL/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/31/SSM-6-动态SQL/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,126 +362,77 @@
       
         
           
-            <h2 id="第三章-栈和队列"><a href="#第三章-栈和队列" class="headerlink" title="第三章 栈和队列"></a>第三章 栈和队列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">digraph demo&#123;</span><br><span class="line">    线性表-&gt;操作受限[dir=none];</span><br><span class="line">    线性表-&gt;推广[dir=none];</span><br><span class="line">    操作受限-&gt;栈[dir=none];</span><br><span class="line">    操作受限-&gt;队列[dir=none];</span><br><span class="line">    栈-&gt;顺序栈[dir=none];</span><br><span class="line">    栈-&gt;链栈[dir=none];</span><br><span class="line">    栈-&gt;共享栈[dir=none];</span><br><span class="line">    队列-&gt;循环队列[dir=none];</span><br><span class="line">    队列-&gt;链式队列[dir=none];</span><br><span class="line">    队列-&gt;双端队列[dir=none];</span><br><span class="line">    推广-&gt;数组[dir=none];</span><br><span class="line">    数组-&gt;一维数组[dir=none];</span><br><span class="line">    数组-&gt;多维数组[dir=none];</span><br><span class="line">    多维数组-&gt;压缩存储[dir=none];</span><br><span class="line">    多维数组-&gt;稀疏矩阵[dir=none];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-1-栈"><a href="#3-1-栈" class="headerlink" title="3.1 栈"></a>3.1 栈</h3><h4 id="3-1-1-栈的基本概念"><a href="#3-1-1-栈的基本概念" class="headerlink" title="3.1.1 栈的基本概念"></a>3.1.1 栈的基本概念</h4><h5 id="1-栈的定义"><a href="#1-栈的定义" class="headerlink" title="1 栈的定义"></a>1 栈的定义</h5><p>栈(Stack)，只允许在一端进行插入或删除操作的线性表</p>
-<p>栈顶(Top)，线性表允许进行插入和删除的那一端</p>
-<p>栈底(Bottom)，固定的，不允许进行插入和删除的那一端</p>
-<p>空栈，不含任何元素的空表</p>
-<p>栈是一种后进先出(Last In First Out, LIFO)的结构</p>
-<h5 id="2-栈的基本操作"><a href="#2-栈的基本操作" class="headerlink" title="2 栈的基本操作"></a>2 栈的基本操作</h5><p><code>InitStact()</code>: 初始化空栈</p>
-<p><code>StackEmpty()</code>: 判断一个栈是否为空</p>
-<p><code>Push()</code>: 进栈，若栈未满，则将新元素加入使其成为新的栈顶</p>
-<p><code>Pop()</code>: 出栈，若栈未空，则弹出栈顶元素</p>
-<p><code>GetTop()</code>: 获得栈顶元素的值</p>
-<p><code>ClearStack()</code>: 摧毁栈，并释放栈所占的内存空间</p>
-<h4 id="3-1-2-栈的顺序存储结构"><a href="#3-1-2-栈的顺序存储结构" class="headerlink" title="3.1.2 栈的顺序存储结构"></a>3.1.2 栈的顺序存储结构</h4><h5 id="1-顺序栈的实现"><a href="#1-顺序栈的实现" class="headerlink" title="1 顺序栈的实现"></a>1 顺序栈的实现</h5><p>采用顺序存储的栈称为顺序栈，它利用一组地址连续的存储单元存放自栈底到栈顶的数据元素，同时设附一个指针(top)指示当前栈顶的位置</p>
-<p>栈的顺序存储类型可描述为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType *elem;</span><br><span class="line">    <span class="keyword">int</span> length;</span><br><span class="line">    <span class="keyword">int</span> listsize;</span><br><span class="line">&#125;SqStack;</span><br></pre></td></tr></table></figure></p>
-<h5 id="2-顺序栈的基本运算"><a href="#2-顺序栈的基本运算" class="headerlink" title="2 顺序栈的基本运算"></a>2 顺序栈的基本运算</h5><ol>
-<li><p>初始化</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">InitStack</span><span class="params">(SqStack *s)</span></span>&#123;</span><br><span class="line">    s-&gt;elem = (ElemType *)<span class="built_in">malloc</span>(LIST_INIT_SIZE * <span class="keyword">sizeof</span>(ElemType));</span><br><span class="line">    <span class="keyword">if</span>(!s-&gt;elem)</span><br><span class="line">        <span class="keyword">return</span> OVERFLOW;</span><br><span class="line">    s-&gt;length = <span class="number">0</span>;</span><br><span class="line">    s-&gt;listsize = LIST_INIT_SIZE;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>判栈空</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">StackEmpty</span><span class="params">(SqStack *s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">0</span> == s-&gt;length)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>进栈</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Push</span><span class="params">(SqStack *s, ElemType e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(s-&gt;length &gt;= s-&gt;listsize &amp;&amp; OVERFLOW == ReAllocStack(s))&#123;</span><br><span class="line">            <span class="keyword">return</span> OVERFLOW;</span><br><span class="line">    &#125;</span><br><span class="line">    s-&gt;elem[s-&gt;length] = e;</span><br><span class="line">    s-&gt;length++;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>出栈</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Pop</span><span class="params">(SqStack *s, ElemType *e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(StackEmpty(s))&#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *e = s-&gt;elem[s-&gt;length<span class="number">-1</span>];</span><br><span class="line">    s-&gt;length--;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>读栈顶元素</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">GetTop</span><span class="params">(SqStack *s, ElemType *e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(StackEmpty(s))&#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *e = s-&gt;elem[s-&gt;length<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h5 id="3-共享栈"><a href="#3-共享栈" class="headerlink" title="3 共享栈"></a>3 共享栈</h5><p>利用栈底位置相对不变的特性，可让两个顺序栈共享一个一维数据空间，将两个栈的栈底分别设置在共享空间的两端，两个栈顶向共享空间的中间延伸</p>
-<p>两个栈的栈顶指针都指向栈顶元素</p>
+            <h2 id="第6章-动态SQL"><a href="#第6章-动态SQL" class="headerlink" title="第6章 动态SQL"></a>第6章 动态SQL</h2><p>如果使用<code>JDBC</code>或者类似于<code>Hibernate</code>的其他框架，很多时候要根据需要去拼装<code>SQL</code>,这是一个麻烦的事情。因为某些查询需要许多条件，比如查询角色，可以根据角色名称或者备注等信息查询，当不输入名称时使用名称作条件就不合适了。</p>
+<p>通常使用其他框架需要大量的<code>Java</code>代码进行判断，可读性比较差，而<code>MyBatis</code>提供对<code>SQL</code>语句动态的组装能力，使用<code>XML</code>的几个简单的元素，便能完成动态<code>SQL</code>的功能。大量的判断都可以在<code>MyBatis</code>的映射<code>XML</code>里面配置，以达到许多需要大量代码才能实现的功能，大大减少了代码量，这体现了<code>MyBatis</code>的灵活、高度可配置性和可维护性。</p>
+<h3 id="6-1-概述"><a href="#6-1-概述" class="headerlink" title="6.1 概述"></a>6.1 概述</h3><p>MyBatis的动态SQL包括以下一个元素</p>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>if</td>
+<td>判断语句</td>
+<td>单条件分支判断</td>
+</tr>
+<tr>
+<td>choose(when, otherwise)</td>
+<td>相当于JAVA中的switch和case语句</td>
+<td>多条件分支判断</td>
+</tr>
+<tr>
+<td>trim(where, set)</td>
+<td>辅助元素，用于处理特定的SQL组装问题，比如去掉多余的and、or等</td>
+<td>用于处理SQL拼装的问题</td>
+</tr>
+<tr>
+<td>foreach</td>
+<td>循环语句</td>
+<td>在in语句等列举条件常用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6-2-if元素"><a href="#6-2-if元素" class="headerlink" title="6.2 if元素"></a>6.2 if元素</h3><p><code>if</code>元素相当于<code>Java</code>中的<code>if</code>语句，它常与<code>test</code>属性联合使用</p>
+<p>下面用一个场景来说明，根据角色名称(<code>roleName</code>)来查找角色，如果<code>roleName</code>不为空，则采取构造对<code>roleName</code>的模糊查询，否则不要去构造这个条件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRoles"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultMap</span>=<span class="string">"roleResultMap"</span>&gt;</span></span><br><span class="line">    select role_no, role_name, note from t_role where 1 = 1</span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"roleName != null and roleName != ''"</span>&gt;</span></span><br><span class="line">        and role_name like concat('%', #&#123;roleName&#125;, '%')</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-3-choose、when、otherwise元素"><a href="#6-3-choose、when、otherwise元素" class="headerlink" title="6.3 choose、when、otherwise元素"></a>6.3 choose、when、otherwise元素</h3><p><code>choose、when、otherwise</code>元素相当于<code>java</code>中的<code>switch...case...default..</code></p>
+<p>下面用一个场景来说明</p>
 <ul>
-<li><code>top=-1</code>时0号栈为空，<code>top1=MaxSize</code>时1号栈为空</li>
-<li>仅当两个栈顶指针相邻(<code>top1-top0=1</code>)，判断为栈满</li>
-<li>当0号栈进栈时<code>top0</code>先加<code>1</code>再赋值，1号栈进栈时<code>top1</code>先减<code>1</code>再赋值；出栈时则刚好相反</li>
+<li>如果角色编号(<code>roleNo</code>)不为空，则只用角色编号作为条件查询。</li>
+<li>当角色编号为空，而角色名称不为空，则用角色名称作为条件进行模糊查询。</li>
+<li>当角色编号和角色名称都为空，则要求角色备注不为空。</li>
 </ul>
-<h4 id="3-1-3-栈的链式存储结构"><a href="#3-1-3-栈的链式存储结构" class="headerlink" title="3.1.3 栈的链式存储结构"></a>3.1.3 栈的链式存储结构</h4><p>采用链式存储的栈称为链栈</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRoles"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span> <span class="attr">resultMap</span>=<span class="string">"roleResultMap"</span>&gt;</span></span><br><span class="line">    select role_no, role_name, note from t_role</span><br><span class="line">    where 1=1</span><br><span class="line">    <span class="tag">&lt;<span class="name">choose</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"roleNo != null and roleNo != ''"</span>&gt;</span></span><br><span class="line">            and role_no = #&#123;roleNo&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"roleName != null and roleName !=''"</span>&gt;</span></span><br><span class="line">            and role_name like concat('%', #&#123;roleName&#125;, '%')</span><br><span class="line">        <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line">            and note is not null</span><br><span class="line">        <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">choose</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-4-trim、where、set元素"><a href="#6-4-trim、where、set元素" class="headerlink" title="6.4 trim、where、set元素"></a>6.4 trim、where、set元素</h3><h4 id="6-4-1-where元素"><a href="#6-4-1-where元素" class="headerlink" title="6.4.1 where元素"></a>6.4.1 where元素</h4><p>在6.3节的<code>SQL</code>语句上的动态元素的<code>SQL</code>中都加入了一个条件<code>1=1</code>，如果没有加入这个条件，那么可能就变为了这样一条错误的语句：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select role_no, role_name, note from t_role where and role_name like concat('%', #&#123;roleName&#125;, '%')</span><br></pre></td></tr></table></figure></p>
+<p>我们可以使用<code>where</code>元素来避免加入<code>1=1</code>这个条件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRoles"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span> <span class="attr">resultMap</span>=<span class="string">"roleResultMap"</span>&gt;</span></span><br><span class="line">    select role_no, role_name, note from t_role</span><br><span class="line">    <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"roleName != null and roleName !=''"</span>&gt;</span></span><br><span class="line">            and role_name like concat('%', #&#123;roleName&#125;, '%')</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"note != null and note !=''"</span>&gt;</span></span><br><span class="line">            and note like concat('%', #&#123;note&#125;, '%')</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>当<code>where</code>元素里面的条件成立时，才会加入<code>where</code>这个<code>SQL</code>关键字到组装的<code>SQL</code>里面，否则就不加入</p>
+<h4 id="6-4-2-trim元素"><a href="#6-4-2-trim元素" class="headerlink" title="6.4.2 trim元素"></a>6.4.2 trim元素</h4><p>有时候要去掉的是一些特殊的<code>SQL</code>语法，比如常见的<code>and</code>、<code>or</code>。而使用<code>trim</code>元素也可以达到预期效果</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRoles"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultMap</span>=<span class="string">"roleResultMap"</span>&gt;</span></span><br><span class="line">    select role_no, role_name, note from t_role</span><br><span class="line">    <span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">"where"</span> <span class="attr">prefixOverrides</span>=<span class="string">"and"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"roleName != null and roleName !=''"</span>&gt;</span></span><br><span class="line">            and role_name like concat('%', #&#123;roleName&#125;, '%')</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>链栈的优点是便于多个栈共享存储空间和提高其效率，且不存在栈满上溢的情况</li>
-<li>通常用单链表实现，并规定所有操作都是再单链表的表头进行。</li>
+<li><code>trim</code>代表要去掉一些特殊的字符串</li>
+<li><code>prefix</code>代表的是语句的前缀，而<code>prefixOverrides</code>代表的是要去掉哪种字符串</li>
 </ul>
-<p>栈的链式存储类型可描述为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">LinkNode</span>&#123;</span></span><br><span class="line">    ElemType data;          <span class="comment">//数据域</span></span><br><span class="line">    Struct LinkNode *next;  <span class="comment">//指针栈</span></span><br><span class="line">&#125;*LinkStack;                <span class="comment">//栈类型定义</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="3-1-4-其他"><a href="#3-1-4-其他" class="headerlink" title="3.1.4 其他"></a>3.1.4 其他</h4><p>对于$n$个不同的元素进栈，出栈序列的个数为<br>
-$$\frac{1}{n+1}C_{2n}^n=\frac{1}{n+1}\frac{2n!}{{n!}\times{n!}}$$ 
-</p>
-<h3 id="3-2-队列"><a href="#3-2-队列" class="headerlink" title="3.2 队列"></a>3.2 队列</h3><h4 id="3-2-1-队列的基本概念"><a href="#3-2-1-队列的基本概念" class="headerlink" title="3.2.1 队列的基本概念"></a>3.2.1 队列的基本概念</h4><h5 id="1-队列的定义"><a href="#1-队列的定义" class="headerlink" title="1 队列的定义"></a>1 队列的定义</h5><p>队列是一种操作受限的线性表，只允许在表的一端进行插入，而在表的另一端进行删除</p>
+<h4 id="6-4-3-set元素"><a href="#6-4-3-set元素" class="headerlink" title="6.4.3 set元素"></a>6.4.3 set元素</h4><p>在<code>Hibernate</code>中常常因为要更新某一对象，而发送所有的字段给持久对象，而现实中的场景是，只想更新某一个字段。在<code>MyBatis</code>中， 常常可以使用<code>set</code>元素来避免这样的问题，比如要更新一个角色的数据<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateRole"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    update t_role</span><br><span class="line">    <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"roleName != null and roleName !=''"</span>&gt;</span></span><br><span class="line">            role_name = #&#123;roleName&#125;,</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"note != null and note != ''"</span>&gt;</span></span><br><span class="line">            note = #&#123;note&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">    where role_no = #&#123;roleNo&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="6-5-foreach元素"><a href="#6-5-foreach元素" class="headerlink" title="6.5 foreach元素"></a>6.5 foreach元素</h3><p><code>foreach</code>元素是一个循环语旬，它的作用是遍历集合，它能够很好地支持数组和<code>List</code>、<code>Set</code>接口的集合，对此提供遍历功能。它往往用于<code>SQL</code>中的<code>in</code>关键字。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findUserBySex"</span> <span class="attr">resultType</span>=<span class="string">"user"</span>&gt;</span></span><br><span class="line">    select * from t role where role no in</span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">item</span>=<span class="string">"roleNo"</span> <span class="attr">index</span>=<span class="string">"index"</span> <span class="attr">collection</span>=<span class="string">"roleNoList"</span> <span class="attr">open</span>=<span class="string">"("</span> <span class="attr">separator</span>=<span class="string">","</span> <span class="attr">close</span>=<span class="string">")"</span>&gt;</span></span><br><span class="line">        #&#123;roleNo&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>其操作的特性为先进先出</li>
-<li>队头(Front):允许删除的一端，又称队首</li>
-<li>队尾(Rear):允许插入的一端</li>
-<li>空队列: 不含任何元素的空表</li>
+<li><code>collection</code>配置的<code>roleNoList</code>是传递进来的参数名称，它可以是一个数组、<code>List</code>、<code>Set</code>等集合</li>
+<li><code>index</code>配置的是循环中当前的元素</li>
+<li><code>index</code>配置的是当前元素在集合的位置下标</li>
+<li><code>open</code>和<code>close</code>配置的是以什么符号将这些集合元素包装起来</li>
+<li><code>separator</code>是各个元素的间隔符</li>
 </ul>
-<h5 id="2-队列常见的基本操作"><a href="#2-队列常见的基本操作" class="headerlink" title="2 队列常见的基本操作"></a>2 队列常见的基本操作</h5><ul>
-<li><code>InitQueue()</code>:初始化队列，构建一个空队列Q</li>
-<li><code>QueueEmpty()</code>:判队列空</li>
-<li><code>EnQueue()</code>:入队</li>
-<li><code>DeQueue()</code>:出队</li>
-<li><code>GetHead()</code>:读取队头元素</li>
-</ul>
-<h4 id="3-2-2-队列的顺序存储结构"><a href="#3-2-2-队列的顺序存储结构" class="headerlink" title="3.2.2 队列的顺序存储结构"></a>3.2.2 队列的顺序存储结构</h4><h5 id="1-队列的顺序存储"><a href="#1-队列的顺序存储" class="headerlink" title="1 队列的顺序存储"></a>1 队列的顺序存储</h5><p>队列的顺序实现是值分配一块连续的存储单元存放队列中的元素，并附设两个指针<code>front</code>和<code>rear</code>分别指示队头元素和队尾元素</p>
-<h5 id="2-循环队列"><a href="#2-循环队列" class="headerlink" title="2 循环队列"></a>2 循环队列</h5><p>将顺序队列设想为一个环状的空间，即把存储队列元素的表从逻辑上视为一个环，称为循环队列。当队首指针<code>Q.front=MaxSize-1</code>后，再前进一个位置就自动为<code>0</code></p>
-<p>为了区分队空还是队满的情况</p>
-<ol>
-<li>牺牲一个单元来区分队空和队满，入队时少用一个队列单元</li>
-<li>类型中增设表示元素个数的数据成员</li>
-<li>类型中增设<code>tag</code>数据成员，以区分是队满还是队空</li>
-</ol>
-<h5 id="3-循环队列的操作"><a href="#3-循环队列的操作" class="headerlink" title="3 循环队列的操作"></a>3 循环队列的操作</h5><p>当删除元素时，队头指针<code>+1</code></p>
-<p>当插入元素时，队尾指针<code>+1</code></p>
-<h4 id="3-2-3-队列的链式存储"><a href="#3-2-3-队列的链式存储" class="headerlink" title="3.2.3 队列的链式存储"></a>3.2.3 队列的链式存储</h4><h5 id="1-队列的链式存储"><a href="#1-队列的链式存储" class="headerlink" title="1 队列的链式存储"></a>1 队列的链式存储</h5><p>队列的链式表示称为链队列，它实际上是一个同时带有队头指针和队尾指针的单链表</p>
-<ul>
-<li>出队时，首先判断队是否为空，若不空，则取出队头元素，将其从链表中摘除</li>
-<li>入队时，建立一个新节点，将新节点插入到链表的尾部，并改让<code>Q.rear</code>指向这个新插入的节点</li>
-</ul>
-<h5 id="2-链式队列的基本操作"><a href="#2-链式队列的基本操作" class="headerlink" title="2 链式队列的基本操作"></a>2 链式队列的基本操作</h5><p>略</p>
-<h4 id="3-2-4-双端队列"><a href="#3-2-4-双端队列" class="headerlink" title="3.2.4 双端队列"></a>3.2.4 双端队列</h4><p>双端队列: 双端队列是指允许两端都可以进行入队和出队操作的队列，将队列的两端分别称为前端和后端，两端都可以入队和出队。</p>
-<p>输出受限的双端队列:允许在一端进行插入和删除，但在另一端只允许插入的双端队列称为输出受限的双端队列</p>
-<p>输入受限的双端队列:允许在一端进行插入和删除，但在另一端只允许删除的双端队列称为输入受限的双端队列</p>
-<h3 id="3-3-栈和队列的应用"><a href="#3-3-栈和队列的应用" class="headerlink" title="3.3 栈和队列的应用"></a>3.3 栈和队列的应用</h3><h4 id="3-3-1-栈在括号匹配中的应用"><a href="#3-3-1-栈在括号匹配中的应用" class="headerlink" title="3.3.1 栈在括号匹配中的应用"></a>3.3.1 栈在括号匹配中的应用</h4><p>思想如下</p>
-<ul>
-<li>初始设置一个空栈，顺序读入括号</li>
-<li>若是右括号，则或者使置于栈顶的元素得以消解，或者不合法输入</li>
-<li>若是左括号，则将其压入栈中</li>
-<li>当算法结束时，要保证栈为空</li>
-</ul>
-<h4 id="3-3-2-栈在表达式求值中的应用"><a href="#3-3-2-栈在表达式求值中的应用" class="headerlink" title="3.3.2 栈在表达式求值中的应用"></a>3.3.2 栈在表达式求值中的应用</h4><p>中缀表达式</p>
-<ul>
-<li>通常表达式</li>
-<li>例如<code>(a+b)*c</code></li>
-</ul>
-<p>后缀表达式</p>
-<ul>
-<li>运算符在操作数后面，在后缀表达式中已经考虑了运算符的优先级，没有括号</li>
-<li>例如<code>ab+c*</code></li>
-</ul>
-<p>中缀表达式转后缀表达式</p>
-<ol>
-<li>遇到操作数直接输出</li>
-<li>遇到操作符<ol>
-<li>若优先级大于栈顶元素，则压入栈中</li>
-<li>若优先级小于或等于栈顶元素，则弹出栈中操作符，直到优先级大于栈顶元素，然后压入栈中</li>
-</ol>
-</li>
-<li>遇到左括号，压入栈中</li>
-<li>遇到右括号，弹出栈顶元素直到弹出一个左括号</li>
-</ol>
-<h4 id="3-3-3-栈在递归中的应用"><a href="#3-3-3-栈在递归中的应用" class="headerlink" title="3.3.3 栈在递归中的应用"></a>3.3.3 栈在递归中的应用</h4><p>可以将递归算法转换为非递归算法，通常需要借助栈来实现这种转换</p>
-<h4 id="3-3-4-队列在层次遍历中的应用"><a href="#3-3-4-队列在层次遍历中的应用" class="headerlink" title="3.3.4 队列在层次遍历中的应用"></a>3.3.4 队列在层次遍历中的应用</h4><p>可以用队列实现二叉树的层次遍历，思路如下</p>
-<ol>
-<li>根节点入队</li>
-<li>若队空，则结束遍历，否则重复步骤3</li>
-<li>队列中的第一个节点出队，访问它，若其有左孩子，左孩子入队；若其有右孩子，右孩子入队。</li>
-</ol>
-<h4 id="3-3-5-队列在计算机系统中的应用"><a href="#3-3-5-队列在计算机系统中的应用" class="headerlink" title="3.3.5 队列在计算机系统中的应用"></a>3.3.5 队列在计算机系统中的应用</h4><ol>
-<li>解决主机与外部设备之间速度不匹配的问题</li>
-<li>解决由多用户引起的资源竞争问题</li>
-</ol>
-<h3 id="3-4-特殊矩阵的压缩存储"><a href="#3-4-特殊矩阵的压缩存储" class="headerlink" title="3.4 特殊矩阵的压缩存储"></a>3.4 特殊矩阵的压缩存储</h3>
+<p>在<code>SQL</code>中常常用到<code>in</code>语句，但是对于大量数据的<code>in</code>语句要特别注意，因为它会消耗大量的性能</p>
+<h3 id="6-6-用test的属性判断字符串"><a href="#6-6-用test的属性判断字符串" class="headerlink" title="6.6 用test的属性判断字符串"></a>6.6 用test的属性判断字符串</h3><p><code>test</code>用于条件判断语句，作用相当于判断真假</p>
+<h3 id="6-7-bind元素"><a href="#6-7-bind元素" class="headerlink" title="6.7 bind元素"></a>6.7 bind元素</h3><p>在进行模糊查询时，如果是<code>MySQL</code>数据库，常常用到的是一个<code>concat</code>，它用<code>%</code>和参数相连。然而在<code>Oracle</code>数据库则没有，<code>Oracle</code>数据库用连接符号<code>||</code>，这样<code>SQL</code>就需要提供两种形式去实现。但是有了<code>bind</code>元素，就不必使用数据库的语言，而是使用<code>MyBatis</code>的动态<code>SQL</code>即可完成。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRole"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultType</span>=<span class="string">"com.bean.RoleBean"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bind</span> <span class="attr">name</span>=<span class="string">"pattern"</span> <span class="attr">value</span>=<span class="string">"'%' + _parameter + '%'"</span>&gt;</span></span><br><span class="line">    SELECT id, role_name as roleName, create_date as createDate, end_date as endFlag, note FROM t_role</span><br><span class="line">    WHERE role_name like #&#123;pattern&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里的<code>_parameter</code>代表的是传递进来的参数，它和通配符(<code>%</code>)连接后赋给了<code>pattern</code>,然后就可以在<code>select</code>语句中使用这个变量进行模糊查询了。无论是<code>MySQL</code>还是<code>Oracle</code>都可以使用这样的语旬，提高了代码的可移植性。</p>
+
           
         
       
@@ -520,7 +471,7 @@ $$\frac{1}{n+1}C_{2n}^n=\frac{1}{n+1}\frac{2n!}{{n!}\times{n!}}$$
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/57/">57</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -568,7 +519,7 @@ $$\frac{1}{n+1}C_{2n}^n=\frac{1}{n+1}\frac{2n!}{{n!}\times{n!}}$$
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

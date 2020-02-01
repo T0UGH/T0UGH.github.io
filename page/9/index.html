@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/25/数据结构考研-4-树与二叉树/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/31/SSM-7-MyBatis的解析和运行原理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/25/数据结构考研-4-树与二叉树/" itemprop="url">[数据结构考研][4][树与二叉树]</a></h1>
+                <a class="post-title-link" href="/2020/01/31/SSM-7-MyBatis的解析和运行原理/" itemprop="url">[SSM][7][MyBatis的解析和运行原理]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-25T12:31:39+08:00">
-                2019-12-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-31T16:25:37+08:00">
+                2020-01-31
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
+                  <a href="/categories/SSM/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/12/25/数据结构考研-4-树与二叉树/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/25/数据结构考研-4-树与二叉树/" itemprop="commentCount"></span>
+                <a href="/2020/01/31/SSM-7-MyBatis的解析和运行原理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/31/SSM-7-MyBatis的解析和运行原理/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,272 +362,69 @@
       
         
           
-            <h2 id="第四章-树与二叉树"><a href="#第四章-树与二叉树" class="headerlink" title="第四章 树与二叉树"></a>第四章 树与二叉树</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">digraph demo&#123;</span><br><span class="line">    树形结构-&gt;二叉树[dir=none];</span><br><span class="line">    树形结构-&gt;树和森林[dir=none];</span><br><span class="line">    二叉树-&gt;概念[dir=none];</span><br><span class="line">    二叉树-&gt;操作[dir=none];</span><br><span class="line">    二叉树-&gt;应用[dir=none];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-1-树的基本概念"><a href="#4-1-树的基本概念" class="headerlink" title="4.1 树的基本概念"></a>4.1 树的基本概念</h3><h4 id="4-1-1-树的定义"><a href="#4-1-1-树的定义" class="headerlink" title="4.1.1 树的定义"></a>4.1.1 树的定义</h4><p>任何一颗非空树要满足</p>
+            <h2 id="第-7-章-MyBatis的解析和运行原理"><a href="#第-7-章-MyBatis的解析和运行原理" class="headerlink" title="第 7 章 MyBatis的解析和运行原理"></a>第 7 章 MyBatis的解析和运行原理</h2><p>MyBatis的运行过程分为两大步</p>
 <ol>
-<li>有且只有一个特定的称为根的节点</li>
-<li>当$n$大于$1$时，其余节点可分为$m(m&gt;0)$个互不相交的有限集合$T_1, T_2, …,T_m$，其中每个集合本身又是一颗树，并且称为根节点的子树</li>
+<li>读取配置文件缓存到<code>Configuration</code>对象，用以创建<code>SqlSessionFactory</code></li>
+<li><code>SqlSession</code>的执行过程</li>
 </ol>
-<p>树是一种递归结构也是一种层次结构</p>
-<h4 id="4-1-2-基本术语"><a href="#4-1-2-基本术语" class="headerlink" title="4.1.2 基本术语"></a>4.1.2 基本术语</h4><ul>
-<li>祖先节点和子孙节点</li>
-<li>双亲节点和孩子节点</li>
-<li>兄弟节点</li>
-<li>节点的度: 某节点的子节点的个数称为该节点的度</li>
-<li>树的度: 树中节点的最大度数</li>
-<li>分支节点: 度大于$0$的节点</li>
-<li>叶子节点: 度为$0$的节点</li>
-<li>节点的层次、深度、高度，数的高度</li>
-<li>有序树和无序树</li>
-<li>路径和路径长度</li>
-<li>森林: 森林是$m(m\ge0)$棵互不相交的树的集合</li>
-</ul>
-<h4 id="4-1-3-树的性质"><a href="#4-1-3-树的性质" class="headerlink" title="4.1.3 树的性质"></a>4.1.3 树的性质</h4><ol>
-<li>树中的节点数等于所有节点的度数$+1$</li>
-<li>度为$m$的树中第$i$层上至多有$m^{i-1}$个节点</li>
-<li>高度为$h$的$m$叉树至多有$\frac{m^h-1}{m-1}$个节点</li>
-<li>具有$n$个节点的$m$叉树的最小高度为$log_m(n(m-1)+1)$</li>
-</ol>
-<h3 id="4-2-二叉树的概念"><a href="#4-2-二叉树的概念" class="headerlink" title="4.2 二叉树的概念"></a>4.2 二叉树的概念</h3><h4 id="4-2-1-二叉树的定义及其主要特性"><a href="#4-2-1-二叉树的定义及其主要特性" class="headerlink" title="4.2.1 二叉树的定义及其主要特性"></a>4.2.1 二叉树的定义及其主要特性</h4><h5 id="1-二叉树的定义"><a href="#1-二叉树的定义" class="headerlink" title="1 二叉树的定义"></a>1 二叉树的定义</h5><p>二叉树每个节点至多只有两棵子树，并且二叉树的子树有左右之分，其次序不能任意颠倒</p>
-<p>二叉树与度为$2$的有序树的区别</p>
+<h3 id="7-1-构建SqlSessionFactory过程"><a href="#7-1-构建SqlSessionFactory过程" class="headerlink" title="7.1 构建SqlSessionFactory过程"></a>7.1 构建SqlSessionFactory过程</h3><p><code>SqlSessionFactory</code>是<code>MyBatis</code>的核心类之一，其最重要的功能就是提供创建<code>MyBatis</code>的核心接口<code>SqlSession</code>，所以要先创建<code>SqlSessionFactory</code>，为此要提供配置文件和相关的参数。</p>
+<p><code>MyBatis</code>采用了<code>Builder</code>模式去创建<code>SqlSessionFactory</code>，在实际中可以通过<code>SqlSessionF actoryBuilder</code>去构建，其构建分为两步。</p>
 <ol>
-<li>度为$2$的树至少有$3$个节点，而二叉树可以为空</li>
-<li>度为$2$的有序树的孩子节点的左右次序是相对另一个孩子节点而言的，若某个节点只有一个孩子节点，则这个孩子节点就无需区分其左右顺序，而二叉树无论其孩子数是否为$2$，均需要确定其左右次序，即二叉树的节点次序不是相对于另一节点而言，而是确定的</li>
+<li>通过<code>XMLConfigBuilder</code>解析配置的<code>XML</code>文件，读出所配置的参数，并将读取的内容存入<code>Configuration</code> 类对象中。</li>
+<li>使用<code>Confinguration</code> 对象去创建<code>SqlSessionFactory</code></li>
 </ol>
-<h5 id="2-几个特殊的二叉树"><a href="#2-几个特殊的二叉树" class="headerlink" title="2 几个特殊的二叉树"></a>2 几个特殊的二叉树</h5><ol>
-<li><p>满二叉树: 除了叶子节点，所有节点度都是2</p>
-</li>
-<li><p>完全二叉树: 略</p>
-</li>
-<li><p>二叉排序树</p>
+<h4 id="7-1-1-构建Configuration"><a href="#7-1-1-构建Configuration" class="headerlink" title="7.1.1 构建Configuration"></a>7.1.1 构建Configuration</h4><p>在<code>SqlSessionFactory</code>构建中，<code>Configuration</code>是最重要的，它的作用是：</p>
 <ul>
-<li>左子树上所有节点的关键字均小于根节点和关键字</li>
-<li>右子树上所有节点的关键字均大于根节点和关键字</li>
-<li>左子树和右子树又各是一棵二叉排序树</li>
+<li>读入配置文件，包括基础配置的<code>XML</code>和映射器<code>XML</code>(或注解)。</li>
+<li>初始化一些基础配置，比如<code>MyBatis</code>的别名等，一些重要的类对象(比如插件、映<br>射器、<code>Object</code>工厂、<code>typeHandlers</code>对象等)。</li>
+<li>提供单例，为后续创建<code>SessionFactorγ</code>服务，提供配置的参数。</li>
+<li>执行一些重要对象的初始化方法。</li>
 </ul>
-</li>
-<li><p>平衡二叉树</p>
+<p><code>Configuration</code>是通过<code>XMLConfigBuilder</code>去构建的，首先它会读出所有<code>XML</code>配置的信息，然后把它们解析并保存在<code>Configuration</code>单例中。它会做如下初始化：</p>
 <ul>
-<li>树上任一节点的左子树和右子树的深度之差不超过$1$</li>
+<li><code>properties</code> 全局参数。</li>
+<li><code>typeAliases</code> 别名。</li>
+<li><code>Plugins</code> 插件。</li>
+<li><code>objectFactory</code> 对象工厂。</li>
+<li><code>objectWrapperFactory</code> 对象包装工厂。</li>
+<li><code>reflectionFactory</code> 反射工厂。</li>
+<li><code>settings</code> 环境设置。</li>
+<li><code>environments</code> 数据库环境。</li>
+<li><code>databaseldProvider</code> 数据库标识。</li>
+<li><code>typeHandlers</code> 类型转换器。</li>
+<li><code>Mappers</code> 映射器。</li>
 </ul>
-</li>
-</ol>
-<h5 id="3-二叉树的性质"><a href="#3-二叉树的性质" class="headerlink" title="3 二叉树的性质"></a>3 二叉树的性质</h5><ol>
-<li>非空二叉树上的叶子节点数等于度为$2$的节点数加$1$，即$n_0=n_2+1$</li>
-<li>非空二叉树上第$k$层上至多又$2^{k-1}$个节点</li>
-<li>高度为$h$的二叉树至多为$2^h-1$</li>
-<li>具有$n$个($n&gt;0$)节点的完全二叉树的高度为$log_2(n+1)$或$log_2n+1$</li>
-</ol>
-<h4 id="4-2-2-二叉树的存储结构"><a href="#4-2-2-二叉树的存储结构" class="headerlink" title="4.2.2 二叉树的存储结构"></a>4.2.2 二叉树的存储结构</h4><h5 id="1-顺序存储结构"><a href="#1-顺序存储结构" class="headerlink" title="1 顺序存储结构"></a>1 顺序存储结构</h5><p>二叉树的顺序存储结构是指用一组地址连续的存储单元依次自上而下、自左而右存储完全二叉树上的节点元素</p>
-<p>依据二叉树的性质，完全二叉树和满二叉树采用顺序存储比较合适，树中节点的序号可以唯一地反应节点之间的逻辑关系，这样既可以节省存储空间，又能利用数组元素的下标值确定节点在二叉树中的位置，以及节点之间的关系</p>
-<p>对于一般二叉树，为了让数组下标能反映二叉树中节点之间的逻辑关系，只能添加一些并不存在的空节点</p>
-<h5 id="2-链式存储结构"><a href="#2-链式存储结构" class="headerlink" title="2 链式存储结构"></a>2 链式存储结构</h5><p>由于顺序存储的空间利用率较低，因此二叉树一般采用链式存储结构</p>
-<p>二叉链表至少包含$3$个域: 数据域<code>data</code>、左指针域<code>lchild</code>和右指针域<code>rchild</code></p>
-<p>二叉树的链式存储结构描述如下<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span> *<span class="title">lchild</span>, *<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BiTNode, *BiTree;</span><br></pre></td></tr></table></figure></p>
-<h3 id="4-3-二叉树的遍历和线索二叉树"><a href="#4-3-二叉树的遍历和线索二叉树" class="headerlink" title="4.3 二叉树的遍历和线索二叉树"></a>4.3 二叉树的遍历和线索二叉树</h3><h4 id="4-3-1-二叉树的遍历"><a href="#4-3-1-二叉树的遍历" class="headerlink" title="4.3.1 二叉树的遍历"></a>4.3.1 二叉树的遍历</h4><p>二叉树的遍历是指按照某条搜索路径访问树中的每个节点，使得每个节点均被访问一次</p>
-<h5 id="1-先序遍历-PreOrder"><a href="#1-先序遍历-PreOrder" class="headerlink" title="1 先序遍历(PreOrder)"></a>1 先序遍历(PreOrder)</h5><p>步骤如下:</p>
-<ol>
-<li>先访问根节点</li>
-<li>先序遍历左子树</li>
-<li>先序遍历右子树<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrder</span><span class="params">(BiTree t)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(t != <span class="literal">NULL</span>)&#123;</span><br><span class="line">        visit(t);</span><br><span class="line">        PreOrder(t-&gt;lchild);</span><br><span class="line">        PreOrder(t-&gt;rchild);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h5 id="2-中序遍历"><a href="#2-中序遍历" class="headerlink" title="2 中序遍历"></a>2 中序遍历</h5><p>步骤如下:</p>
-<ol>
-<li>中序遍历左子树</li>
-<li>访问根节点</li>
-<li>中序遍历右子树</li>
-</ol>
-<h5 id="3-后序遍历"><a href="#3-后序遍历" class="headerlink" title="3 后序遍历"></a>3 后序遍历</h5><p>步骤如下:</p>
-<ol>
-<li>后序遍历左子树</li>
-<li>后序遍历右子树</li>
-<li>访问根节点</li>
-</ol>
-<h5 id="4-递归算法与非递归算法的转换"><a href="#4-递归算法与非递归算法的转换" class="headerlink" title="4 递归算法与非递归算法的转换"></a>4 递归算法与非递归算法的转换</h5><p>以先序遍历和中序遍历为例</p>
-<p>中序遍历</p>
-<ol>
-<li>先将根节点的左子孙全加入栈中</li>
-<li>弹出并访问，并将该节点的右孩子和右孩子的所有左子孙加入栈中</li>
-<li>重复执行2，直到栈为空</li>
-</ol>
-<p>先序遍历</p>
-<ol>
-<li>对于根节点和它的所有左子孙，先访问并加入栈中</li>
-<li>弹出，访问该节点的右孩子和右孩子的所有左子孙并将它们加入栈中</li>
-<li>重复执行2，直到栈为空</li>
-</ol>
-<p>后序遍历</p>
+<p>它们都会以类似<code>typeHandler</code>注册那样的方法被存放到<code>Configuration</code>单例中，以便未来将其取出。</p>
+<h4 id="7-1-2-构建映射器的内部组成"><a href="#7-1-2-构建映射器的内部组成" class="headerlink" title="7.1.2 构建映射器的内部组成"></a>7.1.2 构建映射器的内部组成</h4><p>当<code>XMLConfigBuilder</code>解析<code>XML</code>时，会将每一个<code>SQL</code>和其配置的内容保存起来。一般而言，在<code>MyBatis</code>中一条<code>SQL</code>和它相关的配置信息是由3个部分组成的，它们分别是<code>MappedStatement</code>、<code>SqlSource</code>和<code>BoundSql</code></p>
 <ul>
-<li>每个节点需要一个标志来判断是不是第一次被访问</li>
-<li>先略</li>
+<li><code>MappedStatement</code>的作用是保存一个映射器节点(<code>select|insert|delete|update</code>)的内容。它是一个类，包括许多我们配置的<code>SQL</code>、<code>SQL</code>的<code>id</code>、缓存信息、<code>resultMap</code>、<code>parameterType</code>、<code>resultType</code>、<code>resultMap</code>、<code>languageDriver</code>等重要配置内容。</li>
+<li><code>SqlSource</code>是提供<code>BoundSql</code>对象的地方，它是<code>MappedStatement</code>的一个属性。它的作用是根据上下文和参数解析生成需要的<code>SQL</code></li>
+<li><code>BoundSql</code>是一个结果对象，也就是<code>SqlSource</code>通过解析得到的<code>SQL</code>和参数</li>
 </ul>
-<h5 id="5-层次遍历"><a href="#5-层次遍历" class="headerlink" title="5 层次遍历"></a>5 层次遍历</h5><p>要进行层次遍历，需要借助一个队列</p>
+<p><img src="/2020/01/31/SSM-7-MyBatis的解析和运行原理/200131_0.png" alt=""></p>
+<p>对于最终的参数和SQL 都反映在<code>BoundSql</code>类对象上，在插件中往往需要拿到它进而可以拿到当前运行的<code>SQL</code>和参数，从而对运行过程做出必要的修改，来满足特殊的需求</p>
+<p><code>BoundSql</code>会提供3个主要的属性：<code>parameterMappings</code>、<code>parameterObject</code>和<code>sql</code></p>
 <ol>
-<li>先将二叉树的根节点入队，</li>
-<li>然后出队，访问该节点，若它有左子树，则将左子树根节点入队；若它有右子树，则将右子树根节点入队。</li>
-<li>如此反复，直到队列为空</li>
+<li><code>parameterObject</code>为参数本身，可以传递简单对象、<code>POJO</code>或者<code>Map</code>、<code>＠Param</code>注解的参数</li>
+<li><code>parameterMappings</code>是一个<code>List</code>，它的每一个元素都是<code>ParameterMapping</code>对象。对象会描述参数，参数包括属性名称、表达式、<code>javaType</code>、<code>jdbcType</code>、<code>typeHandler</code>等重要信息</li>
+<li><code>sql</code>属性就是书写在映射器里面的一条被<code>SqlSource</code>解析后的<code>SQL</code></li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">levelOrder</span><span class="params">(BiTree T)</span></span>&#123;</span><br><span class="line">    InitQueue(Q);</span><br><span class="line">    BiTree p;</span><br><span class="line">    EnQueue(Q, T);</span><br><span class="line">    <span class="keyword">while</span>(!IsEmpty(Q))&#123;</span><br><span class="line">        DeQueue(Q, p);</span><br><span class="line">        visit(p);</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;lchild != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            EnQueue(Q, p-&gt;lchild);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;rchild != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            EnQueue(Q, p-&gt;rchild);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="6-由遍历构造二叉树"><a href="#6-由遍历构造二叉树" class="headerlink" title="6 由遍历构造二叉树"></a>6 由遍历构造二叉树</h5><p>由二叉树的先序遍历和中序遍历可以唯一地确定一棵二叉树，以下几种也可以</p>
-<ol>
-<li>中序和后序</li>
-<li>层序和中序</li>
-</ol>
-<p>但是先序和后序不可以</p>
-<h4 id="4-3-2-线索二叉树"><a href="#4-3-2-线索二叉树" class="headerlink" title="4.3.2 线索二叉树"></a>4.3.2 线索二叉树</h4><h5 id="1-线索二叉树的基本概念"><a href="#1-线索二叉树的基本概念" class="headerlink" title="1 线索二叉树的基本概念"></a>1 线索二叉树的基本概念</h5><p>遍历二叉树的实质: 是对一个非线性结构进行线性化操作，使这个访问序列中的每个节点都有一个直接前驱和一个直接后继</p>
-<p>引入线索二叉树是为了加快查找节点前驱和后继的速度</p>
-<p>二叉树线索化的方法</p>
-<ol>
-<li>若无左子树，令<code>lchild</code>指向其前驱节点；若无右子树，令<code>rchild</code>指向其后继节点</li>
-<li>还需要增加两个标志域来表明当前指针域所指对象是指向左/右子节点还是直接前驱/后继</li>
-</ol>
-<p>线索二叉树的储存结构描述为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ThreadNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ThreadNode</span> *<span class="title">lchild</span>, *<span class="title">rchild</span>;</span></span><br><span class="line">    <span class="keyword">int</span> ltag, rtag;</span><br><span class="line">&#125;ThreadNode;</span><br></pre></td></tr></table></figure></p>
-<h5 id="2-线索二叉树的构造"><a href="#2-线索二叉树的构造" class="headerlink" title="2 线索二叉树的构造"></a>2 线索二叉树的构造</h5><p>对二叉树的线索化，实质上是遍历一次二叉树，只是在遍历的过程中，检查当前节点左、右指针是否为空，若为空，将它们改为指向前驱节点和后继节点的线索</p>
-<p>中序遍历的递归算法为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InThread</span><span class="params">(ThreadTree *p, ThreadTree *pre)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        InThread(p-&gt;lchild, pre);</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;lchild == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            p-&gt;lchild = pre;</span><br><span class="line">            p-&gt;ltag = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( pre != <span class="literal">NULL</span> &amp;&amp; pre-&gt;rchilc == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            pre-&gt;rchild = p;</span><br><span class="line">            pre-&gt;rtag = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        pre=p;</span><br><span class="line">        InThread(p-&gt;rchild, pre);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateInThread</span><span class="params">(ThreadTree T)</span></span>&#123;</span><br><span class="line">    ThreadTree pre = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">if</span>(T != <span class="literal">NULL</span>)&#123;</span><br><span class="line">        InThread(T, pre);</span><br><span class="line">        pre-&gt;rchild = <span class="literal">NULL</span>;</span><br><span class="line">        pre-&gt;rtag = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="3-线索二叉树的遍历"><a href="#3-线索二叉树的遍历" class="headerlink" title="3 线索二叉树的遍历"></a>3 线索二叉树的遍历</h5><p>中序线索化二叉树主要是为了访问运算服务的，这种遍历不再需要借助栈，因为它的节点隐含了线索二叉树的前驱和后继信息</p>
-<p>算法如下</p>
-<ol>
-<li><p>求中序线索二叉树中中序序列下的第一个节点</p>
- <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ThreadNode *<span class="title">FirstNode</span><span class="params">(ThreadNode *p)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(p-&gt;ltag==<span class="number">0</span>)&#123;</span><br><span class="line">        p=p-&gt;lchild;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>求中序线索二叉树中节点p在中序序列下的后继节点</p>
- <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function">ThreadNode *<span class="title">NextNode</span><span class="params">(ThreadNode *p)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;rtag==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> FirstNode(p-&gt;rchild);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> p-&gt;rchild;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ````    </span><br><span class="line"><span class="number">3.</span> 利用上面两个算法可以实现线索二叉树的中序遍历</span><br><span class="line">    ````c</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">InOrder</span><span class="params">(ThreadNode *T)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(ThreadNode *p=FirstNode(T); p!=<span class="literal">NULL</span>; p=NextNode(p))&#123;</span><br><span class="line">            visit(p);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="4-4-树、森林"><a href="#4-4-树、森林" class="headerlink" title="4.4 树、森林"></a>4.4 树、森林</h3><h4 id="4-4-1-树的存储结构"><a href="#4-4-1-树的存储结构" class="headerlink" title="4.4.1 树的存储结构"></a>4.4.1 树的存储结构</h4><h5 id="1-父亲表示法"><a href="#1-父亲表示法" class="headerlink" title="1 父亲表示法"></a>1 父亲表示法</h5><p>这种存储方式采用一组连续空间来存储每个节点，同时在每个节点中增设一个伪指针，指示其父亲节点在数组中的位置</p>
-<h5 id="2-孩子表示法"><a href="#2-孩子表示法" class="headerlink" title="2 孩子表示法"></a>2 孩子表示法</h5><p>孩子表示法是将每个节点的孩子节点都用单链表链接起来形成一个线性结构，此时$n$个节点就有$n$个孩子链表</p>
-<h5 id="3-孩子兄弟表示法"><a href="#3-孩子兄弟表示法" class="headerlink" title="3 孩子兄弟表示法"></a>3 孩子兄弟表示法</h5><p>又称为二叉树表示法，以二叉链表作为树的存储结构，孩子兄弟表示法使每个节点包括三部分内容</p>
+<h3 id="7-2-SqlSession运行过程"><a href="#7-2-SqlSession运行过程" class="headerlink" title="7.2 SqlSession运行过程"></a>7.2 SqlSession运行过程</h3><h4 id="7-2-1-映射器-Mapper-的动态代理"><a href="#7-2-1-映射器-Mapper-的动态代理" class="headerlink" title="7.2.1 映射器(Mapper)的动态代理"></a>7.2.1 映射器(Mapper)的动态代理</h4><p>略(没看懂)</p>
+<h4 id="7-2-2-SqlSession下的四大对象"><a href="#7-2-2-SqlSession下的四大对象" class="headerlink" title="7.2.2 SqlSession下的四大对象"></a>7.2.2 SqlSession下的四大对象</h4><p><code>SqlSession</code>的执行过程是通过<code>Executor</code>、<code>StatementHandler</code>、<code>ParameterHandler</code>和<code>ResultSetHandler</code>来完成数据库操作和结果返回的</p>
 <ul>
-<li>节点值</li>
-<li>指向节点第一个孩子节点的指针</li>
-<li>指向节点下一个兄弟节点的指针</li>
+<li><code>Executor</code>代表执行器，由它调度<code>StatementHandler</code>、<code>ParameterHandler</code>、<code>ResultSetHandler</code><br>等来执行对应的<code>SQL</code>。其中<code>StatementHandler</code>是最重要的。</li>
+<li><code>StatementHandler</code>的作用是使用数据库的<code>Statement</code>执行操作</li>
+<li><code>ParameterHandler</code>是用来处理<code>SQL</code>参数的。</li>
+<li><code>ResultSetHandler</code>是进行数据集<code>ResultSet</code>的封装返回处理的，它相当复杂，好在我们不常用它。</li>
 </ul>
-<p>孩子兄弟表示法的存储结构描述<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">CSNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">CSNode</span> *<span class="title">firstchild</span>, *<span class="title">nextsibling</span>;</span></span><br><span class="line">&#125;CSNode</span><br></pre></td></tr></table></figure></p>
-<h4 id="4-4-2-树、森林和二叉树的转换"><a href="#4-4-2-树、森林和二叉树的转换" class="headerlink" title="4.4.2 树、森林和二叉树的转换"></a>4.4.2 树、森林和二叉树的转换</h4><p>树与二叉树的关系</p>
+<h4 id="7-2-3-SqlSession的运行"><a href="#7-2-3-SqlSession的运行" class="headerlink" title="7.2.3 SqlSession的运行"></a>7.2.3 SqlSession的运行</h4><p><img src="/2020/01/31/SSM-7-MyBatis的解析和运行原理/200131_1.png" alt=""></p>
+<p><code>SqlSession</code>是通过执行器<code>Executor</code>调度<code>StatementHandler</code>来运行的。而<code>StatementHandler</code>经过3步</p>
 <ul>
-<li>给定一棵树，可以找到唯一的一棵二叉树与之对应。</li>
-<li>从物理结构上看，树的孩子兄弟表示法与二叉树的二叉链表表示法相同</li>
-<li>因此，可以用同一存储结构的不同解释将一棵树转换为二叉树</li>
+<li><code>prepared</code>预编译<code>SQL</code></li>
+<li><code>parameterize</code>设置参数</li>
+<li><code>query/update</code>执行<code>SQL</code></li>
 </ul>
-<p>树转换为二叉树的规则</p>
-<ul>
-<li>每个节点左指针指向它的第一个孩子节点</li>
-<li>右指针指向它在树中的相邻兄弟节点</li>
-</ul>
-<p>森林转换为二叉树的规则</p>
-<ul>
-<li>先将森林中的每棵树转换为二叉树</li>
-<li>将第一棵树的根作为转换后二叉树的根，将第一棵树的左子树作为转换后二叉树根的左子树</li>
-<li>将第二棵树作为转化后二叉树的右子树</li>
-<li>将第三棵树作为转化后二叉树根的右子树的右子树</li>
-</ul>
-<p>二叉树转换回森林的规则</p>
-<ul>
-<li>略，与前面的过程相反</li>
-</ul>
-<h4 id="4-4-3-树和森林的遍历"><a href="#4-4-3-树和森林的遍历" class="headerlink" title="4.4.3 树和森林的遍历"></a>4.4.3 树和森林的遍历</h4><h5 id="1-树的遍历"><a href="#1-树的遍历" class="headerlink" title="1 树的遍历"></a>1 树的遍历</h5><ol>
-<li>先根遍历: 若树非空，则先访问根节点，再按从左到右的顺序遍历根节点的每棵子树。其顺序与这棵树相应二叉树的先序遍历顺序相同</li>
-<li>后根遍历: 若树非空，则按从左到右的顺序遍历根节点的每棵子树，之后再访问根节点，其访问顺序与这棵树对应二叉树的中序遍历顺序相同</li>
-</ol>
-<h5 id="2-森林的遍历"><a href="#2-森林的遍历" class="headerlink" title="2 森林的遍历"></a>2 森林的遍历</h5><ol>
-<li><p>先序遍历森林</p>
-<ul>
-<li>访问森林中第一课树的根节点</li>
-<li>先序遍历第一课树中根节点的子树森林</li>
-<li>先序遍历除去第一棵树之后剩余的树构成的森林</li>
-</ul>
-</li>
-<li><p>中序遍历森林</p>
-<ul>
-<li>中序遍历森林中第一棵树的根节点的子树森林</li>
-<li>访问第一棵树的根节点</li>
-<li>中序遍历除去第一棵树之后剩余的树构成的森林</li>
-</ul>
-</li>
-</ol>
-<h4 id="4-4-5-树的应用–并查集"><a href="#4-4-5-树的应用–并查集" class="headerlink" title="4.4.5 树的应用–并查集"></a>4.4.5 树的应用–并查集</h4><p>并查集是一种简单的集合表示，它支持以下三种操作</p>
-<ol>
-<li><code>Union(S, Root1, Root2)</code>: 把集合<code>S</code>中的子集合<code>Root2</code>并入子集合<code>Root1</code>。要求<code>Root1</code>和<code>Root2</code>互不相交，否则无法合并</li>
-<li><code>Find(S, x)</code>: 查找集合<code>S</code>中单元素<code>x</code>所在的子集合，并返回该子集合的名字</li>
-<li><code>Initial(S)</code>: 将集合<code>S</code>中的每个元素都初始化为只有一个单元素的子集合</li>
-</ol>
-<p>通常用树的父亲表示法作为并查集的存储结构</p>
-<ul>
-<li>每个子集合以一棵树表示</li>
-<li>所有表示子集合的树，构成全集合的森林，存放在父亲表示数组内</li>
-<li>为了得到两个子集合的并，只需要将其中一个子集合根节点的父亲指针指向另一个集合的根节点</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">define</span> SIZE 100</span></span><br><span class="line"><span class="keyword">int</span> UFSets[SIZE];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Initial</span><span class="params">(<span class="keyword">int</span> S[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i ++)&#123;</span><br><span class="line">        S[i] = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> S[], <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(S[x] &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">        x = S[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(<span class="keyword">int</span> S[], <span class="keyword">int</span> Root1, <span class="keyword">int</span> Root2)</span></span>&#123;</span><br><span class="line">    S[Root2]=Root1;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-5-树与二叉树的应用"><a href="#4-5-树与二叉树的应用" class="headerlink" title="4.5 树与二叉树的应用"></a>4.5 树与二叉树的应用</h3><h4 id="4-5-1-二叉排序树"><a href="#4-5-1-二叉排序树" class="headerlink" title="4.5.1 二叉排序树"></a>4.5.1 二叉排序树</h4><h5 id="1-二叉排序树的定义"><a href="#1-二叉排序树的定义" class="headerlink" title="1 二叉排序树的定义"></a>1 二叉排序树的定义</h5><p>二叉排序树(BST)，又称二叉查找树</p>
-<ol>
-<li>若左子树非空，则左子树上所有节点关键字值均小于根节点关键字值</li>
-<li>若右子树非空。则右子树上所有节点关键字值均大于根节点关键字值</li>
-<li>左、右子树本身也分别是一棵二叉排序树</li>
-</ol>
-<h5 id="2-二叉排序树的查找"><a href="#2-二叉排序树的查找" class="headerlink" title="2 二叉排序树的查找"></a>2 二叉排序树的查找</h5><p>二叉排序树的查找从根节点开始，沿某个分支逐层向下进行比较。若当前节点为空，则查找失败。若当前节点非空且与给定值相等，则查找成功。若给定关键字小于当前节点关键字，则在这个节点的左子树查找，否则在右子树查找。</p>
-<h5 id="3-二叉排序树的插入"><a href="#3-二叉排序树的插入" class="headerlink" title="3 二叉排序树的插入"></a>3 二叉排序树的插入</h5><p>若为空，则直接插入节点；否则，若给定值小于当前节点值，则插入到左子树；否则，插入到右子树</p>
-<h5 id="4-二叉排序树的构建"><a href="#4-二叉排序树的构建" class="headerlink" title="4 二叉排序树的构建"></a>4 二叉排序树的构建</h5><p>略</p>
-<h5 id="5-二叉排序树的删除"><a href="#5-二叉排序树的删除" class="headerlink" title="5 二叉排序树的删除"></a>5 二叉排序树的删除</h5><ol>
-<li>若被删除节点$z$是叶子节点，则直接删除</li>
-<li>若节点$z$只有左子树或右子树，则让$z$的子树成为$z$父节点的子树，替代$z$的位置</li>
-<li>若节点$z$有左、右两棵子树，则令$z$的直接后继(或直接前驱)替代$z$，然后将问题转换为$z$的直接后继(或直接前驱)的删除问题，直到转换为情况1或情况2</li>
-</ol>
-<h5 id="6-二叉排序树的查找效率分析"><a href="#6-二叉排序树的查找效率分析" class="headerlink" title="6 二叉排序树的查找效率分析"></a>6 二叉排序树的查找效率分析</h5><p>二叉排序树查找算法的效率，主要取决于树的高度。对于高度为$h$的二叉排序树，其插入和删除操作的运行时间都为$O(h)$</p>
-<ul>
-<li>若二叉排序树是一个只有左(或右)孩子的单支树，则其平均查找长度与单链表相同，为$O(n)$</li>
-<li>若二叉排序树的左、右子树的高度之差的绝对值不超过$1$，则这样的二叉排序树为平衡二叉树，它的平均查找长度为$O(log_2n)$</li>
-</ul>
-<h4 id="4-5-2-平衡二叉树"><a href="#4-5-2-平衡二叉树" class="headerlink" title="4.5.2 平衡二叉树"></a>4.5.2 平衡二叉树</h4><h5 id="1-平衡二叉树的定义"><a href="#1-平衡二叉树的定义" class="headerlink" title="1 平衡二叉树的定义"></a>1 平衡二叉树的定义</h5><p>平衡二叉树: 任意节点的左、右子树高度差的绝对值不超过1，将这样的二叉树称为平衡二叉树</p>
-<p>平衡因子: 定义节点左子树与右子树的高度差为该节点的平衡因子</p>
-<h5 id="2-平衡二叉树的插入"><a href="#2-平衡二叉树的插入" class="headerlink" title="2 平衡二叉树的插入"></a>2 平衡二叉树的插入</h5><p>二叉排序树保证平衡的基本思想如下</p>
-<ul>
-<li>每当在二叉排序树中插入一个节点时，首先检查其插入路径上的节点是否因为此次操作而导致了不平衡</li>
-<li>若导致了不平衡，则先找到插入路径上离插入节点最近的平衡因子的绝对值大于$1$的节点A</li>
-<li>再对以A为根的子树，在保持二叉排序树特性的前提下，调整各节点的位置关系，使之重新达到平衡</li>
-</ul>
-<p>调整方法如下</p>
-<ol>
-<li>LL平衡旋转<ul>
-<li>将A的左孩子B向右上旋转代替A成为根节点</li>
-<li>将A节点向右下旋转成为B的右子树的根节点</li>
-<li>B的原右子树作为A的左子树</li>
-</ul>
-</li>
-<li>RR平衡旋转<ul>
-<li>略</li>
-</ul>
-</li>
-<li>LR平衡旋转<ul>
-<li>先将A节点的左孩子B的右子树的根节点C向左上旋转提升到B节点的位置</li>
-<li>然后再把该C节点向右上旋转提升到A节点的位置</li>
-</ul>
-</li>
-<li>RL平衡旋转<ul>
-<li>略<h5 id="3-平衡二叉树的查找"><a href="#3-平衡二叉树的查找" class="headerlink" title="3 平衡二叉树的查找"></a>3 平衡二叉树的查找</h5></li>
-</ul>
-</li>
-</ol>
-<p>含有n个节点的平衡二叉树的最大深度为$O(log_2n)$，因此平衡二叉树的平均查找长度为$O(log_2n)$</p>
-<h4 id="4-5-3-哈夫曼树和哈夫曼编码"><a href="#4-5-3-哈夫曼树和哈夫曼编码" class="headerlink" title="4.5.3 哈夫曼树和哈夫曼编码"></a>4.5.3 哈夫曼树和哈夫曼编码</h4><h5 id="1-哈夫曼树的定义"><a href="#1-哈夫曼树的定义" class="headerlink" title="1 哈夫曼树的定义"></a>1 哈夫曼树的定义</h5><p>节点的权: 为树中节点赋予的一个表示某种特殊意义的数值</p>
-<p>节点的带权路径长度: 从树根节点到该节点的路径长度与该节点上权值的乘积</p>
-<p>树的带权路径长度: 树中所有叶节点的带权路径长度之和称为该树的带权路径长度</p>
-<p>哈夫曼树(最优二叉树): 在含有n个带权叶子节点的二叉树中，带权路径长度最小的二叉树</p>
-<h5 id="2-哈夫曼树的构建"><a href="#2-哈夫曼树的构建" class="headerlink" title="2 哈夫曼树的构建"></a>2 哈夫曼树的构建</h5><p>通过哈夫曼算法可以构建最优二叉树，如下</p>
-<ol>
-<li>将这$n$个节点分别作为$n$棵仅含有一个节点的二叉树，构成森林$F$</li>
-<li>构造一个新节点，从$F$中选取两棵根节点权值最小的树作为新节点的左、右子树，并且将新节点的权值置为左、右子树上根节点的权值之和</li>
-<li>从$F$中删除刚才选出的两棵树，同时将新得到的树加入到$F$中</li>
-<li>重复2和3，直到F中只剩下一棵树为止</li>
-</ol>
-<p>从上述构建过程可以看出哈夫曼树的特点</p>
-<ol>
-<li>每个初始节点最终都成为叶节点，且权值越小的节点到根节点的路径长度越大</li>
-<li>构建过程中共新建了$n-1$个节点，因此哈夫曼树中节点总数为$2n-1$</li>
-<li>每次构建都选择两棵树作为新节点的孩子，因此哈夫曼树不存在度为1的节点</li>
-</ol>
-<h5 id="3-哈夫曼编码"><a href="#3-哈夫曼编码" class="headerlink" title="3 哈夫曼编码"></a>3 哈夫曼编码</h5><p>固定长度编码和可变长度编码: 对于待处理的一个字符串序列，若对每个字符用相同长度的二进制位表示，则称这种编码方式为固定长度编码；若允许对不同字符用不等长的二进制表示，则这种方式称为可变长度编码</p>
-<p>可变长度编码的好处: 对频率高的字符赋以短编码，而对频率低的字符赋以长编码，从而可以使字符平均编码长度减短，达到压缩数据的效果</p>
+<p>其中，<code>parameterize</code>是调用<code>parameterHandler</code>的方法设置的，而参数是根据类型处理器<code>typeHandler</code>处理的。<code>query/update</code>方法通过<code>ResultSetHandler</code>进行处理结果的封装，如果是<code>update</code>语句，就返回整数，否则就通过<code>typeHandler</code>处理结果类型，然后用<code>ObjectFactory</code>提供的规则组装对象，返回给调用者</p>
 
           
         
@@ -667,7 +464,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/57/">57</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -715,7 +512,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
