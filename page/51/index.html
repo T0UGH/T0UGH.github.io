@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/算法导论-16-贪心算法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/24/C-3-处理数据/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/13/算法导论-16-贪心算法/" itemprop="url">[算法导论][16]贪心算法</a></h1>
+                <a class="post-title-link" href="/2019/03/24/C-3-处理数据/" itemprop="url">[C++][3][处理数据]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-13T21:04:54+08:00">
-                2019-03-13
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-24T19:22:34+08:00">
+                2019-03-24
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法导论/" itemprop="url" rel="index">
-                    <span itemprop="name">算法导论</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/13/算法导论-16-贪心算法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/13/算法导论-16-贪心算法/" itemprop="commentCount"></span>
+                <a href="/2019/03/24/C-3-处理数据/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/24/C-3-处理数据/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,62 +362,75 @@
       
         
           
-            <h2 id="第16章-贪心算法"><a href="#第16章-贪心算法" class="headerlink" title="第16章 贪心算法"></a>第16章 贪心算法</h2><p>对于许多最优化问题，使用动态规划算法来求最优解有些杀鸡用牛刀了，可以使用更简单、更高效的算法。贪心算法(greedy algorithm)就是这样的算法，它在每一步都做出当时看起来最佳的选择。它总是做出局部最优的选择，寄希望这样的选择能导致全局最优解</p>
-<p>贪心算法并不保证得到最优解，但对很多问题确实可以求得最优解</p>
-<p>有很多利用贪心策略设计的算法，包括最小生成树(minimum-spanning-tree)算法、单源最短路径算法的Dijkstra算法，以及集合覆盖问题的Chvatal贪心启发式算法</p>
-<h3 id="16-1-活动选择问题"><a href="#16-1-活动选择问题" class="headerlink" title="16.1 活动选择问题"></a>16.1 活动选择问题</h3><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>假定有一个 n 个活动(activity)的集合 S = {a<sub>1</sub>, a<sub>2</sub>, …, a<sub>n</sub>}，这些活动使用同一个资源，而这个资源在某个时刻只能供一个活动使用。每个活动 a<sub>i</sub> 都有一个开始时间 s<sub>i</sub> 和一个结束时间 f<sub>i</sub>。</p>
-<p>如果两个活动 a<sub>i</sub> 和 a<sub>j</sub> 满足 [s<sub>i</sub>, f<sub>i</sub>) 和 [s<sub>j</sub>, f<sub>j</sub>) 不重叠，则称它们是兼容的。</p>
-<p>在活动选择问题中，我们希望选出一个最大兼容活动集。 </p>
-<p>假定活动已经按照时间的单调递增顺序排序</p>
-<p>f<sub>1</sub> &lt;= f<sub>2</sub> &lt;= … &lt;= f<sub>n-1</sub> &lt;= f<sub>n</sub></p>
-<h4 id="活动选择问题的最优子结构"><a href="#活动选择问题的最优子结构" class="headerlink" title="活动选择问题的最优子结构"></a>活动选择问题的最优子结构</h4><p>令 S<sub>ij</sub> 表示在 a<sub>i</sub> 结束之后开始，在 a<sub>j</sub> 开始之前结束的那些活动的集合。假定 A<sub>ij</sub> 是 S<sub>ij</sub> 的一个最大的相互兼容的活动子集，且包含活动 a<sub>k</sub>。由于最优解包含活动 a<sub>k</sub> ，我们得到了两个子问题: 寻找 S<sub>ik</sub> 中的最大兼容活动子集(在 a<sub>i</sub> 结束之后开始，在 a<sub>k</sub> 开始之前结束的活动)以及寻找 S<sub>kj</sub> 中的最大兼容活动子集(在 a<sub>k</sub> 结束之后开始，在 a<sub>j</sub> 开始之前结束的活动)。可得 |A<sub>ij</sub>| = |A<sub>ik</sub>| + |A<sub>kj</sub>| + 1 个活动</p>
-<p>我们容易用剪切-粘贴法证明最优解A<sub>ij</sub>必然包含两个子问题S<sub>ik</sub>和S<sub>kj</sub>的最优解</p>
-<p>可以得到如下递归式</p>
-<p><img src="/2019/03/13/算法导论-16-贪心算法/0312_0.png" alt=""></p>
-<p>于是接下来可以设计一种带备忘机制的递归算法或者使用自底向上法填写表项</p>
-<h4 id="贪心选择"><a href="#贪心选择" class="headerlink" title="贪心选择"></a>贪心选择</h4><p>对于活动选择问题，什么是贪心选择？ 直觉告诉我们，应该选择S中最早结束的活动，因为它剩下的资源可供它之后尽可能多的活动使用</p>
-<p>当做出贪心选择之后，只剩下一个子问题需要我们求解: 寻找在 a<sub>1</sub> 结束后开始的活动</p>
-<p>令 S<sub>k</sub> = { a<sub>i</sub> ∈ S: s<sub>i</sub> &gt;= f<sub>k</sub>}为在 a<sub>k</sub>结束后开始的任务集合。当我们做出贪心选择，选择了 a<sub>1</sub> 之后，剩下的 S<sub>1</sub> 是唯一需要求解的子问题</p>
-<p>可以证明我们的直觉是正确的，证明过程略</p>
-<p>贪心算法通常都是自顶而下的设计: 做出一个选择，然后求解剩下的那个子问题，而不是自底向上地求解出很多子问题，然后再做出选择</p>
-<h4 id="递归贪心算法"><a href="#递归贪心算法" class="headerlink" title="递归贪心算法"></a>递归贪心算法</h4><p>过程 <code>RECURSIVE-ACTIVITY-SELECTOR</code> 的输入为两个数组 s 和 f，表示活动的开始和结束时间，下标 k 指出要求解的子问题 S<sub>k</sub>，以及问题规模 n 。它返回 S<sub>k</sub> 的一个最大兼容活动集。我们假定输入的 n 个活动已经按照结束时间的单调递增顺序排序好。为了方便算法初始化，我们添加了一个虚拟活动 a<sub>0</sub>，其结束时间为 f<sub>0</sub> = 0，这样子问题 S<sub>0</sub> 就是完整的活动集S。求解原问题即可调用 <code>RECURSIVE-ACTIVITY-SELECTOR(s, f, 0, n)</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">RECURSIVE-ACTIVITY-SELECTOR(s, f, k, n)</span><br><span class="line">    m = k + 1</span><br><span class="line">    while m &lt;= n and s[m] &lt; f[k]</span><br><span class="line">        m += 1</span><br><span class="line">    if m &lt;= n</span><br><span class="line">        return &#123; am &#125; ∪ RECURSIVE-ACTIVITY-SELECTOR(s, f, m, n)</span><br><span class="line">    else </span><br><span class="line">        return ∅</span><br></pre></td></tr></table></figure>
-<p><code>RECURSIVE-ACTIVITY-SELECTOR</code> 算法运行时间 <code>Θ(n)</code></p>
-<h4 id="迭代贪心算法"><a href="#迭代贪心算法" class="headerlink" title="迭代贪心算法"></a>迭代贪心算法</h4><p>我们可以很容易地将算法转换为迭代形式。过程 <code>RECURSIVE-ACTIVITY-SELECTOR</code> 几乎就是”尾递归”: 它以一个对自身地递归调用再接一次并集操作结尾。将尾递归过程改为迭代过程是很直接的</p>
-<p>过程 <code>GREEDY-ACTIVITY-SELECTOR</code> 是过程 <code>RECURSIVE-ACTIVITY-SELECTOR</code> 的一个迭代版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GREEDY-ACTIVITY-SELECTOR(s, f)</span><br><span class="line">    n = s.length</span><br><span class="line">    A = &#123;a1&#125;</span><br><span class="line">    k = 1</span><br><span class="line">    for m = 2 to n</span><br><span class="line">        if s[m] &gt;= f[k]</span><br><span class="line">            A = A U &#123;am&#125;</span><br><span class="line">            k = m</span><br><span class="line">    return A</span><br></pre></td></tr></table></figure>
-<p><code>GREEDY-ACTIVITY-SELECTOR</code> 算法运行时间 <code>Θ(n)</code></p>
-<h3 id="16-2-贪心算法原理"><a href="#16-2-贪心算法原理" class="headerlink" title="16.2 贪心算法原理"></a>16.2 贪心算法原理</h3><p>贪心算法通过做出一系列选择来求出问题的最优解。在每个决策点，它做出在当时看起来最佳的选择</p>
-<p>我们可以按如下步骤设计贪心算法</p>
-<ol>
-<li>将最优化问题转化为这样的形式: 对其做出一次选择后，只剩下一个子问题需要求解</li>
-<li>证明做出贪心选择后，原问题总是存在最优解，即贪心选择总是安全的</li>
-<li>证明做出贪心选择后，剩余的子问题满足性质，其最优解与贪心选择组合即可得到原问题的最优解</li>
-</ol>
-<p>在每个贪心算法之下，几乎总有一个更繁琐的动态规划算法</p>
-<h4 id="贪心选择性质"><a href="#贪心选择性质" class="headerlink" title="贪心选择性质"></a>贪心选择性质</h4><p>贪心算法的一个关键要素是，贪心选择性质。即，我们可以通过做出局部最优选择来构建全局最优解。当进行选择时，我们直接选择做出在当前问题中看起来最优的选择，而不必考虑子问题的解。</p>
-<p>贪心算法与动态规划</p>
+            <h2 id="第-3-章-处理数据"><a href="#第-3-章-处理数据" class="headerlink" title="第 3 章 处理数据"></a>第 3 章 处理数据</h2><p>内置的 C++ 类型分两组: 基本类型和复合类型</p>
+<p>但是没有任何一种整型和浮点型能够满足所有编程要求，所以对于这两种数据有很多变体</p>
+<h3 id="3-1-简单变量"><a href="#3-1-简单变量" class="headerlink" title="3.1 简单变量"></a>3.1 简单变量</h3><p>程序必须记录信息的三个基本属性</p>
 <ul>
-<li><p>在动态规划和贪心算法中，每个步骤都要进行一次选择</p>
+<li><p>信息将存储在哪里</p>
 </li>
-<li><p>但动态规划中，选择通常依赖于子问题的选择。因此，我们通常以一种自底向上的方式求解动态规划问题，先求解较小的子问题，然后是较大的子问题</p>
+<li><p>要存储什么值</p>
 </li>
-<li><p>在贪心算法中，我们总是做出当时看来最佳的选择，然后求解剩下的唯一的子问题。贪心算法进行选择时可能依赖之间做出的选择，但不依赖任何将来的选择或是子问题的解</p>
-</li>
-<li><p>贪心算法在进行第一次选择之前不求解任何子问题</p>
+<li><p>存储何种类型的信息</p>
 </li>
 </ul>
-<p>但是我们必须证明每个步骤做出贪心算法能生成全局最优解</p>
-<h4 id="最优子结构"><a href="#最优子结构" class="headerlink" title="最优子结构"></a>最优子结构</h4><p>如果一个问题的最优解包含其子问题的最优解，则称此问题具有最优子结构性质</p>
-<p>当应用贪心算法时，我们通常使用更为直接的最优子结构。如前所述，我们可以假定，通过对原问题应用贪心选择即可得到子问题。我们真正要做的全部工作就是论证: 将子问题的最优解与贪心选择组合在一起就能生成原问题的最优解。这种方法隐含地对子问题使用了数学归纳法，证明了在每个步骤进行贪心选择会生成原问题的最优解</p>
-<h4 id="贪心对动态规划"><a href="#贪心对动态规划" class="headerlink" title="贪心对动态规划"></a>贪心对动态规划</h4><p>为了说明贪心算法和动态规划之间的细微差别，我们研究一个经典最优化问题的两个变形</p>
-<p>0-1 背包问题的描述如下</p>
-<p><img src="/2019/03/13/算法导论-16-贪心算法/0314_0.png" alt=""></p>
-<p>分数背包问题的描述如下</p>
-<p><img src="/2019/03/13/算法导论-16-贪心算法/0314_1.png" alt=""></p>
-<p>我们用贪心策略可以求解分数背包问题，而不能求解 0-1 背包问题。为了求解分数背包问题，我们首先计算每个商品的每磅价值 v/w。遵循贪心策略，小偷首先尽量多地拿走每磅价值最高的商品。如果该商品已全部拿走而背包尚未满，他继续尽量多地拿走每磅价值第二高的产品，依次类推，直至达到重量上限W</p>
-<p>这种贪心算法的运行时间为 <code>O(nlgn)</code></p>
-<p>拿走商品1的策略对 0-1 背包问题无效是因为小偷无法装满背包，空闲空间降低了方案的有效每磅价值</p>
+<h4 id="3-1-1-变量名"><a href="#3-1-1-变量名" class="headerlink" title="3.1.1 变量名"></a>3.1.1 变量名</h4><p>C++ 提倡使用一定含义的变量名</p>
+<p>必须遵循几种简单的C++ 命名规范</p>
+<ol>
+<li>在名称中只能使用字母字符、数字和下划线(_)</li>
+<li>名称的第一个字符不能是数字</li>
+<li>区分大写字符和小写字符</li>
+<li>不能将 C++ 关键字用作名称</li>
+<li>以两个下划线或下划线和大写字母开头的名称被保留给实现使用，以一个下划线开头的名称被保留给实现，用作全局标识符(使用这种命名变量不会导致编译器错误，但是会导致程序的不确定性)</li>
+<li>C++ 对于名称的长度没有限制，名称中所有的字符都有意义，但有些平台有长度限制(C只保证前63个字符有意义)</li>
+</ol>
+<p>下面是一些有效和无效的 C++ 名称</p>
+<p><img src="/2019/03/24/C-3-处理数据/0324_0.png" alt=""></p>
+<p>如果想用两个或者更多的单词组成一个变量名称，有两种做法</p>
+<ol>
+<li><p>使用下划线将单词分开(C、python等语言如是)</p>
+</li>
+<li><p>从第二个单词开始将每个单词的第一个字母大写(Pascal, java等语言如是)</p>
+</li>
+</ol>
+<h4 id="3-1-2-整型"><a href="#3-1-2-整型" class="headerlink" title="3.1.2 整型"></a>3.1.2 整型</h4><p>不同的 C++ 整型使用不同的内存量来存储整数，使用的内存量越大，可以表示的整数值范围也越大。</p>
+<p>有的类型有正负值之分，有的类型不能表示负值</p>
+<p>C++ 的基本整型分别是<code>char</code>、<code>short</code>、<code>int</code>、<code>long</code>和<code>long long</code></p>
+<h4 id="3-1-3-short、int、long和long-long"><a href="#3-1-3-short、int、long和long-long" class="headerlink" title="3.1.3 short、int、long和long long"></a>3.1.3 short、int、long和long long</h4><p>C++ 的<code>short</code>、<code>int</code>、<code>long</code>和<code>long long</code>类型通过使用不同数目的位来存储值</p>
+<p>但在实际生活中，这些类型长度因计算机而异，但是通常遵循一定的标准</p>
+<ul>
+<li><code>short</code>至少16位</li>
+<li><code>int</code>至少与<code>short</code>一样长</li>
+<li><code>long</code>至少32位，且至少与<code>int</code>一样长</li>
+<li><code>long long</code>至少64位，且至少与<code>long</code>一样长</li>
+</ul>
+<p>要知道系统中整数的最大长度，可以使用C++工具来检查类型的长度</p>
+<ul>
+<li>使用<code>sizeof</code>运算符返回类型和变量的长度，单位为字节</li>
+<li>头文件<code>climit</code>中包含了关于整型限制的信息，例如: <code>INT_MAX</code> 为 <code>int</code> 的最大取值，<code>CHAR_BIT</code>为字节的位数</li>
+</ul>
+<blockquote>
+<p><strong>符号常量–预处理方式</strong><br>在C++编译过程中，首先将源代码传递给预处理器。<code>#define</code>与<code>#include</code>一样，也是一个预处理编译指令。该指令告诉预处理器：在程序中查找<code>INT_MAX</code>，将所有的<code>INT_MAX</code>都替换成<code>32767</code></p>
+</blockquote>
+<h4 id="3-1-4-变量初始化"><a href="#3-1-4-变量初始化" class="headerlink" title="3.1.4 变量初始化"></a>3.1.4 变量初始化</h4><p>C++ 的变量初始化基本与 C 相同，但是有几种方式是C ++ 独有的<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">wrens</span><span class="params">(<span class="number">432</span>)</span></span>;<span class="comment">//将 432 赋值给 wrens</span></span><br><span class="line"><span class="keyword">int</span> wrens = &#123;<span class="number">432</span>&#125;;<span class="comment">//将 432 赋值给 wrens</span></span><br><span class="line"><span class="keyword">int</span> wrens&#123;<span class="number">432</span>&#125;;<span class="comment">//将 432 赋值给 wrens</span></span><br><span class="line"><span class="keyword">int</span> wrens = &#123;&#125;;<span class="comment">//wrens被初始化为0</span></span><br><span class="line"><span class="keyword">int</span> wrens&#123;&#125;;<span class="comment">//wrens被初始化为0</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>如果不对函数内部定义的变量进行初始化，该变量的值将是不确定的。这意味着该变量的值将是它被创建之前，相应内存单元保存的值</p>
+</blockquote>
+<h4 id="3-1-5-C-的无符号类型和整型的溢出"><a href="#3-1-5-C-的无符号类型和整型的溢出" class="headerlink" title="3.1.5 C++的无符号类型和整型的溢出"></a>3.1.5 C++的无符号类型和整型的溢出</h4><p>无符号类型可以增大变量能够储存的最大值(因为省略了一位存储符号)</p>
+<p>C++ 的整型溢出时，行为很像里程表。如果超越了界限，其值将为范围另一端的取值</p>
+<p><img src="/2019/03/24/C-3-处理数据/0324_1.png" alt=""></p>
+<h4 id="3-1-6-选择整型类型"><a href="#3-1-6-选择整型类型" class="headerlink" title="3.1.6 选择整型类型"></a>3.1.6 选择整型类型</h4><p>通常，<code>int</code>被设置为对目标计算机而言最为自然的长度。自然长度指的是计算机处理起来效率最高的长度</p>
+<h4 id="3-1-7-整形字面量"><a href="#3-1-7-整形字面量" class="headerlink" title="3.1.7 整形字面量"></a>3.1.7 整形字面量</h4><p>通常 <code>C++</code> 可以以三种不同的计数方式来书写整数: 基数为10、基数为8和基数为16。</p>
+<ul>
+<li><p>使用<code>0</code>来标识8位数</p>
+</li>
+<li><p>使用<code>0x</code>来标识16位数</p>
+</li>
+</ul>
+<p>这些表示方式仅仅是为了表达上的方便。不管以何种方式书写字面量，都将被存储为二进制</p>
+<p><code>iostream</code>提供了<code>dec</code>、<code>hex</code>、<code>oct</code>分别用于指示<code>cout</code>以十进制、十六进制和八进制表示整数</p>
+<h4 id="3-1-8-char类型-字符和小整数"><a href="#3-1-8-char类型-字符和小整数" class="headerlink" title="3.1.8 char类型: 字符和小整数"></a>3.1.8 char类型: 字符和小整数</h4><p>编程语言通过使用字母的数值编码解决了储存字母的问题，<code>char</code>类型是另一种整型。它足够长，可以表示目标计算机系统中的所有基本符号(所有字母、数字、标点符号等)</p>
+<p><code>C++</code> 实现使用的是其主机系统的编码。在美国，最常用的符号集是 <code>ASCII</code> 字符集。但是 <code>ASCII</code> 字符集很难满足国际化的需求。为了满足国际化需求，<code>C++</code> 支持的宽字符类型可以存储更多的值，如 <code>Unicode</code> 字符集使用的值</p>
+<p>值的类型将引导cout选择如何显示值，例如将<code>char</code>显示为字符，将<code>int</code>显示为数字</p>
 
           
         
@@ -457,7 +470,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/50/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><span class="page-number current">51</span><a class="page-number" href="/page/52/">52</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/52/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/50/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><span class="page-number current">51</span><a class="page-number" href="/page/52/">52</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/52/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -505,7 +518,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -527,7 +540,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

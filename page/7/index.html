@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-4-文本和字节序列/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-10-序列的修改、散列和切片/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/02/01/流畅的Python-4-文本和字节序列/" itemprop="url">[流畅的Python][4][文本和字节序列]</a></h1>
+                <a class="post-title-link" href="/2020/02/01/流畅的Python-10-序列的修改、散列和切片/" itemprop="url">[流畅的Python][9][序列的修改、散列和切片]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:35:52+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:49:56+08:00">
                 2020-02-01
               </time>
             
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/02/01/流畅的Python-4-文本和字节序列/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-4-文本和字节序列/" itemprop="commentCount"></span>
+                <a href="/2020/02/01/流畅的Python-10-序列的修改、散列和切片/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-10-序列的修改、散列和切片/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,348 +362,64 @@
       
         
           
-            <h2 id="第4章-文本和字节序列"><a href="#第4章-文本和字节序列" class="headerlink" title="第4章 文本和字节序列"></a>第4章 文本和字节序列</h2><blockquote>
-<p>人类使用文本，计算机使用字节序列。————————Esther Nam和Travis Fischer</p>
+            <h2 id="第10章-序列的修改、散列和切片"><a href="#第10章-序列的修改、散列和切片" class="headerlink" title="第10章 序列的修改、散列和切片"></a>第10章 序列的修改、散列和切片</h2><blockquote>
+<p>不要检查它是不是鸭子，它的叫声像不像鸭子、它的走路姿势像不像鸭子，等等。具体检查什么取决于你想使用语言的哪些行为</p>
 </blockquote>
 <ul>
-<li>Python3明确地区分了人类可读的文本字符串和原始的字节序列</li>
+<li>在大量代码之间，我们将穿插讨论一个概念：把协议当作正式接口。我们将说明协议与鸭子类型之间的关系，以及对自定义类型的实际影响</li>
 </ul>
-<hr>
-<h3 id="4-1-字符问题"><a href="#4-1-字符问题" class="headerlink" title="4.1 字符问题"></a>4.1 字符问题</h3><ul>
-<li><p>字符串：字符串是一个简单的概念，一个<strong>字符串</strong>就是一个<strong>字符序列</strong></p>
+<h3 id="10-1-Vector类：用户定义的序列类型"><a href="#10-1-Vector类：用户定义的序列类型" class="headerlink" title="10.1 Vector类：用户定义的序列类型"></a>10.1 Vector类：用户定义的序列类型</h3><ul>
+<li><p>我们将使用组合模式实现<code>Vector</code>类，而不使用继承</p>
 </li>
-<li><p>字符：字符的最佳定义就是Unicode字符</p>
-</li>
-<li><p>Unicode标准把<strong>字符的标识</strong>和<strong>具体的字节表述</strong>进行了如下的明确区分</p>
-<ul>
-<li><p><strong>字符的标识</strong></p>
-<ul>
-<li>即<strong>码位</strong>，是0-1114111的数字(十进制)，在Unicode标准中以4-6个十六进制数字表示，而且加上前缀“U+”</li>
-<li>例如，字母A的码位是<code>U+0041</code>，欧元符号的码位是<code>U+20AC</code>，高音谱号的码位是<code>U+1D11E</code></li>
-<li>大约<code>10%</code>的有效码位有对应的字符</li>
-<li>使用内置的<code>ord()</code>函数可以查看码位的具体值</li>
-</ul>
-</li>
-<li><p><strong>字符的具体表述</strong></p>
-<ul>
-<li>字符的具体表述取决于所用的<strong>编码</strong></li>
-<li><strong>编码</strong>是<strong>在码位和字节序列之间转换时使用的算法</strong></li>
-<li>例如，A(<code>U+0041</code>)的码位编码成单个字节<code>\x41</code>，而在UTF-16LE编码中编码成两个字节<code>\x41\x00</code></li>
-<li>再例如，欧元符号(<code>U+20AC</code>)再UTF-8编码中是三个字节:<code>\xe2\x82\xac</code>，而在UTF-16LE中编码成两个字节：<code>\xac\x200</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>把码位转换成字节序列的过程叫做<strong>编码</strong>，把字节序列转换成码位的过程是<strong>解码</strong></p>
-</li>
-<li><p>示例：编码与解码</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'café'</span></span><br><span class="line">&gt;&gt;&gt;len(s)</span><br><span class="line"><span class="number">4</span>                                                                                                                                     </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = s.encode(<span class="string">'utf8'</span>)                                                                                                </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b                                                                                                                   </span><br><span class="line"><span class="string">b'caf\xc3\xa9'</span></span><br><span class="line">&gt;&gt;&gt;len(b)</span><br><span class="line"><span class="number">5</span>                                                                                                          </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.decode(<span class="string">'utf8'</span>)                                                                                                    </span><br><span class="line"><span class="string">'café'</span></span><br></pre></td></tr></table></figure>
+<li><p>向量的分量存储在浮点数数组中，而且还将实现不可变扁平序列所需的方法</p>
 </li>
 </ul>
 <hr>
-<h3 id="4-2-字节概要"><a href="#4-2-字节概要" class="headerlink" title="4.2 字节概要"></a>4.2 字节概要</h3><ul>
-<li><p>首先要知道，Python内置了两种基本的二进制序列类型：Python3引入的不可变bytes类型和Python2.6添加的可变bytearray类型</p>
+<h3 id="10-2-Vector类第1版：与Vector2d类兼容"><a href="#10-2-Vector类第1版：与Vector2d类兼容" class="headerlink" title="10.2 Vector类第1版：与Vector2d类兼容"></a>10.2 Vector类第1版：与Vector2d类兼容</h3><ul>
+<li><p>示例：第 1 版 <code>Vector</code> 类的实现代码</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> array <span class="keyword">import</span> array</span><br><span class="line"><span class="keyword">import</span> reprlib</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector</span>:</span></span><br><span class="line">    typecode = <span class="string">'d'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># self._components是“受保护的”实例属性，把Vector的分量保存在一个数组中</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, components)</span>:</span></span><br><span class="line">        self._components = array(self.typecode, components)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 为了迭代，我们使用self._components构建一个迭代器</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> iter(self._components)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 使用reprlib.repr()函数获取self._components的有限长度表示形式(如array('d', [0.0, 1.0, 2.0, 3.0, ...]))</span></span><br><span class="line">        components = reprlib.repr(self._components)</span><br><span class="line">        <span class="comment"># 把字符串插入Vector的构造方法调用之前，去掉前面的 array('d' 和后面的 )</span></span><br><span class="line">        components = components[components.find(<span class="string">'('</span>):<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Vector(&#123;&#125;)'</span>.format(components)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> str(tuple(self))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bytes__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 直接使用self._components构建bytes对象</span></span><br><span class="line">        <span class="keyword">return</span> bytes([ord(self.typecode)]) + bytes(self._components)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__eq__</span><span class="params">(self, other)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> tuple(self) == tuple(other)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__abs__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 先计算各分量的平方之和，然后再使用sqrt方法开平方</span></span><br><span class="line">        <span class="keyword">return</span> math.sqrt(sum(x * x <span class="keyword">for</span> x <span class="keyword">in</span> self))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bool__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> bool(abs(self))</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">frombytes</span><span class="params">(cls, octets)</span>:</span></span><br><span class="line">        typecode = chr(octets[<span class="number">0</span>])</span><br><span class="line">        memv = memoryview(octets[<span class="number">1</span>:]).cast(typecode)</span><br><span class="line">        <span class="keyword">return</span> cls(memv)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>bytes和bytearray对象的各个元素是介于0-255（含）之间的整数</p>
-</li>
-<li><p>示例：包含5个字节的bytes和bytearray对象</p>
- <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># bytes对象可以从str对象使用给定的编码构建</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe = bytes(<span class="string">'café'</span>, encoding=<span class="string">'U8'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe</span><br><span class="line"><span class="string">b'caf\xc3\xa9'</span></span><br><span class="line"><span class="comment"># 各个元素是range(256)内的整数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe[<span class="number">0</span>]</span><br><span class="line"><span class="number">99</span></span><br><span class="line"><span class="comment"># bytes对象的切片还是bytes对象，即使是只有一个字节的切片</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe[:<span class="number">1</span>]</span><br><span class="line"><span class="string">b'c'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe_array = bytearray(cafe)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe_array</span><br><span class="line"><span class="comment"># bytearray没有字面量句法，而是以bytearray()和字节序列字面量参数的形式表示</span></span><br><span class="line">bytearray(<span class="string">b'caf\xc3\xa9'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe_array[<span class="number">0</span>]</span><br><span class="line"><span class="number">99</span></span><br><span class="line"><span class="comment"># bytearray对象的切片还是bytearray对象</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe_array[:<span class="number">1</span>]</span><br><span class="line">bytearray(<span class="string">b'c'</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
+<li><p>对 <code>repr()</code>函数的理解</p>
 <ul>
-<li><p>注意</p>
+<li>调用<code>repr()</code>函数的目的是调试，因此绝对不能抛出异常</li>
+<li>如果<code>__repr__</code>方法的实现有问题，那么必须处理，尽量输出有用的内容，让用户能够识别目标对象</li>
+</ul>
+</li>
+<li><p>使用<code>reprlib.repr()</code>的方式</p>
 <ul>
-<li>my_bytes[0]获得的是一个整数，而my_bytes[:1]返回的是一个长度为1的bytes对象——————这一点应该不会十分意外</li>
-<li>对于除了str之外的其他序列类型,s[i]返回的都是一个元素，而s[i:i+1]则返回一个序列，里面只有s[i]这个元素</li>
-<li>对于str来说,s[i] == s[i:i+1]，它们返回的都是一个只有一个字符的字符串</li>
+<li>这个函数用于生成大型结构或递归结构的安全表示形式</li>
+<li>它会限制输出字符串的长度，用’…’表示截断的部分</li>
 </ul>
 </li>
-<li><p>在bytes或者bytearray中，各个字节的值可能会使用下列三种不同的方式显示</p>
-<ul>
-<li>方式<ol>
-<li>可打印的ASCII范围内的字节(从空格到~)，使用ASCII字符本身</li>
-<li>制表符、换行符、回车符和<code>\</code>对应的字节，使用转义序列<code>\t</code>、<code>\n</code>、<code>\r</code>、<code>\\</code></li>
-<li>其他字节的值，使用十六进制转义序列(例如，\x00是空字节)</li>
-</ol>
-</li>
-<li>例如:字符序列<code>&#39;café&#39;</code>的使用uft8编码的字节序列为<code>b&#39;caf\xc3\xa9&#39;</code>，前3个字节<code>b&#39;caf&#39;</code>在可打印的ASCII范围内，后两个字节则不然</li>
-</ul>
-</li>
-<li><p>除了格式化方法和几个处理unicode数据的方法之外，str类型的其他方法都支持bytes和bytearray类型</p>
-</li>
-<li><p>构建bytes或bytearay实例可以调用各自的构造方法，传入下述参数</p>
-<ul>
-<li>一个str对象和一个encoding关键字参数</li>
-<li>一个可迭代对象，提供0~255之间的数值</li>
-<li>一个实现了缓冲协议的对象(如bytes、bytearray、memoryview、array.array)；此时，把源对象中的字节序列复制到新建的二进制序列中</li>
-</ul>
-</li>
-<li><p>结构体和内存视图</p>
-<ul>
-<li>struct模块<ul>
-<li>struct模块提供了一些函数，把打包的字节序列转换成不同类型的字段组成的元组</li>
-<li>struct模块能处理bytes、bytearray和memoryview对象</li>
-</ul>
-</li>
-<li>memoryview类<ul>
-<li>memoryview类不是用来创建或储存字节序列，而是共享内存，让你访问其他二进制序列、打包的数组和缓冲中的数据切片，而无需复制字节序列</li>
-</ul>
-</li>
-<li>示例：使用memoryview和struct提取一个GIF图像的宽度和高度  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"><span class="comment"># 结构体的格式：&lt;是小字节符，3s3s是两个3字节序列，HH是两个16位二进制整数</span></span><br><span class="line">fmt = <span class="string">'&lt;3s3sHH'</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'fil.gif'</span>,<span class="string">'rb'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    <span class="comment"># 使用内存中的文件内容创建一个memoryview对象</span></span><br><span class="line">    img = memoryview(fp.read())</span><br><span class="line">    <span class="comment"># 使用它的切片再创建一个memoryview对象；这里不会复制字节序列</span></span><br><span class="line">    header = img[:<span class="number">10</span>]</span><br><span class="line">    <span class="comment"># 转换为字节序列</span></span><br><span class="line">    print(bytes(header))</span><br><span class="line">    <span class="comment"># 拆包memoryview对象，得到一个元组，包含类型、版本、宽度和高度</span></span><br><span class="line">    print(struct.unpack(fmt, header))</span><br><span class="line">    <span class="comment"># 删除引用，释放memoryview实例所占用的内存</span></span><br><span class="line">    <span class="keyword">del</span> header</span><br><span class="line">    <span class="keyword">del</span> img</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">b'GIF98a+\x02\xe6\x00'</span></span><br><span class="line"><span class="string">(b'GIF', b'89a', 555, 230)</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="4-3-基本的编解码器"><a href="#4-3-基本的编解码器" class="headerlink" title="4.3 基本的编解码器"></a>4.3 基本的编解码器</h3><hr>
-<ul>
-<li><p>Python自带超过100种编解码器(codec, encoder/decoder)，用于在文本和字节之间相互转换</p>
-</li>
-<li><p>每个编解码器有一个名称，如’utf_8’，而且经常有几个别名，如’utf8’,’utf-8’和’U8’</p>
-</li>
-<li><p>这些名称可以传给<code>open()</code>、<code>str.encode()</code>、<code>bytes.decode()</code>等函数的encoding参数</p>
-</li>
-<li><p>示例：使用3个编解码器编码字符串’中国’，而得到的字节序列差异很大</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> codec <span class="keyword">in</span> [<span class="string">'gb2312'</span>, <span class="string">'utf-8'</span>, <span class="string">'utf-16'</span>]:</span><br><span class="line"><span class="meta">... </span>    print(codec, <span class="string">'中国'</span>.encode(codec), sep=<span class="string">'\t'</span>)</span><br><span class="line">...</span><br><span class="line">gb2312  <span class="string">b'\xd6\xd0\xb9\xfa'</span></span><br><span class="line">utf<span class="number">-8</span>   <span class="string">b'\xe4\xb8\xad\xe5\x9b\xbd'</span></span><br><span class="line">utf<span class="number">-16</span>  <span class="string">b'\xff\xfe-N\xfdV'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>一些典型的编码</p>
-<ul>
-<li>如图<br><img src="/2020/02/01/流畅的Python-4-文本和字节序列/编码方式.jpg" alt=""></li>
-<li>编码<ol>
-<li>latin1(即iso8859_1)：一种重要的编码，是其他编码的基础，例如cp1252和Unicode</li>
-<li>cp1252：Microsoft指定的latin1的超集，添加了许多有用的符号</li>
-<li>cp437：IBM PC最初的字符集，包含框图符号。与后面出现的latin1不兼容</li>
-<li>gb2312：用于编码简体中文的陈旧标准</li>
-<li>utf-8：目前web中最常用的8位编码；与ASCII兼容(纯ASCII文本是有效地UTF-8文本)</li>
-<li>utf-16le：UTF-16是16位编码方案的一种形式</li>
-</ol>
-</li>
-</ul>
+<li><p>示例：测试 <code>Vector.__init__</code> 和 <code>Vector.__repr__</code></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Vector([<span class="number">3.1</span>, <span class="number">4.2</span>])</span><br><span class="line">Vector([<span class="number">3.1</span>, <span class="number">4.2</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Vector([<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">Vector([<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Vector(range(<span class="number">10</span>))</span><br><span class="line">Vector([<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>, ...])</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
-<h3 id="4-4-了解编解码问题"><a href="#4-4-了解编解码问题" class="headerlink" title="4.4 了解编解码问题"></a>4.4 了解编解码问题</h3><ul>
-<li>简介<ul>
-<li>虽然有个一般性的UnicodeError异常，但是报告错误时几乎都会指明具体的异常</li>
-<li>UnicodeEncodeError:把字符串转换为二进制序列时发生的异常</li>
-<li>UnicodeDecodeError:把二进制序列转换为字符串时发生的异常</li>
-<li>SyntaxError:如果源码的编码与预期不符，加载Python模块时还可能抛出SyntaxError</li>
+<h3 id="10-3-协议和鸭子类型"><a href="#10-3-协议和鸭子类型" class="headerlink" title="10.3 协议和鸭子类型"></a>10.3 协议和鸭子类型</h3><ul>
+<li>协议<ul>
+<li>在Python中创建功能完善的序列类型无需使用<strong>继承</strong>，只需<strong>实现符合序列协议的方法</strong></li>
+<li>在面向对象编程中，<strong>协议</strong>是非正式的<strong>接口</strong>，只在文档中定义，在代码中不定义</li>
+<li>例如，Python的序列协议只需要 <code>__len__</code> 和 <code>__getitem__</code>两个方法。任何类，只要使用标准的签名和语义实现了这两个方法，就能用在任何期待序列的地方</li>
 </ul>
 </li>
 </ul>
-<hr>
-<h4 id="4-4-1-处理UnicodeEncodeError"><a href="#4-4-1-处理UnicodeEncodeError" class="headerlink" title="4.4.1 处理UnicodeEncodeError"></a>4.4.1 处理UnicodeEncodeError</h4><ul>
-<li><p>简介</p>
 <ul>
-<li>多数非UTF编解码器只能处理Unicode字符的小部分子集</li>
-<li>把文本转换为字节序列时，如果目标编码中没有定义某个字符，就会抛出UnicodeEncodeError异常，除非把errors参数传给编码方法或函数，对错误进行特殊处理</li>
+<li><p>鸭子类型</p>
+<ul>
+<li>不要检查它是不是鸭子，它的叫声像不像鸭子、它的走路姿势像不像鸭子，等等。具体检查什么取决于你想使用语言的哪些行为</li>
+<li>我们说它是序列，因为它的行为像序列，这才是重点</li>
 </ul>
-</li>
-<li><p>示例：编码成字节序列：成功和错误处理</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>city = <span class="string">'São paulo'</span></span><br><span class="line"><span class="comment"># utf编码可以处理任何字符串</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>city.encode(<span class="string">'utf8'</span>)</span><br><span class="line"><span class="string">b'S\xc3\xa3o paulo'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>city.encode(<span class="string">'utf16'</span>)</span><br><span class="line"><span class="string">b'\xff\xfeS\x00\xe3\x00o\x00 \x00p\x00a\x00u\x00l\x00o\x00'</span></span><br><span class="line"><span class="comment"># cp437无法处理'ã'字符，从而抛出UnicodeEncodeError异常</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>city.encode(<span class="string">'cp437'</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">File <span class="string">"/usr/lib/python3.6/encodings/cp437.py"</span>, line <span class="number">12</span>, <span class="keyword">in</span> encode</span><br><span class="line">    <span class="keyword">return</span> codecs.charmap_encode(input,errors,encoding_map)</span><br><span class="line">UnicodeEncodeError: <span class="string">'charmap'</span> codec can<span class="string">'t encode character '</span>\xe3<span class="string">' in position 1: character maps to &lt;undefined&gt;</span></span><br><span class="line"><span class="string"># error='</span>ignore<span class="string">'方法悄无声息的跳过无法编码的字符，这样做通常不很妥当</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; city.encode('</span>cp437<span class="string">', errors='</span>ignore<span class="string">')</span></span><br><span class="line"><span class="string">b'</span>So paulo<span class="string">'</span></span><br><span class="line"># error='replace'把无法编码的字符替换成'?'；数据损坏了，但是用户知道出现了问题</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>city.encode(<span class="string">'cp437'</span>, errors=<span class="string">'replace'</span>)</span><br><span class="line"><span class="string">b'S?o paulo'</span></span><br><span class="line"><span class="comment"># 'xmlcharrefreplace'把无法编码的字符替换成了XML实体</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>city.encode(<span class="string">'cp437'</span>, errors=<span class="string">'xmlcharrefreplace'</span>)</span><br><span class="line"><span class="string">b'S&amp;#227;o paulo'</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>另外</p>
 <ul>
-<li>编解码器的错误处理方式时可扩展的。你可以为errors参数注册额外的字符串</li>
-<li>方法是把一个名称和一个错误处理函数传给<code>codecs.register_error</code>函数</li>
+<li>协议是非正式的，没有强制力。因此如果你知道类的具体使用场景，通常只需要实现一个协议的部分</li>
+<li>例如，为了支持迭代，只需要实现 <code>__getitem__</code> 方法，没必要提供 <code>__len__</code> 方法</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h4 id="4-4-2-处理UnicodeDecodeError"><a href="#4-4-2-处理UnicodeDecodeError" class="headerlink" title="4.4.2 处理UnicodeDecodeError"></a>4.4.2 处理UnicodeDecodeError</h4><ul>
-<li><p>简介</p>
-<ul>
-<li>不是每个字节都包含有效的ASCII字符，也不是每个字符序列都是有效的UTF-8或者UTF-16</li>
-<li>因此，把二进制序列转换为文本时，如果假设是UTF-8或者UTF-16中的一个，遇到无法转换的字节序列时会抛出UnicodeDecodeError</li>
-<li>另一方面，许多陈旧的8位编码——如’cp1252’、’iso8859-1’、’koi8_r’等——能解码任何字节序列流而不抛出错误，因此，如果程序使用错误的8位编码，解码过程悄无声息，而得到的是无用输出</li>
-</ul>
-</li>
-<li><p>鬼符(gremlin)：乱码字符称为鬼符</p>
-</li>
-<li><p>示例：把字节序列解码成字符串：成功和错误处理</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这些字节序列是使用latin1编码的"Montréal"；'\xe9'字节对应'é'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets = <span class="string">b'Montr\xe9al'</span></span><br><span class="line"><span class="comment"># 可以使用'cp1252'解码，因为它是latin1的有效超集</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets.decode(<span class="string">'cp1252'</span>)</span><br><span class="line"><span class="string">'Montréal'</span></span><br><span class="line"><span class="comment"># ISO-8859-7用于编码希腊文，因此无法正确解释'\xe9'字节，而且没有抛出错误</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets.decode(<span class="string">'iso8859_7'</span>)</span><br><span class="line"><span class="string">'Montrιal'</span></span><br><span class="line"><span class="comment"># KOI8-R用来编码俄文，这里'\xe9'对应西里尔字母'И'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets.decode(<span class="string">'koi8_r'</span>)</span><br><span class="line"><span class="string">'MontrИal'</span></span><br><span class="line"><span class="comment"># 'utf-8'编解码器检测到octets不是有效的utf-8字符串，抛出UnicodeDecodeError</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets.decode(<span class="string">'utf_8'</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">UnicodeDecodeError: <span class="string">'utf-8'</span> codec can<span class="string">'t decode byte 0xe9 in position 5: invalid continuation byte</span></span><br><span class="line"><span class="string"># 使用'</span>replace<span class="string">'错误处理方式，`\xe9`替换成了"�"(码位是U+FFFD)，这是官方指定的REPLACEMENT CHARACTER(替换字符)，表示未知字符</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; octets.decode('</span>utf_8<span class="string">', errors='</span>replace<span class="string">')</span></span><br><span class="line"><span class="string">'</span>Montr�al<span class="string">'</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h4 id="4-4-3-使用预期之外的编码加载模块时抛出的SyntaxError"><a href="#4-4-3-使用预期之外的编码加载模块时抛出的SyntaxError" class="headerlink" title="4.4.3 使用预期之外的编码加载模块时抛出的SyntaxError"></a>4.4.3 使用预期之外的编码加载模块时抛出的SyntaxError</h4><ul>
-<li><p>Python源码的默认编码</p>
-<ul>
-<li>Python3默认使用utf-8编码源码</li>
-<li>Python2默认使用ASCII</li>
-</ul>
-</li>
-<li><p>如果加载的.py模块中包含utf-8之外的数据会产生SyntaxError异常</p>
-<ul>
-<li>为了修正这个问题有两种解决办法<ol>
-<li>在文件顶部添加一个神奇的coding注释<ul>
-<li>例如:<code># coding: cp1252</code></li>
-</ul>
-</li>
-<li>将这个源码的编码方式直接转换成UTF8</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>源码中能否使用非ASCII名称</p>
-<ul>
-<li>Python3允许源码中使用非ASCII标识符，但是通常Python2不允许这么做</li>
-<li>如果代码是开源的，那么标识符应该使用英文，也就是只能使用ASCII字符</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="4-4-4-如何找出字节序列的编码"><a href="#4-4-4-如何找出字节序列的编码" class="headerlink" title="4.4.4 如何找出字节序列的编码"></a>4.4.4 如何找出字节序列的编码</h4><ul>
-<li><p>如何找出字节序列的编码</p>
-<ul>
-<li>简单来说，不能。必须有人告诉你</li>
-</ul>
-</li>
-<li><p>有些通信协议和文件格式，比如HTTP和XML，包含明确制定内容编码的首部</p>
-</li>
-<li><p>统一字符编码侦测包Chardet</p>
-<ul>
-<li>它通过试探和分析编码中字节的特点来确定编码的类型</li>
-<li>可以识别所支持的30种编码</li>
-<li>Chardet是个Python库，可以在程序中使用，不过它也提供了命令行工具chardetext</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="4-4-5-BOM-有用的鬼符"><a href="#4-4-5-BOM-有用的鬼符" class="headerlink" title="4.4.5 BOM:有用的鬼符"></a>4.4.5 BOM:有用的鬼符</h4><ul>
-<li>BOM<ul>
-<li>就是字节序标识(byte-order mark)，指明编码时使用Intel CPU的大字节序还是小字节序</li>
-<li>例如:u16编码开头的`b’\xff\xfe’</li>
-</ul>
-</li>
-<li><p>小字节序和大字节序</p>
-<ul>
-<li>在小字节序设备中，各个码位的最低有效字节在前面<ul>
-<li>例如:字母”E”的码位是U+0049，十进制为69，所以在字节偏移的第二位和第三位编码为69和0</li>
-</ul>
-</li>
-<li>在大字节序CPU中，编码顺序相反</li>
-</ul>
-</li>
-<li><p>为了避免混淆，UTF-16编码在要编码的文本钱吗需要加上特殊的不可见字符ZERO WIDTH NO-BREAK SPACE(U+FEFF)。在小字节序系统中，这个字符编码为<code>b\xff\xfe</code>；而在大字节序系统中，这个编码时<code>b\xfe\xff</code>，以此来进行区分。</p>
-</li>
-<li><p>UTF-16有两个变种:UTF-16LE，显式地指出使用小字节序；UTF-16BE，显式地指出使用大字节序。如果使用这两种编码，不会生成BOM</p>
-</li>
-<li><p>与字节序有关个问题只对一个字(word)占多个字节的编码(如utf-16和utf-32)有影响；UTF-8不管使用什么字节序，生成的字节序列都是一致的，所以不需要使用BOM</p>
-</li>
-</ul>
-<hr>
-<h3 id="4-5-处理文本文件"><a href="#4-5-处理文本文件" class="headerlink" title="4.5 处理文本文件"></a>4.5 处理文本文件</h3><ul>
-<li><p>Unicode三明治</p>
-<ul>
-<li>处理文本的最佳实践就是”Unicode三明治”</li>
-<li>意思是<ol>
-<li>要尽早把输入的字节序列解码为字符串</li>
-<li>程序的业务逻辑部分只负责处理字符串</li>
-<li>对输出来说，要尽量晚地把字符串编码成字节序列</li>
-</ol>
-</li>
-<li>多数web框架都是这样做的，使用框架时很少接触字节序列</li>
-</ul>
-</li>
-<li><p>Python3中的Unicode三明治</p>
-<ul>
-<li>在Python3中能轻松地采纳Unicode三明治的建议</li>
-<li>因为内置的<code>open</code>函数会在读取文件的时候进行必要的解码，以文本模式写入文件的时候还会进行必要的编码</li>
-<li>所以调用<code>my_file.read()</code>得到的以及传给<code>my_file.write(text)</code>方法的都是字符串对象</li>
-</ul>
-</li>
-<li><p>默认编码问题</p>
-<ul>
-<li>如果在打开文件的时候没有指定编码，将使用当前环境的默认编码</li>
-<li>在Windows环境下的默认编码是(windows 1252)，而在GNU/Linux或Mac OS X中的默认编码时utf-8</li>
-<li>所以需要在多台设备或者多种场合下运行的代码，一定不能依赖默认编码。打开文件时始终应该明确传入<code>encoding=</code>参数</li>
-</ul>
-</li>
-<li><p>继续探究</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认情况下,open函数采用文本模式，返回一个TextIOWrapper对象</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp = open(<span class="string">'cafe.txt'</span>,<span class="string">'w'</span>,encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp</span><br><span class="line">&lt;_io.TextIOWrapper name=<span class="string">'cafe.txt'</span> mode=<span class="string">'w'</span> encoding=<span class="string">'utf-8'</span>&gt;</span><br><span class="line"><span class="comment"># 在TextIOWrapper对象上调用write方法返回写入的Unicode字符数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp.write(<span class="string">'café'</span>)</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp.close()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</span><br><span class="line"><span class="comment"># 在os.stat的报告文件中有5个字节，UTF-8编码的'é'占两个字节:\xc3\xa9</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.stat(<span class="string">'cafe.txt'</span>).st_size</span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="comment"># `rb`标识表明在二进制模式中读取文件，返回的是BufferedReader对象而不是TextIOWrapper对象</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp4 = open(<span class="string">'cafe.txt'</span>,<span class="string">'rb'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp4</span><br><span class="line">&lt;_io.BufferedReader name=<span class="string">'cafe.txt'</span>&gt;</span><br><span class="line"><span class="comment"># 读取得到的是字节序列，符合预期</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp4.read()</span><br><span class="line"><span class="string">b'caf\xc3\xa9'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>注意</p>
-<ul>
-<li>除非想判断编码，否则不要在二进制模式下打开文本文件</li>
-<li>即使如此，也应该使用Chardet，而不是重新发明轮子</li>
-</ul>
-</li>
-<li><p>Windows系统的编码问题</p>
-<ul>
-<li>在Windows中，不仅同一个系统中使用不同的编码(如cp850和cp1252)</li>
-<li>还有只支持ASCII和127个额外的字符的代码页，而且不同代码页之间增加的字符也有所不同</li>
-</ul>
-</li>
-<li><p>关于编码默认值的最佳建议是:别依赖默认值，如果遵从Unicode三明治建议，而且始终在程序中显式指定编码，将避免很多问题</p>
-</li>
-</ul>
-<hr>
-<h3 id="4-6-为了正确比较而规范化的Unicode字符串"><a href="#4-6-为了正确比较而规范化的Unicode字符串" class="headerlink" title="4.6 为了正确比较而规范化的Unicode字符串"></a>4.6 为了正确比较而规范化的Unicode字符串</h3><ul>
-<li><p>因为unicode有组合字符(变音符号和附加到前一个字符上的记号，打印时作为一个整体)，所以字符串比较起来很麻烦</p>
-<ul>
-<li>例如:<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1 = <span class="string">'café'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s2 = <span class="string">'cafe\u0301'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1, s2</span><br><span class="line">(<span class="string">'café'</span>, <span class="string">'café'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(s1),len(s2)</span><br><span class="line">(<span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1 == s2</span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>这个问题的解决方案是使用unicodedata.normalize函数提供的Unicode规范化，这个函数的第一个参数是这4个字符串中的一个</p>
-<ul>
-<li>NFC:使用最少的码位构建等价的字符串</li>
-<li>NFD：把组合字符分解为基字符和单独的组合字符</li>
-<li>NFKC和NFKD：会进行一定的字符替换(略)</li>
-</ul>
-</li>
-<li><p>使用<code>str.casefold()</code>可以把所有的文本都变成小写</p>
-</li>
-<li><p>使用<code>nfc_equal</code>和<code>fold_equal</code>可以对字符串进行规范化或小写化之后再比较</p>
-</li>
-</ul>
-<hr>
-<h3 id="4-7-Unicode文本排序"><a href="#4-7-Unicode文本排序" class="headerlink" title="4.7 Unicode文本排序"></a>4.7 Unicode文本排序</h3><ul>
-<li><p>Python比较任何类型的序列时，会一一比较序列里的各个元素，对于字符串来说，比较的是码位</p>
-</li>
-<li><p>然而不同的地区采用的排序规则可能有所区别</p>
-</li>
-<li><p>在Python中，非ASCII文本的标准排序方式是使用locale.strxfrm函数，它会把字符串转换成适合所在地域进行比较的形式</p>
-</li>
-<li><p>PyUCA库使用纯Python实现了Unicode排序算法，它没有考虑地区设置</p>
-</li>
-</ul>
-<h3 id="4-8-Unicode数据库"><a href="#4-8-Unicode数据库" class="headerlink" title="4.8 Unicode数据库"></a>4.8 Unicode数据库</h3><ul>
-<li><p>Unicode标准提供了一个完整的数据库</p>
-<ul>
-<li>不仅包括码位与字符名称之间的映射，还有各个字符的元数据，以及字符之间的关系</li>
-<li>例如,Unicode数据库记录了字符是否可以打印，是不是字母、是不是数字，或者是不是其他数值符号</li>
-</ul>
-</li>
-<li><p>unicodedata模块中有几个函数用来获取字符的元数据</p>
-<ul>
-<li>例如<ul>
-<li>字符在标准中的官方名称是不是组合字符</li>
-<li>符号对应的人类可读数值(不是码位)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="4-9-本章小结"><a href="#4-9-本章小结" class="headerlink" title="4.9 本章小结"></a>4.9 本章小结</h3><ul>
-<li><p>本章首先澄清了人们对一个字符等于一个字节的误解，我们必须把文本字符串和它们在文件中的二进制序列标书区分开</p>
-</li>
-<li><p>bytes和bytearray是两种二进制序列类型</p>
-</li>
-<li><p>编码和解码</p>
-</li>
-<li><p>UnicodeEncodeError、UnicodeDecodeError和由于Python源码文件编码错误导致的SyntaxError</p>
-</li>
-<li><p>Chardet包用于检测元数据使用的是什么编码</p>
-</li>
-<li><p>在打开文件时，encoding-关键字参数不是必需的，但是应该指定。不然不一致的默认编码会导致跨平台不兼容性</p>
-</li>
-<li><p>文本比较很复杂，因为Unicode为某些字符提供了不同的表示，所以匹配文本之前一定要先规范化</p>
-</li>
-<li><p>Unicode数据库包括码位与字符名称之间的映射，还有各个字符的元数据，以及字符之间的关系</p>
-</li>
-</ul>
-<hr>
-
+<h3 id="10-4-Vector类第2版：可切片的序列"><a href="#10-4-Vector类第2版：可切片的序列" class="headerlink" title="10.4 Vector类第2版：可切片的序列"></a>10.4 Vector类第2版：可切片的序列</h3>
           
         
       
@@ -742,7 +458,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -790,7 +506,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -812,7 +528,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

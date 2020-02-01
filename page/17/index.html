@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/25/数据结构考研-4-树与二叉树/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/30/SSM-5-映射器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/25/数据结构考研-4-树与二叉树/" itemprop="url">[数据结构考研][4][树与二叉树]</a></h1>
+                <a class="post-title-link" href="/2020/01/30/SSM-5-映射器/" itemprop="url">[SSM][5][映射器]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-25T12:31:39+08:00">
-                2019-12-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-30T17:30:16+08:00">
+                2020-01-30
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
+                  <a href="/categories/SSM/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/12/25/数据结构考研-4-树与二叉树/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/25/数据结构考研-4-树与二叉树/" itemprop="commentCount"></span>
+                <a href="/2020/01/30/SSM-5-映射器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/30/SSM-5-映射器/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,272 +362,170 @@
       
         
           
-            <h2 id="第四章-树与二叉树"><a href="#第四章-树与二叉树" class="headerlink" title="第四章 树与二叉树"></a>第四章 树与二叉树</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">digraph demo&#123;</span><br><span class="line">    树形结构-&gt;二叉树[dir=none];</span><br><span class="line">    树形结构-&gt;树和森林[dir=none];</span><br><span class="line">    二叉树-&gt;概念[dir=none];</span><br><span class="line">    二叉树-&gt;操作[dir=none];</span><br><span class="line">    二叉树-&gt;应用[dir=none];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-1-树的基本概念"><a href="#4-1-树的基本概念" class="headerlink" title="4.1 树的基本概念"></a>4.1 树的基本概念</h3><h4 id="4-1-1-树的定义"><a href="#4-1-1-树的定义" class="headerlink" title="4.1.1 树的定义"></a>4.1.1 树的定义</h4><p>任何一颗非空树要满足</p>
+            <h2 id="第5章-映射器"><a href="#第5章-映射器" class="headerlink" title="第5章 映射器"></a>第5章 映射器</h2><p>映射器由一个接口加上 <code>XML</code> 文件(或者注解)组成。在映射器中可以配置参数、各类的<code>SQL</code>语句、存储过程、缓存、级联等复杂的内容，并且通过简易的映射规则映射到指定的<code>POJO</code>或者其他对象上，映射器能有效消除<code>JDBC</code>底层的代码。</p>
+<p><code>MyBatis</code>的映射器也可以使用注解完成，但是应用不广，原因主要来自3个方面</p>
 <ol>
-<li>有且只有一个特定的称为根的节点</li>
-<li>当$n$大于$1$时，其余节点可分为$m(m&gt;0)$个互不相交的有限集合$T_1, T_2, …,T_m$，其中每个集合本身又是一颗树，并且称为根节点的子树</li>
+<li>面对复杂性，<code>SQL</code>会显得无力，尤其是长<code>SQL</code></li>
+<li>注解的可读性较差</li>
+<li>在功能上，注解丢失了XML 上下文相互引用的功能</li>
 </ol>
-<p>树是一种递归结构也是一种层次结构</p>
-<h4 id="4-1-2-基本术语"><a href="#4-1-2-基本术语" class="headerlink" title="4.1.2 基本术语"></a>4.1.2 基本术语</h4><ul>
-<li>祖先节点和子孙节点</li>
-<li>双亲节点和孩子节点</li>
-<li>兄弟节点</li>
-<li>节点的度: 某节点的子节点的个数称为该节点的度</li>
-<li>树的度: 树中节点的最大度数</li>
-<li>分支节点: 度大于$0$的节点</li>
-<li>叶子节点: 度为$0$的节点</li>
-<li>节点的层次、深度、高度，数的高度</li>
-<li>有序树和无序树</li>
-<li>路径和路径长度</li>
-<li>森林: 森林是$m(m\ge0)$棵互不相交的树的集合</li>
-</ul>
-<h4 id="4-1-3-树的性质"><a href="#4-1-3-树的性质" class="headerlink" title="4.1.3 树的性质"></a>4.1.3 树的性质</h4><ol>
-<li>树中的节点数等于所有节点的度数$+1$</li>
-<li>度为$m$的树中第$i$层上至多有$m^{i-1}$个节点</li>
-<li>高度为$h$的$m$叉树至多有$\frac{m^h-1}{m-1}$个节点</li>
-<li>具有$n$个节点的$m$叉树的最小高度为$log_m(n(m-1)+1)$</li>
-</ol>
-<h3 id="4-2-二叉树的概念"><a href="#4-2-二叉树的概念" class="headerlink" title="4.2 二叉树的概念"></a>4.2 二叉树的概念</h3><h4 id="4-2-1-二叉树的定义及其主要特性"><a href="#4-2-1-二叉树的定义及其主要特性" class="headerlink" title="4.2.1 二叉树的定义及其主要特性"></a>4.2.1 二叉树的定义及其主要特性</h4><h5 id="1-二叉树的定义"><a href="#1-二叉树的定义" class="headerlink" title="1 二叉树的定义"></a>1 二叉树的定义</h5><p>二叉树每个节点至多只有两棵子树，并且二叉树的子树有左右之分，其次序不能任意颠倒</p>
-<p>二叉树与度为$2$的有序树的区别</p>
-<ol>
-<li>度为$2$的树至少有$3$个节点，而二叉树可以为空</li>
-<li>度为$2$的有序树的孩子节点的左右次序是相对另一个孩子节点而言的，若某个节点只有一个孩子节点，则这个孩子节点就无需区分其左右顺序，而二叉树无论其孩子数是否为$2$，均需要确定其左右次序，即二叉树的节点次序不是相对于另一节点而言，而是确定的</li>
-</ol>
-<h5 id="2-几个特殊的二叉树"><a href="#2-几个特殊的二叉树" class="headerlink" title="2 几个特殊的二叉树"></a>2 几个特殊的二叉树</h5><ol>
-<li><p>满二叉树: 除了叶子节点，所有节点度都是2</p>
-</li>
-<li><p>完全二叉树: 略</p>
-</li>
-<li><p>二叉排序树</p>
+<h3 id="5-1-概述"><a href="#5-1-概述" class="headerlink" title="5.1 概述"></a>5.1 概述</h3><p>映射器的配备元素如下</p>
+<table>
+<thead>
+<tr>
+<th>元素名称</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>select</td>
+<td>查询语句</td>
+<td>可以自定义参数，返回结果集等</td>
+</tr>
+<tr>
+<td>insert</td>
+<td>插入语句</td>
+<td>执行后返回一个整数，代表插入的条数</td>
+</tr>
+<tr>
+<td>update</td>
+<td>更新语句</td>
+<td>执行后返回一个整数，代表删除的条数</td>
+</tr>
+<tr>
+<td>sql</td>
+<td>允许定义一部分SQL，然后在其他地方引用它</td>
+<td>例如，一张表列名，一次定义，可以在多个SQL语句中使用</td>
+</tr>
+<tr>
+<td>resultMap</td>
+<td>用来描述从数据库结果集中来加载对象</td>
+<td>它将提供映射规则</td>
+</tr>
+<tr>
+<td>cache</td>
+<td>给定命名空间的缓存配置</td>
+<td>无</td>
+</tr>
+<tr>
+<td>cache-ref</td>
+<td>其他命名空间缓存配置的引用</td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-2-select元素-查询语句"><a href="#5-2-select元素-查询语句" class="headerlink" title="5.2 select元素(查询语句)"></a>5.2 select元素(查询语句)</h3><h4 id="5-2-1-简单的select元素的应用"><a href="#5-2-1-简单的select元素的应用" class="headerlink" title="5.2.1 简单的select元素的应用"></a>5.2.1 简单的select元素的应用</h4><p>先学习一个简单的例子: 统计用户表中同一个姓氏的用户数量<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"countUserByFirstName"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultType</span>=<span class="string">"int"</span>&gt;</span></span><br><span class="line">    select count(*) total from t_user</span><br><span class="line">    where user_name like concat(#&#123;firstName&#125;, '%')</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>然后解释这个例子</p>
 <ul>
-<li>左子树上所有节点的关键字均小于根节点和关键字</li>
-<li>右子树上所有节点的关键字均大于根节点和关键字</li>
-<li>左子树和右子树又各是一棵二叉排序树</li>
+<li><code>id</code>配合<code>Mapper</code>的全限定名，联合成为一个唯一的标识符，标识这条<code>SQL</code></li>
+<li><code>parameterType</code>表示这条<code>SQL</code>接受的参数类型，可以是<code>MyBatis</code>系统定义或自定义的别名，也可以是类的全限定名</li>
+<li><code>resultType</code>表示这条<code>SQL</code>返回的结果类型</li>
+<li><code>#{firstName}</code>是被传递进去的参数</li>
 </ul>
-</li>
-<li><p>平衡二叉树</p>
+<h4 id="5-2-2-自动映射和驼峰映射"><a href="#5-2-2-自动映射和驼峰映射" class="headerlink" title="5.2.2 自动映射和驼峰映射"></a>5.2.2 自动映射和驼峰映射</h4><p><code>MyBatis</code>提供了自动映射功能，在默认情况下自动映射功能是开启的，使用它的好处是能有效减少大量的映射配置，从而减少工作量</p>
+<p>在<code>setting</code>元素中有两个可以配置的选项<code>autoMappingBehavior</code>和<code>mapUnderscoreToCamelCase</code>，它们是控制自动映射和驼峰映射的开关</p>
+<p>举个简单的例子来说明自动映射和驼峰映射</p>
+<p>首先给出一个简单的<code>POJO</code>，<code>Role</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Role</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String roleName;</span><br><span class="line">    <span class="keyword">private</span> String note;</span><br><span class="line">    <span class="comment">/**setter and getter**/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>下面通过自动映射完成需求: 通过角色编号获取角色的信息<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getRole"</span> <span class="attr">parameterType</span>=<span class="string">"long"</span> <span class="attr">resultType</span>=<span class="string">"com.edu.neu.pojo.Role"</span>&gt;</span></span><br><span class="line">    select id, role_name as roleName, note from t_role where id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <ul>
-<li>树上任一节点的左子树和右子树的深度之差不超过$1$</li>
+<li>这里原来的列名<code>role_name</code>被别名<code>roleName</code>代替，这样就和<code>POJO</code>上的属性名称保持一致了</li>
 </ul>
-</li>
-</ol>
-<h5 id="3-二叉树的性质"><a href="#3-二叉树的性质" class="headerlink" title="3 二叉树的性质"></a>3 二叉树的性质</h5><ol>
-<li>非空二叉树上的叶子节点数等于度为$2$的节点数加$1$，即$n_0=n_2+1$</li>
-<li>非空二叉树上第$k$层上至多又$2^{k-1}$个节点</li>
-<li>高度为$h$的二叉树至多为$2^h-1$</li>
-<li>具有$n$个($n&gt;0$)节点的完全二叉树的高度为$log_2(n+1)$或$log_2n+1$</li>
-</ol>
-<h4 id="4-2-2-二叉树的存储结构"><a href="#4-2-2-二叉树的存储结构" class="headerlink" title="4.2.2 二叉树的存储结构"></a>4.2.2 二叉树的存储结构</h4><h5 id="1-顺序存储结构"><a href="#1-顺序存储结构" class="headerlink" title="1 顺序存储结构"></a>1 顺序存储结构</h5><p>二叉树的顺序存储结构是指用一组地址连续的存储单元依次自上而下、自左而右存储完全二叉树上的节点元素</p>
-<p>依据二叉树的性质，完全二叉树和满二叉树采用顺序存储比较合适，树中节点的序号可以唯一地反应节点之间的逻辑关系，这样既可以节省存储空间，又能利用数组元素的下标值确定节点在二叉树中的位置，以及节点之间的关系</p>
-<p>对于一般二叉树，为了让数组下标能反映二叉树中节点之间的逻辑关系，只能添加一些并不存在的空节点</p>
-<h5 id="2-链式存储结构"><a href="#2-链式存储结构" class="headerlink" title="2 链式存储结构"></a>2 链式存储结构</h5><p>由于顺序存储的空间利用率较低，因此二叉树一般采用链式存储结构</p>
-<p>二叉链表至少包含$3$个域: 数据域<code>data</code>、左指针域<code>lchild</code>和右指针域<code>rchild</code></p>
-<p>二叉树的链式存储结构描述如下<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span> *<span class="title">lchild</span>, *<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BiTNode, *BiTree;</span><br></pre></td></tr></table></figure></p>
-<h3 id="4-3-二叉树的遍历和线索二叉树"><a href="#4-3-二叉树的遍历和线索二叉树" class="headerlink" title="4.3 二叉树的遍历和线索二叉树"></a>4.3 二叉树的遍历和线索二叉树</h3><h4 id="4-3-1-二叉树的遍历"><a href="#4-3-1-二叉树的遍历" class="headerlink" title="4.3.1 二叉树的遍历"></a>4.3.1 二叉树的遍历</h4><p>二叉树的遍历是指按照某条搜索路径访问树中的每个节点，使得每个节点均被访问一次</p>
-<h5 id="1-先序遍历-PreOrder"><a href="#1-先序遍历-PreOrder" class="headerlink" title="1 先序遍历(PreOrder)"></a>1 先序遍历(PreOrder)</h5><p>步骤如下:</p>
-<ol>
-<li>先访问根节点</li>
-<li>先序遍历左子树</li>
-<li>先序遍历右子树<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrder</span><span class="params">(BiTree t)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(t != <span class="literal">NULL</span>)&#123;</span><br><span class="line">        visit(t);</span><br><span class="line">        PreOrder(t-&gt;lchild);</span><br><span class="line">        PreOrder(t-&gt;rchild);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h5 id="2-中序遍历"><a href="#2-中序遍历" class="headerlink" title="2 中序遍历"></a>2 中序遍历</h5><p>步骤如下:</p>
-<ol>
-<li>中序遍历左子树</li>
-<li>访问根节点</li>
-<li>中序遍历右子树</li>
-</ol>
-<h5 id="3-后序遍历"><a href="#3-后序遍历" class="headerlink" title="3 后序遍历"></a>3 后序遍历</h5><p>步骤如下:</p>
-<ol>
-<li>后序遍历左子树</li>
-<li>后序遍历右子树</li>
-<li>访问根节点</li>
-</ol>
-<h5 id="4-递归算法与非递归算法的转换"><a href="#4-递归算法与非递归算法的转换" class="headerlink" title="4 递归算法与非递归算法的转换"></a>4 递归算法与非递归算法的转换</h5><p>以先序遍历和中序遍历为例</p>
-<p>中序遍历</p>
-<ol>
-<li>先将根节点的左子孙全加入栈中</li>
-<li>弹出并访问，并将该节点的右孩子和右孩子的所有左子孙加入栈中</li>
-<li>重复执行2，直到栈为空</li>
-</ol>
-<p>先序遍历</p>
-<ol>
-<li>对于根节点和它的所有左子孙，先访问并加入栈中</li>
-<li>弹出，访问该节点的右孩子和右孩子的所有左子孙并将它们加入栈中</li>
-<li>重复执行2，直到栈为空</li>
-</ol>
-<p>后序遍历</p>
+<p>如果系统都严格按照驼峰命名法，(例如，数据库字段<code>role_name</code>，对应<code>POJO</code>属性名为<code>roleName</code>)，此时可以改写为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select id, role_name, note from t_role where id = #&#123;id&#125;</span><br></pre></td></tr></table></figure></p>
+<p>自动映射和驼峰映射都建立在SQL列名和POJO属性名的映射关系上，而现实中会更加复杂，此时<code>resultType</code>元素是无法满足这些需求的。如果需要更为强大的映射规则，则需要考虑使用<code>resultMap</code></p>
+<h4 id="5-2-3-传递多个参数"><a href="#5-2-3-传递多个参数" class="headerlink" title="5.2.3 传递多个参数"></a>5.2.3 传递多个参数</h4><p>在现实需求中，经常需要传递多个参数。传参方法有4种</p>
+<h5 id="5-2-3-1-使用map接口传递多个参数"><a href="#5-2-3-1-使用map接口传递多个参数" class="headerlink" title="5.2.3.1 使用map接口传递多个参数"></a>5.2.3.1 使用map接口传递多个参数</h5><p>可以使用<code>Map</code>接口通过键值对传递多个参数，把接口方法定义为<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Role&gt; <span class="title">findRolesByMap</span><span class="params">(Map&lt;String, Object&gt; parameterMap)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>此时传递给映射器的是一个<code>map</code>对象，使用它在SQL中设置对应的参数<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRolesByMap"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultYpe</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    select id, role_name as roleName, note from t_role</span><br><span class="line">    where role_name like concat('%', #&#123;roleName&#125;, '%') and note like concat('%', #&#123;note&#125;, '%')</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="5-2-3-2-使用注解传递多个参数"><a href="#5-2-3-2-使用注解传递多个参数" class="headerlink" title="5.2.3.2 使用注解传递多个参数"></a>5.2.3.2 使用注解传递多个参数</h5><p>使用<code>map</code>传递参数的弊病是可读性差，为此<code>MyBatis</code>为开发者提供了一个注解<code>＠Param</code>，可以通过它去定义映射器的参数名称，使用它可以得到更好的可读性，把接口方法定义为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Role&gt; <span class="title">findRolesByAnnotation</span> <span class="params">(@Param (<span class="string">"roleName"</span>)</span> String rolename, @<span class="title">Param</span> <span class="params">(<span class="string">"note "</span>)</span> String note)</span>;</span><br></pre></td></tr></table></figure></p>
+<p>此时映射文件可以定义为，此时并不需要给出<code>parameterType</code>属性，让<code>MyBatis</code>自动探索即可<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRolesByAnnotation"</span> <span class="attr">resultType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    select id, role_name as roleName, note from t_role</span><br><span class="line">    where role_name like concat ('%', #&#123;roleName&#125;, '%')</span><br><span class="line">    and note like concat ('%', #&#123;note&#125;, '%')</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>但是这会带来一个麻烦。如果<code>SQL</code>很复杂，拥有大于10个参数，那么接口方法的参数个数就多了，使用起来就很不容易</p>
+<h5 id="5-2-3-3-通过JavaBean传递多个参数"><a href="#5-2-3-3-通过JavaBean传递多个参数" class="headerlink" title="5.2.3.3 通过JavaBean传递多个参数"></a>5.2.3.3 通过JavaBean传递多个参数</h5><p>可以通过传递<code>Java Bean</code>的方式来处理参数过多的问题</p>
+<p>先定义一个参数的<code>POJO</code>:<code>RoleParams</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RoleParams</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String roleName;</span><br><span class="line">    <span class="keyword">private</span> String note;</span><br><span class="line">    <span class="comment">/**set ter and getter**/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>把接口方法定义为<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Role&gt; <span class="title">findRolesByBean</span><span class="params">(RoleParams roleParam)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>此时映射文件定义为：其中<code>parameterType</code>设置为上文定义的POJO的路径</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRolesByBean"</span> <span class="attr">parameterType</span>= <span class="string">"com.learn.ssm.chapterS.param.RoleParams"</span></span></span><br><span class="line"><span class="tag"><span class="attr">resultType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    select id, role name as roleName, note from t role</span><br><span class="line">    where role name like concat ('%', #&#123;roleName&#125;, '%')</span><br><span class="line">    and note like concat ('%', #&#123;note&#125;, '%')</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>引用<code>JavaBean</code>定义的属性作为参数，然后查询<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);</span><br><span class="line">RoleParams roleParams = <span class="keyword">new</span> RoleParams();</span><br><span class="line">roleParams.setRoleName(<span class="string">"1"</span>);</span><br><span class="line">roleParams.setNote(<span class="string">"1"</span>);</span><br><span class="line">List&lt;Role&gt; roles = roleMapper.findRolesByBean(roleParams);</span><br></pre></td></tr></table></figure></p>
+<h5 id="5-2-3-4-混合使用"><a href="#5-2-3-4-混合使用" class="headerlink" title="5.2.3.4 混合使用"></a>5.2.3.4 混合使用</h5><p>略</p>
+<h5 id="5-2-3-5-总结"><a href="#5-2-3-5-总结" class="headerlink" title="5.2.3.5 总结"></a>5.2.3.5 总结</h5><ul>
+<li>使用<code>map</code>传递参数导致了业务可读性的丧失，导致后续扩展和维护的困难，在实际的应用中要果断废弃这种方式。</li>
+<li>使用<code>@Param</code>注解传递多个参数，受到参数个数(n)的影响。当<code>n&lt;=5</code>时，这是最佳的传参方式，它比用<code>Java Bean</code>更好，因为它更加直观；当<code>n&gt;5</code>时，多个参数将给调用带来困难，此时不推荐使用它。</li>
+<li>当参数个数多于5个时，建议使用<code>Java Bean</code>方式。</li>
+<li>对于使用混合参数的，要明确参数的合理性。</li>
+</ul>
+<h4 id="5-2-4-使用resultMap映射结果集"><a href="#5-2-4-使用resultMap映射结果集" class="headerlink" title="5.2.4 使用resultMap映射结果集"></a>5.2.4 使用resultMap映射结果集</h4><p>为了支持复杂的映射，<code>select</code>元素提供了<code>resultMap</code>属性，例子如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.xxx.RoleMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"roleMap"</span> <span class="attr">type</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"roleName"</span> <span class="attr">column</span>=<span class="string">"role_name"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"note"</span> <span class="attr">column</span>=<span class="string">"note"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getRoleUseResultMap"</span> <span class="attr">parameterType</span>=<span class="string">"long"</span> <span class="attr">resultMap</span>=<span class="string">"roleMap"</span>&gt;</span></span><br><span class="line">        select id, role_name, note from t_role where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <ul>
-<li>每个节点需要一个标志来判断是不是第一次被访问</li>
-<li>先略</li>
+<li><code>resultMap</code>元素定义了一个<code>roleMap</code>，它的属性<code>id</code>代表它的标识，<code>type</code>代表使用哪个类作为其映射的类</li>
+<li>子元素<code>id</code>代表<code>resultMap</code>的主键，而<code>result</code>代表其属性，<code>id</code>和<code>result</code>元素的属性<code>property</code>代表<code>POJO</code>的属性名称，而<code>column</code>代表<code>SQL</code>的列名</li>
+<li>在<code>select</code>元素中的属性<code>resultMap</code>制定了采用哪个<code>resultMap</code>作为其映射规则</li>
 </ul>
-<h5 id="5-层次遍历"><a href="#5-层次遍历" class="headerlink" title="5 层次遍历"></a>5 层次遍历</h5><p>要进行层次遍历，需要借助一个队列</p>
-<ol>
-<li>先将二叉树的根节点入队，</li>
-<li>然后出队，访问该节点，若它有左子树，则将左子树根节点入队；若它有右子树，则将右子树根节点入队。</li>
-<li>如此反复，直到队列为空</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">levelOrder</span><span class="params">(BiTree T)</span></span>&#123;</span><br><span class="line">    InitQueue(Q);</span><br><span class="line">    BiTree p;</span><br><span class="line">    EnQueue(Q, T);</span><br><span class="line">    <span class="keyword">while</span>(!IsEmpty(Q))&#123;</span><br><span class="line">        DeQueue(Q, p);</span><br><span class="line">        visit(p);</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;lchild != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            EnQueue(Q, p-&gt;lchild);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;rchild != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            EnQueue(Q, p-&gt;rchild);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="6-由遍历构造二叉树"><a href="#6-由遍历构造二叉树" class="headerlink" title="6 由遍历构造二叉树"></a>6 由遍历构造二叉树</h5><p>由二叉树的先序遍历和中序遍历可以唯一地确定一棵二叉树，以下几种也可以</p>
-<ol>
-<li>中序和后序</li>
-<li>层序和中序</li>
-</ol>
-<p>但是先序和后序不可以</p>
-<h4 id="4-3-2-线索二叉树"><a href="#4-3-2-线索二叉树" class="headerlink" title="4.3.2 线索二叉树"></a>4.3.2 线索二叉树</h4><h5 id="1-线索二叉树的基本概念"><a href="#1-线索二叉树的基本概念" class="headerlink" title="1 线索二叉树的基本概念"></a>1 线索二叉树的基本概念</h5><p>遍历二叉树的实质: 是对一个非线性结构进行线性化操作，使这个访问序列中的每个节点都有一个直接前驱和一个直接后继</p>
-<p>引入线索二叉树是为了加快查找节点前驱和后继的速度</p>
-<p>二叉树线索化的方法</p>
-<ol>
-<li>若无左子树，令<code>lchild</code>指向其前驱节点；若无右子树，令<code>rchild</code>指向其后继节点</li>
-<li>还需要增加两个标志域来表明当前指针域所指对象是指向左/右子节点还是直接前驱/后继</li>
-</ol>
-<p>线索二叉树的储存结构描述为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ThreadNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ThreadNode</span> *<span class="title">lchild</span>, *<span class="title">rchild</span>;</span></span><br><span class="line">    <span class="keyword">int</span> ltag, rtag;</span><br><span class="line">&#125;ThreadNode;</span><br></pre></td></tr></table></figure></p>
-<h5 id="2-线索二叉树的构造"><a href="#2-线索二叉树的构造" class="headerlink" title="2 线索二叉树的构造"></a>2 线索二叉树的构造</h5><p>对二叉树的线索化，实质上是遍历一次二叉树，只是在遍历的过程中，检查当前节点左、右指针是否为空，若为空，将它们改为指向前驱节点和后继节点的线索</p>
-<p>中序遍历的递归算法为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InThread</span><span class="params">(ThreadTree *p, ThreadTree *pre)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        InThread(p-&gt;lchild, pre);</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;lchild == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            p-&gt;lchild = pre;</span><br><span class="line">            p-&gt;ltag = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( pre != <span class="literal">NULL</span> &amp;&amp; pre-&gt;rchilc == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            pre-&gt;rchild = p;</span><br><span class="line">            pre-&gt;rtag = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        pre=p;</span><br><span class="line">        InThread(p-&gt;rchild, pre);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateInThread</span><span class="params">(ThreadTree T)</span></span>&#123;</span><br><span class="line">    ThreadTree pre = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">if</span>(T != <span class="literal">NULL</span>)&#123;</span><br><span class="line">        InThread(T, pre);</span><br><span class="line">        pre-&gt;rchild = <span class="literal">NULL</span>;</span><br><span class="line">        pre-&gt;rtag = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="3-线索二叉树的遍历"><a href="#3-线索二叉树的遍历" class="headerlink" title="3 线索二叉树的遍历"></a>3 线索二叉树的遍历</h5><p>中序线索化二叉树主要是为了访问运算服务的，这种遍历不再需要借助栈，因为它的节点隐含了线索二叉树的前驱和后继信息</p>
-<p>算法如下</p>
-<ol>
-<li><p>求中序线索二叉树中中序序列下的第一个节点</p>
- <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ThreadNode *<span class="title">FirstNode</span><span class="params">(ThreadNode *p)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(p-&gt;ltag==<span class="number">0</span>)&#123;</span><br><span class="line">        p=p-&gt;lchild;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>求中序线索二叉树中节点p在中序序列下的后继节点</p>
- <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function">ThreadNode *<span class="title">NextNode</span><span class="params">(ThreadNode *p)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;rtag==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> FirstNode(p-&gt;rchild);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> p-&gt;rchild;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ````    </span><br><span class="line"><span class="number">3.</span> 利用上面两个算法可以实现线索二叉树的中序遍历</span><br><span class="line">    ````c</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">InOrder</span><span class="params">(ThreadNode *T)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(ThreadNode *p=FirstNode(T); p!=<span class="literal">NULL</span>; p=NextNode(p))&#123;</span><br><span class="line">            visit(p);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="4-4-树、森林"><a href="#4-4-树、森林" class="headerlink" title="4.4 树、森林"></a>4.4 树、森林</h3><h4 id="4-4-1-树的存储结构"><a href="#4-4-1-树的存储结构" class="headerlink" title="4.4.1 树的存储结构"></a>4.4.1 树的存储结构</h4><h5 id="1-父亲表示法"><a href="#1-父亲表示法" class="headerlink" title="1 父亲表示法"></a>1 父亲表示法</h5><p>这种存储方式采用一组连续空间来存储每个节点，同时在每个节点中增设一个伪指针，指示其父亲节点在数组中的位置</p>
-<h5 id="2-孩子表示法"><a href="#2-孩子表示法" class="headerlink" title="2 孩子表示法"></a>2 孩子表示法</h5><p>孩子表示法是将每个节点的孩子节点都用单链表链接起来形成一个线性结构，此时$n$个节点就有$n$个孩子链表</p>
-<h5 id="3-孩子兄弟表示法"><a href="#3-孩子兄弟表示法" class="headerlink" title="3 孩子兄弟表示法"></a>3 孩子兄弟表示法</h5><p>又称为二叉树表示法，以二叉链表作为树的存储结构，孩子兄弟表示法使每个节点包括三部分内容</p>
+<h4 id="5-2-5-分页参数RowBounds"><a href="#5-2-5-分页参数RowBounds" class="headerlink" title="5.2.5 分页参数RowBounds"></a>5.2.5 分页参数RowBounds</h4><p><code>MyBatis</code>支持分页，它还内置了一个专门处理分页的类<code>RowBounds</code>，使用它十分的简单，只要给接口增加一个<code>RowBounds</code>参数即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Role&gt; <span class="title">findByRowBounds</span><span class="params">(@Param(<span class="string">"roleName"</span>)</span> String rolename, @<span class="title">Param</span><span class="params">(<span class="string">"note"</span>)</span> String note, RowBounds rowBounds)</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findByRowBounds"</span> <span class="attr">resultType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    select id, role_name as roleName, note from t_role</span><br><span class="line">    where role_name like concat('%', #&#123;roleName&#125;, '%')</span><br><span class="line">    and note like concat('%', #&#123;note&#125;, '%')</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>注意上面代码并没有任何关于<code>RowBounds</code>参数的消息，它是<code>MyBatis</code>的一个附加参数，<code>MyBatis</code>会自动识别它，据此进行分页，测试程序如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);</span><br><span class="line">RowBounds rowBounds = <span class="keyword">new</span> RowBounds(<span class="number">0</span>, <span class="number">20</span>);</span><br><span class="line">List&lt;Role&gt; roleList = roleMapper.findByRowBounds(<span class="string">"role_name"</span>, <span class="string">"note"</span>, rowBounds);</span><br></pre></td></tr></table></figure>
+<p>但是要注意<code>RowBounds</code>分页运用的场景，它只适用于一些小数据量的查询。<code>RowBounds</code>分页的原理是执行<code>SQL</code>的查询后，按照偏移量和限制条数返回查询结果，所以对于大量的数据查询，它的性能并不佳，此时可以通过分页插件去处理，详情可参考本书第8章的内容。</p>
+<h3 id="5-3-insert元素-插入语句"><a href="#5-3-insert元素-插入语句" class="headerlink" title="5.3 insert元素(插入语句)"></a>5.3 insert元素(插入语句)</h3><h4 id="5-3-1-概述"><a href="#5-3-1-概述" class="headerlink" title="5.3.1 概述"></a>5.3.1 概述</h4><p>插入数据依赖于<code>insert</code>语句</p>
+<h4 id="5-3-2-简单的insert语句的应用"><a href="#5-3-2-简单的insert语句的应用" class="headerlink" title="5.3.2 简单的insert语句的应用"></a>5.3.2 简单的insert语句的应用</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertRole"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    insert into t_role(role_name, note) values (#&#123;roleName&#125;, #&#123;note&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>节点值</li>
-<li>指向节点第一个孩子节点的指针</li>
-<li>指向节点下一个兄弟节点的指针</li>
+<li><code>id</code>标识出这条<code>SQL</code></li>
+<li><code>parameterType</code>代表传入参数类型</li>
 </ul>
-<p>孩子兄弟表示法的存储结构描述<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">CSNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">CSNode</span> *<span class="title">firstchild</span>, *<span class="title">nextsibling</span>;</span></span><br><span class="line">&#125;CSNode</span><br></pre></td></tr></table></figure></p>
-<h4 id="4-4-2-树、森林和二叉树的转换"><a href="#4-4-2-树、森林和二叉树的转换" class="headerlink" title="4.4.2 树、森林和二叉树的转换"></a>4.4.2 树、森林和二叉树的转换</h4><p>树与二叉树的关系</p>
+<h4 id="5-3-3-主键回填"><a href="#5-3-3-主键回填" class="headerlink" title="5.3.3 主键回填"></a>5.3.3 主键回填</h4><p>大多数场景下，我们会为<code>MySQL</code>中的表配置自增主键。而有时候我们需要取出新插入元素的自增主键。</p>
+<p><code>JDBC</code>中的<code>Statement</code>对象在执行插入的<code>SQL</code>后，可以通过<code>getGeneratedKeys</code>方法获得数据库生成的主键(需要数据库驱动支持)，这样便能达到获取主键的功能。在<code>insert</code>语句中有一个开关属性<code>useGeneratedKeys</code>，用来控制是否打开这个功能，它的默认值为<code>false</code>。当打开了这个开关，还要配置其属性<code>keyProperty</code>或<code>keyColumn</code>，告诉系统把生成的主键放入哪个属性中，</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertRole"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span> <span class="attr">useGeneratedKeys</span>=<span class="string">"true"</span> <span class="attr">keyProperty</span>=<span class="string">"id"</span>&gt;</span></span><br><span class="line">    insert into t_role(role_name, note) values(#&#123;roleName&#125;, #&#123;note&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="5-3-4-自定义主键"><a href="#5-3-4-自定义主键" class="headerlink" title="5.3.4 自定义主键"></a>5.3.4 自定义主键</h4><p>有时候主键可能依赖于某些规则，比如取消角色表(t_role)的<code>id</code>的递增规则，而将其规则修改为:</p>
 <ul>
-<li>给定一棵树，可以找到唯一的一棵二叉树与之对应。</li>
-<li>从物理结构上看，树的孩子兄弟表示法与二叉树的二叉链表表示法相同</li>
-<li>因此，可以用同一存储结构的不同解释将一棵树转换为二叉树</li>
+<li>当角色表记录为空时，<code>id</code>设置为<code>1</code>。</li>
+<li>当角色表记录不为空时，<code>id</code>设置为当前<code>id</code>加3<br><code>MyBatis</code>对这样的场景也提供了支持，它主要依赖于<code>selectKey</code>元素进行支持，它允许自定义键值的生成规则。</li>
 </ul>
-<p>树转换为二叉树的规则</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertRole"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">selectKey</span> <span class="attr">keyProperty</span>=<span class="string">"id"</span> <span class="attr">resultType</span>=<span class="string">"long"</span> <span class="attr">order</span>=<span class="string">"BEFORE"</span>&gt;</span></span><br><span class="line">        select if(max(id) = null, 1, max(id) + 3) from t_role</span><br><span class="line">    <span class="tag">&lt;/<span class="name">selectKey</span>&gt;</span></span><br><span class="line">    insert into t_role(id, role_name, note) values(#&#123;id&#125;, #&#123;roleName&#125;, #&#123;note&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>每个节点左指针指向它的第一个孩子节点</li>
-<li>右指针指向它在树中的相邻兄弟节点</li>
+<li>它定义了<code>selectKey</code>元素，它的<code>keyProperty</code>指定了采用哪个属性作为<code>POJO</code>的主键。</li>
+<li><code>resultType</code>告诉<code>MyBatis</code>将返回一个<code>long</code>型的结果集，而<code>order</code>设置为<code>BEFORE</code>，说明它将于当前定义的<code>SQL</code>前执行。</li>
+<li>这里的<code>order</code>配置为<code>BEFORE</code>，说明它会在插入之前会先执行生成主键的<code>SQL</code>，然后插入数据。</li>
 </ul>
-<p>森林转换为二叉树的规则</p>
+<h3 id="5-4-update元素和delete元素"><a href="#5-4-update元素和delete元素" class="headerlink" title="5.4 update元素和delete元素"></a>5.4 update元素和delete元素</h3><p><code>update</code>和<code>delete</code>执行完会返回一个整数，用以标识该SQL语句影响数据库的记录行数<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateRole"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    update t_role set role_name= #&#123;roleName&#125;, note = #&#123;note&#125;</span><br><span class="line">    where id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">delete</span> <span class="attr">id</span>=<span class="string">"deleteRole"</span> <span class="attr">parameterType</span>=<span class="string">"long"</span>&gt;</span></span><br><span class="line">    delete from t_role where id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">delete</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="5-5-sql元素"><a href="#5-5-sql元素" class="headerlink" title="5.5 sql元素"></a>5.5 sql元素</h3><p>sql元素的作用在于可以定义一条<code>SQL</code>的一部分，方便后面的SQL引用它，比如最典型的列名。通常情况下要在<code>select</code>、<code>insert</code>等语句中反复编写它们，特别是那些字段较多的表更是如此。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>= <span class="string">"com.RoleMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>= <span class="string">"roleMap"</span> <span class="attr">type</span>= <span class="string">"role"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"roleName"</span> <span class="attr">column</span>= <span class="string">"role_name"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"note"</span> <span class="attr">column</span>=<span class="string">"note"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"rolesCols"</span>&gt;</span></span><br><span class="line">        id, role_name, note</span><br><span class="line">    <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getRole"</span> <span class="attr">parameterType</span>=<span class="string">"long"</span> <span class="attr">resultMap</span>=<span class="string">"roleMap"</span>&gt;</span></span><br><span class="line">        select <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"rolesCols"</span>/&gt;</span> </span><br><span class="line">        from t_role where id=#&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>sql元素还支持变量传递<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"roleCols"</span>&gt;</span></span><br><span class="line">    $&#123;alias&#125;.id, $&#123;alias&#125;.role_name, $&#123;alias&#125;.note</span><br><span class="line"><span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getRole"</span> <span class="attr">parameterType</span>=<span class="string">"long"</span> <span class="attr">resultMap</span>=<span class="string">"roleMap"</span>&gt;</span></span><br><span class="line">    select <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"roleCols"</span>&gt;</span><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"alias"</span> <span class="attr">value</span>=<span class="string">"r"</span>/&gt;</span><span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">    from t_role r where id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="5-6-参数"><a href="#5-6-参数" class="headerlink" title="5.6 参数"></a>5.6 参数</h3><h4 id="5-6-1-概述"><a href="#5-6-1-概述" class="headerlink" title="5.6.1 概述"></a>5.6.1 概述</h4><p>一些数据库字段返回为<code>null</code>，而<code>MyBatis</code>系统又检测不到使用何种<code>jdbcType</code>进行处理时，会发生异常的情况，这个时候执行对应的<code>typeHandler</code>进行处理，<code>MyBatis</code>就知道采取哪个<code>typeHandler</code>进行处理了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into t_role(id, role_name, note) values(#&#123;id&#125; , #&#123;roleName, typeHandler=StringTypeHandler&#125;, #&#123;note&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>而事实是，大部分情况下都不需要这样编写，因为<code>MyBatis</code>会根据<code>javaType</code>和<code>jdbcType</code>去检测使用哪个<code>typeHandler</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#123;age, javaType=int, jdbcType=NUMERIC, typeHandler=MyTypeHandler&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-6-2-存储过程参数支持"><a href="#5-6-2-存储过程参数支持" class="headerlink" title="5.6.2 存储过程参数支持"></a>5.6.2 存储过程参数支持</h4><p>MyBatis对存储过程也进行了支持，在存储过程中存在：输入(IN)参数、输出(OUT)参数和输入输出(INOUT)参数3种类型。</p>
+<h4 id="5-6-3-特殊字符串的替换和处理"><a href="#5-6-3-特殊字符串的替换和处理" class="headerlink" title="5.6.3 特殊字符串的替换和处理"></a>5.6.3 特殊字符串的替换和处理</h4><p>在现实中，由于一些因素会造成构成<code>SQL</code>查询的列名发生变化，比如产品类型为大米，查询的列名是重量，而产品类型为灯具，查询的列名是数量，这时候需要构建动态列名。有些企业会将一张很大的数据库表按年份拆分，比如购买记录表(<code>t_purchase records</code>) 。现实中由于记录比较多，可能为了方便按年份拆分为<code>t_purchase_records_ 2016</code> 、<code>t_purchase_records_ 2017</code> 、<code>t_purchase_records_2018</code>等，这时往往需要构建动态表名。</p>
+<p>在<code>MyBatis</code>中，构建动态列名常常要传递类似于字符串的<code>columns＝&quot;coll, col2, col3 ...&quot;</code>给<code>SQL</code>，让其组装成为<code>SQL</code>语句。如果不想被<code>MyBatis</code>像处理普通参数一样把它设为<code>&quot;coll, col2, col3 ...&quot;</code>，那么可以写成<code>select ${columns} from t_tablename</code>，这样<code>MyBatis</code>就不会转译<code>columns</code>，而不是作为<code>SQL</code> 的参数进行设置了，这句<code>SQL</code>就会变为<code>select col1, col2, col3 ... from t_tablename</code>。</p>
+<h3 id="5-7-resultMap元素"><a href="#5-7-resultMap元素" class="headerlink" title="5.7 resultMap元素"></a>5.7 resultMap元素</h3><p><code>resultMap</code>的作用是定义映射规则、级联的更新、定制类型转化器等。<code>resultMap</code>定义的主要是一个结果集的映射关系，也就是<code>SQL</code>到<code>Java Bean</code>的映射关系定义，它也支持级联等特性。只是<code>MyBatis</code>现有的版本只支持<code>resultMap</code>查询，不支持更新或者保存，</p>
+<h4 id="5-7-1-resultMap元素的构成"><a href="#5-7-1-resultMap元素的构成" class="headerlink" title="5.7.1 resultMap元素的构成"></a>5.7.1 resultMap元素的构成</h4><p><code>resultMap</code>元素的子元素<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">idArg</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">arg</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">constructor</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">association</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">collection</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">discriminator</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">case</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">discriminator</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="5-7-2-使用map存储结果集"><a href="#5-7-2-使用map存储结果集" class="headerlink" title="5.7.2 使用map存储结果集"></a>5.7.2 使用map存储结果集</h4><p>一般而言，任何<code>select</code>语句都可以使用<code>map</code>存储<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findColorByNote"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultType</span>=<span class="string">"map"</span>&gt;</span></span><br><span class="line">    select id, color, note from t_color where note like concat('%', #&#123;note&#125;, '%')</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>使用map原则上是可以匹配所有的结果集的，但是使用map接口就意味着可读性的下降</p>
+<h4 id="5-7-3-使用POJO存储结果集"><a href="#5-7-3-使用POJO存储结果集" class="headerlink" title="5.7.3 使用POJO存储结果集"></a>5.7.3 使用POJO存储结果集</h4><p>使用<code>map</code>方式就意味着可读性的丢失，<code>POJO</code>是最常用的方式。有时候需要更为复杂的映射或者级联，这个时候还可以使用<code>select</code>语句的<code>resultMap</code>属性配置映射集合<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"roleResultMap"</span> <span class="attr">type</span>=<span class="string">"com.learn.Role"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"id"</span> ／&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"roleName"</span> <span class="attr">column</span>=<span class="string">"role_name"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"note"</span> <span class="attr">column</span>=<span class="string">"note"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>resultMap</code>元素的属性<code>id</code>代表这个<code>resultMap</code>的标识，<code>type</code>代表着需要映射的<code>POJO</code>，这里可以使用<code>MyBatis</code>定义好的类的别名，也可以使用自定义的类的全限定名。在映射关系中，<code>id</code>元素表示这个对象的主键，<code>property</code>代表着<code>POJO</code>的属性名称，<code>column</code>表示数据库<code>SQL</code>的列名，于是<code>POJO</code>就和数据库<code>SQL</code>的结果一一对应起来了</p>
+<h3 id="5-8-级联"><a href="#5-8-级联" class="headerlink" title="5.8 级联"></a>5.8 级联</h3><p>级联是一个数据库实体的概念。比如角色就需要存在用户与之对应，这样就有角色用户表，一个角色可能有多个用户，这就是一对多的级联；除此之外，还有一对一的级联，比如身份证和公民是一对一的关系。在MyBatis中还有一种被成为鉴定器的级联，它是一种可以选择具体实现类的级联</p>
+<p>级联不是必须的，级联的好处是获取关联数据十分便捷，但是级联过多会增加系统的复杂度，同时降低系统的性能</p>
+<h4 id="5-8-1-MyBatis中的级联"><a href="#5-8-1-MyBatis中的级联" class="headerlink" title="5.8.1 MyBatis中的级联"></a>5.8.1 MyBatis中的级联</h4><p><code>MyBatis</code>的级联分为3种。</p>
 <ul>
-<li>先将森林中的每棵树转换为二叉树</li>
-<li>将第一棵树的根作为转换后二叉树的根，将第一棵树的左子树作为转换后二叉树根的左子树</li>
-<li>将第二棵树作为转化后二叉树的右子树</li>
-<li>将第三棵树作为转化后二叉树根的右子树的右子树</li>
+<li>鉴别器(<code>discriminator</code>)：它是一个根据某些条件决定采用具体实现类级联的方案，比如体检表要根据性别去区分。</li>
+<li>一对一(<code>association</code>)：比如学生证和学生就是一种一对一的级联，雇员和工牌表也是一种一对一的级联。</li>
+<li>一对多(<code>collection</code>)：比如班主任和学生就是一种一对多的级联。</li>
 </ul>
-<p>二叉树转换回森林的规则</p>
+<p>为了更好地阐述级联，先给出一个雇员级联模型<br><img src="/2020/01/30/SSM-5-映射器/200130_0.png" alt=""></p>
+<h4 id="5-8-2-N-1问题"><a href="#5-8-2-N-1问题" class="headerlink" title="5.8.2 N+1问题"></a>5.8.2 N+1问题</h4><p>通过级联，我们可以拿出所有关联数据，但这样会引发性能问题。因为有些性能并不常用，加载它们会多执行几条毫无用处的<code>SQL</code>，导致数据库资源的损耗和系统性能的下降，这就是N+1问题</p>
+<p>为了应对N+1问题，MyBatis提供了延迟加载功能</p>
+<h4 id="5-8-3-延迟加载"><a href="#5-8-3-延迟加载" class="headerlink" title="5.8.3 延迟加载"></a>5.8.3 延迟加载</h4><p>在<code>MyBatis</code>的<code>setting</code>配置中存在两个元素可以配置级联</p>
+<p><code>lazyLoadingEnabled</code>是一个开关，决定开不开启延迟加载，默认值为<code>false</code>，则不开启延迟加载</p>
+<p><code>aggressiveLazyLoading</code>配置项是一个层级开关，当设置为<code>true</code>时，它是一个开启了层级开关的延迟加载</p>
+<p>此外，在<code>MyBatis</code>中使用<code>fetchType</code>属性，可以处理全局定义无法处理的问题，<code>fetchType</code>出现在级联元素(<code>association</code>、<code>collection</code>)，它存在两个值</p>
 <ul>
-<li>略，与前面的过程相反</li>
+<li><code>eager</code>，获取当前<code>POJO</code>后立即加载对应数据</li>
+<li><code>lazy</code>，获取当前<code>POJO</code>后延迟加载对应的数据</li>
 </ul>
-<h4 id="4-4-3-树和森林的遍历"><a href="#4-4-3-树和森林的遍历" class="headerlink" title="4.4.3 树和森林的遍历"></a>4.4.3 树和森林的遍历</h4><h5 id="1-树的遍历"><a href="#1-树的遍历" class="headerlink" title="1 树的遍历"></a>1 树的遍历</h5><ol>
-<li>先根遍历: 若树非空，则先访问根节点，再按从左到右的顺序遍历根节点的每棵子树。其顺序与这棵树相应二叉树的先序遍历顺序相同</li>
-<li>后根遍历: 若树非空，则按从左到右的顺序遍历根节点的每棵子树，之后再访问根节点，其访问顺序与这棵树对应二叉树的中序遍历顺序相同</li>
-</ol>
-<h5 id="2-森林的遍历"><a href="#2-森林的遍历" class="headerlink" title="2 森林的遍历"></a>2 森林的遍历</h5><ol>
-<li><p>先序遍历森林</p>
-<ul>
-<li>访问森林中第一课树的根节点</li>
-<li>先序遍历第一课树中根节点的子树森林</li>
-<li>先序遍历除去第一棵树之后剩余的树构成的森林</li>
-</ul>
-</li>
-<li><p>中序遍历森林</p>
-<ul>
-<li>中序遍历森林中第一棵树的根节点的子树森林</li>
-<li>访问第一棵树的根节点</li>
-<li>中序遍历除去第一棵树之后剩余的树构成的森林</li>
-</ul>
-</li>
-</ol>
-<h4 id="4-4-5-树的应用–并查集"><a href="#4-4-5-树的应用–并查集" class="headerlink" title="4.4.5 树的应用–并查集"></a>4.4.5 树的应用–并查集</h4><p>并查集是一种简单的集合表示，它支持以下三种操作</p>
-<ol>
-<li><code>Union(S, Root1, Root2)</code>: 把集合<code>S</code>中的子集合<code>Root2</code>并入子集合<code>Root1</code>。要求<code>Root1</code>和<code>Root2</code>互不相交，否则无法合并</li>
-<li><code>Find(S, x)</code>: 查找集合<code>S</code>中单元素<code>x</code>所在的子集合，并返回该子集合的名字</li>
-<li><code>Initial(S)</code>: 将集合<code>S</code>中的每个元素都初始化为只有一个单元素的子集合</li>
-</ol>
-<p>通常用树的父亲表示法作为并查集的存储结构</p>
-<ul>
-<li>每个子集合以一棵树表示</li>
-<li>所有表示子集合的树，构成全集合的森林，存放在父亲表示数组内</li>
-<li>为了得到两个子集合的并，只需要将其中一个子集合根节点的父亲指针指向另一个集合的根节点</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">define</span> SIZE 100</span></span><br><span class="line"><span class="keyword">int</span> UFSets[SIZE];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Initial</span><span class="params">(<span class="keyword">int</span> S[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i ++)&#123;</span><br><span class="line">        S[i] = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> S[], <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(S[x] &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">        x = S[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(<span class="keyword">int</span> S[], <span class="keyword">int</span> Root1, <span class="keyword">int</span> Root2)</span></span>&#123;</span><br><span class="line">    S[Root2]=Root1;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-5-树与二叉树的应用"><a href="#4-5-树与二叉树的应用" class="headerlink" title="4.5 树与二叉树的应用"></a>4.5 树与二叉树的应用</h3><h4 id="4-5-1-二叉排序树"><a href="#4-5-1-二叉排序树" class="headerlink" title="4.5.1 二叉排序树"></a>4.5.1 二叉排序树</h4><h5 id="1-二叉排序树的定义"><a href="#1-二叉排序树的定义" class="headerlink" title="1 二叉排序树的定义"></a>1 二叉排序树的定义</h5><p>二叉排序树(BST)，又称二叉查找树</p>
-<ol>
-<li>若左子树非空，则左子树上所有节点关键字值均小于根节点关键字值</li>
-<li>若右子树非空。则右子树上所有节点关键字值均大于根节点关键字值</li>
-<li>左、右子树本身也分别是一棵二叉排序树</li>
-</ol>
-<h5 id="2-二叉排序树的查找"><a href="#2-二叉排序树的查找" class="headerlink" title="2 二叉排序树的查找"></a>2 二叉排序树的查找</h5><p>二叉排序树的查找从根节点开始，沿某个分支逐层向下进行比较。若当前节点为空，则查找失败。若当前节点非空且与给定值相等，则查找成功。若给定关键字小于当前节点关键字，则在这个节点的左子树查找，否则在右子树查找。</p>
-<h5 id="3-二叉排序树的插入"><a href="#3-二叉排序树的插入" class="headerlink" title="3 二叉排序树的插入"></a>3 二叉排序树的插入</h5><p>若为空，则直接插入节点；否则，若给定值小于当前节点值，则插入到左子树；否则，插入到右子树</p>
-<h5 id="4-二叉排序树的构建"><a href="#4-二叉排序树的构建" class="headerlink" title="4 二叉排序树的构建"></a>4 二叉排序树的构建</h5><p>略</p>
-<h5 id="5-二叉排序树的删除"><a href="#5-二叉排序树的删除" class="headerlink" title="5 二叉排序树的删除"></a>5 二叉排序树的删除</h5><ol>
-<li>若被删除节点$z$是叶子节点，则直接删除</li>
-<li>若节点$z$只有左子树或右子树，则让$z$的子树成为$z$父节点的子树，替代$z$的位置</li>
-<li>若节点$z$有左、右两棵子树，则令$z$的直接后继(或直接前驱)替代$z$，然后将问题转换为$z$的直接后继(或直接前驱)的删除问题，直到转换为情况1或情况2</li>
-</ol>
-<h5 id="6-二叉排序树的查找效率分析"><a href="#6-二叉排序树的查找效率分析" class="headerlink" title="6 二叉排序树的查找效率分析"></a>6 二叉排序树的查找效率分析</h5><p>二叉排序树查找算法的效率，主要取决于树的高度。对于高度为$h$的二叉排序树，其插入和删除操作的运行时间都为$O(h)$</p>
-<ul>
-<li>若二叉排序树是一个只有左(或右)孩子的单支树，则其平均查找长度与单链表相同，为$O(n)$</li>
-<li>若二叉排序树的左、右子树的高度之差的绝对值不超过$1$，则这样的二叉排序树为平衡二叉树，它的平均查找长度为$O(log_2n)$</li>
-</ul>
-<h4 id="4-5-2-平衡二叉树"><a href="#4-5-2-平衡二叉树" class="headerlink" title="4.5.2 平衡二叉树"></a>4.5.2 平衡二叉树</h4><h5 id="1-平衡二叉树的定义"><a href="#1-平衡二叉树的定义" class="headerlink" title="1 平衡二叉树的定义"></a>1 平衡二叉树的定义</h5><p>平衡二叉树: 任意节点的左、右子树高度差的绝对值不超过1，将这样的二叉树称为平衡二叉树</p>
-<p>平衡因子: 定义节点左子树与右子树的高度差为该节点的平衡因子</p>
-<h5 id="2-平衡二叉树的插入"><a href="#2-平衡二叉树的插入" class="headerlink" title="2 平衡二叉树的插入"></a>2 平衡二叉树的插入</h5><p>二叉排序树保证平衡的基本思想如下</p>
-<ul>
-<li>每当在二叉排序树中插入一个节点时，首先检查其插入路径上的节点是否因为此次操作而导致了不平衡</li>
-<li>若导致了不平衡，则先找到插入路径上离插入节点最近的平衡因子的绝对值大于$1$的节点A</li>
-<li>再对以A为根的子树，在保持二叉排序树特性的前提下，调整各节点的位置关系，使之重新达到平衡</li>
-</ul>
-<p>调整方法如下</p>
-<ol>
-<li>LL平衡旋转<ul>
-<li>将A的左孩子B向右上旋转代替A成为根节点</li>
-<li>将A节点向右下旋转成为B的右子树的根节点</li>
-<li>B的原右子树作为A的左子树</li>
-</ul>
-</li>
-<li>RR平衡旋转<ul>
-<li>略</li>
-</ul>
-</li>
-<li>LR平衡旋转<ul>
-<li>先将A节点的左孩子B的右子树的根节点C向左上旋转提升到B节点的位置</li>
-<li>然后再把该C节点向右上旋转提升到A节点的位置</li>
-</ul>
-</li>
-<li>RL平衡旋转<ul>
-<li>略<h5 id="3-平衡二叉树的查找"><a href="#3-平衡二叉树的查找" class="headerlink" title="3 平衡二叉树的查找"></a>3 平衡二叉树的查找</h5></li>
-</ul>
-</li>
-</ol>
-<p>含有n个节点的平衡二叉树的最大深度为$O(log_2n)$，因此平衡二叉树的平均查找长度为$O(log_2n)$</p>
-<h4 id="4-5-3-哈夫曼树和哈夫曼编码"><a href="#4-5-3-哈夫曼树和哈夫曼编码" class="headerlink" title="4.5.3 哈夫曼树和哈夫曼编码"></a>4.5.3 哈夫曼树和哈夫曼编码</h4><h5 id="1-哈夫曼树的定义"><a href="#1-哈夫曼树的定义" class="headerlink" title="1 哈夫曼树的定义"></a>1 哈夫曼树的定义</h5><p>节点的权: 为树中节点赋予的一个表示某种特殊意义的数值</p>
-<p>节点的带权路径长度: 从树根节点到该节点的路径长度与该节点上权值的乘积</p>
-<p>树的带权路径长度: 树中所有叶节点的带权路径长度之和称为该树的带权路径长度</p>
-<p>哈夫曼树(最优二叉树): 在含有n个带权叶子节点的二叉树中，带权路径长度最小的二叉树</p>
-<h5 id="2-哈夫曼树的构建"><a href="#2-哈夫曼树的构建" class="headerlink" title="2 哈夫曼树的构建"></a>2 哈夫曼树的构建</h5><p>通过哈夫曼算法可以构建最优二叉树，如下</p>
-<ol>
-<li>将这$n$个节点分别作为$n$棵仅含有一个节点的二叉树，构成森林$F$</li>
-<li>构造一个新节点，从$F$中选取两棵根节点权值最小的树作为新节点的左、右子树，并且将新节点的权值置为左、右子树上根节点的权值之和</li>
-<li>从$F$中删除刚才选出的两棵树，同时将新得到的树加入到$F$中</li>
-<li>重复2和3，直到F中只剩下一棵树为止</li>
-</ol>
-<p>从上述构建过程可以看出哈夫曼树的特点</p>
-<ol>
-<li>每个初始节点最终都成为叶节点，且权值越小的节点到根节点的路径长度越大</li>
-<li>构建过程中共新建了$n-1$个节点，因此哈夫曼树中节点总数为$2n-1$</li>
-<li>每次构建都选择两棵树作为新节点的孩子，因此哈夫曼树不存在度为1的节点</li>
-</ol>
-<h5 id="3-哈夫曼编码"><a href="#3-哈夫曼编码" class="headerlink" title="3 哈夫曼编码"></a>3 哈夫曼编码</h5><p>固定长度编码和可变长度编码: 对于待处理的一个字符串序列，若对每个字符用相同长度的二进制位表示，则称这种编码方式为固定长度编码；若允许对不同字符用不等长的二进制表示，则这种方式称为可变长度编码</p>
-<p>可变长度编码的好处: 对频率高的字符赋以短编码，而对频率低的字符赋以长编码，从而可以使字符平均编码长度减短，达到压缩数据的效果</p>
+<h3 id="5-9-缓存"><a href="#5-9-缓存" class="headerlink" title="5.9 缓存"></a>5.9 缓存</h3><p>在<code>MyBatis</code>中允许使用缓存， 缓存一般都放置在可高速读／写的存储器上，比如服务器的内存，它能够有效提高系统的性能。一般只会把那些常用且命中率高的数据缓存起来，以便将来使用，而不缓存那些不常用且命中率低的数据缓存。</p>
+<h4 id="5-9-1-一级续存和二级缓存"><a href="#5-9-1-一级续存和二级缓存" class="headerlink" title="5.9.1 一级续存和二级缓存"></a>5.9.1 一级续存和二级缓存</h4><p>一级缓存是在<code>SqlSession</code>上的缓存，二级缓存是在<code>SqlSessionFactory</code>上的缓存。默认情况下，也就是没有任何配置的情况下，<code>MyBatis</code>系统会开启一级缓存，也就是对于<code>SqlSession</code> 层面的缓存，这个缓存不需要<code>POJO</code>对象可序列化。</p>
+<p>为了使<code>SqlSession</code>对象之间共享相同的缓存，有时候需要开启二级缓存，开启二级缓存很简单，只要在映射文件(<code>RoleMapper.xml</code>)上加入代码：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这个时候<code>MyBatis</code>会序列化和反序列化对应的<code>POJO</code>，也就要求<code>POJO</code>是一个可序列化的对象，那么它就必须实现<code>java.io.Serializable</code> 接口。</p>
+<h4 id="5-9-2-自定义缓存"><a href="#5-9-2-自定义缓存" class="headerlink" title="5.9.2 自定义缓存"></a>5.9.2 自定义缓存</h4><p><code>MyBatis</code>可以使用自定义的缓存，只是实现类需要实现<code>MyBatis</code>的接口<code>org.apache.ibatis.cache.Cache</code>，让我们看看<code>Cache</code>接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.ibatis.cache;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Cache</span> </span>&#123;</span><br><span class="line"><span class="comment">//获取缓存ID</span></span><br><span class="line"><span class="function">String <span class="title">getld</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">//保存对象， key 为键， value 为值</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">putObject</span><span class="params">(Object key , Object value)</span></span>;</span><br><span class="line"><span class="comment">//获取缓存数据， key 为键</span></span><br><span class="line"><span class="function">Object <span class="title">getObject</span><span class="params">(Object key)</span></span>;</span><br><span class="line"><span class="comment">//删除缓存key 为键</span></span><br><span class="line"><span class="function">Object <span class="title">removeObject</span><span class="params">(Object key)</span></span>;</span><br><span class="line"><span class="comment">//清除缓存</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>;</span><br><span class="line"><span class="comment">//获得缓存大小</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span> </span>;</span><br><span class="line"><span class="comment">//获取读／写锁，需要考虑多线程的场景</span></span><br><span class="line"><span class="function">ReadWriteLock <span class="title">getReadWriteLock</span><span class="params">()</span> </span>;</span><br></pre></td></tr></table></figure>
+<p>在现实中，我们可以使用<code>Redis</code>,<code>MongoDB</code>或者其他常用的缓存，假设存在一个<code>Redis</code>的缓存实现类<code>com.ssm.chapter5.cache.RedisCache</code> ，那么可以这样配置它：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span> <span class="attr">type</span> =<span class="string">"com.ssm.chapterS.cache.RedisCache"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"host"</span> <span class="attr">value</span>=<span class="string">"localhost"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">cache</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="5-10-存储过程"><a href="#5-10-存储过程" class="headerlink" title="5.10 存储过程"></a>5.10 存储过程</h3><p>略</p>
 
           
         
@@ -667,7 +565,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -715,7 +613,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -737,7 +635,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

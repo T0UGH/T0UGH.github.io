@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/25/数据结构考研-2-线性表/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/25/SSM-10-装配SpringBean/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/25/数据结构考研-2-线性表/" itemprop="url">[数据结构考研][2][线性表]</a></h1>
+                <a class="post-title-link" href="/2019/12/25/SSM-10-装配SpringBean/" itemprop="url">[SSM][10][装配SpringBean]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-25T12:12:15+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-25T13:01:39+08:00">
                 2019-12-25
               </time>
             
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
+                  <a href="/categories/SSM/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/12/25/数据结构考研-2-线性表/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/25/数据结构考研-2-线性表/" itemprop="commentCount"></span>
+                <a href="/2019/12/25/SSM-10-装配SpringBean/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/25/SSM-10-装配SpringBean/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,156 +362,295 @@
       
         
           
-            <h2 id="第-2-章-线性表"><a href="#第-2-章-线性表" class="headerlink" title="第 2 章 线性表"></a>第 2 章 线性表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">digraph demo&#123;</span><br><span class="line">    线性表-&gt;顺序存储[dir=none];</span><br><span class="line">    线性表-&gt;链式存储[dir=none];</span><br><span class="line">    链式存储-&gt;单链表[dir=none];</span><br><span class="line">    链式存储-&gt;双链表[dir=none];</span><br><span class="line">    链式存储-&gt;循环链表[dir=none];</span><br><span class="line">    链式存储-&gt;静态链表[dir=none];</span><br><span class="line">    单链表-&gt;指针实现[dir=none];</span><br><span class="line">    双链表-&gt;指针实现[dir=none];</span><br><span class="line">    循环链表-&gt;指针实现[dir=none];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-1-线性表的定义和基本操作"><a href="#2-1-线性表的定义和基本操作" class="headerlink" title="2.1 线性表的定义和基本操作"></a>2.1 线性表的定义和基本操作</h3><h4 id="2-1-1-线性表的定义"><a href="#2-1-1-线性表的定义" class="headerlink" title="2.1.1 线性表的定义"></a>2.1.1 线性表的定义</h4><p>线性表是具有相同数据类型的$n(n \ge 0)$个元素的有限序列，其中$n$为表长</p>
-<p>若用$L$命名线性表，则其一般表示为<br>$$L=(a_1,a_2,…,a_n)$$</p>
-<p>线性表的逻辑特性</p>
+            <h2 id="10-装配SpringBean"><a href="#10-装配SpringBean" class="headerlink" title="10 装配SpringBean"></a>10 装配SpringBean</h2><h3 id="10-1-依赖注入的3种方式"><a href="#10-1-依赖注入的3种方式" class="headerlink" title="10.1 依赖注入的3种方式"></a>10.1 依赖注入的3种方式</h3><ul>
+<li><p>Spring主要使用依赖注入的方式来完成IoC</p>
+</li>
+<li><p>依赖注入可以分为3种方式</p>
 <ul>
-<li>除第一个元素外，每个元素有且仅有一个直接前驱</li>
-<li>除最后一个元素外，每个元素有且仅有一个直接后继</li>
+<li>构造器注入</li>
+<li><code>setter</code>注入</li>
+<li>接口注入</li>
 </ul>
-<p>线性表的特点有</p>
+</li>
+</ul>
+<h4 id="10-1-构造器注入"><a href="#10-1-构造器注入" class="headerlink" title="10.1 构造器注入"></a>10.1 构造器注入</h4><ul>
+<li><p>简介</p>
 <ul>
-<li>表中元素的个数有限</li>
-<li>表中元素具有逻辑上的顺序性，在序列中各元素排序有其先后顺序</li>
-<li>表中元素都是数据元素，每个元素都是单个数据</li>
-<li>表中元素的数据类型都相同，这意味着每个元素占有相同大小的存储空间</li>
-<li>表中元素具有抽象性，即仅讨论元素间的逻辑关系，而不考虑元素究竟表示什么内容</li>
+<li>构造器注入依赖于构造方法的实现</li>
+<li>为了让<code>Spring</code>完成对应的构造注入，我们有必要去描述具体的类、构造方法并设置对应的参数，这样<code>Spring</code>就可以通过对应的信息用反射的形式创建对象</li>
 </ul>
-<p>注意: 线性表是一种逻辑结构，表示元素之间的一对一的相邻关系，顺序表和链表是指存储结构，两者属于不同层面的概念，因此不要混淆</p>
-<h4 id="2-1-2-线性表的基本操作"><a href="#2-1-2-线性表的基本操作" class="headerlink" title="2.1.2 线性表的基本操作"></a>2.1.2 线性表的基本操作</h4><p>数据结构的基本操作</p>
-<ul>
-<li>一个数据结构的基本操作是指其最核心、最基本的操作</li>
-<li>其他较复杂的操作可以通过基本操作来实现</li>
-</ul>
-<p>线性表的主要操作</p>
-<ul>
-<li><code>InitList(&amp;L)</code>: 初始化表，构建一个空的线性表</li>
-<li><code>Length(L)</code>: 求表长，返回线性表$L$的长度，即$L$中数据元素的个数</li>
-<li><code>LocateElem(L,e)</code>: 按值查找操作，在表$L$中查找具有给定关键字值的元素</li>
-<li><code>GetElem(L,i)</code>: 按位查找操作。获取表$L$中第$i$个位置的元素的值</li>
-<li><code>ListInsert(&amp;L, i, e)</code>:插入操作，在表$L$中的第$i$个位置上插入指定元素$e$</li>
-<li><code>ListDelete(&amp;L, i ,&amp;e)</code>:删除操作，删除表$L$中第$i$个位置的元素，并用$e$返回删除的元素的值</li>
-<li><code>PrintList(L)</code>:输出操作。按前后顺序输出线性表$L$的所有元素值</li>
-<li><code>Empty(L)</code>:判空操作。若$L$为空表，则返回<code>true</code>，否则返回<code>false</code></li>
-<li><code>DestroyList(&amp;L)</code>: 销毁操作。销毁线性表，并释放线性表$L$所占的内存空间<h3 id="2-2-线性表的顺序表示"><a href="#2-2-线性表的顺序表示" class="headerlink" title="2.2 线性表的顺序表示"></a>2.2 线性表的顺序表示</h3></li>
-</ul>
-<h4 id="2-2-1-顺序表的定义"><a href="#2-2-1-顺序表的定义" class="headerlink" title="2.2.1 顺序表的定义"></a>2.2.1 顺序表的定义</h4><p>线性表的顺序存储又称顺序表，它是用一组地址连续的存储单元依次存储线性表中的数据元素，从而使逻辑上相邻的两个元素在物理位置上也相邻</p>
-<p>顺序表的特点是表中元素的逻辑顺序与其物理顺序相同</p>
-<p>顺序表支持随机访问，即通过首地址和元素序号可在时间$O(1)$内找到指定的元素</p>
-<p>顺序表的存储密度高，每个节点除了数据元素外，不存储其他多余的值</p>
-<p>顺序表逻辑上相邻的元素物理上也相邻，所以插入和删除操作需要移动大量元素</p>
-<h4 id="2-2-2-顺序表上基本操作的实现"><a href="#2-2-2-顺序表上基本操作的实现" class="headerlink" title="2.2.2 顺序表上基本操作的实现"></a>2.2.2 顺序表上基本操作的实现</h4><h5 id="1-插入操作"><a href="#1-插入操作" class="headerlink" title="1 插入操作"></a>1 插入操作</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">ListInsert</span><span class="params">(SqList *l, <span class="keyword">int</span> i, ElemType e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i &lt; <span class="number">0</span> || i &gt; l-&gt;length)&#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(l-&gt;length &gt;= l-&gt;listsize &amp;&amp; OVERFLOW == ReAllocList(l))&#123;</span><br><span class="line">            <span class="keyword">return</span> OVERFLOW;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = l-&gt;length - <span class="number">1</span>; j &gt;= i; j --)&#123;</span><br><span class="line">        l-&gt;elem[j+<span class="number">1</span>] = l-&gt;elem[j]; </span><br><span class="line">    &#125;</span><br><span class="line">    l-&gt;elem[i] = e;</span><br><span class="line">    l-&gt;length++;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>插入操作的时间复杂度</p>
-<ul>
-<li>最好情况: 在表尾插入，元素不需要后移，时间复杂度为$O(1)$</li>
-<li>最坏情况: 在表头插入，元素整体都后移，时间复杂度$O(n)$</li>
-<li>平均情况: 时间复杂度为$O(n)$<br>$$\sum_{i=1}^{n+1}p_i(n-i+1)=\sum_{i=1}^{n+1}\frac{1}{n+1}(n-i+1)=\frac{n}{2}$$</li>
-</ul>
-<h5 id="2-删除操作"><a href="#2-删除操作" class="headerlink" title="2 删除操作"></a>2 删除操作</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//删除元素</span></span><br><span class="line"><span class="function">Status <span class="title">ListDelete</span><span class="params">(SqList *l, <span class="keyword">int</span> i, ElemType *e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i &lt; <span class="number">0</span> || i &gt; l-&gt;length)&#123;</span><br><span class="line">        e = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *e = l-&gt;elem[i];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"before: %d\n"</span>, e-&gt;id);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; l-&gt;length - <span class="number">1</span>; j ++)&#123;</span><br><span class="line">        l-&gt;elem[j] = l-&gt;elem[j+<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    l-&gt;length--;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"after: %d\n"</span>, e-&gt;id);</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>删除操作的时间复杂度</p>
-<ul>
-<li>最好情况: 删除表尾元素($i=n$)，无须移动元素，时间复杂度为$O(1)$</li>
-<li>最坏情况: 删除表头元素($i=1$)，需要移动所有元素，时间复杂度为$O(n)$</li>
-<li>平均情况: 时间复杂度为$O(n)$</li>
-</ul>
-<h5 id="3-按值查找"><a href="#3-按值查找" class="headerlink" title="3 按值查找"></a>3 按值查找</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//按值查找元素</span></span><br><span class="line"><span class="function">Status <span class="title">LocateElem</span><span class="params">(SqList *l, ElemType e, <span class="keyword">int</span> *locate)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; l-&gt;length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(l-&gt;elem[i].id == e.id)&#123;</span><br><span class="line">            *locate = i;</span><br><span class="line">            <span class="keyword">return</span> OK;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    *locate = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">return</span> NOSUCHELEM; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>按值查找的时间复杂度</p>
-<ul>
-<li>最好情况: 查找的元素就在表头，仅需比较$1$次，时间复杂度为$O(1)$</li>
-<li>最坏情况: 查找的元素在表尾，需比较$n$次，时间复杂度为$O(n)$</li>
-<li>平均情况: 时间复杂度为$O(n)$<br>$$\sum_{i=1}^{n}p_i\times{i}=\sum_{i=1}^{n}\frac{1}{n}\times{i}=\frac{n+1}{2}$$</li>
-</ul>
-<h3 id="2-3-线性表的链式表示"><a href="#2-3-线性表的链式表示" class="headerlink" title="2.3 线性表的链式表示"></a>2.3 线性表的链式表示</h3><p>链式存储线性表时，不需要使用地址连续的存储单元，即它不要求逻辑上相邻的两个元素在物理位置上也相邻</p>
-<p>它通过”链”建立起数据元素之间的逻辑关系，因此对于线性表的插入、删除不需要移动元素，而只需要修改指针</p>
-<h4 id="2-3-1-单链表的定义"><a href="#2-3-1-单链表的定义" class="headerlink" title="2.3.1 单链表的定义"></a>2.3.1 单链表的定义</h4><p>线性表的链式存储又称单链表，它是指通过一组任意的存储单元来存储线性表中的数据元素</p>
-<p>为了建立数据元素之间的线性关系，对每个链表节点，除存放元素本身的信息外，还需要存放一个指向其后继的指针</p>
-<p>单链表中节点类型的描述<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">LNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">LNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;LNode</span><br></pre></td></tr></table></figure></p>
-<p>非随机存储</p>
-<ul>
-<li>由于单链表的元素是离散地分布在存储空间中的</li>
-<li>所以单链表是非随机存取的存储结构</li>
-<li>不能直接找到表中某个特定的节点</li>
-</ul>
-<p>头指针和头节点</p>
-<ul>
-<li>通常用头指针来标识一个单链表</li>
-<li>为了操作方便，在单链表第一个节点之前附加一个节点，称为头节点。头节点的数据域可以不设任何信息，也可以记录表长等相关信息</li>
-</ul>
-<p>头节点和头指针的区别</p>
-<ul>
-<li>不管带不带头节点，头指针始终指向链表的第一个节点</li>
-<li>而头节点是带头节点的链表中的第一个节点，节点内通常不存储信息</li>
-</ul>
-<p>引入头节点之后的优点</p>
+</li>
+<li><p>实例: 构造器注入</p>
 <ol>
-<li>由于开始节点的位置被存在头节点的指针域中，所以在链表的第一个位置上的操作与在表的其他位置上的操作一致，无须进行特殊处理</li>
-<li>无论链表是否为空，其头指针都指向头节点的非空指针</li>
+<li><p>创建一个只有有参构造器的<code>POJO</code></p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Role</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String roleName;</span><br><span class="line">    <span class="keyword">private</span> String note;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Role</span><span class="params">(String roleName, String note)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.roleName = roleName;</span><br><span class="line">        <span class="keyword">this</span>.note = note;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*getter and setter*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>spring-config.xml</code>中配置对象</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"role1"</span> <span class="attr">class</span>=<span class="string">"Role"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">value</span>=<span class="string">"总经理"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"1"</span> <span class="attr">value</span>=<span class="string">"公司管理者"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h4 id="2-3-2-单链表上基本操作的实现"><a href="#2-3-2-单链表上基本操作的实现" class="headerlink" title="2.3.2 单链表上基本操作的实现"></a>2.3.2 单链表上基本操作的实现</h4><h5 id="1-插入操作-1"><a href="#1-插入操作-1" class="headerlink" title="1 插入操作"></a>1 插入操作</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">ListInsert</span><span class="params">(LinkedList *l, <span class="keyword">int</span> i, ElemType e)</span></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"ListInsert: %d %d %s\n"</span>, i, e.id, e.name);</span><br><span class="line">    <span class="keyword">if</span>(i &lt; <span class="number">0</span> || i &gt; l-&gt;length)&#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *curr = l-&gt;head;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j ++)&#123;</span><br><span class="line">        curr = curr-&gt;next; </span><br><span class="line">    &#125;</span><br><span class="line">    LNode *p = (LNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    p-&gt;elem = e;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"AfterInsert: %d %s\n"</span>, p-&gt;elem.id, p-&gt;elem.name);</span><br><span class="line">    p-&gt;next = curr-&gt;next;</span><br><span class="line">    curr-&gt;next = p;</span><br><span class="line">    l-&gt;length++;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度: $O(n)$</p>
-<p>扩展: 对某节点的前插操作</p>
+</li>
+<li><p>构造器配置</p>
+<ul>
+<li><code>constructor-arg</code>元素用于定义类构造方法的参数</li>
+<li><code>index</code>用于定义参数的位置</li>
+<li><code>value</code>则是设置值</li>
+<li>通过这样的定义Spring便知道使用<code>Role(String, String)</code>这样的构造方法去创建对象</li>
+</ul>
+</li>
+</ul>
+<h4 id="10-1-2-使用setter注入"><a href="#10-1-2-使用setter注入" class="headerlink" title="10.1.2 使用setter注入"></a>10.1.2 使用setter注入</h4><ul>
+<li><p>简介</p>
+<ul>
+<li><code>setter</code>注入是Spring中最主流的注入方式，它利用<code>Java Bean</code>规范所定义的<code>setter</code>方法来完成注入，灵活且可读性高</li>
+<li>通过Java反射技术,Spring会调用没有参数的构造方法来生成对象，同时通过反射对应的<code>setter</code>注入配置的值</li>
+</ul>
+</li>
+<li><p>实例:配置<code>setter</code>注入</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"role2"</span> <span class="attr">class</span>=<span class="string">"Role"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"roleName"</span> <span class="attr">value</span>=<span class="string">"高级工程师"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"note"</span> <span class="attr">value</span>=<span class="string">"重要人员"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="10-1-3-接口注入"><a href="#10-1-3-接口注入" class="headerlink" title="10.1.3 接口注入"></a>10.1.3 接口注入</h4><ul>
+<li>简介<ul>
+<li>有些时候资源并非来自于自身系统，而是来自于外界</li>
+<li>比如数据库连接资源完全可以在Tomcat下配置，然后通过JNDI的方式去获取它</li>
+</ul>
+</li>
+</ul>
+<h3 id="10-2-装配Bean概述"><a href="#10-2-装配Bean概述" class="headerlink" title="10.2 装配Bean概述"></a>10.2 装配Bean概述</h3><ul>
+<li><p>本节需要学习的是如何将自己开发的<code>Bean</code>装配到<code>Spring IoC</code>容器中</p>
+</li>
+<li><p>Spring提供了3种方法进行配置</p>
+<ul>
+<li>在XML中显式配置</li>
+<li>在Java的接口和类中实现配置</li>
+<li>隐式Bean的发现机制和自动装配原则</li>
+</ul>
+</li>
+<li><p>3种方法的优先级</p>
 <ol>
-<li>前插操作是指在某节点的前面插入一个新节点，与后插操作相反</li>
-<li>要找到插入节点的前驱节点，然后对这个节点执行后插操作</li>
+<li>基于约定优于配置的原则，最优先的应该是通过隐式Bean的发现机制和自动装配的原则。这样的好处是减少程序开发者的决定权，简单而不失灵活</li>
+<li>在没有办法使用自动装配原则的情况下应该优先考虑Java接口和类中实现配置，这样的好处是避免XML配置的泛滥</li>
+<li>在上述方法都无法使用的情况下，只能选择XML去配置Spring IoC容器</li>
 </ol>
-<h5 id="2-删除操作-1"><a href="#2-删除操作-1" class="headerlink" title="2 删除操作"></a>2 删除操作</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">ListDelete</span><span class="params">(LinkedList *l, <span class="keyword">int</span> i, ElemType *e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i &lt; <span class="number">0</span> || i &gt; l-&gt;length)&#123;</span><br><span class="line">        e = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *curr = l-&gt;head;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j ++)&#123;</span><br><span class="line">        curr = curr-&gt;next; </span><br><span class="line">    &#125;</span><br><span class="line">    *e = curr-&gt;next-&gt;elem;<span class="comment">//[正确写法]</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Delete: %d %s\n"</span>,e-&gt;id, e-&gt;name);</span><br><span class="line">    curr-&gt;next = curr-&gt;next-&gt;next;</span><br><span class="line">    l-&gt;length--;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度: $O(n)$</p>
-<p>扩展:删除节点<code>*p</code></p>
-<ul>
-<li>可以将其后继节点的值赋予其自身，然后删除后继节点</li>
-<li>这样可以让时间复杂度为 $O(1)$</li>
+</li>
 </ul>
-<h5 id="3-按序号查找操作"><a href="#3-按序号查找操作" class="headerlink" title="3 按序号查找操作"></a>3 按序号查找操作</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//按位置查找元素</span></span><br><span class="line"><span class="function">Status <span class="title">GetElem</span><span class="params">(LinkedList *l, <span class="keyword">int</span> i, ElemType *e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i &lt; <span class="number">0</span> || i &gt; l-&gt;length)&#123;</span><br><span class="line">        e = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *curr = l-&gt;head-&gt;next;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j ++)&#123;</span><br><span class="line">        curr = curr-&gt;next; </span><br><span class="line">    &#125;</span><br><span class="line">    *e = curr-&gt;elem;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度$O(n)$</p>
-<h5 id="4-按值查找操作"><a href="#4-按值查找操作" class="headerlink" title="4 按值查找操作"></a>4 按值查找操作</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">LocateElem</span><span class="params">(LinkedList *l, ElemType e, <span class="keyword">int</span> *locate)</span></span>&#123;</span><br><span class="line">    LNode *curr = l-&gt;head;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(curr-&gt;next != <span class="literal">NULL</span>)&#123;</span><br><span class="line">        curr = curr-&gt;next;</span><br><span class="line">        <span class="keyword">if</span>(curr-&gt;elem.id == e.id)&#123;</span><br><span class="line">            *locate = i;</span><br><span class="line">            <span class="keyword">return</span> OK;</span><br><span class="line">        &#125;</span><br><span class="line">        i ++;</span><br><span class="line">    &#125;</span><br><span class="line">    *locate = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">return</span> NOSUCHELEM;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度: $O(n)$</p>
-<h4 id="2-3-3-双链表"><a href="#2-3-3-双链表" class="headerlink" title="2.3.3 双链表"></a>2.3.3 双链表</h4><p>双链表节点中有两个指针<code>prior</code>和<code>next</code>分别指向前驱节点和后继节点</p>
-<h4 id="2-3-4-循环链表"><a href="#2-3-4-循环链表" class="headerlink" title="2.3.4 循环链表"></a>2.3.4 循环链表</h4><h5 id="1-循环单链表"><a href="#1-循环单链表" class="headerlink" title="1 循环单链表"></a>1 循环单链表</h5><p>循环单链表和单链表的区别是，表中最后一个节点的指针不是<code>NULL</code>，而是改为指向头节点，从而整个链表形成一个环</p>
-<p>有时对单链表常做的操作是在表头和表尾进行的，此时对循环单链表不设头指针而仅设尾指针，从而效率更高，对表头和表尾进行操作都是$O(1)$</p>
-<h5 id="2-循环双链表"><a href="#2-循环双链表" class="headerlink" title="2 循环双链表"></a>2 循环双链表</h5><p>略</p>
-<h4 id="2-3-5-静态链表"><a href="#2-3-5-静态链表" class="headerlink" title="2.3.5 静态链表"></a>2.3.5 静态链表</h4><p>静态链表是借助数组来描述线性表的链式存储结构</p>
-<p>节点也有数据域<code>data</code>和指针域<code>next</code>，但是，这里的指针是节点的相对地址(数组下标)</p>
-<p>静态链表结构类型如下<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXSIZE 50</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="keyword">int</span> next;</span><br><span class="line">&#125;SLinkedList[MAXSIZE];</span><br></pre></td></tr></table></figure></p>
-<p>静态链表以<code>next == -1</code>为结束标志</p>
-<p>总体来说，静态链表没有单链表使用起来方便</p>
-<h4 id="2-3-6-顺序表和链表的比较"><a href="#2-3-6-顺序表和链表的比较" class="headerlink" title="2.3.6 顺序表和链表的比较"></a>2.3.6 顺序表和链表的比较</h4><h5 id="1-存取方式"><a href="#1-存取方式" class="headerlink" title="1 存取方式"></a>1 存取方式</h5><p>顺序表可以顺序存取，也可以随机存取，链表只能从表头顺序存取元素</p>
-<h5 id="2-逻辑结构与物理结构"><a href="#2-逻辑结构与物理结构" class="headerlink" title="2 逻辑结构与物理结构"></a>2 逻辑结构与物理结构</h5><p>采用顺序存储时，逻辑上相邻的元素，其对应的物理存储位置也相邻</p>
-<p>采用链式存储时，逻辑上相邻的元素，其物理存储位置不一定相邻</p>
-<h5 id="3-查找、插入和删除操作"><a href="#3-查找、插入和删除操作" class="headerlink" title="3 查找、插入和删除操作"></a>3 查找、插入和删除操作</h5><p>按值查找操作</p>
+<h3 id="10-3-通过XML配置装配Bean"><a href="#10-3-通过XML配置装配Bean" class="headerlink" title="10.3 通过XML配置装配Bean"></a>10.3 通过XML配置装配Bean</h3><ul>
+<li><p>首先给出XML文件的模板</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Spring Bean 配置代码 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>顺序表无序时，两者的时间复杂度都为$O(n)$</li>
-<li>顺序表有序时，可用折半查找，顺序表时间复杂度为$O(log_2n)$</li>
-</ul>
-<p>按位置查找</p>
-<ul>
-<li>顺序表为$O(1)$</li>
-<li>链表为$O(n)$</li>
-</ul>
-<p>插入和删除</p>
-<ul>
-<li>链表的插入和删除只需要修改相关节点的指针域；而顺序表平均需要移动半个表长的元素</li>
-<li>但是由于链表的每个节点都带有指针域，因而在存储空间上要比顺序存储代价大，存储密度不够大</li>
-</ul>
-<h5 id="4-空间分配动态存储"><a href="#4-空间分配动态存储" class="headerlink" title="4 空间分配动态存储"></a>4 空间分配动态存储</h5><ul>
-<li>顺序表在静态存储分配情形下，一旦存储空间装满就不能扩充。在动态存储分配下，虽然存储空间可以扩充，但需要移动大量元素，效率很低</li>
-<li>链式存储的节点空间只在需要时申请分配，灵活高效</li>
-</ul>
-<h5 id="5-如何选择存储结构"><a href="#5-如何选择存储结构" class="headerlink" title="5 如何选择存储结构"></a>5 如何选择存储结构</h5><ol>
-<li><p>基于存储考虑</p>
-<ul>
-<li>难以估计线性表的长度和存规模时，不宜采用顺序表</li>
+<li>在上述代码中引入了一个<code>beans</code>的定义，它是一个根元素，而XSD文件也被引入了</li>
 </ul>
 </li>
-<li><p>基于运算考虑</p>
+</ul>
+<h4 id="10-3-1-装配简易值"><a href="#10-3-1-装配简易值" class="headerlink" title="10.3.1 装配简易值"></a>10.3.1 装配简易值</h4><ul>
+<li><p>示例1: 简易XML装配<code>bean</code></p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"role2"</span> <span class="attr">class</span>=<span class="string">"Role"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"id"</span> <span class="attr">value</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"roleName"</span> <span class="attr">value</span>=<span class="string">"高级工程师"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"note"</span> <span class="attr">value</span>=<span class="string">"重要人员"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>若经常做的运算是按序号访问数据元素，则显然顺序表优于链表</li>
-<li>若插入和删除操作较多，建议使用链表，因为不需要大量移动元素</li>
+<li><code>id</code>属性是<code>Spring</code>对于这个<code>Bean</code>的编号，如果没有显式指定<code>id</code>，则<code>Spring</code>将采用<code>全限定名#{number}</code>的格式生成编号</li>
+<li><code>class</code>是一个类的全限定名</li>
+<li><code>property</code>元素是定义类的属性，其中<code>name</code>属性定义的是属性名称，而<code>value</code>是属性值</li>
 </ul>
 </li>
-<li><p>基于环境考虑</p>
+<li><p>示例2: 有时需要向类A中注入自定义的类B</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"source"</span> <span class="attr">class</span>=<span class="string">"Source"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"fruit"</span> <span class="attr">value</span>=<span class="string">"橙汁"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sugar"</span> <span class="attr">value</span>=<span class="string">"少糖"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"size"</span> <span class="attr">value</span>=<span class="string">"大杯"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"juiceMaker"</span> <span class="attr">class</span>=<span class="string">"JuiceMaker"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"beverageShop"</span> <span class="attr">value</span>=<span class="string">"贡茶"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"source"</span> <span class="attr">ref</span>=<span class="string">"source"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以通过<code>ref</code>属性来引用对应的<code>Bean</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="10-3-2-装配集合"><a href="#10-3-2-装配集合" class="headerlink" title="10.3.2 装配集合"></a>10.3.2 装配集合</h4><ul>
+<li><p>Spring主要使用下列标签完成对集合的装配</p>
+<ol>
+<li><code>List</code>标签为对应的<code>&lt;list&gt;</code>元素进行装配，然后通过多个<code>&lt;value&gt;</code>元素设值</li>
+<li><code>Map</code>属性为对应的<code>&lt;map&gt;</code>元素进行装配，然后通过多个<code>&lt;entry&gt;</code>元素设值，只是<code>entry</code>包含一个键(key)和一个值(value)的设置。</li>
+<li><code>Properties</code>属性，为对应的<code>&lt;properties&gt;</code>元素进行装配，通过多个<code>&lt;property&gt;</code>元素设置，只是<code>prop</code> 元素有一个必填属性<code>key</code>，然后可以设置值。</li>
+<li><code>Set</code>属性为对应的<code>&lt;set&gt;</code>元素进行装配，然后通过多个<code>&lt;value&gt;</code>元素设值。</li>
+<li>对于数组而言，可以使用<code>&lt;array&gt;</code>设置值，然后通过多个<code>&lt;value&gt;</code>元素设值。</li>
+</ol>
+</li>
+<li><p>示例: 装配集合类</p>
+<ol>
+<li><p>首先定义一个复杂的类</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ComplexAssembly</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> Long id;</span><br><span class="line"><span class="keyword">private</span> List&lt;String&gt; list;</span><br><span class="line"><span class="keyword">private</span> Map&lt;String, String&gt; map;</span><br><span class="line"><span class="keyword">private</span> Properties prop;</span><br><span class="line"><span class="keyword">private</span> Set&lt;String&gt; set;</span><br><span class="line"><span class="keyword">private</span> String[] array;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*getter and setter*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>装配这个集合类</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"complexAssembly"</span> <span class="attr">class</span>=<span class="string">"ComplexAssembly"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"id"</span> <span class="attr">value</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"list"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>value_list_1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>value_list_2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>value_list_3<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"map"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">map</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"key1"</span> <span class="attr">value</span>=<span class="string">"value_key_1"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"key2"</span> <span class="attr">value</span>=<span class="string">"value_key_2"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"key3"</span> <span class="attr">value</span>=<span class="string">"value_key_3"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"prop"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">props</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"prop1"</span>&gt;</span>value_prop_1<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"prop2"</span>&gt;</span>value_prop_2<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"prop3"</span>&gt;</span>value_prop_3<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">props</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"set"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>value_set_1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>value_set_2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>value_set_3<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"array"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>value_array_1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>value_array_2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>value_array_3<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+</li>
+</ul>
+<h4 id="10-3-3-命名空间装配"><a href="#10-3-3-命名空间装配" class="headerlink" title="10.3.3 命名空间装配"></a>10.3.3 命名空间装配</h4><h3 id="10-4-通过注解装配Bean"><a href="#10-4-通过注解装配Bean" class="headerlink" title="10.4 通过注解装配Bean"></a>10.4 通过注解装配<code>Bean</code></h3><ul>
+<li><p>简介: 注解功能更加强大，它既可以实现<code>XML</code>的功能，也提供了自动装配的功能</p>
+</li>
+<li><p>在<code>Spring</code>中，它提供了两种方式来让<code>Spring IoC</code>容器发现<code>Bean</code></p>
+<ul>
+<li>组件扫描: 通过定义资源的方式，让<code>Spring IoC</code>容器扫描对应的包，从而把<code>Bean</code>装配进来</li>
+<li>自动装配: 通过注解定义，使得一些依赖关系可以通过注解完成</li>
+</ul>
+</li>
+<li><p>通过扫描和自动装配，大部分的工程都可以用<code>Java</code>配置完成，而不是<code>XML</code>，这样可以有效减少配置和引入大量<code>XML</code></p>
+</li>
+</ul>
+<h4 id="10-4-1-使用-Component装配Bean"><a href="#10-4-1-使用-Component装配Bean" class="headerlink" title="10.4.1 使用@Component装配Bean"></a>10.4.1 使用<code>@Component</code>装配<code>Bean</code></h4><ul>
+<li><p>示例1: 使用注解装配简单的<code>Bean</code></p>
+<ol>
+<li><p>定义<code>POJO</code></p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ComponentDemo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(value = <span class="string">"role"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Role</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"1"</span>)</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"role_name_1"</span>)</span><br><span class="line">    <span class="keyword">private</span> String roleName;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"role_note_1"</span>)</span><br><span class="line">    <span class="keyword">private</span> String note;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注解<code>@Component</code>代表<code>Spring IoC</code>会把这个类扫描生成<code>Bean</code>实例，其中的<code>value</code>属性代表这个类在<code>Spring</code>中的<code>id</code></li>
+<li>注解<code>@Value</code>代表的是值的注入，这里只是注入了一些简单值</li>
+</ul>
+</li>
+<li><p>定义<code>Java Config</code>类</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ComponentDemo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ComponentScan;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PojoConfig</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这个类的作用是告诉<code>Spring IoC</code>去哪里扫描对象</li>
+<li>注解<code>@ComponentScan</code>代表进行扫描，默认是扫描当前包的路径，<code>POJO</code>的包名和它保持一致时才能扫描</li>
+</ul>
+</li>
+<li>使用注解生成<code>Spring IoC</code>容器 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ComponentDemo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.AnnotationConfigApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ApplicationContext ctx = <span class="keyword">new</span> AnnotationConfigApplicationContext(PojoConfig.class);</span><br><span class="line">        Role role = ctx.getBean(Role.class);</span><br><span class="line">        System.out.println(role.getNote());</span><br><span class="line">        ((AnnotationConfigApplicationContext) ctx).close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p><code>@ComponentScan</code>存在着两个配置项</p>
+<ul>
+<li><code>basePackages</code>: 它可以配置一个Java包的数组，<code>Spring</code>会根据它的配置扫描对应的包和子包，将配置好的<code>Bean</code>装配进来</li>
+<li><code>basePackageClasses</code>: 它可以配置多个类，<code>Spring</code>会根据配置的类所在的包，为包和子包进行扫描装配对应的配置<code>Bean</code></li>
+<li>如果采用多个<code>@ComponentScan</code>去定义对应的包，但是每定义一个<code>@ComponentScan</code>，<code>Spring</code>就会为所定义的类产生一个新的对象</li>
+<li>对于<code>basePackages</code>和<code>basePackageClasses</code>来说，前一种可读性更好，所以会在项目中优先选择前一种</li>
+</ul>
+</li>
+</ul>
+<h4 id="10-4-2-自动装配-Autowired"><a href="#10-4-2-自动装配-Autowired" class="headerlink" title="10.4.2 自动装配---@Autowired"></a>10.4.2 自动装配---@Autowired</h4><ul>
+<li><p>自动装配简介</p>
+<ul>
+<li><code>Spring</code>一般先完成<code>Bean</code>的定义和生成，然后再寻找需要注入的资源</li>
+<li>当<code>Spring</code>生成所有的<code>Bean</code>后，如果发现这个注解，它就会再<code>Bean</code>中查找，然后找到对应的类型，将其注入进来，这样就完成了依赖注入</li>
+<li>所谓自动装配技术是一种由<code>Spring</code>自己发现对应的<code>Bean</code>，自动完成装配工作的方式，它会应用到一个十分常见的注解<code>@Autowired</code></li>
+</ul>
+</li>
+<li><p>示例: 一个简单的自动装配例子</p>
+<ol>
+<li>定义<code>POJO</code>: 如前文的<code>Role</code>类</li>
+<li><p>定义<code>RoleService</code>接口</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ComponentDemo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RoleService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printRoleInfo</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义<code>RoleServiceImpl</code>实现类</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ComponentDemo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(value = <span class="string">"roleServiceImpl"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RoleServiceImpl</span> <span class="keyword">implements</span> <span class="title">RoleService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> Role role = <span class="keyword">null</span>;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printRoleInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"id = "</span> + role.getId());</span><br><span class="line">        System.out.println(<span class="string">"roleName = "</span> + role.getRoleName());</span><br><span class="line">        System.out.println(<span class="string">"note = "</span> + role.getNote());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义<code>Java Config</code>类:略</p>
+</li>
+<li>测试:略</li>
+</ol>
+</li>
+<li><p>其他</p>
+<ul>
+<li><code>@Autowired</code>的注解表示在<code>Spring IoC</code>定位所有的<code>Bean</code>后，这个字段需要按类型注入，这样<code>IoC</code>容器会寻找资源，然后将其注入</li>
+<li>IoC容器有时候会寻找失败，在默认的情况下寻找失败它就会抛出异常<ul>
+<li>通过<code>@Autowired(required=false)</code>配置，可以在找不到资源时，不注入，但这样会产生空指针问题</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="10-4-3-自动装配的歧义性-Primary和-Quaifier"><a href="#10-4-3-自动装配的歧义性-Primary和-Quaifier" class="headerlink" title="10.4.3 自动装配的歧义性(@Primary和@Quaifier)"></a>10.4.3 自动装配的歧义性(<code>@Primary</code>和<code>@Quaifier</code>)</h4><ul>
+<li><p>背景: 在java中一个接口可能有多个实现类，这个时候<code>@Autowired</code>注解无法判断应该把哪个实现类的对象注入进来，从而抛出异常</p>
+</li>
+<li><p>方案1: 注解<code>@Primary</code></p>
+<ul>
+<li>这个注解会告诉<code>Spring IoC</code>容器，优先使用拥有此注解的类注入</li>
+<li>例如<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Primary</span><br><span class="line"><span class="meta">@Component</span>(<span class="string">"roleService3"</span>)</span><br><span class="line"><span class="meta">@Primary</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RoleServiceImpl3</span> <span class="keyword">implements</span> <span class="title">RoleService</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>方案2:注解<code>@Qualifier</code></p>
+<ul>
+<li>这个注解会使用名称查找而不是类型查找的方式</li>
+<li>例如<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RoleController</span></span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="meta">@Qualifier</span>(<span class="string">"roleService3"</span>)</span><br><span class="line">    <span class="keyword">private</span> RoleService roleService = <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="10-4-4-装载带有参数的构造方法类"><a href="#10-4-4-装载带有参数的构造方法类" class="headerlink" title="10.4.4 装载带有参数的构造方法类"></a>10.4.4 装载带有参数的构造方法类</h4><ul>
+<li><p>背景: 某些时候构造方法是有参数的，对于带参数的构造方法，我们也可以通过注解进行注入</p>
+</li>
+<li><p>方案: 使用<code>@Autowired</code>或者<code>@Qualifer</code>来修饰参数</p>
+</li>
+<li><p>例如</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">RoleController</span><span class="params">(@Autowired RoleService roleService)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.roleService = roleService;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="10-4-5-使用-Bean装配Bean"><a href="#10-4-5-使用-Bean装配Bean" class="headerlink" title="10.4.5 使用@Bean装配Bean"></a>10.4.5 使用<code>@Bean</code>装配<code>Bean</code></h4><ul>
+<li><p>背景: 对于java来说，大部分开发都需要引入第三方的包，而且往往没有这些包的源码，这时候无法为这些包的类加入<code>@Component</code>注解，让它们成为开发环境中的<code>Bean</code></p>
+</li>
+<li><p>方案:这个时候Spring给予一个注解<code>@Bean</code>，它可以注解到方法上，并且将方法返回的对象作为<code>Spring</code>的<code>Bean</code>，存放到<code>IoC</code>容器中</p>
+</li>
+<li><p>例如: 通过注解<code>@Bean</code>装配<code>DataSource</code>的<code>Bean</code></p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span>(name=<span class="string">"dataSource"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> DataSource <span class="title">getDataSource</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Properties props = <span class="keyword">new</span> Properties();</span><br><span class="line">    props.setProperty(<span class="string">"driver"</span>,<span class="string">"com.mysql.jdbc.Driver"</span>);</span><br><span class="line">    DataSource dataSource = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        dataSource = BasicDataSourceFactory.createDataSource(props);</span><br><span class="line">    &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这里还配置了<code>@Bean</code>的<code>name</code>选项为<code>dataSource</code>，这就意味着Spring生成该<code>Bean</code>的时候就会使用<code>dataSource</code>作为其<code>BeanName</code>。和其他<code>Bean</code>一样，它也可以通过<code>@Autowired</code>或者<code>@Qualifier</code>等注解注入到别的<code>Bean</code>中</p>
+</li>
+</ul>
+<h3 id="10-5-装配的混合使用"><a href="#10-5-装配的混合使用" class="headerlink" title="10.5 装配的混合使用"></a>10.5 装配的混合使用</h3><p>Spring同时支持XML和注解两种装配方式，无论采用哪种，本质都是将<code>Bean</code>装配到<code>Spring IoC</code>容器中</p>
+<p>建议</p>
+<ol>
+<li>在自己的工程中所开发的类尽量使用注解方法，因为使用它更为简单</li>
+<li>对于引入第三方或者服务的类，尽量使用<code>XML</code>方式，这样可以尽量减少对第三方包细节的理解，更清晰</li>
+</ol>
+<p>如何将<code>xml</code>定义的<code>bean</code>引入<code>java</code>配置中?</p>
+<ul>
+<li>可以使用注解<code>@ImportResourse</code>，它可以配置多个<code>XML</code>配置文件，将这些文件中定义的<code>bean</code>全部引入</li>
+<li>例如  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.ssm.annotation.config</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.anotation.ComponentScan;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.anotation.ImportResource;</span><br><span class="line"><span class="meta">@ComponentScan</span>(basePackages=&#123;<span class="string">"com.ssm.chapter10.annotation"</span>&#125;)</span><br><span class="line"><span class="meta">@ImportResource</span>(&#123;<span class="string">"classpath:spring-dataSource.xml"</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplicationConfig</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="10-6-使用Profile"><a href="#10-6-使用Profile" class="headerlink" title="10.6 使用Profile"></a>10.6 使用Profile</h3><p>背景: 在软件开发中，可能开发人员使用一套环境，而测试人员使用另一套环境，这就有了在不同的环境中进行切换的需求。Spring也对这样的场景进行了支持，在Spring中可以定义<code>Bean</code>的<code>Profile</code>，方式有两种</p>
+<ol>
+<li>使用注解<code>@Profile</code>配置</li>
+<li>使用<code>xml</code>定义<code>Profile</code></li>
+</ol>
+<h4 id="10-6-1-使用注解-Profile配置"><a href="#10-6-1-使用注解-Profile配置" class="headerlink" title="10.6.1 使用注解@Profile配置"></a>10.6.1 使用注解@Profile配置</h4><p>例子如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.ssm.chapter10.profile;</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProfileDataSource</span></span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span>(name=<span class="string">"devDataSource"</span>)</span><br><span class="line">    <span class="meta">@Profile</span>(<span class="string">"dev"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">getDevDataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Properties props= <span class="keyword">new</span> Properties();</span><br><span class="line">        props.setProperty(<span class="string">"driver"</span>, <span class="string">"com.mysql.jdbc.Driver"</span>);</span><br><span class="line">        props.setProperty(<span class="string">"url"</span>, <span class="string">"jdbc:mysql://localhost:3306/chapter12"</span>);</span><br><span class="line">        props.setProperty(<span class="string">"username"</span>, <span class="string">"root"</span>);</span><br><span class="line">        props.setProperty(<span class="string">"password"</span>, <span class="string">"123456"</span>);</span><br><span class="line">        DataSource dataSource = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            dataSource = BasicDataSourceFactory.createDataSource(props);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> dataSource;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Bean</span>(name=<span class="string">"testDataSource"</span>)</span><br><span class="line">    <span class="meta">@Profile</span>(<span class="string">"test"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">getTestDataSource</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Properties props=<span class="keyword">new</span> Properties();</span><br><span class="line">        props.setProperty(<span class="string">"driver"</span>, <span class="string">"com.mysql.jdbc.Driver"</span>);</span><br><span class="line">        props.setProperty(<span class="string">"url"</span>, <span class="string">"jdbc:mysql://localhost:3306/chapter13"</span>);</span><br><span class="line">        props.setProperty(<span class="string">"username"</span>, <span class="string">"root"</span>);</span><br><span class="line">        props.setProperty(<span class="string">"password"</span>, <span class="string">"123456"</span>);</span><br><span class="line">        DataSource dataSource = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            dataSource = BasicDataSourceFactory.createDataSource(props);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> dataSource;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="10-6-2-使用xml定义Profile"><a href="#10-6-2-使用xml定义Profile" class="headerlink" title="10.6.2 使用xml定义Profile"></a>10.6.2 使用xml定义Profile</h4><p>例子如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version='1.0' encoding='UTF-8'?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xmlns:p</span>=<span class="string">"http://www.springframework.org/schema/p"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">beans</span> <span class="attr">profile</span>=<span class="string">"test"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"devDataSource"</span> <span class="attr">class</span>=<span class="string">"org.apache.commons.dbcp.BaseDataSource"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"com.mysql.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://localhost:3306/chapter12"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"123456"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">beans</span> <span class="attr">profile</span>=<span class="string">"dev"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"devDataSource"</span> <span class="attr">class</span>=<span class="string">"org.apache.commons.dbcp.BaseDataSource"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"com.mysql.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://localhost:3306/chapter13"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"123456"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="10-6-3-启动Profile"><a href="#10-6-3-启动Profile" class="headerlink" title="10.6.3 启动Profile"></a>10.6.3 启动Profile</h4><p>当启动<code>Java</code>配置或者<code>XML</code>配置<code>Profile</code>时，可以发现这两个<code>Bean</code>并不会被加载到<code>SpringIoC</code>容器中，需要自行激活<code>Profile</code>。激活<code>Profile</code>的方法有5种</p>
+<ol>
+<li>在使用<code>SpringMVC</code>的情况下可以配置<code>web</code>上下文参数，或者<code>DispatchServlet</code>参数</li>
+<li>作为<code>JNDI</code>条目</li>
+<li>配置环境变量</li>
+<li>配置<code>JVM</code>启动参数。</li>
+<li>在集成测试环境中使用<code>＠ActiveProfiles</code></li>
+</ol>
+<h3 id="10-7-加载属性-properties-文件"><a href="#10-7-加载属性-properties-文件" class="headerlink" title="10.7 加载属性(properties)文件"></a>10.7 加载属性(properties)文件</h3><p>略</p>
+<h3 id="10-8-条件化装配Bean"><a href="#10-8-条件化装配Bean" class="headerlink" title="10.8 条件化装配Bean"></a>10.8 条件化装配Bean</h3><p>背景: 在某些条件下需要进行条件判断，判断是否需要装配<code>Bean</code>。</p>
+<p>方案: 这时<code>Spring</code>提供了注解<code>@Conditional</code>去配置，通过它可以配置一个或多个实现了<code>Condition</code>接口的类</p>
+<p>例子:</p>
+<ol>
+<li><p>如何放置条件判断</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span>(name=<span class="string">"dataSource"</span>)</span><br><span class="line"><span class="meta">@Condition</span>(&#123;DataSourceCondition.class&#125;)</span><br><span class="line"><span class="function"><span class="keyword">public</span> DataSource <span class="title">getDataSource</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//.....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>条件判断类的实现</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataSourceCondition</span> <span class="keyword">implements</span> <span class="title">Condition</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(ConditionContext context, AnnotatedTypeMetadata metadata)</span></span>&#123;</span><br><span class="line">        <span class="comment">//....</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里要求实现接口<code>Condition</code>的<code>matches</code>方法。如果此方法返回<code>true</code>则<code>Spring</code>会创建对应的<code>Bean</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="10-9-Bean的作用域"><a href="#10-9-Bean的作用域" class="headerlink" title="10.9 Bean的作用域"></a>10.9 Bean的作用域</h3><p>在默认情况下,<code>SpringIoc</code>容器只会对一个<code>Bean</code>创建一个实例，有时候我们希望容器可以产生多实例，就需要修改<code>Spring</code>的作用域</p>
+<p><code>Spring</code>提供4种作用域</p>
+<ul>
+<li>单例(singleton): 默认选项，在整个应用中，<code>Spring</code>只会为其生成一个<code>Bean</code>实例</li>
+<li>原型(prototype): 当每次通过容器获取<code>Bean</code>时都会创建一个实例</li>
+<li>会话(session): 在会话过程中<code>spring</code>只创建一个实例</li>
+<li>请求(request): 在一个请求中<code>spring</code>只创建一个实例</li>
+</ul>
+<h3 id="10-10-使用Spring表达式-SpringEL"><a href="#10-10-使用Spring表达式-SpringEL" class="headerlink" title="10.10 使用Spring表达式(SpringEL)"></a>10.10 使用Spring表达式(SpringEL)</h3><p>SpringEL的主要功能</p>
+<ul>
+<li>使用<code>Bean</code>的<code>id</code>来引用<code>Bean</code></li>
+<li>使用指定对象的方法和访问对象的属性</li>
+<li>进行运算</li>
+<li>提供正则表达式进行匹配</li>
+<li>集合配置</li>
+</ul>
+<p>也就是为注解提供一定的逻辑运算功能，具体使用方式略</p>
 
           
         
@@ -551,7 +690,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -599,7 +738,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -621,7 +760,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

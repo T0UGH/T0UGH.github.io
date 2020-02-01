@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-3-字典和集合/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-9-符合Python风格的对象/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/02/01/流畅的Python-3-字典和集合/" itemprop="url">[流畅的Python][3][字典和集合]</a></h1>
+                <a class="post-title-link" href="/2020/02/01/流畅的Python-9-符合Python风格的对象/" itemprop="url">[流畅的Python][9][符合Python风格的对象]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:34:21+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:46:31+08:00">
                 2020-02-01
               </time>
             
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/02/01/流畅的Python-3-字典和集合/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-3-字典和集合/" itemprop="commentCount"></span>
+                <a href="/2020/02/01/流畅的Python-9-符合Python风格的对象/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-9-符合Python风格的对象/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,346 +362,202 @@
       
         
           
-            <h2 id="第3章-字典和集合"><a href="#第3章-字典和集合" class="headerlink" title="第3章 字典和集合"></a>第3章 字典和集合</h2><blockquote>
-<p>字典这个数据结构活跃在所有的python程序背后，即便你的源码中并没有直接用到它。—A.M.Kuching</p>
+            <h2 id="第9章-符合Python风格的对象"><a href="#第9章-符合Python风格的对象" class="headerlink" title="第9章 符合Python风格的对象"></a>第9章 符合Python风格的对象</h2><blockquote>
+<p>绝对不要使用两个前导下划线，这是很烦人的自私行为—Ian Bicking</p>
 </blockquote>
 <ul>
-<li><p>dict类型不但在各种程序里广泛使用，它也是Python语言的基石</p>
+<li><p>得益于Python数据模型，自定义类型的行为可以像内置类型那样自然</p>
 </li>
-<li><p>模块的命名空间、实例的属性和函数的关键字参数里都可以看到字典的影子</p>
-</li>
-<li><p>正因为字典至关重要，Python对它的实现做了高度优化，而散列表则是字典类型性能出众的根本原因</p>
-</li>
-<li><p>集合(set)的实现也依赖于散列表</p>
+<li><p>实现如此自然的行为，靠的不是继承，而是鸭子类型：我们只需按照行为实现对象所需的方法即可</p>
 </li>
 </ul>
 <hr>
-<h3 id="3-1-泛映射类型"><a href="#3-1-泛映射类型" class="headerlink" title="3.1 泛映射类型"></a>3.1 泛映射类型</h3><ul>
-<li><p>抽象基类</p>
+<h3 id="9-1-对象的表示形式"><a href="#9-1-对象的表示形式" class="headerlink" title="9.1 对象的表示形式"></a>9.1 对象的表示形式</h3><ul>
+<li><p>Python提供两种<strong>获取对象的字符串表示形式</strong>的标准方法</p>
 <ul>
-<li><p>collections.abc模块中有Maping和MutableMapping这两个抽象基类，它们的作用是为dict和其他类似的类型定义<strong>形式接口</strong>，如图<br>![]</p>
-</li>
-<li><p>然而，非抽象映射类型一般不会直接继承这些抽象基类，它们会直接对dict或是collections.UserDict进行扩展。这些抽象基类的主要作用是作为形式化文档，它们定义了构建一个映射类型所需要的最基本的接口。</p>
-</li>
-<li><p>他们还可以跟isinstance一起被用来判定某个数据是不是广义上的映射类型</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my_dict = &#123;&#125;</span><br><span class="line">print(isinstance(my_dict,abc.Mapping))</span><br><span class="line"><span class="comment"># True</span></span><br></pre></td></tr></table></figure>
-</li>
+<li><code>repr()</code>:以便于开发者理解的方式返回对象的字符串表示形式</li>
+<li><code>str()</code>:以便于用户理解的方式返回对象的字符串表示形式</li>
+<li>我们可以通过实现<code>__repr__</code>和<code>__str__</code>特殊方法，为<code>repr()</code>和<code>str()</code>提供支持</li>
 </ul>
 </li>
-<li><p>标准库里的所有映射类型都是利用<strong>dict</strong>来实现的，因此它们有个共同的限制，即只有<strong>可散列的数据类型</strong>才能作为这些映射里的键</p>
-</li>
-<li><p>什么是可散列的数据类型</p>
+<li><p>Python还为对象提供了其他的表示形式</p>
 <ul>
-<li>如果一个对象是可散列的，那么在这个对象的生命周期中，它的散列值是不变的，而且这个对象需要实现<code>__hash()__</code>方法</li>
-<li>另外可散列对象还要有<code>__eq()__</code>方法，这样才能跟其他键做比较</li>
-<li><strong>原子不可变数据类型</strong>都是可散列的,如：<code>str</code>、<code>bytes</code>和数值类型</li>
-<li><strong>元组</strong>的话，只有当一个元组包含的所有元素都是可散列类型的情况下，它才是可散列的</li>
-<li>一般来讲<strong>用户自定义的数据类型</strong>都是可散列的，散列值就是它们的<code>id()</code>函数的返回值，所以所有这些对象在比较的时候都是不相等的</li>
+<li><code>bytes()</code>函数调用对象的<code>__byte__</code>方法来获取对象的字节序列表示形式</li>
+<li><code>format</code>函数调用对象的<code>__format__</code>，使用特殊的格式代码显示对象的字符串表示形式</li>
 </ul>
 </li>
-<li><p>字典的多种<strong>构造方法</strong></p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = dict(one=<span class="number">1</span>, two=<span class="number">2</span>, three=<span class="number">3</span>)</span><br><span class="line">b = &#123;<span class="string">'one'</span>: <span class="number">1</span>, <span class="string">'two'</span>: <span class="number">2</span>, <span class="string">'three'</span>: <span class="number">3</span>&#125;</span><br><span class="line">c = dict(zip([<span class="string">'one'</span> ,<span class="string">'two'</span> ,<span class="string">'three'</span>], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]))</span><br><span class="line">d = dict([(<span class="string">'two'</span>, <span class="number">2</span>), (<span class="string">'one'</span>, <span class="number">1</span>), (<span class="string">'three'</span>,<span class="number">3</span>)])</span><br><span class="line">e = dict(&#123;<span class="string">'one'</span>: <span class="number">1</span>, <span class="string">'two'</span>: <span class="number">2</span>, <span class="string">'three'</span>: <span class="number">3</span>&#125;)</span><br><span class="line">print(a==b==c==d==e)</span><br><span class="line"><span class="comment"># True</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="3-2-字典推导"><a href="#3-2-字典推导" class="headerlink" title="3.2 字典推导"></a>3.2 字典推导</h3><ul>
-<li><p>字典推导可以从任何以键值对作为元素的可迭代对象中构建出字典</p>
-</li>
-<li><p>dictcompDemo</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">DIAL_CODES = [</span><br><span class="line">    (<span class="number">86</span>, <span class="string">'China'</span>),</span><br><span class="line">    (<span class="number">91</span>, <span class="string">'India'</span>),</span><br><span class="line">    (<span class="number">1</span>, <span class="string">'United States'</span>),</span><br><span class="line">    (<span class="number">62</span>, <span class="string">'Indonesia'</span>),</span><br><span class="line">    (<span class="number">55</span>, <span class="string">'Brazil'</span>),</span><br><span class="line">    (<span class="number">92</span>, <span class="string">'Pakistan'</span>),</span><br><span class="line">    (<span class="number">880</span>, <span class="string">'Bangladesh'</span>),</span><br><span class="line">    (<span class="number">234</span>, <span class="string">'Nigeria'</span>),</span><br><span class="line">    (<span class="number">7</span>, <span class="string">'Russia'</span>),</span><br><span class="line">    (<span class="number">81</span>, <span class="string">'Japan'</span>)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里使用国家名作为key,国家码作为value</span></span><br><span class="line">country_code = &#123;country: code <span class="keyword">for</span> code, country <span class="keyword">in</span> DIAL_CODES&#125;</span><br><span class="line">print(country_code)</span><br><span class="line"><span class="comment"># 这里用国家码作为key,并且将国家名称转化为大写,过滤掉区域码大于或等于66的地区</span></span><br><span class="line">code_country = &#123;code: country.upper() <span class="keyword">for</span> country, code <span class="keyword">in</span> country_code.items() <span class="keyword">if</span> code &lt; <span class="number">66</span>&#125;</span><br><span class="line">print(code_country)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">&#123;'China': 86, 'India': 91, 'United States': 1, 'Indonesia': 62, 'Brazil': 55, 'Pakistan': 92, 'Bangladesh': 880, 'Nigeria': 234, 'Russia': 7, 'Japan': 81&#125;</span></span><br><span class="line"><span class="string">&#123;1: 'UNITED STATES', 62: 'INDONESIA', 55: 'BRAZIL', 7: 'RUSSIA'&#125;</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="3-3-常见的映射方法"><a href="#3-3-常见的映射方法" class="headerlink" title="3.3 常见的映射方法"></a>3.3 常见的映射方法</h3><hr>
+<li><p>注意</p>
 <ul>
-<li><p>dict、defaultdict和OrderedDict的常见方法</p>
-<ul>
-<li>如图<br><img src="" alt=""></li>
-<li>update方法处理参数m的方式，是典型的“鸭子类型”<ol>
-<li>函数首先检查m是否有keys方法，如果有，那么update函数就把它当作映射对象来处理</li>
-<li>否则，函数会退一步，转而把m当作包含了键值对(key, value)元素的迭代器</li>
-<li>因此你既可以用一个映射对象来新建一个映射对象，也可以用包含(key, value)元素的可迭代对象来初始化一个映射对象</li>
-</ol>
-</li>
+<li>在 Python 3 中,<code>__repr__</code>、<code>__str__</code> 和 <code>__format__</code> 都必须返回 Unicode 字符串(<code>str</code> 类型)</li>
+<li>只有 <code>__bytes__</code> 方法应该返回字节序列(<code>bytes</code> 类型)</li>
 </ul>
 </li>
-<li><p>用setdefault处理找不到的键</p>
-<ul>
-<li>d.setdefault(k, [default])：若字典中有键k，则直接返回k所对应的值；若无，则让d[k]=default，然后返回default</li>
-<li>setdefaultDemo  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这段程序用来从文件中统计每个单词出现的位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明一个选择单词的正则式</span></span><br><span class="line">WORD_RE = re.compile(<span class="string">r'\w+'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化index字典</span></span><br><span class="line">index = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开文件并按行迭代每个单词</span></span><br><span class="line"><span class="keyword">with</span> open(sys.argv[<span class="number">1</span>], encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    <span class="keyword">for</span> line_no, line <span class="keyword">in</span> enumerate(fp, <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> match <span class="keyword">in</span> WORD_RE.finditer(line):</span><br><span class="line">            word = match.group()</span><br><span class="line">            <span class="comment"># 获得这个单词的列坐标</span></span><br><span class="line">            column_no = match.start() + <span class="number">1</span></span><br><span class="line">            location = (line_no, column_no)</span><br><span class="line">            <span class="comment"># 获得单词的出现情况表，如果单词不存在，把单词和一个空列表放进映射，然后返回这个空列表，这样就能在不进行第二次查找的情况下更新列表了</span></span><br><span class="line">            index.setdefault(word, []).append(location)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看结果</span></span><br><span class="line"><span class="keyword">for</span> word <span class="keyword">in</span> sorted(index, key=str.upper):</span><br><span class="line">    print(word, index[word])</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li></li>
 </ul>
 <hr>
-<h3 id="3-4-映射的弹性键查询"><a href="#3-4-映射的弹性键查询" class="headerlink" title="3.4 映射的弹性键查询"></a>3.4 映射的弹性键查询</h3><ul>
-<li><p>就算某个键在映射中不存在，我们还是希望在通过这个键读取值的时候能得到一个默认值</p>
+<h3 id="9-2-再谈向量类"><a href="#9-2-再谈向量类" class="headerlink" title="9.2 再谈向量类"></a>9.2 再谈向量类</h3><ul>
+<li><p>为了说明用于生成对象表示形式的众多方法,我们将使用一个 <code>Vector2d</code> 类</p>
 </li>
-<li><p>有两种途径可以帮我们达到这个目的</p>
+<li><p>我们期望 Vector2d 实例具有的基本行为如下所示</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = Vector2d(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="comment"># Vector2d 实例的分量可以直接通过属性访问(无需调用读值方法)</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(v1.x, v1.y) </span><br><span class="line"><span class="number">3.0</span> <span class="number">4.0</span></span><br><span class="line"><span class="comment"># Vector2d 实例可以拆包成变量元组</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x, y = v1 </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x, y</span><br><span class="line">(<span class="number">3.0</span>, <span class="number">4.0</span>)</span><br><span class="line"><span class="comment"># repr 函数调用 Vector2d 实例,得到的结果类似于构建实例的源码</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 </span><br><span class="line">Vector2d(<span class="number">3.0</span>, <span class="number">4.0</span>)</span><br><span class="line"><span class="comment"># 这里使用 eval 函数,表明 repr 函数调用 Vector2d 实例得到的是对构造方法的准确表述</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1_clone = eval(repr(v1)) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 == v1_clone </span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># print 函数会调用 str 函数,对 Vector2d 来说,输出的是一个有序对</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(v1) </span><br><span class="line">(<span class="number">3.0</span>, <span class="number">4.0</span>)</span><br><span class="line"><span class="comment"># bytes 函数会调用 __bytes__ 方法,生成实例的二进制表示形式</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets = bytes(v1) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets</span><br><span class="line"><span class="string">b'd\\x00\\x00\\x00\\x00\\x00\\x00\\x08@\\x00\\x00\\x00\\x00\\x00\\x00\\x10@'</span></span><br><span class="line"><span class="comment"># abs 函数会调用 __abs__ 方法,返回 Vector2d 实例的模</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>abs(v1) </span><br><span class="line"><span class="number">5.0</span></span><br><span class="line"><span class="comment"># bool 函数会调用 __bool__ 方法,如果 Vector2d 实例的模为零,返回 False,否则返回 True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bool(v1), bool(Vector2d(<span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line"><span class="keyword">True</span>, <span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我们对vector2d类的实现如下所示，现在,Vector2d 用到了几个特殊方法,这些方法提供的操作是 Python 高手期待设计良好的对象所提供的</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> array <span class="keyword">import</span> array</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector2d</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># typecode 是类属性,在 Vector2d 实例和字节序列之间转换时使用</span></span><br><span class="line">    typecode = <span class="string">'d'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 在 __init__ 方法中把 x 和 y 转换成浮点数,尽早捕获错误,以防调用 Vector2d 函数时传入不当参数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x, y)</span>:</span></span><br><span class="line">        self.x = float(x)</span><br><span class="line">        self.y = float(y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义 __iter__ 方法,把 Vector2d 实例变成可迭代的对象,这样才能拆包(例如,x, y = my_vector)。这个方法的实现方式很简单,直接调用生成器表达式一个接一个产出分量</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (i <span class="keyword">for</span> i <span class="keyword">in</span> (self.x, self.y))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># __repr__ 方法使用 &#123;!r&#125; 获取各个分量的表示形式,然后插值,构成一个字符串;因为 Vector2d 实例是可迭代的对象,所以 *self 会把 x 和 y 分量提供给 format 函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        class_name = type(self).__name__</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&#123;&#125;(&#123;!r&#125;, &#123;!r&#125;)'</span>.format(class_name, *self)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 从可迭代的 Vector2d 实例中可以轻松地得到一个元组,显示为一个有序对</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> str(tuple(self))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 为了生成字节序列,我们把 typecode 转换成字节序列,然后迭代 Vector2d 实例,得到一个数组,再把数组转换成字节序列</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bytes__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> bytes([ord(self.typecode)]) + bytes(array(self.typecode, self))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 为了快速比较所有分量,在操作数中构建元组</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__eq__</span><span class="params">(self, other)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> tuple(self) == tuple(other)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 模是 x 和 y 分量构成的直角三角形的斜边长</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__abs__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> math.hypot(self.x, self.y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># __bool__ 方法使用 abs(self) 计算模,然后把结果转换成布尔值,因此,0.0 是 False,非零值是 True</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bool__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> bool(abs(self))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="9-3-备选构造方法"><a href="#9-3-备选构造方法" class="headerlink" title="9.3 备选构造方法"></a>9.3 备选构造方法</h3><ul>
+<li>我们可以把Vector2d实例转换成字节序列；同理，应该能从字节序列转换成Vector2d实例，如下所示  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 类方法使用classmethod装饰器修饰</span></span><br><span class="line"><span class="meta">@classmethod</span></span><br><span class="line"><span class="comment"># 不用传入self参数；相反，要通过cls传入类本身</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">frombytes</span><span class="params">(cls, octets)</span>:</span></span><br><span class="line">    <span class="comment"># 从第一个字节中读取typecode</span></span><br><span class="line">    typecode = chr(octets[<span class="number">0</span>])</span><br><span class="line">    <span class="comment"># 使用传入的octets字节序列创建一个memoryview，然后使用typecode转换，就是转换成typecode表示的类型</span></span><br><span class="line">    memv = memoryview(octets[<span class="number">1</span>:]).cast(typecode)</span><br><span class="line">    <span class="comment"># 拆包转换后的memoryview，得到构造方法所需的一对参数</span></span><br><span class="line">    <span class="keyword">return</span> cls(*memv)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="9-4-classmethod与staticmethod"><a href="#9-4-classmethod与staticmethod" class="headerlink" title="9.4 classmethod与staticmethod"></a>9.4 classmethod与staticmethod</h3><h4 id="9-4-1-classmethod"><a href="#9-4-1-classmethod" class="headerlink" title="9.4.1 classmethod"></a>9.4.1 classmethod</h4><ul>
+<li><p>用来定义操作类(而不是操作实例)的方法</p>
+</li>
+<li><p>classmethod改变了调用方法的方式，因此类方法的第一个参数是类本身，而不是实例</p>
+</li>
+<li><p>classmethod最常用的用途是定义备选构造方法，如上一节所示</p>
+</li>
+<li><p>按照约定，类方法的第一个参数名为cls(但是Python不介意具体怎么命名)</p>
+</li>
+</ul>
+<h4 id="9-4-2-staticmethod"><a href="#9-4-2-staticmethod" class="headerlink" title="9.4.2 staticmethod"></a>9.4.2 staticmethod</h4><ul>
+<li><p>staticmethod装饰器也会改变方法的调用方式，但是第一个参数不是特殊的值</p>
+</li>
+<li><p>其实静态方法就是普通的函数，只是碰巧在类的定义体中，而不是在模块层定义</p>
+</li>
+<li><p>staticmethod不是特别有用</p>
+<ul>
+<li>如果想定义不需要与类交互的函数,那么在模块中定义就好了</li>
+<li>有时,函数虽然从不处理类,但是函数的功能与类紧密相关,因此想把它放在近处</li>
+<li>即便如此,在同一模块中的类前面或后面定义函数也就行了</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="9-5-格式化显示"><a href="#9-5-格式化显示" class="headerlink" title="9.5 格式化显示"></a>9.5 格式化显示</h3><ul>
+<li><p>内置的<code>format()</code>函数和<code>str.format()</code>方法把各个类型的格式化方法委托给相应的<code>.__format__(format_spec)</code>方法</p>
+</li>
+<li><p><code>format_spec</code>是格式说明符，它是:</p>
+<ul>
+<li><code>format(my_obj, format_spec)</code>的第二个参数</li>
+<li><code>str.format()</code>方法的格式字符串,{}里代换字段中冒号后面的部分</li>
+</ul>
+</li>
+<li><p>示例:<code>format</code>和<code>str.format</code>的使用方法</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>brl = <span class="number">1</span>/<span class="number">2.43</span> <span class="comment"># BRL到USD的货币兑换比价</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>brl</span><br><span class="line"><span class="number">0.4115226337448559</span></span><br><span class="line"><span class="comment"># 格式说明符是 '0.4f'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(brl, <span class="string">'0.4f'</span>) </span><br><span class="line"><span class="string">'0.4115'</span></span><br><span class="line"><span class="comment"># 格式说明符是 '0.2f'。代换字段中的 'rate' 子串是字段名称,与格式说明符无关,但是它决定把 .format() 的哪个参数传给代换字段</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'1 BRL = &#123;rate:0.2f&#125; USD'</span>.format(rate=brl)</span><br><span class="line"><span class="string">'1 BRL = 0.41 USD'</span></span><br></pre></td></tr></table></figure>
+<p>  ‘{0.mass:5.3e}’ 这样的格式字符串其实包含两部分,冒号左边的 ‘0.mass’ 在代换字段句法中是字段名,冒号后面的 ‘5.3e’ 是格式说明符</p>
+</li>
+<li><p>格式规范微语言为一些内置类型提供了专用的表示代码</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(<span class="number">42</span>, <span class="string">'b'</span>)</span><br><span class="line"><span class="string">'101010'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(<span class="number">2</span>/<span class="number">3</span>, <span class="string">'.1%'</span>)</span><br><span class="line"><span class="string">'66.7%'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(format(<span class="number">2</span>/<span class="number">3</span>, <span class="string">'.1%'</span>))</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">str</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>格式规范微语言是可扩展的，因为各个类可以自行决定如何解释<code>format_spec</code>参数</p>
+</li>
+<li><p>相关文献：<a href="https://docs.python.org/3/library/string.html#formatspec" target="_blank" rel="noopener">“Format Specification Mini-<br>Language”</a></p>
+</li>
+</ul>
+<hr>
+<h3 id="9-6-可散列的Vector2d"><a href="#9-6-可散列的Vector2d" class="headerlink" title="9.6 可散列的Vector2d"></a>9.6 可散列的Vector2d</h3><ul>
+<li><p>为了把Vector2d实例变成可散列的</p>
+<ul>
+<li>必须使用<code>__hash__</code>方法和<code>__eq__</code>方法</li>
+<li>此外，还要让向量是不可变的，我们可以把x和y分量设置为只读特性，这样向量就不可变了</li>
+</ul>
+</li>
+<li><p>实例9-7:让向量不可变</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector2d</span>:</span></span><br><span class="line">    typecode = <span class="string">'d'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x, y)</span>:</span></span><br><span class="line">        <span class="comment"># 使用两个前导下划线，把属性设为私有的</span></span><br><span class="line">        self.__x = float(x)</span><br><span class="line">        self.__y = float(y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># property装饰器把读值方法标记为特性</span></span><br><span class="line">    <span class="comment"># 读值方法与公开属性同名，都是x</span></span><br><span class="line"><span class="meta">    @ property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">x</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__x</span><br><span class="line"></span><br><span class="line"><span class="meta">    @ property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">y</span><span class="params">(self)</span></span></span><br><span class="line"><span class="function">        <span class="title">return</span> <span class="title">self</span>.<span class="title">__y</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">    # 这里使用<span class="title">self</span>.<span class="title">x</span>而不是<span class="title">self</span>.<span class="title">__x</span>是为了保持访问一致性</span></span><br><span class="line"><span class="function">    <span class="title">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (i <span class="keyword">for</span> i <span class="keyword">in</span> (self.x, self.y))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下面我们只要实现<code>__hash__</code>方法即可，这个方法返回一个整数</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__hash__</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="comment"># 我们使用运算符异或(^)混合各分量的散列值，我觉得这种方法有一些问题,hash值会重复</span></span><br><span class="line">    <span class="keyword">return</span> hash(self.x) ^ hash(self.y)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果定义的类型有标量数值，可能还要实现<code>__int__</code>和<code>__float__</code>方法(分别被<code>int()</code>和<code>float()</code>构造函数调用)，以便在某些情况下进行强制类型转换</p>
+</li>
+</ul>
+<h3 id="9-7-Python的私有属性和”受保护的”属性"><a href="#9-7-Python的私有属性和”受保护的”属性" class="headerlink" title="9.7 Python的私有属性和”受保护的”属性"></a>9.7 Python的私有属性和”受保护的”属性</h3><ul>
+<li><p>Python不能像Java那样使用private修饰符创建私有属性，但是Python有个简单的机制，能避免子类意外覆盖”私有属性”</p>
+</li>
+<li><p><strong>名称改写—用来避免子类意外覆盖”私有属性”</strong></p>
+<ul>
+<li>举个例子：<ul>
+<li>有人编写了一个名为 Dog 的类， 这个类的内部用到了 mood实例属性， 但是没有将其开放</li>
+<li>现在， 你创建了 Dog 类的子类： Beagle</li>
+<li>如果你<strong>在毫不知情的情况下又创建了名为 mood 的实例属性</strong>， 那么在继承的方法中就<strong>会把 Dog 类的 mood 属性覆盖掉</strong>。 这是个难以调试的问题。</li>
+</ul>
+</li>
+<li>解决方法<ul>
+<li>如果以 <code>__mood</code> 的形式（两个前导下划线， 尾部没有或最多有一个下划线） 命名实例属性， Python 会把属性名存入实例的 <code>__dict__</code> 属性中， 而且会在前面加上一个下划线和类名。 </li>
+<li>因此， 对Dog 类来说， <code>__mood</code> 会变成 <code>_Dog__mood</code>； 对 Beagle 类来说， 会变成<code>_Beagle__mood</code>。 这个语言特性叫<strong>名称改写（name mangling）</strong></li>
+</ul>
+</li>
+<li>注意：<ul>
+<li>名称改写是一种安全措施，不能保证万无一失，它的目的是避免意外访问</li>
+<li>如下图<br><img src="/2020/02/01/流畅的Python-9-符合Python风格的对象/把手上的盖子.png" alt=""></li>
+<li>只要知道改写私有属性名的机制，任何人都能直接读取和修改私有属性  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = Vector2d(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1.__dict__</span><br><span class="line">&#123;<span class="string">'_Vector2d__y'</span>: <span class="number">4.0</span>, <span class="string">'_Vector2d_x'</span>: <span class="number">3.0</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1._Vector2d_x</span><br><span class="line"><span class="number">3.0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1._Vector2d_x = <span class="number">7</span></span><br><span class="line"><span class="number">7.0</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>约定俗成的”受保护”属性</strong></p>
+<ul>
+<li>不是所有 Python 程序员都喜欢名称改写功能， 也不是所有人都喜欢self.__x 这种不对称的名称。</li>
+<li>有些人不喜欢这种句法， 他们约定使用一个下划线前缀编写“受保护”的属性（如 self._x）</li>
+<li>Python 解释器不会对使用单个下划线的属性名做特殊处理， 不过这是很多 Python 程序员严格遵守的约定， 他们不会在类外部访问这种属性</li>
+<li>遵守使用一个下划线标记对象的私有属性很容易，就像遵守使用全大写字母编写常量那样容易</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="9-8-使用slot属性节省空间"><a href="#9-8-使用slot属性节省空间" class="headerlink" title="9.8 使用slot属性节省空间"></a>9.8 使用<strong>slot</strong>属性节省空间</h3><ul>
+<li><p>背景</p>
+<ul>
+<li>默认情况下，Python在各个实例中名为<code>__dict__</code>的字典里存储实例属性</li>
+<li>然后为了使用底层的散列表提升访问速度，字典会消耗大量内存(散列表一般装不满，所以会浪费内存)</li>
+<li>如果要处理<strong>数百万个属性不多</strong>的实例，通过<code>__slots__</code>类属性，能节省大量内存</li>
+</ul>
+</li>
+<li><p>如何使用<code>__slot__</code>属性</p>
+<ul>
+<li><p>定义 <code>__slots__</code> 的方式是， 创建一个类属性， 使用 <code>__slots__</code> 这个名字， 并把它的值设为一个字符串构成的可迭代对象， 其中各个元素表示各个实例属性,如下所示</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector2d</span>:</span></span><br><span class="line">    __slots__ = (<span class="string">'__x'</span>, <span class="string">'__y'</span>)</span><br><span class="line">    typecode = <span class="string">'d'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在类中定义 <code>__slots__</code> 属性的目的是告诉解释器： “这个类中的所有实例属性都在这儿了！ ”这样， Python 会在各个实例中使用类似元组的结构存储实例变量， 从而避免使用消耗内存的 <code>__dict__</code> 属性</p>
+</li>
+</ul>
+</li>
+<li><p>注意</p>
 <ol>
-<li>通过defaultdict这个类型而不是普通的dict</li>
-<li>给自己定义一个dict的子类，然后在子类中实现<code>__missing__</code>方法</li>
+<li>继承自超类的<code>__slots__</code>属性没有效果，Python只会使用各个类中定义的<code>__slots__</code>属性</li>
+<li>在类中定义<code>__slots__</code>属性之后，实例不能再有<code>__slots__</code>中所列出名称之外的其他属性</li>
+<li>如果类中定义了 <code>__slots__</code> 属性， 而且想把实例作为弱引用的目标， 那么要把 <code>__weakref__</code> 添加到 <code>__slots__</code> 中</li>
 </ol>
 </li>
 </ul>
 <hr>
-<h4 id="3-4-1-defaultdict-处理找不到的键的一个选择"><a href="#3-4-1-defaultdict-处理找不到的键的一个选择" class="headerlink" title="3.4.1 defaultdict:处理找不到的键的一个选择"></a>3.4.1 defaultdict:处理找不到的键的一个选择</h4><ul>
-<li><p>简介：</p>
+<h3 id="9-9-覆盖类属性"><a href="#9-9-覆盖类属性" class="headerlink" title="9.9 覆盖类属性"></a>9.9 覆盖类属性</h3><ul>
+<li><p>背景</p>
 <ul>
-<li>在实例化一个defaultdict的时候，需要给构造方法提供一个可调用对象</li>
-<li>这个可调用对象会在<strong>getitem</strong>碰到找不到的键的时候被调用，让<code>__getitem__</code>返回某种默认值</li>
+<li>Python 有个很独特的特性： <strong>类属性可用于为实例属性提供默认值</strong> </li>
+<li><code>Vector2d</code> 中有个 <code>typecode</code> 类属性， <code>__bytes__</code> 方法两次用到了它， 而且都故意使用 <code>self.typecode</code> 读取它的值 </li>
+<li>因为 <code>Vector2d</code> 实例本身没有 <code>typecode</code> 属性， 所以 <code>self.typecode</code> 默认获取的是<code>Vector2d.typecode</code> 类属性的值</li>
 </ul>
 </li>
-<li><p>例如:我们新建一个这样的字典,<code>dd = defaultdict(list)</code>，如果键’new-key’在dd中不存在的话，表达式<code>dd[&#39;new-key&#39;]</code>会按照以下步骤来行事</p>
-<ol>
-<li>调用list()来建立一个新列表</li>
-<li>把这个新列表作为值，’new-key’作为它的键，放在dd中</li>
-<li>返回这个列表的引用</li>
-</ol>
-</li>
-<li><p>如果在创建defaultdict的时候没有指定default_factory，查询不存在的键会触发keyError</p>
-</li>
-<li><p>defaultdict里的default_factory只会在<code>__getitem__</code>里被调用，在其他方法里完全不会发挥作用</p>
+<li><p>可以为各个实例的 <code>typecode</code> 属性定制不同的值</p>
 <ul>
-<li>比如，dd是个defaultdict,k是个找不到的键，dd[k]这个表达式会调用default_factory来创建一个默认值，而dd.get(k)则会返回None</li>
+<li>如果为不存在的实例属性赋值， 会新建实例属性</li>
+<li>假如我们为 <code>typecode</code> 实例属性赋值， 那么同名类属性不受影响,然而，自此之后，实例读取的 <code>self.typecode</code> 是实例属性 <code>typecode</code>， 也就是把同名类属性遮盖了</li>
+<li>借助这一特性， 可以为各个实例的 <code>typecode</code> 属性定制不同的值,如下所示  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> vector2d_v3 <span class="keyword">import</span> Vector2d</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = Vector2d(<span class="number">1.1</span>, <span class="number">2.2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dumpd = bytes(v1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dumpd</span><br><span class="line"><span class="string">b'd\x9a\x99\x99\x99\x99\x99\xf1?\x9a\x99\x99\x99\x99\x99\x01@'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(dumpd) </span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1.typecode = <span class="string">'f'</span> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dumpf = bytes(v1)&gt;&gt;&gt; dumpf</span><br><span class="line"><span class="string">b'f\xcd\xcc\x8c?\xcd\xcc\x0c@'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(dumpf) </span><br><span class="line"><span class="number">9</span>&gt;</span><br><span class="line">&gt;&gt; Vector2d.typecode </span><br><span class="line"><span class="string">'d'</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-<li><p>defaultdictDemo</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这段程序用来从文件中统计每个单词出现的位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明一个选择单词的正则式</span></span><br><span class="line">WORD_RE = re.compile(<span class="string">r'\w+'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化index字典</span></span><br><span class="line">index = collections.defaultdict(list)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开文件并按行迭代每个单词</span></span><br><span class="line"><span class="keyword">with</span> open(sys.argv[<span class="number">1</span>], encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    <span class="keyword">for</span> line_no, line <span class="keyword">in</span> enumerate(fp, <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> match <span class="keyword">in</span> WORD_RE.finditer(line):</span><br><span class="line">            word = match.group()</span><br><span class="line">            <span class="comment"># 获得这个单词的列坐标</span></span><br><span class="line">            column_no = match.start() + <span class="number">1</span></span><br><span class="line">            location = (line_no, column_no)</span><br><span class="line">            <span class="comment"># 获得此单词在字典中的value,若之前不存在就设置为[],并返回</span></span><br><span class="line">            index[word].append(location)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看结果</span></span><br><span class="line"><span class="keyword">for</span> word <span class="keyword">in</span> sorted(index, key=str.upper):</span><br><span class="line">    print(word, index[word])</span><br></pre></td></tr></table></figure>
+<li><p>如果想修改类属性的值，必须直接在类上修改，如下所示</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Vector2d.typecode = <span class="string">'f'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过创建一个只用于定制类的数据属性的子类，也可以修改类属性，并且更符合Python风格</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> vector2d_v3 <span class="keyword">import</span> Vector2d</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">ShortVector2d</span><span class="params">(Vector2d)</span>:</span> </span><br><span class="line"><span class="meta">... </span>typecode = <span class="string">'f'</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sv = ShortVector2d(<span class="number">1</span>/<span class="number">11</span>, <span class="number">1</span>/<span class="number">27</span>) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sv</span><br><span class="line">ShortVector2d(<span class="number">0.09090909090909091</span>, <span class="number">0.037037037037037035</span>)</span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
-<h4 id="3-4-2-特殊方法-missing"><a href="#3-4-2-特殊方法-missing" class="headerlink" title="3.4.2 特殊方法__missing__"></a>3.4.2 特殊方法<code>__missing__</code></h4><ul>
-<li><p>所有的映射类型在处理找不到的键的时候，都会牵扯到<code>__missing__</code>方法</p>
-</li>
-<li><p>虽然基类dict并没有定义这个方法，但是dict是知道有这么个东西存在的</p>
-<ul>
-<li>也就是说，如果有一个类继承了dict，然后这个继承类提供了<code>__missing__</code>方法，那么在<code>__getitem__</code>碰到找不到的键的时候，Python会自动调用它，而不是抛出一个KeyError异常</li>
-</ul>
-</li>
-<li><p><code>__missing__</code>方法只会被<code>__getitem__</code>调用，提供<strong>missing</strong>方法对<code>get</code>或者<code>__contains__</code>这些方法的使用没有影响</p>
-</li>
-<li><p>missingDemo</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># StrKeyDict在查询的时候会把非字符串的键转换为字符串</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># StrKeyDict继承自dict</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrKeyDict0</span><span class="params">(dict)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__missing__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="comment"># 如果找不到的键本身就是字符串,那就抛出KeyError异常</span></span><br><span class="line">        <span class="keyword">if</span> isinstance(key, str):</span><br><span class="line">            <span class="keyword">raise</span> KeyError(key)</span><br><span class="line">        <span class="comment"># 如果找不到的键不是字符串,就把它转换为字符串再查找</span></span><br><span class="line">        <span class="keyword">return</span> self[str(key)]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key, default=None)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># get方法把查找工作用self[key]的形式委托给`__getitem__`，这样就宣布了查找失败之前,还能通过`__missing__`再给某个键一个机会</span></span><br><span class="line">            <span class="keyword">return</span> self[key]</span><br><span class="line">        <span class="keyword">except</span> KeyError:</span><br><span class="line">            <span class="comment"># 如果抛出异常,那么说明__missing__也失败了,于是返回default</span></span><br><span class="line">            <span class="keyword">return</span> default</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__contains__</span><span class="params">(self, item)</span>:</span></span><br><span class="line">        <span class="comment"># 先按照传入键的原本的值来查找，如果没有找到，再用str()方法把键转换成字符串再查找一次</span></span><br><span class="line">        <span class="keyword">return</span> item <span class="keyword">in</span> self.keys() <span class="keyword">or</span> str(item) <span class="keyword">in</span> self.keys()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用尝试1</span></span><br><span class="line">d = StrKeyDict0([(<span class="string">'2'</span>, <span class="string">'two'</span>), (<span class="number">4</span>, <span class="string">'four'</span>)])</span><br><span class="line">print(d[<span class="string">'2'</span>])</span><br><span class="line">print(d[<span class="number">4</span>])</span><br><span class="line">print(d[<span class="number">1</span>])</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">two</span></span><br><span class="line"><span class="string">four</span></span><br><span class="line"><span class="string">Traceback (most recent call last):</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">KeyError: '1'</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用尝试2</span></span><br><span class="line">print(d.get(<span class="string">'2'</span>))</span><br><span class="line">print(d.get(<span class="number">4</span>))</span><br><span class="line">print(d.get(<span class="number">1</span>, <span class="string">'N/A'</span>))</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">two</span></span><br><span class="line"><span class="string">four</span></span><br><span class="line"><span class="string">N/A</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用尝试3</span></span><br><span class="line">print(<span class="number">2</span> <span class="keyword">in</span> d)</span><br><span class="line">print(<span class="number">1</span> <span class="keyword">in</span> d)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">True</span></span><br><span class="line"><span class="string">False</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>像 k in my_dict().keys()这种操作在Python3中是很快的，因为dict.keys()的返回值是一个’视图’，’视图’就像一个集合，而且跟字典类似的是，在视图里查找一个元素的速度很快</p>
-</li>
-</ul>
-<hr>
-<h3 id="3-5-字典的变种"><a href="#3-5-字典的变种" class="headerlink" title="3.5 字典的变种"></a>3.5 字典的变种</h3><ol>
-<li><p>collections.OrderedDict</p>
-<ul>
-<li>这个类型在添加键的时候会保持顺序，因此键的迭代次序总是一致的</li>
-</ul>
-</li>
-<li><p>collectinos.ChainMap</p>
-<ul>
-<li>该类型可以容纳数个不同的映射对象，然后在进行键查找操作的时候，这些对象会被当作一个整体被逐个查找，直到键被找到为止</li>
-<li>例如<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> builtins</span><br><span class="line">pylookup = ChainMap(local(), <span class="keyword">global</span>(), vars(builtins))</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>collections.Counter</p>
-<ul>
-<li>这个映射类型会给键准备一个整数计数器</li>
-<li>每次更新一个键的时候都会增加这个计数器</li>
-<li>所以这个类型可以用来给可散列对象计数，或者被当成多重集来用</li>
-<li>demo<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> collections</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct = collections.Counter(<span class="string">'abracadabra'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct</span><br><span class="line">Counter(&#123;<span class="string">'a'</span>: <span class="number">5</span>, <span class="string">'b'</span>: <span class="number">2</span>, <span class="string">'r'</span>: <span class="number">2</span>, <span class="string">'c'</span>: <span class="number">1</span>, <span class="string">'d'</span>: <span class="number">1</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct.update(<span class="string">'aaaaazzz'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct</span><br><span class="line">Counter(&#123;<span class="string">'a'</span>: <span class="number">10</span>, <span class="string">'z'</span>: <span class="number">3</span>, <span class="string">'b'</span>: <span class="number">2</span>, <span class="string">'r'</span>: <span class="number">2</span>, <span class="string">'c'</span>: <span class="number">1</span>, <span class="string">'d'</span>: <span class="number">1</span>&#125;)</span><br><span class="line"><span class="comment"># most_common会按照次序返回映射中最常用的n个键和它们的计数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct.most_common(<span class="number">2</span>)</span><br><span class="line">[(<span class="string">'a'</span>, <span class="number">10</span>), (<span class="string">'z'</span>, <span class="number">3</span>)]</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>collections.UserDict</p>
-<ul>
-<li>这个类其实就是把标准dict用纯Python的方式又实现了一编</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3 id="3-6-子类化UserDict"><a href="#3-6-子类化UserDict" class="headerlink" title="3.6 子类化UserDict"></a>3.6 子类化UserDict</h3><hr>
-<ul>
-<li><p>就创造自定义映射类型来说，以UserDict作为基类，总比以普通的dict作为基类要来得方便</p>
-</li>
-<li><p>更倾向于从UserDict而不是dict继承的原因是,后者有时会在某些方法的实现上走一些捷径，导致我们不得不在它的子类中重写这些方法，但是UserDict就不会带来这些问题</p>
-</li>
-<li><p>另外一个值得注意的地方是，UserDict并不是dict的子类，但是UserDict有一个叫做data的属性，是dict的实例，这个属性实际上是UserDict最终存储数据的地方</p>
-</li>
-<li><p>demo：StrKeyDict</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># StrKeyDict是对UserDict的扩展</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrKeyDict</span><span class="params">(collections.UserDict)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__missing__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> isinstance(key, str):</span><br><span class="line">            <span class="keyword">raise</span> KeyError(key)</span><br><span class="line">        <span class="keyword">return</span> self[str(key)]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># contains比上一章的实现要简单,因为通过重写setitem,此时可以默认所有的key都是字符串</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__contains__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> str(key) <span class="keyword">in</span> self.data</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># setitem会把所有的键都转换为字符串</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__setitem__</span><span class="params">(self, key, value)</span>:</span></span><br><span class="line">        self.data[str(key)] = value</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># get方法与父类的get方法完全一致,所以不用再实现一遍</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>因为UserDict继承的是MutableMapping，所以StrKeyDict里剩下的那些映射类型的方法都是从UserDict、MutableMapping和Mapping这些超类继承而来的</p>
-</li>
-</ul>
-<hr>
-<h3 id="3-7-不可变映射类型"><a href="#3-7-不可变映射类型" class="headerlink" title="3.7 不可变映射类型"></a>3.7 不可变映射类型</h3><hr>
-<ul>
-<li><p>从Python3.3开始，types模块中引入了一个封装类名为MappingProxyType</p>
-<ul>
-<li>如果给这个类一个映射，它会返回一个只读的映射视图</li>
-<li>虽然是个只读视图，但它是动态的</li>
-<li>这意味着如果对原映射作出了改动，我们可以通过这个视图观察到，但无法通过这个视图对原映射作出修改</li>
-</ul>
-</li>
-<li><p>demo:用MappingProxyType来获取字典的只读实例mappingproxy</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> types <span class="keyword">import</span> MappingProxyType</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = &#123;<span class="number">1</span>:<span class="string">'A'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy = MappingProxyType(d)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy</span><br><span class="line">mappingproxy(&#123;<span class="number">1</span>: <span class="string">'A'</span>&#125;)</span><br><span class="line"><span class="comment"># d中的内容在d_proxy中可以看到</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy[<span class="number">1</span>]</span><br><span class="line"><span class="string">'A'</span></span><br><span class="line"><span class="comment"># 但是通过d_proxy不能对它作出任何修改</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy[<span class="number">2</span>] = <span class="string">'B'</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: <span class="string">'mappingproxy'</span> object does <span class="keyword">not</span> support item assignment</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="number">2</span>] = <span class="string">'B'</span></span><br><span class="line"><span class="comment"># d_proxy是动态的，也就是说对d所做的任何改动都会反馈到它的上面</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy</span><br><span class="line">mappingproxy(&#123;<span class="number">1</span>: <span class="string">'A'</span>, <span class="number">2</span>: <span class="string">'B'</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy[<span class="number">2</span>]</span><br><span class="line"><span class="string">'B'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h3 id="3-8-集合论"><a href="#3-8-集合论" class="headerlink" title="3.8 集合论"></a>3.8 集合论</h3><ul>
-<li><p>set和它的不可变姊妹类型frozenset直到Python2.3才首次以模块的形式出现,然后在Python2.6中它们升级为内置类型</p>
-</li>
-<li><p>集合的本质是许多唯一对象的聚集。因此，集合可以用来去重:</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>l = [<span class="string">'spam'</span>, <span class="string">'spam'</span>, <span class="string">'eggs'</span>, <span class="string">'spam'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>set(l)</span><br><span class="line">&#123;<span class="string">'spam'</span>, <span class="string">'eggs'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(set(l))</span><br><span class="line">[<span class="string">'spam'</span>, <span class="string">'eggs'</span>]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>集合中的元素必须是可散列的，set类型本身是不可散列的，但是frozenset可以，因此可以创建一个包含不同frozenset的set</p>
-</li>
-<li><p>除了保证唯一性，集合还实现了许多基础的中缀运算符</p>
-<ul>
-<li><code>a | b</code> 返回它们的合集</li>
-<li><code>a &amp; b</code> 得到的是交集</li>
-<li><code>a - b</code> 得到的是差集</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="3-8-1-集合字面量"><a href="#3-8-1-集合字面量" class="headerlink" title="3.8.1 集合字面量"></a>3.8.1 集合字面量</h4><ul>
-<li><p>除了空集之外，集合的字面量—————{1}、{1, 2}，等等，看起来跟它的数学形式一模一样；如果是空集，那么必须写成set()形式</p>
-</li>
-<li><p>如果要创建一个空集，必须使用不带任何参数的构造方法set()。如果只是写成{}的形式，跟以前一样，你创建的其实是空字典</p>
-</li>
-<li><p>除了空集，集合的字符串表示形式总是以{…}的形式出现</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = &#123;<span class="number">1</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(s)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">set</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">s</span></span></span><br><span class="line">&#123;1&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.pop()</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line">set()</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>像{1, 2, 3}这样字面量句法相比于构造方法<code>set([1, 2, 3])</code>要更快且更易读</p>
-<ul>
-<li>针对{1, 2, 3}这样的字面量，Python会利用一个专门的叫做BUILD_SET的字节码来创建集合</li>
-</ul>
-</li>
-<li><p>由于Python没有针对frozenset的特殊字面量句法，我们只能采用构造函数</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frozenset(range(<span class="number">10</span>))</span><br><span class="line">frozenset(&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h4 id="3-8-2-集合推导"><a href="#3-8-2-集合推导" class="headerlink" title="3.8.2 集合推导"></a>3.8.2 集合推导</h4><ul>
-<li>示例<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从unicodedata模块中导入name函数，用以获得字符的名字</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> unicodedata <span class="keyword">import</span> name</span><br><span class="line"><span class="comment"># 把编码在32-255之间的字符的名字里有"SIGN"的单词挑出来，放到一个集合中</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>&#123;chr(i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">32</span>, <span class="number">256</span>) <span class="keyword">if</span> <span class="string">'SIGN'</span> <span class="keyword">in</span> name(chr(i), <span class="string">''</span>)&#125;</span><br><span class="line">&#123;<span class="string">'$'</span>, <span class="string">'µ'</span>, <span class="string">'¬'</span>, <span class="string">'÷'</span>, <span class="string">'&lt;'</span>, <span class="string">'§'</span>, <span class="string">'×'</span>, <span class="string">'='</span>, <span class="string">'¢'</span>, <span class="string">'¶'</span>, <span class="string">'%'</span>, <span class="string">'+'</span>, <span class="string">'£'</span>, <span class="string">'±'</span>, <span class="string">'&gt;'</span>, <span class="string">'#'</span>, <span class="string">'®'</span>, <span class="string">'©'</span>, <span class="string">'¤'</span>, <span class="string">'°'</span>, <span class="string">'¥'</span>&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h4 id="3-8-3-集合的操作"><a href="#3-8-3-集合的操作" class="headerlink" title="3.8.3 集合的操作"></a>3.8.3 集合的操作</h4><h3 id="3-9-dict和set的背后"><a href="#3-9-dict和set的背后" class="headerlink" title="3.9 dict和set的背后"></a>3.9 dict和set的背后</h3><hr>
-<h4 id="3-9-1-一个关于效率的实验"><a href="#3-9-1-一个关于效率的实验" class="headerlink" title="3.9.1 一个关于效率的实验"></a>3.9.1 一个关于效率的实验</h4><ul>
-<li><p>用in运算符在5个不同大小的haystack字典里搜索1000个元素所需要的时间</p>
-</li>
-<li><p>在5个不同大小的haystack里搜索1000个元素所需要的时间，haystack分别以字典、集合和列表的形式出现</p>
-</li>
-</ul>
-<hr>
-<h4 id="3-9-2-字典中的散列表"><a href="#3-9-2-字典中的散列表" class="headerlink" title="3.9.2 字典中的散列表"></a>3.9.2 字典中的散列表</h4><ul>
-<li><p>简介</p>
-<ul>
-<li>散列表其实是一个稀疏数组(总是有空白元素的数组称为稀疏数组)</li>
-<li>在一般的数据结构教材中，散列表里的单元叫做表元(bucket)</li>
-<li>在dict的散列表当中，每个键值对都占用一个表元</li>
-<li>每个表元都有两个部分，一个是对键的引用，另一个是对值的引用</li>
-<li>因为所有表元的大小一致，所以可以通过偏移量来读取某个表元</li>
-</ul>
-</li>
-<li><p>Python会设法保证大概还有三分之一的表元是空的，所以在快要达到这个阈值的时候，原有的散列表会被复制到一个更大的空间中</p>
-</li>
-<li><p>散列值和相等性</p>
-<ul>
-<li><p>内置的hash()方法可以用在所有的内置类型对象</p>
-</li>
-<li><p>如果是自定义对象调用hash()的话，实际上运行的是自定义的<strong>hash</strong></p>
-</li>
-<li><p>如果两个对象在比较的时候是相等的，那它们的散列值必须相等，否则散列表就不能正常运行了</p>
-<ul>
-<li>例如，如果 1 == 1.0 成立，那么hash(1) == hash(1.0)也必须成立</li>
-</ul>
-</li>
-<li><p>为了让散列表能够胜任散列表索引这一角色，它们必须在索引空间中尽量分散开来</p>
-<ul>
-<li>最理想的状况下，越是相似但是不相等的对象，它们散列值的差别应该越大</li>
-</ul>
-</li>
-<li><p>加盐</p>
-<ul>
-<li>str、bytes和datetime对象的散列值计算有随机的”加盐”这一步</li>
-<li>所加盐值是Python进程内的一个常量，但是每次启动Python解释器都会生成一个不同的盐值</li>
-<li>随机盐值的加入是为了防止dos攻击而采取的一种安全措施</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>散列表算法</p>
-<ul>
-<li><p>算法的步骤</p>
-<ol>
-<li>为了获取my_dict[search_key]背后的值，Python首先会调用hash(search_key)来计算search_key的散列值</li>
-<li>然后把散列值的最低几位数字作为偏移量，在散列表里查找表元</li>
-<li>若找到的表元为空，则抛出KeyError异常</li>
-<li>若不是空的，则表元里会有一对found_key:found_value。这时检测search_key是否等于found_key，如果它们相等的话，就返回found_value</li>
-</ol>
-</li>
-<li><p>另外</p>
-<ul>
-<li>在插入新值的时候，Python可能会按照散列表的拥挤程度来决定是否要重新分配内存为它扩容，这样做的目的是为了减少散列冲突发生的概率</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="3-9-3-dict的实现及其导致的结果"><a href="#3-9-3-dict的实现及其导致的结果" class="headerlink" title="3.9.3 dict的实现及其导致的结果"></a>3.9.3 dict的实现及其导致的结果</h4><ol>
-<li><p>键必须是可散列的</p>
-<ul>
-<li>一个可散列的对象需要满足的条件<ol>
-<li>支持hash()函数，并且通过<strong>hash</strong>()方法得到的散列值是不变的</li>
-<li>支持通过<strong>eq</strong>()方法来检测相等性</li>
-<li>若 a==b 为真，则 hash(a) == hash(b) 也为真</li>
-</ol>
-</li>
-<li>所有由用户自定义的对象默认都是可散列的，因为它们的散列值有id()来获取，而且它们是不相等的</li>
-<li>如果你实现了一个类的<strong>eq</strong>方法，并且希望它是可散列的，那么它一定要有个恰当的<strong>hash</strong>方法，保证在a==b为真的情况下hash(a)==hash(b)也必定为真</li>
-</ul>
-</li>
-<li><p>字典在内存上的开销巨大</p>
-<ul>
-<li>由于字典使用了散列表，散列表必须是稀疏的，这导致它在空间上的效率低下</li>
-<li>在用户自定义的类型中，<strong>slot</strong>属性可以改变实例属性的存储方式，由dict变成tuple</li>
-</ul>
-</li>
-<li><p>键查询很快</p>
-<ul>
-<li>dict的实现是典型的空间换时间：字典有巨大的内存开销，但它们提供了无视数据量大小的快速访问————只要字典能被放入内存中</li>
-</ul>
-</li>
-<li><p>键的次序取决于添加顺序</p>
-<ul>
-<li>这是因为当往dict里添加新键而又发生散列冲突的时候，新键可能会被安排存放到另一个位置</li>
-<li>但是即使顺序不同，内容相同的字典也被认为是相等的</li>
-</ul>
-</li>
-<li><p>往字典里添加新键可能会改变原有键的顺序</p>
-<ul>
-<li>因为往字典中添加键可能会导致字典扩容，从而改变原有键的位置和顺序</li>
-<li>所以不要在对字典进行迭代的同时进行修改</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h4 id="3-9-4-set的实现及其导致的结果"><a href="#3-9-4-set的实现及其导致的结果" class="headerlink" title="3.9.4 set的实现及其导致的结果"></a>3.9.4 set的实现及其导致的结果</h4><ul>
-<li><p>set和frozenset的实现也依赖散列表，但在它们的散列表中存放的只有元素的引用</p>
-</li>
-<li><p>集合的特点</p>
-<ol>
-<li>集合中的元素必须是可散列的</li>
-<li>集合很消耗内存</li>
-<li>可以很高效地判断元素是否存在于某个集合</li>
-<li>元素的次序取决于被添加到集合里的次序</li>
-<li>往集合中添加元素，可能会改变集合里已有元素的顺序</li>
-</ol>
-</li>
-</ul>
-<hr>
-
+<h3 id="9-10-本章小结"><a href="#9-10-本章小结" class="headerlink" title="9.10 本章小结"></a>9.10 本章小结</h3>
           
         
       
@@ -740,7 +596,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -788,7 +644,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -810,7 +666,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

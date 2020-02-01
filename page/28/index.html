@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/21/微服务设计-3-如何建模服务/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/18/了解SpringBoot/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/21/微服务设计-3-如何建模服务/" itemprop="url">[微服务设计][3][如何建模服务]</a></h1>
+                <a class="post-title-link" href="/2019/07/18/了解SpringBoot/" itemprop="url">了解SpringBoot</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-21T17:22:00+08:00">
-                2019-06-21
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-18T17:27:25+08:00">
+                2019-07-18
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/微服务设计/" itemprop="url" rel="index">
-                    <span itemprop="name">微服务设计</span>
+                  <a href="/categories/other/" itemprop="url" rel="index">
+                    <span itemprop="name">other</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/06/21/微服务设计-3-如何建模服务/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/06/21/微服务设计-3-如何建模服务/" itemprop="commentCount"></span>
+                <a href="/2019/07/18/了解SpringBoot/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/18/了解SpringBoot/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,26 +362,23 @@
       
         
           
-            <h2 id="3-如何建模服务"><a href="#3-如何建模服务" class="headerlink" title="3 如何建模服务"></a>3 如何建模服务</h2><blockquote>
-<p>对手的论证让我想到了异教徒。当别人问异教徒世界是由什么支撑时，他说:”一只乌龟。”别人再问他:”那乌龟是由什么支撑呢?”他回答:”另一只乌龟。”</p>
-</blockquote>
-<h3 id="3-1-什么样的服务是好服务"><a href="#3-1-什么样的服务是好服务" class="headerlink" title="3.1 什么样的服务是好服务"></a>3.1 什么样的服务是好服务</h3><h4 id="3-1-1-松耦合"><a href="#3-1-1-松耦合" class="headerlink" title="3.1.1 松耦合"></a>3.1.1 松耦合</h4><p>如果做到服务之间的松耦合，那么修改一个服务就不需要修改另一个服务。使用微服务最重要的一点就是，能够独立修改及部署单个服务而不需要修改系统的其他部分</p>
-<p>什么会导致解耦合呢？一个典型的错误是，使用紧耦合的方式做服务之间的集成，从而使得一个服务的修改会招致其消费者的修改</p>
-<p>一个松耦合的服务应该尽可能少地知道与之协作地那些服务地信息，这也意味着，应该限制两个服务之间不同调用形式的数量，因为除了潜在的性能问题之外，过度的通信可能会导致紧耦合</p>
-<h4 id="3-1-2-高内聚"><a href="#3-1-2-高内聚" class="headerlink" title="3.1.2 高内聚"></a>3.1.2 高内聚</h4><p>我们希望把相关的行为聚集在一起，把不相关的行为放到别处。如果要改变某一个行为的话，最好能够只在一个地方进行修改，然后就可以尽快地发布。如果需要在很多不同地地方做这些修改，那么可能需要同时发布多个微服务才能交付这个功能。在多个不同的地方进行修改会很慢，同时部署多个服务的风险也很高</p>
-<h3 id="3-2-限界上下文"><a href="#3-2-限界上下文" class="headerlink" title="3.2 限界上下文"></a>3.2 限界上下文</h3><p>Eric Evans认为:”任何一个给定的领域都包含多个限界上下文，每个限界上下文中的模型分为两部分，一部分不需要与外界通信，另一部分需要，每个限界上下文都有明确的接口，该接口决定了它会暴露哪些模型给其他的上下文。”</p>
-<p>微服务应该清晰的与限定上下文保持一致</p>
-<p><img src="/2019/06/21/微服务设计-3-如何建模服务/0621_1.png" alt=""></p>
-<h4 id="3-2-1-共享的隐藏模型"><a href="#3-2-1-共享的隐藏模型" class="headerlink" title="3.2.1 共享的隐藏模型"></a>3.2.1 共享的隐藏模型</h4><p>不应该盲目地将一个模型全部暴露出去，所以对于某个模型，存在内部和外部两种表示方式</p>
-<h4 id="3-2-1-模块和服务"><a href="#3-2-1-模块和服务" class="headerlink" title="3.2.1 模块和服务"></a>3.2.1 模块和服务</h4><p>在同一个进程内使用模块可以减少耦合，所以一旦你发现领域内部的限界上下文(服务)，一定要使用模块对其进行建模。</p>
-<h4 id="3-2-3-过早划分"><a href="#3-2-3-过早划分" class="headerlink" title="3.2.3 过早划分"></a>3.2.3 过早划分</h4><p>将一个已有的代码块划分为微服务，要比从头开始构建微服务简单很多，所以不建议过早划分</p>
-<h3 id="3-3-业务功能"><a href="#3-3-业务功能" class="headerlink" title="3.3 业务功能"></a>3.3 业务功能</h3><p>当思考组织内的限界上下文时，应该从这些上下文能够提供的功能考虑。比如，仓库的一个功能是提供当前的库存清单，财务上下文能提供月末账单或者为一个新招的员工创建工资单。为了实现这些功能，可能需要交换存储信息的模型</p>
-<h3 id="3-4-逐步划分上下文"><a href="#3-4-逐步划分上下文" class="headerlink" title="3.4 逐步划分上下文"></a>3.4 逐步划分上下文</h3><p>一开始你会识别一些粗粒度的限界上下文，而这些限界上下文可能又包含一些嵌套的限界上下文。例如，可以将仓库分解为:订单管理、库存管理、货物接受等</p>
-<p>可以使嵌套上下文不直接对外可见。对于外界，它们用的还是仓库的功能，但发出的请求其实被透明地映射到了两个或多个服务上。</p>
-<p><img src="/2019/06/21/微服务设计-3-如何建模服务/0621_3.png" alt=""></p>
-<h3 id="3-5-关于业务概念的沟通"><a href="#3-5-关于业务概念的沟通" class="headerlink" title="3.5 关于业务概念的沟通"></a>3.5 关于业务概念的沟通</h3><p>如果把系统分解为限界上下文的话，对于某个功能所做的修改，更倾向于局限在一个单独的微服务边界之内，这样就减少了修改的范围，并能够更快地进行部署</p>
-<h3 id="3-6-技术边界"><a href="#3-6-技术边界" class="headerlink" title="3.6 技术边界"></a>3.6 技术边界</h3><p>按照地理位置或者技术接缝对单块系统进行划分是不合理的，例如下图</p>
-<p><img src="/2019/06/21/微服务设计-3-如何建模服务/0621_2.png" alt=""></p>
+            <h2 id="了解SpringBoot"><a href="#了解SpringBoot" class="headerlink" title="了解SpringBoot"></a>了解SpringBoot</h2><h3 id="1-什么是SpringBoot"><a href="#1-什么是SpringBoot" class="headerlink" title="1 什么是SpringBoot"></a>1 什么是SpringBoot</h3><p>Spring Boot 是由 Pivotal 团队提供的全新框架，其设计目的是用来简化新 Spring 应用的初始搭建以及开发过程。</p>
+<p>该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。</p>
+<p>Spring Boot 其实不是什么新的框架，它默认配置了很多框架的使用方式，就像 Maven 整合了所有的 Jar 包，Spring Boot 整合了所有的框架。</p>
+<h3 id="2-使用SpringBoot的好处"><a href="#2-使用SpringBoot的好处" class="headerlink" title="2 使用SpringBoot的好处"></a>2 使用SpringBoot的好处</h3><p>开箱即用、简单、快速、方便</p>
+<h3 id="3-使用SpringBoot搭建项目"><a href="#3-使用SpringBoot搭建项目" class="headerlink" title="3 使用SpringBoot搭建项目"></a>3 使用SpringBoot搭建项目</h3><ol>
+<li><p>访问 <a href="http://start.spring.io/" target="_blank" rel="noopener">http://start.spring.io/</a></p>
+</li>
+<li><p>配置工程的基本信息<br><img src="/2019/07/18/了解SpringBoot/0718_0.png" alt=""></p>
+</li>
+<li><p>点击Generate Project下载项目压缩包</p>
+</li>
+<li><p>解压后用idea打开即可，maven会自动下载依赖</p>
+</li>
+<li><p>建议的目录类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">com</span><br><span class="line">  +- example</span><br><span class="line">    +- myproject</span><br><span class="line">      +- Application.java</span><br><span class="line">      |</span><br><span class="line">      +- model</span><br><span class="line">      |  +- Customer.java</span><br><span class="line">      |  +- CustomerRepository.java</span><br><span class="line">      |</span><br><span class="line">      +- service</span><br><span class="line">      |  +- CustomerService.java</span><br><span class="line">      |</span><br><span class="line">      +- controller</span><br><span class="line">      |  +- CustomerController.java</span><br><span class="line">      |</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 
           
         
@@ -421,7 +418,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -469,7 +466,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -491,7 +488,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

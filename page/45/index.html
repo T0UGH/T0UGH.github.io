@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/24/C-3-处理数据/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Docker-1-简介/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/24/C-3-处理数据/" itemprop="url">[C++][3][处理数据]</a></h1>
+                <a class="post-title-link" href="/2019/05/22/Docker-1-简介/" itemprop="url">[Docker][1][简介]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-24T19:22:34+08:00">
-                2019-03-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T23:19:36+08:00">
+                2019-05-22
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/24/C-3-处理数据/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/24/C-3-处理数据/" itemprop="commentCount"></span>
+                <a href="/2019/05/22/Docker-1-简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/22/Docker-1-简介/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,75 +362,78 @@
       
         
           
-            <h2 id="第-3-章-处理数据"><a href="#第-3-章-处理数据" class="headerlink" title="第 3 章 处理数据"></a>第 3 章 处理数据</h2><p>内置的 C++ 类型分两组: 基本类型和复合类型</p>
-<p>但是没有任何一种整型和浮点型能够满足所有编程要求，所以对于这两种数据有很多变体</p>
-<h3 id="3-1-简单变量"><a href="#3-1-简单变量" class="headerlink" title="3.1 简单变量"></a>3.1 简单变量</h3><p>程序必须记录信息的三个基本属性</p>
-<ul>
-<li><p>信息将存储在哪里</p>
+            <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h2><p>点此进入<a href="https://labs.play-with-docker.com/" target="_blank" rel="noopener">play with docker</a></p>
+<h3 id="1-1-容器发展之路"><a href="#1-1-容器发展之路" class="headerlink" title="1.1 容器发展之路"></a>1.1 容器发展之路</h3><ol>
+<li><p>曾经，每个服务器只能运行单一应用。Windows和Linux操作系统都没有相应的技术手段来保证在一台服务器上稳定运行多个应用</p>
 </li>
-<li><p>要存储什么值</p>
+<li><p>VM技术是一种允许多应用能够稳定、安全同时运行在一个服务器上的技术</p>
 </li>
-<li><p>存储何种类型的信息</p>
+<li><p>虚拟机缺点是依靠其专用的操作系统，OS会额外消耗资源</p>
 </li>
-</ul>
-<h4 id="3-1-1-变量名"><a href="#3-1-1-变量名" class="headerlink" title="3.1.1 变量名"></a>3.1.1 变量名</h4><p>C++ 提倡使用一定含义的变量名</p>
-<p>必须遵循几种简单的C++ 命名规范</p>
-<ol>
-<li>在名称中只能使用字母字符、数字和下划线(_)</li>
-<li>名称的第一个字符不能是数字</li>
-<li>区分大写字符和小写字符</li>
-<li>不能将 C++ 关键字用作名称</li>
-<li>以两个下划线或下划线和大写字母开头的名称被保留给实现使用，以一个下划线开头的名称被保留给实现，用作全局标识符(使用这种命名变量不会导致编译器错误，但是会导致程序的不确定性)</li>
-<li>C++ 对于名称的长度没有限制，名称中所有的字符都有意义，但有些平台有长度限制(C只保证前63个字符有意义)</li>
-</ol>
-<p>下面是一些有效和无效的 C++ 名称</p>
-<p><img src="/2019/03/24/C-3-处理数据/0324_0.png" alt=""></p>
-<p>如果想用两个或者更多的单词组成一个变量名称，有两种做法</p>
-<ol>
-<li><p>使用下划线将单词分开(C、python等语言如是)</p>
+<li><p>容器模型与虚拟机模型的区别是容器的运行不会独占操作系统</p>
 </li>
-<li><p>从第二个单词开始将每个单词的第一个字母大写(Pascal, java等语言如是)</p>
+<li><p>容器的优点是启动快且便于迁移</p>
+</li>
+<li><p>Kubernetes是Docker之上的一个平台，现在采用Docker实现其底层容器相关的操作</p>
 </li>
 </ol>
-<h4 id="3-1-2-整型"><a href="#3-1-2-整型" class="headerlink" title="3.1.2 整型"></a>3.1.2 整型</h4><p>不同的 C++ 整型使用不同的内存量来存储整数，使用的内存量越大，可以表示的整数值范围也越大。</p>
-<p>有的类型有正负值之分，有的类型不能表示负值</p>
-<p>C++ 的基本整型分别是<code>char</code>、<code>short</code>、<code>int</code>、<code>long</code>和<code>long long</code></p>
-<h4 id="3-1-3-short、int、long和long-long"><a href="#3-1-3-short、int、long和long-long" class="headerlink" title="3.1.3 short、int、long和long long"></a>3.1.3 short、int、long和long long</h4><p>C++ 的<code>short</code>、<code>int</code>、<code>long</code>和<code>long long</code>类型通过使用不同数目的位来存储值</p>
-<p>但在实际生活中，这些类型长度因计算机而异，但是通常遵循一定的标准</p>
-<ul>
-<li><code>short</code>至少16位</li>
-<li><code>int</code>至少与<code>short</code>一样长</li>
-<li><code>long</code>至少32位，且至少与<code>int</code>一样长</li>
-<li><code>long long</code>至少64位，且至少与<code>long</code>一样长</li>
-</ul>
-<p>要知道系统中整数的最大长度，可以使用C++工具来检查类型的长度</p>
-<ul>
-<li>使用<code>sizeof</code>运算符返回类型和变量的长度，单位为字节</li>
-<li>头文件<code>climit</code>中包含了关于整型限制的信息，例如: <code>INT_MAX</code> 为 <code>int</code> 的最大取值，<code>CHAR_BIT</code>为字节的位数</li>
-</ul>
-<blockquote>
-<p><strong>符号常量–预处理方式</strong><br>在C++编译过程中，首先将源代码传递给预处理器。<code>#define</code>与<code>#include</code>一样，也是一个预处理编译指令。该指令告诉预处理器：在程序中查找<code>INT_MAX</code>，将所有的<code>INT_MAX</code>都替换成<code>32767</code></p>
-</blockquote>
-<h4 id="3-1-4-变量初始化"><a href="#3-1-4-变量初始化" class="headerlink" title="3.1.4 变量初始化"></a>3.1.4 变量初始化</h4><p>C++ 的变量初始化基本与 C 相同，但是有几种方式是C ++ 独有的<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">wrens</span><span class="params">(<span class="number">432</span>)</span></span>;<span class="comment">//将 432 赋值给 wrens</span></span><br><span class="line"><span class="keyword">int</span> wrens = &#123;<span class="number">432</span>&#125;;<span class="comment">//将 432 赋值给 wrens</span></span><br><span class="line"><span class="keyword">int</span> wrens&#123;<span class="number">432</span>&#125;;<span class="comment">//将 432 赋值给 wrens</span></span><br><span class="line"><span class="keyword">int</span> wrens = &#123;&#125;;<span class="comment">//wrens被初始化为0</span></span><br><span class="line"><span class="keyword">int</span> wrens&#123;&#125;;<span class="comment">//wrens被初始化为0</span></span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>如果不对函数内部定义的变量进行初始化，该变量的值将是不确定的。这意味着该变量的值将是它被创建之前，相应内存单元保存的值</p>
-</blockquote>
-<h4 id="3-1-5-C-的无符号类型和整型的溢出"><a href="#3-1-5-C-的无符号类型和整型的溢出" class="headerlink" title="3.1.5 C++的无符号类型和整型的溢出"></a>3.1.5 C++的无符号类型和整型的溢出</h4><p>无符号类型可以增大变量能够储存的最大值(因为省略了一位存储符号)</p>
-<p>C++ 的整型溢出时，行为很像里程表。如果超越了界限，其值将为范围另一端的取值</p>
-<p><img src="/2019/03/24/C-3-处理数据/0324_1.png" alt=""></p>
-<h4 id="3-1-6-选择整型类型"><a href="#3-1-6-选择整型类型" class="headerlink" title="3.1.6 选择整型类型"></a>3.1.6 选择整型类型</h4><p>通常，<code>int</code>被设置为对目标计算机而言最为自然的长度。自然长度指的是计算机处理起来效率最高的长度</p>
-<h4 id="3-1-7-整形字面量"><a href="#3-1-7-整形字面量" class="headerlink" title="3.1.7 整形字面量"></a>3.1.7 整形字面量</h4><p>通常 <code>C++</code> 可以以三种不同的计数方式来书写整数: 基数为10、基数为8和基数为16。</p>
-<ul>
-<li><p>使用<code>0</code>来标识8位数</p>
+<h3 id="1-2-走进Docker"><a href="#1-2-走进Docker" class="headerlink" title="1.2 走进Docker"></a>1.2 走进Docker</h3><ul>
+<li><p>Docker是一种运行于Linux和Windows上的软件，用于创建、管理和编排容器</p>
 </li>
-<li><p>使用<code>0x</code>来标识16位数</p>
+<li><p>Docker一词源于英国口语，意为码头工人，即从船上装卸货物的人</p>
+</li>
+<li><p>Moby是Github上Docker的开源项目</p>
+</li>
+<li><p>许多Docker内置的组件都是可拔插的，即可以替换为第三方的组件</p>
+</li>
+<li><p>OCI(开放容器计划)是一个旨在对容器基础架构中的基础组件进行标准化的机构。目前已经制订了镜像规范和运行时规范，将容器生态团结起来</p>
 </li>
 </ul>
-<p>这些表示方式仅仅是为了表达上的方便。不管以何种方式书写字面量，都将被存储为二进制</p>
-<p><code>iostream</code>提供了<code>dec</code>、<code>hex</code>、<code>oct</code>分别用于指示<code>cout</code>以十进制、十六进制和八进制表示整数</p>
-<h4 id="3-1-8-char类型-字符和小整数"><a href="#3-1-8-char类型-字符和小整数" class="headerlink" title="3.1.8 char类型: 字符和小整数"></a>3.1.8 char类型: 字符和小整数</h4><p>编程语言通过使用字母的数值编码解决了储存字母的问题，<code>char</code>类型是另一种整型。它足够长，可以表示目标计算机系统中的所有基本符号(所有字母、数字、标点符号等)</p>
-<p><code>C++</code> 实现使用的是其主机系统的编码。在美国，最常用的符号集是 <code>ASCII</code> 字符集。但是 <code>ASCII</code> 字符集很难满足国际化的需求。为了满足国际化需求，<code>C++</code> 支持的宽字符类型可以存储更多的值，如 <code>Unicode</code> 字符集使用的值</p>
-<p>值的类型将引导cout选择如何显示值，例如将<code>char</code>显示为字符，将<code>int</code>显示为数字</p>
+<h3 id="1-3-Docker安装"><a href="#1-3-Docker安装" class="headerlink" title="1.3 Docker安装"></a>1.3 Docker安装</h3><ul>
+<li><p>win10专业版，进bios开虚拟化，启动Hyper-x，去<a href="https://hub.docker.com/editions/community/docker-ce-desktop-windows" target="_blank" rel="noopener">这里</a>现在Docker for Windows版</p>
+</li>
+<li><p>每个Docker容器都有一个本地存储空间，本地存储是通过存储驱动(Storage Driver)进行管理的</p>
+</li>
+</ul>
+<h3 id="1-4-纵观Docker"><a href="#1-4-纵观Docker" class="headerlink" title="1.4 纵观Docker"></a>1.4 纵观Docker</h3><h4 id="1-4-1-运维视角"><a href="#1-4-1-运维视角" class="headerlink" title="1.4.1 运维视角"></a>1.4.1 运维视角</h4><ul>
+<li><p>Docker有两个主要组件:Docker客户端和Docker deamon(服务端或者引擎)</p>
+</li>
+<li><p>镜像</p>
+<ul>
+<li>可将镜像理解为一个包含基础操作系统，以及应用程序运行所需的代码和依赖包</li>
+<li>实际等价于未运行的容器</li>
+<li>Docker的每个镜像都有自己唯一的id</li>
+</ul>
+</li>
+<li><p>容器</p>
+<ul>
+<li>可以从容器来启动镜像</li>
+<li><code>docker run</code>可以运行镜像</li>
+<li><code>Ctrl-PQ</code>组合键可以在退出容器的同时保证容器运行</li>
+<li><code>docker ls</code>列出系统内部处于运行状态的容器</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-4-2-开发角度"><a href="#1-4-2-开发角度" class="headerlink" title="1.4.2 开发角度"></a>1.4.2 开发角度</h4><ul>
+<li><p>容器即应用</p>
+</li>
+<li><p>每个仓库都有一个名为<code>Dockerfile</code>的文件。<code>Dockerfile</code>是一个纯文本文件，其中描述了如何将应用构建到<code>Docker</code>镜像中</p>
+</li>
+<li><p>使用<code>docker image build</code>命令可以根据Dockerfile中的指令来创建新的镜像</p>
+</li>
+</ul>
+<h3 id="1-5-Docker引擎"><a href="#1-5-Docker引擎" class="headerlink" title="1.5 Docker引擎"></a>1.5 Docker引擎</h3><ul>
+<li><p>Docker引擎是用来运行和管理容器的核心软件</p>
+</li>
+<li><p>Docker引擎可以进行模块化，有很多可交换的组件组成</p>
+</li>
+<li><p>runc: 用于创建容器的组件</p>
+</li>
+<li><p>containerd: 用于容器生命周期管理</p>
+</li>
+<li><p>daemon:之前Docker的服务器，目前其中的越来越多功能被拆解出来</p>
+</li>
+</ul>
 
           
         
@@ -470,7 +473,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/44/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><span class="page-number current">45</span><a class="page-number" href="/page/46/">46</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/46/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/44/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><span class="page-number current">45</span><a class="page-number" href="/page/46/">46</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/46/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -518,7 +521,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -540,7 +543,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

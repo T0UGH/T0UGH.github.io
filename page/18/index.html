@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/25/数据结构考研-3-栈和队列/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/24/SSM-4-MyBatis配置/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/25/数据结构考研-3-栈和队列/" itemprop="url">[数据结构考研][3][栈和队列]</a></h1>
+                <a class="post-title-link" href="/2020/01/24/SSM-4-MyBatis配置/" itemprop="url">[SSM][4][MyBatis配置]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-25T12:26:47+08:00">
-                2019-12-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-24T10:44:28+08:00">
+                2020-01-24
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
+                  <a href="/categories/SSM/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/12/25/数据结构考研-3-栈和队列/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/25/数据结构考研-3-栈和队列/" itemprop="commentCount"></span>
+                <a href="/2020/01/24/SSM-4-MyBatis配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/24/SSM-4-MyBatis配置/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,126 +362,97 @@
       
         
           
-            <h2 id="第三章-栈和队列"><a href="#第三章-栈和队列" class="headerlink" title="第三章 栈和队列"></a>第三章 栈和队列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">digraph demo&#123;</span><br><span class="line">    线性表-&gt;操作受限[dir=none];</span><br><span class="line">    线性表-&gt;推广[dir=none];</span><br><span class="line">    操作受限-&gt;栈[dir=none];</span><br><span class="line">    操作受限-&gt;队列[dir=none];</span><br><span class="line">    栈-&gt;顺序栈[dir=none];</span><br><span class="line">    栈-&gt;链栈[dir=none];</span><br><span class="line">    栈-&gt;共享栈[dir=none];</span><br><span class="line">    队列-&gt;循环队列[dir=none];</span><br><span class="line">    队列-&gt;链式队列[dir=none];</span><br><span class="line">    队列-&gt;双端队列[dir=none];</span><br><span class="line">    推广-&gt;数组[dir=none];</span><br><span class="line">    数组-&gt;一维数组[dir=none];</span><br><span class="line">    数组-&gt;多维数组[dir=none];</span><br><span class="line">    多维数组-&gt;压缩存储[dir=none];</span><br><span class="line">    多维数组-&gt;稀疏矩阵[dir=none];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-1-栈"><a href="#3-1-栈" class="headerlink" title="3.1 栈"></a>3.1 栈</h3><h4 id="3-1-1-栈的基本概念"><a href="#3-1-1-栈的基本概念" class="headerlink" title="3.1.1 栈的基本概念"></a>3.1.1 栈的基本概念</h4><h5 id="1-栈的定义"><a href="#1-栈的定义" class="headerlink" title="1 栈的定义"></a>1 栈的定义</h5><p>栈(Stack)，只允许在一端进行插入或删除操作的线性表</p>
-<p>栈顶(Top)，线性表允许进行插入和删除的那一端</p>
-<p>栈底(Bottom)，固定的，不允许进行插入和删除的那一端</p>
-<p>空栈，不含任何元素的空表</p>
-<p>栈是一种后进先出(Last In First Out, LIFO)的结构</p>
-<h5 id="2-栈的基本操作"><a href="#2-栈的基本操作" class="headerlink" title="2 栈的基本操作"></a>2 栈的基本操作</h5><p><code>InitStact()</code>: 初始化空栈</p>
-<p><code>StackEmpty()</code>: 判断一个栈是否为空</p>
-<p><code>Push()</code>: 进栈，若栈未满，则将新元素加入使其成为新的栈顶</p>
-<p><code>Pop()</code>: 出栈，若栈未空，则弹出栈顶元素</p>
-<p><code>GetTop()</code>: 获得栈顶元素的值</p>
-<p><code>ClearStack()</code>: 摧毁栈，并释放栈所占的内存空间</p>
-<h4 id="3-1-2-栈的顺序存储结构"><a href="#3-1-2-栈的顺序存储结构" class="headerlink" title="3.1.2 栈的顺序存储结构"></a>3.1.2 栈的顺序存储结构</h4><h5 id="1-顺序栈的实现"><a href="#1-顺序栈的实现" class="headerlink" title="1 顺序栈的实现"></a>1 顺序栈的实现</h5><p>采用顺序存储的栈称为顺序栈，它利用一组地址连续的存储单元存放自栈底到栈顶的数据元素，同时设附一个指针(top)指示当前栈顶的位置</p>
-<p>栈的顺序存储类型可描述为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType *elem;</span><br><span class="line">    <span class="keyword">int</span> length;</span><br><span class="line">    <span class="keyword">int</span> listsize;</span><br><span class="line">&#125;SqStack;</span><br></pre></td></tr></table></figure></p>
-<h5 id="2-顺序栈的基本运算"><a href="#2-顺序栈的基本运算" class="headerlink" title="2 顺序栈的基本运算"></a>2 顺序栈的基本运算</h5><ol>
-<li><p>初始化</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">InitStack</span><span class="params">(SqStack *s)</span></span>&#123;</span><br><span class="line">    s-&gt;elem = (ElemType *)<span class="built_in">malloc</span>(LIST_INIT_SIZE * <span class="keyword">sizeof</span>(ElemType));</span><br><span class="line">    <span class="keyword">if</span>(!s-&gt;elem)</span><br><span class="line">        <span class="keyword">return</span> OVERFLOW;</span><br><span class="line">    s-&gt;length = <span class="number">0</span>;</span><br><span class="line">    s-&gt;listsize = LIST_INIT_SIZE;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h2 id="第4章-MyBatis配置"><a href="#第4章-MyBatis配置" class="headerlink" title="第4章 MyBatis配置"></a>第4章 MyBatis配置</h2><h3 id="4-1-概述"><a href="#4-1-概述" class="headerlink" title="4.1 概述"></a>4.1 概述</h3><p>MyBatis配置文件中所有元素清单如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;? xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>/&gt;</span><span class="comment">&lt;!--属性--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">settings</span>/&gt;</span><span class="comment">&lt;!--设置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeAliases</span>/&gt;</span><span class="comment">&lt;!--类型命名--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeHandlers</span>&gt;</span><span class="comment">&lt;!--类型处理器--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">objectFactory</span>/&gt;</span><span class="comment">&lt;!--对象工厂--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>/&gt;</span><span class="comment">&lt;!--插件--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">environments</span>&gt;</span><span class="comment">&lt;!--配置环境--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">environment</span>&gt;</span><span class="comment">&lt;!--环境变量--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">transactionManager</span>/&gt;</span><span class="comment">&lt;!--事务管理器--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dataSource</span>/&gt;</span><span class="comment">&lt;!--数据源--&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">environments</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">databaseIdProvider</span>/&gt;</span><span class="comment">&lt;!--数据库厂商标识--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mappers</span>/&gt;</span><span class="comment">&lt;!--映射器--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>MyBatis配置项的顺序不能颠倒，否则在启动阶段会发生异常</p>
+<h3 id="4-2-properties属性"><a href="#4-2-properties属性" class="headerlink" title="4.2 properties属性"></a>4.2 properties属性</h3><p>properties属性可以给系统配置一些运行参数，可以放在XML文件中，便于参数修改</p>
+<p>MyBatis提供3种方式来使用properties</p>
+<ul>
+<li><code>property</code>子元素</li>
+<li><code>properties</code>文件</li>
+<li>程序代码传递</li>
+</ul>
+<h4 id="4-2-1-property子元素"><a href="#4-2-1-property子元素" class="headerlink" title="4.2.1 property子元素"></a>4.2.1 property子元素</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"database.driver"</span> <span class="attr">value</span>=<span class="string">"com.mysql.cj.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"database.url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://localhost:3306/mybatisdemo?serverTimezone=UTC"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"database.username"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"database.password"</span> <span class="attr">value</span>=<span class="string">"123456"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">type</span>=<span class="string">"MyBatisDemo.pojo.Role"</span> <span class="attr">alias</span>=<span class="string">"role"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">environments</span> <span class="attr">default</span>=<span class="string">"development"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">"development"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">"JDBC"</span>&gt;</span><span class="tag">&lt;/<span class="name">transactionManager</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"POOLED"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driver"</span> <span class="attr">value</span>=<span class="string">"$&#123;database.driver&#125;"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"$&#123;database.url&#125;"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;database.username&#125;"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;database.password&#125;"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">environments</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">"MybatisDemo/mapper/RoleMapper.xml"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里使用了元素<code>&lt;properties&gt;</code>下的子元素<code>&lt;property&gt;</code>定义，用字符串<code>database.username</code>定义数据库用户名，然后就可以在数据库定义中引入这个已经定义好的属性参数，如<code>${database.username}</code>，这样可以定义一次到处引用</p>
+<h4 id="4-2-2-使用properties文件"><a href="#4-2-2-使用properties文件" class="headerlink" title="4.2.2 使用properties文件"></a>4.2.2 使用properties文件</h4><p>我们可以配置多个键值放在一个properties文件中，也可以把多个键值放到多个properties文件中。</p>
+<p>先定义文件jdbc.properties<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">database.driver=com.mysql.cj.jdbc.Driver</span><br><span class="line">database.url=jdbc:mysql://localhost:3306/mybatisdemo?serverTimezone=UTC</span><br><span class="line">database.username=root</span><br><span class="line">database.password=123456</span><br></pre></td></tr></table></figure></p>
+<p>然后在mybatis中通过<code>&lt;properties&gt;</code>的属性<code>resource</code>来引入这个文件<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span> <span class="attr">resource</span>=<span class="string">"jdbc.properties"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="4-2-3-使用程序传递方式传递参数"><a href="#4-2-3-使用程序传递方式传递参数" class="headerlink" title="4.2.3 使用程序传递方式传递参数"></a>4.2.3 使用程序传递方式传递参数</h4><p>略</p>
+<h4 id="4-2-4-总结"><a href="#4-2-4-总结" class="headerlink" title="4.2.4 总结"></a>4.2.4 总结</h4><p>这三种方式是具有优先级顺序的，MyBatis会根据优先级来覆盖原先配置的属性值。最优先的是使用程序传递的方式，其次是使用<code>properties</code>文件的方式，最后是使用<code>property</code>子元素的方式。</p>
+<h3 id="4-3-settings设置"><a href="#4-3-settings设置" class="headerlink" title="4.3 settings设置"></a>4.3 settings设置</h3><p>settings可以深刻影响MyBatis底层的运行，但是在大部分情况下使用默认值就可以运行，所以不需要大量配置，只需要修改常用的规则即可</p>
+<p>比如关于缓存的<code>cacheEnabled</code>，关于级联的<code>lazyLoadingEnabled</code>和<code>aggressiveLazyLoading</code>，关于自动映射的<code>autoMappingBehavior</code>和<code>mapUnderscoreToCamelCase</code>等等</p>
+<h3 id="4-4-typeAliases别名"><a href="#4-4-typeAliases别名" class="headerlink" title="4.4 typeAliases别名"></a>4.4 typeAliases别名</h3><p>由于类的全限定名很长，所以在大量使用时，一般采用一个简写来代表这个类，这就是别名</p>
+<p>在MyBatis的初始化过程中，系统自动初始化了一些别名，例如<code>_int</code>、<code>_int[]</code>、<code>list</code>等，同时，<code>Configure</code>对象也对一些常用的配置类设置了别名，比如事务方式别名、数据源类型别名、缓存策略别名、语言驱动别名等。</p>
+<p>MyBatis也提供了用户自定义别名的规则。我们可以通过<code>TypeAliasRegister</code>类的<code>registerAlias</code>方法注册，也可以采用配置文件或者扫描方式来自定义它。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"role"</span> <span class="attr">type</span>=<span class="string">"com.neu.edu.pojo.Role"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"user"</span> <span class="attr">type</span>=<span class="string">"com.neu.edu.pojo.User"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>如果有很多类需要定义别名，可以通过扫描包的方式来实现<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"com.neu.edu.pojo"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>默认情况下，Mybatis会扫描这个包中的类，将其第一个字母变为小写作为其别名，例如<code>Role</code>的别名会变为<code>role</code>。若出现重名的情况，<code>Mybatis</code>允许使用注解<code>@Alias(&quot;role2&quot;)</code>的方式来进行避免<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">package com.neu.edu.pojo</span><br><span class="line">@Alias(&quot;Role2&quot;)</span><br><span class="line">public Class Role&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-5-typeHandler类型转换器"><a href="#4-5-typeHandler类型转换器" class="headerlink" title="4.5 typeHandler类型转换器"></a>4.5 typeHandler类型转换器</h3><p><code>typeHandler</code>的作用是完成<code>jdbcType</code>和<code>javaType</code>之间的相互转换，其中<code>jdbcType</code>用于定义数据库类型，而<code>javaType</code>用来定义Java类型。</p>
+<p>系统提供的<code>typeHandler</code>可以覆盖大部分场景的要求，假如有特殊需求，也可以自己定义特殊的转换规则</p>
+<p><img src="/2020/01/24/SSM-4-MyBatis配置/200124_0.png" alt=""></p>
+<h4 id="4-5-1-系统定义的TypeHandler"><a href="#4-5-1-系统定义的TypeHandler" class="headerlink" title="4.5.1 系统定义的TypeHandler"></a>4.5.1 系统定义的TypeHandler</h4><p>在<code>MyBatis</code>中<code>typeHandler</code>都要实现接口<code>org.apache.ibatis.type.TypeHandler</code>，此接口的定义如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TypeHandler</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setParameter</span><span class="params">(PreparedStatement ps, <span class="keyword">int</span> i, T parameter, jdbcType jdbcType)</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">    <span class="function">T <span class="title">getResult</span><span class="params">(ResultSet rs, String columnName)</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">    <span class="function">T <span class="title">getResult</span><span class="params">(ResultSet rs, <span class="keyword">int</span> columnIndex)</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">    <span class="function">T <span class="title">getResult</span><span class="params">(CallableStatement cs, <span class="keyword">int</span> columnIndex)</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>其中<code>T</code>是泛型，专指<code>javaType</code>，比如我们需要<code>String</code>的时候，实现类可以写为<code>implements TypeHandler&lt;String&gt;</code></li>
+<li><code>setParameter</code>方法，是使用<code>typeHandler</code>通过<code>PreparedStatement</code>对象进行设置SQL参数的时候使用的具体方法</li>
+<li><code>getResult</code>方法，是从JDBC结果集中获取数据并进行转换，要么使用列名，要么使用下标</li>
+</ul>
+<p>而<code>MyBatis</code>系统提供的<code>typeHandler</code>都继承了<code>org.apache.ibatis.type.BaseTypeHandler</code></p>
+<p>然后，采用<code>org.apache.ibatis.type.TypeHandlerRegister</code>类对象中的<code>register</code>方法进行注册</p>
+<h4 id="4-5-2-自定义的TypeHandler"><a href="#4-5-2-自定义的TypeHandler" class="headerlink" title="4.5.2 自定义的TypeHandler"></a>4.5.2 自定义的TypeHandler</h4><ol>
+<li><p>首先要自定义一个类，要么实现<code>TypeHandler</code>接口，要么继承<code>BaseTypeHandler</code>类</p>
 </li>
-<li><p>判栈空</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">StackEmpty</span><span class="params">(SqStack *s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">0</span> == s-&gt;length)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>然后在配置文件中对这个新建的<code>typeHandler</code>进行注册</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeHandlers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeHandler</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span> <span class="attr">javaType</span>=<span class="string">"string"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">handler</span>=<span class="string">"com.edu.neu.typeHandler.MyTypeHandler"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">typeHandlers</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>进栈</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Push</span><span class="params">(SqStack *s, ElemType e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(s-&gt;length &gt;= s-&gt;listsize &amp;&amp; OVERFLOW == ReAllocStack(s))&#123;</span><br><span class="line">            <span class="keyword">return</span> OVERFLOW;</span><br><span class="line">    &#125;</span><br><span class="line">    s-&gt;elem[s-&gt;length] = e;</span><br><span class="line">    s-&gt;length++;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>出栈</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Pop</span><span class="params">(SqStack *s, ElemType *e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(StackEmpty(s))&#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *e = s-&gt;elem[s-&gt;length<span class="number">-1</span>];</span><br><span class="line">    s-&gt;length--;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>读栈顶元素</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">GetTop</span><span class="params">(SqStack *s, ElemType *e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(StackEmpty(s))&#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *e = s-&gt;elem[s-&gt;length<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>配置完成后系统就会读取它，当<code>jdbcType</code>和<code>javaType</code>与<code>MyTypeHandler</code>对应的时候，就会启动<code>MyTypeHandler</code></p>
 </li>
 </ol>
-<h5 id="3-共享栈"><a href="#3-共享栈" class="headerlink" title="3 共享栈"></a>3 共享栈</h5><p>利用栈底位置相对不变的特性，可让两个顺序栈共享一个一维数据空间，将两个栈的栈底分别设置在共享空间的两端，两个栈顶向共享空间的中间延伸</p>
-<p>两个栈的栈顶指针都指向栈顶元素</p>
-<ul>
-<li><code>top=-1</code>时0号栈为空，<code>top1=MaxSize</code>时1号栈为空</li>
-<li>仅当两个栈顶指针相邻(<code>top1-top0=1</code>)，判断为栈满</li>
-<li>当0号栈进栈时<code>top0</code>先加<code>1</code>再赋值，1号栈进栈时<code>top1</code>先减<code>1</code>再赋值；出栈时则刚好相反</li>
-</ul>
-<h4 id="3-1-3-栈的链式存储结构"><a href="#3-1-3-栈的链式存储结构" class="headerlink" title="3.1.3 栈的链式存储结构"></a>3.1.3 栈的链式存储结构</h4><p>采用链式存储的栈称为链栈</p>
-<ul>
-<li>链栈的优点是便于多个栈共享存储空间和提高其效率，且不存在栈满上溢的情况</li>
-<li>通常用单链表实现，并规定所有操作都是再单链表的表头进行。</li>
-</ul>
-<p>栈的链式存储类型可描述为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">LinkNode</span>&#123;</span></span><br><span class="line">    ElemType data;          <span class="comment">//数据域</span></span><br><span class="line">    Struct LinkNode *next;  <span class="comment">//指针栈</span></span><br><span class="line">&#125;*LinkStack;                <span class="comment">//栈类型定义</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="3-1-4-其他"><a href="#3-1-4-其他" class="headerlink" title="3.1.4 其他"></a>3.1.4 其他</h4><p>对于$n$个不同的元素进栈，出栈序列的个数为<br>
-$$\frac{1}{n+1}C_{2n}^n=\frac{1}{n+1}\frac{2n!}{{n!}\times{n!}}$$ 
-</p>
-<h3 id="3-2-队列"><a href="#3-2-队列" class="headerlink" title="3.2 队列"></a>3.2 队列</h3><h4 id="3-2-1-队列的基本概念"><a href="#3-2-1-队列的基本概念" class="headerlink" title="3.2.1 队列的基本概念"></a>3.2.1 队列的基本概念</h4><h5 id="1-队列的定义"><a href="#1-队列的定义" class="headerlink" title="1 队列的定义"></a>1 队列的定义</h5><p>队列是一种操作受限的线性表，只允许在表的一端进行插入，而在表的另一端进行删除</p>
-<ul>
-<li>其操作的特性为先进先出</li>
-<li>队头(Front):允许删除的一端，又称队首</li>
-<li>队尾(Rear):允许插入的一端</li>
-<li>空队列: 不含任何元素的空表</li>
-</ul>
-<h5 id="2-队列常见的基本操作"><a href="#2-队列常见的基本操作" class="headerlink" title="2 队列常见的基本操作"></a>2 队列常见的基本操作</h5><ul>
-<li><code>InitQueue()</code>:初始化队列，构建一个空队列Q</li>
-<li><code>QueueEmpty()</code>:判队列空</li>
-<li><code>EnQueue()</code>:入队</li>
-<li><code>DeQueue()</code>:出队</li>
-<li><code>GetHead()</code>:读取队头元素</li>
-</ul>
-<h4 id="3-2-2-队列的顺序存储结构"><a href="#3-2-2-队列的顺序存储结构" class="headerlink" title="3.2.2 队列的顺序存储结构"></a>3.2.2 队列的顺序存储结构</h4><h5 id="1-队列的顺序存储"><a href="#1-队列的顺序存储" class="headerlink" title="1 队列的顺序存储"></a>1 队列的顺序存储</h5><p>队列的顺序实现是值分配一块连续的存储单元存放队列中的元素，并附设两个指针<code>front</code>和<code>rear</code>分别指示队头元素和队尾元素</p>
-<h5 id="2-循环队列"><a href="#2-循环队列" class="headerlink" title="2 循环队列"></a>2 循环队列</h5><p>将顺序队列设想为一个环状的空间，即把存储队列元素的表从逻辑上视为一个环，称为循环队列。当队首指针<code>Q.front=MaxSize-1</code>后，再前进一个位置就自动为<code>0</code></p>
-<p>为了区分队空还是队满的情况</p>
+<h4 id="4-5-3-枚举typeHandler"><a href="#4-5-3-枚举typeHandler" class="headerlink" title="4.5.3 枚举typeHandler"></a>4.5.3 枚举typeHandler</h4><p>MyBatis对数据库的Blob字段也进行了支持，它提供了一个<code>BlobTypeHandler</code></p>
+<p>在现实中，一次性将大量数据加载到<code>JVM</code>中，会给服务器带来很大压力，所以在更多的时候要考虑使用文件流的形式，这时要将<code>POJO</code>的属性修改为<code>InputStream</code></p>
+<h3 id="4-6-ObjectFactory-对象工厂"><a href="#4-6-ObjectFactory-对象工厂" class="headerlink" title="4.6 ObjectFactory(对象工厂)"></a>4.6 ObjectFactory(对象工厂)</h3><p>当创建结果集时，<code>MyBatis</code>会使用一个对象工厂来完成创建这个结果集实例。在默认情况下，<code>MyBatis</code>会使用其定义的对象工厂<code>DefaultObjectFactory</code>来完成对应的工作</p>
+<p>MyBatis也允许注册自定义的<code>ObjectFactory</code></p>
 <ol>
-<li>牺牲一个单元来区分队空和队满，入队时少用一个队列单元</li>
-<li>类型中增设表示元素个数的数据成员</li>
-<li>类型中增设<code>tag</code>数据成员，以区分是队满还是队空</li>
-</ol>
-<h5 id="3-循环队列的操作"><a href="#3-循环队列的操作" class="headerlink" title="3 循环队列的操作"></a>3 循环队列的操作</h5><p>当删除元素时，队头指针<code>+1</code></p>
-<p>当插入元素时，队尾指针<code>+1</code></p>
-<h4 id="3-2-3-队列的链式存储"><a href="#3-2-3-队列的链式存储" class="headerlink" title="3.2.3 队列的链式存储"></a>3.2.3 队列的链式存储</h4><h5 id="1-队列的链式存储"><a href="#1-队列的链式存储" class="headerlink" title="1 队列的链式存储"></a>1 队列的链式存储</h5><p>队列的链式表示称为链队列，它实际上是一个同时带有队头指针和队尾指针的单链表</p>
-<ul>
-<li>出队时，首先判断队是否为空，若不空，则取出队头元素，将其从链表中摘除</li>
-<li>入队时，建立一个新节点，将新节点插入到链表的尾部，并改让<code>Q.rear</code>指向这个新插入的节点</li>
-</ul>
-<h5 id="2-链式队列的基本操作"><a href="#2-链式队列的基本操作" class="headerlink" title="2 链式队列的基本操作"></a>2 链式队列的基本操作</h5><p>略</p>
-<h4 id="3-2-4-双端队列"><a href="#3-2-4-双端队列" class="headerlink" title="3.2.4 双端队列"></a>3.2.4 双端队列</h4><p>双端队列: 双端队列是指允许两端都可以进行入队和出队操作的队列，将队列的两端分别称为前端和后端，两端都可以入队和出队。</p>
-<p>输出受限的双端队列:允许在一端进行插入和删除，但在另一端只允许插入的双端队列称为输出受限的双端队列</p>
-<p>输入受限的双端队列:允许在一端进行插入和删除，但在另一端只允许删除的双端队列称为输入受限的双端队列</p>
-<h3 id="3-3-栈和队列的应用"><a href="#3-3-栈和队列的应用" class="headerlink" title="3.3 栈和队列的应用"></a>3.3 栈和队列的应用</h3><h4 id="3-3-1-栈在括号匹配中的应用"><a href="#3-3-1-栈在括号匹配中的应用" class="headerlink" title="3.3.1 栈在括号匹配中的应用"></a>3.3.1 栈在括号匹配中的应用</h4><p>思想如下</p>
-<ul>
-<li>初始设置一个空栈，顺序读入括号</li>
-<li>若是右括号，则或者使置于栈顶的元素得以消解，或者不合法输入</li>
-<li>若是左括号，则将其压入栈中</li>
-<li>当算法结束时，要保证栈为空</li>
-</ul>
-<h4 id="3-3-2-栈在表达式求值中的应用"><a href="#3-3-2-栈在表达式求值中的应用" class="headerlink" title="3.3.2 栈在表达式求值中的应用"></a>3.3.2 栈在表达式求值中的应用</h4><p>中缀表达式</p>
-<ul>
-<li>通常表达式</li>
-<li>例如<code>(a+b)*c</code></li>
-</ul>
-<p>后缀表达式</p>
-<ul>
-<li>运算符在操作数后面，在后缀表达式中已经考虑了运算符的优先级，没有括号</li>
-<li>例如<code>ab+c*</code></li>
-</ul>
-<p>中缀表达式转后缀表达式</p>
-<ol>
-<li>遇到操作数直接输出</li>
-<li>遇到操作符<ol>
-<li>若优先级大于栈顶元素，则压入栈中</li>
-<li>若优先级小于或等于栈顶元素，则弹出栈中操作符，直到优先级大于栈顶元素，然后压入栈中</li>
-</ol>
+<li>实现<code>ObjectFactory</code>接口或者继承<code>DefaultObjectFactory</code>类</li>
+<li>在配置文件中注册 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">objectFactory</span> <span class="attr">type</span>=<span class="string">"com.edu.neu.MyObjectFactory"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"prop1"</span> <span class="attr">value</span>=<span class="string">"value1"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">objectFactory</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>遇到左括号，压入栈中</li>
-<li>遇到右括号，弹出栈顶元素直到弹出一个左括号</li>
 </ol>
-<h4 id="3-3-3-栈在递归中的应用"><a href="#3-3-3-栈在递归中的应用" class="headerlink" title="3.3.3 栈在递归中的应用"></a>3.3.3 栈在递归中的应用</h4><p>可以将递归算法转换为非递归算法，通常需要借助栈来实现这种转换</p>
-<h4 id="3-3-4-队列在层次遍历中的应用"><a href="#3-3-4-队列在层次遍历中的应用" class="headerlink" title="3.3.4 队列在层次遍历中的应用"></a>3.3.4 队列在层次遍历中的应用</h4><p>可以用队列实现二叉树的层次遍历，思路如下</p>
-<ol>
-<li>根节点入队</li>
-<li>若队空，则结束遍历，否则重复步骤3</li>
-<li>队列中的第一个节点出队，访问它，若其有左孩子，左孩子入队；若其有右孩子，右孩子入队。</li>
+<h3 id="4-7-插件"><a href="#4-7-插件" class="headerlink" title="4.7 插件"></a>4.7 插件</h3><p>插件是<code>MyBatis</code>中最强大和灵活的组件，同时也是最复杂、最难使用的组件，它十分危险，会覆盖<code>MyBatis</code>底层对象的核心方法和属性</p>
+<h3 id="4-8-运行环境-Environment"><a href="#4-8-运行环境-Environment" class="headerlink" title="4.8 运行环境(Environment)"></a>4.8 运行环境(Environment)</h3><p>在<code>MyBatis</code>中，运行环境主要的作用是配置数据库信息，它可以配置多个数据库，一般而言只需要配置其中的一个就可以</p>
+<p>它下面又分为两个可配置的元素：事务管理器(<code>transactionManager</code>)和数据源(<code>dataSource</code>)</p>
+<h4 id="4-8-1-transactionManager-事务管理器"><a href="#4-8-1-transactionManager-事务管理器" class="headerlink" title="4.8.1 transactionManager(事务管理器)"></a>4.8.1 transactionManager(事务管理器)</h4><p>transactionManager提供两个实现类，它需要实现接口<code>Transaction`</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Transaction</span></span>&#123;</span><br><span class="line">    <span class="function">Connection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">commit</span><span class="params">()</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rollback</span><span class="params">()</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">    <span class="function">Integer <span class="title">getTimeout</span><span class="params">()</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>它的主要工作就是提交(commit)、回滚(rollback)和关闭(close)</li>
+<li><code>MyBatis</code>为<code>Transaction</code>提供了两个实现类:<code>JdbcTransaction</code>和<code>ManagedTransaction</code></li>
+<li><code>JdbcTransaction</code>是以JDBC的方式对数据库的提交和回滚进行操作</li>
+<li><code>ManagedTransaction</code>的提交和回滚不用任何操作，而是把事务交给容器处理</li>
+</ul>
+<p>在配置文件中，可以通过如下配置，决定使用哪种<code>Transaction</code>方式<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">"JDBC"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">"MANAGED"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="4-8-2-environment-数据源环境"><a href="#4-8-2-environment-数据源环境" class="headerlink" title="4.8.2 environment(数据源环境)"></a>4.8.2 environment(数据源环境)</h4><p>environment的主要作用是配置数据库<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"UNPOOLED"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"POOLED"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"JNDI"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="4-8-2-1-UNPOOLED"><a href="#4-8-2-1-UNPOOLED" class="headerlink" title="4.8.2.1 UNPOOLED"></a>4.8.2.1 UNPOOLED</h5><p><code>UNPOOLED</code>采用非数据库池的管理方式，每次请求会打开一个新的数据库连接，所以创建会比较慢，在一些对性能没有很高要求的场合可以使用它</p>
+<p><code>UNPOOLED</code>类型的数据源可以配置如下几个属性</p>
+<ul>
+<li><code>driver</code>数据库驱动名</li>
+<li><code>url</code>连接数据库的URL</li>
+<li><code>username</code>用户名</li>
+<li><code>passowrd</code>密码</li>
+<li><code>defaultTransactionIsolationLevel</code>默认的连接事务隔离级别</li>
+</ul>
+<h5 id="4-8-2-2-POOLED"><a href="#4-8-2-2-POOLED" class="headerlink" title="4.8.2.2 POOLED"></a>4.8.2.2 <code>POOLED</code></h5><p>数据源<code>POOLED</code>利用池的概念将<code>JDBC</code>的<code>Connection</code>对象组织起来，它开始会有一些空置并且已经连接好的数据库连接，所以请求时，无须再建立和验证，省去去了创建新的连接实例时所必须的初始化和认证时间</p>
+<h5 id="4-8-2-3-JNDI"><a href="#4-8-2-3-JNDI" class="headerlink" title="4.8.2.3 JNDI"></a>4.8.2.3 <code>JNDI</code></h5><p>数据源<code>JNDI</code>的实现是为了能在如<code>EJB</code>或应用服务器这类容器中使用</p>
+<h3 id="4-9-databaseIdProvider数据库厂商标识"><a href="#4-9-databaseIdProvider数据库厂商标识" class="headerlink" title="4.9 databaseIdProvider数据库厂商标识"></a>4.9 databaseIdProvider数据库厂商标识</h3><p>此元素主要是支持多种不同厂商的数据库，来提升可移植性</p>
+<h3 id="4-10-引入映射器的方法"><a href="#4-10-引入映射器的方法" class="headerlink" title="4.10 引入映射器的方法"></a>4.10 引入映射器的方法</h3><ol>
+<li><p>用文件路径引入映射器</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resourse</span>=<span class="string">"com/learn/ssm/mapper/roleMapper.xml"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用包名引入映射器</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"com.learn.ssm.mapper"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用类注册引入映射器</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">class</span>=<span class="string">"com.learn.ssm.mapper.UserMapper"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">class</span>=<span class="string">"com.learn.ssm.mapper.RoleMapper"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用<code>userMapper.xml</code>引入映射器</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">url</span>=<span class="string">"file:///var/mappers/com/learn/ssm/mapper/roleMapper.xml"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">url</span>=<span class="string">"file:///var/mappers/com/learn/ssm/mapper/userMapper.xml"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h4 id="3-3-5-队列在计算机系统中的应用"><a href="#3-3-5-队列在计算机系统中的应用" class="headerlink" title="3.3.5 队列在计算机系统中的应用"></a>3.3.5 队列在计算机系统中的应用</h4><ol>
-<li>解决主机与外部设备之间速度不匹配的问题</li>
-<li>解决由多用户引起的资源竞争问题</li>
-</ol>
-<h3 id="3-4-特殊矩阵的压缩存储"><a href="#3-4-特殊矩阵的压缩存储" class="headerlink" title="3.4 特殊矩阵的压缩存储"></a>3.4 特殊矩阵的压缩存储</h3>
+
           
         
       
@@ -520,7 +491,7 @@ $$\frac{1}{n+1}C_{2n}^n=\frac{1}{n+1}\frac{2n!}{{n!}\times{n!}}$$
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -568,7 +539,7 @@ $$\frac{1}{n+1}C_{2n}^n=\frac{1}{n+1}\frac{2n!}{{n!}\times{n!}}$$
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -590,7 +561,7 @@ $$\frac{1}{n+1}C_{2n}^n=\frac{1}{n+1}\frac{2n!}{{n!}\times{n!}}$$
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

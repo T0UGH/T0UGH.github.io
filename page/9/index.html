@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/31/SSM-7-MyBatis的解析和运行原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/01/31/SSM-7-MyBatis的解析和运行原理/" itemprop="url">[SSM][7][MyBatis的解析和运行原理]</a></h1>
+                <a class="post-title-link" href="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/" itemprop="url">[流畅的Python][8][对象引用、可变性和垃圾回收]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-31T16:25:37+08:00">
-                2020-01-31
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:43:46+08:00">
+                2020-02-01
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SSM/" itemprop="url" rel="index">
-                    <span itemprop="name">SSM</span>
+                  <a href="/categories/流畅的Python/" itemprop="url" rel="index">
+                    <span itemprop="name">流畅的Python</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/01/31/SSM-7-MyBatis的解析和运行原理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/31/SSM-7-MyBatis的解析和运行原理/" itemprop="commentCount"></span>
+                <a href="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,69 +362,206 @@
       
         
           
-            <h2 id="第-7-章-MyBatis的解析和运行原理"><a href="#第-7-章-MyBatis的解析和运行原理" class="headerlink" title="第 7 章 MyBatis的解析和运行原理"></a>第 7 章 MyBatis的解析和运行原理</h2><p>MyBatis的运行过程分为两大步</p>
-<ol>
-<li>读取配置文件缓存到<code>Configuration</code>对象，用以创建<code>SqlSessionFactory</code></li>
-<li><code>SqlSession</code>的执行过程</li>
-</ol>
-<h3 id="7-1-构建SqlSessionFactory过程"><a href="#7-1-构建SqlSessionFactory过程" class="headerlink" title="7.1 构建SqlSessionFactory过程"></a>7.1 构建SqlSessionFactory过程</h3><p><code>SqlSessionFactory</code>是<code>MyBatis</code>的核心类之一，其最重要的功能就是提供创建<code>MyBatis</code>的核心接口<code>SqlSession</code>，所以要先创建<code>SqlSessionFactory</code>，为此要提供配置文件和相关的参数。</p>
-<p><code>MyBatis</code>采用了<code>Builder</code>模式去创建<code>SqlSessionFactory</code>，在实际中可以通过<code>SqlSessionF actoryBuilder</code>去构建，其构建分为两步。</p>
-<ol>
-<li>通过<code>XMLConfigBuilder</code>解析配置的<code>XML</code>文件，读出所配置的参数，并将读取的内容存入<code>Configuration</code> 类对象中。</li>
-<li>使用<code>Confinguration</code> 对象去创建<code>SqlSessionFactory</code></li>
-</ol>
-<h4 id="7-1-1-构建Configuration"><a href="#7-1-1-构建Configuration" class="headerlink" title="7.1.1 构建Configuration"></a>7.1.1 构建Configuration</h4><p>在<code>SqlSessionFactory</code>构建中，<code>Configuration</code>是最重要的，它的作用是：</p>
+            <h2 id="第8章-对象引用、可变性和垃圾回收"><a href="#第8章-对象引用、可变性和垃圾回收" class="headerlink" title="第8章 对象引用、可变性和垃圾回收"></a>第8章 对象引用、可变性和垃圾回收</h2><blockquote>
+<p>“你不开心,”白骑士用一种忧虑的声调说,“让我给你唱一首歌安<br>慰你吧……这首歌的曲名叫作 :《黑线鳕的眼睛》。”<br>“哦,那是一首歌的曲名,是吗?”爱丽丝问道,她试着使自己感到<br>有兴趣。<br>“不,你不明白,”白骑士说,看来有些心烦的样子,“那是人家这<br>么叫的曲名。真正的曲名是《老而又老的老头儿》。”(改编自第<br>8 章“这是我自己的发明”)<br>——Lewis Carroll《爱丽丝镜中奇遇记》</p>
+</blockquote>
+<hr>
+<h3 id="8-1-变量不是盒子"><a href="#8-1-变量不是盒子" class="headerlink" title="8.1 变量不是盒子"></a>8.1 变量不是盒子</h3><ul>
+<li><p>引子</p>
 <ul>
-<li>读入配置文件，包括基础配置的<code>XML</code>和映射器<code>XML</code>(或注解)。</li>
-<li>初始化一些基础配置，比如<code>MyBatis</code>的别名等，一些重要的类对象(比如插件、映<br>射器、<code>Object</code>工厂、<code>typeHandlers</code>对象等)。</li>
-<li>提供单例，为后续创建<code>SessionFactorγ</code>服务，提供配置的参数。</li>
-<li>执行一些重要对象的初始化方法。</li>
+<li>人们经常使用”变量是盒子”这样的比喻，但是这有碍于理解面向对象语言中的引用式变量</li>
+<li>Python变量类似于Java中的引用式变量，因此最好把它们理解为<strong>附加在对象上的标注</strong></li>
 </ul>
-<p><code>Configuration</code>是通过<code>XMLConfigBuilder</code>去构建的，首先它会读出所有<code>XML</code>配置的信息，然后把它们解析并保存在<code>Configuration</code>单例中。它会做如下初始化：</p>
+</li>
+<li><p>示例 8-1 变量<code>a</code>和<code>b</code>引用同一个列表，而不是那个列表的副本</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = a</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.append(<span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如图<br>  <img src="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/变量不是盒子.png" alt=""></p>
+</li>
+<li><p>变量的赋值方式</p>
 <ul>
-<li><code>properties</code> 全局参数。</li>
-<li><code>typeAliases</code> 别名。</li>
-<li><code>Plugins</code> 插件。</li>
-<li><code>objectFactory</code> 对象工厂。</li>
-<li><code>objectWrapperFactory</code> 对象包装工厂。</li>
-<li><code>reflectionFactory</code> 反射工厂。</li>
-<li><code>settings</code> 环境设置。</li>
-<li><code>environments</code> 数据库环境。</li>
-<li><code>databaseldProvider</code> 数据库标识。</li>
-<li><code>typeHandlers</code> 类型转换器。</li>
-<li><code>Mappers</code> 映射器。</li>
+<li>对引用式变量来说，说把变量分配给对象更合理，反过来说就有问题。毕竟，<strong>对象在赋值之前就创建了</strong></li>
+<li>为了理解Python中的赋值语句，应该始终先读右边。对象在右边创建或获取，在此之后左边的变量才会绑定到对象上，就像为对象贴上便利贴一样</li>
 </ul>
-<p>它们都会以类似<code>typeHandler</code>注册那样的方法被存放到<code>Configuration</code>单例中，以便未来将其取出。</p>
-<h4 id="7-1-2-构建映射器的内部组成"><a href="#7-1-2-构建映射器的内部组成" class="headerlink" title="7.1.2 构建映射器的内部组成"></a>7.1.2 构建映射器的内部组成</h4><p>当<code>XMLConfigBuilder</code>解析<code>XML</code>时，会将每一个<code>SQL</code>和其配置的内容保存起来。一般而言，在<code>MyBatis</code>中一条<code>SQL</code>和它相关的配置信息是由3个部分组成的，它们分别是<code>MappedStatement</code>、<code>SqlSource</code>和<code>BoundSql</code></p>
+</li>
+</ul>
+<hr>
+<h3 id="8-2-标识、相等性和别名"><a href="#8-2-标识、相等性和别名" class="headerlink" title="8.2 标识、相等性和别名"></a>8.2 标识、相等性和别名</h3><ul>
+<li><p>别名</p>
 <ul>
-<li><code>MappedStatement</code>的作用是保存一个映射器节点(<code>select|insert|delete|update</code>)的内容。它是一个类，包括许多我们配置的<code>SQL</code>、<code>SQL</code>的<code>id</code>、缓存信息、<code>resultMap</code>、<code>parameterType</code>、<code>resultType</code>、<code>resultMap</code>、<code>languageDriver</code>等重要配置内容。</li>
-<li><code>SqlSource</code>是提供<code>BoundSql</code>对象的地方，它是<code>MappedStatement</code>的一个属性。它的作用是根据上下文和参数解析生成需要的<code>SQL</code></li>
-<li><code>BoundSql</code>是一个结果对象，也就是<code>SqlSource</code>通过解析得到的<code>SQL</code>和参数</li>
+<li>因为变量不过是标注，所以无法阻止为对象贴上多个标注</li>
+<li>贴的多个标注，就是别名</li>
 </ul>
-<p><img src="/2020/01/31/SSM-7-MyBatis的解析和运行原理/200131_0.png" alt=""></p>
-<p>对于最终的参数和SQL 都反映在<code>BoundSql</code>类对象上，在插件中往往需要拿到它进而可以拿到当前运行的<code>SQL</code>和参数，从而对运行过程做出必要的修改，来满足特殊的需求</p>
-<p><code>BoundSql</code>会提供3个主要的属性：<code>parameterMappings</code>、<code>parameterObject</code>和<code>sql</code></p>
-<ol>
-<li><code>parameterObject</code>为参数本身，可以传递简单对象、<code>POJO</code>或者<code>Map</code>、<code>＠Param</code>注解的参数</li>
-<li><code>parameterMappings</code>是一个<code>List</code>，它的每一个元素都是<code>ParameterMapping</code>对象。对象会描述参数，参数包括属性名称、表达式、<code>javaType</code>、<code>jdbcType</code>、<code>typeHandler</code>等重要信息</li>
-<li><code>sql</code>属性就是书写在映射器里面的一条被<code>SqlSource</code>解析后的<code>SQL</code></li>
-</ol>
-<h3 id="7-2-SqlSession运行过程"><a href="#7-2-SqlSession运行过程" class="headerlink" title="7.2 SqlSession运行过程"></a>7.2 SqlSession运行过程</h3><h4 id="7-2-1-映射器-Mapper-的动态代理"><a href="#7-2-1-映射器-Mapper-的动态代理" class="headerlink" title="7.2.1 映射器(Mapper)的动态代理"></a>7.2.1 映射器(Mapper)的动态代理</h4><p>略(没看懂)</p>
-<h4 id="7-2-2-SqlSession下的四大对象"><a href="#7-2-2-SqlSession下的四大对象" class="headerlink" title="7.2.2 SqlSession下的四大对象"></a>7.2.2 SqlSession下的四大对象</h4><p><code>SqlSession</code>的执行过程是通过<code>Executor</code>、<code>StatementHandler</code>、<code>ParameterHandler</code>和<code>ResultSetHandler</code>来完成数据库操作和结果返回的</p>
+</li>
+<li><p>示例 </p>
 <ul>
-<li><code>Executor</code>代表执行器，由它调度<code>StatementHandler</code>、<code>ParameterHandler</code>、<code>ResultSetHandler</code><br>等来执行对应的<code>SQL</code>。其中<code>StatementHandler</code>是最重要的。</li>
-<li><code>StatementHandler</code>的作用是使用数据库的<code>Statement</code>执行操作</li>
-<li><code>ParameterHandler</code>是用来处理<code>SQL</code>参数的。</li>
-<li><code>ResultSetHandler</code>是进行数据集<code>ResultSet</code>的封装返回处理的，它相当复杂，好在我们不常用它。</li>
+<li>背景：Lewis Carroll 是 Charles Lutwidge Dodgson 教授的笔名。Carroll 先生指的就是 Dodgson 教授,二者是同一个人。然而,假如有冒充者(姑且叫他 Alexander Pedachenko 博士)生于 1832年,声称他是 Charles L. Dodgson。这个冒充者的证件可能一样,但 Pedachenko 博士不是Dodgson 教授</li>
+<li>如图<br><img src="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/不同的绑定.png" alt=""></li>
+<li>代码  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>charles = &#123;<span class="string">'name'</span>: <span class="string">'Charles L. Dodgson'</span>, <span class="string">'born'</span>: <span class="number">1832</span>&#125;</span><br><span class="line"><span class="comment"># lewis 是 charles 的别名</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>lewis = charles </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>lewis <span class="keyword">is</span> charles</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># is 运算符和 id 函数确认了这一点</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>id(charles), id(lewis) </span><br><span class="line">(<span class="number">4300473992</span>, <span class="number">4300473992</span>)</span><br><span class="line"><span class="comment"># 向 lewis 中添加一个元素相当于向 charles 中添加一个元素</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>lewis[<span class="string">'balance'</span>] = <span class="number">950</span> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>charles</span><br><span class="line">&#123;<span class="string">'name'</span>: <span class="string">'Charles L. Dodgson'</span>, <span class="string">'balance'</span>: <span class="number">950</span>, <span class="string">'born'</span>: <span class="number">1832</span>&#125;</span><br><span class="line"><span class="comment"># alex 指代的对象与赋值给 charles 的对象内容一样</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>alex = &#123;<span class="string">'name'</span>: <span class="string">'Charles L. Dodgson'</span>, <span class="string">'born'</span>: <span class="number">1832</span>, <span class="string">'balance'</span>: <span class="number">950</span>&#125;</span><br><span class="line"><span class="comment"># 比较两个对象,结果相等,这是因为 dict 类的 __eq__ 方法就是这样实现的</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>alex == charles </span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># 但它们是不同的对象。这是 Python 说明标识不同的方式:a is not b</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>alex <span class="keyword">is</span> <span class="keyword">not</span> charles </span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h4 id="7-2-3-SqlSession的运行"><a href="#7-2-3-SqlSession的运行" class="headerlink" title="7.2.3 SqlSession的运行"></a>7.2.3 SqlSession的运行</h4><p><img src="/2020/01/31/SSM-7-MyBatis的解析和运行原理/200131_1.png" alt=""></p>
-<p><code>SqlSession</code>是通过执行器<code>Executor</code>调度<code>StatementHandler</code>来运行的。而<code>StatementHandler</code>经过3步</p>
+</li>
+<li><p>标识</p>
 <ul>
-<li><code>prepared</code>预编译<code>SQL</code></li>
-<li><code>parameterize</code>设置参数</li>
-<li><code>query/update</code>执行<code>SQL</code></li>
+<li>每个对象都有标识、类型和值</li>
+<li><strong>对象一旦创建,它的标识绝不会变</strong>;你可以把标识理解为对象在内存中的地址</li>
+<li><code>is</code> 运算符比较两个对象的标识</li>
+<li><code>id()</code> 函数返回对象标识的整数表示,在CPython中<code>id()</code>返回对象的内存地址</li>
 </ul>
-<p>其中，<code>parameterize</code>是调用<code>parameterHandler</code>的方法设置的，而参数是根据类型处理器<code>typeHandler</code>处理的。<code>query/update</code>方法通过<code>ResultSetHandler</code>进行处理结果的封装，如果是<code>update</code>语句，就返回整数，否则就通过<code>typeHandler</code>处理结果类型，然后用<code>ObjectFactory</code>提供的规则组装对象，返回给调用者</p>
+</li>
+</ul>
+<hr>
+<h4 id="8-2-1-在-和-is-之间选择"><a href="#8-2-1-在-和-is-之间选择" class="headerlink" title="8.2.1 在 == 和 is 之间选择"></a>8.2.1 在 == 和 is 之间选择</h4><ul>
+<li><p>简介</p>
+<ul>
+<li><code>==</code> ： 比较的是两个对象的值(对象中保存的数据)</li>
+<li><code>is</code><ul>
+<li>比较的是对象的标识</li>
+<li>在变量和单例值之间比较时，应该用 <code>is</code>  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x <span class="keyword">is</span> <span class="keyword">None</span></span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span></span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>比较</p>
+<ul>
+<li><code>is</code> 运算符比 <code>==</code> 速度快,因为它不能重载,所以 Python 不用寻找并调用特殊方法,而是直接比较两个整数 ID</li>
+<li>而 <code>a == b</code> 是语法糖,等同于<code>a.__eq__(b)</code></li>
+<li>继承自 <code>object</code> 的 <code>__eq__</code> 方法比较两个对象的 ID,结果与 <code>is</code> 一样</li>
+<li>但是多数内置类型使用更有意义的方式覆盖了 <code>__eq__</code>方法,会考虑对象属性的值</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="8-2-2-元组的相对不可变性"><a href="#8-2-2-元组的相对不可变性" class="headerlink" title="8.2.2 元组的相对不可变性"></a>8.2.2 元组的相对不可变性</h4><ul>
+<li><p>简介</p>
+<ul>
+<li>元组与多数 Python 集合(列表、字典、集,等等)一样,保存的是对象的引用</li>
+<li>如果引用的元素是可变的,即便元组本身不可变,元素依然可变</li>
+<li>也就是说,元组的不可变性其实是指 <code>tuple</code> 数据结构的<strong>物理内容(即保存的引用)</strong>不可变,与<strong>引用的对象无关</strong></li>
+</ul>
+</li>
+<li><p>示例 元组中不可变的是元素的标识，元组的值会随着引用的可变对象的变化而变</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># t1 不可变,但是 t1[-1] 可变</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t1 = (<span class="number">1</span>, <span class="number">2</span>, [<span class="number">30</span>, <span class="number">40</span>])</span><br><span class="line"><span class="comment"># 构建元组 t2,它的元素与 t1 一样</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t2 = (<span class="number">1</span>, <span class="number">2</span>, [<span class="number">30</span>, <span class="number">40</span>])</span><br><span class="line"><span class="comment"># 虽然 t1 和 t2 是不同的对象,但是二者相等——与预期相符</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t1 == t2 </span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># 查看 t1[-1] 列表的标识</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>id(t1[<span class="number">-1</span>]) </span><br><span class="line"><span class="number">4302515784</span></span><br><span class="line"><span class="comment"># 就地修改 t1[-1] 列表</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t1[<span class="number">-1</span>].append(<span class="number">99</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t1</span><br><span class="line">(<span class="number">1</span>, <span class="number">2</span>, [<span class="number">30</span>, <span class="number">40</span>, <span class="number">99</span>])</span><br><span class="line"><span class="comment"># t1[-1] 的标识没变,只是值变了</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>id(t1[<span class="number">-1</span>]) </span><br><span class="line"><span class="number">4302515784</span></span><br><span class="line"><span class="comment"># 现在,t1 和 t2 不相等</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t1 == t2 </span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>元组的相对不可变性解释了 2.6.1 节的谜题。这也是<strong>有些元组不可散列</strong>(参见 3.1 节中的“什么是可散列的数据类型”附注栏)的原因</p>
+</li>
+</ul>
+<hr>
+<h3 id="8-3-默认做浅复制"><a href="#8-3-默认做浅复制" class="headerlink" title="8.3 默认做浅复制"></a>8.3 默认做浅复制</h3><h4 id="8-3-1-浅复制"><a href="#8-3-1-浅复制" class="headerlink" title="8.3.1 浅复制"></a>8.3.1 浅复制</h4><ul>
+<li><p>浅复制</p>
+<ul>
+<li>只复制最外层容器，副本中的元素是源容器中元素的引用</li>
+<li>如果所有元素都是不可变的，那么这样没有什么问题，还能节省内存</li>
+<li>但是如果有可变元素，可能导致意想不到的问题</li>
+</ul>
+</li>
+<li><p>示例： 如何进行浅复制</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>l1 = [<span class="number">3</span>, [<span class="number">55</span>, <span class="number">44</span>], (<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>)]</span><br><span class="line"><span class="comment"># 使用构造方法进行浅复制</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l2 = list(l1)</span><br><span class="line"><span class="comment"># 使用[:]进行浅复制</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l3 = l1[:]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l2</span><br><span class="line">[<span class="number">3</span>, [<span class="number">55</span>, <span class="number">44</span>], (<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>)]</span><br><span class="line"><span class="comment"># 副本与源列表相等</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l2 == l1 </span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># 但是二者指代不同的对象</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l2 <span class="keyword">is</span> l1 </span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>示例 ： 浅复制导致的问题</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">l1 = [<span class="number">3</span>, [<span class="number">66</span>, <span class="number">55</span>, <span class="number">44</span>], (<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>)]</span><br><span class="line">l2 = list(l1)</span><br><span class="line"><span class="comment"># l2 是 l1 的浅复制副本。此时的状态如下图所示</span></span><br><span class="line">l1.append(<span class="number">100</span>)</span><br><span class="line"><span class="comment"># 把 100 追加到 l1 中,对 l2 没有影响</span></span><br><span class="line">l1[<span class="number">1</span>].remove(<span class="number">55</span>)</span><br><span class="line"><span class="comment"># 把内部列表 l1[1] 中的 55 删除。这对 l2 有影响,因为 l2[1] 绑定的列表与 l1[1] 是同一个</span></span><br><span class="line">print(<span class="string">'l1:'</span>, l1)</span><br><span class="line">print(<span class="string">'l2:'</span>, l2)</span><br><span class="line"><span class="comment"># 对可变的对象来说,如 l2[1] 引用的列表,+= 运算符就地修改列表。这次修改在 l1[1] 中也有体现,因为它是 l2[1] 的别名</span></span><br><span class="line">l2[<span class="number">1</span>] += [<span class="number">33</span>, <span class="number">22</span>] </span><br><span class="line"><span class="comment"># 对元组来说,+= 运算符创建一个新元组,然后重新绑定给变量l2[2]</span></span><br><span class="line">l2[<span class="number">2</span>] += (<span class="number">10</span>, <span class="number">11</span>) </span><br><span class="line">print(<span class="string">'l1:'</span>, l1)</span><br><span class="line">print(<span class="string">'l2:'</span>, l2)</span><br></pre></td></tr></table></figure>
+<p>  <img src="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/浅复制1.png" alt=""><br>  <img src="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/浅复制2.png" alt=""></p>
+</li>
+<li><p>所以，浅复制虽然容易操作，但是有时得到的结果并不是你想要的</p>
+</li>
+</ul>
+<hr>
+<h4 id="8-3-2-为任意对象做深复制和浅复制"><a href="#8-3-2-为任意对象做深复制和浅复制" class="headerlink" title="8.3.2 为任意对象做深复制和浅复制"></a>8.3.2 为任意对象做深复制和浅复制</h4><ul>
+<li><p>深复制：副本不共享内部对象的引用</p>
+</li>
+<li><p>copy模块</p>
+<ul>
+<li>copy 模块提供的 deepcopy 和 copy 函数能为任意对象做深复制和浅复制</li>
+</ul>
+</li>
+<li><p>一般来说,深复制不是件简单的事。如果对象有循环引用,那么这个朴素的算法会进入无限循环。deepcopy 函数会记住已经复制的对象,因此能优雅地处理循环引用</p>
+</li>
+<li><p>深复制有时可能太深了。例如,对象可能会引用不该复制的外部资源或单例值。我们可以实现特殊方法 <code>__copy__()</code> 和<code>__deepcopy__()</code>,控制 copy 和 deepcopy 的行为</p>
+</li>
+</ul>
+<hr>
+<h3 id="8-4-函数的参数作为引用时"><a href="#8-4-函数的参数作为引用时" class="headerlink" title="8.4 函数的参数作为引用时"></a>8.4 函数的参数作为引用时</h3><ul>
+<li><p>Python传参的方案</p>
+<ul>
+<li>Python唯一支持的传参方式是共享传参(call by sharing)</li>
+<li>共享传参是指：函数的各个形式参数获得实参中各个引用的副本，也就是说，函数内部的形参是实参的别名</li>
+<li>这种方案的结果是，函数可能修改作为参数传入的可变对象，但是无法修改那些对象的标识。也就是说<strong>传入的参数可能会受到函数的影响而改变</strong></li>
+</ul>
+</li>
+<li><p>示例：函数可能会修改接收到的可变对象</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(a, b)</span>:</span></span><br><span class="line"><span class="meta">... </span>    a += b</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> a</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = <span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y = <span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f(x, y)</span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 数字x没变</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x, y</span><br><span class="line"><span class="number">1</span>, <span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = [<span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f(a, b)</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 列表a变了</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a, b</span><br><span class="line">([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], [<span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t = (<span class="number">10</span>, <span class="number">20</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>u = (<span class="number">30</span>, <span class="number">40</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f(t, u)</span><br><span class="line">(<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 元组t没变</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t, u</span><br><span class="line">((<span class="number">10</span>, <span class="number">20</span>), (<span class="number">30</span>, <span class="number">40</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="8-4-1-不要使用可变类型作为参数的默认值"><a href="#8-4-1-不要使用可变类型作为参数的默认值" class="headerlink" title="8.4.1 不要使用可变类型作为参数的默认值"></a>8.4.1 不要使用可变类型作为参数的默认值</h4><ul>
+<li><p>背景：可选参数可以有默认值,这是 Python 函数定义的一个很棒的特性,这样我们的 API 在进化的同时能保证向后兼容。然而,我们应该避免使用可变的对象作为参数的默认值</p>
+</li>
+<li><p>示例：幽灵列车，它将说明为什么应该避免使用可变的对象作为参数的默认值</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HautedBus</span>:</span></span><br><span class="line">    <span class="string">"""备受幽灵乘客折磨的校车"""</span></span><br><span class="line">    <span class="comment"># 如果没传入 passengers 参数,使用默认绑定的列表对象,一开始是空列表</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, passengers=[])</span>:</span></span><br><span class="line">        <span class="comment"># 这个赋值语句把 self.passengers 变成 passengers 的别名,而没有传入 passengers 参数时,后者又是默认列表的别名</span></span><br><span class="line">        self.passengers = passengers</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pick</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        <span class="comment"># 在 self.passengers 上调用 .remove() 和 .append() 方法时,修改的其实是默认列表,它是函数对象的一个属性</span></span><br><span class="line">        self.passengers.append(name)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">drop</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.passengers.remove(name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 一开始,bus1 是空的,因此把默认的空列表赋值给self.passengers</span></span><br><span class="line">    bus1 = HautedBus()</span><br><span class="line">    bus1.pick(<span class="string">'peter'</span>)</span><br><span class="line">    <span class="comment"># bus2 一开始也是空的,因此还是赋值默认的列表</span></span><br><span class="line">    <span class="comment"># 但是默认列表不为空!</span></span><br><span class="line">    bus2 = HautedBus()</span><br><span class="line">    bus2.pick(<span class="string">'alice'</span>)</span><br><span class="line">    <span class="comment"># bus1和bus2共享了乘客</span></span><br><span class="line">    print(bus1.passengers)</span><br><span class="line">    print(bus2.passengers)</span><br><span class="line">    print(bus1.passengers <span class="keyword">is</span> bus2.passengers)</span><br><span class="line">    <span class="comment"># 最后发现默认参数实际上是绑定在类的init方法的defaults属性上,作为一个类的属性,它只有一份,不会拷贝</span></span><br><span class="line">    print(bus1.passengers <span class="keyword">is</span> HautedBus.__init__.__defaults__[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解释：为什么应该避免使用可变的对象作为参数的默认值</p>
+<ul>
+<li>默认值在定义函数时计算(通常在加载模块时),因此默认值变成了<strong>函数对象的属性</strong>(上例中是<code>HautedBus</code>类的<code>init</code>方法上的<code>default属性</code>)</li>
+<li>因此,如果默认值是可变对象,而且修改了它的值,那么后续的函数调用都会受到影响</li>
+<li>其实<code>bus1.passengers</code>和<code>bus2.passengers</code>都是别名,它绑定到<code>HauntedBus.__init__.__defaults__</code>属性的第一个元素上</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="8-4-2-防御可变参数"><a href="#8-4-2-防御可变参数" class="headerlink" title="8.4.2 防御可变参数"></a>8.4.2 防御可变参数</h4><ul>
+<li><p>简介</p>
+<ul>
+<li>如果定义的函数接收可变参数，应该谨慎考虑调用者是否期望改变传入的参数</li>
+<li>例如，如果函数接收一个字典，而且在处理的过程中要修改它，那么这个副作用要不要体现到函数外部</li>
+</ul>
+</li>
+<li><p>示例：消失的篮球队</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># basketball_team 中有 5 个学生的名字</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>basketball_team = [<span class="string">'Sue'</span>, <span class="string">'Tina'</span>, <span class="string">'Maya'</span>, <span class="string">'Diana'</span>, <span class="string">'Pat'</span>]</span><br><span class="line"><span class="comment"># 使用这队学生实例化 TwilightBus</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bus = TwilightBus(basketball_team)</span><br><span class="line"><span class="comment"># 一个学生从 bus 下车了,接着又有一个学生下车了 </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bus.drop(<span class="string">'Tina'</span>) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bus.drop(<span class="string">'Pat'</span>)</span><br><span class="line"><span class="comment"># 下车的学生从篮球队中消失了</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>basketball_team </span><br><span class="line">[<span class="string">'Sue'</span>, <span class="string">'Maya'</span>, <span class="string">'Diana'</span>]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>TwilightBus 违反了设计接口的最佳实践,即“最少惊讶原则”</li>
+<li>学生从校车中下车后,她的名字就从篮球队的名单中消失了</li>
+</ul>
+</li>
+<li><p>解决：</p>
+<ul>
+<li>除非这个方法确实想修改通过参数传入的对象,否则在类中直接把参数赋值给实例变量之前一定要三思</li>
+<li>因为这样会为参数对象创建别名</li>
+<li>如果不确定,那就创建副本。这样客户会少些麻烦</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="8-5-del和垃圾回收"><a href="#8-5-del和垃圾回收" class="headerlink" title="8.5 del和垃圾回收"></a>8.5 del和垃圾回收</h3><blockquote>
+<p>对象绝不会自行销毁；然而，无法得到对象时，可能会被当做垃圾回收</p>
+</blockquote>
+<ul>
+<li><p><code>del</code>简介</p>
+<ul>
+<li><code>del</code>语句删除名称，而不是对象</li>
+<li><code>del</code> 命令可能会导致对象被当作垃圾回收,但是仅当删除的变量保存的是对象的最后一个引用,或者无法得到对象时</li>
+</ul>
+</li>
+<li><p><code>__del__</code>特殊方法</p>
+<ul>
+<li>有个 <code>__del__</code> 特殊方法,但是它不会销毁实例,不应该在代码中调用</li>
+<li>即将销毁实例时,Python 解释器会调用 <code>__del__</code> 方法,给实例最后的机会,释放外部资源</li>
+</ul>
+</li>
+<li><p>垃圾回收算法</p>
+<ul>
+<li>在 CPython 中,垃圾回收使用的主要算法是引用计数</li>
+<li>实际上,每个对象都会统计有多少引用指向自己</li>
+<li>当引用计数归零时,对象立即就被销毁:CPython 会在对象上调用 <code>__del__</code> 方法(如果定义了),然后释放分配给对象的内存</li>
+</ul>
+</li>
+<li><p>总结</p>
+<ul>
+<li><code>del</code>不会删除对象，但是执行<code>del</code>操作后可能导致对象不可获取从而被删除</li>
+</ul>
+</li>
+</ul>
+<hr>
 
           
         
@@ -464,7 +601,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -512,7 +649,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -534,7 +671,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

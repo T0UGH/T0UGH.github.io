@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/24/SSM-4-MyBatis配置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-5-一等函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/01/24/SSM-4-MyBatis配置/" itemprop="url">[SSM][4][MyBatis配置]</a></h1>
+                <a class="post-title-link" href="/2020/02/01/流畅的Python-5-一等函数/" itemprop="url">[流畅的Python][5][一等函数]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-24T10:44:28+08:00">
-                2020-01-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:38:22+08:00">
+                2020-02-01
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SSM/" itemprop="url" rel="index">
-                    <span itemprop="name">SSM</span>
+                  <a href="/categories/流畅的Python/" itemprop="url" rel="index">
+                    <span itemprop="name">流畅的Python</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/01/24/SSM-4-MyBatis配置/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/24/SSM-4-MyBatis配置/" itemprop="commentCount"></span>
+                <a href="/2020/02/01/流畅的Python-5-一等函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-5-一等函数/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,96 +362,275 @@
       
         
           
-            <h2 id="第4章-MyBatis配置"><a href="#第4章-MyBatis配置" class="headerlink" title="第4章 MyBatis配置"></a>第4章 MyBatis配置</h2><h3 id="4-1-概述"><a href="#4-1-概述" class="headerlink" title="4.1 概述"></a>4.1 概述</h3><p>MyBatis配置文件中所有元素清单如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;? xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>/&gt;</span><span class="comment">&lt;!--属性--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">settings</span>/&gt;</span><span class="comment">&lt;!--设置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeAliases</span>/&gt;</span><span class="comment">&lt;!--类型命名--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeHandlers</span>&gt;</span><span class="comment">&lt;!--类型处理器--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">objectFactory</span>/&gt;</span><span class="comment">&lt;!--对象工厂--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>/&gt;</span><span class="comment">&lt;!--插件--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">environments</span>&gt;</span><span class="comment">&lt;!--配置环境--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">environment</span>&gt;</span><span class="comment">&lt;!--环境变量--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">transactionManager</span>/&gt;</span><span class="comment">&lt;!--事务管理器--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dataSource</span>/&gt;</span><span class="comment">&lt;!--数据源--&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">environments</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">databaseIdProvider</span>/&gt;</span><span class="comment">&lt;!--数据库厂商标识--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mappers</span>/&gt;</span><span class="comment">&lt;!--映射器--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>MyBatis配置项的顺序不能颠倒，否则在启动阶段会发生异常</p>
-<h3 id="4-2-properties属性"><a href="#4-2-properties属性" class="headerlink" title="4.2 properties属性"></a>4.2 properties属性</h3><p>properties属性可以给系统配置一些运行参数，可以放在XML文件中，便于参数修改</p>
-<p>MyBatis提供3种方式来使用properties</p>
+            <h2 id="第5章-一等函数"><a href="#第5章-一等函数" class="headerlink" title="第5章 一等函数"></a>第5章 一等函数</h2><blockquote>
+<p>不管别人怎么说或怎么想，我从未觉得Python受到来自函数式语言的太多影响。我非常熟悉命令式语言，如C和Algol68，虽然我把函数定为一等对象，但是我并不把Python当成函数式编程语言      —————Guido van Rossum</p>
+</blockquote>
 <ul>
-<li><code>property</code>子元素</li>
-<li><code>properties</code>文件</li>
-<li>程序代码传递</li>
-</ul>
-<h4 id="4-2-1-property子元素"><a href="#4-2-1-property子元素" class="headerlink" title="4.2.1 property子元素"></a>4.2.1 property子元素</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"database.driver"</span> <span class="attr">value</span>=<span class="string">"com.mysql.cj.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"database.url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://localhost:3306/mybatisdemo?serverTimezone=UTC"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"database.username"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"database.password"</span> <span class="attr">value</span>=<span class="string">"123456"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">type</span>=<span class="string">"MyBatisDemo.pojo.Role"</span> <span class="attr">alias</span>=<span class="string">"role"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">environments</span> <span class="attr">default</span>=<span class="string">"development"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">"development"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">"JDBC"</span>&gt;</span><span class="tag">&lt;/<span class="name">transactionManager</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"POOLED"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driver"</span> <span class="attr">value</span>=<span class="string">"$&#123;database.driver&#125;"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"$&#123;database.url&#125;"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;database.username&#125;"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;database.password&#125;"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">environments</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">"MybatisDemo/mapper/RoleMapper.xml"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这里使用了元素<code>&lt;properties&gt;</code>下的子元素<code>&lt;property&gt;</code>定义，用字符串<code>database.username</code>定义数据库用户名，然后就可以在数据库定义中引入这个已经定义好的属性参数，如<code>${database.username}</code>，这样可以定义一次到处引用</p>
-<h4 id="4-2-2-使用properties文件"><a href="#4-2-2-使用properties文件" class="headerlink" title="4.2.2 使用properties文件"></a>4.2.2 使用properties文件</h4><p>我们可以配置多个键值放在一个properties文件中，也可以把多个键值放到多个properties文件中。</p>
-<p>先定义文件jdbc.properties<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">database.driver=com.mysql.cj.jdbc.Driver</span><br><span class="line">database.url=jdbc:mysql://localhost:3306/mybatisdemo?serverTimezone=UTC</span><br><span class="line">database.username=root</span><br><span class="line">database.password=123456</span><br></pre></td></tr></table></figure></p>
-<p>然后在mybatis中通过<code>&lt;properties&gt;</code>的属性<code>resource</code>来引入这个文件<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span> <span class="attr">resource</span>=<span class="string">"jdbc.properties"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="4-2-3-使用程序传递方式传递参数"><a href="#4-2-3-使用程序传递方式传递参数" class="headerlink" title="4.2.3 使用程序传递方式传递参数"></a>4.2.3 使用程序传递方式传递参数</h4><p>略</p>
-<h4 id="4-2-4-总结"><a href="#4-2-4-总结" class="headerlink" title="4.2.4 总结"></a>4.2.4 总结</h4><p>这三种方式是具有优先级顺序的，MyBatis会根据优先级来覆盖原先配置的属性值。最优先的是使用程序传递的方式，其次是使用<code>properties</code>文件的方式，最后是使用<code>property</code>子元素的方式。</p>
-<h3 id="4-3-settings设置"><a href="#4-3-settings设置" class="headerlink" title="4.3 settings设置"></a>4.3 settings设置</h3><p>settings可以深刻影响MyBatis底层的运行，但是在大部分情况下使用默认值就可以运行，所以不需要大量配置，只需要修改常用的规则即可</p>
-<p>比如关于缓存的<code>cacheEnabled</code>，关于级联的<code>lazyLoadingEnabled</code>和<code>aggressiveLazyLoading</code>，关于自动映射的<code>autoMappingBehavior</code>和<code>mapUnderscoreToCamelCase</code>等等</p>
-<h3 id="4-4-typeAliases别名"><a href="#4-4-typeAliases别名" class="headerlink" title="4.4 typeAliases别名"></a>4.4 typeAliases别名</h3><p>由于类的全限定名很长，所以在大量使用时，一般采用一个简写来代表这个类，这就是别名</p>
-<p>在MyBatis的初始化过程中，系统自动初始化了一些别名，例如<code>_int</code>、<code>_int[]</code>、<code>list</code>等，同时，<code>Configure</code>对象也对一些常用的配置类设置了别名，比如事务方式别名、数据源类型别名、缓存策略别名、语言驱动别名等。</p>
-<p>MyBatis也提供了用户自定义别名的规则。我们可以通过<code>TypeAliasRegister</code>类的<code>registerAlias</code>方法注册，也可以采用配置文件或者扫描方式来自定义它。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"role"</span> <span class="attr">type</span>=<span class="string">"com.neu.edu.pojo.Role"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"user"</span> <span class="attr">type</span>=<span class="string">"com.neu.edu.pojo.User"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>如果有很多类需要定义别名，可以通过扫描包的方式来实现<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"com.neu.edu.pojo"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>默认情况下，Mybatis会扫描这个包中的类，将其第一个字母变为小写作为其别名，例如<code>Role</code>的别名会变为<code>role</code>。若出现重名的情况，<code>Mybatis</code>允许使用注解<code>@Alias(&quot;role2&quot;)</code>的方式来进行避免<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">package com.neu.edu.pojo</span><br><span class="line">@Alias(&quot;Role2&quot;)</span><br><span class="line">public Class Role&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="4-5-typeHandler类型转换器"><a href="#4-5-typeHandler类型转换器" class="headerlink" title="4.5 typeHandler类型转换器"></a>4.5 typeHandler类型转换器</h3><p><code>typeHandler</code>的作用是完成<code>jdbcType</code>和<code>javaType</code>之间的相互转换，其中<code>jdbcType</code>用于定义数据库类型，而<code>javaType</code>用来定义Java类型。</p>
-<p>系统提供的<code>typeHandler</code>可以覆盖大部分场景的要求，假如有特殊需求，也可以自己定义特殊的转换规则</p>
-<p><img src="/2020/01/24/SSM-4-MyBatis配置/200124_0.png" alt=""></p>
-<h4 id="4-5-1-系统定义的TypeHandler"><a href="#4-5-1-系统定义的TypeHandler" class="headerlink" title="4.5.1 系统定义的TypeHandler"></a>4.5.1 系统定义的TypeHandler</h4><p>在<code>MyBatis</code>中<code>typeHandler</code>都要实现接口<code>org.apache.ibatis.type.TypeHandler</code>，此接口的定义如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TypeHandler</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setParameter</span><span class="params">(PreparedStatement ps, <span class="keyword">int</span> i, T parameter, jdbcType jdbcType)</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">    <span class="function">T <span class="title">getResult</span><span class="params">(ResultSet rs, String columnName)</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">    <span class="function">T <span class="title">getResult</span><span class="params">(ResultSet rs, <span class="keyword">int</span> columnIndex)</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">    <span class="function">T <span class="title">getResult</span><span class="params">(CallableStatement cs, <span class="keyword">int</span> columnIndex)</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>其中<code>T</code>是泛型，专指<code>javaType</code>，比如我们需要<code>String</code>的时候，实现类可以写为<code>implements TypeHandler&lt;String&gt;</code></li>
-<li><code>setParameter</code>方法，是使用<code>typeHandler</code>通过<code>PreparedStatement</code>对象进行设置SQL参数的时候使用的具体方法</li>
-<li><code>getResult</code>方法，是从JDBC结果集中获取数据并进行转换，要么使用列名，要么使用下标</li>
-</ul>
-<p>而<code>MyBatis</code>系统提供的<code>typeHandler</code>都继承了<code>org.apache.ibatis.type.BaseTypeHandler</code></p>
-<p>然后，采用<code>org.apache.ibatis.type.TypeHandlerRegister</code>类对象中的<code>register</code>方法进行注册</p>
-<h4 id="4-5-2-自定义的TypeHandler"><a href="#4-5-2-自定义的TypeHandler" class="headerlink" title="4.5.2 自定义的TypeHandler"></a>4.5.2 自定义的TypeHandler</h4><ol>
-<li><p>首先要自定义一个类，要么实现<code>TypeHandler</code>接口，要么继承<code>BaseTypeHandler</code>类</p>
+<li><p>在Python中，函数是一等对象</p>
 </li>
-<li><p>然后在配置文件中对这个新建的<code>typeHandler</code>进行注册</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeHandlers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeHandler</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span> <span class="attr">javaType</span>=<span class="string">"string"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">handler</span>=<span class="string">"com.edu.neu.typeHandler.MyTypeHandler"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">typeHandlers</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置完成后系统就会读取它，当<code>jdbcType</code>和<code>javaType</code>与<code>MyTypeHandler</code>对应的时候，就会启动<code>MyTypeHandler</code></p>
-</li>
-</ol>
-<h4 id="4-5-3-枚举typeHandler"><a href="#4-5-3-枚举typeHandler" class="headerlink" title="4.5.3 枚举typeHandler"></a>4.5.3 枚举typeHandler</h4><p>MyBatis对数据库的Blob字段也进行了支持，它提供了一个<code>BlobTypeHandler</code></p>
-<p>在现实中，一次性将大量数据加载到<code>JVM</code>中，会给服务器带来很大压力，所以在更多的时候要考虑使用文件流的形式，这时要将<code>POJO</code>的属性修改为<code>InputStream</code></p>
-<h3 id="4-6-ObjectFactory-对象工厂"><a href="#4-6-ObjectFactory-对象工厂" class="headerlink" title="4.6 ObjectFactory(对象工厂)"></a>4.6 ObjectFactory(对象工厂)</h3><p>当创建结果集时，<code>MyBatis</code>会使用一个对象工厂来完成创建这个结果集实例。在默认情况下，<code>MyBatis</code>会使用其定义的对象工厂<code>DefaultObjectFactory</code>来完成对应的工作</p>
-<p>MyBatis也允许注册自定义的<code>ObjectFactory</code></p>
+<li><p>编程语言理论家把“一等函数”定义为满足下述条件的程序实体</p>
 <ol>
-<li>实现<code>ObjectFactory</code>接口或者继承<code>DefaultObjectFactory</code>类</li>
-<li>在配置文件中注册 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">objectFactory</span> <span class="attr">type</span>=<span class="string">"com.edu.neu.MyObjectFactory"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"prop1"</span> <span class="attr">value</span>=<span class="string">"value1"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">objectFactory</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<li>运行时创建</li>
+<li>能赋值给变量或数据结构中的元素</li>
+<li>能作为参数传给函数</li>
+<li>能作为函数的返回结果</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="5-1-把函数视为对象"><a href="#5-1-把函数视为对象" class="headerlink" title="5.1 把函数视为对象"></a>5.1 把函数视为对象</h3><ul>
+<li><p>示例 5-1：函数是一等对象</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 这是一个控制台会话，因此我们在运行时创建了一个函数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">factorial</span><span class="params">(n)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="string">'''returns n'''</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">if</span> n &lt; <span class="number">2</span> <span class="keyword">else</span> n * factorial(n - <span class="number">1</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>factorial(<span class="number">42</span>)</span><br><span class="line"><span class="number">1405006117752879898543142606244511569936384000000000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># __doc__是函数对象众多属性中的一个，用于生成对象的帮助文档</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>factorial.__doc__</span><br><span class="line"><span class="string">'returns n'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># factorial是function类的一个实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(factorial)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">function</span>'&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>__doc__</code>属性生成对象的帮助文档。在Python交互式控制台中，可以调用help(obj)命令来查看这个文档</p>
+</li>
+<li><p>示例 5-2：将函数赋值给变量，再把函数作为参数传递</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>fact = factorial</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fact</span><br><span class="line">&lt;function factorial at <span class="number">0x7f84012f8e18</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fact(<span class="number">5</span>)</span><br><span class="line"><span class="number">120</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>map(factorial, range(<span class="number">11</span>))</span><br><span class="line">&lt;map object at <span class="number">0x7f83ff510860</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(map(fact, range(<span class="number">11</span>)))</span><br><span class="line">[<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">24</span>, <span class="number">120</span>, <span class="number">720</span>, <span class="number">5040</span>, <span class="number">40320</span>, <span class="number">362880</span>, <span class="number">3628800</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>以上两个示例可以充分说明在Python中函数是一等对象</p>
+</li>
+</ul>
+<hr>
+<h3 id="5-2-高阶函数"><a href="#5-2-高阶函数" class="headerlink" title="5.2 高阶函数"></a>5.2 高阶函数</h3><ul>
+<li><p>高阶函数的定义：接受函数为参数，或者把函数作为结果返回的函数就是高阶函数(higher-order function)</p>
+</li>
+<li><p>例如：内置函数map和内置函数sorted</p>
+</li>
+<li><p>示例 5-3：高阶函数sorted的使用方法1</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>fruits = [<span class="string">'strawberry'</span>, <span class="string">'fig'</span>, <span class="string">'apple'</span>, <span class="string">'cherry'</span>, <span class="string">'raspberry'</span>, <span class="string">'banana'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sorted(fruits, key=len)</span><br><span class="line">[<span class="string">'fig'</span>, <span class="string">'apple'</span>, <span class="string">'cherry'</span>, <span class="string">'banana'</span>, <span class="string">'raspberry'</span>, <span class="string">'strawberry'</span>]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>任何单参数函数都能作为key参数的值</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="5-2-1-map、filter和reduce的现代替代品"><a href="#5-2-1-map、filter和reduce的现代替代品" class="headerlink" title="5.2.1 map、filter和reduce的现代替代品"></a>5.2.1 map、filter和reduce的现代替代品</h4><ul>
+<li><p>函数式语言通常会提供map、filter和reduce三个高阶函数</p>
+</li>
+<li><p>在Python3中，map和filter还是内置函数，但是由于引入了列表推导和生成器表达式，它们变得不再那么重要</p>
+</li>
+<li><p>示例 5-5：map、filter与列表推导的对比</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(map(fact, range(<span class="number">6</span>)))</span><br><span class="line">[<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">24</span>, <span class="number">120</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[fact(n) <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">6</span>)]</span><br><span class="line">[<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">24</span>, <span class="number">120</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(map(fact, filter(<span class="keyword">lambda</span> n: n % <span class="number">2</span>, range(<span class="number">6</span>))))</span><br><span class="line">[<span class="number">1</span>, <span class="number">6</span>, <span class="number">120</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[fact(n) <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">6</span>) <span class="keyword">if</span> n % <span class="number">2</span>]</span><br><span class="line">[<span class="number">1</span>, <span class="number">6</span>, <span class="number">120</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在Python2中，reduce是内置函数，但是在Python3中放到了functools模块中</p>
+</li>
+<li><p>示例 5-6：使用reduce和sum计算0-99的和</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> operator <span class="keyword">import</span> add</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>reduce(add, range(<span class="number">100</span>))</span><br><span class="line"><span class="number">4950</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sum(range(<span class="number">100</span>))</span><br><span class="line"><span class="number">4950</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>sum和reduce的通用思想是把某个操作连续应用到序列的元素上，累计之前的结果，把一系列的值归约为一个值</li>
+</ul>
+</li>
+<li><p>归约函数</p>
+<ul>
+<li>把某个操作连续应用到序列的元素上，累计之前的结果，把一系列的值归约为一个值</li>
+<li>例如<ul>
+<li><code>sum(iterable)</code>：对iterable中各个元素求和</li>
+<li><code>reduce()</code></li>
+<li><code>all(iterable)</code>:如果iterable的每个元素都是真值，返回True,all([])返回True</li>
+<li><code>any(iterable)</code>：只要iterable中有元素时真值，就返回True,any([])返回False</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="5-3-匿名函数"><a href="#5-3-匿名函数" class="headerlink" title="5.3 匿名函数"></a>5.3 匿名函数</h3><ul>
+<li><p>匿名函数存在的原因：为了使用高阶函数，有时创建一次性的小型函数更便利</p>
+</li>
+<li><p>匿名函数简介</p>
+<ul>
+<li>lambda关键字在Python表达式内创建匿名函数</li>
+<li>然而，Python简单的句法限制了lambda函数的定义体只能使用纯表达式。也就是，lambda函数的定义体中不能赋值，也不能使用while和try等Python语句</li>
+</ul>
+</li>
+<li><p>示例5-7：使用lambda表达式反转拼写，然后依次给单词列表排序</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>fruits = [<span class="string">'strawberry'</span>, <span class="string">'fig'</span>, <span class="string">'apple'</span>, <span class="string">'cherry'</span>, <span class="string">'raspberry'</span>, <span class="string">'banana'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sorted(fruits, key = <span class="keyword">lambda</span> word: word[::<span class="number">-1</span>])</span><br><span class="line">[<span class="string">'banana'</span>, <span class="string">'apple'</span>, <span class="string">'fig'</span>, <span class="string">'raspberry'</span>, <span class="string">'strawberry'</span>, <span class="string">'cherry'</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>匿名函数的限制</p>
+<ul>
+<li>除了作为参数传给高阶函数之外，Python很少使用匿名函数</li>
+<li>由于句法上的限制，非平凡的lambda表达式要么难以阅读，要么无法写出</li>
+</ul>
+</li>
+<li><p>Lundh提出的lambda表达式重构秘籍</p>
+<ol start="0">
+<li>如果使用lambda表达式导致一段代码难以理解,Fredrik Lundh建议像下面这样重构</li>
+<li>编写注释，说明lambda表达式的作用</li>
+<li>研究一会儿注释，病找出一个名称来概括注释</li>
+<li>把lambda表达式转换成def，使用那个名称命名函数</li>
+<li>删除注释</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="5-4-可调用对象"><a href="#5-4-可调用对象" class="headerlink" title="5.4 可调用对象"></a>5.4 可调用对象</h3><hr>
+<ul>
+<li><p>可调用对象简介</p>
+<ul>
+<li>可以运用调用运算符(即())调用的对象叫做可调用对象</li>
+<li>如果想判断一个对象是否可调用，可以使用内置的<code>callable()</code>函数</li>
+<li>可调用对象一共有7种</li>
+</ul>
+</li>
+<li><p>可调用对象分类</p>
+<p>  | 可调用对象 | 简介 |<br>  | ——| —— |<br>  | 用户定义的函数 | 使用<code>def</code>语句或<code>lambda</code>表达式创建 |<br>  | 内置函数 | 使用C语言(CPython)实现的函数，如<code>len</code>或<code>time.strftime</code> |<br>  | 内置方法 | 使用C语言实现的方法，如<code>dict.get</code> |<br>  | 方法 | 在类的定义体中定义的函数 |<br>  | 类 | 调用类时会产生类似构造方法的效果，返回一个此类的实体 |<br>  | 类的实例 | 如果类定义了<code>__call__</code>方法，那么它的实例可以作为函数调用 |<br>  | 生成器函数 | 使用<code>yield</code>关键字的函数或方法 |</p>
+</li>
+</ul>
+<hr>
+<h3 id="5-5-用户定义的可调用类型"><a href="#5-5-用户定义的可调用类型" class="headerlink" title="5.5 用户定义的可调用类型"></a>5.5 用户定义的可调用类型</h3><ul>
+<li><p>简介</p>
+<ul>
+<li>不仅Python函数是真正的对象，任何Python对象都可以表现得像函数</li>
+<li>为此，只需实现实例方法<code>__call__</code></li>
+</ul>
+</li>
+<li><p>示例:实现了<strong>call</strong>方法的类，BingoCage</p>
+<ul>
+<li><p>源代码</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BingoCase</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, item)</span>:</span></span><br><span class="line">        <span class="comment"># __init__接受任何可迭代对象;在本地构建一个副本,防止列表参数的意外副作用</span></span><br><span class="line">        self._item = list(item)</span><br><span class="line">        <span class="comment"># shuffle定能完成工作,因为self._item是列表</span></span><br><span class="line">        random.shuffle(self._item)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 起主要作用的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pick</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">return</span> self._item.pop()</span><br><span class="line">        <span class="keyword">except</span> IndexError:</span><br><span class="line">            <span class="comment"># 如果self._item为空,抛出异常,并且设定错误信息</span></span><br><span class="line">            <span class="keyword">raise</span> LookupError(<span class="string">'pick from empty BingoCage'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># bingo.pick()的快捷方式是bingo()</span></span><br><span class="line">        <span class="keyword">return</span> self.pick()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> bingocall</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bingo = bingocall.BingoCase(range(<span class="number">3</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bingo.pick()</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bingo()</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>callable(bingo)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>其他</p>
+<ul>
+<li>实现<code>__call__</code>方法的类是创建函数类对象的简便方法，此时必须在内部维护一个状态，让它在调用之间可用，例如BingoCage中的剩余元素</li>
+<li>创建保有内部状态的函数，还有一种截然不同的方式————使用闭包</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="5-6-函数内省"><a href="#5-6-函数内省" class="headerlink" title="5.6 函数内省"></a>5.6 函数内省</h3><ul>
+<li><p>除了<code>__doc__</code>，函数对象还有很多属性，使用<code>dir</code>函数可以探知factorial具有下述属性</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dir(fun)</span><br><span class="line">[<span class="string">'__annotations__'</span>, <span class="string">'__call__'</span>, <span class="string">'__class__'</span>, <span class="string">'__closure__'</span>, <span class="string">'__code__'</span>, <span class="string">'__defaults__'</span>, <span class="string">'__delattr__'</span>, <span class="string">'__dict__'</span>, <span class="string">'__dir__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__eq__'</span>, <span class="string">'__format__'</span>, <span class="string">'__ge__'</span>, <span class="string">'__get__'</span>, <span class="string">'__getattribute__'</span>, <span class="string">'__globals__'</span>, <span class="string">'__gt__'</span>, <span class="string">'__hash__'</span>, <span class="string">'__init__'</span>, <span class="string">'__init_subclass__'</span>, <span class="string">'__kwdefaults__'</span>, <span class="string">'__le__'</span>, <span class="string">'__lt__'</span>, <span class="string">'__module__'</span>, <span class="string">'__name__'</span>, <span class="string">'__ne__'</span>, <span class="string">'__new__'</span>, <span class="string">'__qualname__'</span>, <span class="string">'__reduce__'</span>, <span class="string">'__reduce_ex__'</span>, <span class="string">'__repr__'</span>, <span class="string">'__setattr__'</span>, <span class="string">'__sizeof__'</span>, <span class="string">'__str__'</span>, <span class="string">'__subclasshook__'</span>]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>__dict__</code>属性</p>
+<ul>
+<li>函数使用<code>__dict__</code>属性储存赋予它的用户属性</li>
+<li><p>例如</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fun.name = <span class="string">"haha"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fun.__dict__</span><br><span class="line">&#123;<span class="string">'name'</span>: <span class="string">'haha'</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一般来说，为函数赋予属性不是很常见的做法</p>
+</li>
+</ul>
+</li>
+<li><p>用户定义的函数的属性<br>  | 名称 | 类型 | 说明 |<br>  | ——| —— | —— |<br>  | <code>__annotations__</code> | <code>dict</code> | 参数和返回值的注释 |<br>  | <code>__call__</code> | <code>method-wrapper</code> | 实现<code>()</code>运算符；即可调用对象协议 |<br>  | <code>__closure__</code> | <code>tuple</code> | 函数闭包，即自由变量的绑定 |<br>  | <code>__code__</code> | <code>code</code> | 编译成字节码的函数元数据和函数定义体 |<br>  | <code>__defaults__</code> | <code>tuple</code> | 形式参数的默认值 |<br>  | <code>__get__</code> | <code>method-wrapper</code> | 实现制度描述符协议 |<br>  | <code>__globals__</code> | <code>dict</code> | 函数所在模块中的全局变量 |<br>  | <code>__kwdefaults__</code> | <code>dict</code> | 仅限关键字形式参数的默认值 |<br>  | <code>__name__</code> | <code>str</code> | 函数名称 |<br>  | <code>__qualname__</code> | <code>str</code> | 函数的限定名称，如<code>Random.choice</code> |</p>
+</li>
+</ul>
+<hr>
+<h3 id="5-7-从定位参数到仅限关键字参数"><a href="#5-7-从定位参数到仅限关键字参数" class="headerlink" title="5.7 从定位参数到仅限关键字参数"></a>5.7 从定位参数到仅限关键字参数</h3><ul>
+<li><p>Python最好的特性之一是提供了及其灵活的参数处理机制</p>
+</li>
+<li><p>形式参数的分类</p>
+<ul>
+<li>定位参数：<ul>
+<li>调用函数时根据函数定义的参数位置来传递参数</li>
+</ul>
+</li>
+<li>关键字参数<ul>
+<li>用于函数调用，通过“键-值”形式加以指定</li>
+<li>可以让函数更加清晰、容易使用，同时也清除了参数的顺序需求</li>
+<li>并且可以在函数声明时为其制定默认值</li>
+</ul>
+</li>
+<li>可变参数：<ul>
+<li>定义函数时，有时候我们不确定调用的时候会传递多少个参数(不传参也可以)</li>
+<li>此时，可用包裹(<code>*</code>或<code>**</code>)位置参数，或者包裹关键字参数，来进行参数传递，会显得非常方便</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>*</code>与<code>**</code></p>
+<ul>
+<li><code>*</code><ul>
+<li>其他”剩余”参数会被放到一个元组中，被赋予带<code>*</code>的参数</li>
+<li>一个函数声明中只能有一个带<code>*</code>的参数</li>
+</ul>
+</li>
+<li><code>**</code><ul>
+<li>带<code>**</code>的参数是一个字典，它会收集所有剩余关键字参数并放入一个字典中</li>
+<li>一个函数声明中只能有一个带<code>**</code>的参数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>示例 5-10:tag函数定义部分,tag函数用来生成HTML标签</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> tag</span><br><span class="line"><span class="comment"># 传入单个定位参数,生成一个指定名称的空标签</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tag.tag(<span class="string">'br'</span>)</span><br><span class="line"><span class="string">'&lt;br /&gt;'</span></span><br><span class="line"><span class="comment"># 第一个参数后面的任意个参数会被*content捕获,存入一个元组</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tag.tag(<span class="string">'p'</span>, <span class="string">'hello'</span>)</span><br><span class="line"><span class="string">'&lt;p&gt;hello&lt;/p&gt;'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tag.tag(<span class="string">'p'</span>, <span class="string">'hello'</span>, id=<span class="number">33</span>)</span><br><span class="line"><span class="string">'&lt;p id="33"&gt;hello&lt;/p&gt;'</span></span><br><span class="line"><span class="comment"># tag函数签名中没有明确指定名称的关键字参数会被**attrs捕获，存入一个字典</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(tag.tag(<span class="string">'p'</span>, <span class="string">'hello'</span>, <span class="string">'world'</span>, cls=<span class="string">'sidebar'</span>))</span><br><span class="line">&lt;p class="sidebar"&gt;hello&lt;/p&gt;</span><br><span class="line">&lt;p class="sidebar"&gt;world&lt;/p&gt;</span><br><span class="line"><span class="comment"># 调用tag函数时，即使第一个定位参数也能作为关键字参数传入</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tag.tag(content=<span class="string">'testing'</span>, name=<span class="string">'img'</span>)</span><br><span class="line"><span class="string">'&lt;img content="testing" /&gt;'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>my_tag = &#123;<span class="string">'name'</span>: <span class="string">'img'</span>, <span class="string">'title'</span>: <span class="string">'Sunset Boulevard'</span>, <span class="string">'src'</span>: <span class="string">'sunset.jpg'</span>, <span class="string">'cls'</span>: <span class="string">'framed'</span>&#125;</span><br><span class="line"><span class="comment"># 在my_tag前面加入**,字典中的所有元素作为单个参数传入，同名键会绑定到对应的具名参数上，余下的会被**attrs捕获</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tag.tag(**my_tag)</span><br><span class="line"><span class="string">'&lt;img class="framed" src="sunset.jpg" title="Sunset Boulevard" /&gt;'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="5-8-获取关于参数的信息"><a href="#5-8-获取关于参数的信息" class="headerlink" title="5.8 获取关于参数的信息"></a>5.8 获取关于参数的信息</h3><ul>
+<li><p>举例：HTTP微框架Bobo中有个使用<strong>函数内省</strong>的好例子</p>
+<ul>
+<li><p>示例 5-12 <code>Bobo</code>知道<code>hello</code>需要<code>person</code>参数，并且从HTTP请求中获取它 </p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> bobo</span><br><span class="line"><span class="meta">@bobo.query('/)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(person)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'Hello %s!'</span> % person</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解释</p>
+<ul>
+<li><code>bobo.query</code>装饰器把一个普通的函数(如<code>hello</code>)与框架的请求处理机制集成起来了</li>
+<li>Bobo会内省<code>hello</code>函数，发现它需要一个名为<code>person</code>的参数，然后从请求中获取那个名称对应的参数，将其传给<code>hello</code>函数，因此程序员<strong>根本不需要</strong>触碰请求对象</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>那么问题来了</p>
+<ul>
+<li>Bobo是怎么知道函数需要哪个参数的呢？它又是怎么知道参数有没有默认值呢</li>
+<li>解答<ul>
+<li>函数对象有个<code>__default__</code>属性，它的值是一个元组，里面保存了定位参数和关键字参数的默认值</li>
+<li>仅限关键字参数的默认值在<code>__kwdefault__</code>属性中</li>
+<li>参数的名称在<code>__code__</code>属性中，它的值是一个code对象引用，自身也有很多属性</li>
+<li>但是这种组织信息的方式并不便利，我们可以使用<code>inspect</code>模块来更好的提取参数信息</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="5-9-函数注解"><a href="#5-9-函数注解" class="headerlink" title="5.9 函数注解"></a>5.9 函数注解</h3><ul>
+<li><p>函数注解的用法</p>
+<ul>
+<li>函数声明中的各个参数可以在<code>:</code>之后增加注解表达式</li>
+<li>如果参数有默认值，注解放在参数名和<code>=</code>之间</li>
+<li>如果想注解返回值，在<code>)</code>和函数声明末尾的<code>:</code>之间添加<code>-&gt;</code>和一个表达式。那个表达式可以是任意类型。注解中常用的类型是类(如str或int)和字符串(如’int &gt; 0’)</li>
+</ul>
+</li>
+<li><p>示例</p>
+<ul>
+<li><p>不加注解的函数声明版本</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clip</span><span class="params">(text, max_len)</span>:</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>加注解的函数声明版本</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clip</span><span class="params">(text:str, max_len:<span class="string">'int &gt; 0'</span>=<span class="number">80</span>)</span> -&gt; str:</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Python对注解所做的处理</p>
+<ul>
+<li>Python对注解所做的唯一的事情就是把它们存储在函数的<strong>annotations</strong>属性里，仅此而已</li>
+<li>Python不做检查，不做强制，不做验证，什么操作都不做</li>
+<li>注解在Python解释器中没有任何意义，注解只是元数据，可以供IDE、框架和装饰器等工具使用</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="5-10-本章小结"><a href="#5-10-本章小结" class="headerlink" title="5.10 本章小结"></a>5.10 本章小结</h3><ol>
+<li><p>本章的目标是探讨Python函数的一等本性。这意味着，我们可以把函数赋值给变量、传给其他函数、存储在数据结构中，以及访问函数的属性，供框架和一些工具使用</p>
+</li>
+<li><p>高阶函数</p>
+</li>
+<li><p>Python有7种可调用对象，这些可调用对象都能通过内置的<code>callable()</code>函数检测</p>
+</li>
+<li><p>每种可调用对象都支持使用相同的丰富句法声明形式参数，包括仅限关键字参数和注解</p>
+</li>
+<li><p>Python函数及其注解有丰富的属性，在inspect模块的帮助下，可以读取它们</p>
+</li>
+<li><p>函数式编程可以使用<code>operator</code>模块中的一些函数，以及<code>functools.partial</code>函数</p>
 </li>
 </ol>
-<h3 id="4-7-插件"><a href="#4-7-插件" class="headerlink" title="4.7 插件"></a>4.7 插件</h3><p>插件是<code>MyBatis</code>中最强大和灵活的组件，同时也是最复杂、最难使用的组件，它十分危险，会覆盖<code>MyBatis</code>底层对象的核心方法和属性</p>
-<h3 id="4-8-运行环境-Environment"><a href="#4-8-运行环境-Environment" class="headerlink" title="4.8 运行环境(Environment)"></a>4.8 运行环境(Environment)</h3><p>在<code>MyBatis</code>中，运行环境主要的作用是配置数据库信息，它可以配置多个数据库，一般而言只需要配置其中的一个就可以</p>
-<p>它下面又分为两个可配置的元素：事务管理器(<code>transactionManager</code>)和数据源(<code>dataSource</code>)</p>
-<h4 id="4-8-1-transactionManager-事务管理器"><a href="#4-8-1-transactionManager-事务管理器" class="headerlink" title="4.8.1 transactionManager(事务管理器)"></a>4.8.1 transactionManager(事务管理器)</h4><p>transactionManager提供两个实现类，它需要实现接口<code>Transaction`</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Transaction</span></span>&#123;</span><br><span class="line">    <span class="function">Connection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">commit</span><span class="params">()</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rollback</span><span class="params">()</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">    <span class="function">Integer <span class="title">getTimeout</span><span class="params">()</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>它的主要工作就是提交(commit)、回滚(rollback)和关闭(close)</li>
-<li><code>MyBatis</code>为<code>Transaction</code>提供了两个实现类:<code>JdbcTransaction</code>和<code>ManagedTransaction</code></li>
-<li><code>JdbcTransaction</code>是以JDBC的方式对数据库的提交和回滚进行操作</li>
-<li><code>ManagedTransaction</code>的提交和回滚不用任何操作，而是把事务交给容器处理</li>
-</ul>
-<p>在配置文件中，可以通过如下配置，决定使用哪种<code>Transaction</code>方式<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">"JDBC"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">"MANAGED"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="4-8-2-environment-数据源环境"><a href="#4-8-2-environment-数据源环境" class="headerlink" title="4.8.2 environment(数据源环境)"></a>4.8.2 environment(数据源环境)</h4><p>environment的主要作用是配置数据库<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"UNPOOLED"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"POOLED"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"JNDI"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h5 id="4-8-2-1-UNPOOLED"><a href="#4-8-2-1-UNPOOLED" class="headerlink" title="4.8.2.1 UNPOOLED"></a>4.8.2.1 UNPOOLED</h5><p><code>UNPOOLED</code>采用非数据库池的管理方式，每次请求会打开一个新的数据库连接，所以创建会比较慢，在一些对性能没有很高要求的场合可以使用它</p>
-<p><code>UNPOOLED</code>类型的数据源可以配置如下几个属性</p>
-<ul>
-<li><code>driver</code>数据库驱动名</li>
-<li><code>url</code>连接数据库的URL</li>
-<li><code>username</code>用户名</li>
-<li><code>passowrd</code>密码</li>
-<li><code>defaultTransactionIsolationLevel</code>默认的连接事务隔离级别</li>
-</ul>
-<h5 id="4-8-2-2-POOLED"><a href="#4-8-2-2-POOLED" class="headerlink" title="4.8.2.2 POOLED"></a>4.8.2.2 <code>POOLED</code></h5><p>数据源<code>POOLED</code>利用池的概念将<code>JDBC</code>的<code>Connection</code>对象组织起来，它开始会有一些空置并且已经连接好的数据库连接，所以请求时，无须再建立和验证，省去去了创建新的连接实例时所必须的初始化和认证时间</p>
-<h5 id="4-8-2-3-JNDI"><a href="#4-8-2-3-JNDI" class="headerlink" title="4.8.2.3 JNDI"></a>4.8.2.3 <code>JNDI</code></h5><p>数据源<code>JNDI</code>的实现是为了能在如<code>EJB</code>或应用服务器这类容器中使用</p>
-<h3 id="4-9-databaseIdProvider数据库厂商标识"><a href="#4-9-databaseIdProvider数据库厂商标识" class="headerlink" title="4.9 databaseIdProvider数据库厂商标识"></a>4.9 databaseIdProvider数据库厂商标识</h3><p>此元素主要是支持多种不同厂商的数据库，来提升可移植性</p>
-<h3 id="4-10-引入映射器的方法"><a href="#4-10-引入映射器的方法" class="headerlink" title="4.10 引入映射器的方法"></a>4.10 引入映射器的方法</h3><ol>
-<li><p>用文件路径引入映射器</p>
- <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resourse</span>=<span class="string">"com/learn/ssm/mapper/roleMapper.xml"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>用包名引入映射器</p>
- <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"com.learn.ssm.mapper"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>用类注册引入映射器</p>
- <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">class</span>=<span class="string">"com.learn.ssm.mapper.UserMapper"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">class</span>=<span class="string">"com.learn.ssm.mapper.RoleMapper"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>用<code>userMapper.xml</code>引入映射器</p>
- <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">url</span>=<span class="string">"file:///var/mappers/com/learn/ssm/mapper/roleMapper.xml"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">url</span>=<span class="string">"file:///var/mappers/com/learn/ssm/mapper/userMapper.xml"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<hr>
 
           
         
@@ -491,7 +670,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -539,7 +718,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -561,7 +740,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

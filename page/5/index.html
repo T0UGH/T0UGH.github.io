@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-6-使用一等函数实现设计模式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/算法导论-6-堆排序/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/02/01/流畅的Python-6-使用一等函数实现设计模式/" itemprop="url">[流畅的Python][6][使用一等函数实现设计模式]</a></h1>
+                <a class="post-title-link" href="/2020/02/01/算法导论-6-堆排序/" itemprop="url">[算法导论][6][堆排序]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:39:56+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T21:00:45+08:00">
                 2020-02-01
               </time>
             
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/流畅的Python/" itemprop="url" rel="index">
-                    <span itemprop="name">流畅的Python</span>
+                  <a href="/categories/算法导论/" itemprop="url" rel="index">
+                    <span itemprop="name">算法导论</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/02/01/流畅的Python-6-使用一等函数实现设计模式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-6-使用一等函数实现设计模式/" itemprop="commentCount"></span>
+                <a href="/2020/02/01/算法导论-6-堆排序/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/算法导论-6-堆排序/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,146 +362,135 @@
       
         
           
-            <h2 id="第六章-使用一等函数实现设计模式"><a href="#第六章-使用一等函数实现设计模式" class="headerlink" title="第六章 使用一等函数实现设计模式"></a>第六章 使用一等函数实现设计模式</h2><blockquote>
-<p>符合模式并不表示做得对.————————Ralph Johnson</p>
-</blockquote>
-<ul>
-<li><p>虽然设计模式与语言无关，但这并不意味着每一个模式都能在每一门语言中使用</p>
+            <h2 id="第六章-堆排序"><a href="#第六章-堆排序" class="headerlink" title="第六章 堆排序"></a>第六章 堆排序</h2><ul>
+<li><p>与归并排序相同，堆排序的时间复杂度为O(nlgn)</p>
 </li>
-<li><p>《设计模式：可复用面向对象软件的基础》的作者在引言中承认，所用的语言决定了哪些模式可用</p>
+<li><p>与插入排序相同，堆排序同样具有空间原址性：任何时候都只需要常数个额外的元素空间存储临时数据</p>
 </li>
-<li><p>具体而言</p>
+</ul>
+<hr>
+<h3 id="6-1-堆"><a href="#6-1-堆" class="headerlink" title="6.1 堆"></a>6.1 堆</h3><ul>
+<li><p>堆的简介</p>
 <ul>
-<li>Norvig建议在有一等函数的语言中重新审视”策略”、”命令”、”模板方法”和”访问者”模式</li>
-<li>通常，我们可以把这些模式中涉及的某些类的实例替换成简单的函数，从而减少样本代码</li>
+<li>堆被存储在一个数组中，可近似看成是完全二叉树</li>
+<li>除了最底层外，该树是完全充满的，而且是从左到右填充</li>
+<li>如图<br><img src="/2020/02/01/算法导论-6-堆排序/堆.PNG" alt=""></li>
+</ul>
+</li>
+<li><p>堆的分类</p>
+<ul>
+<li>最大堆和最小堆</li>
+<li>在这两种堆中，节点的值都要满足堆的性质，但一些细节定义则有所差异</li>
+</ul>
+</li>
+<li><p>最大堆性质</p>
+<ul>
+<li>在最大堆中，除了根以外的所有结点<code>i</code>都要满足: <code>A[PARENT(i)] &gt;= A[i]</code></li>
+<li>因此，堆中的最大元素存放在根节点</li>
+</ul>
+</li>
+<li><p>高度</p>
+<ul>
+<li>堆中节点的高度：该节点到叶节点最长简单路径上<strong>边</strong>的数目</li>
+<li>堆的高度：根节点的高度</li>
+</ul>
+</li>
+<li><p>对于堆的一些基本操作</p>
+<ul>
+<li>MAX-HEAPIFY过程：其时间复杂度为O(lgn)，它是维护最大堆性质的关键</li>
+<li>BUILD-MAX-HEAP过程：具有线性时间复杂度，功能是从无序的输入数据数组中构造一个最大堆</li>
+<li>HEAPSORT过程：时间复杂度为O(nlgn)，功能是对一个数组进行原址排序</li>
+<li>MAX-HEAP_INSERT、HEAP-EXTRACT-MAX、HEAP-INCREASE-KEY和HEAP-MAXIMUM过程：时间复杂度为O(lgn),功能是实现一个优先队列</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h3 id="6-1-案例分析：重构策略模式"><a href="#6-1-案例分析：重构策略模式" class="headerlink" title="6.1 案例分析：重构策略模式"></a>6.1 案例分析：重构策略模式</h3><ul>
-<li>如果合理利用作为一等对象的函数，某些设计模式可以简化，”策略”模式就是其中一个很好的例子</li>
-</ul>
-<h4 id="6-1-1-经典的策略模式"><a href="#6-1-1-经典的策略模式" class="headerlink" title="6.1.1 经典的策略模式"></a>6.1.1 经典的策略模式</h4><ul>
-<li><p>下图指出了策略模式对类的编排<br>  <img src="/2020/02/01/流畅的Python-6-使用一等函数实现设计模式/策略模式类图.jpg" alt=""></p>
-</li>
-<li><p>策略模式的定义</p>
-<blockquote>
-<p>定义一系列算法，把它们一一封装起来，并且使它们可以相互替换。本模式使得算法可以独立于使用它的客户而变换</p>
-</blockquote>
-</li>
-<li><p>策略模式的组成部分</p>
+<h3 id="6-2-维护堆的性质"><a href="#6-2-维护堆的性质" class="headerlink" title="6.2 维护堆的性质"></a>6.2 维护堆的性质</h3><ul>
+<li><p><strong>MAX-HEAPIFY</strong>简介</p>
 <ul>
-<li>上下文：把一些计算委托给不同算法的可互换组件，它提供服务</li>
-<li>策略：实现不同算法的</li>
+<li>MAX-HEAPIFY用来维护最大堆性质</li>
+<li>它的输入是一个数组 <code>A</code> 和一个下标 <code>i</code></li>
+<li>我们假定 <code>A[i]</code> 的值有可能小于它的孩子，但是节点 <code>i</code> 的左右子树都是最大堆</li>
+<li>MAX-HEAPIFY的目的是让以<code>i</code>节点为根的子树重新遵循最大堆性质</li>
 </ul>
 </li>
-<li><p>策略模式的注意事项</p>
+<li><p>伪代码描述<br>  <img src="/2020/02/01/算法导论-6-堆排序/MAXHEAPIFY.PNG" alt=""></p>
+</li>
+<li><p>代码实现: <code>max_heapify</code> (python实现)</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">max_heapify</span><span class="params">(i)</span>:</span></span><br><span class="line">    <span class="comment"># print("max_heapify: ", i)</span></span><br><span class="line">    l = left(i)</span><br><span class="line">    r = right(i)</span><br><span class="line">    <span class="keyword">if</span> l &lt;= heap_size <span class="keyword">and</span> arr[l] &gt; arr[i]:</span><br><span class="line">        largest = l</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        largest = i</span><br><span class="line">    <span class="keyword">if</span> r &lt;= heap_size <span class="keyword">and</span> arr[r] &gt; arr[largest]:</span><br><span class="line">        largest = r</span><br><span class="line">    <span class="keyword">if</span> largest != i:</span><br><span class="line">        arr[i], arr[largest] = arr[largest], arr[i]</span><br><span class="line">        max_heapify(largest)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>图片描述<br>  <img src="/2020/02/01/算法导论-6-堆排序/MAXHEAPIFYIMG.PNG" alt=""></p>
+</li>
+<li><p>文字描述</p>
+<ol>
+<li>在程序的每一步中，从<code>A[i]</code>、<code>A[LEFT(i)]</code>、<code>A[RIGHT(i)]</code>中选出最大的，存储在largest中</li>
+<li>如果A[i]是最大的，那么以i为根节点的子树已经是最大堆了，程序结束</li>
+<li>否则，最大元素是i的某个孩子节点，则交换<code>A[i]</code>和<code>A[largest]</code>的值</li>
+<li>在交换后，需要对该子树递归调用<code>MAX-HEAPIFY</code></li>
+</ol>
+</li>
+<li><p>运行时间分析</p>
 <ul>
-<li>按照《设计模式：可复用面向对象软件的基础》一书中的说明，具体策略由上下文类的客户选择</li>
-<li>具体怎么选择策略，不在这个模式的职责范围内</li>
-</ul>
-</li>
-<li><p>示例：实现Order类，支持插入式折扣策略</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line">Customer = namedtuple(<span class="string">'Customer'</span>, <span class="string">'name fidelity'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LineItem</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, product, quantity, price)</span>:</span></span><br><span class="line">        self.product = product</span><br><span class="line">        self.quantity = quantity</span><br><span class="line">        self.price = price</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.price * self.quantity</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span>:</span>  <span class="comment"># 上下文</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, customer, cart, promotion=None)</span>:</span></span><br><span class="line">        self.customer = customer</span><br><span class="line">        self.cart = list(cart)</span><br><span class="line">        self.promotion = promotion</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'__total'</span>):</span><br><span class="line">            self.__total = sum(item.total() <span class="keyword">for</span> item <span class="keyword">in</span> self.cart)</span><br><span class="line">        <span class="keyword">return</span> self.__total</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">due</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.promotion <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            discount = <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            discount = self.promotion.discount(self)</span><br><span class="line">        <span class="keyword">return</span> self.total() - discount</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        fmt = <span class="string">'&lt;order total: &#123;:.2f&#125; due: &#123;:.2f&#125;&gt;'</span></span><br><span class="line">        <span class="keyword">return</span> fmt.format(self.total(), self.due())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Promotion</span><span class="params">(ABC)</span>:</span>  <span class="comment"># 策略:抽象基类</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">discount</span><span class="params">(self, order)</span>:</span></span><br><span class="line">        <span class="string">"""返回折扣金额(正值)"""</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FidelityPromo</span><span class="params">(Promotion)</span>:</span>  <span class="comment"># 第一个具体策略</span></span><br><span class="line">    <span class="string">"""为积分为1000或以上的用户提供5%折扣"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">discount</span><span class="params">(self, order)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> order.total() * <span class="number">.05</span> <span class="keyword">if</span> order.customer.fidelity &gt;= <span class="number">1000</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BulkItemPromo</span><span class="params">(Promotion)</span>:</span>  <span class="comment"># 第二个具体策略</span></span><br><span class="line">    <span class="string">"""单个商品为20个或以上时提供10%折扣"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">discount</span><span class="params">(self, order)</span>:</span></span><br><span class="line">        discount = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> order.cart:</span><br><span class="line">            <span class="keyword">if</span> item.quantity &gt;= <span class="number">20</span>:</span><br><span class="line">                discount += item.total() * <span class="number">.1</span></span><br><span class="line">        <span class="keyword">return</span> discount</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LargeOrderPromo</span><span class="params">(Promotion)</span>:</span>  <span class="comment"># 第三个具体策略</span></span><br><span class="line">    <span class="string">"""订单中的不同商品达到10个或以上时提供7%折扣"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">discount</span><span class="params">(self, order)</span>:</span></span><br><span class="line">        distinct_items = &#123;item.product <span class="keyword">for</span> item <span class="keyword">in</span> order.cart&#125;</span><br><span class="line">        <span class="keyword">if</span> len(distinct_items) &gt;= <span class="number">10</span>:</span><br><span class="line">            <span class="keyword">return</span> order.total() * <span class="number">.07</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h4 id="6-1-2-使用函数实现策略模式"><a href="#6-1-2-使用函数实现策略模式" class="headerlink" title="6.1.2 使用函数实现策略模式"></a>6.1.2 使用函数实现策略模式</h4><ul>
-<li><p>背景</p>
-<ul>
-<li>在前一节的示例中，每个具体策略都是一个类，而且都只定义了一个方法，即discount.此外，策略实例是没有状态的</li>
-<li>也就是说它们看起来像普通的函数，所以没有理由不把具体策略换成简单的函数，并且去掉Promo抽象类</li>
-</ul>
-</li>
-<li><p>示例: Order类和使用函数实现的折扣策略</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line">Customer = namedtuple(<span class="string">'Customer'</span>, <span class="string">'name fidelity'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LineItem</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, product, quantity, price)</span>:</span></span><br><span class="line">        self.product = product</span><br><span class="line">        self.quantity = quantity</span><br><span class="line">        self.price = price</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.price * self.quantity</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span>:</span>  <span class="comment"># 上下文</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, customer, cart, promotion=None)</span>:</span></span><br><span class="line">        self.customer = customer</span><br><span class="line">        self.cart = list(cart)</span><br><span class="line">        self.promotion = promotion</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'__total'</span>):</span><br><span class="line">            self.__total = sum(item.total() <span class="keyword">for</span> item <span class="keyword">in</span> self.cart)</span><br><span class="line">        <span class="keyword">return</span> self.__total</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">due</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.promotion <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            discount = <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            discount = self.promotion(self)</span><br><span class="line">        <span class="keyword">return</span> self.total() - discount</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        fmt = <span class="string">'&lt;order total: &#123;:.2f&#125; due: &#123;:.2f&#125;&gt;'</span></span><br><span class="line">        <span class="keyword">return</span> fmt.format(self.total(), self.due())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fidelity_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""为积分为1000或以上的用户提供5%折扣"""</span></span><br><span class="line">    <span class="keyword">return</span> order.total() * <span class="number">.05</span> <span class="keyword">if</span> order.customer.fidelity &gt;= <span class="number">1000</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bulk_item_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""单个商品为20个或以上时提供10%折扣"""</span></span><br><span class="line">    discount = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> order.cart:</span><br><span class="line">        <span class="keyword">if</span> item.quantity &gt;= <span class="number">20</span>:</span><br><span class="line">            discount += item.total() * <span class="number">.1</span></span><br><span class="line">    <span class="keyword">return</span> discount</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">large_order_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""订单中的不同商品达到10个或以上时提供7%折扣"""</span></span><br><span class="line">    distinct_items = &#123;item.product <span class="keyword">for</span> item <span class="keyword">in</span> order.cart&#125;</span><br><span class="line">    <span class="keyword">if</span> len(distinct_items) &gt;= <span class="number">10</span>:</span><br><span class="line">        <span class="keyword">return</span> order.total() * <span class="number">.07</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>享元模式与函数的讨论</p>
-<ul>
-<li>值得注意的是，《设计模式：可复用面向对象软件的基础》一书的作者指出：“策略对象通常是很好的享元(flyweight)。”</li>
-<li>那本书的另一部分对“享元”下了定义：享元是可共享的对象，可以同时在多个上下文中使用</li>
-<li>共享是推荐的做法，这样不必在每个新的上下文中使用相同的策略时不断新建具体策略对象，从而减少消耗</li>
-<li>函数比用户定义的类的实例轻量，而且无需使用享元模式，因为各个策略函数在Python编译模块时只会创建一次。普通的函数也是”可共享的对象”，可以同时在多个上下文中使用</li>
+<li>递归式<br><img src="/2020/02/01/算法导论-6-堆排序/MAXHEAPIFYRECUR.PNG" alt=""></li>
+<li>运行时间:T(n) = O(lgn)</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h4 id="6-1-3-选择最佳策略：简单的方式"><a href="#6-1-3-选择最佳策略：简单的方式" class="headerlink" title="6.1.3 选择最佳策略：简单的方式"></a>6.1.3 选择最佳策略：简单的方式</h4><ul>
-<li><p>示例:best_promo迭代一个函数列表，并找出折扣额度最大的</p>
+<h3 id="6-3-建堆"><a href="#6-3-建堆" class="headerlink" title="6.3 建堆"></a>6.3 建堆</h3><ul>
+<li><p>思路</p>
 <ul>
-<li><p>代码</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># promos列出以函数实现的各个策略</span></span><br><span class="line">promos = [fidelity_promo, bulk_item_promo, large_order_promo]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">best_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""选择可用的最佳折扣"""</span></span><br><span class="line">    <span class="comment"># 使用生成器表达式把order传个promos列表中的各个函数，返回计算出的最大折扣额度</span></span><br><span class="line">    <span class="keyword">return</span> max(promo(order) <span class="keyword">for</span> promo <span class="keyword">in</span> promos)</span><br></pre></td></tr></table></figure>
+<li>我们可以用自底向上调用 <code>max_heapify</code>，把一个数组转换为最大堆</li>
+<li>因为堆中从 <code>A(n/2 + 1, n)</code> 的元素都是树的叶节点，对于这些节点不需要调用 <code>max_heapify</code> 过程</li>
+</ul>
 </li>
-<li><p>解释</p>
+<li><p>代码实现： <code>build_max_heap</code>(python实现)</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">build_max_heap</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(int(len_arr() / <span class="number">2</span>), <span class="number">0</span>, <span class="number">-1</span>):</span><br><span class="line">        print(i)</span><br><span class="line">        max_heapify(i)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>时间复杂度 : O(n)，证明见书 <code>P88</code></p>
+</li>
+<li><p>例子如图<br><img src="/2020/02/01/算法导论-6-堆排序/BUILDMAXHEAPDEMO.PNG" alt=""></p>
+</li>
+</ul>
+<h3 id="6-4-堆排序算法"><a href="#6-4-堆排序算法" class="headerlink" title="6.4 堆排序算法"></a>6.4 堆排序算法</h3><ul>
+<li><p>思路 </p>
+<ol>
+<li>首先，利用<code>build_max_heap</code>将输入数组建成最大堆</li>
+<li>因为根节点保存的是最大元素，所以将根节点与<code>A[n]</code>互换</li>
+<li>从堆中去掉节点n(通过减小heap_size的方式)</li>
+<li>调用<code>max_heapify</code>保持堆的性质</li>
+<li>重复执行步骤2，3，4，直到堆的大小降为<code>1</code></li>
+</ol>
+</li>
+<li><p>代码实现: <code>heap_sort</code>(Python实现)</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heap_sort</span><span class="params">()</span>:</span></span><br><span class="line"><span class="keyword">global</span> heap_size</span><br><span class="line">build_max_heap()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len_arr(), <span class="number">1</span>, <span class="number">-1</span>):</span><br><span class="line">    arr[i], arr[<span class="number">1</span>] = arr[<span class="number">1</span>], arr[i]</span><br><span class="line">    heap_size -= <span class="number">1</span></span><br><span class="line">    max_heapify(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>时间复杂度</p>
 <ul>
-<li>promos是函数列表。习惯函数是一等对象之后，自然而然就会构建这种结构存储函数</li>
+<li>O(nlgn)</li>
+<li>因为每次调用<code>build_max_heap</code>的时间复杂度为O(n)，而n-1次调用MAX-HEAPIFY，每次时间为O(lgn)</li>
 </ul>
 </li>
-<li>缺点<ul>
-<li>若想添加新的促销策略，要定义相应的函数，还要记得把它添加到promos列表中</li>
-</ul>
+<li><p>例子如图<br><img src="/2020/02/01/算法导论-6-堆排序/HEAPSORTDEMO.PNG" alt=""></p>
 </li>
 </ul>
-</li>
-</ul>
-<hr>
-<h4 id="6-1-4-找出模块中的全部策略"><a href="#6-1-4-找出模块中的全部策略" class="headerlink" title="6.1.4 找出模块中的全部策略"></a>6.1.4 找出模块中的全部策略</h4><ul>
-<li><p>Python中的模块</p>
+<h3 id="6-5-优先队列"><a href="#6-5-优先队列" class="headerlink" title="6.5 优先队列"></a>6.5 优先队列</h3><h4 id="6-5-1-优先队列的性质"><a href="#6-5-1-优先队列的性质" class="headerlink" title="6.5.1 优先队列的性质"></a>6.5.1 优先队列的性质</h4><ul>
+<li><p>简介</p>
 <ul>
-<li>在Python中模块也是一等对象，而且标准库提供了几个处理模块的函数</li>
-<li>内置函数<code>globals()</code><ul>
-<li>返回一个字典，表示当前的全局符号表</li>
-<li>这个符号表始终针对当前模块(对函数或方法来说，是指定义它们的模块，而不是调用它们的模块)</li>
+<li>优先队列是一种维护由一组元素构成的集合S的数据结构</li>
+<li>其中的每个元素都有一个相关的值，称为关键字(key)</li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p>方案一:使用globals函数来自动寻找其他可用的*_promo函数</p>
+<li><p>最大优先队列支持的操作</p>
 <ul>
-<li><p>示例：内省模块中的全局命名空间，构建promos列表</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">promos = [globals()[name] <span class="keyword">for</span> name <span class="keyword">in</span> globals() <span class="keyword">if</span> name.endwith(<span class="string">'_promo'</span>) <span class="keyword">and</span> name != <span class="string">'best_promo'</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">best_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""选择可用的最佳折扣"""</span></span><br><span class="line">    <span class="keyword">return</span> max(promo(order) <span class="keyword">for</span> promo <span class="keyword">in</span> promos)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>解释</p>
-<ul>
-<li>通过迭代globals()来找到所用的_promo函数</li>
-<li>过滤掉best_promo自身，防止无限递归</li>
-<li>best_promo内部的代码没有变化</li>
+<li><code>insert(S, x)</code> : 把元素 <code>x</code> 插入到集合 <code>S</code> 中</li>
+<li><code>maximum(S)</code> : 返回S中具有最大键字的元素</li>
+<li><code>extract_max(S)</code> : 去掉并返回S中的具有最大键字的元素</li>
+<li><code>increase_key(S, x, k)</code> : 把元素<code>x</code>的关键字值增加到<code>k</code>，这里假设<code>k</code>的值不小于<code>x</code>的关键字值</li>
 </ul>
 </li>
 </ul>
-</li>
-<li><p>方案二</p>
-<ul>
-<li>在一个单独的模块中保存所有的策略函数，并把best_promo排除在外</li>
-<li>通过内省这个模块来构建策略函数列表</li>
-</ul>
-</li>
-<li><p>另外</p>
-<ul>
-<li>动态收集促销折扣函数更为显示的一种方案是使用简单的修饰器</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="6-2-命令模式"><a href="#6-2-命令模式" class="headerlink" title="6.2 命令模式"></a>6.2 命令模式</h3><ul>
-<li><p>命令模式也可以通过把函数作为参数传递而简化</p>
-</li>
-<li><p>命令模式简介</p>
-<ul>
-<li>命令模式的目的是解耦调用操作的对象(调用者)和提供实现的对象(接收者)</li>
-<li>命令模式的做法是在调用者和接收者之间放一个Command对象，让它实现只有一个方法的接口，调用接收者中的方法执行所需的操作。这样，调用者无需理解接收者的接口，而且不同的接收者可以适应不同的Command子类</li>
-</ul>
-</li>
-<li><p>命令模式的类图如下</p>
-</li>
-<li><p>Python对命令模式的简化</p>
-<ul>
-<li>我们可以不为调用者提供一个Command实例，而是给它一个函数，就如我们对策略模式做的那样</li>
-</ul>
-</li>
-</ul>
-<hr>
-
+<h4 id="6-5-2-通过堆来实现优先队列"><a href="#6-5-2-通过堆来实现优先队列" class="headerlink" title="6.5.2 通过堆来实现优先队列"></a>6.5.2 通过堆来实现优先队列</h4>
           
         
       
@@ -540,7 +529,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -588,7 +577,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -610,7 +599,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
