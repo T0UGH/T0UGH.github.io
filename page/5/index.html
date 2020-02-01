@@ -592,6 +592,18 @@
 <li><p>这里还配置了<code>@Bean</code>的<code>name</code>选项为<code>dataSource</code>，这就意味着Spring生成该<code>Bean</code>的时候就会使用<code>dataSource</code>作为其<code>BeanName</code>。和其他<code>Bean</code>一样，它也可以通过<code>@Autowired</code>或者<code>@Qualifier</code>等注解注入到别的<code>Bean</code>中</p>
 </li>
 </ul>
+<h3 id="10-5-装配的混合使用"><a href="#10-5-装配的混合使用" class="headerlink" title="10.5 装配的混合使用"></a>10.5 装配的混合使用</h3><p>Spring同时支持XML和注解两种装配方式，无论采用哪种，本质都是将<code>Bean</code>装配到<code>Spring IoC</code>容器中</p>
+<p>建议</p>
+<ol>
+<li>在自己的工程中所开发的类尽量使用注解方法，因为使用它更为简单</li>
+<li>对于引入第三方或者服务的类，尽量使用<code>XML</code>方式，这样可以尽量减少对第三方包细节的理解，更清晰</li>
+</ol>
+<p>如何将<code>xml</code>定义的<code>bean</code>引入<code>java</code>配置中?</p>
+<ul>
+<li>可以使用注解<code>@ImportResourse</code>，它可以配置多个<code>XML</code>配置文件，将这些文件中定义的<code>bean</code>全部引入</li>
+<li>例如  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.ssm.annotation.config</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.anotation.ComponentScan;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.anotation.ImportResource;</span><br><span class="line"><span class="meta">@ComponentScan</span>(basePackages=&#123;<span class="string">"com.ssm.chapter10.annotation"</span>&#125;)</span><br><span class="line"><span class="meta">@ImportResource</span>(&#123;<span class="string">"classpath:spring-dataSource.xml"</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplicationConfig</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
           
         
