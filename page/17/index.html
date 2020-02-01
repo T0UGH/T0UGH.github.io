@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/30/SSM-5-映射器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-3-字典和集合/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/01/30/SSM-5-映射器/" itemprop="url">[SSM][5][映射器]</a></h1>
+                <a class="post-title-link" href="/2020/02/01/流畅的Python-3-字典和集合/" itemprop="url">[流畅的Python][3][字典和集合]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-30T17:30:16+08:00">
-                2020-01-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:34:21+08:00">
+                2020-02-01
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SSM/" itemprop="url" rel="index">
-                    <span itemprop="name">SSM</span>
+                  <a href="/categories/流畅的Python/" itemprop="url" rel="index">
+                    <span itemprop="name">流畅的Python</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/01/30/SSM-5-映射器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/30/SSM-5-映射器/" itemprop="commentCount"></span>
+                <a href="/2020/02/01/流畅的Python-3-字典和集合/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-3-字典和集合/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,170 +362,345 @@
       
         
           
-            <h2 id="第5章-映射器"><a href="#第5章-映射器" class="headerlink" title="第5章 映射器"></a>第5章 映射器</h2><p>映射器由一个接口加上 <code>XML</code> 文件(或者注解)组成。在映射器中可以配置参数、各类的<code>SQL</code>语句、存储过程、缓存、级联等复杂的内容，并且通过简易的映射规则映射到指定的<code>POJO</code>或者其他对象上，映射器能有效消除<code>JDBC</code>底层的代码。</p>
-<p><code>MyBatis</code>的映射器也可以使用注解完成，但是应用不广，原因主要来自3个方面</p>
-<ol>
-<li>面对复杂性，<code>SQL</code>会显得无力，尤其是长<code>SQL</code></li>
-<li>注解的可读性较差</li>
-<li>在功能上，注解丢失了XML 上下文相互引用的功能</li>
+            <h2 id="第3章-字典和集合"><a href="#第3章-字典和集合" class="headerlink" title="第3章 字典和集合"></a>第3章 字典和集合</h2><blockquote>
+<p>字典这个数据结构活跃在所有的python程序背后，即便你的源码中并没有直接用到它。—A.M.Kuching</p>
+</blockquote>
+<ul>
+<li><p>dict类型不但在各种程序里广泛使用，它也是Python语言的基石</p>
+</li>
+<li><p>模块的命名空间、实例的属性和函数的关键字参数里都可以看到字典的影子</p>
+</li>
+<li><p>正因为字典至关重要，Python对它的实现做了高度优化，而散列表则是字典类型性能出众的根本原因</p>
+</li>
+<li><p>集合(set)的实现也依赖于散列表</p>
+</li>
+</ul>
+<hr>
+<h3 id="3-1-泛映射类型"><a href="#3-1-泛映射类型" class="headerlink" title="3.1 泛映射类型"></a>3.1 泛映射类型</h3><ul>
+<li><p>抽象基类</p>
+<ul>
+<li><p>collections.abc模块中有Maping和MutableMapping这两个抽象基类，它们的作用是为dict和其他类似的类型定义<strong>形式接口</strong>，如图<br>![]</p>
+</li>
+<li><p>然而，非抽象映射类型一般不会直接继承这些抽象基类，它们会直接对dict或是collections.UserDict进行扩展。这些抽象基类的主要作用是作为形式化文档，它们定义了构建一个映射类型所需要的最基本的接口。</p>
+</li>
+<li><p>他们还可以跟isinstance一起被用来判定某个数据是不是广义上的映射类型</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my_dict = &#123;&#125;</span><br><span class="line">print(isinstance(my_dict,abc.Mapping))</span><br><span class="line"><span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>标准库里的所有映射类型都是利用<strong>dict</strong>来实现的，因此它们有个共同的限制，即只有<strong>可散列的数据类型</strong>才能作为这些映射里的键</p>
+</li>
+<li><p>什么是可散列的数据类型</p>
+<ul>
+<li>如果一个对象是可散列的，那么在这个对象的生命周期中，它的散列值是不变的，而且这个对象需要实现<code>__hash()__</code>方法</li>
+<li>另外可散列对象还要有<code>__eq()__</code>方法，这样才能跟其他键做比较</li>
+<li><strong>原子不可变数据类型</strong>都是可散列的,如：<code>str</code>、<code>bytes</code>和数值类型</li>
+<li><strong>元组</strong>的话，只有当一个元组包含的所有元素都是可散列类型的情况下，它才是可散列的</li>
+<li>一般来讲<strong>用户自定义的数据类型</strong>都是可散列的，散列值就是它们的<code>id()</code>函数的返回值，所以所有这些对象在比较的时候都是不相等的</li>
+</ul>
+</li>
+<li><p>字典的多种<strong>构造方法</strong></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = dict(one=<span class="number">1</span>, two=<span class="number">2</span>, three=<span class="number">3</span>)</span><br><span class="line">b = &#123;<span class="string">'one'</span>: <span class="number">1</span>, <span class="string">'two'</span>: <span class="number">2</span>, <span class="string">'three'</span>: <span class="number">3</span>&#125;</span><br><span class="line">c = dict(zip([<span class="string">'one'</span> ,<span class="string">'two'</span> ,<span class="string">'three'</span>], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]))</span><br><span class="line">d = dict([(<span class="string">'two'</span>, <span class="number">2</span>), (<span class="string">'one'</span>, <span class="number">1</span>), (<span class="string">'three'</span>,<span class="number">3</span>)])</span><br><span class="line">e = dict(&#123;<span class="string">'one'</span>: <span class="number">1</span>, <span class="string">'two'</span>: <span class="number">2</span>, <span class="string">'three'</span>: <span class="number">3</span>&#125;)</span><br><span class="line">print(a==b==c==d==e)</span><br><span class="line"><span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="3-2-字典推导"><a href="#3-2-字典推导" class="headerlink" title="3.2 字典推导"></a>3.2 字典推导</h3><ul>
+<li><p>字典推导可以从任何以键值对作为元素的可迭代对象中构建出字典</p>
+</li>
+<li><p>dictcompDemo</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">DIAL_CODES = [</span><br><span class="line">    (<span class="number">86</span>, <span class="string">'China'</span>),</span><br><span class="line">    (<span class="number">91</span>, <span class="string">'India'</span>),</span><br><span class="line">    (<span class="number">1</span>, <span class="string">'United States'</span>),</span><br><span class="line">    (<span class="number">62</span>, <span class="string">'Indonesia'</span>),</span><br><span class="line">    (<span class="number">55</span>, <span class="string">'Brazil'</span>),</span><br><span class="line">    (<span class="number">92</span>, <span class="string">'Pakistan'</span>),</span><br><span class="line">    (<span class="number">880</span>, <span class="string">'Bangladesh'</span>),</span><br><span class="line">    (<span class="number">234</span>, <span class="string">'Nigeria'</span>),</span><br><span class="line">    (<span class="number">7</span>, <span class="string">'Russia'</span>),</span><br><span class="line">    (<span class="number">81</span>, <span class="string">'Japan'</span>)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里使用国家名作为key,国家码作为value</span></span><br><span class="line">country_code = &#123;country: code <span class="keyword">for</span> code, country <span class="keyword">in</span> DIAL_CODES&#125;</span><br><span class="line">print(country_code)</span><br><span class="line"><span class="comment"># 这里用国家码作为key,并且将国家名称转化为大写,过滤掉区域码大于或等于66的地区</span></span><br><span class="line">code_country = &#123;code: country.upper() <span class="keyword">for</span> country, code <span class="keyword">in</span> country_code.items() <span class="keyword">if</span> code &lt; <span class="number">66</span>&#125;</span><br><span class="line">print(code_country)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">&#123;'China': 86, 'India': 91, 'United States': 1, 'Indonesia': 62, 'Brazil': 55, 'Pakistan': 92, 'Bangladesh': 880, 'Nigeria': 234, 'Russia': 7, 'Japan': 81&#125;</span></span><br><span class="line"><span class="string">&#123;1: 'UNITED STATES', 62: 'INDONESIA', 55: 'BRAZIL', 7: 'RUSSIA'&#125;</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="3-3-常见的映射方法"><a href="#3-3-常见的映射方法" class="headerlink" title="3.3 常见的映射方法"></a>3.3 常见的映射方法</h3><hr>
+<ul>
+<li><p>dict、defaultdict和OrderedDict的常见方法</p>
+<ul>
+<li>如图<br><img src="" alt=""></li>
+<li>update方法处理参数m的方式，是典型的“鸭子类型”<ol>
+<li>函数首先检查m是否有keys方法，如果有，那么update函数就把它当作映射对象来处理</li>
+<li>否则，函数会退一步，转而把m当作包含了键值对(key, value)元素的迭代器</li>
+<li>因此你既可以用一个映射对象来新建一个映射对象，也可以用包含(key, value)元素的可迭代对象来初始化一个映射对象</li>
 </ol>
-<h3 id="5-1-概述"><a href="#5-1-概述" class="headerlink" title="5.1 概述"></a>5.1 概述</h3><p>映射器的配备元素如下</p>
-<table>
-<thead>
-<tr>
-<th>元素名称</th>
-<th>描述</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>select</td>
-<td>查询语句</td>
-<td>可以自定义参数，返回结果集等</td>
-</tr>
-<tr>
-<td>insert</td>
-<td>插入语句</td>
-<td>执行后返回一个整数，代表插入的条数</td>
-</tr>
-<tr>
-<td>update</td>
-<td>更新语句</td>
-<td>执行后返回一个整数，代表删除的条数</td>
-</tr>
-<tr>
-<td>sql</td>
-<td>允许定义一部分SQL，然后在其他地方引用它</td>
-<td>例如，一张表列名，一次定义，可以在多个SQL语句中使用</td>
-</tr>
-<tr>
-<td>resultMap</td>
-<td>用来描述从数据库结果集中来加载对象</td>
-<td>它将提供映射规则</td>
-</tr>
-<tr>
-<td>cache</td>
-<td>给定命名空间的缓存配置</td>
-<td>无</td>
-</tr>
-<tr>
-<td>cache-ref</td>
-<td>其他命名空间缓存配置的引用</td>
-<td>无</td>
-</tr>
-</tbody>
-</table>
-<h3 id="5-2-select元素-查询语句"><a href="#5-2-select元素-查询语句" class="headerlink" title="5.2 select元素(查询语句)"></a>5.2 select元素(查询语句)</h3><h4 id="5-2-1-简单的select元素的应用"><a href="#5-2-1-简单的select元素的应用" class="headerlink" title="5.2.1 简单的select元素的应用"></a>5.2.1 简单的select元素的应用</h4><p>先学习一个简单的例子: 统计用户表中同一个姓氏的用户数量<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"countUserByFirstName"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultType</span>=<span class="string">"int"</span>&gt;</span></span><br><span class="line">    select count(*) total from t_user</span><br><span class="line">    where user_name like concat(#&#123;firstName&#125;, '%')</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>然后解释这个例子</p>
+</li>
+</ul>
+</li>
+<li><p>用setdefault处理找不到的键</p>
 <ul>
-<li><code>id</code>配合<code>Mapper</code>的全限定名，联合成为一个唯一的标识符，标识这条<code>SQL</code></li>
-<li><code>parameterType</code>表示这条<code>SQL</code>接受的参数类型，可以是<code>MyBatis</code>系统定义或自定义的别名，也可以是类的全限定名</li>
-<li><code>resultType</code>表示这条<code>SQL</code>返回的结果类型</li>
-<li><code>#{firstName}</code>是被传递进去的参数</li>
+<li>d.setdefault(k, [default])：若字典中有键k，则直接返回k所对应的值；若无，则让d[k]=default，然后返回default</li>
+<li>setdefaultDemo  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这段程序用来从文件中统计每个单词出现的位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明一个选择单词的正则式</span></span><br><span class="line">WORD_RE = re.compile(<span class="string">r'\w+'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化index字典</span></span><br><span class="line">index = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开文件并按行迭代每个单词</span></span><br><span class="line"><span class="keyword">with</span> open(sys.argv[<span class="number">1</span>], encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    <span class="keyword">for</span> line_no, line <span class="keyword">in</span> enumerate(fp, <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> match <span class="keyword">in</span> WORD_RE.finditer(line):</span><br><span class="line">            word = match.group()</span><br><span class="line">            <span class="comment"># 获得这个单词的列坐标</span></span><br><span class="line">            column_no = match.start() + <span class="number">1</span></span><br><span class="line">            location = (line_no, column_no)</span><br><span class="line">            <span class="comment"># 获得单词的出现情况表，如果单词不存在，把单词和一个空列表放进映射，然后返回这个空列表，这样就能在不进行第二次查找的情况下更新列表了</span></span><br><span class="line">            index.setdefault(word, []).append(location)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看结果</span></span><br><span class="line"><span class="keyword">for</span> word <span class="keyword">in</span> sorted(index, key=str.upper):</span><br><span class="line">    print(word, index[word])</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h4 id="5-2-2-自动映射和驼峰映射"><a href="#5-2-2-自动映射和驼峰映射" class="headerlink" title="5.2.2 自动映射和驼峰映射"></a>5.2.2 自动映射和驼峰映射</h4><p><code>MyBatis</code>提供了自动映射功能，在默认情况下自动映射功能是开启的，使用它的好处是能有效减少大量的映射配置，从而减少工作量</p>
-<p>在<code>setting</code>元素中有两个可以配置的选项<code>autoMappingBehavior</code>和<code>mapUnderscoreToCamelCase</code>，它们是控制自动映射和驼峰映射的开关</p>
-<p>举个简单的例子来说明自动映射和驼峰映射</p>
-<p>首先给出一个简单的<code>POJO</code>，<code>Role</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Role</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String roleName;</span><br><span class="line">    <span class="keyword">private</span> String note;</span><br><span class="line">    <span class="comment">/**setter and getter**/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>下面通过自动映射完成需求: 通过角色编号获取角色的信息<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getRole"</span> <span class="attr">parameterType</span>=<span class="string">"long"</span> <span class="attr">resultType</span>=<span class="string">"com.edu.neu.pojo.Role"</span>&gt;</span></span><br><span class="line">    select id, role_name as roleName, note from t_role where id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+</li>
+<li></li>
+</ul>
+<hr>
+<h3 id="3-4-映射的弹性键查询"><a href="#3-4-映射的弹性键查询" class="headerlink" title="3.4 映射的弹性键查询"></a>3.4 映射的弹性键查询</h3><ul>
+<li><p>就算某个键在映射中不存在，我们还是希望在通过这个键读取值的时候能得到一个默认值</p>
+</li>
+<li><p>有两种途径可以帮我们达到这个目的</p>
+<ol>
+<li>通过defaultdict这个类型而不是普通的dict</li>
+<li>给自己定义一个dict的子类，然后在子类中实现<code>__missing__</code>方法</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h4 id="3-4-1-defaultdict-处理找不到的键的一个选择"><a href="#3-4-1-defaultdict-处理找不到的键的一个选择" class="headerlink" title="3.4.1 defaultdict:处理找不到的键的一个选择"></a>3.4.1 defaultdict:处理找不到的键的一个选择</h4><ul>
+<li><p>简介：</p>
 <ul>
-<li>这里原来的列名<code>role_name</code>被别名<code>roleName</code>代替，这样就和<code>POJO</code>上的属性名称保持一致了</li>
+<li>在实例化一个defaultdict的时候，需要给构造方法提供一个可调用对象</li>
+<li>这个可调用对象会在<strong>getitem</strong>碰到找不到的键的时候被调用，让<code>__getitem__</code>返回某种默认值</li>
 </ul>
-<p>如果系统都严格按照驼峰命名法，(例如，数据库字段<code>role_name</code>，对应<code>POJO</code>属性名为<code>roleName</code>)，此时可以改写为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select id, role_name, note from t_role where id = #&#123;id&#125;</span><br></pre></td></tr></table></figure></p>
-<p>自动映射和驼峰映射都建立在SQL列名和POJO属性名的映射关系上，而现实中会更加复杂，此时<code>resultType</code>元素是无法满足这些需求的。如果需要更为强大的映射规则，则需要考虑使用<code>resultMap</code></p>
-<h4 id="5-2-3-传递多个参数"><a href="#5-2-3-传递多个参数" class="headerlink" title="5.2.3 传递多个参数"></a>5.2.3 传递多个参数</h4><p>在现实需求中，经常需要传递多个参数。传参方法有4种</p>
-<h5 id="5-2-3-1-使用map接口传递多个参数"><a href="#5-2-3-1-使用map接口传递多个参数" class="headerlink" title="5.2.3.1 使用map接口传递多个参数"></a>5.2.3.1 使用map接口传递多个参数</h5><p>可以使用<code>Map</code>接口通过键值对传递多个参数，把接口方法定义为<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Role&gt; <span class="title">findRolesByMap</span><span class="params">(Map&lt;String, Object&gt; parameterMap)</span></span>;</span><br></pre></td></tr></table></figure></p>
-<p>此时传递给映射器的是一个<code>map</code>对象，使用它在SQL中设置对应的参数<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRolesByMap"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultYpe</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    select id, role_name as roleName, note from t_role</span><br><span class="line">    where role_name like concat('%', #&#123;roleName&#125;, '%') and note like concat('%', #&#123;note&#125;, '%')</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h5 id="5-2-3-2-使用注解传递多个参数"><a href="#5-2-3-2-使用注解传递多个参数" class="headerlink" title="5.2.3.2 使用注解传递多个参数"></a>5.2.3.2 使用注解传递多个参数</h5><p>使用<code>map</code>传递参数的弊病是可读性差，为此<code>MyBatis</code>为开发者提供了一个注解<code>＠Param</code>，可以通过它去定义映射器的参数名称，使用它可以得到更好的可读性，把接口方法定义为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Role&gt; <span class="title">findRolesByAnnotation</span> <span class="params">(@Param (<span class="string">"roleName"</span>)</span> String rolename, @<span class="title">Param</span> <span class="params">(<span class="string">"note "</span>)</span> String note)</span>;</span><br></pre></td></tr></table></figure></p>
-<p>此时映射文件可以定义为，此时并不需要给出<code>parameterType</code>属性，让<code>MyBatis</code>自动探索即可<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRolesByAnnotation"</span> <span class="attr">resultType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    select id, role_name as roleName, note from t_role</span><br><span class="line">    where role_name like concat ('%', #&#123;roleName&#125;, '%')</span><br><span class="line">    and note like concat ('%', #&#123;note&#125;, '%')</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>但是这会带来一个麻烦。如果<code>SQL</code>很复杂，拥有大于10个参数，那么接口方法的参数个数就多了，使用起来就很不容易</p>
-<h5 id="5-2-3-3-通过JavaBean传递多个参数"><a href="#5-2-3-3-通过JavaBean传递多个参数" class="headerlink" title="5.2.3.3 通过JavaBean传递多个参数"></a>5.2.3.3 通过JavaBean传递多个参数</h5><p>可以通过传递<code>Java Bean</code>的方式来处理参数过多的问题</p>
-<p>先定义一个参数的<code>POJO</code>:<code>RoleParams</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RoleParams</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String roleName;</span><br><span class="line">    <span class="keyword">private</span> String note;</span><br><span class="line">    <span class="comment">/**set ter and getter**/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>把接口方法定义为<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Role&gt; <span class="title">findRolesByBean</span><span class="params">(RoleParams roleParam)</span></span>;</span><br></pre></td></tr></table></figure></p>
-<p>此时映射文件定义为：其中<code>parameterType</code>设置为上文定义的POJO的路径</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRolesByBean"</span> <span class="attr">parameterType</span>= <span class="string">"com.learn.ssm.chapterS.param.RoleParams"</span></span></span><br><span class="line"><span class="tag"><span class="attr">resultType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    select id, role name as roleName, note from t role</span><br><span class="line">    where role name like concat ('%', #&#123;roleName&#125;, '%')</span><br><span class="line">    and note like concat ('%', #&#123;note&#125;, '%')</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>引用<code>JavaBean</code>定义的属性作为参数，然后查询<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);</span><br><span class="line">RoleParams roleParams = <span class="keyword">new</span> RoleParams();</span><br><span class="line">roleParams.setRoleName(<span class="string">"1"</span>);</span><br><span class="line">roleParams.setNote(<span class="string">"1"</span>);</span><br><span class="line">List&lt;Role&gt; roles = roleMapper.findRolesByBean(roleParams);</span><br></pre></td></tr></table></figure></p>
-<h5 id="5-2-3-4-混合使用"><a href="#5-2-3-4-混合使用" class="headerlink" title="5.2.3.4 混合使用"></a>5.2.3.4 混合使用</h5><p>略</p>
-<h5 id="5-2-3-5-总结"><a href="#5-2-3-5-总结" class="headerlink" title="5.2.3.5 总结"></a>5.2.3.5 总结</h5><ul>
-<li>使用<code>map</code>传递参数导致了业务可读性的丧失，导致后续扩展和维护的困难，在实际的应用中要果断废弃这种方式。</li>
-<li>使用<code>@Param</code>注解传递多个参数，受到参数个数(n)的影响。当<code>n&lt;=5</code>时，这是最佳的传参方式，它比用<code>Java Bean</code>更好，因为它更加直观；当<code>n&gt;5</code>时，多个参数将给调用带来困难，此时不推荐使用它。</li>
-<li>当参数个数多于5个时，建议使用<code>Java Bean</code>方式。</li>
-<li>对于使用混合参数的，要明确参数的合理性。</li>
-</ul>
-<h4 id="5-2-4-使用resultMap映射结果集"><a href="#5-2-4-使用resultMap映射结果集" class="headerlink" title="5.2.4 使用resultMap映射结果集"></a>5.2.4 使用resultMap映射结果集</h4><p>为了支持复杂的映射，<code>select</code>元素提供了<code>resultMap</code>属性，例子如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.xxx.RoleMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"roleMap"</span> <span class="attr">type</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"roleName"</span> <span class="attr">column</span>=<span class="string">"role_name"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"note"</span> <span class="attr">column</span>=<span class="string">"note"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getRoleUseResultMap"</span> <span class="attr">parameterType</span>=<span class="string">"long"</span> <span class="attr">resultMap</span>=<span class="string">"roleMap"</span>&gt;</span></span><br><span class="line">        select id, role_name, note from t_role where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+</li>
+<li><p>例如:我们新建一个这样的字典,<code>dd = defaultdict(list)</code>，如果键’new-key’在dd中不存在的话，表达式<code>dd[&#39;new-key&#39;]</code>会按照以下步骤来行事</p>
+<ol>
+<li>调用list()来建立一个新列表</li>
+<li>把这个新列表作为值，’new-key’作为它的键，放在dd中</li>
+<li>返回这个列表的引用</li>
+</ol>
+</li>
+<li><p>如果在创建defaultdict的时候没有指定default_factory，查询不存在的键会触发keyError</p>
+</li>
+<li><p>defaultdict里的default_factory只会在<code>__getitem__</code>里被调用，在其他方法里完全不会发挥作用</p>
 <ul>
-<li><code>resultMap</code>元素定义了一个<code>roleMap</code>，它的属性<code>id</code>代表它的标识，<code>type</code>代表使用哪个类作为其映射的类</li>
-<li>子元素<code>id</code>代表<code>resultMap</code>的主键，而<code>result</code>代表其属性，<code>id</code>和<code>result</code>元素的属性<code>property</code>代表<code>POJO</code>的属性名称，而<code>column</code>代表<code>SQL</code>的列名</li>
-<li>在<code>select</code>元素中的属性<code>resultMap</code>制定了采用哪个<code>resultMap</code>作为其映射规则</li>
+<li>比如，dd是个defaultdict,k是个找不到的键，dd[k]这个表达式会调用default_factory来创建一个默认值，而dd.get(k)则会返回None</li>
 </ul>
-<h4 id="5-2-5-分页参数RowBounds"><a href="#5-2-5-分页参数RowBounds" class="headerlink" title="5.2.5 分页参数RowBounds"></a>5.2.5 分页参数RowBounds</h4><p><code>MyBatis</code>支持分页，它还内置了一个专门处理分页的类<code>RowBounds</code>，使用它十分的简单，只要给接口增加一个<code>RowBounds</code>参数即可。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Role&gt; <span class="title">findByRowBounds</span><span class="params">(@Param(<span class="string">"roleName"</span>)</span> String rolename, @<span class="title">Param</span><span class="params">(<span class="string">"note"</span>)</span> String note, RowBounds rowBounds)</span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findByRowBounds"</span> <span class="attr">resultType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    select id, role_name as roleName, note from t_role</span><br><span class="line">    where role_name like concat('%', #&#123;roleName&#125;, '%')</span><br><span class="line">    and note like concat('%', #&#123;note&#125;, '%')</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>注意上面代码并没有任何关于<code>RowBounds</code>参数的消息，它是<code>MyBatis</code>的一个附加参数，<code>MyBatis</code>会自动识别它，据此进行分页，测试程序如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);</span><br><span class="line">RowBounds rowBounds = <span class="keyword">new</span> RowBounds(<span class="number">0</span>, <span class="number">20</span>);</span><br><span class="line">List&lt;Role&gt; roleList = roleMapper.findByRowBounds(<span class="string">"role_name"</span>, <span class="string">"note"</span>, rowBounds);</span><br></pre></td></tr></table></figure>
-<p>但是要注意<code>RowBounds</code>分页运用的场景，它只适用于一些小数据量的查询。<code>RowBounds</code>分页的原理是执行<code>SQL</code>的查询后，按照偏移量和限制条数返回查询结果，所以对于大量的数据查询，它的性能并不佳，此时可以通过分页插件去处理，详情可参考本书第8章的内容。</p>
-<h3 id="5-3-insert元素-插入语句"><a href="#5-3-insert元素-插入语句" class="headerlink" title="5.3 insert元素(插入语句)"></a>5.3 insert元素(插入语句)</h3><h4 id="5-3-1-概述"><a href="#5-3-1-概述" class="headerlink" title="5.3.1 概述"></a>5.3.1 概述</h4><p>插入数据依赖于<code>insert</code>语句</p>
-<h4 id="5-3-2-简单的insert语句的应用"><a href="#5-3-2-简单的insert语句的应用" class="headerlink" title="5.3.2 简单的insert语句的应用"></a>5.3.2 简单的insert语句的应用</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertRole"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    insert into t_role(role_name, note) values (#&#123;roleName&#125;, #&#123;note&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>defaultdictDemo</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这段程序用来从文件中统计每个单词出现的位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明一个选择单词的正则式</span></span><br><span class="line">WORD_RE = re.compile(<span class="string">r'\w+'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化index字典</span></span><br><span class="line">index = collections.defaultdict(list)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开文件并按行迭代每个单词</span></span><br><span class="line"><span class="keyword">with</span> open(sys.argv[<span class="number">1</span>], encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    <span class="keyword">for</span> line_no, line <span class="keyword">in</span> enumerate(fp, <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> match <span class="keyword">in</span> WORD_RE.finditer(line):</span><br><span class="line">            word = match.group()</span><br><span class="line">            <span class="comment"># 获得这个单词的列坐标</span></span><br><span class="line">            column_no = match.start() + <span class="number">1</span></span><br><span class="line">            location = (line_no, column_no)</span><br><span class="line">            <span class="comment"># 获得此单词在字典中的value,若之前不存在就设置为[],并返回</span></span><br><span class="line">            index[word].append(location)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看结果</span></span><br><span class="line"><span class="keyword">for</span> word <span class="keyword">in</span> sorted(index, key=str.upper):</span><br><span class="line">    print(word, index[word])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="3-4-2-特殊方法-missing"><a href="#3-4-2-特殊方法-missing" class="headerlink" title="3.4.2 特殊方法__missing__"></a>3.4.2 特殊方法<code>__missing__</code></h4><ul>
+<li><p>所有的映射类型在处理找不到的键的时候，都会牵扯到<code>__missing__</code>方法</p>
+</li>
+<li><p>虽然基类dict并没有定义这个方法，但是dict是知道有这么个东西存在的</p>
 <ul>
-<li><code>id</code>标识出这条<code>SQL</code></li>
-<li><code>parameterType</code>代表传入参数类型</li>
+<li>也就是说，如果有一个类继承了dict，然后这个继承类提供了<code>__missing__</code>方法，那么在<code>__getitem__</code>碰到找不到的键的时候，Python会自动调用它，而不是抛出一个KeyError异常</li>
 </ul>
-<h4 id="5-3-3-主键回填"><a href="#5-3-3-主键回填" class="headerlink" title="5.3.3 主键回填"></a>5.3.3 主键回填</h4><p>大多数场景下，我们会为<code>MySQL</code>中的表配置自增主键。而有时候我们需要取出新插入元素的自增主键。</p>
-<p><code>JDBC</code>中的<code>Statement</code>对象在执行插入的<code>SQL</code>后，可以通过<code>getGeneratedKeys</code>方法获得数据库生成的主键(需要数据库驱动支持)，这样便能达到获取主键的功能。在<code>insert</code>语句中有一个开关属性<code>useGeneratedKeys</code>，用来控制是否打开这个功能，它的默认值为<code>false</code>。当打开了这个开关，还要配置其属性<code>keyProperty</code>或<code>keyColumn</code>，告诉系统把生成的主键放入哪个属性中，</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertRole"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span> <span class="attr">useGeneratedKeys</span>=<span class="string">"true"</span> <span class="attr">keyProperty</span>=<span class="string">"id"</span>&gt;</span></span><br><span class="line">    insert into t_role(role_name, note) values(#&#123;roleName&#125;, #&#123;note&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="5-3-4-自定义主键"><a href="#5-3-4-自定义主键" class="headerlink" title="5.3.4 自定义主键"></a>5.3.4 自定义主键</h4><p>有时候主键可能依赖于某些规则，比如取消角色表(t_role)的<code>id</code>的递增规则，而将其规则修改为:</p>
+</li>
+<li><p><code>__missing__</code>方法只会被<code>__getitem__</code>调用，提供<strong>missing</strong>方法对<code>get</code>或者<code>__contains__</code>这些方法的使用没有影响</p>
+</li>
+<li><p>missingDemo</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># StrKeyDict在查询的时候会把非字符串的键转换为字符串</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># StrKeyDict继承自dict</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrKeyDict0</span><span class="params">(dict)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__missing__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="comment"># 如果找不到的键本身就是字符串,那就抛出KeyError异常</span></span><br><span class="line">        <span class="keyword">if</span> isinstance(key, str):</span><br><span class="line">            <span class="keyword">raise</span> KeyError(key)</span><br><span class="line">        <span class="comment"># 如果找不到的键不是字符串,就把它转换为字符串再查找</span></span><br><span class="line">        <span class="keyword">return</span> self[str(key)]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key, default=None)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># get方法把查找工作用self[key]的形式委托给`__getitem__`，这样就宣布了查找失败之前,还能通过`__missing__`再给某个键一个机会</span></span><br><span class="line">            <span class="keyword">return</span> self[key]</span><br><span class="line">        <span class="keyword">except</span> KeyError:</span><br><span class="line">            <span class="comment"># 如果抛出异常,那么说明__missing__也失败了,于是返回default</span></span><br><span class="line">            <span class="keyword">return</span> default</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__contains__</span><span class="params">(self, item)</span>:</span></span><br><span class="line">        <span class="comment"># 先按照传入键的原本的值来查找，如果没有找到，再用str()方法把键转换成字符串再查找一次</span></span><br><span class="line">        <span class="keyword">return</span> item <span class="keyword">in</span> self.keys() <span class="keyword">or</span> str(item) <span class="keyword">in</span> self.keys()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用尝试1</span></span><br><span class="line">d = StrKeyDict0([(<span class="string">'2'</span>, <span class="string">'two'</span>), (<span class="number">4</span>, <span class="string">'four'</span>)])</span><br><span class="line">print(d[<span class="string">'2'</span>])</span><br><span class="line">print(d[<span class="number">4</span>])</span><br><span class="line">print(d[<span class="number">1</span>])</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">two</span></span><br><span class="line"><span class="string">four</span></span><br><span class="line"><span class="string">Traceback (most recent call last):</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">KeyError: '1'</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用尝试2</span></span><br><span class="line">print(d.get(<span class="string">'2'</span>))</span><br><span class="line">print(d.get(<span class="number">4</span>))</span><br><span class="line">print(d.get(<span class="number">1</span>, <span class="string">'N/A'</span>))</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">two</span></span><br><span class="line"><span class="string">four</span></span><br><span class="line"><span class="string">N/A</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用尝试3</span></span><br><span class="line">print(<span class="number">2</span> <span class="keyword">in</span> d)</span><br><span class="line">print(<span class="number">1</span> <span class="keyword">in</span> d)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">True</span></span><br><span class="line"><span class="string">False</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>像 k in my_dict().keys()这种操作在Python3中是很快的，因为dict.keys()的返回值是一个’视图’，’视图’就像一个集合，而且跟字典类似的是，在视图里查找一个元素的速度很快</p>
+</li>
+</ul>
+<hr>
+<h3 id="3-5-字典的变种"><a href="#3-5-字典的变种" class="headerlink" title="3.5 字典的变种"></a>3.5 字典的变种</h3><ol>
+<li><p>collections.OrderedDict</p>
 <ul>
-<li>当角色表记录为空时，<code>id</code>设置为<code>1</code>。</li>
-<li>当角色表记录不为空时，<code>id</code>设置为当前<code>id</code>加3<br><code>MyBatis</code>对这样的场景也提供了支持，它主要依赖于<code>selectKey</code>元素进行支持，它允许自定义键值的生成规则。</li>
+<li>这个类型在添加键的时候会保持顺序，因此键的迭代次序总是一致的</li>
 </ul>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertRole"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">selectKey</span> <span class="attr">keyProperty</span>=<span class="string">"id"</span> <span class="attr">resultType</span>=<span class="string">"long"</span> <span class="attr">order</span>=<span class="string">"BEFORE"</span>&gt;</span></span><br><span class="line">        select if(max(id) = null, 1, max(id) + 3) from t_role</span><br><span class="line">    <span class="tag">&lt;/<span class="name">selectKey</span>&gt;</span></span><br><span class="line">    insert into t_role(id, role_name, note) values(#&#123;id&#125;, #&#123;roleName&#125;, #&#123;note&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>collectinos.ChainMap</p>
 <ul>
-<li>它定义了<code>selectKey</code>元素，它的<code>keyProperty</code>指定了采用哪个属性作为<code>POJO</code>的主键。</li>
-<li><code>resultType</code>告诉<code>MyBatis</code>将返回一个<code>long</code>型的结果集，而<code>order</code>设置为<code>BEFORE</code>，说明它将于当前定义的<code>SQL</code>前执行。</li>
-<li>这里的<code>order</code>配置为<code>BEFORE</code>，说明它会在插入之前会先执行生成主键的<code>SQL</code>，然后插入数据。</li>
+<li>该类型可以容纳数个不同的映射对象，然后在进行键查找操作的时候，这些对象会被当作一个整体被逐个查找，直到键被找到为止</li>
+<li>例如<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> builtins</span><br><span class="line">pylookup = ChainMap(local(), <span class="keyword">global</span>(), vars(builtins))</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h3 id="5-4-update元素和delete元素"><a href="#5-4-update元素和delete元素" class="headerlink" title="5.4 update元素和delete元素"></a>5.4 update元素和delete元素</h3><p><code>update</code>和<code>delete</code>执行完会返回一个整数，用以标识该SQL语句影响数据库的记录行数<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateRole"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    update t_role set role_name= #&#123;roleName&#125;, note = #&#123;note&#125;</span><br><span class="line">    where id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">delete</span> <span class="attr">id</span>=<span class="string">"deleteRole"</span> <span class="attr">parameterType</span>=<span class="string">"long"</span>&gt;</span></span><br><span class="line">    delete from t_role where id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">delete</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="5-5-sql元素"><a href="#5-5-sql元素" class="headerlink" title="5.5 sql元素"></a>5.5 sql元素</h3><p>sql元素的作用在于可以定义一条<code>SQL</code>的一部分，方便后面的SQL引用它，比如最典型的列名。通常情况下要在<code>select</code>、<code>insert</code>等语句中反复编写它们，特别是那些字段较多的表更是如此。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>= <span class="string">"com.RoleMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>= <span class="string">"roleMap"</span> <span class="attr">type</span>= <span class="string">"role"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"roleName"</span> <span class="attr">column</span>= <span class="string">"role_name"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"note"</span> <span class="attr">column</span>=<span class="string">"note"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"rolesCols"</span>&gt;</span></span><br><span class="line">        id, role_name, note</span><br><span class="line">    <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getRole"</span> <span class="attr">parameterType</span>=<span class="string">"long"</span> <span class="attr">resultMap</span>=<span class="string">"roleMap"</span>&gt;</span></span><br><span class="line">        select <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"rolesCols"</span>/&gt;</span> </span><br><span class="line">        from t_role where id=#&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>sql元素还支持变量传递<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"roleCols"</span>&gt;</span></span><br><span class="line">    $&#123;alias&#125;.id, $&#123;alias&#125;.role_name, $&#123;alias&#125;.note</span><br><span class="line"><span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getRole"</span> <span class="attr">parameterType</span>=<span class="string">"long"</span> <span class="attr">resultMap</span>=<span class="string">"roleMap"</span>&gt;</span></span><br><span class="line">    select <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"roleCols"</span>&gt;</span><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"alias"</span> <span class="attr">value</span>=<span class="string">"r"</span>/&gt;</span><span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">    from t_role r where id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="5-6-参数"><a href="#5-6-参数" class="headerlink" title="5.6 参数"></a>5.6 参数</h3><h4 id="5-6-1-概述"><a href="#5-6-1-概述" class="headerlink" title="5.6.1 概述"></a>5.6.1 概述</h4><p>一些数据库字段返回为<code>null</code>，而<code>MyBatis</code>系统又检测不到使用何种<code>jdbcType</code>进行处理时，会发生异常的情况，这个时候执行对应的<code>typeHandler</code>进行处理，<code>MyBatis</code>就知道采取哪个<code>typeHandler</code>进行处理了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into t_role(id, role_name, note) values(#&#123;id&#125; , #&#123;roleName, typeHandler=StringTypeHandler&#125;, #&#123;note&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>而事实是，大部分情况下都不需要这样编写，因为<code>MyBatis</code>会根据<code>javaType</code>和<code>jdbcType</code>去检测使用哪个<code>typeHandler</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#123;age, javaType=int, jdbcType=NUMERIC, typeHandler=MyTypeHandler&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="5-6-2-存储过程参数支持"><a href="#5-6-2-存储过程参数支持" class="headerlink" title="5.6.2 存储过程参数支持"></a>5.6.2 存储过程参数支持</h4><p>MyBatis对存储过程也进行了支持，在存储过程中存在：输入(IN)参数、输出(OUT)参数和输入输出(INOUT)参数3种类型。</p>
-<h4 id="5-6-3-特殊字符串的替换和处理"><a href="#5-6-3-特殊字符串的替换和处理" class="headerlink" title="5.6.3 特殊字符串的替换和处理"></a>5.6.3 特殊字符串的替换和处理</h4><p>在现实中，由于一些因素会造成构成<code>SQL</code>查询的列名发生变化，比如产品类型为大米，查询的列名是重量，而产品类型为灯具，查询的列名是数量，这时候需要构建动态列名。有些企业会将一张很大的数据库表按年份拆分，比如购买记录表(<code>t_purchase records</code>) 。现实中由于记录比较多，可能为了方便按年份拆分为<code>t_purchase_records_ 2016</code> 、<code>t_purchase_records_ 2017</code> 、<code>t_purchase_records_2018</code>等，这时往往需要构建动态表名。</p>
-<p>在<code>MyBatis</code>中，构建动态列名常常要传递类似于字符串的<code>columns＝&quot;coll, col2, col3 ...&quot;</code>给<code>SQL</code>，让其组装成为<code>SQL</code>语句。如果不想被<code>MyBatis</code>像处理普通参数一样把它设为<code>&quot;coll, col2, col3 ...&quot;</code>，那么可以写成<code>select ${columns} from t_tablename</code>，这样<code>MyBatis</code>就不会转译<code>columns</code>，而不是作为<code>SQL</code> 的参数进行设置了，这句<code>SQL</code>就会变为<code>select col1, col2, col3 ... from t_tablename</code>。</p>
-<h3 id="5-7-resultMap元素"><a href="#5-7-resultMap元素" class="headerlink" title="5.7 resultMap元素"></a>5.7 resultMap元素</h3><p><code>resultMap</code>的作用是定义映射规则、级联的更新、定制类型转化器等。<code>resultMap</code>定义的主要是一个结果集的映射关系，也就是<code>SQL</code>到<code>Java Bean</code>的映射关系定义，它也支持级联等特性。只是<code>MyBatis</code>现有的版本只支持<code>resultMap</code>查询，不支持更新或者保存，</p>
-<h4 id="5-7-1-resultMap元素的构成"><a href="#5-7-1-resultMap元素的构成" class="headerlink" title="5.7.1 resultMap元素的构成"></a>5.7.1 resultMap元素的构成</h4><p><code>resultMap</code>元素的子元素<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">idArg</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">arg</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">constructor</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">association</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">collection</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">discriminator</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">case</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">discriminator</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="5-7-2-使用map存储结果集"><a href="#5-7-2-使用map存储结果集" class="headerlink" title="5.7.2 使用map存储结果集"></a>5.7.2 使用map存储结果集</h4><p>一般而言，任何<code>select</code>语句都可以使用<code>map</code>存储<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findColorByNote"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultType</span>=<span class="string">"map"</span>&gt;</span></span><br><span class="line">    select id, color, note from t_color where note like concat('%', #&#123;note&#125;, '%')</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>使用map原则上是可以匹配所有的结果集的，但是使用map接口就意味着可读性的下降</p>
-<h4 id="5-7-3-使用POJO存储结果集"><a href="#5-7-3-使用POJO存储结果集" class="headerlink" title="5.7.3 使用POJO存储结果集"></a>5.7.3 使用POJO存储结果集</h4><p>使用<code>map</code>方式就意味着可读性的丢失，<code>POJO</code>是最常用的方式。有时候需要更为复杂的映射或者级联，这个时候还可以使用<code>select</code>语句的<code>resultMap</code>属性配置映射集合<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"roleResultMap"</span> <span class="attr">type</span>=<span class="string">"com.learn.Role"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"id"</span> ／&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"roleName"</span> <span class="attr">column</span>=<span class="string">"role_name"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"note"</span> <span class="attr">column</span>=<span class="string">"note"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><code>resultMap</code>元素的属性<code>id</code>代表这个<code>resultMap</code>的标识，<code>type</code>代表着需要映射的<code>POJO</code>，这里可以使用<code>MyBatis</code>定义好的类的别名，也可以使用自定义的类的全限定名。在映射关系中，<code>id</code>元素表示这个对象的主键，<code>property</code>代表着<code>POJO</code>的属性名称，<code>column</code>表示数据库<code>SQL</code>的列名，于是<code>POJO</code>就和数据库<code>SQL</code>的结果一一对应起来了</p>
-<h3 id="5-8-级联"><a href="#5-8-级联" class="headerlink" title="5.8 级联"></a>5.8 级联</h3><p>级联是一个数据库实体的概念。比如角色就需要存在用户与之对应，这样就有角色用户表，一个角色可能有多个用户，这就是一对多的级联；除此之外，还有一对一的级联，比如身份证和公民是一对一的关系。在MyBatis中还有一种被成为鉴定器的级联，它是一种可以选择具体实现类的级联</p>
-<p>级联不是必须的，级联的好处是获取关联数据十分便捷，但是级联过多会增加系统的复杂度，同时降低系统的性能</p>
-<h4 id="5-8-1-MyBatis中的级联"><a href="#5-8-1-MyBatis中的级联" class="headerlink" title="5.8.1 MyBatis中的级联"></a>5.8.1 MyBatis中的级联</h4><p><code>MyBatis</code>的级联分为3种。</p>
+</li>
+<li><p>collections.Counter</p>
 <ul>
-<li>鉴别器(<code>discriminator</code>)：它是一个根据某些条件决定采用具体实现类级联的方案，比如体检表要根据性别去区分。</li>
-<li>一对一(<code>association</code>)：比如学生证和学生就是一种一对一的级联，雇员和工牌表也是一种一对一的级联。</li>
-<li>一对多(<code>collection</code>)：比如班主任和学生就是一种一对多的级联。</li>
+<li>这个映射类型会给键准备一个整数计数器</li>
+<li>每次更新一个键的时候都会增加这个计数器</li>
+<li>所以这个类型可以用来给可散列对象计数，或者被当成多重集来用</li>
+<li>demo<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> collections</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct = collections.Counter(<span class="string">'abracadabra'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct</span><br><span class="line">Counter(&#123;<span class="string">'a'</span>: <span class="number">5</span>, <span class="string">'b'</span>: <span class="number">2</span>, <span class="string">'r'</span>: <span class="number">2</span>, <span class="string">'c'</span>: <span class="number">1</span>, <span class="string">'d'</span>: <span class="number">1</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct.update(<span class="string">'aaaaazzz'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct</span><br><span class="line">Counter(&#123;<span class="string">'a'</span>: <span class="number">10</span>, <span class="string">'z'</span>: <span class="number">3</span>, <span class="string">'b'</span>: <span class="number">2</span>, <span class="string">'r'</span>: <span class="number">2</span>, <span class="string">'c'</span>: <span class="number">1</span>, <span class="string">'d'</span>: <span class="number">1</span>&#125;)</span><br><span class="line"><span class="comment"># most_common会按照次序返回映射中最常用的n个键和它们的计数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct.most_common(<span class="number">2</span>)</span><br><span class="line">[(<span class="string">'a'</span>, <span class="number">10</span>), (<span class="string">'z'</span>, <span class="number">3</span>)]</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>为了更好地阐述级联，先给出一个雇员级联模型<br><img src="/2020/01/30/SSM-5-映射器/200130_0.png" alt=""></p>
-<h4 id="5-8-2-N-1问题"><a href="#5-8-2-N-1问题" class="headerlink" title="5.8.2 N+1问题"></a>5.8.2 N+1问题</h4><p>通过级联，我们可以拿出所有关联数据，但这样会引发性能问题。因为有些性能并不常用，加载它们会多执行几条毫无用处的<code>SQL</code>，导致数据库资源的损耗和系统性能的下降，这就是N+1问题</p>
-<p>为了应对N+1问题，MyBatis提供了延迟加载功能</p>
-<h4 id="5-8-3-延迟加载"><a href="#5-8-3-延迟加载" class="headerlink" title="5.8.3 延迟加载"></a>5.8.3 延迟加载</h4><p>在<code>MyBatis</code>的<code>setting</code>配置中存在两个元素可以配置级联</p>
-<p><code>lazyLoadingEnabled</code>是一个开关，决定开不开启延迟加载，默认值为<code>false</code>，则不开启延迟加载</p>
-<p><code>aggressiveLazyLoading</code>配置项是一个层级开关，当设置为<code>true</code>时，它是一个开启了层级开关的延迟加载</p>
-<p>此外，在<code>MyBatis</code>中使用<code>fetchType</code>属性，可以处理全局定义无法处理的问题，<code>fetchType</code>出现在级联元素(<code>association</code>、<code>collection</code>)，它存在两个值</p>
+</li>
+<li><p>collections.UserDict</p>
 <ul>
-<li><code>eager</code>，获取当前<code>POJO</code>后立即加载对应数据</li>
-<li><code>lazy</code>，获取当前<code>POJO</code>后延迟加载对应的数据</li>
+<li>这个类其实就是把标准dict用纯Python的方式又实现了一编</li>
 </ul>
-<h3 id="5-9-缓存"><a href="#5-9-缓存" class="headerlink" title="5.9 缓存"></a>5.9 缓存</h3><p>在<code>MyBatis</code>中允许使用缓存， 缓存一般都放置在可高速读／写的存储器上，比如服务器的内存，它能够有效提高系统的性能。一般只会把那些常用且命中率高的数据缓存起来，以便将来使用，而不缓存那些不常用且命中率低的数据缓存。</p>
-<h4 id="5-9-1-一级续存和二级缓存"><a href="#5-9-1-一级续存和二级缓存" class="headerlink" title="5.9.1 一级续存和二级缓存"></a>5.9.1 一级续存和二级缓存</h4><p>一级缓存是在<code>SqlSession</code>上的缓存，二级缓存是在<code>SqlSessionFactory</code>上的缓存。默认情况下，也就是没有任何配置的情况下，<code>MyBatis</code>系统会开启一级缓存，也就是对于<code>SqlSession</code> 层面的缓存，这个缓存不需要<code>POJO</code>对象可序列化。</p>
-<p>为了使<code>SqlSession</code>对象之间共享相同的缓存，有时候需要开启二级缓存，开启二级缓存很简单，只要在映射文件(<code>RoleMapper.xml</code>)上加入代码：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>这个时候<code>MyBatis</code>会序列化和反序列化对应的<code>POJO</code>，也就要求<code>POJO</code>是一个可序列化的对象，那么它就必须实现<code>java.io.Serializable</code> 接口。</p>
-<h4 id="5-9-2-自定义缓存"><a href="#5-9-2-自定义缓存" class="headerlink" title="5.9.2 自定义缓存"></a>5.9.2 自定义缓存</h4><p><code>MyBatis</code>可以使用自定义的缓存，只是实现类需要实现<code>MyBatis</code>的接口<code>org.apache.ibatis.cache.Cache</code>，让我们看看<code>Cache</code>接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.ibatis.cache;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Cache</span> </span>&#123;</span><br><span class="line"><span class="comment">//获取缓存ID</span></span><br><span class="line"><span class="function">String <span class="title">getld</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">//保存对象， key 为键， value 为值</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">putObject</span><span class="params">(Object key , Object value)</span></span>;</span><br><span class="line"><span class="comment">//获取缓存数据， key 为键</span></span><br><span class="line"><span class="function">Object <span class="title">getObject</span><span class="params">(Object key)</span></span>;</span><br><span class="line"><span class="comment">//删除缓存key 为键</span></span><br><span class="line"><span class="function">Object <span class="title">removeObject</span><span class="params">(Object key)</span></span>;</span><br><span class="line"><span class="comment">//清除缓存</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>;</span><br><span class="line"><span class="comment">//获得缓存大小</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span> </span>;</span><br><span class="line"><span class="comment">//获取读／写锁，需要考虑多线程的场景</span></span><br><span class="line"><span class="function">ReadWriteLock <span class="title">getReadWriteLock</span><span class="params">()</span> </span>;</span><br></pre></td></tr></table></figure>
-<p>在现实中，我们可以使用<code>Redis</code>,<code>MongoDB</code>或者其他常用的缓存，假设存在一个<code>Redis</code>的缓存实现类<code>com.ssm.chapter5.cache.RedisCache</code> ，那么可以这样配置它：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span> <span class="attr">type</span> =<span class="string">"com.ssm.chapterS.cache.RedisCache"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"host"</span> <span class="attr">value</span>=<span class="string">"localhost"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">cache</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="5-10-存储过程"><a href="#5-10-存储过程" class="headerlink" title="5.10 存储过程"></a>5.10 存储过程</h3><p>略</p>
+</li>
+</ol>
+<hr>
+<h3 id="3-6-子类化UserDict"><a href="#3-6-子类化UserDict" class="headerlink" title="3.6 子类化UserDict"></a>3.6 子类化UserDict</h3><hr>
+<ul>
+<li><p>就创造自定义映射类型来说，以UserDict作为基类，总比以普通的dict作为基类要来得方便</p>
+</li>
+<li><p>更倾向于从UserDict而不是dict继承的原因是,后者有时会在某些方法的实现上走一些捷径，导致我们不得不在它的子类中重写这些方法，但是UserDict就不会带来这些问题</p>
+</li>
+<li><p>另外一个值得注意的地方是，UserDict并不是dict的子类，但是UserDict有一个叫做data的属性，是dict的实例，这个属性实际上是UserDict最终存储数据的地方</p>
+</li>
+<li><p>demo：StrKeyDict</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># StrKeyDict是对UserDict的扩展</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrKeyDict</span><span class="params">(collections.UserDict)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__missing__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> isinstance(key, str):</span><br><span class="line">            <span class="keyword">raise</span> KeyError(key)</span><br><span class="line">        <span class="keyword">return</span> self[str(key)]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># contains比上一章的实现要简单,因为通过重写setitem,此时可以默认所有的key都是字符串</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__contains__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> str(key) <span class="keyword">in</span> self.data</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># setitem会把所有的键都转换为字符串</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__setitem__</span><span class="params">(self, key, value)</span>:</span></span><br><span class="line">        self.data[str(key)] = value</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># get方法与父类的get方法完全一致,所以不用再实现一遍</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>因为UserDict继承的是MutableMapping，所以StrKeyDict里剩下的那些映射类型的方法都是从UserDict、MutableMapping和Mapping这些超类继承而来的</p>
+</li>
+</ul>
+<hr>
+<h3 id="3-7-不可变映射类型"><a href="#3-7-不可变映射类型" class="headerlink" title="3.7 不可变映射类型"></a>3.7 不可变映射类型</h3><hr>
+<ul>
+<li><p>从Python3.3开始，types模块中引入了一个封装类名为MappingProxyType</p>
+<ul>
+<li>如果给这个类一个映射，它会返回一个只读的映射视图</li>
+<li>虽然是个只读视图，但它是动态的</li>
+<li>这意味着如果对原映射作出了改动，我们可以通过这个视图观察到，但无法通过这个视图对原映射作出修改</li>
+</ul>
+</li>
+<li><p>demo:用MappingProxyType来获取字典的只读实例mappingproxy</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> types <span class="keyword">import</span> MappingProxyType</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = &#123;<span class="number">1</span>:<span class="string">'A'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy = MappingProxyType(d)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy</span><br><span class="line">mappingproxy(&#123;<span class="number">1</span>: <span class="string">'A'</span>&#125;)</span><br><span class="line"><span class="comment"># d中的内容在d_proxy中可以看到</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy[<span class="number">1</span>]</span><br><span class="line"><span class="string">'A'</span></span><br><span class="line"><span class="comment"># 但是通过d_proxy不能对它作出任何修改</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy[<span class="number">2</span>] = <span class="string">'B'</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: <span class="string">'mappingproxy'</span> object does <span class="keyword">not</span> support item assignment</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="number">2</span>] = <span class="string">'B'</span></span><br><span class="line"><span class="comment"># d_proxy是动态的，也就是说对d所做的任何改动都会反馈到它的上面</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy</span><br><span class="line">mappingproxy(&#123;<span class="number">1</span>: <span class="string">'A'</span>, <span class="number">2</span>: <span class="string">'B'</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy[<span class="number">2</span>]</span><br><span class="line"><span class="string">'B'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="3-8-集合论"><a href="#3-8-集合论" class="headerlink" title="3.8 集合论"></a>3.8 集合论</h3><ul>
+<li><p>set和它的不可变姊妹类型frozenset直到Python2.3才首次以模块的形式出现,然后在Python2.6中它们升级为内置类型</p>
+</li>
+<li><p>集合的本质是许多唯一对象的聚集。因此，集合可以用来去重:</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>l = [<span class="string">'spam'</span>, <span class="string">'spam'</span>, <span class="string">'eggs'</span>, <span class="string">'spam'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>set(l)</span><br><span class="line">&#123;<span class="string">'spam'</span>, <span class="string">'eggs'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(set(l))</span><br><span class="line">[<span class="string">'spam'</span>, <span class="string">'eggs'</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>集合中的元素必须是可散列的，set类型本身是不可散列的，但是frozenset可以，因此可以创建一个包含不同frozenset的set</p>
+</li>
+<li><p>除了保证唯一性，集合还实现了许多基础的中缀运算符</p>
+<ul>
+<li><code>a | b</code> 返回它们的合集</li>
+<li><code>a &amp; b</code> 得到的是交集</li>
+<li><code>a - b</code> 得到的是差集</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="3-8-1-集合字面量"><a href="#3-8-1-集合字面量" class="headerlink" title="3.8.1 集合字面量"></a>3.8.1 集合字面量</h4><ul>
+<li><p>除了空集之外，集合的字面量—————{1}、{1, 2}，等等，看起来跟它的数学形式一模一样；如果是空集，那么必须写成set()形式</p>
+</li>
+<li><p>如果要创建一个空集，必须使用不带任何参数的构造方法set()。如果只是写成{}的形式，跟以前一样，你创建的其实是空字典</p>
+</li>
+<li><p>除了空集，集合的字符串表示形式总是以{…}的形式出现</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = &#123;<span class="number">1</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(s)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">set</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">s</span></span></span><br><span class="line">&#123;1&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.pop()</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line">set()</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>像{1, 2, 3}这样字面量句法相比于构造方法<code>set([1, 2, 3])</code>要更快且更易读</p>
+<ul>
+<li>针对{1, 2, 3}这样的字面量，Python会利用一个专门的叫做BUILD_SET的字节码来创建集合</li>
+</ul>
+</li>
+<li><p>由于Python没有针对frozenset的特殊字面量句法，我们只能采用构造函数</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frozenset(range(<span class="number">10</span>))</span><br><span class="line">frozenset(&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="3-8-2-集合推导"><a href="#3-8-2-集合推导" class="headerlink" title="3.8.2 集合推导"></a>3.8.2 集合推导</h4><ul>
+<li>示例<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从unicodedata模块中导入name函数，用以获得字符的名字</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> unicodedata <span class="keyword">import</span> name</span><br><span class="line"><span class="comment"># 把编码在32-255之间的字符的名字里有"SIGN"的单词挑出来，放到一个集合中</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>&#123;chr(i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">32</span>, <span class="number">256</span>) <span class="keyword">if</span> <span class="string">'SIGN'</span> <span class="keyword">in</span> name(chr(i), <span class="string">''</span>)&#125;</span><br><span class="line">&#123;<span class="string">'$'</span>, <span class="string">'µ'</span>, <span class="string">'¬'</span>, <span class="string">'÷'</span>, <span class="string">'&lt;'</span>, <span class="string">'§'</span>, <span class="string">'×'</span>, <span class="string">'='</span>, <span class="string">'¢'</span>, <span class="string">'¶'</span>, <span class="string">'%'</span>, <span class="string">'+'</span>, <span class="string">'£'</span>, <span class="string">'±'</span>, <span class="string">'&gt;'</span>, <span class="string">'#'</span>, <span class="string">'®'</span>, <span class="string">'©'</span>, <span class="string">'¤'</span>, <span class="string">'°'</span>, <span class="string">'¥'</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="3-8-3-集合的操作"><a href="#3-8-3-集合的操作" class="headerlink" title="3.8.3 集合的操作"></a>3.8.3 集合的操作</h4><h3 id="3-9-dict和set的背后"><a href="#3-9-dict和set的背后" class="headerlink" title="3.9 dict和set的背后"></a>3.9 dict和set的背后</h3><hr>
+<h4 id="3-9-1-一个关于效率的实验"><a href="#3-9-1-一个关于效率的实验" class="headerlink" title="3.9.1 一个关于效率的实验"></a>3.9.1 一个关于效率的实验</h4><ul>
+<li><p>用in运算符在5个不同大小的haystack字典里搜索1000个元素所需要的时间</p>
+</li>
+<li><p>在5个不同大小的haystack里搜索1000个元素所需要的时间，haystack分别以字典、集合和列表的形式出现</p>
+</li>
+</ul>
+<hr>
+<h4 id="3-9-2-字典中的散列表"><a href="#3-9-2-字典中的散列表" class="headerlink" title="3.9.2 字典中的散列表"></a>3.9.2 字典中的散列表</h4><ul>
+<li><p>简介</p>
+<ul>
+<li>散列表其实是一个稀疏数组(总是有空白元素的数组称为稀疏数组)</li>
+<li>在一般的数据结构教材中，散列表里的单元叫做表元(bucket)</li>
+<li>在dict的散列表当中，每个键值对都占用一个表元</li>
+<li>每个表元都有两个部分，一个是对键的引用，另一个是对值的引用</li>
+<li>因为所有表元的大小一致，所以可以通过偏移量来读取某个表元</li>
+</ul>
+</li>
+<li><p>Python会设法保证大概还有三分之一的表元是空的，所以在快要达到这个阈值的时候，原有的散列表会被复制到一个更大的空间中</p>
+</li>
+<li><p>散列值和相等性</p>
+<ul>
+<li><p>内置的hash()方法可以用在所有的内置类型对象</p>
+</li>
+<li><p>如果是自定义对象调用hash()的话，实际上运行的是自定义的<strong>hash</strong></p>
+</li>
+<li><p>如果两个对象在比较的时候是相等的，那它们的散列值必须相等，否则散列表就不能正常运行了</p>
+<ul>
+<li>例如，如果 1 == 1.0 成立，那么hash(1) == hash(1.0)也必须成立</li>
+</ul>
+</li>
+<li><p>为了让散列表能够胜任散列表索引这一角色，它们必须在索引空间中尽量分散开来</p>
+<ul>
+<li>最理想的状况下，越是相似但是不相等的对象，它们散列值的差别应该越大</li>
+</ul>
+</li>
+<li><p>加盐</p>
+<ul>
+<li>str、bytes和datetime对象的散列值计算有随机的”加盐”这一步</li>
+<li>所加盐值是Python进程内的一个常量，但是每次启动Python解释器都会生成一个不同的盐值</li>
+<li>随机盐值的加入是为了防止dos攻击而采取的一种安全措施</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>散列表算法</p>
+<ul>
+<li><p>算法的步骤</p>
+<ol>
+<li>为了获取my_dict[search_key]背后的值，Python首先会调用hash(search_key)来计算search_key的散列值</li>
+<li>然后把散列值的最低几位数字作为偏移量，在散列表里查找表元</li>
+<li>若找到的表元为空，则抛出KeyError异常</li>
+<li>若不是空的，则表元里会有一对found_key:found_value。这时检测search_key是否等于found_key，如果它们相等的话，就返回found_value</li>
+</ol>
+</li>
+<li><p>另外</p>
+<ul>
+<li>在插入新值的时候，Python可能会按照散列表的拥挤程度来决定是否要重新分配内存为它扩容，这样做的目的是为了减少散列冲突发生的概率</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="3-9-3-dict的实现及其导致的结果"><a href="#3-9-3-dict的实现及其导致的结果" class="headerlink" title="3.9.3 dict的实现及其导致的结果"></a>3.9.3 dict的实现及其导致的结果</h4><ol>
+<li><p>键必须是可散列的</p>
+<ul>
+<li>一个可散列的对象需要满足的条件<ol>
+<li>支持hash()函数，并且通过<strong>hash</strong>()方法得到的散列值是不变的</li>
+<li>支持通过<strong>eq</strong>()方法来检测相等性</li>
+<li>若 a==b 为真，则 hash(a) == hash(b) 也为真</li>
+</ol>
+</li>
+<li>所有由用户自定义的对象默认都是可散列的，因为它们的散列值有id()来获取，而且它们是不相等的</li>
+<li>如果你实现了一个类的<strong>eq</strong>方法，并且希望它是可散列的，那么它一定要有个恰当的<strong>hash</strong>方法，保证在a==b为真的情况下hash(a)==hash(b)也必定为真</li>
+</ul>
+</li>
+<li><p>字典在内存上的开销巨大</p>
+<ul>
+<li>由于字典使用了散列表，散列表必须是稀疏的，这导致它在空间上的效率低下</li>
+<li>在用户自定义的类型中，<strong>slot</strong>属性可以改变实例属性的存储方式，由dict变成tuple</li>
+</ul>
+</li>
+<li><p>键查询很快</p>
+<ul>
+<li>dict的实现是典型的空间换时间：字典有巨大的内存开销，但它们提供了无视数据量大小的快速访问————只要字典能被放入内存中</li>
+</ul>
+</li>
+<li><p>键的次序取决于添加顺序</p>
+<ul>
+<li>这是因为当往dict里添加新键而又发生散列冲突的时候，新键可能会被安排存放到另一个位置</li>
+<li>但是即使顺序不同，内容相同的字典也被认为是相等的</li>
+</ul>
+</li>
+<li><p>往字典里添加新键可能会改变原有键的顺序</p>
+<ul>
+<li>因为往字典中添加键可能会导致字典扩容，从而改变原有键的位置和顺序</li>
+<li>所以不要在对字典进行迭代的同时进行修改</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="3-9-4-set的实现及其导致的结果"><a href="#3-9-4-set的实现及其导致的结果" class="headerlink" title="3.9.4 set的实现及其导致的结果"></a>3.9.4 set的实现及其导致的结果</h4><ul>
+<li><p>set和frozenset的实现也依赖散列表，但在它们的散列表中存放的只有元素的引用</p>
+</li>
+<li><p>集合的特点</p>
+<ol>
+<li>集合中的元素必须是可散列的</li>
+<li>集合很消耗内存</li>
+<li>可以很高效地判断元素是否存在于某个集合</li>
+<li>元素的次序取决于被添加到集合里的次序</li>
+<li>往集合中添加元素，可能会改变集合里已有元素的顺序</li>
+</ol>
+</li>
+</ul>
+<hr>
 
           
         
@@ -565,7 +740,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/74/">74</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -613,7 +788,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-count">74</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -624,7 +799,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -635,7 +810,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/算法导论-5-概率分析和随机算法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/算法导论-8-线性时间排序/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/02/01/算法导论-5-概率分析和随机算法/" itemprop="url">[算法导论][5][概率分析和随机算法]</a></h1>
+                <a class="post-title-link" href="/2020/02/01/算法导论-8-线性时间排序/" itemprop="url">[算法导论][8][线性时间排序]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:59:47+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T21:05:05+08:00">
                 2020-02-01
               </time>
             
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/02/01/算法导论-5-概率分析和随机算法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/算法导论-5-概率分析和随机算法/" itemprop="commentCount"></span>
+                <a href="/2020/02/01/算法导论-8-线性时间排序/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/算法导论-8-线性时间排序/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,57 +362,145 @@
       
         
           
-            <h3 id="5-1-雇用问题"><a href="#5-1-雇用问题" class="headerlink" title="5.1 雇用问题"></a>5.1 雇用问题</h3><h4 id="5-1-1-问题描述"><a href="#5-1-1-问题描述" class="headerlink" title="5.1.1 问题描述"></a>5.1.1 问题描述</h4><ul>
-<li>问题<ul>
-<li>假如你要找一个雇佣代理，帮你雇佣一个办公助理</li>
-<li>雇佣代理每天给你推荐一个应聘者。你面试这个人，然后决定是否雇佣他。</li>
-<li>你必须付给雇佣代理一小笔费用，以便面试应聘者。然而要真的雇佣一个应聘者需要花更多的钱，因为你必须辞掉目前的办公助理，还要付一大笔中介费给雇佣代理</li>
-<li>你承诺任何时候都要找最适合的人来担任这项职务，因此，你决定在面试完每个应聘者后，如果该应聘者比当前的办公助理更合适，就会辞掉当前的办公助理，然后聘用新的</li>
-</ul>
+            <h2 id="第8章-线性时间排序"><a href="#第8章-线性时间排序" class="headerlink" title="第8章 线性时间排序"></a>第8章 线性时间排序</h2><ul>
+<li><p>在排序的最终结果中，各元素的次序依赖于它们之间的比较，我们把这类排序算法称为比较排序</p>
 </li>
-</ul>
-<ul>
-<li><p>伪代码</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HIRE-ASSISTANT(n)</span><br><span class="line">best = 0</span><br><span class="line">for i = 1 to n</span><br><span class="line">    interview candidate i</span><br><span class="line">    if candidate i is better than candidate best</span><br><span class="line">        best = i</span><br><span class="line">        hire condidate i</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>每次雇佣员工都会产生一笔费用，我们的任务是估算该费用会是多少</p>
-</li>
-</ul>
-<h4 id="5-1-2-最坏情形分析"><a href="#5-1-2-最坏情形分析" class="headerlink" title="5.1.2 最坏情形分析"></a>5.1.2 最坏情形分析</h4><ul>
-<li>在最坏的情况下，我们实际上雇佣了每个面试的应聘者，总的费用是O(c<sub>h</sub>n)</li>
-</ul>
-<h4 id="5-1-3-概率分析"><a href="#5-1-3-概率分析" class="headerlink" title="5.1.3 概率分析"></a>5.1.3 概率分析</h4><ul>
-<li><p>大多数情况下我们采用概率分析来分析一个算法的平均运行时间</p>
-</li>
-<li><p>为了进行概率分析，我们必须使用或者假设关于输入的分布。分析该算法，计算出一个平均情形下的运行时间，其中我们对所有可能的输入分布取平均值</p>
-</li>
-</ul>
-<h4 id="5-1-4-随机算法"><a href="#5-1-4-随机算法" class="headerlink" title="5.1.4 随机算法"></a>5.1.4 随机算法</h4><ul>
-<li><p>当一个算法的行为不仅由输入决定，而且也由随机数生成器产生的数值决定，则称这个算法是随机的</p>
-</li>
-<li><p>当分析一个随机算法的运行时间时，我们以运行时间的期望值衡量，我们将一个随机算法的运行时间称为<strong>期望运行时间</strong></p>
-</li>
-<li><p>一般而言，当概率分布是在算法的输入上时，我们讨论的是平均运行时间；当算法本身做出随机选择时，我们讨论其期望运行时间</p>
+<li><p>任何比较排序在最坏情况下都要经过<code>O(nlgn)</code>次比较</p>
 </li>
 </ul>
 <hr>
-<h3 id="5-2-指示器随机变量"><a href="#5-2-指示器随机变量" class="headerlink" title="5.2 指示器随机变量"></a>5.2 指示器随机变量</h3><ul>
-<li><p>指示器随机变量</p>
+<h3 id="8-1-排序算法的下界"><a href="#8-1-排序算法的下界" class="headerlink" title="8.1 排序算法的下界"></a>8.1 排序算法的下界</h3><h4 id="8-1-1-首先"><a href="#8-1-1-首先" class="headerlink" title="8.1.1 首先"></a>8.1.1 首先</h4><ul>
+<li><p>在一个比较排序算法中，我们只使用元素间的比较来获得输入序列<code>&lt;a1, a2, ..., an&gt;</code>中的元素间次序的信息</p>
+</li>
+<li><p>我们不能用其他方法观测元素的值或者它们之间的次序信息</p>
+</li>
+</ul>
+<h4 id="8-1-2-决策树模型"><a href="#8-1-2-决策树模型" class="headerlink" title="8.1.2 决策树模型"></a>8.1.2 决策树模型</h4><ul>
+<li><p>比较排序可以被抽象为一颗决策树</p>
+</li>
+<li><p>决策树是一颗<strong>完全二叉树</strong>，它可以表示在给定输入规模情况下，某一特定排序算法对所有元素的比较情况</p>
+</li>
+<li><p>每个叶节点上都标注一个序列，每个内部节点都对应一次比较</p>
+</li>
+<li><p>排序算法的执行对应于一条从树的根节点到叶节点的路径</p>
+</li>
+<li><p>例如<br><img src="/2020/02/01/算法导论-8-线性时间排序/决策树举例.PNG" alt=""></p>
+</li>
+<li><p>对一个正确的比较排序算法来说，n个元素的n!种可能的情况都应该出现在决策树的叶节点上</p>
+</li>
+<li><p>而且每个叶节点都必须是可以从根节点经由某条路径到达的</p>
+</li>
+</ul>
+<h4 id="8-1-3-最坏情况的下界"><a href="#8-1-3-最坏情况的下界" class="headerlink" title="8.1.3 最坏情况的下界"></a>8.1.3 最坏情况的下界</h4><ul>
+<li><p>定理 8.1：在最坏情况下，任何比较排序算法都需要做O(nlgn)次比较</p>
+</li>
+<li><p>推论 8.2：堆排序和归并排序都是渐进最优的比较排序算法</p>
+</li>
+</ul>
+<hr>
+<h3 id="8-2-计数排序"><a href="#8-2-计数排序" class="headerlink" title="8.2 计数排序"></a>8.2 计数排序</h3><h4 id="8-2-1-简介"><a href="#8-2-1-简介" class="headerlink" title="8.2.1 简介"></a>8.2.1 简介</h4><ul>
+<li><p>计数排序的前提：计数排序假设 <code>n</code> 个输入元素中的每一个都是在 <code>0</code> 到 <code>k</code> 区间内的一个整数，其中 <code>k</code> 为某个整数</p>
+</li>
+<li><p>计数排序的基本思想</p>
 <ul>
-<li>它为概率与期望之间的转换提供了一个便利的方法</li>
-<li>定义<ul>
-<li>给定一个样本空间S和一个事件A，那么事件A对应的指示器随机变量I{A}定义为  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I(A) = 1 如果A发生</span><br><span class="line">I(A) = 0 如果A不发生</span><br></pre></td></tr></table></figure>
-</li>
+<li>对于每个输入元素 <code>x</code>，确定小于 <code>x</code> 的元素个数</li>
+<li>利用这一信息，就可以直接把 <code>x</code> 放到它在输出数组中的位置上了</li>
+<li>例如，如果有17个元素小于 <code>x</code>，则 <code>x</code> 就应该在第18个输出位置上</li>
 </ul>
 </li>
 </ul>
+<h4 id="8-2-2-代码及解读"><a href="#8-2-2-代码及解读" class="headerlink" title="8.2.2 代码及解读"></a>8.2.2 代码及解读</h4><ul>
+<li><p>伪代码如下<br>  <img src="/2020/02/01/算法导论-8-线性时间排序/计数排序伪代码.PNG" alt=""></p>
 </li>
-<li><p>定理</p>
+<li><p>解读</p>
+<ol>
+<li><code>1-3</code> 行创建一个大小为 <code>k+1</code> 的数组并将其初始化为全 <code>0</code></li>
+<li>第 <code>4-5</code> 行的 <code>for</code> 循环遍历每个输入元素，如果一个输入元素的值为 <code>i</code>，就将 <code>C[i]</code> 值加 <code>1</code>，在第5行执行完后，<code>C[i]</code>中保存的就是等于 <code>i</code> 的元素的个数</li>
+<li>第 <code>7-8</code> 行通过加总计算确定对每一个<code>i = 0, 1, ..., k</code>有多少输入元素是小于或等于 <code>i</code> 的</li>
+<li>第 <code>10-12</code> 行的 <code>for</code> 循环部分，把每个元素 <code>A[j]</code> 放到它在输出数组 <code>B</code> 中的正确位置上</li>
+</ol>
+</li>
+<li><p>代码实现</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">counting_sort</span><span class="params">(inputs, k)</span>:</span></span><br><span class="line">temp = [<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">0</span>, k)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> inputs:</span><br><span class="line">    temp[num] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">temp[<span class="number">0</span>] -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, k):</span><br><span class="line">    temp[i] += temp[i - <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">outputs = [<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">0</span>, len(inputs))]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(inputs) - <span class="number">1</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">    outputs[temp[inputs[i]]] = inputs[i]</span><br><span class="line">    temp[inputs[i]] -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> outputs</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    o = counting_sort([<span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">3</span>], <span class="number">6</span>)</span><br><span class="line">    print(o)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="8-2-3-时间代价"><a href="#8-2-3-时间代价" class="headerlink" title="8.2.3 时间代价"></a>8.2.3 时间代价</h4><ul>
+<li><p>时间复杂度: <code>O(n)</code></p>
+</li>
+<li><p>计数排序的下界要优于O(nlgn)，因为<strong>它并不是一个比较排序算法</strong>；它的代码中完全没有输入元素之间的比较操作</p>
+</li>
+<li><p>计数排序的一个重要性质就是它是<strong>稳定的</strong>，具有相同值的元素在输出数组中的相对次序与它们在输入数组中的相对次序相同</p>
+</li>
+</ul>
+<hr>
+<h3 id="8-3-基数排序"><a href="#8-3-基数排序" class="headerlink" title="8.3 基数排序"></a>8.3 基数排序</h3><h4 id="8-3-1-简介"><a href="#8-3-1-简介" class="headerlink" title="8.3.1 简介"></a>8.3.1 简介</h4><ul>
+<li><p><strong>基数排序</strong>是一种曾经用在卡片排序机上的算法</p>
+</li>
+<li><p>基数排序的基本思想是将整数按位数切割成不同的数字，然后按每个位数分别排序</p>
+</li>
+<li><p>例如<br>  <img src="/2020/02/01/算法导论-8-线性时间排序/基数排序举例.PNG" alt=""></p>
+<h4 id="8-3-2-代码及解读"><a href="#8-3-2-代码及解读" class="headerlink" title="8.3.2 代码及解读"></a>8.3.2 代码及解读</h4></li>
+<li><p>伪代码如下<br>  <img src="/2020/02/01/算法导论-8-线性时间排序/基数排序伪代码.PNG" alt=""></p>
+</li>
+<li><p>解读</p>
+<ol>
+<li>对每一位分别运行一个”位数”排序算法</li>
+<li>为了确保基数排序的正确性，”位数”排序算法必须是稳定的</li>
+</ol>
+</li>
+<li><p>代码实现</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_digit_val</span><span class="params">(num, digit)</span>:</span></span><br><span class="line">     <span class="keyword">return</span> int(num % pow(<span class="number">10</span>, digit) / pow(<span class="number">10</span>, digit - <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">counting_sort</span><span class="params">(inputs, digit)</span>:</span></span><br><span class="line">     temp = [<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line">     <span class="keyword">for</span> num <span class="keyword">in</span> inputs:</span><br><span class="line">         digit_val = get_digit_val(num, digit)</span><br><span class="line">         temp[digit_val] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">     temp[<span class="number">0</span>] -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">     <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">         temp[i] += temp[i - <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">     outputs = [<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">0</span>, len(inputs))]</span><br><span class="line"></span><br><span class="line">     <span class="keyword">for</span> i <span class="keyword">in</span> range(len(inputs) - <span class="number">1</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">         digit_val = get_digit_val(inputs[i], digit)</span><br><span class="line">         outputs[temp[digit_val]] = inputs[i]</span><br><span class="line">         temp[digit_val] -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">     <span class="keyword">return</span> outputs</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">radix_sort</span><span class="params">(arr, digits)</span>:</span></span><br><span class="line">     <span class="keyword">for</span> digit <span class="keyword">in</span> range(<span class="number">1</span>, digits + <span class="number">1</span>):</span><br><span class="line">         arr = counting_sort(arr, digits)</span><br><span class="line">     <span class="keyword">return</span> arr</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">     o = radix_sort([<span class="number">12</span>, <span class="number">5</span>, <span class="number">23</span>, <span class="number">50</span>, <span class="number">72</span>, <span class="number">33</span>, <span class="number">90</span>, <span class="number">13</span>], <span class="number">2</span>)</span><br><span class="line">     print(o)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="8-3-3-时间代价"><a href="#8-3-3-时间代价" class="headerlink" title="8.3.3 时间代价"></a>8.3.3 时间代价</h4><ul>
+<li><p>时间复杂度: <code>O(n)</code></p>
+</li>
+<li><p>当位数<code>d</code>为常数时，基数排序具有线性的时间复杂度</p>
+</li>
+</ul>
+<h4 id="8-3-4-基数排序与基于比较的排序的对比"><a href="#8-3-4-基数排序与基于比较的排序的对比" class="headerlink" title="8.3.4 基数排序与基于比较的排序的对比"></a>8.3.4 基数排序与基于比较的排序的对比</h4><ul>
+<li><p>在处理的n个关键字时，尽管基数排序执行的循环轮数会比快速排序要少，但每一轮它所消耗的时间要长的多</p>
+</li>
+<li><p>此外，利用计数排序作为位数排序算法的基数排序不是原址排序，而很多<code>O(nlgn)</code>的排序算法都是原址排序</p>
+</li>
+</ul>
+<hr>
+<h3 id="8-4-桶排序"><a href="#8-4-桶排序" class="headerlink" title="8.4 桶排序"></a>8.4 桶排序</h3><h4 id="8-4-1-简介"><a href="#8-4-1-简介" class="headerlink" title="8.4.1 简介"></a>8.4.1 简介</h4><ul>
+<li><p>桶排序简介</p>
 <ul>
-<li>E[IA] = P(A)</li>
+<li>桶排序假设输入数据服从均匀分布，平均情况下它的时间代价为<code>O(n)</code></li>
 </ul>
 </li>
+<li><p>桶排序所做的假设</p>
+<ul>
+<li>更确切的说，桶排序假设输入是由一个随机过程产生，该过程将元素均匀、独立地分布在<code>[0, n)</code>的区间上</li>
+<li>因为对输入数据进行了某种假设，所以桶排序的速度也很快</li>
 </ul>
+</li>
+<li><p>桶排序的思路</p>
+<ul>
+<li>桶排序将<code>[0, n)</code>的区间划分为n个相同大小的子区间，或称为桶</li>
+<li>然后，将n个输入数分别放到各个桶中</li>
+<li>我们先对每个桶中的数进行排序，然后遍历每个桶，按照次序把各个桶中的元素列出来即可</li>
+</ul>
+</li>
+<li><p>桶排序举例<br>  <img src="/2020/02/01/算法导论-8-线性时间排序/桶排序举例.PNG" alt=""></p>
+</li>
+</ul>
+<h4 id="8-3-2-代码及解读-1"><a href="#8-3-2-代码及解读-1" class="headerlink" title="8.3.2 代码及解读"></a>8.3.2 代码及解读</h4><ul>
+<li><p>伪代码如下<br>  <img src="/2020/02/01/算法导论-8-线性时间排序/桶排序伪代码.PNG" alt=""></p>
+</li>
+<li><p>代码实现</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bucket_sort</span><span class="params">(arr)</span>:</span></span><br><span class="line">    n = math.ceil(max(arr) / len(arr))</span><br><span class="line">    buckets = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">0</span>, n)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> arr:</span><br><span class="line">        index = int(item / n)</span><br><span class="line">        buckets[index].append(item)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> bucket <span class="keyword">in</span> buckets:</span><br><span class="line">        bucket.sort()</span><br><span class="line"></span><br><span class="line">    output = []</span><br><span class="line">    <span class="keyword">for</span> bucket <span class="keyword">in</span> buckets:</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> bucket:</span><br><span class="line">            output.append(item)</span><br><span class="line">    <span class="keyword">return</span> output</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    o = bucket_sort([<span class="number">12</span>, <span class="number">5</span>, <span class="number">23</span>, <span class="number">50</span>, <span class="number">72</span>, <span class="number">33</span>, <span class="number">90</span>, <span class="number">13</span>])</span><br><span class="line">    print(o)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="8-3-3-时间代价-1"><a href="#8-3-3-时间代价-1" class="headerlink" title="8.3.3 时间代价"></a>8.3.3 时间代价</h4><ul>
+<li><p>时间复杂度: <code>O(n)</code></p>
+</li>
+<li><p>即使输入数据不服从均匀分布，桶排序也仍然可以线性时间内完成，只要输入数据满足如下性质:所有桶的大小的平方和与总的元素数呈线性相关</p>
+</li>
+</ul>
+<hr>
 
           
         
@@ -452,7 +540,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/74/">74</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -500,7 +588,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-count">74</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -511,7 +599,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -522,7 +610,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/算法导论-10-基本数据结构/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/NLP-5-关键词提取算法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/02/01/算法导论-10-基本数据结构/" itemprop="url">[算法导论][10][基本数据结构]</a></h1>
+                <a class="post-title-link" href="/2020/02/01/NLP-5-关键词提取算法/" itemprop="url">[NLP][5][关键词提取算法]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T21:10:08+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T21:21:40+08:00">
                 2020-02-01
               </time>
             
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法导论/" itemprop="url" rel="index">
-                    <span itemprop="name">算法导论</span>
+                  <a href="/categories/nlp/" itemprop="url" rel="index">
+                    <span itemprop="name">nlp</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/02/01/算法导论-10-基本数据结构/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/算法导论-10-基本数据结构/" itemprop="commentCount"></span>
+                <a href="/2020/02/01/NLP-5-关键词提取算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/NLP-5-关键词提取算法/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,43 +362,60 @@
       
         
           
-            <h3 id="10-1-栈和队列"><a href="#10-1-栈和队列" class="headerlink" title="10.1 栈和队列"></a>10.1 栈和队列</h3><h4 id="10-1-1-简介"><a href="#10-1-1-简介" class="headerlink" title="10.1.1 简介"></a>10.1.1 简介</h4><ul>
-<li><p>栈和队列都是动态集合，且在其上进行DELETE操作所移除的元素都是预先设定的</p>
-</li>
-<li><p>栈实现的是一种后进后出(last-in, first-out, LIFO)策略</p>
-</li>
-<li><p>队列实现的是一种先进先出(first-in, first-out, FIFO)策略</p>
-</li>
+            <h2 id="第5章-关键词提取算法"><a href="#第5章-关键词提取算法" class="headerlink" title="第5章 关键词提取算法"></a>第5章 关键词提取算法</h2><ul>
+<li>关键词是代表文章重要内容的一组词，对文本聚类、分类、自动摘要等起重要作用</li>
 </ul>
-<h4 id="10-1-2-栈"><a href="#10-1-2-栈" class="headerlink" title="10.1.2 栈"></a>10.1.2 栈</h4><ul>
-<li><p>栈操作</p>
+<hr>
+<h3 id="5-1-关键词提取技术概述"><a href="#5-1-关键词提取技术概述" class="headerlink" title="5.1 关键词提取技术概述"></a>5.1 关键词提取技术概述</h3><ul>
+<li><p>关键词提取算法一般也可以分为有监督和无监督两类</p>
+</li>
+<li><p>监督式关键词提取</p>
 <ul>
-<li><code>PUSH</code></li>
-<li><code>POP</code></li>
-<li><code>STACK-EMPTY</code></li>
+<li>简介：主要通过分类的方式进行</li>
+<li>介绍：通过构建一个较为丰富和完善的词表，然后通过判断每个文档与词表中每个词的匹配程度，以类似打标签的方式，达到关键词提取的效果</li>
+<li>优缺点：有监督的方法能够获取到较高的精度，但缺点是需要大批量的标注数据，人工成本过高</li>
 </ul>
 </li>
-<li><p>可以用一个大小为<code>n</code>的数组来实现一个最多容纳<code>n</code>个元素的栈</p>
-</li>
-<li><p>如果试图对一个空栈执行弹出操作，则称为栈下溢(underflow)</p>
-</li>
-<li><p>如果试图对一个满栈执行压入操作，则成为栈上溢(overflow, 著名的stackoverflow)</p>
-</li>
-<li><p>栈操作的伪代码<br><img src="/2020/02/01/算法导论-10-基本数据结构/stack.PNG" alt=""></p>
-</li>
-<li><p>三种栈操作的执行时间都是<code>O(1)</code></p>
+<li><p>无监督关键词提取</p>
+<ul>
+<li>无监督提取对数据的要求比较低</li>
+<li>既不需要一张人工生成、维护的词表，也不需要人工标准语料辅助进行训练</li>
+</ul>
 </li>
 </ul>
-<h4 id="10-1-3-队列"><a href="#10-1-3-队列" class="headerlink" title="10.1.3 队列"></a>10.1.3 队列</h4><ul>
-<li><p>队列中的<code>INSERT</code>操作称为入队(<code>ENQUEUE</code>),<code>DELETE</code>操作称为出队(<code>DEQUEUE</code>)</p>
+<hr>
+<h3 id="5-2-关键词提取算法TF-IDF算法"><a href="#5-2-关键词提取算法TF-IDF算法" class="headerlink" title="5.2 关键词提取算法TF-IDF算法"></a>5.2 关键词提取算法TF-IDF算法</h3><ul>
+<li><p>TF-IDF算法(Term Frequency-Inverse Document Frequency， 词频-逆文档频次算法)是一种基于统计的计算方法，常用于评估在一个文档集中一个词对某份文档的重要程度</p>
 </li>
-<li><p>利用长度为<code>n</code>的数组可以实现一个最多容纳<code>n-1</code>个元素的队列的一种方式</p>
+<li><p>TF-IDF算法由两部分组成:TF算法以及IDF算法</p>
+<ul>
+<li>TF算法<ul>
+<li>简介：统计一个词在一篇文档中出现的频次</li>
+<li>基本思想：一个词在文档中出现的次数越多，则其对文档的表达能力就越强</li>
+</ul>
 </li>
-<li><p>队列操作的伪代码<br><img src="/2020/02/01/算法导论-10-基本数据结构/queue.PNG" alt=""></p>
-</li>
-<li><p>两种队列操作的执行时间都是<code>O(1)</code></p>
+<li>IDF算法<ul>
+<li>简介：统计一个词在文档集的多少个文档中出现</li>
+<li>基本思想：如果一个词在越少的文档中出现，则其对文档的区分能力也就越强</li>
+</ul>
 </li>
 </ul>
+</li>
+<li><p>我们将这两种算法综合起来使用，构成TF-IDF算法，从词频、逆文档频次两个角度对词的重要性进行衡量</p>
+</li>
+<li><p>TF的计算常用式<br>  <img src="/2020/02/01/NLP-5-关键词提取算法/tf.png" alt=""><br>  也就是 tf(word) = (word在文档中出现的次数)/(文档总词数)</p>
+</li>
+<li><p>IDF的计算常用式<br>  <img src="/2020/02/01/NLP-5-关键词提取算法/idf.png" alt="">  </p>
+<ul>
+<li><code>|D|</code>表示<strong>文档集</strong>中文档的总数</li>
+<li><code>|Di|</code>为文档集中出现词i的文档数量</li>
+<li>分母加1是采用了拉普拉斯平滑</li>
+</ul>
+</li>
+<li><p>TF-IDF算法计算式<br>  <img src="/2020/02/01/NLP-5-关键词提取算法/tfidf.png" alt=""></p>
+</li>
+</ul>
+<hr>
 
           
         
@@ -438,7 +455,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/74/">74</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -486,7 +503,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-count">74</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -497,7 +514,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -508,7 +525,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
