@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/01/vue-2-vue组件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/linux-1-vim命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/01/vue-2-vue组件/" itemprop="url">[vue][2][vue组件]</a></h1>
+                <a class="post-title-link" href="/2019/07/02/linux-1-vim命令/" itemprop="url">[linux][1][vim命令]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-01T23:13:10+08:00">
-                2019-07-01
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T11:15:48+08:00">
+                2019-07-02
               </time>
             
 
@@ -313,8 +313,19 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/vim/" itemprop="url" rel="index">
+                    <span itemprop="name">vim</span>
                   </a>
                 </span>
 
@@ -331,8 +342,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/07/01/vue-2-vue组件/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/01/vue-2-vue组件/" itemprop="commentCount"></span>
+                <a href="/2019/07/02/linux-1-vim命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/02/linux-1-vim命令/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,68 +373,269 @@
       
         
           
-            <h2 id="2-Vue组件"><a href="#2-Vue组件" class="headerlink" title="2 Vue组件"></a>2 Vue组件</h2><p>组件是什么</p>
-<ul>
-<li>组件是一段独立的，代表了页面的一个部分的代码片段。</li>
-<li>它拥有自己的数据、JavaScript脚本，以及样式标签。</li>
-<li>组件可以包含其他的组件，井且它们之间可以相互通信。</li>
-<li>组件可以是按钮或者图标这样很小的元素，也可以是一个更大的元素</li>
-</ul>
-<p>组件的好处</p>
-<ul>
-<li>将代码从页面中分离到组件中的主要优势是，负责页面每一部分的代码都很靠近该组件中的其余代码。</li>
-<li>因此当你想要知道哪个元素有添加事件监听器，不必再在一堆JavaScript文件中搜索相应的选择器，因为JavaScript代码就在对应的HTML旁边</li>
-<li>而且由于组件是独立的，还可以确保组件中的代码不会影响任何其他组件或产生任何副作用。</li>
-</ul>
-<h3 id="2-1-组件基础"><a href="#2-1-组件基础" class="headerlink" title="2.1 组件基础"></a>2.1 组件基础</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">custom-button</span>&gt;</span><span class="tag">&lt;/<span class="name">custom-button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">const</span> CustomButton = &#123;</span></span><br><span class="line"><span class="xml">    template: '<span class="tag">&lt;<span class="name">button</span>&gt;</span>自定义按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span>'</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">    el: <span class="string">'#app'</span>,</span></span><br><span class="line"><span class="undefined">    components: &#123;</span></span><br><span class="line"><span class="undefined">        CustomButton</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">&#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这样自定义的按钮就会在页面上显示了</p>
-<h3 id="2-2-数据、方法和计算属性"><a href="#2-2-数据、方法和计算属性" class="headerlink" title="2.2 数据、方法和计算属性"></a>2.2 数据、方法和计算属性</h3><ul>
-<li>每个组件可以拥有它们自己的数据、方法和计算属性，以及所有在前面章节中出现过的属性就像<code>Vue</code>实例一样。</li>
-<li>定义组件的对象与我们用来定义<code>Vue</code>实例的对象相似，它们在很多地方可以互用。</li>
-</ul>
-<h4 id="2-2-1-组件和Vue实例之间的一个细微差别"><a href="#2-2-1-组件和Vue实例之间的一个细微差别" class="headerlink" title="2.2.1 组件和Vue实例之间的一个细微差别"></a>2.2.1 组件和Vue实例之间的一个细微差别</h4><p>Vue实例中的<code>data</code>属性是一个对象，然而组件中的<code>data</code>属性是一个函数。这是因为一个组件可以在同一个页面上被多次引用，你大概不希望它们共享一个<code>data</code>对象</p>
-<h3 id="2-3-传递数据"><a href="#2-3-传递数据" class="headerlink" title="2.3 传递数据"></a>2.3 传递数据</h3><ul>
-<li><p>当你开始传递数据到它内部时，组件才真正地展示出力量。可以使用<code>props</code>属性来传递数据</p>
-  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color-preview</span> <span class="attr">color</span>=<span class="string">"red"</span>&gt;</span><span class="tag">&lt;/<span class="name">color-preview</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color-preview</span> <span class="attr">color</span>=<span class="string">"blue"</span>&gt;</span><span class="tag">&lt;/<span class="name">color-preview</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">Vue.compoent(<span class="string">'color-preview'</span>, &#123;</span></span><br><span class="line"><span class="xml">    template: '<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"color-preview"</span> <span class="attr">:style</span>=<span class="string">"stype"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>',</span></span><br><span class="line"><span class="javascript">    props: [<span class="string">'color'</span>],</span></span><br><span class="line"><span class="undefined">    computed: &#123;</span></span><br><span class="line"><span class="undefined">        style()&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> &#123;<span class="attr">backgroundColor</span>: <span class="keyword">this</span>.color&#125;;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">&#125;);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">    el: <span class="string">'#app'</span></span></span><br><span class="line"><span class="undefined">&#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>Props</code>是通过HTML属性传入组件的,之后在组件内部,<code>props</code>属性的值表示可以传入组件的属性的名称</p>
-</li>
-</ul>
-<h4 id="2-3-1-Prop-验证"><a href="#2-3-1-Prop-验证" class="headerlink" title="2.3.1 Prop 验证"></a>2.3.1 Prop 验证</h4><ul>
-<li><p><code>prop</code> 可以传递一个简单的数组，来表示组件可以接收的属性的名称，也可以传递一个对象，来描述属性的信息，比如:类型、是否必须、默认值以及用于高级验证的自定义验证函数</p>
-</li>
-<li><p>例如:</p>
-  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'price-display'</span>,&#123;</span><br><span class="line">    props:&#123;</span><br><span class="line">        price: <span class="built_in">Number</span>,</span><br><span class="line">        unit: <span class="built_in">String</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>如果<code>price</code>不是一个数字， 或者<code>unit</code>不是一个字符串，<code>Vue</code>就会抛出一个警告。</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-3-2-响应式"><a href="#2-3-2-响应式" class="headerlink" title="2.3.2 响应式"></a>2.3.2 响应式</h4><p>在父级实例中设定<code>prop</code>的值时，可以使用<code>v-bind</code>指令将该<code>prop</code>与某个值绑定。那么无论何时只要这个值发生变化， 在组件内任何使用该<code>prop</code>的地方都会更新。</p>
-<h4 id="2-3-3-数据流和-sync修饰符"><a href="#2-3-3-数据流和-sync修饰符" class="headerlink" title="2.3.3 数据流和.sync修饰符"></a>2.3.3 数据流和<code>.sync</code>修饰符</h4><ul>
-<li><p>通常情况下, 数据通过<code>prop</code>从父级组件传递到子组件中，当父级组件中的数据更新时，传递给子组件的<code>prop</code>也会更新。但是不可以在子组件中修改<code>prop</code>，这就是所谓的单向下行绑定，防止子组件无意中改变父级组件的状态</p>
-</li>
-<li><p>双向数据绑定: 如果使用<code>.sync</code>修饰符，可以实现子组件向父组件传递变化</p>
-  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">count-from-number</span> <span class="attr">:number.sync</span>=<span class="string">"numberToDisplay"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">count-from-number</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果仅仅想要更新从<code>prop</code>传入的值，而不关心父级组件的值的更新，可以在一开始的<code>data</code>函数中通过<code>this</code>来引用<code>prop</code>的值，将它复制到<code>data</code>对象中</p>
-</li>
-</ul>
-<h3 id="2-4-使用插槽-slot-将内容传递给组件"><a href="#2-4-使用插槽-slot-将内容传递给组件" class="headerlink" title="2.4 使用插槽(slot)将内容传递给组件"></a>2.4 使用插槽(slot)将内容传递给组件</h3><p>除了将数据作为<code>prop</code>传入到组件中,<code>Vue</code>也允许传入HTML，可以使用<code>&lt;slot&gt;</code>标签</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">custom-button</span>&gt;</span>单击我<span class="tag">&lt;/<span class="name">custom-button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    Vue.component(<span class="string">'custom-button'</span>,&#123;</span></span><br><span class="line"><span class="xml">        template: '<span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"custom-button"</span>&gt;</span><span class="tag">&lt;<span class="name">slot</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span>'</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>具名插槽: 它允许你在同一个组件中拥有多个插槽</li>
-</ul>
-<h4 id="2-4-1-作用域插槽"><a href="#2-4-1-作用域插槽" class="headerlink" title="2.4.1 作用域插槽"></a>2.4.1 作用域插槽</h4><p>可以将数据传回slot组件，使父组件中的元素可以访问子组件中的数据</p>
-<ol>
-<li><p>创建一个获取用户信息的组件，而数据的显示则留给父级组件来处理</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'user-data'</span>, &#123;</span><br><span class="line">    template: <span class="string">'&lt;div class="user"&gt;&lt;slot :user="user"&gt;&lt;/slot&gt;&lt;/div&gt;'</span></span><br><span class="line">    data: <span class="function"><span class="params">()</span> =&gt;</span>&#123;</span><br><span class="line">        user: undifined</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>传递给<code>&lt;slot&gt;</code>的属性可以用<code>&lt;slot-scope&gt;</code>属性中定义的变量来获取</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;user-data slot-scope=&quot;user&quot;&gt;</span><br><span class="line">        &lt;p v-if=&quot;user&quot;&gt;用户名:&#123;% raw %&#125;&#123;&#123; user.name &#125;&#125;&#123;% endraw %&#125;&lt;/p&gt;</span><br><span class="line">    &lt;/user-data&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="2-5-自定义事件"><a href="#2-5-自定义事件" class="headerlink" title="2.5 自定义事件"></a>2.5 自定义事件</h3><h3 id="2-6-混入"><a href="#2-6-混入" class="headerlink" title="2.6 混入"></a>2.6 混入</h3><h3 id="2-7-vue-loader和-vue文件"><a href="#2-7-vue-loader和-vue文件" class="headerlink" title="2.7 vue-loader和.vue文件"></a>2.7 vue-loader和<code>.vue</code>文件</h3><h3 id="2-8-非Prop属性"><a href="#2-8-非Prop属性" class="headerlink" title="2.8 非Prop属性"></a>2.8 非<code>Prop</code>属性</h3><h3 id="2-9-组件和v-for指令"><a href="#2-9-组件和v-for指令" class="headerlink" title="2.9 组件和v-for指令"></a>2.9 组件和<code>v-for</code>指令</h3>
+            <h3 id="1-vim-命令说明"><a href="#1-vim-命令说明" class="headerlink" title="1 vim 命令说明"></a>1 vim 命令说明</h3><h4 id="1-1-移动光标"><a href="#1-1-移动光标" class="headerlink" title="1.1 移动光标"></a>1.1 移动光标</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>h / ←</td>
+<td>左移一个字符</td>
+</tr>
+<tr>
+<td>j / ↓</td>
+<td>下移一个字符</td>
+</tr>
+<tr>
+<td>k / ↑</td>
+<td>上移一个字符</td>
+</tr>
+<tr>
+<td>j / →</td>
+<td>右移一个字符</td>
+</tr>
+<tr>
+<td>30j</td>
+<td>右移30个字符</td>
+</tr>
+<tr>
+<td>ctrl + f</td>
+<td>下移一页</td>
+</tr>
+<tr>
+<td>ctrl + f</td>
+<td>上移一页</td>
+</tr>
+<tr>
+<td>20 + space</td>
+<td>向右移动20</td>
+</tr>
+<tr>
+<td>0</td>
+<td>移动到这一行开头</td>
+</tr>
+<tr>
+<td>$</td>
+<td>移动到这一行的最后字符</td>
+</tr>
+<tr>
+<td>H</td>
+<td>移动到屏幕最上方一行</td>
+</tr>
+<tr>
+<td>M</td>
+<td>移动到屏幕中央一行</td>
+</tr>
+<tr>
+<td>L</td>
+<td>移动到屏幕最下方一行</td>
+</tr>
+<tr>
+<td>G</td>
+<td><strong>移动到这个文件的最后一行</strong></td>
+</tr>
+<tr>
+<td>20G</td>
+<td>移动到这个文件的第20行</td>
+</tr>
+<tr>
+<td>gg</td>
+<td>移动到这个文件的第1行</td>
+</tr>
+<tr>
+<td>20 + enter</td>
+<td>下移20行</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-2-搜索替换"><a href="#1-2-搜索替换" class="headerlink" title="1.2 搜索替换"></a>1.2 搜索替换</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/word</td>
+<td>向后寻找名称为word的字符串</td>
+</tr>
+<tr>
+<td>?word</td>
+<td>向前寻找名称为word的字符串</td>
+</tr>
+<tr>
+<td>n</td>
+<td>向后移动到下一个名称为word的字符串</td>
+</tr>
+<tr>
+<td>N</td>
+<td>向前移动到下一个名称为word的字符串</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-3-删除、复制和粘贴"><a href="#1-3-删除、复制和粘贴" class="headerlink" title="1.3 删除、复制和粘贴"></a>1.3 删除、复制和粘贴</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x, X</td>
+<td>x向后删除一个字符, X向前删除一个字符</td>
+</tr>
+<tr>
+<td>10x</td>
+<td>向后删除10个字符</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>删除整行</td>
+</tr>
+<tr>
+<td>10dd</td>
+<td>删除向下10行</td>
+</tr>
+<tr>
+<td>d$</td>
+<td>删除游标所在行，到该行的最后一个字符</td>
+</tr>
+<tr>
+<td>d0</td>
+<td>删除游标所在行，到该行的最前面一个字符</td>
+</tr>
+<tr>
+<td>yy</td>
+<td>复制游标所在的那一行</td>
+</tr>
+<tr>
+<td>20yy</td>
+<td>复制光标所在的向下20行</td>
+</tr>
+<tr>
+<td>y1G</td>
+<td>复制游标所在行到第一行的所有数据</td>
+</tr>
+<tr>
+<td>yG</td>
+<td>复制游标所在行到最后一行的所有数据</td>
+</tr>
+<tr>
+<td>y$</td>
+<td>复制游标所在行，到该行的最后一个字符</td>
+</tr>
+<tr>
+<td>y0</td>
+<td>复制游标所在行，到该行的最前面一个字符</td>
+</tr>
+<tr>
+<td>p,P</td>
+<td>粘贴</td>
+</tr>
+<tr>
+<td>J</td>
+<td>将光标所在行和下一行的数据结合为同一行</td>
+</tr>
+<tr>
+<td>u</td>
+<td>复原上一个动作</td>
+</tr>
+<tr>
+<td>ctrl + r</td>
+<td>重做上一个动作</td>
+</tr>
+<tr>
+<td>.</td>
+<td>重复前一个动作</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-4-一般模式切换到编辑模式"><a href="#1-4-一般模式切换到编辑模式" class="headerlink" title="1.4 一般模式切换到编辑模式"></a>1.4 一般模式切换到编辑模式</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i</td>
+<td>进入输入模式</td>
+</tr>
+<tr>
+<td>a</td>
+<td>进入输入模式</td>
+</tr>
+<tr>
+<td>o,O</td>
+<td>从下一行或上一行进入输入模式</td>
+</tr>
+<tr>
+<td>r,R</td>
+<td>进入取代模式, r会取代一次, R会一直取代</td>
+</tr>
+<tr>
+<td>esc</td>
+<td>退出编辑模式，回到一般模式</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-5-命令模式下的常用命令"><a href="#1-5-命令模式下的常用命令" class="headerlink" title="1.5 命令模式下的常用命令"></a>1.5 命令模式下的常用命令</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:w</td>
+<td>报错</td>
+</tr>
+<tr>
+<td>:w!</td>
+<td>若文件属性为只读，强制写入</td>
+</tr>
+<tr>
+<td>:q</td>
+<td>退出</td>
+</tr>
+<tr>
+<td>:q!</td>
+<td>不保存退出</td>
+</tr>
+<tr>
+<td>:wq</td>
+<td>报错后退出</td>
+</tr>
+<tr>
+<td>:w [filename]</td>
+<td>另存为</td>
+</tr>
+<tr>
+<td>:r [filename]</td>
+<td>在编辑的数据中，读入另一个档案的数据</td>
+</tr>
+<tr>
+<td>:! command</td>
+<td>调用系统命令，如<code>:! ls</code></td>
+</tr>
+<tr>
+<td>:set nu</td>
+<td>显示行号</td>
+</tr>
+<tr>
+<td>:set nonu</td>
+<td>不显示行号</td>
+</tr>
+</tbody>
+</table>
+
           
         
       
@@ -462,7 +674,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/34/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><span class="page-number current">35</span><a class="page-number" href="/page/36/">36</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/36/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/34/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><span class="page-number current">35</span><a class="page-number" href="/page/36/">36</a><span class="space">&hellip;</span><a class="page-number" href="/page/76/">76</a><a class="extend next" rel="next" href="/page/36/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -510,7 +722,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-count">76</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
