@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/算法导论-6-堆排序/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/算法导论-7-快速排序/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/02/01/算法导论-6-堆排序/" itemprop="url">[算法导论][6][堆排序]</a></h1>
+                <a class="post-title-link" href="/2020/02/01/算法导论-7-快速排序/" itemprop="url">[算法导论][7][快速排序]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T21:00:45+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T21:03:15+08:00">
                 2020-02-01
               </time>
             
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/02/01/算法导论-6-堆排序/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/算法导论-6-堆排序/" itemprop="commentCount"></span>
+                <a href="/2020/02/01/算法导论-7-快速排序/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/算法导论-7-快速排序/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,135 +362,94 @@
       
         
           
-            <h2 id="第六章-堆排序"><a href="#第六章-堆排序" class="headerlink" title="第六章 堆排序"></a>第六章 堆排序</h2><ul>
-<li><p>与归并排序相同，堆排序的时间复杂度为O(nlgn)</p>
+            <h2 id="第-7-章-快速排序"><a href="#第-7-章-快速排序" class="headerlink" title="第 7 章 快速排序"></a>第 7 章 快速排序</h2><ul>
+<li><p>快速排序通常是实际排序应用中最好的选择，因为它的平均性能比较好</p>
 </li>
-<li><p>与插入排序相同，堆排序同样具有空间原址性：任何时候都只需要常数个额外的元素空间存储临时数据</p>
+<li><p>它的期望时间复杂度是<code>O(nlgn)</code>，而且<code>O(nlgn)</code>中隐含的常数因子非常小</p>
 </li>
-</ul>
-<hr>
-<h3 id="6-1-堆"><a href="#6-1-堆" class="headerlink" title="6.1 堆"></a>6.1 堆</h3><ul>
-<li><p>堆的简介</p>
-<ul>
-<li>堆被存储在一个数组中，可近似看成是完全二叉树</li>
-<li>除了最底层外，该树是完全充满的，而且是从左到右填充</li>
-<li>如图<br><img src="/2020/02/01/算法导论-6-堆排序/堆.PNG" alt=""></li>
-</ul>
-</li>
-<li><p>堆的分类</p>
-<ul>
-<li>最大堆和最小堆</li>
-<li>在这两种堆中，节点的值都要满足堆的性质，但一些细节定义则有所差异</li>
-</ul>
-</li>
-<li><p>最大堆性质</p>
-<ul>
-<li>在最大堆中，除了根以外的所有结点<code>i</code>都要满足: <code>A[PARENT(i)] &gt;= A[i]</code></li>
-<li>因此，堆中的最大元素存放在根节点</li>
-</ul>
-</li>
-<li><p>高度</p>
-<ul>
-<li>堆中节点的高度：该节点到叶节点最长简单路径上<strong>边</strong>的数目</li>
-<li>堆的高度：根节点的高度</li>
-</ul>
-</li>
-<li><p>对于堆的一些基本操作</p>
-<ul>
-<li>MAX-HEAPIFY过程：其时间复杂度为O(lgn)，它是维护最大堆性质的关键</li>
-<li>BUILD-MAX-HEAP过程：具有线性时间复杂度，功能是从无序的输入数据数组中构造一个最大堆</li>
-<li>HEAPSORT过程：时间复杂度为O(nlgn)，功能是对一个数组进行原址排序</li>
-<li>MAX-HEAP_INSERT、HEAP-EXTRACT-MAX、HEAP-INCREASE-KEY和HEAP-MAXIMUM过程：时间复杂度为O(lgn),功能是实现一个优先队列</li>
-</ul>
+<li><p>另外，它还能够进行原址排序，甚至在虚存环境中也能很好地工作</p>
 </li>
 </ul>
 <hr>
-<h3 id="6-2-维护堆的性质"><a href="#6-2-维护堆的性质" class="headerlink" title="6.2 维护堆的性质"></a>6.2 维护堆的性质</h3><ul>
-<li><p><strong>MAX-HEAPIFY</strong>简介</p>
-<ul>
-<li>MAX-HEAPIFY用来维护最大堆性质</li>
-<li>它的输入是一个数组 <code>A</code> 和一个下标 <code>i</code></li>
-<li>我们假定 <code>A[i]</code> 的值有可能小于它的孩子，但是节点 <code>i</code> 的左右子树都是最大堆</li>
-<li>MAX-HEAPIFY的目的是让以<code>i</code>节点为根的子树重新遵循最大堆性质</li>
-</ul>
-</li>
-<li><p>伪代码描述<br>  <img src="/2020/02/01/算法导论-6-堆排序/MAXHEAPIFY.PNG" alt=""></p>
-</li>
-<li><p>代码实现: <code>max_heapify</code> (python实现)</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">max_heapify</span><span class="params">(i)</span>:</span></span><br><span class="line">    <span class="comment"># print("max_heapify: ", i)</span></span><br><span class="line">    l = left(i)</span><br><span class="line">    r = right(i)</span><br><span class="line">    <span class="keyword">if</span> l &lt;= heap_size <span class="keyword">and</span> arr[l] &gt; arr[i]:</span><br><span class="line">        largest = l</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        largest = i</span><br><span class="line">    <span class="keyword">if</span> r &lt;= heap_size <span class="keyword">and</span> arr[r] &gt; arr[largest]:</span><br><span class="line">        largest = r</span><br><span class="line">    <span class="keyword">if</span> largest != i:</span><br><span class="line">        arr[i], arr[largest] = arr[largest], arr[i]</span><br><span class="line">        max_heapify(largest)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>图片描述<br>  <img src="/2020/02/01/算法导论-6-堆排序/MAXHEAPIFYIMG.PNG" alt=""></p>
-</li>
-<li><p>文字描述</p>
+<h3 id="7-1-快速排序的描述"><a href="#7-1-快速排序的描述" class="headerlink" title="7.1 快速排序的描述"></a>7.1 快速排序的描述</h3><ul>
+<li><p>快速排序使用分治思想，下面是快排的三步分治过程</p>
 <ol>
-<li>在程序的每一步中，从<code>A[i]</code>、<code>A[LEFT(i)]</code>、<code>A[RIGHT(i)]</code>中选出最大的，存储在largest中</li>
-<li>如果A[i]是最大的，那么以i为根节点的子树已经是最大堆了，程序结束</li>
-<li>否则，最大元素是i的某个孩子节点，则交换<code>A[i]</code>和<code>A[largest]</code>的值</li>
-<li>在交换后，需要对该子树递归调用<code>MAX-HEAPIFY</code></li>
+<li>分解<ul>
+<li>数组<code>A[p..r]</code>被划分为两个子数组<code>A[p..q-1]</code>和<code>A[q+1..r]</code></li>
+<li>然后通过调整，使得<code>A[p..q-1]</code>中的每个元素都小于等于<code>A[q]</code></li>
+<li>并且使得<code>A[q+1..r]</code>中的每个元素都大于<code>A[q]</code></li>
+</ul>
+</li>
+<li>解决<ul>
+<li>通过递归调用快排，对子数组<code>A[p..q-1]</code>和<code>A[q+1..r]</code>进行排序</li>
+</ul>
+</li>
+<li>合并<ul>
+<li>因为都是原址排序，所以不需要合并操作</li>
+</ul>
+</li>
 </ol>
 </li>
-<li><p>运行时间分析</p>
-<ul>
-<li>递归式<br><img src="/2020/02/01/算法导论-6-堆排序/MAXHEAPIFYRECUR.PNG" alt=""></li>
-<li>运行时间:T(n) = O(lgn)</li>
-</ul>
+<li><p>代码实现：快速排序</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partition</span><span class="params">(arr, p, r)</span>:</span></span><br><span class="line">    <span class="string">"""实现对子数组的原址重排"""</span></span><br><span class="line">    i = p - <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(p, r):</span><br><span class="line">        <span class="keyword">if</span> arr[j] &lt;= arr[r]:</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">            arr[i], arr[j] = arr[j], arr[i]</span><br><span class="line">    arr[i + <span class="number">1</span>], arr[r] = arr[r], arr[i + <span class="number">1</span>]</span><br><span class="line">    <span class="keyword">return</span> i + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(arr, p, r)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> p &lt; r:</span><br><span class="line">        q = partition(arr, p, r)</span><br><span class="line">        quick_sort(arr, p, q - <span class="number">1</span>)</span><br><span class="line">        quick_sort(arr, q + <span class="number">1</span>, r)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    arr = [<span class="number">4</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">16</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">14</span>, <span class="number">8</span>, <span class="number">7</span>]</span><br><span class="line">    quick_sort(arr, <span class="number">0</span>, len(arr) - <span class="number">1</span>)</span><br><span class="line">    print(arr)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>例子：如图<br><img src="/2020/02/01/算法导论-7-快速排序/QUICKSORTEXP.PNG" alt=""></p>
+</li>
+<li><p><code>PARTITION</code> 在子数组 <code>A[p..r]</code> 上的时间复杂度为 <code>O(n)</code></p>
 </li>
 </ul>
 <hr>
-<h3 id="6-3-建堆"><a href="#6-3-建堆" class="headerlink" title="6.3 建堆"></a>6.3 建堆</h3><ul>
-<li><p>思路</p>
+<h3 id="7-2-快速排序的性能"><a href="#7-2-快速排序的性能" class="headerlink" title="7.2 快速排序的性能"></a>7.2 快速排序的性能</h3><h4 id="7-2-1-简述"><a href="#7-2-1-简述" class="headerlink" title="7.2.1 简述"></a>7.2.1 简述</h4><ul>
+<li><p>快速排序的运行时间依赖于划分是否平衡，而平衡与否又依赖于用于划分的元素</p>
+</li>
+<li><p>如果划分是平衡的，那么快速排序算法性能与归并排序一样</p>
+</li>
+<li><p>如果划分是不平衡的，那么快速排序的性能就接近于插入排序</p>
+</li>
+</ul>
+<h4 id="7-2-2-最坏情况划分"><a href="#7-2-2-最坏情况划分" class="headerlink" title="7.2.2 最坏情况划分"></a>7.2.2 最坏情况划分</h4><ul>
+<li><p>当划分产生的两个子问题分别包含了 <code>n - 1</code> 个元素和 <code>0</code> 个元素时，快速排序的最坏情况发生了</p>
+</li>
+<li><p>这种情况下算法运行时间的递归式<br>  <img src="/2020/02/01/算法导论-7-快速排序/最坏时间递归式.PNG" alt=""></p>
+</li>
+<li><p>最坏情况下时间复杂度为: O(n<sup>2</sup>)</p>
+</li>
+</ul>
+<h4 id="7-2-3-最好情况划分"><a href="#7-2-3-最好情况划分" class="headerlink" title="7.2.3 最好情况划分"></a>7.2.3 最好情况划分</h4><ul>
+<li><p>在可能的最平衡的划分中，<code>PARTITION</code> 得到的两个子问题的规模都不大于 <code>n/2</code></p>
+</li>
+<li><p>这种情况下算法运行时间的递归式<br>  <img src="/2020/02/01/算法导论-7-快速排序/最好时间递归式.PNG" alt=""></p>
+</li>
+<li><p>最坏情况下时间复杂度为: O(nlgn)</p>
+</li>
+</ul>
+<h4 id="7-2-4-平衡的划分"><a href="#7-2-4-平衡的划分" class="headerlink" title="7.2.4 平衡的划分"></a>7.2.4 平衡的划分</h4><p>`</p>
 <ul>
-<li>我们可以用自底向上调用 <code>max_heapify</code>，把一个数组转换为最大堆</li>
-<li>因为堆中从 <code>A(n/2 + 1, n)</code> 的元素都是树的叶节点，对于这些节点不需要调用 <code>max_heapify</code> 过程</li>
-</ul>
+<li><p>快速排序的平均运行时间更接近于其最好情况</p>
 </li>
-<li><p>代码实现： <code>build_max_heap</code>(python实现)</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">build_max_heap</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(int(len_arr() / <span class="number">2</span>), <span class="number">0</span>, <span class="number">-1</span>):</span><br><span class="line">        print(i)</span><br><span class="line">        max_heapify(i)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>时间复杂度 : O(n)，证明见书 <code>P88</code></p>
-</li>
-<li><p>例子如图<br><img src="/2020/02/01/算法导论-6-堆排序/BUILDMAXHEAPDEMO.PNG" alt=""></p>
+<li><p>原因：任何一种常数比例的划分都会产生深度为O(lgn)的递归树，其中每一层的时间代价都是O(n)。因此，只要划分是常数比例的，算法的运行时间总是O(nlgn)</p>
 </li>
 </ul>
-<h3 id="6-4-堆排序算法"><a href="#6-4-堆排序算法" class="headerlink" title="6.4 堆排序算法"></a>6.4 堆排序算法</h3><ul>
-<li><p>思路 </p>
-<ol>
-<li>首先，利用<code>build_max_heap</code>将输入数组建成最大堆</li>
-<li>因为根节点保存的是最大元素，所以将根节点与<code>A[n]</code>互换</li>
-<li>从堆中去掉节点n(通过减小heap_size的方式)</li>
-<li>调用<code>max_heapify</code>保持堆的性质</li>
-<li>重复执行步骤2，3，4，直到堆的大小降为<code>1</code></li>
-</ol>
-</li>
-<li><p>代码实现: <code>heap_sort</code>(Python实现)</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heap_sort</span><span class="params">()</span>:</span></span><br><span class="line"><span class="keyword">global</span> heap_size</span><br><span class="line">build_max_heap()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len_arr(), <span class="number">1</span>, <span class="number">-1</span>):</span><br><span class="line">    arr[i], arr[<span class="number">1</span>] = arr[<span class="number">1</span>], arr[i]</span><br><span class="line">    heap_size -= <span class="number">1</span></span><br><span class="line">    max_heapify(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>时间复杂度</p>
+<hr>
+<h3 id="7-3-快速排序的随机化版本"><a href="#7-3-快速排序的随机化版本" class="headerlink" title="7.3 快速排序的随机化版本"></a>7.3 快速排序的随机化版本</h3><ul>
+<li><p>背景</p>
 <ul>
-<li>O(nlgn)</li>
-<li>因为每次调用<code>build_max_heap</code>的时间复杂度为O(n)，而n-1次调用MAX-HEAPIFY，每次时间为O(lgn)</li>
+<li>在讨论快速排序的平均情况性能的时候，我们的前提假设是：输入数据的所有排序都是等概率的</li>
+<li>但是在实际工程中，这个假设并不会总是成立</li>
 </ul>
 </li>
-<li><p>例子如图<br><img src="/2020/02/01/算法导论-6-堆排序/HEAPSORTDEMO.PNG" alt=""></p>
-</li>
-</ul>
-<h3 id="6-5-优先队列"><a href="#6-5-优先队列" class="headerlink" title="6.5 优先队列"></a>6.5 优先队列</h3><h4 id="6-5-1-优先队列的性质"><a href="#6-5-1-优先队列的性质" class="headerlink" title="6.5.1 优先队列的性质"></a>6.5.1 优先队列的性质</h4><ul>
-<li><p>简介</p>
+<li><p>解决</p>
 <ul>
-<li>优先队列是一种维护由一组元素构成的集合S的数据结构</li>
-<li>其中的每个元素都有一个相关的值，称为关键字(key)</li>
+<li>可以采用一种称为<strong>随机抽样</strong>的随机化技术</li>
+<li>与始终采用<code>A[r]</code>作为主元的方法不同，随机抽样从子数组<code>A[p..r]</code>中随机选择一个元素作为主元</li>
+<li>为了达到这一目的，首先将<code>A[r]</code>与从<code>A[p..r]</code>中随机选出的一个元素交换</li>
 </ul>
 </li>
-<li><p>最大优先队列支持的操作</p>
-<ul>
-<li><code>insert(S, x)</code> : 把元素 <code>x</code> 插入到集合 <code>S</code> 中</li>
-<li><code>maximum(S)</code> : 返回S中具有最大键字的元素</li>
-<li><code>extract_max(S)</code> : 去掉并返回S中的具有最大键字的元素</li>
-<li><code>increase_key(S, x, k)</code> : 把元素<code>x</code>的关键字值增加到<code>k</code>，这里假设<code>k</code>的值不小于<code>x</code>的关键字值</li>
-</ul>
+<li><p>示例代码：快速排序的随机化版本</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">random_partition</span><span class="params">(arr, p, r)</span>:</span></span><br><span class="line">    t = random.randint(p, r)</span><br><span class="line">    arr[r], arr[t] = arr[t], arr[r]</span><br><span class="line">    i = p - <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(p, r):</span><br><span class="line">        <span class="keyword">if</span> arr[j] &lt;= arr[r]:</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">            arr[i], arr[j] = arr[j], arr[i]</span><br><span class="line">    arr[i + <span class="number">1</span>], arr[r] = arr[r], arr[i + <span class="number">1</span>]</span><br><span class="line">    <span class="keyword">return</span> i + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(arr, p, r)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> p &lt; r:</span><br><span class="line">        q = random_partition(arr, p, r)</span><br><span class="line">        quick_sort(arr, p, q - <span class="number">1</span>)</span><br><span class="line">        quick_sort(arr, q + <span class="number">1</span>, r)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    arr = [<span class="number">4</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">16</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">14</span>, <span class="number">8</span>, <span class="number">7</span>]</span><br><span class="line">    quick_sort(arr, <span class="number">0</span>, len(arr) - <span class="number">1</span>)</span><br><span class="line">    print(arr)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="6-5-2-通过堆来实现优先队列"><a href="#6-5-2-通过堆来实现优先队列" class="headerlink" title="6.5.2 通过堆来实现优先队列"></a>6.5.2 通过堆来实现优先队列</h4>
+
           
         
       
@@ -529,7 +488,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/80/">80</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/81/">81</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -577,7 +536,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">80</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -599,7 +558,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
