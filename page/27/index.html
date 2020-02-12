@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/31/SSM-7-MyBatis的解析和运行原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-3-字典和集合/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/01/31/SSM-7-MyBatis的解析和运行原理/" itemprop="url">[SSM][7][MyBatis的解析和运行原理]</a></h1>
+                <a class="post-title-link" href="/2020/02/01/流畅的Python-3-字典和集合/" itemprop="url">[流畅的Python][3][字典和集合]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-31T16:25:37+08:00">
-                2020-01-31
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:34:21+08:00">
+                2020-02-01
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SSM/" itemprop="url" rel="index">
-                    <span itemprop="name">SSM</span>
+                  <a href="/categories/流畅的Python/" itemprop="url" rel="index">
+                    <span itemprop="name">流畅的Python</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/01/31/SSM-7-MyBatis的解析和运行原理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/31/SSM-7-MyBatis的解析和运行原理/" itemprop="commentCount"></span>
+                <a href="/2020/02/01/流畅的Python-3-字典和集合/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-3-字典和集合/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,69 +362,345 @@
       
         
           
-            <h2 id="第-7-章-MyBatis的解析和运行原理"><a href="#第-7-章-MyBatis的解析和运行原理" class="headerlink" title="第 7 章 MyBatis的解析和运行原理"></a>第 7 章 MyBatis的解析和运行原理</h2><p>MyBatis的运行过程分为两大步</p>
-<ol>
-<li>读取配置文件缓存到<code>Configuration</code>对象，用以创建<code>SqlSessionFactory</code></li>
-<li><code>SqlSession</code>的执行过程</li>
+            <h2 id="第3章-字典和集合"><a href="#第3章-字典和集合" class="headerlink" title="第3章 字典和集合"></a>第3章 字典和集合</h2><blockquote>
+<p>字典这个数据结构活跃在所有的python程序背后，即便你的源码中并没有直接用到它。—A.M.Kuching</p>
+</blockquote>
+<ul>
+<li><p>dict类型不但在各种程序里广泛使用，它也是Python语言的基石</p>
+</li>
+<li><p>模块的命名空间、实例的属性和函数的关键字参数里都可以看到字典的影子</p>
+</li>
+<li><p>正因为字典至关重要，Python对它的实现做了高度优化，而散列表则是字典类型性能出众的根本原因</p>
+</li>
+<li><p>集合(set)的实现也依赖于散列表</p>
+</li>
+</ul>
+<hr>
+<h3 id="3-1-泛映射类型"><a href="#3-1-泛映射类型" class="headerlink" title="3.1 泛映射类型"></a>3.1 泛映射类型</h3><ul>
+<li><p>抽象基类</p>
+<ul>
+<li><p>collections.abc模块中有Maping和MutableMapping这两个抽象基类，它们的作用是为dict和其他类似的类型定义<strong>形式接口</strong>，如图<br>![]</p>
+</li>
+<li><p>然而，非抽象映射类型一般不会直接继承这些抽象基类，它们会直接对dict或是collections.UserDict进行扩展。这些抽象基类的主要作用是作为形式化文档，它们定义了构建一个映射类型所需要的最基本的接口。</p>
+</li>
+<li><p>他们还可以跟isinstance一起被用来判定某个数据是不是广义上的映射类型</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my_dict = &#123;&#125;</span><br><span class="line">print(isinstance(my_dict,abc.Mapping))</span><br><span class="line"><span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>标准库里的所有映射类型都是利用<strong>dict</strong>来实现的，因此它们有个共同的限制，即只有<strong>可散列的数据类型</strong>才能作为这些映射里的键</p>
+</li>
+<li><p>什么是可散列的数据类型</p>
+<ul>
+<li>如果一个对象是可散列的，那么在这个对象的生命周期中，它的散列值是不变的，而且这个对象需要实现<code>__hash()__</code>方法</li>
+<li>另外可散列对象还要有<code>__eq()__</code>方法，这样才能跟其他键做比较</li>
+<li><strong>原子不可变数据类型</strong>都是可散列的,如：<code>str</code>、<code>bytes</code>和数值类型</li>
+<li><strong>元组</strong>的话，只有当一个元组包含的所有元素都是可散列类型的情况下，它才是可散列的</li>
+<li>一般来讲<strong>用户自定义的数据类型</strong>都是可散列的，散列值就是它们的<code>id()</code>函数的返回值，所以所有这些对象在比较的时候都是不相等的</li>
+</ul>
+</li>
+<li><p>字典的多种<strong>构造方法</strong></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = dict(one=<span class="number">1</span>, two=<span class="number">2</span>, three=<span class="number">3</span>)</span><br><span class="line">b = &#123;<span class="string">'one'</span>: <span class="number">1</span>, <span class="string">'two'</span>: <span class="number">2</span>, <span class="string">'three'</span>: <span class="number">3</span>&#125;</span><br><span class="line">c = dict(zip([<span class="string">'one'</span> ,<span class="string">'two'</span> ,<span class="string">'three'</span>], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]))</span><br><span class="line">d = dict([(<span class="string">'two'</span>, <span class="number">2</span>), (<span class="string">'one'</span>, <span class="number">1</span>), (<span class="string">'three'</span>,<span class="number">3</span>)])</span><br><span class="line">e = dict(&#123;<span class="string">'one'</span>: <span class="number">1</span>, <span class="string">'two'</span>: <span class="number">2</span>, <span class="string">'three'</span>: <span class="number">3</span>&#125;)</span><br><span class="line">print(a==b==c==d==e)</span><br><span class="line"><span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="3-2-字典推导"><a href="#3-2-字典推导" class="headerlink" title="3.2 字典推导"></a>3.2 字典推导</h3><ul>
+<li><p>字典推导可以从任何以键值对作为元素的可迭代对象中构建出字典</p>
+</li>
+<li><p>dictcompDemo</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">DIAL_CODES = [</span><br><span class="line">    (<span class="number">86</span>, <span class="string">'China'</span>),</span><br><span class="line">    (<span class="number">91</span>, <span class="string">'India'</span>),</span><br><span class="line">    (<span class="number">1</span>, <span class="string">'United States'</span>),</span><br><span class="line">    (<span class="number">62</span>, <span class="string">'Indonesia'</span>),</span><br><span class="line">    (<span class="number">55</span>, <span class="string">'Brazil'</span>),</span><br><span class="line">    (<span class="number">92</span>, <span class="string">'Pakistan'</span>),</span><br><span class="line">    (<span class="number">880</span>, <span class="string">'Bangladesh'</span>),</span><br><span class="line">    (<span class="number">234</span>, <span class="string">'Nigeria'</span>),</span><br><span class="line">    (<span class="number">7</span>, <span class="string">'Russia'</span>),</span><br><span class="line">    (<span class="number">81</span>, <span class="string">'Japan'</span>)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里使用国家名作为key,国家码作为value</span></span><br><span class="line">country_code = &#123;country: code <span class="keyword">for</span> code, country <span class="keyword">in</span> DIAL_CODES&#125;</span><br><span class="line">print(country_code)</span><br><span class="line"><span class="comment"># 这里用国家码作为key,并且将国家名称转化为大写,过滤掉区域码大于或等于66的地区</span></span><br><span class="line">code_country = &#123;code: country.upper() <span class="keyword">for</span> country, code <span class="keyword">in</span> country_code.items() <span class="keyword">if</span> code &lt; <span class="number">66</span>&#125;</span><br><span class="line">print(code_country)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">&#123;'China': 86, 'India': 91, 'United States': 1, 'Indonesia': 62, 'Brazil': 55, 'Pakistan': 92, 'Bangladesh': 880, 'Nigeria': 234, 'Russia': 7, 'Japan': 81&#125;</span></span><br><span class="line"><span class="string">&#123;1: 'UNITED STATES', 62: 'INDONESIA', 55: 'BRAZIL', 7: 'RUSSIA'&#125;</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="3-3-常见的映射方法"><a href="#3-3-常见的映射方法" class="headerlink" title="3.3 常见的映射方法"></a>3.3 常见的映射方法</h3><hr>
+<ul>
+<li><p>dict、defaultdict和OrderedDict的常见方法</p>
+<ul>
+<li>如图<br><img src="" alt=""></li>
+<li>update方法处理参数m的方式，是典型的“鸭子类型”<ol>
+<li>函数首先检查m是否有keys方法，如果有，那么update函数就把它当作映射对象来处理</li>
+<li>否则，函数会退一步，转而把m当作包含了键值对(key, value)元素的迭代器</li>
+<li>因此你既可以用一个映射对象来新建一个映射对象，也可以用包含(key, value)元素的可迭代对象来初始化一个映射对象</li>
 </ol>
-<h3 id="7-1-构建SqlSessionFactory过程"><a href="#7-1-构建SqlSessionFactory过程" class="headerlink" title="7.1 构建SqlSessionFactory过程"></a>7.1 构建SqlSessionFactory过程</h3><p><code>SqlSessionFactory</code>是<code>MyBatis</code>的核心类之一，其最重要的功能就是提供创建<code>MyBatis</code>的核心接口<code>SqlSession</code>，所以要先创建<code>SqlSessionFactory</code>，为此要提供配置文件和相关的参数。</p>
-<p><code>MyBatis</code>采用了<code>Builder</code>模式去创建<code>SqlSessionFactory</code>，在实际中可以通过<code>SqlSessionF actoryBuilder</code>去构建，其构建分为两步。</p>
+</li>
+</ul>
+</li>
+<li><p>用setdefault处理找不到的键</p>
+<ul>
+<li>d.setdefault(k, [default])：若字典中有键k，则直接返回k所对应的值；若无，则让d[k]=default，然后返回default</li>
+<li>setdefaultDemo  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这段程序用来从文件中统计每个单词出现的位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明一个选择单词的正则式</span></span><br><span class="line">WORD_RE = re.compile(<span class="string">r'\w+'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化index字典</span></span><br><span class="line">index = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开文件并按行迭代每个单词</span></span><br><span class="line"><span class="keyword">with</span> open(sys.argv[<span class="number">1</span>], encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    <span class="keyword">for</span> line_no, line <span class="keyword">in</span> enumerate(fp, <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> match <span class="keyword">in</span> WORD_RE.finditer(line):</span><br><span class="line">            word = match.group()</span><br><span class="line">            <span class="comment"># 获得这个单词的列坐标</span></span><br><span class="line">            column_no = match.start() + <span class="number">1</span></span><br><span class="line">            location = (line_no, column_no)</span><br><span class="line">            <span class="comment"># 获得单词的出现情况表，如果单词不存在，把单词和一个空列表放进映射，然后返回这个空列表，这样就能在不进行第二次查找的情况下更新列表了</span></span><br><span class="line">            index.setdefault(word, []).append(location)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看结果</span></span><br><span class="line"><span class="keyword">for</span> word <span class="keyword">in</span> sorted(index, key=str.upper):</span><br><span class="line">    print(word, index[word])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li></li>
+</ul>
+<hr>
+<h3 id="3-4-映射的弹性键查询"><a href="#3-4-映射的弹性键查询" class="headerlink" title="3.4 映射的弹性键查询"></a>3.4 映射的弹性键查询</h3><ul>
+<li><p>就算某个键在映射中不存在，我们还是希望在通过这个键读取值的时候能得到一个默认值</p>
+</li>
+<li><p>有两种途径可以帮我们达到这个目的</p>
 <ol>
-<li>通过<code>XMLConfigBuilder</code>解析配置的<code>XML</code>文件，读出所配置的参数，并将读取的内容存入<code>Configuration</code> 类对象中。</li>
-<li>使用<code>Confinguration</code> 对象去创建<code>SqlSessionFactory</code></li>
+<li>通过defaultdict这个类型而不是普通的dict</li>
+<li>给自己定义一个dict的子类，然后在子类中实现<code>__missing__</code>方法</li>
 </ol>
-<h4 id="7-1-1-构建Configuration"><a href="#7-1-1-构建Configuration" class="headerlink" title="7.1.1 构建Configuration"></a>7.1.1 构建Configuration</h4><p>在<code>SqlSessionFactory</code>构建中，<code>Configuration</code>是最重要的，它的作用是：</p>
-<ul>
-<li>读入配置文件，包括基础配置的<code>XML</code>和映射器<code>XML</code>(或注解)。</li>
-<li>初始化一些基础配置，比如<code>MyBatis</code>的别名等，一些重要的类对象(比如插件、映<br>射器、<code>Object</code>工厂、<code>typeHandlers</code>对象等)。</li>
-<li>提供单例，为后续创建<code>SessionFactorγ</code>服务，提供配置的参数。</li>
-<li>执行一些重要对象的初始化方法。</li>
+</li>
 </ul>
-<p><code>Configuration</code>是通过<code>XMLConfigBuilder</code>去构建的，首先它会读出所有<code>XML</code>配置的信息，然后把它们解析并保存在<code>Configuration</code>单例中。它会做如下初始化：</p>
+<hr>
+<h4 id="3-4-1-defaultdict-处理找不到的键的一个选择"><a href="#3-4-1-defaultdict-处理找不到的键的一个选择" class="headerlink" title="3.4.1 defaultdict:处理找不到的键的一个选择"></a>3.4.1 defaultdict:处理找不到的键的一个选择</h4><ul>
+<li><p>简介：</p>
 <ul>
-<li><code>properties</code> 全局参数。</li>
-<li><code>typeAliases</code> 别名。</li>
-<li><code>Plugins</code> 插件。</li>
-<li><code>objectFactory</code> 对象工厂。</li>
-<li><code>objectWrapperFactory</code> 对象包装工厂。</li>
-<li><code>reflectionFactory</code> 反射工厂。</li>
-<li><code>settings</code> 环境设置。</li>
-<li><code>environments</code> 数据库环境。</li>
-<li><code>databaseldProvider</code> 数据库标识。</li>
-<li><code>typeHandlers</code> 类型转换器。</li>
-<li><code>Mappers</code> 映射器。</li>
+<li>在实例化一个defaultdict的时候，需要给构造方法提供一个可调用对象</li>
+<li>这个可调用对象会在<strong>getitem</strong>碰到找不到的键的时候被调用，让<code>__getitem__</code>返回某种默认值</li>
 </ul>
-<p>它们都会以类似<code>typeHandler</code>注册那样的方法被存放到<code>Configuration</code>单例中，以便未来将其取出。</p>
-<h4 id="7-1-2-构建映射器的内部组成"><a href="#7-1-2-构建映射器的内部组成" class="headerlink" title="7.1.2 构建映射器的内部组成"></a>7.1.2 构建映射器的内部组成</h4><p>当<code>XMLConfigBuilder</code>解析<code>XML</code>时，会将每一个<code>SQL</code>和其配置的内容保存起来。一般而言，在<code>MyBatis</code>中一条<code>SQL</code>和它相关的配置信息是由3个部分组成的，它们分别是<code>MappedStatement</code>、<code>SqlSource</code>和<code>BoundSql</code></p>
-<ul>
-<li><code>MappedStatement</code>的作用是保存一个映射器节点(<code>select|insert|delete|update</code>)的内容。它是一个类，包括许多我们配置的<code>SQL</code>、<code>SQL</code>的<code>id</code>、缓存信息、<code>resultMap</code>、<code>parameterType</code>、<code>resultType</code>、<code>resultMap</code>、<code>languageDriver</code>等重要配置内容。</li>
-<li><code>SqlSource</code>是提供<code>BoundSql</code>对象的地方，它是<code>MappedStatement</code>的一个属性。它的作用是根据上下文和参数解析生成需要的<code>SQL</code></li>
-<li><code>BoundSql</code>是一个结果对象，也就是<code>SqlSource</code>通过解析得到的<code>SQL</code>和参数</li>
-</ul>
-<p><img src="/2020/01/31/SSM-7-MyBatis的解析和运行原理/200131_0.png" alt=""></p>
-<p>对于最终的参数和SQL 都反映在<code>BoundSql</code>类对象上，在插件中往往需要拿到它进而可以拿到当前运行的<code>SQL</code>和参数，从而对运行过程做出必要的修改，来满足特殊的需求</p>
-<p><code>BoundSql</code>会提供3个主要的属性：<code>parameterMappings</code>、<code>parameterObject</code>和<code>sql</code></p>
+</li>
+<li><p>例如:我们新建一个这样的字典,<code>dd = defaultdict(list)</code>，如果键’new-key’在dd中不存在的话，表达式<code>dd[&#39;new-key&#39;]</code>会按照以下步骤来行事</p>
 <ol>
-<li><code>parameterObject</code>为参数本身，可以传递简单对象、<code>POJO</code>或者<code>Map</code>、<code>＠Param</code>注解的参数</li>
-<li><code>parameterMappings</code>是一个<code>List</code>，它的每一个元素都是<code>ParameterMapping</code>对象。对象会描述参数，参数包括属性名称、表达式、<code>javaType</code>、<code>jdbcType</code>、<code>typeHandler</code>等重要信息</li>
-<li><code>sql</code>属性就是书写在映射器里面的一条被<code>SqlSource</code>解析后的<code>SQL</code></li>
+<li>调用list()来建立一个新列表</li>
+<li>把这个新列表作为值，’new-key’作为它的键，放在dd中</li>
+<li>返回这个列表的引用</li>
 </ol>
-<h3 id="7-2-SqlSession运行过程"><a href="#7-2-SqlSession运行过程" class="headerlink" title="7.2 SqlSession运行过程"></a>7.2 SqlSession运行过程</h3><h4 id="7-2-1-映射器-Mapper-的动态代理"><a href="#7-2-1-映射器-Mapper-的动态代理" class="headerlink" title="7.2.1 映射器(Mapper)的动态代理"></a>7.2.1 映射器(Mapper)的动态代理</h4><p>略(没看懂)</p>
-<h4 id="7-2-2-SqlSession下的四大对象"><a href="#7-2-2-SqlSession下的四大对象" class="headerlink" title="7.2.2 SqlSession下的四大对象"></a>7.2.2 SqlSession下的四大对象</h4><p><code>SqlSession</code>的执行过程是通过<code>Executor</code>、<code>StatementHandler</code>、<code>ParameterHandler</code>和<code>ResultSetHandler</code>来完成数据库操作和结果返回的</p>
+</li>
+<li><p>如果在创建defaultdict的时候没有指定default_factory，查询不存在的键会触发keyError</p>
+</li>
+<li><p>defaultdict里的default_factory只会在<code>__getitem__</code>里被调用，在其他方法里完全不会发挥作用</p>
 <ul>
-<li><code>Executor</code>代表执行器，由它调度<code>StatementHandler</code>、<code>ParameterHandler</code>、<code>ResultSetHandler</code><br>等来执行对应的<code>SQL</code>。其中<code>StatementHandler</code>是最重要的。</li>
-<li><code>StatementHandler</code>的作用是使用数据库的<code>Statement</code>执行操作</li>
-<li><code>ParameterHandler</code>是用来处理<code>SQL</code>参数的。</li>
-<li><code>ResultSetHandler</code>是进行数据集<code>ResultSet</code>的封装返回处理的，它相当复杂，好在我们不常用它。</li>
+<li>比如，dd是个defaultdict,k是个找不到的键，dd[k]这个表达式会调用default_factory来创建一个默认值，而dd.get(k)则会返回None</li>
 </ul>
-<h4 id="7-2-3-SqlSession的运行"><a href="#7-2-3-SqlSession的运行" class="headerlink" title="7.2.3 SqlSession的运行"></a>7.2.3 SqlSession的运行</h4><p><img src="/2020/01/31/SSM-7-MyBatis的解析和运行原理/200131_1.png" alt=""></p>
-<p><code>SqlSession</code>是通过执行器<code>Executor</code>调度<code>StatementHandler</code>来运行的。而<code>StatementHandler</code>经过3步</p>
+</li>
+<li><p>defaultdictDemo</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这段程序用来从文件中统计每个单词出现的位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明一个选择单词的正则式</span></span><br><span class="line">WORD_RE = re.compile(<span class="string">r'\w+'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化index字典</span></span><br><span class="line">index = collections.defaultdict(list)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开文件并按行迭代每个单词</span></span><br><span class="line"><span class="keyword">with</span> open(sys.argv[<span class="number">1</span>], encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    <span class="keyword">for</span> line_no, line <span class="keyword">in</span> enumerate(fp, <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> match <span class="keyword">in</span> WORD_RE.finditer(line):</span><br><span class="line">            word = match.group()</span><br><span class="line">            <span class="comment"># 获得这个单词的列坐标</span></span><br><span class="line">            column_no = match.start() + <span class="number">1</span></span><br><span class="line">            location = (line_no, column_no)</span><br><span class="line">            <span class="comment"># 获得此单词在字典中的value,若之前不存在就设置为[],并返回</span></span><br><span class="line">            index[word].append(location)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看结果</span></span><br><span class="line"><span class="keyword">for</span> word <span class="keyword">in</span> sorted(index, key=str.upper):</span><br><span class="line">    print(word, index[word])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="3-4-2-特殊方法-missing"><a href="#3-4-2-特殊方法-missing" class="headerlink" title="3.4.2 特殊方法__missing__"></a>3.4.2 特殊方法<code>__missing__</code></h4><ul>
+<li><p>所有的映射类型在处理找不到的键的时候，都会牵扯到<code>__missing__</code>方法</p>
+</li>
+<li><p>虽然基类dict并没有定义这个方法，但是dict是知道有这么个东西存在的</p>
 <ul>
-<li><code>prepared</code>预编译<code>SQL</code></li>
-<li><code>parameterize</code>设置参数</li>
-<li><code>query/update</code>执行<code>SQL</code></li>
+<li>也就是说，如果有一个类继承了dict，然后这个继承类提供了<code>__missing__</code>方法，那么在<code>__getitem__</code>碰到找不到的键的时候，Python会自动调用它，而不是抛出一个KeyError异常</li>
 </ul>
-<p>其中，<code>parameterize</code>是调用<code>parameterHandler</code>的方法设置的，而参数是根据类型处理器<code>typeHandler</code>处理的。<code>query/update</code>方法通过<code>ResultSetHandler</code>进行处理结果的封装，如果是<code>update</code>语句，就返回整数，否则就通过<code>typeHandler</code>处理结果类型，然后用<code>ObjectFactory</code>提供的规则组装对象，返回给调用者</p>
+</li>
+<li><p><code>__missing__</code>方法只会被<code>__getitem__</code>调用，提供<strong>missing</strong>方法对<code>get</code>或者<code>__contains__</code>这些方法的使用没有影响</p>
+</li>
+<li><p>missingDemo</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># StrKeyDict在查询的时候会把非字符串的键转换为字符串</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># StrKeyDict继承自dict</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrKeyDict0</span><span class="params">(dict)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__missing__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="comment"># 如果找不到的键本身就是字符串,那就抛出KeyError异常</span></span><br><span class="line">        <span class="keyword">if</span> isinstance(key, str):</span><br><span class="line">            <span class="keyword">raise</span> KeyError(key)</span><br><span class="line">        <span class="comment"># 如果找不到的键不是字符串,就把它转换为字符串再查找</span></span><br><span class="line">        <span class="keyword">return</span> self[str(key)]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key, default=None)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># get方法把查找工作用self[key]的形式委托给`__getitem__`，这样就宣布了查找失败之前,还能通过`__missing__`再给某个键一个机会</span></span><br><span class="line">            <span class="keyword">return</span> self[key]</span><br><span class="line">        <span class="keyword">except</span> KeyError:</span><br><span class="line">            <span class="comment"># 如果抛出异常,那么说明__missing__也失败了,于是返回default</span></span><br><span class="line">            <span class="keyword">return</span> default</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__contains__</span><span class="params">(self, item)</span>:</span></span><br><span class="line">        <span class="comment"># 先按照传入键的原本的值来查找，如果没有找到，再用str()方法把键转换成字符串再查找一次</span></span><br><span class="line">        <span class="keyword">return</span> item <span class="keyword">in</span> self.keys() <span class="keyword">or</span> str(item) <span class="keyword">in</span> self.keys()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用尝试1</span></span><br><span class="line">d = StrKeyDict0([(<span class="string">'2'</span>, <span class="string">'two'</span>), (<span class="number">4</span>, <span class="string">'four'</span>)])</span><br><span class="line">print(d[<span class="string">'2'</span>])</span><br><span class="line">print(d[<span class="number">4</span>])</span><br><span class="line">print(d[<span class="number">1</span>])</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">two</span></span><br><span class="line"><span class="string">four</span></span><br><span class="line"><span class="string">Traceback (most recent call last):</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">KeyError: '1'</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用尝试2</span></span><br><span class="line">print(d.get(<span class="string">'2'</span>))</span><br><span class="line">print(d.get(<span class="number">4</span>))</span><br><span class="line">print(d.get(<span class="number">1</span>, <span class="string">'N/A'</span>))</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">two</span></span><br><span class="line"><span class="string">four</span></span><br><span class="line"><span class="string">N/A</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用尝试3</span></span><br><span class="line">print(<span class="number">2</span> <span class="keyword">in</span> d)</span><br><span class="line">print(<span class="number">1</span> <span class="keyword">in</span> d)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">True</span></span><br><span class="line"><span class="string">False</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>像 k in my_dict().keys()这种操作在Python3中是很快的，因为dict.keys()的返回值是一个’视图’，’视图’就像一个集合，而且跟字典类似的是，在视图里查找一个元素的速度很快</p>
+</li>
+</ul>
+<hr>
+<h3 id="3-5-字典的变种"><a href="#3-5-字典的变种" class="headerlink" title="3.5 字典的变种"></a>3.5 字典的变种</h3><ol>
+<li><p>collections.OrderedDict</p>
+<ul>
+<li>这个类型在添加键的时候会保持顺序，因此键的迭代次序总是一致的</li>
+</ul>
+</li>
+<li><p>collectinos.ChainMap</p>
+<ul>
+<li>该类型可以容纳数个不同的映射对象，然后在进行键查找操作的时候，这些对象会被当作一个整体被逐个查找，直到键被找到为止</li>
+<li>例如<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> builtins</span><br><span class="line">pylookup = ChainMap(local(), <span class="keyword">global</span>(), vars(builtins))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>collections.Counter</p>
+<ul>
+<li>这个映射类型会给键准备一个整数计数器</li>
+<li>每次更新一个键的时候都会增加这个计数器</li>
+<li>所以这个类型可以用来给可散列对象计数，或者被当成多重集来用</li>
+<li>demo<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> collections</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct = collections.Counter(<span class="string">'abracadabra'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct</span><br><span class="line">Counter(&#123;<span class="string">'a'</span>: <span class="number">5</span>, <span class="string">'b'</span>: <span class="number">2</span>, <span class="string">'r'</span>: <span class="number">2</span>, <span class="string">'c'</span>: <span class="number">1</span>, <span class="string">'d'</span>: <span class="number">1</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct.update(<span class="string">'aaaaazzz'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct</span><br><span class="line">Counter(&#123;<span class="string">'a'</span>: <span class="number">10</span>, <span class="string">'z'</span>: <span class="number">3</span>, <span class="string">'b'</span>: <span class="number">2</span>, <span class="string">'r'</span>: <span class="number">2</span>, <span class="string">'c'</span>: <span class="number">1</span>, <span class="string">'d'</span>: <span class="number">1</span>&#125;)</span><br><span class="line"><span class="comment"># most_common会按照次序返回映射中最常用的n个键和它们的计数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct.most_common(<span class="number">2</span>)</span><br><span class="line">[(<span class="string">'a'</span>, <span class="number">10</span>), (<span class="string">'z'</span>, <span class="number">3</span>)]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>collections.UserDict</p>
+<ul>
+<li>这个类其实就是把标准dict用纯Python的方式又实现了一编</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="3-6-子类化UserDict"><a href="#3-6-子类化UserDict" class="headerlink" title="3.6 子类化UserDict"></a>3.6 子类化UserDict</h3><hr>
+<ul>
+<li><p>就创造自定义映射类型来说，以UserDict作为基类，总比以普通的dict作为基类要来得方便</p>
+</li>
+<li><p>更倾向于从UserDict而不是dict继承的原因是,后者有时会在某些方法的实现上走一些捷径，导致我们不得不在它的子类中重写这些方法，但是UserDict就不会带来这些问题</p>
+</li>
+<li><p>另外一个值得注意的地方是，UserDict并不是dict的子类，但是UserDict有一个叫做data的属性，是dict的实例，这个属性实际上是UserDict最终存储数据的地方</p>
+</li>
+<li><p>demo：StrKeyDict</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># StrKeyDict是对UserDict的扩展</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrKeyDict</span><span class="params">(collections.UserDict)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__missing__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> isinstance(key, str):</span><br><span class="line">            <span class="keyword">raise</span> KeyError(key)</span><br><span class="line">        <span class="keyword">return</span> self[str(key)]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># contains比上一章的实现要简单,因为通过重写setitem,此时可以默认所有的key都是字符串</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__contains__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> str(key) <span class="keyword">in</span> self.data</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># setitem会把所有的键都转换为字符串</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__setitem__</span><span class="params">(self, key, value)</span>:</span></span><br><span class="line">        self.data[str(key)] = value</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># get方法与父类的get方法完全一致,所以不用再实现一遍</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>因为UserDict继承的是MutableMapping，所以StrKeyDict里剩下的那些映射类型的方法都是从UserDict、MutableMapping和Mapping这些超类继承而来的</p>
+</li>
+</ul>
+<hr>
+<h3 id="3-7-不可变映射类型"><a href="#3-7-不可变映射类型" class="headerlink" title="3.7 不可变映射类型"></a>3.7 不可变映射类型</h3><hr>
+<ul>
+<li><p>从Python3.3开始，types模块中引入了一个封装类名为MappingProxyType</p>
+<ul>
+<li>如果给这个类一个映射，它会返回一个只读的映射视图</li>
+<li>虽然是个只读视图，但它是动态的</li>
+<li>这意味着如果对原映射作出了改动，我们可以通过这个视图观察到，但无法通过这个视图对原映射作出修改</li>
+</ul>
+</li>
+<li><p>demo:用MappingProxyType来获取字典的只读实例mappingproxy</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> types <span class="keyword">import</span> MappingProxyType</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = &#123;<span class="number">1</span>:<span class="string">'A'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy = MappingProxyType(d)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy</span><br><span class="line">mappingproxy(&#123;<span class="number">1</span>: <span class="string">'A'</span>&#125;)</span><br><span class="line"><span class="comment"># d中的内容在d_proxy中可以看到</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy[<span class="number">1</span>]</span><br><span class="line"><span class="string">'A'</span></span><br><span class="line"><span class="comment"># 但是通过d_proxy不能对它作出任何修改</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy[<span class="number">2</span>] = <span class="string">'B'</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: <span class="string">'mappingproxy'</span> object does <span class="keyword">not</span> support item assignment</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="number">2</span>] = <span class="string">'B'</span></span><br><span class="line"><span class="comment"># d_proxy是动态的，也就是说对d所做的任何改动都会反馈到它的上面</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy</span><br><span class="line">mappingproxy(&#123;<span class="number">1</span>: <span class="string">'A'</span>, <span class="number">2</span>: <span class="string">'B'</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy[<span class="number">2</span>]</span><br><span class="line"><span class="string">'B'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="3-8-集合论"><a href="#3-8-集合论" class="headerlink" title="3.8 集合论"></a>3.8 集合论</h3><ul>
+<li><p>set和它的不可变姊妹类型frozenset直到Python2.3才首次以模块的形式出现,然后在Python2.6中它们升级为内置类型</p>
+</li>
+<li><p>集合的本质是许多唯一对象的聚集。因此，集合可以用来去重:</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>l = [<span class="string">'spam'</span>, <span class="string">'spam'</span>, <span class="string">'eggs'</span>, <span class="string">'spam'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>set(l)</span><br><span class="line">&#123;<span class="string">'spam'</span>, <span class="string">'eggs'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(set(l))</span><br><span class="line">[<span class="string">'spam'</span>, <span class="string">'eggs'</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>集合中的元素必须是可散列的，set类型本身是不可散列的，但是frozenset可以，因此可以创建一个包含不同frozenset的set</p>
+</li>
+<li><p>除了保证唯一性，集合还实现了许多基础的中缀运算符</p>
+<ul>
+<li><code>a | b</code> 返回它们的合集</li>
+<li><code>a &amp; b</code> 得到的是交集</li>
+<li><code>a - b</code> 得到的是差集</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="3-8-1-集合字面量"><a href="#3-8-1-集合字面量" class="headerlink" title="3.8.1 集合字面量"></a>3.8.1 集合字面量</h4><ul>
+<li><p>除了空集之外，集合的字面量—————{1}、{1, 2}，等等，看起来跟它的数学形式一模一样；如果是空集，那么必须写成set()形式</p>
+</li>
+<li><p>如果要创建一个空集，必须使用不带任何参数的构造方法set()。如果只是写成{}的形式，跟以前一样，你创建的其实是空字典</p>
+</li>
+<li><p>除了空集，集合的字符串表示形式总是以{…}的形式出现</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = &#123;<span class="number">1</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(s)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">set</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">s</span></span></span><br><span class="line">&#123;1&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.pop()</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line">set()</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>像{1, 2, 3}这样字面量句法相比于构造方法<code>set([1, 2, 3])</code>要更快且更易读</p>
+<ul>
+<li>针对{1, 2, 3}这样的字面量，Python会利用一个专门的叫做BUILD_SET的字节码来创建集合</li>
+</ul>
+</li>
+<li><p>由于Python没有针对frozenset的特殊字面量句法，我们只能采用构造函数</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frozenset(range(<span class="number">10</span>))</span><br><span class="line">frozenset(&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="3-8-2-集合推导"><a href="#3-8-2-集合推导" class="headerlink" title="3.8.2 集合推导"></a>3.8.2 集合推导</h4><ul>
+<li>示例<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从unicodedata模块中导入name函数，用以获得字符的名字</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> unicodedata <span class="keyword">import</span> name</span><br><span class="line"><span class="comment"># 把编码在32-255之间的字符的名字里有"SIGN"的单词挑出来，放到一个集合中</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>&#123;chr(i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">32</span>, <span class="number">256</span>) <span class="keyword">if</span> <span class="string">'SIGN'</span> <span class="keyword">in</span> name(chr(i), <span class="string">''</span>)&#125;</span><br><span class="line">&#123;<span class="string">'$'</span>, <span class="string">'µ'</span>, <span class="string">'¬'</span>, <span class="string">'÷'</span>, <span class="string">'&lt;'</span>, <span class="string">'§'</span>, <span class="string">'×'</span>, <span class="string">'='</span>, <span class="string">'¢'</span>, <span class="string">'¶'</span>, <span class="string">'%'</span>, <span class="string">'+'</span>, <span class="string">'£'</span>, <span class="string">'±'</span>, <span class="string">'&gt;'</span>, <span class="string">'#'</span>, <span class="string">'®'</span>, <span class="string">'©'</span>, <span class="string">'¤'</span>, <span class="string">'°'</span>, <span class="string">'¥'</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="3-8-3-集合的操作"><a href="#3-8-3-集合的操作" class="headerlink" title="3.8.3 集合的操作"></a>3.8.3 集合的操作</h4><h3 id="3-9-dict和set的背后"><a href="#3-9-dict和set的背后" class="headerlink" title="3.9 dict和set的背后"></a>3.9 dict和set的背后</h3><hr>
+<h4 id="3-9-1-一个关于效率的实验"><a href="#3-9-1-一个关于效率的实验" class="headerlink" title="3.9.1 一个关于效率的实验"></a>3.9.1 一个关于效率的实验</h4><ul>
+<li><p>用in运算符在5个不同大小的haystack字典里搜索1000个元素所需要的时间</p>
+</li>
+<li><p>在5个不同大小的haystack里搜索1000个元素所需要的时间，haystack分别以字典、集合和列表的形式出现</p>
+</li>
+</ul>
+<hr>
+<h4 id="3-9-2-字典中的散列表"><a href="#3-9-2-字典中的散列表" class="headerlink" title="3.9.2 字典中的散列表"></a>3.9.2 字典中的散列表</h4><ul>
+<li><p>简介</p>
+<ul>
+<li>散列表其实是一个稀疏数组(总是有空白元素的数组称为稀疏数组)</li>
+<li>在一般的数据结构教材中，散列表里的单元叫做表元(bucket)</li>
+<li>在dict的散列表当中，每个键值对都占用一个表元</li>
+<li>每个表元都有两个部分，一个是对键的引用，另一个是对值的引用</li>
+<li>因为所有表元的大小一致，所以可以通过偏移量来读取某个表元</li>
+</ul>
+</li>
+<li><p>Python会设法保证大概还有三分之一的表元是空的，所以在快要达到这个阈值的时候，原有的散列表会被复制到一个更大的空间中</p>
+</li>
+<li><p>散列值和相等性</p>
+<ul>
+<li><p>内置的hash()方法可以用在所有的内置类型对象</p>
+</li>
+<li><p>如果是自定义对象调用hash()的话，实际上运行的是自定义的<strong>hash</strong></p>
+</li>
+<li><p>如果两个对象在比较的时候是相等的，那它们的散列值必须相等，否则散列表就不能正常运行了</p>
+<ul>
+<li>例如，如果 1 == 1.0 成立，那么hash(1) == hash(1.0)也必须成立</li>
+</ul>
+</li>
+<li><p>为了让散列表能够胜任散列表索引这一角色，它们必须在索引空间中尽量分散开来</p>
+<ul>
+<li>最理想的状况下，越是相似但是不相等的对象，它们散列值的差别应该越大</li>
+</ul>
+</li>
+<li><p>加盐</p>
+<ul>
+<li>str、bytes和datetime对象的散列值计算有随机的”加盐”这一步</li>
+<li>所加盐值是Python进程内的一个常量，但是每次启动Python解释器都会生成一个不同的盐值</li>
+<li>随机盐值的加入是为了防止dos攻击而采取的一种安全措施</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>散列表算法</p>
+<ul>
+<li><p>算法的步骤</p>
+<ol>
+<li>为了获取my_dict[search_key]背后的值，Python首先会调用hash(search_key)来计算search_key的散列值</li>
+<li>然后把散列值的最低几位数字作为偏移量，在散列表里查找表元</li>
+<li>若找到的表元为空，则抛出KeyError异常</li>
+<li>若不是空的，则表元里会有一对found_key:found_value。这时检测search_key是否等于found_key，如果它们相等的话，就返回found_value</li>
+</ol>
+</li>
+<li><p>另外</p>
+<ul>
+<li>在插入新值的时候，Python可能会按照散列表的拥挤程度来决定是否要重新分配内存为它扩容，这样做的目的是为了减少散列冲突发生的概率</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="3-9-3-dict的实现及其导致的结果"><a href="#3-9-3-dict的实现及其导致的结果" class="headerlink" title="3.9.3 dict的实现及其导致的结果"></a>3.9.3 dict的实现及其导致的结果</h4><ol>
+<li><p>键必须是可散列的</p>
+<ul>
+<li>一个可散列的对象需要满足的条件<ol>
+<li>支持hash()函数，并且通过<strong>hash</strong>()方法得到的散列值是不变的</li>
+<li>支持通过<strong>eq</strong>()方法来检测相等性</li>
+<li>若 a==b 为真，则 hash(a) == hash(b) 也为真</li>
+</ol>
+</li>
+<li>所有由用户自定义的对象默认都是可散列的，因为它们的散列值有id()来获取，而且它们是不相等的</li>
+<li>如果你实现了一个类的<strong>eq</strong>方法，并且希望它是可散列的，那么它一定要有个恰当的<strong>hash</strong>方法，保证在a==b为真的情况下hash(a)==hash(b)也必定为真</li>
+</ul>
+</li>
+<li><p>字典在内存上的开销巨大</p>
+<ul>
+<li>由于字典使用了散列表，散列表必须是稀疏的，这导致它在空间上的效率低下</li>
+<li>在用户自定义的类型中，<strong>slot</strong>属性可以改变实例属性的存储方式，由dict变成tuple</li>
+</ul>
+</li>
+<li><p>键查询很快</p>
+<ul>
+<li>dict的实现是典型的空间换时间：字典有巨大的内存开销，但它们提供了无视数据量大小的快速访问————只要字典能被放入内存中</li>
+</ul>
+</li>
+<li><p>键的次序取决于添加顺序</p>
+<ul>
+<li>这是因为当往dict里添加新键而又发生散列冲突的时候，新键可能会被安排存放到另一个位置</li>
+<li>但是即使顺序不同，内容相同的字典也被认为是相等的</li>
+</ul>
+</li>
+<li><p>往字典里添加新键可能会改变原有键的顺序</p>
+<ul>
+<li>因为往字典中添加键可能会导致字典扩容，从而改变原有键的位置和顺序</li>
+<li>所以不要在对字典进行迭代的同时进行修改</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="3-9-4-set的实现及其导致的结果"><a href="#3-9-4-set的实现及其导致的结果" class="headerlink" title="3.9.4 set的实现及其导致的结果"></a>3.9.4 set的实现及其导致的结果</h4><ul>
+<li><p>set和frozenset的实现也依赖散列表，但在它们的散列表中存放的只有元素的引用</p>
+</li>
+<li><p>集合的特点</p>
+<ol>
+<li>集合中的元素必须是可散列的</li>
+<li>集合很消耗内存</li>
+<li>可以很高效地判断元素是否存在于某个集合</li>
+<li>元素的次序取决于被添加到集合里的次序</li>
+<li>往集合中添加元素，可能会改变集合里已有元素的顺序</li>
+</ol>
+</li>
+</ul>
+<hr>
 
           
         
@@ -464,7 +740,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/83/">83</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/84/">84</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -512,7 +788,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-count">84</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
