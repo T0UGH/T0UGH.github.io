@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-9-符合Python风格的对象/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/" itemprop="url">[流畅的Python][8][对象引用、可变性和垃圾回收]</a></h1>
+                <a class="post-title-link" href="/2020/02/01/流畅的Python-9-符合Python风格的对象/" itemprop="url">[流畅的Python][9][符合Python风格的对象]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:43:46+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:46:31+08:00">
                 2020-02-01
               </time>
             
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/" itemprop="commentCount"></span>
+                <a href="/2020/02/01/流畅的Python-9-符合Python风格的对象/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-9-符合Python风格的对象/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,207 +362,202 @@
       
         
           
-            <h2 id="第8章-对象引用、可变性和垃圾回收"><a href="#第8章-对象引用、可变性和垃圾回收" class="headerlink" title="第8章 对象引用、可变性和垃圾回收"></a>第8章 对象引用、可变性和垃圾回收</h2><blockquote>
-<p>“你不开心,”白骑士用一种忧虑的声调说,“让我给你唱一首歌安<br>慰你吧……这首歌的曲名叫作 :《黑线鳕的眼睛》。”<br>“哦,那是一首歌的曲名,是吗?”爱丽丝问道,她试着使自己感到<br>有兴趣。<br>“不,你不明白,”白骑士说,看来有些心烦的样子,“那是人家这<br>么叫的曲名。真正的曲名是《老而又老的老头儿》。”(改编自第<br>8 章“这是我自己的发明”)<br>——Lewis Carroll《爱丽丝镜中奇遇记》</p>
-</blockquote>
-<hr>
-<h3 id="8-1-变量不是盒子"><a href="#8-1-变量不是盒子" class="headerlink" title="8.1 变量不是盒子"></a>8.1 变量不是盒子</h3><ul>
-<li><p>引子</p>
-<ul>
-<li>人们经常使用”变量是盒子”这样的比喻，但是这有碍于理解面向对象语言中的引用式变量</li>
-<li>Python变量类似于Java中的引用式变量，因此最好把它们理解为<strong>附加在对象上的标注</strong></li>
-</ul>
-</li>
-<li><p>示例 8-1 变量<code>a</code>和<code>b</code>引用同一个列表，而不是那个列表的副本</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = a</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.append(<span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如图<br>  <img src="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/变量不是盒子.png" alt=""></p>
-</li>
-<li><p>变量的赋值方式</p>
-<ul>
-<li>对引用式变量来说，说把变量分配给对象更合理，反过来说就有问题。毕竟，<strong>对象在赋值之前就创建了</strong></li>
-<li>为了理解Python中的赋值语句，应该始终先读右边。对象在右边创建或获取，在此之后左边的变量才会绑定到对象上，就像为对象贴上便利贴一样</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="8-2-标识、相等性和别名"><a href="#8-2-标识、相等性和别名" class="headerlink" title="8.2 标识、相等性和别名"></a>8.2 标识、相等性和别名</h3><ul>
-<li><p>别名</p>
-<ul>
-<li>因为变量不过是标注，所以无法阻止为对象贴上多个标注</li>
-<li>贴的多个标注，就是别名</li>
-</ul>
-</li>
-<li><p>示例 </p>
-<ul>
-<li>背景：Lewis Carroll 是 Charles Lutwidge Dodgson 教授的笔名。Carroll 先生指的就是 Dodgson 教授,二者是同一个人。然而,假如有冒充者(姑且叫他 Alexander Pedachenko 博士)生于 1832年,声称他是 Charles L. Dodgson。这个冒充者的证件可能一样,但 Pedachenko 博士不是Dodgson 教授</li>
-<li>如图<br><img src="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/不同的绑定.png" alt=""></li>
-<li>代码  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>charles = &#123;<span class="string">'name'</span>: <span class="string">'Charles L. Dodgson'</span>, <span class="string">'born'</span>: <span class="number">1832</span>&#125;</span><br><span class="line"><span class="comment"># lewis 是 charles 的别名</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>lewis = charles </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>lewis <span class="keyword">is</span> charles</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># is 运算符和 id 函数确认了这一点</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>id(charles), id(lewis) </span><br><span class="line">(<span class="number">4300473992</span>, <span class="number">4300473992</span>)</span><br><span class="line"><span class="comment"># 向 lewis 中添加一个元素相当于向 charles 中添加一个元素</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>lewis[<span class="string">'balance'</span>] = <span class="number">950</span> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>charles</span><br><span class="line">&#123;<span class="string">'name'</span>: <span class="string">'Charles L. Dodgson'</span>, <span class="string">'balance'</span>: <span class="number">950</span>, <span class="string">'born'</span>: <span class="number">1832</span>&#125;</span><br><span class="line"><span class="comment"># alex 指代的对象与赋值给 charles 的对象内容一样</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>alex = &#123;<span class="string">'name'</span>: <span class="string">'Charles L. Dodgson'</span>, <span class="string">'born'</span>: <span class="number">1832</span>, <span class="string">'balance'</span>: <span class="number">950</span>&#125;</span><br><span class="line"><span class="comment"># 比较两个对象,结果相等,这是因为 dict 类的 __eq__ 方法就是这样实现的</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>alex == charles </span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># 但它们是不同的对象。这是 Python 说明标识不同的方式:a is not b</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>alex <span class="keyword">is</span> <span class="keyword">not</span> charles </span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>标识</p>
-<ul>
-<li>每个对象都有标识、类型和值</li>
-<li><strong>对象一旦创建,它的标识绝不会变</strong>;你可以把标识理解为对象在内存中的地址</li>
-<li><code>is</code> 运算符比较两个对象的标识</li>
-<li><code>id()</code> 函数返回对象标识的整数表示,在CPython中<code>id()</code>返回对象的内存地址</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="8-2-1-在-和-is-之间选择"><a href="#8-2-1-在-和-is-之间选择" class="headerlink" title="8.2.1 在 == 和 is 之间选择"></a>8.2.1 在 == 和 is 之间选择</h4><ul>
-<li><p>简介</p>
-<ul>
-<li><code>==</code> ： 比较的是两个对象的值(对象中保存的数据)</li>
-<li><code>is</code><ul>
-<li>比较的是对象的标识</li>
-<li>在变量和单例值之间比较时，应该用 <code>is</code>  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x <span class="keyword">is</span> <span class="keyword">None</span></span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span></span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>比较</p>
-<ul>
-<li><code>is</code> 运算符比 <code>==</code> 速度快,因为它不能重载,所以 Python 不用寻找并调用特殊方法,而是直接比较两个整数 ID</li>
-<li>而 <code>a == b</code> 是语法糖,等同于<code>a.__eq__(b)</code></li>
-<li>继承自 <code>object</code> 的 <code>__eq__</code> 方法比较两个对象的 ID,结果与 <code>is</code> 一样</li>
-<li>但是多数内置类型使用更有意义的方式覆盖了 <code>__eq__</code>方法,会考虑对象属性的值</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="8-2-2-元组的相对不可变性"><a href="#8-2-2-元组的相对不可变性" class="headerlink" title="8.2.2 元组的相对不可变性"></a>8.2.2 元组的相对不可变性</h4><ul>
-<li><p>简介</p>
-<ul>
-<li>元组与多数 Python 集合(列表、字典、集,等等)一样,保存的是对象的引用</li>
-<li>如果引用的元素是可变的,即便元组本身不可变,元素依然可变</li>
-<li>也就是说,元组的不可变性其实是指 <code>tuple</code> 数据结构的<strong>物理内容(即保存的引用)</strong>不可变,与<strong>引用的对象无关</strong></li>
-</ul>
-</li>
-<li><p>示例 元组中不可变的是元素的标识，元组的值会随着引用的可变对象的变化而变</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># t1 不可变,但是 t1[-1] 可变</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t1 = (<span class="number">1</span>, <span class="number">2</span>, [<span class="number">30</span>, <span class="number">40</span>])</span><br><span class="line"><span class="comment"># 构建元组 t2,它的元素与 t1 一样</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t2 = (<span class="number">1</span>, <span class="number">2</span>, [<span class="number">30</span>, <span class="number">40</span>])</span><br><span class="line"><span class="comment"># 虽然 t1 和 t2 是不同的对象,但是二者相等——与预期相符</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t1 == t2 </span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># 查看 t1[-1] 列表的标识</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>id(t1[<span class="number">-1</span>]) </span><br><span class="line"><span class="number">4302515784</span></span><br><span class="line"><span class="comment"># 就地修改 t1[-1] 列表</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t1[<span class="number">-1</span>].append(<span class="number">99</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t1</span><br><span class="line">(<span class="number">1</span>, <span class="number">2</span>, [<span class="number">30</span>, <span class="number">40</span>, <span class="number">99</span>])</span><br><span class="line"><span class="comment"># t1[-1] 的标识没变,只是值变了</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>id(t1[<span class="number">-1</span>]) </span><br><span class="line"><span class="number">4302515784</span></span><br><span class="line"><span class="comment"># 现在,t1 和 t2 不相等</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t1 == t2 </span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>元组的相对不可变性解释了 2.6.1 节的谜题。这也是<strong>有些元组不可散列</strong>(参见 3.1 节中的“什么是可散列的数据类型”附注栏)的原因</p>
-</li>
-</ul>
-<hr>
-<h3 id="8-3-默认做浅复制"><a href="#8-3-默认做浅复制" class="headerlink" title="8.3 默认做浅复制"></a>8.3 默认做浅复制</h3><h4 id="8-3-1-浅复制"><a href="#8-3-1-浅复制" class="headerlink" title="8.3.1 浅复制"></a>8.3.1 浅复制</h4><ul>
-<li><p>浅复制</p>
-<ul>
-<li>只复制最外层容器，副本中的元素是源容器中元素的引用</li>
-<li>如果所有元素都是不可变的，那么这样没有什么问题，还能节省内存</li>
-<li>但是如果有可变元素，可能导致意想不到的问题</li>
-</ul>
-</li>
-<li><p>示例： 如何进行浅复制</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>l1 = [<span class="number">3</span>, [<span class="number">55</span>, <span class="number">44</span>], (<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>)]</span><br><span class="line"><span class="comment"># 使用构造方法进行浅复制</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l2 = list(l1)</span><br><span class="line"><span class="comment"># 使用[:]进行浅复制</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l3 = l1[:]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l2</span><br><span class="line">[<span class="number">3</span>, [<span class="number">55</span>, <span class="number">44</span>], (<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>)]</span><br><span class="line"><span class="comment"># 副本与源列表相等</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l2 == l1 </span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># 但是二者指代不同的对象</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l2 <span class="keyword">is</span> l1 </span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>示例 ： 浅复制导致的问题</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">l1 = [<span class="number">3</span>, [<span class="number">66</span>, <span class="number">55</span>, <span class="number">44</span>], (<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>)]</span><br><span class="line">l2 = list(l1)</span><br><span class="line"><span class="comment"># l2 是 l1 的浅复制副本。此时的状态如下图所示</span></span><br><span class="line">l1.append(<span class="number">100</span>)</span><br><span class="line"><span class="comment"># 把 100 追加到 l1 中,对 l2 没有影响</span></span><br><span class="line">l1[<span class="number">1</span>].remove(<span class="number">55</span>)</span><br><span class="line"><span class="comment"># 把内部列表 l1[1] 中的 55 删除。这对 l2 有影响,因为 l2[1] 绑定的列表与 l1[1] 是同一个</span></span><br><span class="line">print(<span class="string">'l1:'</span>, l1)</span><br><span class="line">print(<span class="string">'l2:'</span>, l2)</span><br><span class="line"><span class="comment"># 对可变的对象来说,如 l2[1] 引用的列表,+= 运算符就地修改列表。这次修改在 l1[1] 中也有体现,因为它是 l2[1] 的别名</span></span><br><span class="line">l2[<span class="number">1</span>] += [<span class="number">33</span>, <span class="number">22</span>] </span><br><span class="line"><span class="comment"># 对元组来说,+= 运算符创建一个新元组,然后重新绑定给变量l2[2]</span></span><br><span class="line">l2[<span class="number">2</span>] += (<span class="number">10</span>, <span class="number">11</span>) </span><br><span class="line">print(<span class="string">'l1:'</span>, l1)</span><br><span class="line">print(<span class="string">'l2:'</span>, l2)</span><br></pre></td></tr></table></figure>
-<p>  <img src="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/浅复制1.png" alt=""><br>  <img src="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/浅复制2.png" alt=""></p>
-</li>
-<li><p>所以，浅复制虽然容易操作，但是有时得到的结果并不是你想要的</p>
-</li>
-</ul>
-<hr>
-<h4 id="8-3-2-为任意对象做深复制和浅复制"><a href="#8-3-2-为任意对象做深复制和浅复制" class="headerlink" title="8.3.2 为任意对象做深复制和浅复制"></a>8.3.2 为任意对象做深复制和浅复制</h4><ul>
-<li><p>深复制：副本不共享内部对象的引用</p>
-</li>
-<li><p>copy模块</p>
-<ul>
-<li>copy 模块提供的 deepcopy 和 copy 函数能为任意对象做深复制和浅复制</li>
-</ul>
-</li>
-<li><p>一般来说,深复制不是件简单的事。如果对象有循环引用,那么这个朴素的算法会进入无限循环。deepcopy 函数会记住已经复制的对象,因此能优雅地处理循环引用</p>
-</li>
-<li><p>深复制有时可能太深了。例如,对象可能会引用不该复制的外部资源或单例值。我们可以实现特殊方法 <code>__copy__()</code> 和<code>__deepcopy__()</code>,控制 copy 和 deepcopy 的行为</p>
-</li>
-</ul>
-<hr>
-<h3 id="8-4-函数的参数作为引用时"><a href="#8-4-函数的参数作为引用时" class="headerlink" title="8.4 函数的参数作为引用时"></a>8.4 函数的参数作为引用时</h3><ul>
-<li><p>Python传参的方案</p>
-<ul>
-<li>Python唯一支持的传参方式是共享传参(call by sharing)</li>
-<li>共享传参是指：函数的各个形式参数获得实参中各个引用的副本，也就是说，函数内部的形参是实参的别名</li>
-<li>这种方案的结果是，函数可能修改作为参数传入的可变对象，但是无法修改那些对象的标识。也就是说<strong>传入的参数可能会受到函数的影响而改变</strong></li>
-</ul>
-</li>
-<li><p>示例：函数可能会修改接收到的可变对象</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(a, b)</span>:</span></span><br><span class="line"><span class="meta">... </span>    a += b</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> a</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = <span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y = <span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f(x, y)</span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 数字x没变</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x, y</span><br><span class="line"><span class="number">1</span>, <span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = [<span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f(a, b)</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 列表a变了</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a, b</span><br><span class="line">([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], [<span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t = (<span class="number">10</span>, <span class="number">20</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>u = (<span class="number">30</span>, <span class="number">40</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f(t, u)</span><br><span class="line">(<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 元组t没变</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t, u</span><br><span class="line">((<span class="number">10</span>, <span class="number">20</span>), (<span class="number">30</span>, <span class="number">40</span>))</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h4 id="8-4-1-不要使用可变类型作为参数的默认值"><a href="#8-4-1-不要使用可变类型作为参数的默认值" class="headerlink" title="8.4.1 不要使用可变类型作为参数的默认值"></a>8.4.1 不要使用可变类型作为参数的默认值</h4><ul>
-<li><p>背景：可选参数可以有默认值,这是 Python 函数定义的一个很棒的特性,这样我们的 API 在进化的同时能保证向后兼容。然而,我们应该避免使用可变的对象作为参数的默认值</p>
-</li>
-<li><p>示例：幽灵列车，它将说明为什么应该避免使用可变的对象作为参数的默认值</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HautedBus</span>:</span></span><br><span class="line">    <span class="string">"""备受幽灵乘客折磨的校车"""</span></span><br><span class="line">    <span class="comment"># 如果没传入 passengers 参数,使用默认绑定的列表对象,一开始是空列表</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, passengers=[])</span>:</span></span><br><span class="line">        <span class="comment"># 这个赋值语句把 self.passengers 变成 passengers 的别名,而没有传入 passengers 参数时,后者又是默认列表的别名</span></span><br><span class="line">        self.passengers = passengers</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pick</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        <span class="comment"># 在 self.passengers 上调用 .remove() 和 .append() 方法时,修改的其实是默认列表,它是函数对象的一个属性</span></span><br><span class="line">        self.passengers.append(name)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">drop</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.passengers.remove(name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 一开始,bus1 是空的,因此把默认的空列表赋值给self.passengers</span></span><br><span class="line">    bus1 = HautedBus()</span><br><span class="line">    bus1.pick(<span class="string">'peter'</span>)</span><br><span class="line">    <span class="comment"># bus2 一开始也是空的,因此还是赋值默认的列表</span></span><br><span class="line">    <span class="comment"># 但是默认列表不为空!</span></span><br><span class="line">    bus2 = HautedBus()</span><br><span class="line">    bus2.pick(<span class="string">'alice'</span>)</span><br><span class="line">    <span class="comment"># bus1和bus2共享了乘客</span></span><br><span class="line">    print(bus1.passengers)</span><br><span class="line">    print(bus2.passengers)</span><br><span class="line">    print(bus1.passengers <span class="keyword">is</span> bus2.passengers)</span><br><span class="line">    <span class="comment"># 最后发现默认参数实际上是绑定在类的init方法的defaults属性上,作为一个类的属性,它只有一份,不会拷贝</span></span><br><span class="line">    print(bus1.passengers <span class="keyword">is</span> HautedBus.__init__.__defaults__[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>解释：为什么应该避免使用可变的对象作为参数的默认值</p>
-<ul>
-<li>默认值在定义函数时计算(通常在加载模块时),因此默认值变成了<strong>函数对象的属性</strong>(上例中是<code>HautedBus</code>类的<code>init</code>方法上的<code>default属性</code>)</li>
-<li>因此,如果默认值是可变对象,而且修改了它的值,那么后续的函数调用都会受到影响</li>
-<li>其实<code>bus1.passengers</code>和<code>bus2.passengers</code>都是别名,它绑定到<code>HauntedBus.__init__.__defaults__</code>属性的第一个元素上</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="8-4-2-防御可变参数"><a href="#8-4-2-防御可变参数" class="headerlink" title="8.4.2 防御可变参数"></a>8.4.2 防御可变参数</h4><ul>
-<li><p>简介</p>
-<ul>
-<li>如果定义的函数接收可变参数，应该谨慎考虑调用者是否期望改变传入的参数</li>
-<li>例如，如果函数接收一个字典，而且在处理的过程中要修改它，那么这个副作用要不要体现到函数外部</li>
-</ul>
-</li>
-<li><p>示例：消失的篮球队</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># basketball_team 中有 5 个学生的名字</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>basketball_team = [<span class="string">'Sue'</span>, <span class="string">'Tina'</span>, <span class="string">'Maya'</span>, <span class="string">'Diana'</span>, <span class="string">'Pat'</span>]</span><br><span class="line"><span class="comment"># 使用这队学生实例化 TwilightBus</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bus = TwilightBus(basketball_team)</span><br><span class="line"><span class="comment"># 一个学生从 bus 下车了,接着又有一个学生下车了 </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bus.drop(<span class="string">'Tina'</span>) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bus.drop(<span class="string">'Pat'</span>)</span><br><span class="line"><span class="comment"># 下车的学生从篮球队中消失了</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>basketball_team </span><br><span class="line">[<span class="string">'Sue'</span>, <span class="string">'Maya'</span>, <span class="string">'Diana'</span>]</span><br></pre></td></tr></table></figure>
-<ul>
-<li>TwilightBus 违反了设计接口的最佳实践,即“最少惊讶原则”</li>
-<li>学生从校车中下车后,她的名字就从篮球队的名单中消失了</li>
-</ul>
-</li>
-<li><p>解决：</p>
-<ul>
-<li>除非这个方法确实想修改通过参数传入的对象,否则在类中直接把参数赋值给实例变量之前一定要三思</li>
-<li>因为这样会为参数对象创建别名</li>
-<li>如果不确定,那就创建副本。这样客户会少些麻烦</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="8-5-del和垃圾回收"><a href="#8-5-del和垃圾回收" class="headerlink" title="8.5 del和垃圾回收"></a>8.5 del和垃圾回收</h3><blockquote>
-<p>对象绝不会自行销毁；然而，无法得到对象时，可能会被当做垃圾回收</p>
+            <h2 id="第9章-符合Python风格的对象"><a href="#第9章-符合Python风格的对象" class="headerlink" title="第9章 符合Python风格的对象"></a>第9章 符合Python风格的对象</h2><blockquote>
+<p>绝对不要使用两个前导下划线，这是很烦人的自私行为—Ian Bicking</p>
 </blockquote>
 <ul>
-<li><p><code>del</code>简介</p>
+<li><p>得益于Python数据模型，自定义类型的行为可以像内置类型那样自然</p>
+</li>
+<li><p>实现如此自然的行为，靠的不是继承，而是鸭子类型：我们只需按照行为实现对象所需的方法即可</p>
+</li>
+</ul>
+<hr>
+<h3 id="9-1-对象的表示形式"><a href="#9-1-对象的表示形式" class="headerlink" title="9.1 对象的表示形式"></a>9.1 对象的表示形式</h3><ul>
+<li><p>Python提供两种<strong>获取对象的字符串表示形式</strong>的标准方法</p>
 <ul>
-<li><code>del</code>语句删除名称，而不是对象</li>
-<li><code>del</code> 命令可能会导致对象被当作垃圾回收,但是仅当删除的变量保存的是对象的最后一个引用,或者无法得到对象时</li>
+<li><code>repr()</code>:以便于开发者理解的方式返回对象的字符串表示形式</li>
+<li><code>str()</code>:以便于用户理解的方式返回对象的字符串表示形式</li>
+<li>我们可以通过实现<code>__repr__</code>和<code>__str__</code>特殊方法，为<code>repr()</code>和<code>str()</code>提供支持</li>
 </ul>
 </li>
-<li><p><code>__del__</code>特殊方法</p>
+<li><p>Python还为对象提供了其他的表示形式</p>
 <ul>
-<li>有个 <code>__del__</code> 特殊方法,但是它不会销毁实例,不应该在代码中调用</li>
-<li>即将销毁实例时,Python 解释器会调用 <code>__del__</code> 方法,给实例最后的机会,释放外部资源</li>
+<li><code>bytes()</code>函数调用对象的<code>__byte__</code>方法来获取对象的字节序列表示形式</li>
+<li><code>format</code>函数调用对象的<code>__format__</code>，使用特殊的格式代码显示对象的字符串表示形式</li>
 </ul>
 </li>
-<li><p>垃圾回收算法</p>
+<li><p>注意</p>
 <ul>
-<li>在 CPython 中,垃圾回收使用的主要算法是引用计数</li>
-<li>实际上,每个对象都会统计有多少引用指向自己</li>
-<li>当引用计数归零时,对象立即就被销毁:CPython 会在对象上调用 <code>__del__</code> 方法(如果定义了),然后释放分配给对象的内存</li>
-</ul>
-</li>
-<li><p>总结</p>
-<ul>
-<li><code>del</code>不会删除对象，但是执行<code>del</code>操作后可能导致对象不可获取从而被删除</li>
+<li>在 Python 3 中,<code>__repr__</code>、<code>__str__</code> 和 <code>__format__</code> 都必须返回 Unicode 字符串(<code>str</code> 类型)</li>
+<li>只有 <code>__bytes__</code> 方法应该返回字节序列(<code>bytes</code> 类型)</li>
 </ul>
 </li>
 </ul>
 <hr>
-
+<h3 id="9-2-再谈向量类"><a href="#9-2-再谈向量类" class="headerlink" title="9.2 再谈向量类"></a>9.2 再谈向量类</h3><ul>
+<li><p>为了说明用于生成对象表示形式的众多方法,我们将使用一个 <code>Vector2d</code> 类</p>
+</li>
+<li><p>我们期望 Vector2d 实例具有的基本行为如下所示</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = Vector2d(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="comment"># Vector2d 实例的分量可以直接通过属性访问(无需调用读值方法)</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(v1.x, v1.y) </span><br><span class="line"><span class="number">3.0</span> <span class="number">4.0</span></span><br><span class="line"><span class="comment"># Vector2d 实例可以拆包成变量元组</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x, y = v1 </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x, y</span><br><span class="line">(<span class="number">3.0</span>, <span class="number">4.0</span>)</span><br><span class="line"><span class="comment"># repr 函数调用 Vector2d 实例,得到的结果类似于构建实例的源码</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 </span><br><span class="line">Vector2d(<span class="number">3.0</span>, <span class="number">4.0</span>)</span><br><span class="line"><span class="comment"># 这里使用 eval 函数,表明 repr 函数调用 Vector2d 实例得到的是对构造方法的准确表述</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1_clone = eval(repr(v1)) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 == v1_clone </span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># print 函数会调用 str 函数,对 Vector2d 来说,输出的是一个有序对</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(v1) </span><br><span class="line">(<span class="number">3.0</span>, <span class="number">4.0</span>)</span><br><span class="line"><span class="comment"># bytes 函数会调用 __bytes__ 方法,生成实例的二进制表示形式</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets = bytes(v1) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets</span><br><span class="line"><span class="string">b'd\\x00\\x00\\x00\\x00\\x00\\x00\\x08@\\x00\\x00\\x00\\x00\\x00\\x00\\x10@'</span></span><br><span class="line"><span class="comment"># abs 函数会调用 __abs__ 方法,返回 Vector2d 实例的模</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>abs(v1) </span><br><span class="line"><span class="number">5.0</span></span><br><span class="line"><span class="comment"># bool 函数会调用 __bool__ 方法,如果 Vector2d 实例的模为零,返回 False,否则返回 True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bool(v1), bool(Vector2d(<span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line"><span class="keyword">True</span>, <span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我们对vector2d类的实现如下所示，现在,Vector2d 用到了几个特殊方法,这些方法提供的操作是 Python 高手期待设计良好的对象所提供的</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> array <span class="keyword">import</span> array</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector2d</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># typecode 是类属性,在 Vector2d 实例和字节序列之间转换时使用</span></span><br><span class="line">    typecode = <span class="string">'d'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 在 __init__ 方法中把 x 和 y 转换成浮点数,尽早捕获错误,以防调用 Vector2d 函数时传入不当参数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x, y)</span>:</span></span><br><span class="line">        self.x = float(x)</span><br><span class="line">        self.y = float(y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义 __iter__ 方法,把 Vector2d 实例变成可迭代的对象,这样才能拆包(例如,x, y = my_vector)。这个方法的实现方式很简单,直接调用生成器表达式一个接一个产出分量</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (i <span class="keyword">for</span> i <span class="keyword">in</span> (self.x, self.y))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># __repr__ 方法使用 &#123;!r&#125; 获取各个分量的表示形式,然后插值,构成一个字符串;因为 Vector2d 实例是可迭代的对象,所以 *self 会把 x 和 y 分量提供给 format 函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        class_name = type(self).__name__</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&#123;&#125;(&#123;!r&#125;, &#123;!r&#125;)'</span>.format(class_name, *self)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 从可迭代的 Vector2d 实例中可以轻松地得到一个元组,显示为一个有序对</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> str(tuple(self))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 为了生成字节序列,我们把 typecode 转换成字节序列,然后迭代 Vector2d 实例,得到一个数组,再把数组转换成字节序列</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bytes__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> bytes([ord(self.typecode)]) + bytes(array(self.typecode, self))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 为了快速比较所有分量,在操作数中构建元组</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__eq__</span><span class="params">(self, other)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> tuple(self) == tuple(other)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 模是 x 和 y 分量构成的直角三角形的斜边长</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__abs__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> math.hypot(self.x, self.y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># __bool__ 方法使用 abs(self) 计算模,然后把结果转换成布尔值,因此,0.0 是 False,非零值是 True</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bool__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> bool(abs(self))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="9-3-备选构造方法"><a href="#9-3-备选构造方法" class="headerlink" title="9.3 备选构造方法"></a>9.3 备选构造方法</h3><ul>
+<li>我们可以把Vector2d实例转换成字节序列；同理，应该能从字节序列转换成Vector2d实例，如下所示  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 类方法使用classmethod装饰器修饰</span></span><br><span class="line"><span class="meta">@classmethod</span></span><br><span class="line"><span class="comment"># 不用传入self参数；相反，要通过cls传入类本身</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">frombytes</span><span class="params">(cls, octets)</span>:</span></span><br><span class="line">    <span class="comment"># 从第一个字节中读取typecode</span></span><br><span class="line">    typecode = chr(octets[<span class="number">0</span>])</span><br><span class="line">    <span class="comment"># 使用传入的octets字节序列创建一个memoryview，然后使用typecode转换，就是转换成typecode表示的类型</span></span><br><span class="line">    memv = memoryview(octets[<span class="number">1</span>:]).cast(typecode)</span><br><span class="line">    <span class="comment"># 拆包转换后的memoryview，得到构造方法所需的一对参数</span></span><br><span class="line">    <span class="keyword">return</span> cls(*memv)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="9-4-classmethod与staticmethod"><a href="#9-4-classmethod与staticmethod" class="headerlink" title="9.4 classmethod与staticmethod"></a>9.4 classmethod与staticmethod</h3><h4 id="9-4-1-classmethod"><a href="#9-4-1-classmethod" class="headerlink" title="9.4.1 classmethod"></a>9.4.1 classmethod</h4><ul>
+<li><p>用来定义操作类(而不是操作实例)的方法</p>
+</li>
+<li><p>classmethod改变了调用方法的方式，因此类方法的第一个参数是类本身，而不是实例</p>
+</li>
+<li><p>classmethod最常用的用途是定义备选构造方法，如上一节所示</p>
+</li>
+<li><p>按照约定，类方法的第一个参数名为cls(但是Python不介意具体怎么命名)</p>
+</li>
+</ul>
+<h4 id="9-4-2-staticmethod"><a href="#9-4-2-staticmethod" class="headerlink" title="9.4.2 staticmethod"></a>9.4.2 staticmethod</h4><ul>
+<li><p>staticmethod装饰器也会改变方法的调用方式，但是第一个参数不是特殊的值</p>
+</li>
+<li><p>其实静态方法就是普通的函数，只是碰巧在类的定义体中，而不是在模块层定义</p>
+</li>
+<li><p>staticmethod不是特别有用</p>
+<ul>
+<li>如果想定义不需要与类交互的函数,那么在模块中定义就好了</li>
+<li>有时,函数虽然从不处理类,但是函数的功能与类紧密相关,因此想把它放在近处</li>
+<li>即便如此,在同一模块中的类前面或后面定义函数也就行了</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="9-5-格式化显示"><a href="#9-5-格式化显示" class="headerlink" title="9.5 格式化显示"></a>9.5 格式化显示</h3><ul>
+<li><p>内置的<code>format()</code>函数和<code>str.format()</code>方法把各个类型的格式化方法委托给相应的<code>.__format__(format_spec)</code>方法</p>
+</li>
+<li><p><code>format_spec</code>是格式说明符，它是:</p>
+<ul>
+<li><code>format(my_obj, format_spec)</code>的第二个参数</li>
+<li><code>str.format()</code>方法的格式字符串,{}里代换字段中冒号后面的部分</li>
+</ul>
+</li>
+<li><p>示例:<code>format</code>和<code>str.format</code>的使用方法</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>brl = <span class="number">1</span>/<span class="number">2.43</span> <span class="comment"># BRL到USD的货币兑换比价</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>brl</span><br><span class="line"><span class="number">0.4115226337448559</span></span><br><span class="line"><span class="comment"># 格式说明符是 '0.4f'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(brl, <span class="string">'0.4f'</span>) </span><br><span class="line"><span class="string">'0.4115'</span></span><br><span class="line"><span class="comment"># 格式说明符是 '0.2f'。代换字段中的 'rate' 子串是字段名称,与格式说明符无关,但是它决定把 .format() 的哪个参数传给代换字段</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'1 BRL = &#123;rate:0.2f&#125; USD'</span>.format(rate=brl)</span><br><span class="line"><span class="string">'1 BRL = 0.41 USD'</span></span><br></pre></td></tr></table></figure>
+<p>  ‘{0.mass:5.3e}’ 这样的格式字符串其实包含两部分,冒号左边的 ‘0.mass’ 在代换字段句法中是字段名,冒号后面的 ‘5.3e’ 是格式说明符</p>
+</li>
+<li><p>格式规范微语言为一些内置类型提供了专用的表示代码</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(<span class="number">42</span>, <span class="string">'b'</span>)</span><br><span class="line"><span class="string">'101010'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(<span class="number">2</span>/<span class="number">3</span>, <span class="string">'.1%'</span>)</span><br><span class="line"><span class="string">'66.7%'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(format(<span class="number">2</span>/<span class="number">3</span>, <span class="string">'.1%'</span>))</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">str</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>格式规范微语言是可扩展的，因为各个类可以自行决定如何解释<code>format_spec</code>参数</p>
+</li>
+<li><p>相关文献：<a href="https://docs.python.org/3/library/string.html#formatspec" target="_blank" rel="noopener">“Format Specification Mini-<br>Language”</a></p>
+</li>
+</ul>
+<hr>
+<h3 id="9-6-可散列的Vector2d"><a href="#9-6-可散列的Vector2d" class="headerlink" title="9.6 可散列的Vector2d"></a>9.6 可散列的Vector2d</h3><ul>
+<li><p>为了把Vector2d实例变成可散列的</p>
+<ul>
+<li>必须使用<code>__hash__</code>方法和<code>__eq__</code>方法</li>
+<li>此外，还要让向量是不可变的，我们可以把x和y分量设置为只读特性，这样向量就不可变了</li>
+</ul>
+</li>
+<li><p>实例9-7:让向量不可变</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector2d</span>:</span></span><br><span class="line">    typecode = <span class="string">'d'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x, y)</span>:</span></span><br><span class="line">        <span class="comment"># 使用两个前导下划线，把属性设为私有的</span></span><br><span class="line">        self.__x = float(x)</span><br><span class="line">        self.__y = float(y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># property装饰器把读值方法标记为特性</span></span><br><span class="line">    <span class="comment"># 读值方法与公开属性同名，都是x</span></span><br><span class="line"><span class="meta">    @ property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">x</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__x</span><br><span class="line"></span><br><span class="line"><span class="meta">    @ property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">y</span><span class="params">(self)</span></span></span><br><span class="line"><span class="function">        <span class="title">return</span> <span class="title">self</span>.<span class="title">__y</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">    # 这里使用<span class="title">self</span>.<span class="title">x</span>而不是<span class="title">self</span>.<span class="title">__x</span>是为了保持访问一致性</span></span><br><span class="line"><span class="function">    <span class="title">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (i <span class="keyword">for</span> i <span class="keyword">in</span> (self.x, self.y))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下面我们只要实现<code>__hash__</code>方法即可，这个方法返回一个整数</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__hash__</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="comment"># 我们使用运算符异或(^)混合各分量的散列值，我觉得这种方法有一些问题,hash值会重复</span></span><br><span class="line">    <span class="keyword">return</span> hash(self.x) ^ hash(self.y)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果定义的类型有标量数值，可能还要实现<code>__int__</code>和<code>__float__</code>方法(分别被<code>int()</code>和<code>float()</code>构造函数调用)，以便在某些情况下进行强制类型转换</p>
+</li>
+</ul>
+<h3 id="9-7-Python的私有属性和”受保护的”属性"><a href="#9-7-Python的私有属性和”受保护的”属性" class="headerlink" title="9.7 Python的私有属性和”受保护的”属性"></a>9.7 Python的私有属性和”受保护的”属性</h3><ul>
+<li><p>Python不能像Java那样使用private修饰符创建私有属性，但是Python有个简单的机制，能避免子类意外覆盖”私有属性”</p>
+</li>
+<li><p><strong>名称改写—用来避免子类意外覆盖”私有属性”</strong></p>
+<ul>
+<li>举个例子：<ul>
+<li>有人编写了一个名为 Dog 的类， 这个类的内部用到了 mood实例属性， 但是没有将其开放</li>
+<li>现在， 你创建了 Dog 类的子类： Beagle</li>
+<li>如果你<strong>在毫不知情的情况下又创建了名为 mood 的实例属性</strong>， 那么在继承的方法中就<strong>会把 Dog 类的 mood 属性覆盖掉</strong>。 这是个难以调试的问题。</li>
+</ul>
+</li>
+<li>解决方法<ul>
+<li>如果以 <code>__mood</code> 的形式（两个前导下划线， 尾部没有或最多有一个下划线） 命名实例属性， Python 会把属性名存入实例的 <code>__dict__</code> 属性中， 而且会在前面加上一个下划线和类名。 </li>
+<li>因此， 对Dog 类来说， <code>__mood</code> 会变成 <code>_Dog__mood</code>； 对 Beagle 类来说， 会变成<code>_Beagle__mood</code>。 这个语言特性叫<strong>名称改写（name mangling）</strong></li>
+</ul>
+</li>
+<li>注意：<ul>
+<li>名称改写是一种安全措施，不能保证万无一失，它的目的是避免意外访问</li>
+<li>如下图<br><img src="/2020/02/01/流畅的Python-9-符合Python风格的对象/把手上的盖子.png" alt=""></li>
+<li>只要知道改写私有属性名的机制，任何人都能直接读取和修改私有属性  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = Vector2d(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1.__dict__</span><br><span class="line">&#123;<span class="string">'_Vector2d__y'</span>: <span class="number">4.0</span>, <span class="string">'_Vector2d_x'</span>: <span class="number">3.0</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1._Vector2d_x</span><br><span class="line"><span class="number">3.0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1._Vector2d_x = <span class="number">7</span></span><br><span class="line"><span class="number">7.0</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>约定俗成的”受保护”属性</strong></p>
+<ul>
+<li>不是所有 Python 程序员都喜欢名称改写功能， 也不是所有人都喜欢self.__x 这种不对称的名称。</li>
+<li>有些人不喜欢这种句法， 他们约定使用一个下划线前缀编写“受保护”的属性（如 self._x）</li>
+<li>Python 解释器不会对使用单个下划线的属性名做特殊处理， 不过这是很多 Python 程序员严格遵守的约定， 他们不会在类外部访问这种属性</li>
+<li>遵守使用一个下划线标记对象的私有属性很容易，就像遵守使用全大写字母编写常量那样容易</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="9-8-使用slot属性节省空间"><a href="#9-8-使用slot属性节省空间" class="headerlink" title="9.8 使用slot属性节省空间"></a>9.8 使用<strong>slot</strong>属性节省空间</h3><ul>
+<li><p>背景</p>
+<ul>
+<li>默认情况下，Python在各个实例中名为<code>__dict__</code>的字典里存储实例属性</li>
+<li>然后为了使用底层的散列表提升访问速度，字典会消耗大量内存(散列表一般装不满，所以会浪费内存)</li>
+<li>如果要处理<strong>数百万个属性不多</strong>的实例，通过<code>__slots__</code>类属性，能节省大量内存</li>
+</ul>
+</li>
+<li><p>如何使用<code>__slot__</code>属性</p>
+<ul>
+<li><p>定义 <code>__slots__</code> 的方式是， 创建一个类属性， 使用 <code>__slots__</code> 这个名字， 并把它的值设为一个字符串构成的可迭代对象， 其中各个元素表示各个实例属性,如下所示</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector2d</span>:</span></span><br><span class="line">    __slots__ = (<span class="string">'__x'</span>, <span class="string">'__y'</span>)</span><br><span class="line">    typecode = <span class="string">'d'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在类中定义 <code>__slots__</code> 属性的目的是告诉解释器： “这个类中的所有实例属性都在这儿了！ ”这样， Python 会在各个实例中使用类似元组的结构存储实例变量， 从而避免使用消耗内存的 <code>__dict__</code> 属性</p>
+</li>
+</ul>
+</li>
+<li><p>注意</p>
+<ol>
+<li>继承自超类的<code>__slots__</code>属性没有效果，Python只会使用各个类中定义的<code>__slots__</code>属性</li>
+<li>在类中定义<code>__slots__</code>属性之后，实例不能再有<code>__slots__</code>中所列出名称之外的其他属性</li>
+<li>如果类中定义了 <code>__slots__</code> 属性， 而且想把实例作为弱引用的目标， 那么要把 <code>__weakref__</code> 添加到 <code>__slots__</code> 中</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="9-9-覆盖类属性"><a href="#9-9-覆盖类属性" class="headerlink" title="9.9 覆盖类属性"></a>9.9 覆盖类属性</h3><ul>
+<li><p>背景</p>
+<ul>
+<li>Python 有个很独特的特性： <strong>类属性可用于为实例属性提供默认值</strong> </li>
+<li><code>Vector2d</code> 中有个 <code>typecode</code> 类属性， <code>__bytes__</code> 方法两次用到了它， 而且都故意使用 <code>self.typecode</code> 读取它的值 </li>
+<li>因为 <code>Vector2d</code> 实例本身没有 <code>typecode</code> 属性， 所以 <code>self.typecode</code> 默认获取的是<code>Vector2d.typecode</code> 类属性的值</li>
+</ul>
+</li>
+<li><p>可以为各个实例的 <code>typecode</code> 属性定制不同的值</p>
+<ul>
+<li>如果为不存在的实例属性赋值， 会新建实例属性</li>
+<li>假如我们为 <code>typecode</code> 实例属性赋值， 那么同名类属性不受影响,然而，自此之后，实例读取的 <code>self.typecode</code> 是实例属性 <code>typecode</code>， 也就是把同名类属性遮盖了</li>
+<li>借助这一特性， 可以为各个实例的 <code>typecode</code> 属性定制不同的值,如下所示  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> vector2d_v3 <span class="keyword">import</span> Vector2d</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = Vector2d(<span class="number">1.1</span>, <span class="number">2.2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dumpd = bytes(v1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dumpd</span><br><span class="line"><span class="string">b'd\x9a\x99\x99\x99\x99\x99\xf1?\x9a\x99\x99\x99\x99\x99\x01@'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(dumpd) </span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1.typecode = <span class="string">'f'</span> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dumpf = bytes(v1)&gt;&gt;&gt; dumpf</span><br><span class="line"><span class="string">b'f\xcd\xcc\x8c?\xcd\xcc\x0c@'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(dumpf) </span><br><span class="line"><span class="number">9</span>&gt;</span><br><span class="line">&gt;&gt; Vector2d.typecode </span><br><span class="line"><span class="string">'d'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>如果想修改类属性的值，必须直接在类上修改，如下所示</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Vector2d.typecode = <span class="string">'f'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过创建一个只用于定制类的数据属性的子类，也可以修改类属性，并且更符合Python风格</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> vector2d_v3 <span class="keyword">import</span> Vector2d</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">ShortVector2d</span><span class="params">(Vector2d)</span>:</span> </span><br><span class="line"><span class="meta">... </span>typecode = <span class="string">'f'</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sv = ShortVector2d(<span class="number">1</span>/<span class="number">11</span>, <span class="number">1</span>/<span class="number">27</span>) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sv</span><br><span class="line">ShortVector2d(<span class="number">0.09090909090909091</span>, <span class="number">0.037037037037037035</span>)</span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="9-10-本章小结"><a href="#9-10-本章小结" class="headerlink" title="9.10 本章小结"></a>9.10 本章小结</h3>
           
         
       
@@ -601,7 +596,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/25/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/88/">88</a><a class="extend next" rel="next" href="/page/27/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/25/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/89/">89</a><a class="extend next" rel="next" href="/page/27/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -649,7 +644,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">89</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
