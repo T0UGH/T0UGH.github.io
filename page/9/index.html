@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/09/SpringBoot-11-构建REST风格的网站/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/09/Junit-1-Junit介绍/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/02/09/SpringBoot-11-构建REST风格的网站/" itemprop="url">[SpringBoot][11][构建REST风格的网站]</a></h1>
+                <a class="post-title-link" href="/2020/02/09/Junit-1-Junit介绍/" itemprop="url">[Junit][1][Junit介绍]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-09T12:03:38+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-09T16:39:48+08:00">
                 2020-02-09
               </time>
             
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
+                  <a href="/categories/Junit/" itemprop="url" rel="index">
+                    <span itemprop="name">Junit</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/02/09/SpringBoot-11-构建REST风格的网站/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/09/SpringBoot-11-构建REST风格的网站/" itemprop="commentCount"></span>
+                <a href="/2020/02/09/Junit-1-Junit介绍/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/09/Junit-1-Junit介绍/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,87 +362,151 @@
       
         
           
-            <h2 id="第-11-章-构建REST风格网站"><a href="#第-11-章-构建REST风格网站" class="headerlink" title="第 11 章 构建REST风格网站"></a>第 11 章 构建REST风格网站</h2><p>在<code>HTTP</code>协议发展的过程中，提出了很多的规则，但是这些规则有些烦琐，于是又提出了一种风格约定，它便是<code>REST</code>风格。实际上严格地说它不是一种标准，而是一种风格。在现今互联网的世界中这种风格己经被广泛使用起来了。尤其是现今流行的微服务中，这样的风格甚至被推荐为各个微服务系统之间用于交互的方式。</p>
-<p>首先在<code>REST</code>风格中，每一个资源都只是对应着一个网址，而一个代表资源的网址应该是一个名词，且不存在动词，这代表对一个资源的操作。在这样的风格下对于简易参数则尽量通过网址进行传递。例如，要获取<code>id</code>为<code>l</code>的用户的<code>URL</code>可能就设计<code>http//localhost:8080/user/1</code></p>
-<h3 id="11-1-REST简述"><a href="#11-1-REST简述" class="headerlink" title="11.1 REST简述"></a>11.1 REST简述</h3><h4 id="11-1-1-REST名词解释"><a href="#11-1-1-REST名词解释" class="headerlink" title="11.1.1 REST名词解释"></a>11.1.1 REST名词解释</h4><p><code>REST</code>按其英文名称(<code>Representational State Transfer</code>)可翻译为表现层状态转换。首先需要有资源才能表现，所以第一个名词是”资源”。有了资源也要根据需要以合适的形式表现资源，这就是第二个名词是”表现层”。最后是资源可以被新增、修改、删除等，也就是第三个名词“状态转换”</p>
-<ul>
-<li>资源: 它可以是系统权限用户、角色和菜单等，也可以是一些媒体类型，如文本、图片、歌曲，总之它就是一个具体存在的对象。每个资源对应一个独一无二的<code>URI</code>。在<code>REST</code>中，<code>URI</code>也可以称为端点(<code>EndPoint</code>)。</li>
-<li>表现层: 有了资源还需要确定如何表现这个资源。例如，一个用户可以使用<code>JSON</code>、<code>XML</code>或者其他的形式表现出来</li>
-<li>状态转换: 现实中资源并不是一成不变的， 它是一个变化的过程，一个资源可以经历创建(<code>create</code>)、访问)(<code>visit</code>) 、修改(<code>update</code>)和删除(<code>delete</code>)的过程</li>
-</ul>
-<p>综上我们可以总结<code>REST</code>风格架构的特点</p>
-<ul>
-<li>服务器存在一系列的资源，每一个资源通过单独唯一的<code>URI</code>进行标识</li>
-<li>客户端和服务器之间可以相互传递资源，而资源会以某种表现层得以展示</li>
-<li>客户端通过<code>HTTP</code>协议所定义的动作对资源进行操作，以实现资源的状态转换</li>
-</ul>
-<h4 id="11-1-2-HTTP的动作"><a href="#11-1-2-HTTP的动作" class="headerlink" title="11.1.2 HTTP的动作"></a>11.1.2 HTTP的动作</h4><p>可以用<code>HTTP</code>请求的类型，来代表对资源的<code>CRUD</code>的行为</p>
-<ul>
-<li><code>GET</code>: <code>READ</code>，访问服务器资源</li>
-<li><code>POST</code>: <code>CREATE</code>，在服务器创建新的资源</li>
-<li><code>PUT</code>: <code>UPDATE</code>，修改服务器已经存在的资源，使用<code>PUT</code>时需要把资源的全部属性一并提交</li>
-<li><code>PATCH</code>: <code>UPDATE</code>，修改服务器已经存在的资源，使用<code>PATCH</code>时只需要将部分资源属性提交</li>
-<li><code>DELETE</code>: <code>DELETE</code>，从服务器将资源删除</li>
-</ul>
-<p>下面举几个<code>REST</code>风格的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 获取用户信息，1代表用户编号</span><br><span class="line">GET /user/1</span><br><span class="line"># 查询多个用户信息</span><br><span class="line">GET /users/&#123;userName&#125;/&#123;note&#125;</span><br><span class="line"># POST 创建用户</span><br><span class="line">POST /user/&#123;userName&#125;/&#123;sex&#125;/&#123;note&#125;</span><br><span class="line"># 修改用户全部属性</span><br><span class="line">PUT /user/&#123;id&#125;/&#123;userName&#125;/&#123;sex&#125;/&#123;note&#125;</span><br><span class="line"># 修改用户名称</span><br><span class="line">PATCH /user/&#123;id&#125;/&#123;userName&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在<code>URI</code>中并没有出现动词，而对于参数主要通过<code>URI</code>设计去获取。对于参数数量超过5个的可以考虑使用传递<code>JSON</code>的方式来传递参数</p>
-<h4 id="11-1-3-REST风格的一些误区"><a href="#11-1-3-REST风格的一些误区" class="headerlink" title="11.1.3 REST风格的一些误区"></a>11.1.3 REST风格的一些误区</h4><ol>
-<li><p>REST风格的URI中不存在动词，例如<code>GET /user/get/1</code>，应改为<code>GET /user/1</code></p>
+            <h2 id="Junit"><a href="#Junit" class="headerlink" title="Junit"></a>Junit</h2><ul>
+<li><p><a href="https://blog.csdn.net/antony9118/article/details/51736135" target="_blank" rel="noopener">idea+Junit单元测试</a></p>
 </li>
-<li><p>URI中不应该加入版本号，例如下面<code>GET /v1/user/1</code>，如果存在版本号应设置在请求头中</p>
+<li><p><a href="http://wiki.jikexueyuan.com/project/junit/overview.html" target="_blank" rel="noopener">Junit教程</a></p>
 </li>
-<li><p>类似这种<code>PUT users?userName=user_name&amp;note=note</code>是不推荐使用的，应改为<code>PUT users/{userName}/{note}</code></p>
-</li>
-</ol>
-<h3 id="11-2-使用SpringMVC开发REST风格端点"><a href="#11-2-使用SpringMVC开发REST风格端点" class="headerlink" title="11.2 使用SpringMVC开发REST风格端点"></a>11.2 使用SpringMVC开发REST风格端点</h3><p><code>Spring</code>对<code>REST</code>风格的支持是基于<code>SpringMVC</code>设计基础上的，在<code>Spring 4.3</code>之后则有更多的注解引入使得<code>REST</code>风格的开发更为便捷。</p>
-<h4 id="11-2-1-SpringMVC整合REST"><a href="#11-2-1-SpringMVC整合REST" class="headerlink" title="11.2.1 SpringMVC整合REST"></a>11.2.1 SpringMVC整合REST</h4><p>只要把<code>URI</code>设计为符合<code>REST</code>风格规范，那么显然就己经满足<code>REST</code>风格了。不过为了更为便捷地支持<code>REST</code>风格的开发，<code>Spring 4.3</code>之后除了<code>@RequestMapping</code>外，还可以使用以下5个注解，这5个注解主要是针对<code>HTTP</code>的动作而言的，通过它们就能够有效地支持<code>REST</code>风格的规范</p>
-<ul>
-<li><code>@GetMapping</code>: 对应<code>HTTP</code>的<code>GET</code>请求，获取资源</li>
-<li><code>@PostMapping</code>: 对应<code>HTTP</code>的<code>POST</code>请求，创建资源</li>
-<li><code>@PutMapping</code>: 对应<code>HTTP</code>的<code>PUT</code>请求，提交所有资源属性以修改资源</li>
-<li><code>@PatchMapping</code>: 对应<code>HTTP</code>的<code>PATCH</code>请求，提交资源部分修改的属性</li>
-<li><code>@DeleteMapping</code>: 对应<code>HTTP</code>的<code>DELETE</code>请求，删除服务器端的资源</li>
 </ul>
-<p>在<code>REST</code>风格的设计中，如果是简单的参数，往往会通过<code>URL</code>直接传递，在<code>SpringMVC</code>可以使用注解<code>@PathVariable</code>进行获取，对于那些复杂的参数，可以考虑使用请求体<code>JSON</code>的方式提交给服务器，这样就可以使用注解<code>@RequestBody</code>将<code>JSON</code>数据集转换为<code>Java</code>对象。</p>
-<p>在现今的开发中，数据转化为<code>JSON</code>是最常见的方式，这个时候可以考虑使用注解<code>@ResponseBody</code>，这样<code>SpringMVC</code>就会通过<code>MappingJackson2HttpMessageConverter</code>最终将数据转换为<code>JSON</code>数据集，而在<code>SpringMVC</code>对<code>REST</code>风格的设计中，甚至可以使用注解<code>@RestController</code>让整个控制器都默认转换为<code>JSON</code>数据集。</p>
-<h4 id="11-2-2-使用Spring开发REST风格端点"><a href="#11-2-2-使用Spring开发REST风格端点" class="headerlink" title="11.2.2 使用Spring开发REST风格端点"></a>11.2.2 使用Spring开发REST风格端点</h4><p>我们可以使用<code>POST</code>动作来创建资源<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/user"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">insertUser</span><span class="params">(@RequestBody User user)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> userService.insertUser(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li><code>@PostMapping</code>表示采用<code>POST</code>动作提交用户信息</li>
-<li><code>@ReguestBody</code>代表接收的是一个<code>JSON</code>数据集参数</li>
-<li><code>@ResponseBody</code>代表会将函数的返回值转化为<code>JSON</code>格式传递给前端</li>
+<h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1 概述"></a>1 概述</h3><h4 id="1-1-什么是单元测试"><a href="#1-1-什么是单元测试" class="headerlink" title="1.1 什么是单元测试"></a>1.1 什么是单元测试</h4><p>所谓单元测试是测试应用程序的功能是否能够按需要正常运行。单元测试是一个对单一实体（类或方法）的测试。单元测试是每个软件公司提高产品质量、满足客户需求的重要环节。</p>
+<p>单元测试分为人工测试和自动测试</p>
+<table>
+<thead>
+<tr>
+<th>人工测试</th>
+<th>自动测试</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>手动执行测试用例并不借助任何工具的测试被称为人工测试</td>
+<td>借助工具支持并且利用自动工具执行用例被称为自动测试</td>
+</tr>
+<tr>
+<td>消耗时间并单调</td>
+<td>快速自动化运行测试用例时明显比人力资源快</td>
+</tr>
+<tr>
+<td>人力资源上投资巨大</td>
+<td>人力资源投资较少</td>
+</tr>
+<tr>
+<td>可信度较低</td>
+<td>可信度更高，自动化测试每次运行时精确地执行相同的操作</td>
+</tr>
+<tr>
+<td>非程式化</td>
+<td>程式化</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-1-什么是Junit"><a href="#1-1-什么是Junit" class="headerlink" title="1.1 什么是Junit"></a>1.1 什么是Junit</h4><p><code>JUnit</code>是一个基于<code>Java</code>的单元测试框架。<code>JUnit</code>在测试驱动开发的方面有很重要的发展。</p>
+<p>JUnit 促进了“先测试后编码”的理念，强调建立测试数据的一段代码，可以先测试，然后再应用。这个方法就好比“测试一点，编码一点，测试一点，编码一点……”，增加了程序员的产量和程序的稳定性，可以减少程序员的压力和花费在排错上的时间。</p>
+<h4 id="1-2-为什么使用Junit"><a href="#1-2-为什么使用Junit" class="headerlink" title="1.2 为什么使用Junit"></a>1.2 为什么使用Junit</h4><p>这里不说过于晦涩难懂的原因，只从我们使用感受的角度来讲。<br>我们都知道，<code>main</code>方法是一个程序的入口，通常来说，没有<code>main</code>方法，程序就无法运行。我们经常会写一些<code>class</code>文件（如下图所示），他们并没有自己的main方法。那么我们如何检测这些class写的对不对？难道每次测试一个class都要自己写一个main方法？这样显然代价太大。Junit单元测试给我们提供了这样的便捷，可以直接对没有main方法的class进行测试</p>
+<h4 id="1-3-特点"><a href="#1-3-特点" class="headerlink" title="1.3 特点"></a>1.3 特点</h4><ul>
+<li>JUnit 是一个开放的资源框架，用于编写和运行测试。</li>
+<li>提供<strong>注释</strong>来<strong>识别测试方法</strong>。</li>
+<li>提供<strong>断言</strong>来<strong>测试预期结果</strong>。</li>
+<li>提供<strong>测试运行</strong>来运行测试。</li>
+<li>JUnit 测试允许你编写代码更快，并能提高质量。</li>
+<li>JUnit 优雅简洁。没那么复杂，花费时间较少。</li>
+<li>JUnit 测试<strong>可以自动运行并且检查自身结果</strong>并<strong>提供即时反馈</strong>。所以也<strong>没有必要人工梳理测试结果的报告</strong>。</li>
+<li>JUnit 测试可以被组织为<strong>测试套件</strong>，包含测试用例，甚至其他的测试套件。</li>
+<li>JUnit 在一个条中<strong>显示进度</strong>。如果运行良好则是绿色；如果运行失败，则变成红色。</li>
 </ul>
-<p>接下来就是使用<code>GET</code>动作来获取对象了<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(value=<span class="string">"/user/&#123;id&#125;"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">getUser</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span>Long id)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> userService.getUser(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>采用注解<code>@GetMapping</code>声明<code>HTTP</code>的<code>GET</code>请求，并且把参数编号(<code>id</code>)以<code>URI</code>的形式传递，这符合了<code>REST</code>风格的要求</li>
-<li>在<code>getUser</code>方法中使用了注解<code>@PathVariable</code>从<code>URI</code>中获取参数</li>
-<li><code>@ResponseBody</code>代表会将函数的返回值转化为<code>JSON</code>格式传递给前端</li>
-</ul>
-<p>更新和删除操作也与上面的例子类似，这里略</p>
-<h4 id="11-2-3-使用-RestController"><a href="#11-2-3-使用-RestController" class="headerlink" title="11.2.3 使用@RestController"></a>11.2.3 使用@RestController</h4><p>因为现在前后端分离，所以使用<code>JSON</code>作为前后端交互已经十分普遍。如果每一个方法都加入<code>@ResponseBody</code>才能将数据模型转换为<code>JSON</code>，显然有些冗余。<code>SpringMVC</code>还存在一个注解<code>@RestController</code>，它可以修饰控制器类，将类中的方法返回值转化为<code>JSON</code>数据</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span></span>&#123;</span><br><span class="line">    <span class="meta">@GetMapping</span>(value=<span class="string">"/user/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">getUser</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span>Long id)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userService.getUser(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="11-2-4-渲染结果"><a href="#11-2-4-渲染结果" class="headerlink" title="11.2.4 渲染结果"></a>11.2.4 渲染结果</h4><p>在<code>@RequestMapping</code>、<code>GetMapping</code>等注解中还存在<code>consumes</code>和<code>produces</code>两个属性。其中<code>consumes</code><br>代表的是限制该方法接收什么类型的请求体(body), <code>produces</code>代表的是限定返回的媒体类型，仅当<code>request</code>请求头中的(<code>Accept</code>)类型中包含该指定类型才返回。</p>
-<p>假如我们想要某个方法返回一个字符串，而不是JSON的话，可以采用如下方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(value=<span class="string">"/user/name/&#123;id&#125;"</span>, produces=MediaType.TEXT_PLAIN_VALUE)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getUserName</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Long id)</span>&#123;</span><br><span class="line">    User user = userService.getUser(id);</span><br><span class="line">    <span class="keyword">return</span> user.getUserName();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>对于<code>getUserName</code>方法，因为<code>@GetMapping</code>的属性<code>produces</code>声明为普通文本类型，也就是修改了原有<code>@RestController</code>默认的<code>JSON</code>类型，同样结果也会被<code>SpringMVC</code>自身注册好的<code>StringHttpMessageConverter</code>拦截， 这样就可以转变为一个简单的字符串。</li>
-</ul>
-<h4 id="11-2-5-处理HTTP状态码、异常和响应头"><a href="#11-2-5-处理HTTP状态码、异常和响应头" class="headerlink" title="11.2.5 处理HTTP状态码、异常和响应头"></a>11.2.5 处理HTTP状态码、异常和响应头</h4><p>当发生资源找不到或者处理逻辑发生异常时， 需要考虑的是返回给客户端的<code>HTTP</code>状态码和错误消息的问题。为了简化这些开发，<code>Spring</code>提供了实体封装类<code>ResponseEntity</code>和注解<code>@ResponseStatus</code>。<code>ResponseEnti ty</code>可以有效封装错误消息和状态码，通过<code>@ResponseStatus</code>可以配置指定的响应码给客户端。</p>
-<p>下面我们修改插入用户的方法，将状态码修改为201，并且插入响应头的属性来标识这次请求的结果<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(value = <span class="string">"/user2/entity"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ResponseEntity&lt;UserVo&gt; <span class="title">insertUserEntity</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        @RequestBody UserVo userVo)</span> </span>&#123;</span><br><span class="line">    User user = <span class="keyword">this</span>.changeToPo(userVo);</span><br><span class="line">    userService.insertUser(user);</span><br><span class="line">    UserVo result = <span class="keyword">this</span>.changeToVo(user);</span><br><span class="line">    HttpHeaders headers = <span class="keyword">new</span> HttpHeaders();</span><br><span class="line">    String success = </span><br><span class="line">        (result == <span class="keyword">null</span> || result.getId() == <span class="keyword">null</span>) ? <span class="string">"false"</span> : <span class="string">"true"</span>;</span><br><span class="line">    <span class="comment">// 设置响应头，比较常用的方式</span></span><br><span class="line">    headers.add(<span class="string">"success"</span>, success);</span><br><span class="line">    <span class="comment">// 返回创建成功的状态码</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ResponseEntity&lt;UserVo&gt;(result, headers, HttpStatus.CREATED);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@PostMapping</span>(value = <span class="string">"/user2/annotation"</span>)</span><br><span class="line"><span class="comment">// 指定状态码为201（资源已经创建）</span></span><br><span class="line"><span class="meta">@ResponseStatus</span>(HttpStatus.CREATED)</span><br><span class="line"><span class="function"><span class="keyword">public</span> UserVo <span class="title">insertUserAnnotation</span><span class="params">(@RequestBody UserVo userVo)</span> </span>&#123;</span><br><span class="line">    User user = <span class="keyword">this</span>.changeToPo(userVo);</span><br><span class="line">    userService.insertUser(user);</span><br><span class="line">    UserVo result = <span class="keyword">this</span>.changeToVo(user);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li><code>insertUserEntity</code>方法中定义返回为一个<code>ResponseEntity&lt;User&gt;</code>的对象，这里还生成了响应头( <code>HttpHeaders</code>对象)，并且添加了属性<code>success</code>来表示请求是否成功，在最后返回的时刻生成了一个<code>ResponseEntity&lt;User&gt;</code>对象，然后将查询到的用户对象和响应头捆绑上，并且指定状态码为201(创建资源成功)</li>
-<li>在<code>insertUserAnnotation</code>方法上则使用了<code>@ResponseStatus</code>注解将<code>HTTP</code>的响应码标注为201(创建资源成功)，所以在方法正常返回时<code>Spring</code>就会将响应码设置为<code>20l</code></li>
-</ul>
-<p>但是有时候会出现一些异常，例如，按照<code>id</code>查找用户，可能查找不到数据，这个时候就不能以正常返回去处理了，又或者在执行的过程中产生了异常，这也是需要我们进行处理的。通过<code>@ControllerAdvice</code>和<code>@ExceptionHandler</code>注解可以通过控制器通知的方式对异常情况进行处理</p>
-<p>首先我们自定义一个查找失败异常<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NotFoundException</span> <span class="keyword">extends</span> <span class="title">RuntimeException</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">	<span class="comment">// 异常编码</span></span><br><span class="line">	<span class="keyword">private</span> Long code;</span><br><span class="line">	<span class="comment">// 异常自定义信息</span></span><br><span class="line">	<span class="keyword">private</span> String customMsg;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">NotFoundException</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">NotFoundException</span><span class="params">(Long code, String customMsg)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.code = code;</span><br><span class="line">		<span class="keyword">this</span>.customMsg = customMsg;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">//getter and setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>然后自定义一个控制器通知，来自定义异常的处理<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//控制器通知</span></span><br><span class="line"><span class="meta">@ControllerAdvice</span>(</span><br><span class="line">		<span class="comment">// 指定拦截包的控制器</span></span><br><span class="line">		basePackages = &#123; <span class="string">"com.springboot.chapter11.controller.*"</span> &#125;,</span><br><span class="line">		<span class="comment">// 限定被标注为@Controller或者@RestController的类才被拦截</span></span><br><span class="line">		annotations = &#123; Controller.class, RestController.class &#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VoControllerAdvice</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 异常处理，可以定义异常类型进行拦截处理</span></span><br><span class="line">	<span class="meta">@ExceptionHandler</span>(value=NotFoundException.class)</span><br><span class="line">	<span class="comment">// 以JSON表达方式响应</span></span><br><span class="line">	<span class="meta">@ResponseBody</span></span><br><span class="line">	<span class="comment">// 定义为服务器错误状态码</span></span><br><span class="line">	<span class="meta">@ResponseStatus</span>(HttpStatus.INTERNAL_SERVER_ERROR)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">exception</span><span class="params">(HttpServletRequest request, NotFoundException ex)</span> </span>&#123;</span><br><span class="line">		Map&lt;String, Object&gt; msgMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">		<span class="comment">// 获取异常信息</span></span><br><span class="line">		msgMap.put(<span class="string">"code"</span>, ex.getCode());</span><br><span class="line">		msgMap.put(<span class="string">"message"</span>, ex.getCustomMsg());</span><br><span class="line">		<span class="keyword">return</span> msgMap;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>这里使用了<code>@ControllerAdvice</code>来标注类，说明在定义一个控制器通知。</li>
-<li><code>basePackages</code>配置了它所拦截的包，<code>annotations</code>限定了拦截的那些被标注为注解<code>@Controller</code>和<code>@RestController</code>的控制器，</li>
-<li>这里的<code>@ExceptionHandler</code>定义了拦截<code>NotFoundException</code>的异常</li>
-<li><code>@ResponseBody</code>定义了响应的信息以<code>JSON</code>格式表达</li>
-<li><code>@ResponseStatus</code>定义了状态码为<code>500</code>(服务器内部错误)，这样就会把这个状态码传达给请求者</li>
-</ul>
-<p>最后我们让前文定义的<code>getUser</code>方法抛出异常，这样完成了当发生资源找不到或者处理逻辑发生异常这种情况下的处理逻辑<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(value=<span class="string">"/user/&#123;id&#125;"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">getUser</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span>Long id)</span>&#123;</span><br><span class="line">    User user = userService.getUser(id);</span><br><span class="line">    <span class="keyword">if</span>(user == <span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NotFoundException(<span class="number">1L</span>, <span class="string">"找不到用户["</span>+id+<span class="string">"]信息"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> userService.getUser(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这样当发生异常时，就可以返回<code>500</code>状态码和异常信息字符串了</p>
+<h4 id="1-4-什么是一个单元测试用例"><a href="#1-4-什么是一个单元测试用例" class="headerlink" title="1.4 什么是一个单元测试用例"></a>1.4 什么是一个单元测试用例</h4><p>单元测试用例是一部分代码，可以确保另一段代码（方法）按预期工作。为了迅速达到预期的结果，就需要测试框架。<strong>JUnit 是 java 编程语言理想的单元测试框架。</strong></p>
+<p>一个正式的编写好的单元测试用例的特点是：<strong>已知输入和预期输出</strong>，<strong>即在测试执行前就已知</strong>。已知输入需要测试的先决条件，预期输出需要测试后置条件。</p>
+<p><strong>每一项需求至少需要两个单元测试用例：一个正检验，一个负检验。</strong>如果一个需求有子需求，每一个子需求必须至少有正检验和负检验两个测试用例。</p>
+<h3 id="2-重要API"><a href="#2-重要API" class="headerlink" title="2 重要API"></a>2 重要API</h3><h4 id="2-1-Assert类"><a href="#2-1-Assert类" class="headerlink" title="2.1 Assert类"></a>2.1 Assert类</h4><p>这个类提供了一系列的编写测试的有用的声明方法。只有失败的声明方法才会被记录。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">5</span>;</span><br><span class="line">        String temp = <span class="keyword">null</span>;</span><br><span class="line">        String str = <span class="string">"Junit is working fine"</span>;</span><br><span class="line">        assertEquals(<span class="string">"Junit is working fine"</span>, str);</span><br><span class="line">        assertFalse(num &gt; <span class="number">6</span>);</span><br><span class="line">        assertNotNull(str);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>签名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>void assertEquals(Object expected, Object actual)</td>
+<td>检查两个变量是否相等</td>
+</tr>
+<tr>
+<td>2</td>
+<td>void assertFalse(boolean condition)</td>
+<td>检查条件是假的</td>
+</tr>
+<tr>
+<td>3</td>
+<td>void assertNotNull(Object object)</td>
+<td>检查对象不为空</td>
+</tr>
+<tr>
+<td>4</td>
+<td>void assertNull(Object object)</td>
+<td>检查对象为空</td>
+</tr>
+<tr>
+<td>4</td>
+<td>void assertTrue(boolean condition)</td>
+<td>检查条件为真</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-2-TestCase类"><a href="#2-2-TestCase类" class="headerlink" title="2.2 TestCase类"></a>2.2 TestCase类</h4><p>测试样例定义了运行多重测试的固定格式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> junit.framework.TestCase;</span><br><span class="line"><span class="keyword">import</span> org.junit.Before;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestJunit2</span> <span class="keyword">extends</span> <span class="title">TestCase</span>  </span>&#123;</span><br><span class="line">   <span class="keyword">protected</span> <span class="keyword">double</span> fValue1;</span><br><span class="line">   <span class="keyword">protected</span> <span class="keyword">double</span> fValue2;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Before</span> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      fValue1= <span class="number">2.0</span>;</span><br><span class="line">      fValue2= <span class="number">3.0</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="comment">//count the number of test cases</span></span><br><span class="line">      System.out.println(<span class="string">"No of Test Case = "</span>+ <span class="keyword">this</span>.countTestCases());</span><br><span class="line"></span><br><span class="line">      <span class="comment">//test getName </span></span><br><span class="line">      String name= <span class="keyword">this</span>.getName();</span><br><span class="line">      System.out.println(<span class="string">"Test Case Name = "</span>+ name);</span><br><span class="line"></span><br><span class="line">      <span class="comment">//test setName</span></span><br><span class="line">      <span class="keyword">this</span>.setName(<span class="string">"testNewAdd"</span>);</span><br><span class="line">      String newName= <span class="keyword">this</span>.getName();</span><br><span class="line">      System.out.println(<span class="string">"Updated Test Case Name = "</span>+ newName);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//tearDown used to close the connection or clean up activities</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">tearDown</span><span class="params">(  )</span> </span>&#123;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>签名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>int countTestCases()</td>
+<td>为被run(TestResult result) 执行的测试案例计数</td>
+</tr>
+<tr>
+<td>2</td>
+<td>TestResult createResult()</td>
+<td>创建一个默认的 TestResult 对象</td>
+</tr>
+<tr>
+<td>3</td>
+<td>String getName()</td>
+<td>获取 TestCase 的名称</td>
+</tr>
+<tr>
+<td>4</td>
+<td>TestResult run()</td>
+<td>一个运行这个测试的方便的方法，收集由TestResult 对象产生的结果</td>
+</tr>
+<tr>
+<td>5</td>
+<td>void run(TestResult result)</td>
+<td>在TestResult 中运行测试案例并收集结果</td>
+</tr>
+<tr>
+<td>6</td>
+<td>void setUp()</td>
+<td>创建固定装置，例如，打开一个网络连接</td>
+</tr>
+<tr>
+<td>7</td>
+<td>void tearDown()</td>
+<td>拆除固定装置，例如，关闭一个网络连接</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-3-TestResult类"><a href="#2-3-TestResult类" class="headerlink" title="2.3 TestResult类"></a>2.3 TestResult类</h4><p>TestResult类 收集所有执行测试案例的结果。它区分失败(Failure)和错误(Error)。失败是可以预料的并且可以通过假设来检查。错误是不可预料的问题就像ArrayIndexOutOfBoundsException。</p>
+<h4 id="2-4-TestSuite类"><a href="#2-4-TestSuite类" class="headerlink" title="2.4 TestSuite类"></a>2.4 TestSuite类</h4><p>TestSuite 类是测试的组成部分。它运行了很多的测试用例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> junit.framework.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JunitTestSuite</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] a)</span> </span>&#123;</span><br><span class="line">      <span class="comment">// add the test's in the suite</span></span><br><span class="line">      TestSuite suite = <span class="keyword">new</span> TestSuite(TestJunit1.class, TestJunit2.class, TestJunit3.class );</span><br><span class="line">      TestResult result = <span class="keyword">new</span> TestResult();</span><br><span class="line">      suite.run(result);</span><br><span class="line">      System.out.println(<span class="string">"Number of test cases = "</span> + result.runCount());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-样例-使用JUnit来测试数据库的CRUD功能"><a href="#3-样例-使用JUnit来测试数据库的CRUD功能" class="headerlink" title="3 样例-使用JUnit来测试数据库的CRUD功能"></a>3 样例-使用JUnit来测试数据库的CRUD功能</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">T</span> <span class="keyword">extends</span> <span class="title">AbstractTransactionalJUnit4SpringContextTests</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Resource</span></span><br><span class="line">	<span class="keyword">private</span> ClientService clientService;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Client c = <span class="keyword">new</span> Client();</span><br><span class="line">		c.setCode(<span class="string">"88976-1"</span>);</span><br><span class="line">		c.setFullName(<span class="string">"单元测试"</span>);</span><br><span class="line">		c.setShortName(<span class="string">"测试"</span>);</span><br><span class="line">		c.setLinkMan(<span class="string">"张三"</span>);</span><br><span class="line">		c.setAddressName(<span class="string">"西城区"</span>);</span><br><span class="line">		c.setCompanyUrl(<span class="string">"www.baidu.com"</span>);</span><br><span class="line">		clientService.save(c);</span><br><span class="line">		Assert.assertTrue(c.getClientId()&gt;<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFindById</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Client c = <span class="keyword">new</span> Client();</span><br><span class="line">		c.setFullName(<span class="string">"单元测试"</span>);</span><br><span class="line">		clientService.save(c);</span><br><span class="line">		Client c2 = clientService.getClientById(c.getClientId());</span><br><span class="line">		Assert.assertEquals(c2.getFullName(), <span class="string">"单元测试"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUpdate</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Client c = <span class="keyword">new</span> Client();</span><br><span class="line">		c.setFullName(<span class="string">"单元测试"</span>);</span><br><span class="line">		clientService.save(c);</span><br><span class="line">		c.setFullName(<span class="string">"单元测试更新"</span>);</span><br><span class="line">		clientService.update(c);</span><br><span class="line">		System.out.println(c.getFullName());</span><br><span class="line">		Assert.assertEquals(c.getFullName(), <span class="string">"单元测试更新"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDelete</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Client c = <span class="keyword">new</span> Client();</span><br><span class="line">		clientService.save(c);</span><br><span class="line">		Long id = c.getClientId();</span><br><span class="line">		clientService.delete(id);</span><br><span class="line">		System.out.println(id);</span><br><span class="line">		Assert.assertNull(clientService.getClientById(id));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -482,7 +546,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/90/">90</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/91/">91</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -530,7 +594,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">91</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
