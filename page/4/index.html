@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/19/JVM-6-类文件结构/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/20/JVM-7-虚拟机类加载机制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/02/19/JVM-6-类文件结构/" itemprop="url">[JVM][6][类文件结构]</a></h1>
+                <a class="post-title-link" href="/2020/02/20/JVM-7-虚拟机类加载机制/" itemprop="url">[JVM][7][虚拟机类加载机制]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-19T20:32:35+08:00">
-                2020-02-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-20T17:29:00+08:00">
+                2020-02-20
               </time>
             
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/02/19/JVM-6-类文件结构/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/19/JVM-6-类文件结构/" itemprop="commentCount"></span>
+                <a href="/2020/02/20/JVM-7-虚拟机类加载机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/20/JVM-7-虚拟机类加载机制/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,90 +362,64 @@
       
         
           
-            <h2 id="第-6-章-类文件结构"><a href="#第-6-章-类文件结构" class="headerlink" title="第 6 章 类文件结构"></a>第 6 章 类文件结构</h2><h3 id="6-1-概述"><a href="#6-1-概述" class="headerlink" title="6.1 概述"></a>6.1 概述</h3><p>近几年内涌现了大量虚拟机以及大量建立在虚拟机上的程序设计语言，把编写的程序编译成二进制本地机器码(Native Code)不再是唯一选择，越来越多的程序语言选择了与操作系统和机器指令集无关的、平台中立的格式作为程序编译后的存储格式</p>
-<h3 id="6-2-无关性的基石"><a href="#6-2-无关性的基石" class="headerlink" title="6.2 无关性的基石"></a>6.2 无关性的基石</h3><p>各种各样的针对不同操作系统设计的Java虚拟机，载入和执行一种与平台无关的字节码，就实现了“一次编写，到处运行”。因此，各个不同平台的Java虚拟机以及所有平台都统一支持的程序存储格式——字节码（Byte Code）是构成平台无关性的基石。</p>
-<p>除此之外还出现了大量运行在Java虚拟机之上的语言，比如Kotlin、Clojure、Groovy等，使得Java虚拟机逐渐具备语言无关性</p>
-<p>Java虚拟机不与任何程序语言绑定，它只与<code>Class</code>文件这种特定的二进制文件格式所关联，<code>Class</code>文件中包含了<code>Java</code>虚拟机指令集、符号表以及若干其他辅助信息。图灵完备的字节码格式，保证了任何一门功能性语言都可以表示为一个能被Java虚拟机所接受的<code>Class</code>文件，如下图</p>
-<p><img src="/2020/02/19/JVM-6-类文件结构/200218_0.png" alt=""></p>
-<h3 id="6-3-Class类文件结构"><a href="#6-3-Class类文件结构" class="headerlink" title="6.3 Class类文件结构"></a>6.3 Class类文件结构</h3><p>Class文件结构的内容，绝大部分在1997年发布的第一版《Java虚拟机规范》中已经定义好了。它是一组以8个字节为基础单位的二进制流，中间没有任何分割符</p>
-<p>Class文件格式采用一种类似C语言结构体的伪结构来存储数据，这种伪结构只有两种数据类型：“无符号数”和“表”</p>
-<ul>
-<li>无符号数用来描述数字、索引引用、数量值或按照UTF-8编码组成的字符串值</li>
-<li>表是由多个无符号数或其他表作为数据项构成的复合数据类型</li>
-</ul>
-<h4 id="6-3-1-魔数和Class文件的版本"><a href="#6-3-1-魔数和Class文件的版本" class="headerlink" title="6.3.1 魔数和Class文件的版本"></a>6.3.1 魔数和Class文件的版本</h4><p>每个Class文件的头4个字节被称为魔数，它用来确定一个文件是否为一个能被虚拟机接受的Class文件，Class文件的魔数固定为<code>0xCAFEBABE</code></p>
-<p>紧接着魔数的4个字节存储的是Class文件的版本号，Java的版本号是从45开始的，每个Java大版本版本号加1。高版本的JDK可以向下兼容以前版本的Class文件，但是不能运行以后版本的Class文件</p>
-<h4 id="6-3-2-常量池"><a href="#6-3-2-常量池" class="headerlink" title="6.3.2 常量池"></a>6.3.2 常量池</h4><p>常量池可以被喻为class文件的资源仓库。它主要存储两大类型的常量：字面量(Literal)和符号引用(symbolic References)。</p>
-<p>字面量接近于Java语言中的常量，如文本字符串、被声明为final的常量值等</p>
-<p>符号引用则属于编译原理方面的概念，主要包括</p>
-<ul>
-<li>被模块到处或开放的包（Package）</li>
-<li>类和接口的全限定名（Fully Qualified Name）</li>
-<li>字段的名称和描述符（Descriptor）</li>
-<li>方法的名称和描述符</li>
-<li>方法句柄和方法类型</li>
-<li>动态调用点和动态常量</li>
-</ul>
-<h4 id="6-3-3-访问标志"><a href="#6-3-3-访问标志" class="headerlink" title="6.3.3 访问标志"></a>6.3.3 访问标志</h4><p>在常量池结束后，接下来的两个标志是访问标志，这个标志用来识别一些类或者接口层次的访问信息，包括：这个Class是类还是接口；是否定义为public类型等</p>
-<h4 id="6-3-4-类索引、父类索引与结构索引集合"><a href="#6-3-4-类索引、父类索引与结构索引集合" class="headerlink" title="6.3.4 类索引、父类索引与结构索引集合"></a>6.3.4 类索引、父类索引与结构索引集合</h4><p>类索引用来定义这个类的全限定名<br>父类索引用来定义这个类的父类的全限定名<br>接口索引描述这个类实现了哪些接口</p>
-<h4 id="6-3-5-字段表集合"><a href="#6-3-5-字段表集合" class="headerlink" title="6.3.5 字段表集合"></a>6.3.5 字段表集合</h4><p>用来描述类中的静态变量或者实例级变量。包括字段的修饰标志（private、static等）、描述符(字段类型，例如<code>int</code>的描述符是<code>i</code>)、字段的简单名称索引(就是变量名)</p>
-<h4 id="6-3-6-方法表集合"><a href="#6-3-6-方法表集合" class="headerlink" title="6.3.6 方法表集合"></a>6.3.6 方法表集合</h4><p>与字段表集合类似，存储除了方法体之外的方法信息，方法体放在了方法属性表的<code>Code</code>类型中</p>
-<h4 id="6-3-7-属性表集合"><a href="#6-3-7-属性表集合" class="headerlink" title="6.3.7 属性表集合"></a>6.3.7 属性表集合</h4><p>Class文件、字段表、方法表都可以携带自己的<strong>属性表</strong>集合</p>
-<p>与Class文件中其他的数据项目要求严格的顺序、长度和内容不同，属性表集合的限制比较宽松，不再要求各个属性表具有严格顺序</p>
-<h5 id="1-Code属性"><a href="#1-Code属性" class="headerlink" title="1 Code属性"></a>1 Code属性</h5><p>用于方法属性表，Java程序方法体里面的代码经过Javac编译器处理后，最终变成字节码指令存储在Code属性内</p>
-<h5 id="2-Exceptions属性"><a href="#2-Exceptions属性" class="headerlink" title="2 Exceptions属性"></a>2 Exceptions属性</h5><p>用于方法属性表，列举出方法中可能抛出的受查异常(Checked Exception)，也就是方法描述时在throws关键字后面列举的异常</p>
-<h5 id="3-LineNumberTable属性"><a href="#3-LineNumberTable属性" class="headerlink" title="3 LineNumberTable属性"></a>3 LineNumberTable属性</h5><p>lineNumberTable用来描述Java源码行号与字节码行号之间的对应关系。这样当程序运行抛出异常时，可以得知出错的行号</p>
-<h5 id="4-LocalVaribleTable属性"><a href="#4-LocalVaribleTable属性" class="headerlink" title="4 LocalVaribleTable属性"></a>4 LocalVaribleTable属性</h5><p>用来描述运行时栈帧中的局部变量表的变量与Java源代码中定义的变量之间的关系，这样当别人引用方法时，参数名称不会丢失</p>
-<h5 id="5-SourceFile及SourceDebugExtension"><a href="#5-SourceFile及SourceDebugExtension" class="headerlink" title="5 SourceFile及SourceDebugExtension"></a>5 SourceFile及SourceDebugExtension</h5><p>SourceFile用于记录生成这个Class文件的源码文件名称</p>
-<p>SourceDebugExtension用来储存一些额外的调试信息，如定位JSP报错的行号</p>
-<h5 id="6-ConstantValue"><a href="#6-ConstantValue" class="headerlink" title="6 ConstantValue"></a>6 ConstantValue</h5><p>用于类变量属性表，作用是通知虚拟机自动为静态变量赋值</p>
-<p>对实例变量的赋值是在实例构造器<code>&lt;init&gt;()</code>方法中进行的</p>
-<p>对于类变量，有两种方式</p>
-<ul>
-<li>在类构造器<code>&lt;cinit&gt;()</code>方法中</li>
-<li>使用<code>ConstantValue</code>属性</li>
-</ul>
-<h5 id="7-InnerClass"><a href="#7-InnerClass" class="headerlink" title="7 InnerClass"></a>7 InnerClass</h5><p>用于Class文件属性表，用于记录内部类与宿主类之间的关联</p>
-<h5 id="8-Deprecated及Synthetic属性"><a href="#8-Deprecated及Synthetic属性" class="headerlink" title="8 Deprecated及Synthetic属性"></a>8 Deprecated及Synthetic属性</h5><p>Deprecated用于表示某个类、字段或者方法，已经被程序作者定为不再推荐使用</p>
-<p>Synthetic用来代表此字段或者方法并不是由Java源码直接产生的，而是由编译器自行添加的</p>
-<h5 id="9-Signature"><a href="#9-Signature" class="headerlink" title="9 Signature"></a>9 Signature</h5><p>用以支持泛型。任何类、接口、初始化方法或成员的泛型签名如果包含了类型变量或者参数化类型，则Signature会为它记录泛型签名信息</p>
-<p>Java语言的泛型采用的是擦除法实现的伪泛型，字节码中所有的泛型信息编译在编译之后都通通被擦除掉</p>
-<p>使用擦除法的好处是实现简单，坏处是运行期时无法像C#等真泛型语言那样，将泛型类型与普通类型同等看待，运行期无法通过反射获得泛型信息</p>
-<h5 id="10-运行时的注解相关属性"><a href="#10-运行时的注解相关属性" class="headerlink" title="10 运行时的注解相关属性"></a>10 运行时的注解相关属性</h5><p>RuntimeVisibleAnnotations等6个属性用于提供对注解的支持。例如，当我们使用反射API来获取、字段或者方法上的注解时，返回值就是通过RuntimeVisibleAnnotations这个属性取得的</p>
-<h3 id="6-4-字节码指令简介"><a href="#6-4-字节码指令简介" class="headerlink" title="6.4 字节码指令简介"></a>6.4 字节码指令简介</h3><p>Java虚拟机的指令由一个单字节长度的、代表着某种特定操作含义的数字以及跟随其后的零至多个代表此操作所需的参数构成</p>
-<p>Java虚拟机大部分指令都不包括操作数，只有一个操作码，指令参数都存放在操作数栈中</p>
-<p>字节码指令集执行速度很快，但是也有很多缺点</p>
+            <h2 id="第-7-章-虚拟机类加载机制"><a href="#第-7-章-虚拟机类加载机制" class="headerlink" title="第 7 章 虚拟机类加载机制"></a>第 7 章 虚拟机类加载机制</h2><p>代码编译的结果从本地机器码转变为字节码，是存储格式发展的一小步，却是编程语言发展的一大步</p>
+<h3 id="7-1-概述"><a href="#7-1-概述" class="headerlink" title="7.1 概述"></a>7.1 概述</h3><p>在Class文件中描述的各类信息，最终都需要加载到虚拟机中之后才能被运行和使用</p>
+<p>虚拟机的类加载机制就是Java虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成被虚拟机直接使用Java类型</p>
+<p>与那些编译时需要进行连接的语言不同，<strong>在Java语言里面，类型的加载、连接和初始化过程都是在程序运行期间完成的</strong>。Java天生可以动态扩展的语言特性就是依赖运行期动态加载和动态连接这个特点实现的。例如，编写一个面向接口的应用程序，可以等到运行时再指定其实际的实现类，用户可以通过Java预置的或自定义类加载器，让某个本地的应用程序在运行时从网络或其他地方加载一个二进制流作为其程序代码的一部分</p>
+<h3 id="7-2-类加载的时机"><a href="#7-2-类加载的时机" class="headerlink" title="7.2 类加载的时机"></a>7.2 类加载的时机</h3><p>一个类型从被加载到虚拟机内存中开始，到卸载出内存为止，它的生命周期将会经历加载(Loading)、验证(Verification)、准备(Preparation)、解析(Resolution)、初始化(Initialization)、使用(Using)和卸载(Unloading)七个阶段，其中验证、准备、解析三个阶段称为连接(Linking)</p>
+<p><img src="/2020/02/20/JVM-7-虚拟机类加载机制/200219_0.png" alt=""></p>
+<p>关于在什么情况下需要开始类加载过程的第一阶段“加载”，虚拟机规范并没有强制要求，这一点交给了虚拟机具体实现来把握</p>
+<p>但是对于初始化阶段，严格规定了有且只有以下6种情况必须立刻进行类的初始化</p>
 <ol>
-<li>由于限制了Java虚拟机操作码的长度为一个字节(0到255)，这意味着指令集的操作码总数不能超过256条</li>
-<li>且Class文件放弃了编译后代码的操作数长度对齐，会导致解释执行字节码时会损失一定的性能</li>
+<li>遇到<code>new</code>、<code>getstatic</code>、<code>putstatic</code>或<code>invokestatic</code>这4条字节码指令时，如果类没有进行过初始化，则需要先触发其初始化。</li>
+<li>使用<code>java.lang.reflect</code>包的方法对类进行反射调用的时候，如果类没有进行过初始化，则需要先触发其初始化。</li>
+<li>当初始化一个类的时候，如果发现其父类还没有进行过初始化，则需要先触发其父类的初始化。</li>
+<li>当虚拟机启动时，用户需要指定一个要执行的主类（包含<code>main()</code>方法的那个类），虚拟机会先初始化这个主类。</li>
+<li>当使用JDK1.7的动态语言支持时，方法句柄所对应的类没有进行过初始化，则需要先触发其初始化。</li>
+<li>当一个接口种定义了默认方法时，如果有这个接口的实现类发生了初始化，那这个接口要在其之前被初始化</li>
 </ol>
-<p>如果不考虑异常处理的话，Java虚拟机的解释器模型可以使用下面这段伪代码作为最基本的执行模型来理解<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">do&#123;</span><br><span class="line">    自动计算PC寄存器的值+1</span><br><span class="line">    根据PC寄存器指示的位置，从字节码流中取出操作码</span><br><span class="line">    if(字节码存在操作数)从字节码流中取出操作数；</span><br><span class="line">    执行操作码所定义的操作</span><br><span class="line">&#125;while(字节码流长度 &gt; 0)</span><br></pre></td></tr></table></figure></p>
-<h4 id="6-4-1-字节码与数据类型"><a href="#6-4-1-字节码与数据类型" class="headerlink" title="6.4.1 字节码与数据类型"></a>6.4.1 字节码与数据类型</h4><p>在Java虚拟机的指令集中，大多数指令都包含其操作所对应的数据类型信息。<code>iload</code>指令用于从局部变量表中加载<code>int</code>型的数据到操作数，而<code>fload</code>指令加载的则是fload类型的数据</p>
-<h4 id="6-4-2-操作数栈"><a href="#6-4-2-操作数栈" class="headerlink" title="6.4.2 操作数栈"></a>6.4.2 操作数栈</h4><p>操作数栈主要用于配合指令集使用，java之所以不用再指令集中放入操作数，是因为当执行到某个指令时，它需要的操作数都预先被前面的指令放入到操作数栈中。</p>
-<h4 id="6-4-3-加载和存储指令"><a href="#6-4-3-加载和存储指令" class="headerlink" title="6.4.3 加载和存储指令"></a>6.4.3 加载和存储指令</h4><p>用于将数据在栈帧中的局部变量表和操作数栈之间来回传输，例如：<code>iload</code>将一个局部变量加载到操作栈</p>
-<h4 id="6-4-4-运算指令"><a href="#6-4-4-运算指令" class="headerlink" title="6.4.4 运算指令"></a>6.4.4 运算指令</h4><p>算术指令用于对两个操作数栈上的值进行某种特定运算，并将结果重新存入到操作栈顶。例如：加法操作<code>iadd</code></p>
-<h4 id="6-4-5-类型转换指令"><a href="#6-4-5-类型转换指令" class="headerlink" title="6.4.5 类型转换指令"></a>6.4.5 类型转换指令</h4><p>类型转换指令可以将两个不同的数值类型相互转换，这些转换操作一般用于实现用户代码的强制类型转换，例如：<code>i2b</code>、<code>i2c</code>等</p>
-<h4 id="6-5-6-对象创建与访问指令"><a href="#6-5-6-对象创建与访问指令" class="headerlink" title="6.5.6 对象创建与访问指令"></a>6.5.6 对象创建与访问指令</h4><p>创建类实例的指令：new<br>访问实例字段的指令:getfield、putfield等</p>
-<h4 id="6-5-7-操作数栈管理指令"><a href="#6-5-7-操作数栈管理指令" class="headerlink" title="6.5.7 操作数栈管理指令"></a>6.5.7 操作数栈管理指令</h4><p>Java虚拟机提供了一些用于直接操作操作数栈的指令，包括</p>
+<p>这个6个场景的行为称为对一个类型进行主动引用。除此之外的所有引用类型的方式，都不会触发初始化，称为被动引用</p>
+<h3 id="7-3-类加载的过程"><a href="#7-3-类加载的过程" class="headerlink" title="7.3 类加载的过程"></a>7.3 类加载的过程</h3><p>接下来我们详细讲解一下Java虚拟机中类加载的全过程，也就是加载、验证、准备、解析和初始化这5个阶段所执行的具体动作</p>
+<h4 id="7-3-1-加载"><a href="#7-3-1-加载" class="headerlink" title="7.3.1 加载"></a>7.3.1 加载</h4><p>在加载阶段，虚拟机需要完成以下3件事情：</p>
+<ol>
+<li>通过一个类的全限定名来获取定义此类的二进制字节流。</li>
+<li>将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构。</li>
+<li>在内存中生成一个代表这个类的<code>java.lang.Class</code>对象，作为方法区这个类的各种数据的访问入口。</li>
+</ol>
+<p>虚拟机规范没有指明二进制字节流要从一个 Class文件中获取，准确地说是根本没有指明要从哪里获取、怎样获取。虚拟机设计团队在加载阶段搭建了一个相当开放的、广阔的“舞台”，由此衍生出了好多技术：例如JAR(从zip中获取)、动态代理(运行时计算生成)、JSP技术（从其他文件中生成）、从加密文件中获取等</p>
+<p>相对于类加载过程的其他阶段，加载阶段是开发人员可控性最强的，因为加载阶段既可以使用系统提供的引导类加载器来完成，也可以由用户自定义的类加载器去完成，开发人员可以通过定义自己的类加载器去控制字节流的获取方式（即重写一个类加载器的<code>loadClass()</code>方法）</p>
+<p>在加载阶段结束后，Java虚拟机外部的二进制字节流就按照虚拟机所设定的格式存储在方法区之中了，类型数据妥善安置在方法区之后，会在Java堆内存中实例化一个<code>java.lang.Class</code>类的对象，这个对象将作为此程序访问方法区中的类型数据的外部接口</p>
+<h4 id="7-3-2-验证"><a href="#7-3-2-验证" class="headerlink" title="7.3.2 验证"></a>7.3.2 验证</h4><p>验证是连接阶段的第一步，这一阶段的目的是为了确保Class文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟杌自身的安全。</p>
+<p>Java语言本身是相对安全的语言，使用纯粹的Java代码无法做到诸如访问数组边界以外的数据、将一个对象转型为它并未实现的类型、跳转到不存在的代码行之类的事情，如果这样做了，编译器将拒绝编译。但前面已经说过， Class文件并不一定要求用Java源码编译而来，可以使用任何途径产生。在字节码语言层面上，上述Java代码无法做到的事情都是可以实现的，至少语义上是可以表达出来的。虚拟机如果不检査输人的字节流，对其完全信任的话，很可能会因为载入了有害的字节流而导致系统崩溃，所以验证是虚拟机对自身保护的一项重要工作。</p>
+<p>验证阶段大致上会完成下面4个阶段的检验动作</p>
 <ul>
-<li>将操作数栈的栈顶一个或两个元素出栈：<code>pop</code>、<code>pop2</code></li>
-<li>复制栈顶一个或两个数值并将复制值重新压入栈：<code>dup</code>、<code>dup2</code></li>
-<li>将栈最顶端的两个数值互换：<code>swap</code></li>
+<li>文件格式验证：验证字节流是否符合Class文件格式的规范，并且能被当前版本的虚拟机处理</li>
+<li>元数据验证：对类的元数据信息进行语义验证，确保符合规范，例如：这个类是否继承了不被允许继承的父类、如果这个类不是抽象类是否实现了接口中要求实现的各种方法</li>
+<li>字节码验证：对类的方法体进行校验(Class文件的Code属性)</li>
+<li>符号引用验证：验证该类是否缺少或者被禁止访问它所以来的某些外部类、方法、字段等资源</li>
 </ul>
-<h4 id="6-5-8-控制转移指令"><a href="#6-5-8-控制转移指令" class="headerlink" title="6.5.8 控制转移指令"></a>6.5.8 控制转移指令</h4><p>控制转移指令可以让Java虚拟机有条件或无条件地从指定的位置指令而不是控制转移指令的下一条指令继续执行程序，从概念模型上理解，可以认为控制转移指令就是在有条件或无条件地修改PC寄存器的值。</p>
+<h4 id="7-3-3-准备"><a href="#7-3-3-准备" class="headerlink" title="7.3.3 准备"></a>7.3.3 准备</h4><p>准备阶段是正式为类变量分配内存并设置类变量初始值的阶段，这些变量所使用的内存都将在方法区中进行分配。这个阶段中有两个容易产生混淆的概念需要强调一下，首先，这时候进行内存分配的仅包括类变量（被 static修饰的变量），而不包括实例变量，实例变量将会在对象实例化时随着对象一起分配在Java堆中。其次，这里所说的初始值“通常情况”下是数据类型的零值。</p>
+<h4 id="7-3-4-解析"><a href="#7-3-4-解析" class="headerlink" title="7.3.4 解析"></a>7.3.4 解析</h4><p>解析阶段是虚拟机将常量池内的符号引用替换为直接引用的过程</p>
 <ul>
-<li>条件分支: <code>ifeq</code></li>
-<li>复合条件分支：<code>tableswitch</code></li>
-<li>无条件分支：<code>goto</code></li>
+<li>符号引用（Symbolic References）：符号引用以一组符号来描述所引用的目标，符号可以是任何形式的字面量，只要使用时能无歧义地定位到目标即可。符号引用与虚拟机实现的内存布局无关，引用的目标并不一定已经加载到内存中。</li>
+<li>直接引用（Direct References）：直接引用可以是直接指向目标的指针、相对偏移量或是一个能间接定位到目标的句柄。直接引用是和虚拟机实现的内存布局相关的，同一个符号引用在不同虚拟机实例上翻译出来的直接引用一般不会相同。如果有了直接引用，那引用的目标必定已经在内存中存在。</li>
 </ul>
-<h4 id="6-5-9-方法调用和返回指令"><a href="#6-5-9-方法调用和返回指令" class="headerlink" title="6.5.9 方法调用和返回指令"></a>6.5.9 方法调用和返回指令</h4><p>如<code>invokevirtual</code>、<code>invokeinterface</code>等指令可用来调用方法</p>
-<h4 id="6-5-10-异常处理指令"><a href="#6-5-10-异常处理指令" class="headerlink" title="6.5.10 异常处理指令"></a>6.5.10 异常处理指令</h4><p><code>athrow</code>指令可以用来显式的抛出异常</p>
-<h4 id="6-5-11-同步指令"><a href="#6-5-11-同步指令" class="headerlink" title="6.5.11 同步指令"></a>6.5.11 同步指令</h4><p>Java虚拟机可以支持方法级的同步和方法内部一段指令序列的同步，这两种同步结构都是使用管程（Monitor）来支持的。<br>方法级的同步是隐式的，即无须通过字节码指令来控制，它实现在方法调用和返回操作之中。虚拟机可以从方法常量池的方法表结构中的<code>ACC_SYNCHRONIZED</code>访问标志得知一个方法是否声明为同步方法。当方法调用时，调用指令将会检查方法的<code>ACC_SYNCHRONIZED</code>访问标志是否被设置，如果设置了，执行线程就要求先成功持有管程，然后才能执行方法，最后当方法完成（无论是正常完成还是非正常完成）时释放管程。在方法执行期间，执行线程持有了管程，其他任何线程都无法再获取到同一个管程。如果一个同步方法执行期间抛出了异常，并且在方法内部无法处理此异常，那么这个同步方法所持有的管程将在异常抛到同步方法之外时自动释放。</p>
-<p>同步一段指令集序列通常是由Java语言中的<code>synchronized</code>语句块来表示的，Java虚拟机的指令集中有 <code>monitorenter</code>和<code>monitorexit</code>两条指令来支持<code>synchronized</code>关键字的语义，正确实现<code>synchronized</code>关键字需要Javac编译器与Java虚拟机两者共同协作支持</p>
-<h3 id="6-5-公有设计，私有实现"><a href="#6-5-公有设计，私有实现" class="headerlink" title="6.5 公有设计，私有实现"></a>6.5 公有设计，私有实现</h3><p>Class文件格式以及字节码指令集这些内容与硬件操作系统及具体的虚拟机实现之间是完全独立的，实现者可能更愿意把它们看做是程序在各种Java平台实现之间互相安全地交互的手段。</p>
-<p>理解公有设计与私有实现之间的分界线是非常有必要的，Java虚拟机实现必须能够读取Class文件并精确实现包含在其中的Java虚拟机代码的语义。拿着Java虚拟机规范一成不变地逐字实现其中要求的内容当然是一种可行的途径，但一个优秀的虚拟机实现，在满足虚拟机规范的约柬下对具体实现做出修改和优化也是完全可行的，并且虚拟机规范中明确鼓励实现者这样做。只要优化后 Class文件依然可以被正确读取，并且包含在其中的语义能得到完整的保持，那实现者就可以选择任何方式去实现这些语义，虚拟机后台如何处理 Class文件完全是实现者自己的事情，只要它在外部接口上看起来与规范描述的一致即可。</p>
-<h3 id="6-6-Class文件结构的发展"><a href="#6-6-Class文件结构的发展" class="headerlink" title="6.6 Class文件结构的发展"></a>6.6 Class文件结构的发展</h3><p>Class文件结构自Java虚拟机规范第1版订立以来，已经有二十多年的历史。这十多年间， Java技术体系有了翻天覆地的改变， Class文件结构一直处于比较稳定的状态， Class文件的主体结构、字节码指令的语义和数量几乎没有出现过变动，所有对 Class文件格式的改进，都集中在向访问标志、属性表这些在设计上就可扩展的数据结构中添加内容。</p>
-<p>Class文件格式所具备的平台中立（不依赖于特定硬件及操作系统）、紧凑、稳定和可扩展的特点，是Java技术体系实现平台无关、语言无关两项特性的重要支柱。</p>
+<h4 id="7-3-5-初始化"><a href="#7-3-5-初始化" class="headerlink" title="7.3.5 初始化"></a>7.3.5 初始化</h4><p>在准备阶段，变量已经赋过一次系统要求的初始值，而在初始化阶段，则根据程序员通过程序制定的主观计划去初始化类变量和其他资源，或者可以从另外一个角度来表达：初始化阶段是执行类构造器<code>&lt;clinit&gt;()</code>方法的过程。</p>
+<p><code>&lt;clinit&gt;()</code>方法是由编译器自动收集类中的所有类变量的赋值动作和静态语句块<code>static{}</code>块中的语句合并产生的，编译器收集的顺序是由语句在源文件中出现的顺序所决定的，静态语句块中只能访问到定义在静态语句块之前的变量</p>
+<h3 id="7-4-类加载器"><a href="#7-4-类加载器" class="headerlink" title="7.4 类加载器"></a>7.4 类加载器</h3><p>虚拟机设计团队把类加载阶段中的“通过一个类的全限定名来获取描述此类的二进制字节流”这个动作放到Java虚拟机外部去实现，以便让应用程序自已决定如何去获取所需要的类。实现这个动作的代码模块称为“类加载器”。</p>
+<h4 id="7-4-1-类与类加载器"><a href="#7-4-1-类与类加载器" class="headerlink" title="7.4.1 类与类加载器"></a>7.4.1 类与类加载器</h4><p>对于任意一个类，都需要由加载它的类加载器和这个类本身一同确立其在Java虚拟机中的唯一性。比较两个类是否“相等”，只有在这两个类是由同一个类加载器加载的前提下才有意义，否则，即使这两个类来源于同一个Class文件，被同一个虚拟机加载，只要加载它们的类加载器不同，那这两个类就必定不相等。</p>
+<h4 id="7-4-2-双亲委派模型"><a href="#7-4-2-双亲委派模型" class="headerlink" title="7.4.2 双亲委派模型"></a>7.4.2 双亲委派模型</h4><p>自JDK1.2以来，Java一直保持着三层类加载器、双亲委派的类加载架构</p>
+<p>三层类加载器是指</p>
+<ul>
+<li>启动类加载器（ Bootstrap Class Loader）：这个类加载器负责将存放在<code>&lt;JAVA_HOME&gt;\lib</code>目录中的虚拟机识别的类库加载到虚拟机内存中。启动类加载器无法被Java程序直接引用，用户在编写自定义类加载器时，如果需要把加载请求委派给引导类加载器，那直接使用null代替即可。</li>
+<li>扩展类加载器（ Extension Classloader）：这个加载器由<code>sun.misc.Launcher$ExtClassload</code>实现，它负责加载<code>&lt;JAVA_HOME&gt;\lib\ext</code>目录中的所有类库，开发者可以直接使用扩展类加载器</li>
+<li>它负责加载用户类路径（ClassPath）上所指定的类库，开发者可以直接使用这个类加载器，如果应用程序中没有自定义过自已的类加载器，一般情况下这个就是程序中默认的类加载器</li>
+</ul>
+<p>双亲委派模型要求除了顶层的启动类加载器外，其余的类加载器都应当有自已的父类加载器。这里类加载器之间的父子关系一般不会以继承（Inheritance）的关系来实现；而是都使用组合（Composition）关系来复用父加载器的代码。</p>
+<p><img src="/2020/02/20/JVM-7-虚拟机类加载机制/200219_1.png" alt=""></p>
+<p>双亲委派模型的工作过程是：如果一个类加载器收到了类加载的请求，它首先不公自己去尝试加载这个类而是把这个请求委派给父类加载器丢完成，每一个层次的类加载器都是如此，因此所有的加载请求最终都应该传送到顶层的启动类加载器中，只有当父加载器反馈自己无法完成这个加载请求（它的搜索范围中没有找到所需的类）时，子加载器才会尝试自己去加载。</p>
+<p>双亲委派模型对于保证Java程序的稳定运作很重要</p>
+<h3 id="7-5-Java模块化系统"><a href="#7-5-Java模块化系统" class="headerlink" title="7.5 Java模块化系统"></a>7.5 Java模块化系统</h3><p>略</p>
 
           
         
@@ -485,7 +459,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/92/">92</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/93/">93</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -533,7 +507,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
