@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-4-文本和字节序列/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-5-一等函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/02/01/流畅的Python-4-文本和字节序列/" itemprop="url">[流畅的Python][4][文本和字节序列]</a></h1>
+                <a class="post-title-link" href="/2020/02/01/流畅的Python-5-一等函数/" itemprop="url">[流畅的Python][5][一等函数]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:35:52+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:38:22+08:00">
                 2020-02-01
               </time>
             
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/02/01/流畅的Python-4-文本和字节序列/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-4-文本和字节序列/" itemprop="commentCount"></span>
+                <a href="/2020/02/01/流畅的Python-5-一等函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-5-一等函数/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,346 +362,274 @@
       
         
           
-            <h2 id="第4章-文本和字节序列"><a href="#第4章-文本和字节序列" class="headerlink" title="第4章 文本和字节序列"></a>第4章 文本和字节序列</h2><blockquote>
-<p>人类使用文本，计算机使用字节序列。————————Esther Nam和Travis Fischer</p>
+            <h2 id="第5章-一等函数"><a href="#第5章-一等函数" class="headerlink" title="第5章 一等函数"></a>第5章 一等函数</h2><blockquote>
+<p>不管别人怎么说或怎么想，我从未觉得Python受到来自函数式语言的太多影响。我非常熟悉命令式语言，如C和Algol68，虽然我把函数定为一等对象，但是我并不把Python当成函数式编程语言      —————Guido van Rossum</p>
 </blockquote>
 <ul>
-<li>Python3明确地区分了人类可读的文本字符串和原始的字节序列</li>
-</ul>
-<hr>
-<h3 id="4-1-字符问题"><a href="#4-1-字符问题" class="headerlink" title="4.1 字符问题"></a>4.1 字符问题</h3><ul>
-<li><p>字符串：字符串是一个简单的概念，一个<strong>字符串</strong>就是一个<strong>字符序列</strong></p>
+<li><p>在Python中，函数是一等对象</p>
 </li>
-<li><p>字符：字符的最佳定义就是Unicode字符</p>
-</li>
-<li><p>Unicode标准把<strong>字符的标识</strong>和<strong>具体的字节表述</strong>进行了如下的明确区分</p>
-<ul>
-<li><p><strong>字符的标识</strong></p>
-<ul>
-<li>即<strong>码位</strong>，是0-1114111的数字(十进制)，在Unicode标准中以4-6个十六进制数字表示，而且加上前缀“U+”</li>
-<li>例如，字母A的码位是<code>U+0041</code>，欧元符号的码位是<code>U+20AC</code>，高音谱号的码位是<code>U+1D11E</code></li>
-<li>大约<code>10%</code>的有效码位有对应的字符</li>
-<li>使用内置的<code>ord()</code>函数可以查看码位的具体值</li>
-</ul>
-</li>
-<li><p><strong>字符的具体表述</strong></p>
-<ul>
-<li>字符的具体表述取决于所用的<strong>编码</strong></li>
-<li><strong>编码</strong>是<strong>在码位和字节序列之间转换时使用的算法</strong></li>
-<li>例如，A(<code>U+0041</code>)的码位编码成单个字节<code>\x41</code>，而在UTF-16LE编码中编码成两个字节<code>\x41\x00</code></li>
-<li>再例如，欧元符号(<code>U+20AC</code>)再UTF-8编码中是三个字节:<code>\xe2\x82\xac</code>，而在UTF-16LE中编码成两个字节：<code>\xac\x200</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>把码位转换成字节序列的过程叫做<strong>编码</strong>，把字节序列转换成码位的过程是<strong>解码</strong></p>
-</li>
-<li><p>示例：编码与解码</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'café'</span></span><br><span class="line">&gt;&gt;&gt;len(s)</span><br><span class="line"><span class="number">4</span>                                                                                                                                     </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = s.encode(<span class="string">'utf8'</span>)                                                                                                </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b                                                                                                                   </span><br><span class="line"><span class="string">b'caf\xc3\xa9'</span></span><br><span class="line">&gt;&gt;&gt;len(b)</span><br><span class="line"><span class="number">5</span>                                                                                                          </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.decode(<span class="string">'utf8'</span>)                                                                                                    </span><br><span class="line"><span class="string">'café'</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h3 id="4-2-字节概要"><a href="#4-2-字节概要" class="headerlink" title="4.2 字节概要"></a>4.2 字节概要</h3><ul>
-<li><p>首先要知道，Python内置了两种基本的二进制序列类型：Python3引入的不可变bytes类型和Python2.6添加的可变bytearray类型</p>
-</li>
-<li><p>bytes和bytearray对象的各个元素是介于0-255（含）之间的整数</p>
-</li>
-<li><p>示例：包含5个字节的bytes和bytearray对象</p>
- <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># bytes对象可以从str对象使用给定的编码构建</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe = bytes(<span class="string">'café'</span>, encoding=<span class="string">'U8'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe</span><br><span class="line"><span class="string">b'caf\xc3\xa9'</span></span><br><span class="line"><span class="comment"># 各个元素是range(256)内的整数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe[<span class="number">0</span>]</span><br><span class="line"><span class="number">99</span></span><br><span class="line"><span class="comment"># bytes对象的切片还是bytes对象，即使是只有一个字节的切片</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe[:<span class="number">1</span>]</span><br><span class="line"><span class="string">b'c'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe_array = bytearray(cafe)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe_array</span><br><span class="line"><span class="comment"># bytearray没有字面量句法，而是以bytearray()和字节序列字面量参数的形式表示</span></span><br><span class="line">bytearray(<span class="string">b'caf\xc3\xa9'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe_array[<span class="number">0</span>]</span><br><span class="line"><span class="number">99</span></span><br><span class="line"><span class="comment"># bytearray对象的切片还是bytearray对象</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe_array[:<span class="number">1</span>]</span><br><span class="line">bytearray(<span class="string">b'c'</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li><p>注意</p>
-<ul>
-<li>my_bytes[0]获得的是一个整数，而my_bytes[:1]返回的是一个长度为1的bytes对象——————这一点应该不会十分意外</li>
-<li>对于除了str之外的其他序列类型,s[i]返回的都是一个元素，而s[i:i+1]则返回一个序列，里面只有s[i]这个元素</li>
-<li>对于str来说,s[i] == s[i:i+1]，它们返回的都是一个只有一个字符的字符串</li>
-</ul>
-</li>
-<li><p>在bytes或者bytearray中，各个字节的值可能会使用下列三种不同的方式显示</p>
-<ul>
-<li>方式<ol>
-<li>可打印的ASCII范围内的字节(从空格到~)，使用ASCII字符本身</li>
-<li>制表符、换行符、回车符和<code>\</code>对应的字节，使用转义序列<code>\t</code>、<code>\n</code>、<code>\r</code>、<code>\\</code></li>
-<li>其他字节的值，使用十六进制转义序列(例如，\x00是空字节)</li>
-</ol>
-</li>
-<li>例如:字符序列<code>&#39;café&#39;</code>的使用uft8编码的字节序列为<code>b&#39;caf\xc3\xa9&#39;</code>，前3个字节<code>b&#39;caf&#39;</code>在可打印的ASCII范围内，后两个字节则不然</li>
-</ul>
-</li>
-<li><p>除了格式化方法和几个处理unicode数据的方法之外，str类型的其他方法都支持bytes和bytearray类型</p>
-</li>
-<li><p>构建bytes或bytearay实例可以调用各自的构造方法，传入下述参数</p>
-<ul>
-<li>一个str对象和一个encoding关键字参数</li>
-<li>一个可迭代对象，提供0~255之间的数值</li>
-<li>一个实现了缓冲协议的对象(如bytes、bytearray、memoryview、array.array)；此时，把源对象中的字节序列复制到新建的二进制序列中</li>
-</ul>
-</li>
-<li><p>结构体和内存视图</p>
-<ul>
-<li>struct模块<ul>
-<li>struct模块提供了一些函数，把打包的字节序列转换成不同类型的字段组成的元组</li>
-<li>struct模块能处理bytes、bytearray和memoryview对象</li>
-</ul>
-</li>
-<li>memoryview类<ul>
-<li>memoryview类不是用来创建或储存字节序列，而是共享内存，让你访问其他二进制序列、打包的数组和缓冲中的数据切片，而无需复制字节序列</li>
-</ul>
-</li>
-<li>示例：使用memoryview和struct提取一个GIF图像的宽度和高度  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"><span class="comment"># 结构体的格式：&lt;是小字节符，3s3s是两个3字节序列，HH是两个16位二进制整数</span></span><br><span class="line">fmt = <span class="string">'&lt;3s3sHH'</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'fil.gif'</span>,<span class="string">'rb'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    <span class="comment"># 使用内存中的文件内容创建一个memoryview对象</span></span><br><span class="line">    img = memoryview(fp.read())</span><br><span class="line">    <span class="comment"># 使用它的切片再创建一个memoryview对象；这里不会复制字节序列</span></span><br><span class="line">    header = img[:<span class="number">10</span>]</span><br><span class="line">    <span class="comment"># 转换为字节序列</span></span><br><span class="line">    print(bytes(header))</span><br><span class="line">    <span class="comment"># 拆包memoryview对象，得到一个元组，包含类型、版本、宽度和高度</span></span><br><span class="line">    print(struct.unpack(fmt, header))</span><br><span class="line">    <span class="comment"># 删除引用，释放memoryview实例所占用的内存</span></span><br><span class="line">    <span class="keyword">del</span> header</span><br><span class="line">    <span class="keyword">del</span> img</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">b'GIF98a+\x02\xe6\x00'</span></span><br><span class="line"><span class="string">(b'GIF', b'89a', 555, 230)</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="4-3-基本的编解码器"><a href="#4-3-基本的编解码器" class="headerlink" title="4.3 基本的编解码器"></a>4.3 基本的编解码器</h3><hr>
-<ul>
-<li><p>Python自带超过100种编解码器(codec, encoder/decoder)，用于在文本和字节之间相互转换</p>
-</li>
-<li><p>每个编解码器有一个名称，如’utf_8’，而且经常有几个别名，如’utf8’,’utf-8’和’U8’</p>
-</li>
-<li><p>这些名称可以传给<code>open()</code>、<code>str.encode()</code>、<code>bytes.decode()</code>等函数的encoding参数</p>
-</li>
-<li><p>示例：使用3个编解码器编码字符串’中国’，而得到的字节序列差异很大</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> codec <span class="keyword">in</span> [<span class="string">'gb2312'</span>, <span class="string">'utf-8'</span>, <span class="string">'utf-16'</span>]:</span><br><span class="line"><span class="meta">... </span>    print(codec, <span class="string">'中国'</span>.encode(codec), sep=<span class="string">'\t'</span>)</span><br><span class="line">...</span><br><span class="line">gb2312  <span class="string">b'\xd6\xd0\xb9\xfa'</span></span><br><span class="line">utf<span class="number">-8</span>   <span class="string">b'\xe4\xb8\xad\xe5\x9b\xbd'</span></span><br><span class="line">utf<span class="number">-16</span>  <span class="string">b'\xff\xfe-N\xfdV'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>一些典型的编码</p>
-<ul>
-<li>如图<br><img src="/2020/02/01/流畅的Python-4-文本和字节序列/编码方式.jpg" alt=""></li>
-<li>编码<ol>
-<li>latin1(即iso8859_1)：一种重要的编码，是其他编码的基础，例如cp1252和Unicode</li>
-<li>cp1252：Microsoft指定的latin1的超集，添加了许多有用的符号</li>
-<li>cp437：IBM PC最初的字符集，包含框图符号。与后面出现的latin1不兼容</li>
-<li>gb2312：用于编码简体中文的陈旧标准</li>
-<li>utf-8：目前web中最常用的8位编码；与ASCII兼容(纯ASCII文本是有效地UTF-8文本)</li>
-<li>utf-16le：UTF-16是16位编码方案的一种形式</li>
+<li><p>编程语言理论家把“一等函数”定义为满足下述条件的程序实体</p>
+<ol>
+<li>运行时创建</li>
+<li>能赋值给变量或数据结构中的元素</li>
+<li>能作为参数传给函数</li>
+<li>能作为函数的返回结果</li>
 </ol>
 </li>
 </ul>
+<hr>
+<h3 id="5-1-把函数视为对象"><a href="#5-1-把函数视为对象" class="headerlink" title="5.1 把函数视为对象"></a>5.1 把函数视为对象</h3><ul>
+<li><p>示例 5-1：函数是一等对象</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 这是一个控制台会话，因此我们在运行时创建了一个函数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">factorial</span><span class="params">(n)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="string">'''returns n'''</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">if</span> n &lt; <span class="number">2</span> <span class="keyword">else</span> n * factorial(n - <span class="number">1</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>factorial(<span class="number">42</span>)</span><br><span class="line"><span class="number">1405006117752879898543142606244511569936384000000000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># __doc__是函数对象众多属性中的一个，用于生成对象的帮助文档</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>factorial.__doc__</span><br><span class="line"><span class="string">'returns n'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># factorial是function类的一个实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(factorial)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">function</span>'&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>__doc__</code>属性生成对象的帮助文档。在Python交互式控制台中，可以调用help(obj)命令来查看这个文档</p>
+</li>
+<li><p>示例 5-2：将函数赋值给变量，再把函数作为参数传递</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>fact = factorial</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fact</span><br><span class="line">&lt;function factorial at <span class="number">0x7f84012f8e18</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fact(<span class="number">5</span>)</span><br><span class="line"><span class="number">120</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>map(factorial, range(<span class="number">11</span>))</span><br><span class="line">&lt;map object at <span class="number">0x7f83ff510860</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(map(fact, range(<span class="number">11</span>)))</span><br><span class="line">[<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">24</span>, <span class="number">120</span>, <span class="number">720</span>, <span class="number">5040</span>, <span class="number">40320</span>, <span class="number">362880</span>, <span class="number">3628800</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>以上两个示例可以充分说明在Python中函数是一等对象</p>
 </li>
 </ul>
 <hr>
-<h3 id="4-4-了解编解码问题"><a href="#4-4-了解编解码问题" class="headerlink" title="4.4 了解编解码问题"></a>4.4 了解编解码问题</h3><ul>
-<li>简介<ul>
-<li>虽然有个一般性的UnicodeError异常，但是报告错误时几乎都会指明具体的异常</li>
-<li>UnicodeEncodeError:把字符串转换为二进制序列时发生的异常</li>
-<li>UnicodeDecodeError:把二进制序列转换为字符串时发生的异常</li>
-<li>SyntaxError:如果源码的编码与预期不符，加载Python模块时还可能抛出SyntaxError</li>
-</ul>
+<h3 id="5-2-高阶函数"><a href="#5-2-高阶函数" class="headerlink" title="5.2 高阶函数"></a>5.2 高阶函数</h3><ul>
+<li><p>高阶函数的定义：接受函数为参数，或者把函数作为结果返回的函数就是高阶函数(higher-order function)</p>
 </li>
-</ul>
-<hr>
-<h4 id="4-4-1-处理UnicodeEncodeError"><a href="#4-4-1-处理UnicodeEncodeError" class="headerlink" title="4.4.1 处理UnicodeEncodeError"></a>4.4.1 处理UnicodeEncodeError</h4><ul>
-<li><p>简介</p>
+<li><p>例如：内置函数map和内置函数sorted</p>
+</li>
+<li><p>示例 5-3：高阶函数sorted的使用方法1</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>fruits = [<span class="string">'strawberry'</span>, <span class="string">'fig'</span>, <span class="string">'apple'</span>, <span class="string">'cherry'</span>, <span class="string">'raspberry'</span>, <span class="string">'banana'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sorted(fruits, key=len)</span><br><span class="line">[<span class="string">'fig'</span>, <span class="string">'apple'</span>, <span class="string">'cherry'</span>, <span class="string">'banana'</span>, <span class="string">'raspberry'</span>, <span class="string">'strawberry'</span>]</span><br></pre></td></tr></table></figure>
 <ul>
-<li>多数非UTF编解码器只能处理Unicode字符的小部分子集</li>
-<li>把文本转换为字节序列时，如果目标编码中没有定义某个字符，就会抛出UnicodeEncodeError异常，除非把errors参数传给编码方法或函数，对错误进行特殊处理</li>
-</ul>
-</li>
-<li><p>示例：编码成字节序列：成功和错误处理</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>city = <span class="string">'São paulo'</span></span><br><span class="line"><span class="comment"># utf编码可以处理任何字符串</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>city.encode(<span class="string">'utf8'</span>)</span><br><span class="line"><span class="string">b'S\xc3\xa3o paulo'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>city.encode(<span class="string">'utf16'</span>)</span><br><span class="line"><span class="string">b'\xff\xfeS\x00\xe3\x00o\x00 \x00p\x00a\x00u\x00l\x00o\x00'</span></span><br><span class="line"><span class="comment"># cp437无法处理'ã'字符，从而抛出UnicodeEncodeError异常</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>city.encode(<span class="string">'cp437'</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">File <span class="string">"/usr/lib/python3.6/encodings/cp437.py"</span>, line <span class="number">12</span>, <span class="keyword">in</span> encode</span><br><span class="line">    <span class="keyword">return</span> codecs.charmap_encode(input,errors,encoding_map)</span><br><span class="line">UnicodeEncodeError: <span class="string">'charmap'</span> codec can<span class="string">'t encode character '</span>\xe3<span class="string">' in position 1: character maps to &lt;undefined&gt;</span></span><br><span class="line"><span class="string"># error='</span>ignore<span class="string">'方法悄无声息的跳过无法编码的字符，这样做通常不很妥当</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; city.encode('</span>cp437<span class="string">', errors='</span>ignore<span class="string">')</span></span><br><span class="line"><span class="string">b'</span>So paulo<span class="string">'</span></span><br><span class="line"># error='replace'把无法编码的字符替换成'?'；数据损坏了，但是用户知道出现了问题</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>city.encode(<span class="string">'cp437'</span>, errors=<span class="string">'replace'</span>)</span><br><span class="line"><span class="string">b'S?o paulo'</span></span><br><span class="line"><span class="comment"># 'xmlcharrefreplace'把无法编码的字符替换成了XML实体</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>city.encode(<span class="string">'cp437'</span>, errors=<span class="string">'xmlcharrefreplace'</span>)</span><br><span class="line"><span class="string">b'S&amp;#227;o paulo'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>另外</p>
-<ul>
-<li>编解码器的错误处理方式时可扩展的。你可以为errors参数注册额外的字符串</li>
-<li>方法是把一个名称和一个错误处理函数传给<code>codecs.register_error</code>函数</li>
+<li>任何单参数函数都能作为key参数的值</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h4 id="4-4-2-处理UnicodeDecodeError"><a href="#4-4-2-处理UnicodeDecodeError" class="headerlink" title="4.4.2 处理UnicodeDecodeError"></a>4.4.2 处理UnicodeDecodeError</h4><ul>
-<li><p>简介</p>
+<h4 id="5-2-1-map、filter和reduce的现代替代品"><a href="#5-2-1-map、filter和reduce的现代替代品" class="headerlink" title="5.2.1 map、filter和reduce的现代替代品"></a>5.2.1 map、filter和reduce的现代替代品</h4><ul>
+<li><p>函数式语言通常会提供map、filter和reduce三个高阶函数</p>
+</li>
+<li><p>在Python3中，map和filter还是内置函数，但是由于引入了列表推导和生成器表达式，它们变得不再那么重要</p>
+</li>
+<li><p>示例 5-5：map、filter与列表推导的对比</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(map(fact, range(<span class="number">6</span>)))</span><br><span class="line">[<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">24</span>, <span class="number">120</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[fact(n) <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">6</span>)]</span><br><span class="line">[<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">24</span>, <span class="number">120</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(map(fact, filter(<span class="keyword">lambda</span> n: n % <span class="number">2</span>, range(<span class="number">6</span>))))</span><br><span class="line">[<span class="number">1</span>, <span class="number">6</span>, <span class="number">120</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[fact(n) <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">6</span>) <span class="keyword">if</span> n % <span class="number">2</span>]</span><br><span class="line">[<span class="number">1</span>, <span class="number">6</span>, <span class="number">120</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在Python2中，reduce是内置函数，但是在Python3中放到了functools模块中</p>
+</li>
+<li><p>示例 5-6：使用reduce和sum计算0-99的和</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> operator <span class="keyword">import</span> add</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>reduce(add, range(<span class="number">100</span>))</span><br><span class="line"><span class="number">4950</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sum(range(<span class="number">100</span>))</span><br><span class="line"><span class="number">4950</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>不是每个字节都包含有效的ASCII字符，也不是每个字符序列都是有效的UTF-8或者UTF-16</li>
-<li>因此，把二进制序列转换为文本时，如果假设是UTF-8或者UTF-16中的一个，遇到无法转换的字节序列时会抛出UnicodeDecodeError</li>
-<li>另一方面，许多陈旧的8位编码——如’cp1252’、’iso8859-1’、’koi8_r’等——能解码任何字节序列流而不抛出错误，因此，如果程序使用错误的8位编码，解码过程悄无声息，而得到的是无用输出</li>
+<li>sum和reduce的通用思想是把某个操作连续应用到序列的元素上，累计之前的结果，把一系列的值归约为一个值</li>
 </ul>
 </li>
-<li><p>鬼符(gremlin)：乱码字符称为鬼符</p>
-</li>
-<li><p>示例：把字节序列解码成字符串：成功和错误处理</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这些字节序列是使用latin1编码的"Montréal"；'\xe9'字节对应'é'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets = <span class="string">b'Montr\xe9al'</span></span><br><span class="line"><span class="comment"># 可以使用'cp1252'解码，因为它是latin1的有效超集</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets.decode(<span class="string">'cp1252'</span>)</span><br><span class="line"><span class="string">'Montréal'</span></span><br><span class="line"><span class="comment"># ISO-8859-7用于编码希腊文，因此无法正确解释'\xe9'字节，而且没有抛出错误</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets.decode(<span class="string">'iso8859_7'</span>)</span><br><span class="line"><span class="string">'Montrιal'</span></span><br><span class="line"><span class="comment"># KOI8-R用来编码俄文，这里'\xe9'对应西里尔字母'И'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets.decode(<span class="string">'koi8_r'</span>)</span><br><span class="line"><span class="string">'MontrИal'</span></span><br><span class="line"><span class="comment"># 'utf-8'编解码器检测到octets不是有效的utf-8字符串，抛出UnicodeDecodeError</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets.decode(<span class="string">'utf_8'</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">UnicodeDecodeError: <span class="string">'utf-8'</span> codec can<span class="string">'t decode byte 0xe9 in position 5: invalid continuation byte</span></span><br><span class="line"><span class="string"># 使用'</span>replace<span class="string">'错误处理方式，`\xe9`替换成了"�"(码位是U+FFFD)，这是官方指定的REPLACEMENT CHARACTER(替换字符)，表示未知字符</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; octets.decode('</span>utf_8<span class="string">', errors='</span>replace<span class="string">')</span></span><br><span class="line"><span class="string">'</span>Montr�al<span class="string">'</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h4 id="4-4-3-使用预期之外的编码加载模块时抛出的SyntaxError"><a href="#4-4-3-使用预期之外的编码加载模块时抛出的SyntaxError" class="headerlink" title="4.4.3 使用预期之外的编码加载模块时抛出的SyntaxError"></a>4.4.3 使用预期之外的编码加载模块时抛出的SyntaxError</h4><ul>
-<li><p>Python源码的默认编码</p>
+<li><p>归约函数</p>
 <ul>
-<li>Python3默认使用utf-8编码源码</li>
-<li>Python2默认使用ASCII</li>
-</ul>
-</li>
-<li><p>如果加载的.py模块中包含utf-8之外的数据会产生SyntaxError异常</p>
-<ul>
-<li>为了修正这个问题有两种解决办法<ol>
-<li>在文件顶部添加一个神奇的coding注释<ul>
-<li>例如:<code># coding: cp1252</code></li>
-</ul>
-</li>
-<li>将这个源码的编码方式直接转换成UTF8</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>源码中能否使用非ASCII名称</p>
-<ul>
-<li>Python3允许源码中使用非ASCII标识符，但是通常Python2不允许这么做</li>
-<li>如果代码是开源的，那么标识符应该使用英文，也就是只能使用ASCII字符</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="4-4-4-如何找出字节序列的编码"><a href="#4-4-4-如何找出字节序列的编码" class="headerlink" title="4.4.4 如何找出字节序列的编码"></a>4.4.4 如何找出字节序列的编码</h4><ul>
-<li><p>如何找出字节序列的编码</p>
-<ul>
-<li>简单来说，不能。必须有人告诉你</li>
-</ul>
-</li>
-<li><p>有些通信协议和文件格式，比如HTTP和XML，包含明确制定内容编码的首部</p>
-</li>
-<li><p>统一字符编码侦测包Chardet</p>
-<ul>
-<li>它通过试探和分析编码中字节的特点来确定编码的类型</li>
-<li>可以识别所支持的30种编码</li>
-<li>Chardet是个Python库，可以在程序中使用，不过它也提供了命令行工具chardetext</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="4-4-5-BOM-有用的鬼符"><a href="#4-4-5-BOM-有用的鬼符" class="headerlink" title="4.4.5 BOM:有用的鬼符"></a>4.4.5 BOM:有用的鬼符</h4><ul>
-<li>BOM<ul>
-<li>就是字节序标识(byte-order mark)，指明编码时使用Intel CPU的大字节序还是小字节序</li>
-<li>例如:u16编码开头的`b’\xff\xfe’</li>
-</ul>
-</li>
-<li><p>小字节序和大字节序</p>
-<ul>
-<li>在小字节序设备中，各个码位的最低有效字节在前面<ul>
-<li>例如:字母”E”的码位是U+0049，十进制为69，所以在字节偏移的第二位和第三位编码为69和0</li>
-</ul>
-</li>
-<li>在大字节序CPU中，编码顺序相反</li>
-</ul>
-</li>
-<li><p>为了避免混淆，UTF-16编码在要编码的文本钱吗需要加上特殊的不可见字符ZERO WIDTH NO-BREAK SPACE(U+FEFF)。在小字节序系统中，这个字符编码为<code>b\xff\xfe</code>；而在大字节序系统中，这个编码时<code>b\xfe\xff</code>，以此来进行区分。</p>
-</li>
-<li><p>UTF-16有两个变种:UTF-16LE，显式地指出使用小字节序；UTF-16BE，显式地指出使用大字节序。如果使用这两种编码，不会生成BOM</p>
-</li>
-<li><p>与字节序有关个问题只对一个字(word)占多个字节的编码(如utf-16和utf-32)有影响；UTF-8不管使用什么字节序，生成的字节序列都是一致的，所以不需要使用BOM</p>
-</li>
-</ul>
-<hr>
-<h3 id="4-5-处理文本文件"><a href="#4-5-处理文本文件" class="headerlink" title="4.5 处理文本文件"></a>4.5 处理文本文件</h3><ul>
-<li><p>Unicode三明治</p>
-<ul>
-<li>处理文本的最佳实践就是”Unicode三明治”</li>
-<li>意思是<ol>
-<li>要尽早把输入的字节序列解码为字符串</li>
-<li>程序的业务逻辑部分只负责处理字符串</li>
-<li>对输出来说，要尽量晚地把字符串编码成字节序列</li>
-</ol>
-</li>
-<li>多数web框架都是这样做的，使用框架时很少接触字节序列</li>
-</ul>
-</li>
-<li><p>Python3中的Unicode三明治</p>
-<ul>
-<li>在Python3中能轻松地采纳Unicode三明治的建议</li>
-<li>因为内置的<code>open</code>函数会在读取文件的时候进行必要的解码，以文本模式写入文件的时候还会进行必要的编码</li>
-<li>所以调用<code>my_file.read()</code>得到的以及传给<code>my_file.write(text)</code>方法的都是字符串对象</li>
-</ul>
-</li>
-<li><p>默认编码问题</p>
-<ul>
-<li>如果在打开文件的时候没有指定编码，将使用当前环境的默认编码</li>
-<li>在Windows环境下的默认编码是(windows 1252)，而在GNU/Linux或Mac OS X中的默认编码时utf-8</li>
-<li>所以需要在多台设备或者多种场合下运行的代码，一定不能依赖默认编码。打开文件时始终应该明确传入<code>encoding=</code>参数</li>
-</ul>
-</li>
-<li><p>继续探究</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认情况下,open函数采用文本模式，返回一个TextIOWrapper对象</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp = open(<span class="string">'cafe.txt'</span>,<span class="string">'w'</span>,encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp</span><br><span class="line">&lt;_io.TextIOWrapper name=<span class="string">'cafe.txt'</span> mode=<span class="string">'w'</span> encoding=<span class="string">'utf-8'</span>&gt;</span><br><span class="line"><span class="comment"># 在TextIOWrapper对象上调用write方法返回写入的Unicode字符数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp.write(<span class="string">'café'</span>)</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp.close()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</span><br><span class="line"><span class="comment"># 在os.stat的报告文件中有5个字节，UTF-8编码的'é'占两个字节:\xc3\xa9</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.stat(<span class="string">'cafe.txt'</span>).st_size</span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="comment"># `rb`标识表明在二进制模式中读取文件，返回的是BufferedReader对象而不是TextIOWrapper对象</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp4 = open(<span class="string">'cafe.txt'</span>,<span class="string">'rb'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp4</span><br><span class="line">&lt;_io.BufferedReader name=<span class="string">'cafe.txt'</span>&gt;</span><br><span class="line"><span class="comment"># 读取得到的是字节序列，符合预期</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp4.read()</span><br><span class="line"><span class="string">b'caf\xc3\xa9'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>注意</p>
-<ul>
-<li>除非想判断编码，否则不要在二进制模式下打开文本文件</li>
-<li>即使如此，也应该使用Chardet，而不是重新发明轮子</li>
-</ul>
-</li>
-<li><p>Windows系统的编码问题</p>
-<ul>
-<li>在Windows中，不仅同一个系统中使用不同的编码(如cp850和cp1252)</li>
-<li>还有只支持ASCII和127个额外的字符的代码页，而且不同代码页之间增加的字符也有所不同</li>
-</ul>
-</li>
-<li><p>关于编码默认值的最佳建议是:别依赖默认值，如果遵从Unicode三明治建议，而且始终在程序中显式指定编码，将避免很多问题</p>
-</li>
-</ul>
-<hr>
-<h3 id="4-6-为了正确比较而规范化的Unicode字符串"><a href="#4-6-为了正确比较而规范化的Unicode字符串" class="headerlink" title="4.6 为了正确比较而规范化的Unicode字符串"></a>4.6 为了正确比较而规范化的Unicode字符串</h3><ul>
-<li><p>因为unicode有组合字符(变音符号和附加到前一个字符上的记号，打印时作为一个整体)，所以字符串比较起来很麻烦</p>
-<ul>
-<li>例如:<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1 = <span class="string">'café'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s2 = <span class="string">'cafe\u0301'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1, s2</span><br><span class="line">(<span class="string">'café'</span>, <span class="string">'café'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(s1),len(s2)</span><br><span class="line">(<span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1 == s2</span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>这个问题的解决方案是使用unicodedata.normalize函数提供的Unicode规范化，这个函数的第一个参数是这4个字符串中的一个</p>
-<ul>
-<li>NFC:使用最少的码位构建等价的字符串</li>
-<li>NFD：把组合字符分解为基字符和单独的组合字符</li>
-<li>NFKC和NFKD：会进行一定的字符替换(略)</li>
-</ul>
-</li>
-<li><p>使用<code>str.casefold()</code>可以把所有的文本都变成小写</p>
-</li>
-<li><p>使用<code>nfc_equal</code>和<code>fold_equal</code>可以对字符串进行规范化或小写化之后再比较</p>
-</li>
-</ul>
-<hr>
-<h3 id="4-7-Unicode文本排序"><a href="#4-7-Unicode文本排序" class="headerlink" title="4.7 Unicode文本排序"></a>4.7 Unicode文本排序</h3><ul>
-<li><p>Python比较任何类型的序列时，会一一比较序列里的各个元素，对于字符串来说，比较的是码位</p>
-</li>
-<li><p>然而不同的地区采用的排序规则可能有所区别</p>
-</li>
-<li><p>在Python中，非ASCII文本的标准排序方式是使用locale.strxfrm函数，它会把字符串转换成适合所在地域进行比较的形式</p>
-</li>
-<li><p>PyUCA库使用纯Python实现了Unicode排序算法，它没有考虑地区设置</p>
-</li>
-</ul>
-<h3 id="4-8-Unicode数据库"><a href="#4-8-Unicode数据库" class="headerlink" title="4.8 Unicode数据库"></a>4.8 Unicode数据库</h3><ul>
-<li><p>Unicode标准提供了一个完整的数据库</p>
-<ul>
-<li>不仅包括码位与字符名称之间的映射，还有各个字符的元数据，以及字符之间的关系</li>
-<li>例如,Unicode数据库记录了字符是否可以打印，是不是字母、是不是数字，或者是不是其他数值符号</li>
-</ul>
-</li>
-<li><p>unicodedata模块中有几个函数用来获取字符的元数据</p>
-<ul>
+<li>把某个操作连续应用到序列的元素上，累计之前的结果，把一系列的值归约为一个值</li>
 <li>例如<ul>
-<li>字符在标准中的官方名称是不是组合字符</li>
-<li>符号对应的人类可读数值(不是码位)</li>
+<li><code>sum(iterable)</code>：对iterable中各个元素求和</li>
+<li><code>reduce()</code></li>
+<li><code>all(iterable)</code>:如果iterable的每个元素都是真值，返回True,all([])返回True</li>
+<li><code>any(iterable)</code>：只要iterable中有元素时真值，就返回True,any([])返回False</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<h3 id="4-9-本章小结"><a href="#4-9-本章小结" class="headerlink" title="4.9 本章小结"></a>4.9 本章小结</h3><ul>
-<li><p>本章首先澄清了人们对一个字符等于一个字节的误解，我们必须把文本字符串和它们在文件中的二进制序列标书区分开</p>
+<hr>
+<h3 id="5-3-匿名函数"><a href="#5-3-匿名函数" class="headerlink" title="5.3 匿名函数"></a>5.3 匿名函数</h3><ul>
+<li><p>匿名函数存在的原因：为了使用高阶函数，有时创建一次性的小型函数更便利</p>
 </li>
-<li><p>bytes和bytearray是两种二进制序列类型</p>
+<li><p>匿名函数简介</p>
+<ul>
+<li>lambda关键字在Python表达式内创建匿名函数</li>
+<li>然而，Python简单的句法限制了lambda函数的定义体只能使用纯表达式。也就是，lambda函数的定义体中不能赋值，也不能使用while和try等Python语句</li>
+</ul>
 </li>
-<li><p>编码和解码</p>
+<li><p>示例5-7：使用lambda表达式反转拼写，然后依次给单词列表排序</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>fruits = [<span class="string">'strawberry'</span>, <span class="string">'fig'</span>, <span class="string">'apple'</span>, <span class="string">'cherry'</span>, <span class="string">'raspberry'</span>, <span class="string">'banana'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sorted(fruits, key = <span class="keyword">lambda</span> word: word[::<span class="number">-1</span>])</span><br><span class="line">[<span class="string">'banana'</span>, <span class="string">'apple'</span>, <span class="string">'fig'</span>, <span class="string">'raspberry'</span>, <span class="string">'strawberry'</span>, <span class="string">'cherry'</span>]</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>UnicodeEncodeError、UnicodeDecodeError和由于Python源码文件编码错误导致的SyntaxError</p>
+<li><p>匿名函数的限制</p>
+<ul>
+<li>除了作为参数传给高阶函数之外，Python很少使用匿名函数</li>
+<li>由于句法上的限制，非平凡的lambda表达式要么难以阅读，要么无法写出</li>
+</ul>
 </li>
-<li><p>Chardet包用于检测元数据使用的是什么编码</p>
-</li>
-<li><p>在打开文件时，encoding-关键字参数不是必需的，但是应该指定。不然不一致的默认编码会导致跨平台不兼容性</p>
-</li>
-<li><p>文本比较很复杂，因为Unicode为某些字符提供了不同的表示，所以匹配文本之前一定要先规范化</p>
-</li>
-<li><p>Unicode数据库包括码位与字符名称之间的映射，还有各个字符的元数据，以及字符之间的关系</p>
+<li><p>Lundh提出的lambda表达式重构秘籍</p>
+<ol start="0">
+<li>如果使用lambda表达式导致一段代码难以理解,Fredrik Lundh建议像下面这样重构</li>
+<li>编写注释，说明lambda表达式的作用</li>
+<li>研究一会儿注释，病找出一个名称来概括注释</li>
+<li>把lambda表达式转换成def，使用那个名称命名函数</li>
+<li>删除注释</li>
+</ol>
 </li>
 </ul>
+<hr>
+<h3 id="5-4-可调用对象"><a href="#5-4-可调用对象" class="headerlink" title="5.4 可调用对象"></a>5.4 可调用对象</h3><hr>
+<ul>
+<li><p>可调用对象简介</p>
+<ul>
+<li>可以运用调用运算符(即())调用的对象叫做可调用对象</li>
+<li>如果想判断一个对象是否可调用，可以使用内置的<code>callable()</code>函数</li>
+<li>可调用对象一共有7种</li>
+</ul>
+</li>
+<li><p>可调用对象分类</p>
+<p>  | 可调用对象 | 简介 |<br>  | ——| —— |<br>  | 用户定义的函数 | 使用<code>def</code>语句或<code>lambda</code>表达式创建 |<br>  | 内置函数 | 使用C语言(CPython)实现的函数，如<code>len</code>或<code>time.strftime</code> |<br>  | 内置方法 | 使用C语言实现的方法，如<code>dict.get</code> |<br>  | 方法 | 在类的定义体中定义的函数 |<br>  | 类 | 调用类时会产生类似构造方法的效果，返回一个此类的实体 |<br>  | 类的实例 | 如果类定义了<code>__call__</code>方法，那么它的实例可以作为函数调用 |<br>  | 生成器函数 | 使用<code>yield</code>关键字的函数或方法 |</p>
+</li>
+</ul>
+<hr>
+<h3 id="5-5-用户定义的可调用类型"><a href="#5-5-用户定义的可调用类型" class="headerlink" title="5.5 用户定义的可调用类型"></a>5.5 用户定义的可调用类型</h3><ul>
+<li><p>简介</p>
+<ul>
+<li>不仅Python函数是真正的对象，任何Python对象都可以表现得像函数</li>
+<li>为此，只需实现实例方法<code>__call__</code></li>
+</ul>
+</li>
+<li><p>示例:实现了<strong>call</strong>方法的类，BingoCage</p>
+<ul>
+<li><p>源代码</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BingoCase</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, item)</span>:</span></span><br><span class="line">        <span class="comment"># __init__接受任何可迭代对象;在本地构建一个副本,防止列表参数的意外副作用</span></span><br><span class="line">        self._item = list(item)</span><br><span class="line">        <span class="comment"># shuffle定能完成工作,因为self._item是列表</span></span><br><span class="line">        random.shuffle(self._item)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 起主要作用的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pick</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">return</span> self._item.pop()</span><br><span class="line">        <span class="keyword">except</span> IndexError:</span><br><span class="line">            <span class="comment"># 如果self._item为空,抛出异常,并且设定错误信息</span></span><br><span class="line">            <span class="keyword">raise</span> LookupError(<span class="string">'pick from empty BingoCage'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># bingo.pick()的快捷方式是bingo()</span></span><br><span class="line">        <span class="keyword">return</span> self.pick()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> bingocall</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bingo = bingocall.BingoCase(range(<span class="number">3</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bingo.pick()</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bingo()</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>callable(bingo)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>其他</p>
+<ul>
+<li>实现<code>__call__</code>方法的类是创建函数类对象的简便方法，此时必须在内部维护一个状态，让它在调用之间可用，例如BingoCage中的剩余元素</li>
+<li>创建保有内部状态的函数，还有一种截然不同的方式————使用闭包</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="5-6-函数内省"><a href="#5-6-函数内省" class="headerlink" title="5.6 函数内省"></a>5.6 函数内省</h3><ul>
+<li><p>除了<code>__doc__</code>，函数对象还有很多属性，使用<code>dir</code>函数可以探知factorial具有下述属性</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dir(fun)</span><br><span class="line">[<span class="string">'__annotations__'</span>, <span class="string">'__call__'</span>, <span class="string">'__class__'</span>, <span class="string">'__closure__'</span>, <span class="string">'__code__'</span>, <span class="string">'__defaults__'</span>, <span class="string">'__delattr__'</span>, <span class="string">'__dict__'</span>, <span class="string">'__dir__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__eq__'</span>, <span class="string">'__format__'</span>, <span class="string">'__ge__'</span>, <span class="string">'__get__'</span>, <span class="string">'__getattribute__'</span>, <span class="string">'__globals__'</span>, <span class="string">'__gt__'</span>, <span class="string">'__hash__'</span>, <span class="string">'__init__'</span>, <span class="string">'__init_subclass__'</span>, <span class="string">'__kwdefaults__'</span>, <span class="string">'__le__'</span>, <span class="string">'__lt__'</span>, <span class="string">'__module__'</span>, <span class="string">'__name__'</span>, <span class="string">'__ne__'</span>, <span class="string">'__new__'</span>, <span class="string">'__qualname__'</span>, <span class="string">'__reduce__'</span>, <span class="string">'__reduce_ex__'</span>, <span class="string">'__repr__'</span>, <span class="string">'__setattr__'</span>, <span class="string">'__sizeof__'</span>, <span class="string">'__str__'</span>, <span class="string">'__subclasshook__'</span>]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>__dict__</code>属性</p>
+<ul>
+<li>函数使用<code>__dict__</code>属性储存赋予它的用户属性</li>
+<li><p>例如</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fun.name = <span class="string">"haha"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fun.__dict__</span><br><span class="line">&#123;<span class="string">'name'</span>: <span class="string">'haha'</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一般来说，为函数赋予属性不是很常见的做法</p>
+</li>
+</ul>
+</li>
+<li><p>用户定义的函数的属性<br>  | 名称 | 类型 | 说明 |<br>  | ——| —— | —— |<br>  | <code>__annotations__</code> | <code>dict</code> | 参数和返回值的注释 |<br>  | <code>__call__</code> | <code>method-wrapper</code> | 实现<code>()</code>运算符；即可调用对象协议 |<br>  | <code>__closure__</code> | <code>tuple</code> | 函数闭包，即自由变量的绑定 |<br>  | <code>__code__</code> | <code>code</code> | 编译成字节码的函数元数据和函数定义体 |<br>  | <code>__defaults__</code> | <code>tuple</code> | 形式参数的默认值 |<br>  | <code>__get__</code> | <code>method-wrapper</code> | 实现制度描述符协议 |<br>  | <code>__globals__</code> | <code>dict</code> | 函数所在模块中的全局变量 |<br>  | <code>__kwdefaults__</code> | <code>dict</code> | 仅限关键字形式参数的默认值 |<br>  | <code>__name__</code> | <code>str</code> | 函数名称 |<br>  | <code>__qualname__</code> | <code>str</code> | 函数的限定名称，如<code>Random.choice</code> |</p>
+</li>
+</ul>
+<hr>
+<h3 id="5-7-从定位参数到仅限关键字参数"><a href="#5-7-从定位参数到仅限关键字参数" class="headerlink" title="5.7 从定位参数到仅限关键字参数"></a>5.7 从定位参数到仅限关键字参数</h3><ul>
+<li><p>Python最好的特性之一是提供了及其灵活的参数处理机制</p>
+</li>
+<li><p>形式参数的分类</p>
+<ul>
+<li>定位参数：<ul>
+<li>调用函数时根据函数定义的参数位置来传递参数</li>
+</ul>
+</li>
+<li>关键字参数<ul>
+<li>用于函数调用，通过“键-值”形式加以指定</li>
+<li>可以让函数更加清晰、容易使用，同时也清除了参数的顺序需求</li>
+<li>并且可以在函数声明时为其制定默认值</li>
+</ul>
+</li>
+<li>可变参数：<ul>
+<li>定义函数时，有时候我们不确定调用的时候会传递多少个参数(不传参也可以)</li>
+<li>此时，可用包裹(<code>*</code>或<code>**</code>)位置参数，或者包裹关键字参数，来进行参数传递，会显得非常方便</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>*</code>与<code>**</code></p>
+<ul>
+<li><code>*</code><ul>
+<li>其他”剩余”参数会被放到一个元组中，被赋予带<code>*</code>的参数</li>
+<li>一个函数声明中只能有一个带<code>*</code>的参数</li>
+</ul>
+</li>
+<li><code>**</code><ul>
+<li>带<code>**</code>的参数是一个字典，它会收集所有剩余关键字参数并放入一个字典中</li>
+<li>一个函数声明中只能有一个带<code>**</code>的参数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>示例 5-10:tag函数定义部分,tag函数用来生成HTML标签</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> tag</span><br><span class="line"><span class="comment"># 传入单个定位参数,生成一个指定名称的空标签</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tag.tag(<span class="string">'br'</span>)</span><br><span class="line"><span class="string">'&lt;br /&gt;'</span></span><br><span class="line"><span class="comment"># 第一个参数后面的任意个参数会被*content捕获,存入一个元组</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tag.tag(<span class="string">'p'</span>, <span class="string">'hello'</span>)</span><br><span class="line"><span class="string">'&lt;p&gt;hello&lt;/p&gt;'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tag.tag(<span class="string">'p'</span>, <span class="string">'hello'</span>, id=<span class="number">33</span>)</span><br><span class="line"><span class="string">'&lt;p id="33"&gt;hello&lt;/p&gt;'</span></span><br><span class="line"><span class="comment"># tag函数签名中没有明确指定名称的关键字参数会被**attrs捕获，存入一个字典</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(tag.tag(<span class="string">'p'</span>, <span class="string">'hello'</span>, <span class="string">'world'</span>, cls=<span class="string">'sidebar'</span>))</span><br><span class="line">&lt;p class="sidebar"&gt;hello&lt;/p&gt;</span><br><span class="line">&lt;p class="sidebar"&gt;world&lt;/p&gt;</span><br><span class="line"><span class="comment"># 调用tag函数时，即使第一个定位参数也能作为关键字参数传入</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tag.tag(content=<span class="string">'testing'</span>, name=<span class="string">'img'</span>)</span><br><span class="line"><span class="string">'&lt;img content="testing" /&gt;'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>my_tag = &#123;<span class="string">'name'</span>: <span class="string">'img'</span>, <span class="string">'title'</span>: <span class="string">'Sunset Boulevard'</span>, <span class="string">'src'</span>: <span class="string">'sunset.jpg'</span>, <span class="string">'cls'</span>: <span class="string">'framed'</span>&#125;</span><br><span class="line"><span class="comment"># 在my_tag前面加入**,字典中的所有元素作为单个参数传入，同名键会绑定到对应的具名参数上，余下的会被**attrs捕获</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tag.tag(**my_tag)</span><br><span class="line"><span class="string">'&lt;img class="framed" src="sunset.jpg" title="Sunset Boulevard" /&gt;'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="5-8-获取关于参数的信息"><a href="#5-8-获取关于参数的信息" class="headerlink" title="5.8 获取关于参数的信息"></a>5.8 获取关于参数的信息</h3><ul>
+<li><p>举例：HTTP微框架Bobo中有个使用<strong>函数内省</strong>的好例子</p>
+<ul>
+<li><p>示例 5-12 <code>Bobo</code>知道<code>hello</code>需要<code>person</code>参数，并且从HTTP请求中获取它 </p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> bobo</span><br><span class="line"><span class="meta">@bobo.query('/)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(person)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'Hello %s!'</span> % person</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解释</p>
+<ul>
+<li><code>bobo.query</code>装饰器把一个普通的函数(如<code>hello</code>)与框架的请求处理机制集成起来了</li>
+<li>Bobo会内省<code>hello</code>函数，发现它需要一个名为<code>person</code>的参数，然后从请求中获取那个名称对应的参数，将其传给<code>hello</code>函数，因此程序员<strong>根本不需要</strong>触碰请求对象</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>那么问题来了</p>
+<ul>
+<li>Bobo是怎么知道函数需要哪个参数的呢？它又是怎么知道参数有没有默认值呢</li>
+<li>解答<ul>
+<li>函数对象有个<code>__default__</code>属性，它的值是一个元组，里面保存了定位参数和关键字参数的默认值</li>
+<li>仅限关键字参数的默认值在<code>__kwdefault__</code>属性中</li>
+<li>参数的名称在<code>__code__</code>属性中，它的值是一个code对象引用，自身也有很多属性</li>
+<li>但是这种组织信息的方式并不便利，我们可以使用<code>inspect</code>模块来更好的提取参数信息</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="5-9-函数注解"><a href="#5-9-函数注解" class="headerlink" title="5.9 函数注解"></a>5.9 函数注解</h3><ul>
+<li><p>函数注解的用法</p>
+<ul>
+<li>函数声明中的各个参数可以在<code>:</code>之后增加注解表达式</li>
+<li>如果参数有默认值，注解放在参数名和<code>=</code>之间</li>
+<li>如果想注解返回值，在<code>)</code>和函数声明末尾的<code>:</code>之间添加<code>-&gt;</code>和一个表达式。那个表达式可以是任意类型。注解中常用的类型是类(如str或int)和字符串(如’int &gt; 0’)</li>
+</ul>
+</li>
+<li><p>示例</p>
+<ul>
+<li><p>不加注解的函数声明版本</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clip</span><span class="params">(text, max_len)</span>:</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>加注解的函数声明版本</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clip</span><span class="params">(text:str, max_len:<span class="string">'int &gt; 0'</span>=<span class="number">80</span>)</span> -&gt; str:</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Python对注解所做的处理</p>
+<ul>
+<li>Python对注解所做的唯一的事情就是把它们存储在函数的<strong>annotations</strong>属性里，仅此而已</li>
+<li>Python不做检查，不做强制，不做验证，什么操作都不做</li>
+<li>注解在Python解释器中没有任何意义，注解只是元数据，可以供IDE、框架和装饰器等工具使用</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="5-10-本章小结"><a href="#5-10-本章小结" class="headerlink" title="5.10 本章小结"></a>5.10 本章小结</h3><ol>
+<li><p>本章的目标是探讨Python函数的一等本性。这意味着，我们可以把函数赋值给变量、传给其他函数、存储在数据结构中，以及访问函数的属性，供框架和一些工具使用</p>
+</li>
+<li><p>高阶函数</p>
+</li>
+<li><p>Python有7种可调用对象，这些可调用对象都能通过内置的<code>callable()</code>函数检测</p>
+</li>
+<li><p>每种可调用对象都支持使用相同的丰富句法声明形式参数，包括仅限关键字参数和注解</p>
+</li>
+<li><p>Python函数及其注解有丰富的属性，在inspect模块的帮助下，可以读取它们</p>
+</li>
+<li><p>函数式编程可以使用<code>operator</code>模块中的一些函数，以及<code>functools.partial</code>函数</p>
+</li>
+</ol>
 <hr>
 
           
@@ -742,7 +670,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/34/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><span class="page-number current">35</span><a class="page-number" href="/page/36/">36</a><span class="space">&hellip;</span><a class="page-number" href="/page/93/">93</a><a class="extend next" rel="next" href="/page/36/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/34/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><span class="page-number current">35</span><a class="page-number" href="/page/36/">36</a><span class="space">&hellip;</span><a class="page-number" href="/page/94/">94</a><a class="extend next" rel="next" href="/page/36/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -790,7 +718,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">94</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -801,7 +729,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -812,7 +740,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
