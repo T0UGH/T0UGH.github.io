@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/05/javascript-11-js模块/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/14/Docker-3-Dockerfile详解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/05/javascript-11-js模块/" itemprop="url">[javascript][11][js模块]</a></h1>
+                <a class="post-title-link" href="/2019/06/14/Docker-3-Dockerfile详解/" itemprop="url">[Docker][3][Dockerfile详解]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-05T15:09:05+08:00">
-                2019-06-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-14T16:55:58+08:00">
+                2019-06-14
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/06/05/javascript-11-js模块/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/06/05/javascript-11-js模块/" itemprop="commentCount"></span>
+                <a href="/2019/06/14/Docker-3-Dockerfile详解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/06/14/Docker-3-Dockerfile详解/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,105 +362,66 @@
       
         
           
-            <h2 id="11-代码模块化"><a href="#11-代码模块化" class="headerlink" title="11 代码模块化"></a>11 代码模块化</h2><p>小的、组织良好的代码远比庞大的代码更容易<strong>理解和维护</strong>。优化程序结构和组织方式的一种方式是将代码拆分为小的、耦合相对松散的片段或模块</p>
-<p><strong>模块</strong>是比对象或者函数稍大的、用于组织代码的单元，通过模块可以将程序进行分类</p>
-<p><strong>模块化</strong>的好处</p>
+            <h2 id="3-Dockerfile详述"><a href="#3-Dockerfile详述" class="headerlink" title="3 Dockerfile详述"></a>3 Dockerfile详述</h2><p><strong>镜像的定制</strong>实际上就是定制每一层所添加的配置、文件。<strong>如果我们可以把每一层修改、安装、构建、操作的命令都写入一个脚本，用这个脚本来构建、定制镜像</strong>，那么之前提及的无法重复的问题、镜像构建透明性的问题、体积的问题就都会解决。这个脚本就是<code>Dockerfile</code>。</p>
+<p><code>Dockerfile</code>是一个文本文件，其内包含了一条条的 <strong>指令</strong>(Instruction)，每一条指令构建一层，因此每一条指令的内容，就是描述该层应当如何构建。</p>
+<p>例如<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> nginx</span><br><span class="line"><span class="keyword">RUN</span> echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-1-FROM-指定基础镜像"><a href="#3-1-FROM-指定基础镜像" class="headerlink" title="3.1 FROM 指定基础镜像"></a>3.1 FROM 指定基础镜像</h3><h4 id="3-1-1-FROM指令简介"><a href="#3-1-1-FROM指令简介" class="headerlink" title="3.1.1 FROM指令简介"></a>3.1.1 FROM指令简介</h4><p>所谓定制镜像，那一定是以一个镜像为基础，在其上进行定制。就像我们之前运行了一个 nginx 镜像的容器，再进行修改一样，基础镜像是必须指定的。</p>
+<p>而 <code>FROM</code> 就是指定基础镜像，因此一个 <code>Dockerfile</code> 中 <code>FROM</code> 是必备的指令，并且必须是第一条指令。</p>
+<h4 id="3-1-2-高质量的官方镜像"><a href="#3-1-2-高质量的官方镜像" class="headerlink" title="3.1.2 高质量的官方镜像"></a>3.1.2 高质量的官方镜像</h4><p>在 <code>Docker Hub</code> 上有非常多的高质量的官方镜像，有可以直接拿来使用的<strong>服务类</strong>的镜像，如 <code>nginx</code>、<code>redis</code>、<code>mongo</code>、<code>mysql</code>、<code>httpd</code>、<code>php</code>、<code>tomcat</code> 等；也有一些方便开发、构建、运行各种<strong>语言</strong>应用的镜像，如 <code>node</code>、<code>openjdk</code>、<code>python</code>、<code>ruby</code>、<code>golang</code> 等。可以在其中寻找一个最符合我们最终目标的镜像为基础镜像进行定制。</p>
+<p>如果没有找到对应服务的镜像，官方镜像中还提供了一些更为基础的操作系统镜像，如 <code>ubuntu</code>、<code>debian</code>、<code>centos</code>、<code>fedora</code>、<code>alpine</code> 等</p>
+<h4 id="3-1-3-Scratch镜像"><a href="#3-1-3-Scratch镜像" class="headerlink" title="3.1.3 Scratch镜像"></a>3.1.3 Scratch镜像</h4><p>除了选择现有镜像为基础镜像外，Docker 还存在一个特殊的镜像，名为 <code>scratch</code>。这个镜像是虚拟的概念，并不实际存在，它表示一个空白的镜像。<strong>使用 Go 语言 开发的应用很多会使用这种方式来制作镜像，这也是为什么有人认为 Go 是特别适合容器微服务架构的语言的原因之一</strong>。</p>
+<h3 id="3-2-RUN-执行命令"><a href="#3-2-RUN-执行命令" class="headerlink" title="3.2 RUN 执行命令"></a>3.2 RUN 执行命令</h3><p>RUN 指令是用来执行命令行命令的</p>
+<p>Dockerfile 中每一个指令都会建立一层，RUN 也不例外。每一个 RUN 的行为，就和刚才我们手工建立镜像的过程一样：新建立一层，在其上执行这些命令，</p>
+<h4 id="3-2-1-RUN指令推荐写法"><a href="#3-2-1-RUN指令推荐写法" class="headerlink" title="3.2.1 RUN指令推荐写法"></a>3.2.1 RUN指令推荐写法</h4><p>执行结束后，commit 这一层的修改，构成新的镜像。所以推荐下面的写法</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> debian:stretch</span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span> buildDeps='gcc libc6-dev make wget' \</span><br><span class="line">    &amp;&amp; apt-get update \</span><br><span class="line">    &amp;&amp; apt-get install -y $buildDeps \</span><br><span class="line">    &amp;&amp; wget -O redis.tar.gz "http://download.redis.io/releases/redis-5.0.3.tar.gz" \</span><br><span class="line">    &amp;&amp; mkdir -p /usr/src/redis \</span><br><span class="line">    &amp;&amp; tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1 \</span><br><span class="line">    &amp;&amp; make -C /usr/src/redis \</span><br><span class="line">    &amp;&amp; make -C /usr/src/redis install \</span><br><span class="line">    &amp;&amp; rm -rf /var/lib/apt/lists/* \</span><br><span class="line">    &amp;&amp; rm redis.tar.gz \</span><br><span class="line">    &amp;&amp; rm -r /usr/src/redis \</span><br><span class="line">    &amp;&amp; apt-get purge -y --auto-remove $buildDeps</span><br></pre></td></tr></table></figure>
+<p>这里没有使用很多个 RUN 对一一对应不同的命令，而是仅仅使用一个 RUN 指令，并使用 &amp;&amp; 将各个所需命令串联起来。将之前的 7 层，简化为了 1 层。</p>
+<p>Dockerfile 支持 Shell 类的行尾添加 \ 的命令换行方式，以及行首 # 进行注释的格式。</p>
+<h3 id="3-3-构建镜像"><a href="#3-3-构建镜像" class="headerlink" title="3.3 构建镜像"></a>3.3 构建镜像</h3><p>在 <code>Dockerfile</code> 文件所在目录执行<code>docker build</code>命令，例如</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ docker build -t nginx:v3 .</span><br><span class="line">Sending build context to Docker daemon 2.048 kB</span><br><span class="line">Step 1 : FROM nginx</span><br><span class="line"> ---&gt; e43d811ce2f4</span><br><span class="line">Step 2 : RUN <span class="built_in">echo</span> <span class="string">'&lt;h1&gt;Hello, Docker!&lt;/h1&gt;'</span> &gt; /usr/share/nginx/html/index.html</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 9cdc27646c7b</span><br><span class="line"> ---&gt; 44aa4490ce2c</span><br><span class="line">Removing intermediate container 9cdc27646c7b</span><br><span class="line">Successfully built 44aa4490ce2c</span><br></pre></td></tr></table></figure>
+<h3 id="3-4-镜像构建上下文"><a href="#3-4-镜像构建上下文" class="headerlink" title="3.4 镜像构建上下文"></a>3.4 镜像构建上下文</h3><h4 id="3-4-1-COPY指令"><a href="#3-4-1-COPY指令" class="headerlink" title="3.4.1 COPY指令"></a>3.4.1 COPY指令</h4><p>假如需要将一些本地文件复制进镜像，可以通过 <code>COPY</code> 指令、<code>ADD</code> 指令等。</p>
+<h4 id="3-4-2-为什么需要上下文"><a href="#3-4-2-为什么需要上下文" class="headerlink" title="3.4.2 为什么需要上下文"></a>3.4.2 为什么需要上下文</h4><p>而 <code>docker build</code> 命令构建镜像，其实并非在本地构建，而是在服务端，也就是 Docker 引擎中构建的。那么在这种客户端/服务端的架构中，如何才能让服务端获得本地文件呢？</p>
+<p>这就引入了上下文的概念。当构建的时候，用户会指定构建镜像上下文的路径，<code>docker build</code> 命令得知这个路径后，会将路径下的所有内容打包，然后上传给 Docker 引擎。这样 Docker 引擎收到这个上下文包后，展开就会获得构建镜像所需的一切文件。</p>
+<h4 id="3-4-3-理解上下文的概念"><a href="#3-4-3-理解上下文的概念" class="headerlink" title="3.4.3 理解上下文的概念"></a>3.4.3 理解上下文的概念</h4><p>例如<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">COPY</span><span class="bash"> ./package.json /app/</span></span><br></pre></td></tr></table></figure></p>
+<p>这并不是要复制执行 docker build 命令所在的目录下的 package.json，也不是复制 Dockerfile 所在目录下的 package.json，而是复制 上下文（context） 目录下的 package.json。</p>
+<p>因此，COPY 这类指令中的源文件的路径都是相对路径。</p>
+<p><code>命令 docker build -t nginx:v3 .</code> 中的这个 <code>.</code>，实际上是在指定上下文的目录，<code>docker build</code> 命令会将该目录下的内容打包交给 <code>Docker</code> 引擎以帮助构建镜像。</p>
+<h4 id="3-4-4-使用方式"><a href="#3-4-4-使用方式" class="headerlink" title="3.4.4 使用方式"></a>3.4.4 使用方式</h4><p>一般来说，应该会将 Dockerfile 置于一个空目录下，或者项目根目录下。如果该目录下没有所需文件，那么应该把所需文件复制一份过来。如果目录下有些东西确实不希望构建时传给 Docker 引擎，那么可以用 .gitignore 一样的语法写一个 .dockerignore，该文件是用于剔除不需要作为上下文传递给 Docker 引擎的文件。</p>
+<h3 id="3-5-Docker指令详解"><a href="#3-5-Docker指令详解" class="headerlink" title="3.5 Docker指令详解"></a>3.5 Docker指令详解</h3><h4 id="3-5-1-COPY-复制文件"><a href="#3-5-1-COPY-复制文件" class="headerlink" title="3.5.1 COPY 复制文件"></a>3.5.1 COPY 复制文件</h4><p>COPY 指令将从构建上下文目录中 &lt;源路径&gt; 的文件/目录复制到新的一层的镜像内的 &lt;目标路径&gt; 位置。比如：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">COPY</span><span class="bash"> package.json /usr/src/app/</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-5-2-ADD-更高级的复制文件"><a href="#3-5-2-ADD-更高级的复制文件" class="headerlink" title="3.5.2 ADD 更高级的复制文件"></a>3.5.2 ADD 更高级的复制文件</h4><p><code>ADD</code> 指令和 <code>COPY</code> 的格式和性质基本一致。但是在 <code>COPY</code> 基础上增加了一些功能。</p>
+<p><code>ADD</code>指令可以接受压缩文件作为参数，并自动解压此文件，如下所示</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> scratch</span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> ubuntu-xenial-core-cloudimg-amd64-root.tar.gz /</span></span><br><span class="line"><span class="bash">...</span></span><br></pre></td></tr></table></figure>
+<p>在 <code>COPY</code> 和 <code>ADD</code> 指令中选择的时候，可以遵循这样的原则，所有的文件复制均使用 <code>COPY</code> 指令，仅在需要<strong>自动解压缩</strong>的场合使用 <code>ADD</code>。</p>
+<h4 id="3-5-3-CMD-容器启动命令"><a href="#3-5-3-CMD-容器启动命令" class="headerlink" title="3.5.3 CMD 容器启动命令"></a>3.5.3 CMD 容器启动命令</h4><p><code>Docker</code> 不是虚拟机，容器就是进程。既然是进程，那么在启动容器的时候，需要指定所运行的程序及参数。<code>CMD</code> 指令就是用于指定默认的容器主进程的启动命令的。</p>
+<p>例如<br><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CMD</span><span class="bash"> <span class="built_in">echo</span> <span class="variable">$HOME</span></span></span><br></pre></td></tr></table></figure></p>
+<p>再例如<br><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"mysqld"</span>]</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="3-5-4-ENTRYPOINT-入口点"><a href="#3-5-4-ENTRYPOINT-入口点" class="headerlink" title="3.5.4 ENTRYPOINT 入口点"></a>3.5.4 ENTRYPOINT 入口点</h4><p>当指定了 <code>ENTRYPOINT</code> 后，<code>CMD</code> 的含义就发生了改变，不再是直接的运行其命令，而是将 <code>CMD</code> 的内容作为参数传给 <code>ENTRYPOINT</code> 指令，换句话说实际执行时，将变为：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">ENTRYPOINT</span><span class="bash">&gt; <span class="string">"&lt;CMD&gt;"</span></span></span><br></pre></td></tr></table></figure>
+<p>例如</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu:<span class="number">18.04</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update \</span></span><br><span class="line"><span class="bash">    &amp;&amp; apt-get install -y curl \</span></span><br><span class="line"><span class="bash">    &amp;&amp; rm -rf /var/lib/apt/lists/*</span></span><br><span class="line"><span class="bash">ENTRYPOINT [ <span class="string">"curl"</span>, <span class="string">"-s"</span>, <span class="string">"https://ip.cn"</span> ]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ docker run myip</span><br><span class="line">当前 IP：61.148.226.66 来自：北京市 联通</span><br><span class="line"></span><br><span class="line">$ docker run myip -i</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: nginx/1.8.0</span><br><span class="line">Date: Tue, 22 Nov 2016 05:12:40 GMT</span><br><span class="line">Content-Type: text/html; charset=UTF-8</span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line">X-Powered-By: PHP/5.6.24-1~dotdeb+7.1</span><br><span class="line">X-Cache: MISS from cache-2</span><br><span class="line">X-Cache-Lookup: MISS from cache-2:80</span><br><span class="line">X-Cache: MISS from proxy-2_6</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Via: 1.1 cache-2:80, 1.1 proxy-2_6:8006</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">当前 IP：61.148.226.66 来自：北京市 联通</span><br></pre></td></tr></table></figure>
+<h4 id="3-5-5-ENV-设置环境变量"><a href="#3-5-5-ENV-设置环境变量" class="headerlink" title="3.5.5 ENV 设置环境变量"></a>3.5.5 ENV 设置环境变量</h4><p>这个指令很简单，就是设置环境变量而已，无论是后面的其它指令，如 <code>RUN</code>，还是运行时的应用，都可以直接使用这里定义的环境变量。</p>
+<p>例如<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> NODE_VERSION <span class="number">7.2</span>.<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> curl -SLO <span class="string">"https://nodejs.org/dist/v<span class="variable">$NODE_VERSION</span>/node-v<span class="variable">$NODE_VERSION</span>-linux-x64.tar.xz"</span> \</span></span><br><span class="line"><span class="bash">  &amp;&amp; curl -SLO <span class="string">"https://nodejs.org/dist/v<span class="variable">$NODE_VERSION</span>/SHASUMS256.txt.asc"</span> \</span></span><br><span class="line"><span class="bash">  &amp;&amp; gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \</span></span><br><span class="line"><span class="bash">  &amp;&amp; grep <span class="string">" node-v<span class="variable">$NODE_VERSION</span>-linux-x64.tar.xz\$"</span> SHASUMS256.txt | sha256sum -c - \</span></span><br><span class="line"><span class="bash">  &amp;&amp; tar -xJf <span class="string">"node-v<span class="variable">$NODE_VERSION</span>-linux-x64.tar.xz"</span> -C /usr/<span class="built_in">local</span> --strip-components=1 \</span></span><br><span class="line"><span class="bash">  &amp;&amp; rm <span class="string">"node-v<span class="variable">$NODE_VERSION</span>-linux-x64.tar.xz"</span> SHASUMS256.txt.asc SHASUMS256.txt \</span></span><br><span class="line"><span class="bash">  &amp;&amp; ln -s /usr/<span class="built_in">local</span>/bin/node /usr/<span class="built_in">local</span>/bin/nodejs</span></span><br></pre></td></tr></table></figure></p>
+<p>下列指令可以支持环境变量展开：<code>ADD</code>、<code>COPY</code>、<code>ENV</code>、<code>EXPOSE</code>、<code>LABEL</code>、<code>USER</code>、<code>WORKDIR</code>、<code>VOLUME</code>、<code>STOPSIGNAL</code>、<code>ONBUILD</code>。</p>
+<h4 id="3-5-7-ARG-构建参数"><a href="#3-5-7-ARG-构建参数" class="headerlink" title="3.5.7 ARG 构建参数"></a>3.5.7 ARG 构建参数</h4><p>略</p>
+<h4 id="3-5-8-VOLUME-定义匿名卷"><a href="#3-5-8-VOLUME-定义匿名卷" class="headerlink" title="3.5.8 VOLUME 定义匿名卷"></a>3.5.8 VOLUME 定义匿名卷</h4><p>在 Dockerfile 中，我们可以事先指定某些目录挂载为匿名卷，这样在运行时如果用户不指定挂载，其应用也可以正常运行，不会向容器存储层写入大量数据。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">VOLUME</span><span class="bash"> /data</span></span><br></pre></td></tr></table></figure>
+<p>这里的 <code>/data</code> 目录就会在运行时自动挂载为匿名卷，任何向 <code>/data</code> 中写入的信息都不会记录进容器存储层，从而保证了容器存储层的无状态化。当然，运行时可以覆盖这个挂载设置。比如：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="bash"> -d -v mydata:/data xxxx</span></span><br></pre></td></tr></table></figure>
+<p>在这行命令中，就使用了 mydata 这个命名卷挂载到了 /data 这个位置，替代了 Dockerfile 中定义的匿名卷的挂载配置。</p>
+<h4 id="3-5-9-EXPOSE-声明端口"><a href="#3-5-9-EXPOSE-声明端口" class="headerlink" title="3.5.9 EXPOSE 声明端口"></a>3.5.9 EXPOSE 声明端口</h4><p><code>EXPOSE</code> 指令是声明运行时容器提供服务端口，这只是一个声明，在运行时并不会因为这个声明应用就会开启这个端口的服务。</p>
+<p>在 Dockerfile 中写入这样的声明有两个好处，</p>
 <ol>
-<li>降低理解成本</li>
-<li>模块易于维护</li>
-<li>提高代码的重用性</li>
+<li><p>一个是帮助镜像使用者理解这个镜像服务的守护端口，以方便配置映射；</p>
+</li>
+<li><p>另一个用处则是在运行时使用随机端口映射时，也就是 docker run -P 时，会自动随机映射 EXPOSE 的端口。</p>
+</li>
 </ol>
-<h3 id="11-1-在ES6之前的版本中模块化代码"><a href="#11-1-在ES6之前的版本中模块化代码" class="headerlink" title="11.1 在ES6之前的版本中模块化代码"></a>11.1 在ES6之前的版本中模块化代码</h3><h4 id="11-1-1-使用对象、闭包和立即执行函数实现模块"><a href="#11-1-1-使用对象、闭包和立即执行函数实现模块" class="headerlink" title="11.1.1 使用对象、闭包和立即执行函数实现模块"></a>11.1.1 使用对象、闭包和立即执行函数实现模块</h4><p>ES6之前没有模块，开发者创造性的发挥JS语言现有的特性实现模块化。最流行的方式是使用立即执行函数的闭包实现模块</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MouseCounterModule = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> numClicks = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">const</span> handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        alert(++numClicks);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        countClicks: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">document</span>.addEventListener(<span class="string">"click"</span>, handleClick);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
-<ol>
-<li>在立即执行函数内部，定义模块内部的实现细节，这些细节只能在模块内部访问:局部变量<code>numClicks</code>和局部函数<code>handleClick</code></li>
-<li>创建并返回一个对象作为模块的”公共接口”。该接口包括<code>countClicks</code>方法</li>
-<li>由于暴露了模块接口，模块内部细节仍然可以通过接口创建的闭包保持活跃</li>
-<li>最后，保存代表模块接口的变量，通过立即执行函数返回给变量<code>MouseCounterModule</code></li>
-</ol>
-<p>这种在JavaScript中通过使用立即执行函数、对象和闭包来创建模块的方式称为<strong>模块模式</strong></p>
-<p>模块模式的问题</p>
-<ol>
-<li>难以扩展</li>
-<li>模块模式无法很好的处理对于其他模块的依赖</li>
-</ol>
-<h4 id="11-1-2-使用AMD模块化JavaScript应用"><a href="#11-1-2-使用AMD模块化JavaScript应用" class="headerlink" title="11.1.2 使用AMD模块化JavaScript应用"></a>11.1.2 使用AMD模块化JavaScript应用</h4><p>AMD的设计理念是明确基于浏览器，而CommonJS的设计是面向通用JavaScript环境，而不局限于浏览器</p>
-<p>AMD提供名为<code>define</code>的函数，它接受如下参数</p>
-<ul>
-<li>先创建模块的<code>id</code>，使用该<code>id</code>，可以在系统的其他部分引入该模块</li>
-<li>当前模块依赖的模块<code>id</code>列表</li>
-<li>初始化模块的工厂函数，该工厂函数接收依赖的模块列表作为参数</li>
-</ul>
-<p>AMD定义模块示例<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">'MouseCounterModule`, ['</span>jquery<span class="string">'], $ =&gt; &#123;</span></span><br><span class="line"><span class="string">    let numClicks = 0;</span></span><br><span class="line"><span class="string">    const handleClick = () =&gt; &#123;</span></span><br><span class="line"><span class="string">        alert(++numClicks);</span></span><br><span class="line"><span class="string">    &#125;;</span></span><br><span class="line"><span class="string">    return &#123;</span></span><br><span class="line"><span class="string">        countClicks: () =&gt; &#123;</span></span><br><span class="line"><span class="string">            document.addEventListener("click", handleClick);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;;</span></span><br><span class="line"><span class="string">&#125;);</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="11-1-3-使用CommonJS模块化JavaScript应用"><a href="#11-1-3-使用CommonJS模块化JavaScript应用" class="headerlink" title="11.1.3 使用CommonJS模块化JavaScript应用"></a>11.1.3 使用CommonJS模块化JavaScript应用</h4><p>CommonJS提供<code>module</code>变量，通过<code>module.exports</code>对象暴露的对象或函数可以在模块外部访问</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> $ = <span class="built_in">require</span>(<span class="string">"jquery"</span>);</span><br><span class="line"><span class="keyword">let</span> numClicks = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">const</span> handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        alert(++numClicks);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    countClicks: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">document</span>.addEventListener(<span class="string">"click"</span>, handleClick);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MouseCounterModule = <span class="built_in">require</span>(<span class="string">"MouseCounterModule.js"</span>);</span><br><span class="line">MouseCounterModule.countClicks();</span><br></pre></td></tr></table></figure>
-<h3 id="11-2-ES6模块"><a href="#11-2-ES6模块" class="headerlink" title="11.2 ES6模块"></a>11.2 ES6模块</h3><p>ES6模块的主要思想是必须显式地使用标识符导出模块，才能从外部访问模块</p>
-<p>ES6引入了两个关键字</p>
-<ul>
-<li>export: 从模块外部指定标识符</li>
-<li>import: 导入模块标识符</li>
-</ul>
-<h4 id="11-2-1-导出和导入功能"><a href="#11-2-1-导出和导入功能" class="headerlink" title="11.2.1 导出和导入功能"></a>11.2.1 导出和导入功能</h4><p>通过在需要导出的标识符(如变量、函数和类)使用关键字<code>export</code>，就可以实现模块导出<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ninja = <span class="string">"Yoshi"</span>;</span><br><span class="line"><span class="comment">//导出变量</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> message = <span class="string">"Hello"</span>;</span><br><span class="line"><span class="comment">//导出函数</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">sayHiToNinja</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> message + <span class="string">" "</span> + ninja;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>使用关键字<code>import</code>将变量和函数导入<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;message, sayHiToNinja&#125; <span class="keyword">from</span> <span class="string">"Ninja.js"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br><span class="line">sayHiToNinja();</span><br></pre></td></tr></table></figure></p>
-<p>使用简化符号<code>*</code>可以导入全部标识符<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> ninjaModule <span class="keyword">from</span> <span class="string">"Ninja.js"</span></span><br><span class="line"><span class="built_in">console</span>.log(ninjaModule.message);</span><br><span class="line">ninjaModule.sayHiToNinja();</span><br></pre></td></tr></table></figure></p>
-<h4 id="11-2-2-默认导出"><a href="#11-2-2-默认导出" class="headerlink" title="11.2.2 默认导出"></a>11.2.2 默认导出</h4><p>通常我们不需要从模块中导出一组相关的标识符，只需要导出一个标识符来代表整个模块的导出，常见情况为，当模块中包含一个类，只需要导出整个类</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Ninja</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name)&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">compareNinjas</span>(<span class="params">ninja1, ninja2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ninja1.name === ninja2.name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>导入模块默认导出的内容，不需要使用花括号{},可以任意指定名称<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ImportedNinja <span class="keyword">from</span> <span class="string">"Ninja.js"</span></span><br><span class="line"><span class="keyword">import</span> &#123;compareNinjas&#125; <span class="keyword">from</span> <span class="string">"Ninja.js"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ninja1 = <span class="keyword">new</span> ImportedNinja(<span class="string">"Yoshi"</span>);</span><br><span class="line"><span class="keyword">const</span> ninja2 = <span class="keyword">new</span> ImportedNinja(<span class="string">"Hattori"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(ninja1 === ninja2);</span><br></pre></td></tr></table></figure></p>
-<h4 id="11-2-3-模块语法表"><a href="#11-2-3-模块语法表" class="headerlink" title="11.2.3 模块语法表"></a>11.2.3 模块语法表</h4><table>
-<thead>
-<tr>
-<th>代码</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>export const ninja = &quot;Yoshi&quot;</code></td>
-<td>导出变量</td>
-</tr>
-<tr>
-<td><code>export function compare()</code></td>
-<td>导出函数</td>
-</tr>
-<tr>
-<td><code>export class Ninja()</code></td>
-<td>导出类</td>
-</tr>
-<tr>
-<td><code>export default class Ninja()</code></td>
-<td>导出默认类</td>
-</tr>
-<tr>
-<td><code>export default function Ninja()</code></td>
-<td>导出默认函数</td>
-</tr>
-<tr>
-<td><code>const ninja = &quot;Yoshi&quot;; function compare(){}; export{ninja, compare};</code></td>
-<td>导出存在的变量</td>
-</tr>
-<tr>
-<td><code>export {ninja as samurai};</code></td>
-<td>使用别名导出变量</td>
-</tr>
-<tr>
-<td><code>import Ninja from &quot;Ninja.js&quot;</code></td>
-<td>导入默认导出</td>
-</tr>
-<tr>
-<td><code>import {ninja} from &quot;Ninja.js&quot;</code></td>
-<td>导入命名导出</td>
-</tr>
-<tr>
-<td><code>import * as Ninja from &quot;Ninja.js&quot;</code></td>
-<td>导入模块声明的全部导出内容</td>
-</tr>
-<tr>
-<td><code>import {ninja as iNinja from &quot;Ninja.js&quot;</code></td>
-<td>通过别名导入模块中声明的全部导出内容</td>
-</tr>
-</tbody>
-</table>
+<h4 id="3-5-10-WORKDIR-指定工作目录"><a href="#3-5-10-WORKDIR-指定工作目录" class="headerlink" title="3.5.10 WORKDIR 指定工作目录"></a>3.5.10 WORKDIR 指定工作目录</h4><p>使用 <code>WORKDIR</code> 指令可以来指定工作目录（或者称为当前目录），以后各层的当前目录就被改为指定的目录，如该目录不存在，<code>WORKDIR</code> 会帮你建立目录。</p>
+<p>因此如果需要改变以后各层的工作目录的位置，那么应该使用 <code>WORKDIR</code> 指令。</p>
+<h4 id="3-5-11-USER-指定当前用户"><a href="#3-5-11-USER-指定当前用户" class="headerlink" title="3.5.11 USER 指定当前用户"></a>3.5.11 USER 指定当前用户</h4><p><code>USER</code> 指令和 <code>WORKDIR</code> 相似，都是改变环境状态并影响以后的层。<code>WORKDIR</code> 是改变工作目录，<code>USER</code> 则是改变之后层的执行 <code>RUN</code>, <code>CMD</code> 以及 <code>ENTRYPOINT</code> 这类命令的身份。</p>
+<h4 id="3-5-12-ONBUILD"><a href="#3-5-12-ONBUILD" class="headerlink" title="3.5.12 ONBUILD"></a>3.5.12 ONBUILD</h4><p>略</p>
+<h4 id="3-5-13-HEALTHCHECK-健康检查"><a href="#3-5-13-HEALTHCHECK-健康检查" class="headerlink" title="3.5.13 HEALTHCHECK 健康检查"></a>3.5.13 HEALTHCHECK 健康检查</h4><p>HEALTHCHECK 指令是告诉 Docker 应该如何进行判断容器的状态是否正常，这是 Docker 1.12 引入的新指令。</p>
 
           
         
@@ -500,7 +461,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/68/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><span class="page-number current">69</span><a class="page-number" href="/page/70/">70</a><span class="space">&hellip;</span><a class="page-number" href="/page/99/">99</a><a class="extend next" rel="next" href="/page/70/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/68/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><span class="page-number current">69</span><a class="page-number" href="/page/70/">70</a><span class="space">&hellip;</span><a class="page-number" href="/page/100/">100</a><a class="extend next" rel="next" href="/page/70/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -548,7 +509,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">100</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -570,7 +531,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
