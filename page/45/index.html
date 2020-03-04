@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/31/SSM-6-动态SQL/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/31/SSM-7-MyBatis的解析和运行原理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/01/31/SSM-6-动态SQL/" itemprop="url">[SSM][6][动态SQL]</a></h1>
+                <a class="post-title-link" href="/2020/01/31/SSM-7-MyBatis的解析和运行原理/" itemprop="url">[SSM][7][MyBatis的解析和运行原理]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-31T11:10:49+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-31T16:25:37+08:00">
                 2020-01-31
               </time>
             
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/01/31/SSM-6-动态SQL/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/31/SSM-6-动态SQL/" itemprop="commentCount"></span>
+                <a href="/2020/01/31/SSM-7-MyBatis的解析和运行原理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/31/SSM-7-MyBatis的解析和运行原理/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,76 +362,69 @@
       
         
           
-            <h2 id="第6章-动态SQL"><a href="#第6章-动态SQL" class="headerlink" title="第6章 动态SQL"></a>第6章 动态SQL</h2><p>如果使用<code>JDBC</code>或者类似于<code>Hibernate</code>的其他框架，很多时候要根据需要去拼装<code>SQL</code>,这是一个麻烦的事情。因为某些查询需要许多条件，比如查询角色，可以根据角色名称或者备注等信息查询，当不输入名称时使用名称作条件就不合适了。</p>
-<p>通常使用其他框架需要大量的<code>Java</code>代码进行判断，可读性比较差，而<code>MyBatis</code>提供对<code>SQL</code>语句动态的组装能力，使用<code>XML</code>的几个简单的元素，便能完成动态<code>SQL</code>的功能。大量的判断都可以在<code>MyBatis</code>的映射<code>XML</code>里面配置，以达到许多需要大量代码才能实现的功能，大大减少了代码量，这体现了<code>MyBatis</code>的灵活、高度可配置性和可维护性。</p>
-<h3 id="6-1-概述"><a href="#6-1-概述" class="headerlink" title="6.1 概述"></a>6.1 概述</h3><p>MyBatis的动态SQL包括以下一个元素</p>
-<table>
-<thead>
-<tr>
-<th>元素</th>
-<th>作用</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>if</td>
-<td>判断语句</td>
-<td>单条件分支判断</td>
-</tr>
-<tr>
-<td>choose(when, otherwise)</td>
-<td>相当于JAVA中的switch和case语句</td>
-<td>多条件分支判断</td>
-</tr>
-<tr>
-<td>trim(where, set)</td>
-<td>辅助元素，用于处理特定的SQL组装问题，比如去掉多余的and、or等</td>
-<td>用于处理SQL拼装的问题</td>
-</tr>
-<tr>
-<td>foreach</td>
-<td>循环语句</td>
-<td>在in语句等列举条件常用</td>
-</tr>
-</tbody>
-</table>
-<h3 id="6-2-if元素"><a href="#6-2-if元素" class="headerlink" title="6.2 if元素"></a>6.2 if元素</h3><p><code>if</code>元素相当于<code>Java</code>中的<code>if</code>语句，它常与<code>test</code>属性联合使用</p>
-<p>下面用一个场景来说明，根据角色名称(<code>roleName</code>)来查找角色，如果<code>roleName</code>不为空，则采取构造对<code>roleName</code>的模糊查询，否则不要去构造这个条件</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRoles"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultMap</span>=<span class="string">"roleResultMap"</span>&gt;</span></span><br><span class="line">    select role_no, role_name, note from t_role where 1 = 1</span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"roleName != null and roleName != ''"</span>&gt;</span></span><br><span class="line">        and role_name like concat('%', #&#123;roleName&#125;, '%')</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="6-3-choose、when、otherwise元素"><a href="#6-3-choose、when、otherwise元素" class="headerlink" title="6.3 choose、when、otherwise元素"></a>6.3 choose、when、otherwise元素</h3><p><code>choose、when、otherwise</code>元素相当于<code>java</code>中的<code>switch...case...default..</code></p>
-<p>下面用一个场景来说明</p>
+            <h2 id="第-7-章-MyBatis的解析和运行原理"><a href="#第-7-章-MyBatis的解析和运行原理" class="headerlink" title="第 7 章 MyBatis的解析和运行原理"></a>第 7 章 MyBatis的解析和运行原理</h2><p>MyBatis的运行过程分为两大步</p>
+<ol>
+<li>读取配置文件缓存到<code>Configuration</code>对象，用以创建<code>SqlSessionFactory</code></li>
+<li><code>SqlSession</code>的执行过程</li>
+</ol>
+<h3 id="7-1-构建SqlSessionFactory过程"><a href="#7-1-构建SqlSessionFactory过程" class="headerlink" title="7.1 构建SqlSessionFactory过程"></a>7.1 构建SqlSessionFactory过程</h3><p><code>SqlSessionFactory</code>是<code>MyBatis</code>的核心类之一，其最重要的功能就是提供创建<code>MyBatis</code>的核心接口<code>SqlSession</code>，所以要先创建<code>SqlSessionFactory</code>，为此要提供配置文件和相关的参数。</p>
+<p><code>MyBatis</code>采用了<code>Builder</code>模式去创建<code>SqlSessionFactory</code>，在实际中可以通过<code>SqlSessionF actoryBuilder</code>去构建，其构建分为两步。</p>
+<ol>
+<li>通过<code>XMLConfigBuilder</code>解析配置的<code>XML</code>文件，读出所配置的参数，并将读取的内容存入<code>Configuration</code> 类对象中。</li>
+<li>使用<code>Confinguration</code> 对象去创建<code>SqlSessionFactory</code></li>
+</ol>
+<h4 id="7-1-1-构建Configuration"><a href="#7-1-1-构建Configuration" class="headerlink" title="7.1.1 构建Configuration"></a>7.1.1 构建Configuration</h4><p>在<code>SqlSessionFactory</code>构建中，<code>Configuration</code>是最重要的，它的作用是：</p>
 <ul>
-<li>如果角色编号(<code>roleNo</code>)不为空，则只用角色编号作为条件查询。</li>
-<li>当角色编号为空，而角色名称不为空，则用角色名称作为条件进行模糊查询。</li>
-<li>当角色编号和角色名称都为空，则要求角色备注不为空。</li>
+<li>读入配置文件，包括基础配置的<code>XML</code>和映射器<code>XML</code>(或注解)。</li>
+<li>初始化一些基础配置，比如<code>MyBatis</code>的别名等，一些重要的类对象(比如插件、映<br>射器、<code>Object</code>工厂、<code>typeHandlers</code>对象等)。</li>
+<li>提供单例，为后续创建<code>SessionFactorγ</code>服务，提供配置的参数。</li>
+<li>执行一些重要对象的初始化方法。</li>
 </ul>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRoles"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span> <span class="attr">resultMap</span>=<span class="string">"roleResultMap"</span>&gt;</span></span><br><span class="line">    select role_no, role_name, note from t_role</span><br><span class="line">    where 1=1</span><br><span class="line">    <span class="tag">&lt;<span class="name">choose</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"roleNo != null and roleNo != ''"</span>&gt;</span></span><br><span class="line">            and role_no = #&#123;roleNo&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"roleName != null and roleName !=''"</span>&gt;</span></span><br><span class="line">            and role_name like concat('%', #&#123;roleName&#125;, '%')</span><br><span class="line">        <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line">            and note is not null</span><br><span class="line">        <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">choose</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="6-4-trim、where、set元素"><a href="#6-4-trim、where、set元素" class="headerlink" title="6.4 trim、where、set元素"></a>6.4 trim、where、set元素</h3><h4 id="6-4-1-where元素"><a href="#6-4-1-where元素" class="headerlink" title="6.4.1 where元素"></a>6.4.1 where元素</h4><p>在6.3节的<code>SQL</code>语句上的动态元素的<code>SQL</code>中都加入了一个条件<code>1=1</code>，如果没有加入这个条件，那么可能就变为了这样一条错误的语句：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select role_no, role_name, note from t_role where and role_name like concat('%', #&#123;roleName&#125;, '%')</span><br></pre></td></tr></table></figure></p>
-<p>我们可以使用<code>where</code>元素来避免加入<code>1=1</code>这个条件</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRoles"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span> <span class="attr">resultMap</span>=<span class="string">"roleResultMap"</span>&gt;</span></span><br><span class="line">    select role_no, role_name, note from t_role</span><br><span class="line">    <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"roleName != null and roleName !=''"</span>&gt;</span></span><br><span class="line">            and role_name like concat('%', #&#123;roleName&#125;, '%')</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"note != null and note !=''"</span>&gt;</span></span><br><span class="line">            and note like concat('%', #&#123;note&#125;, '%')</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>当<code>where</code>元素里面的条件成立时，才会加入<code>where</code>这个<code>SQL</code>关键字到组装的<code>SQL</code>里面，否则就不加入</p>
-<h4 id="6-4-2-trim元素"><a href="#6-4-2-trim元素" class="headerlink" title="6.4.2 trim元素"></a>6.4.2 trim元素</h4><p>有时候要去掉的是一些特殊的<code>SQL</code>语法，比如常见的<code>and</code>、<code>or</code>。而使用<code>trim</code>元素也可以达到预期效果</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRoles"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultMap</span>=<span class="string">"roleResultMap"</span>&gt;</span></span><br><span class="line">    select role_no, role_name, note from t_role</span><br><span class="line">    <span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">"where"</span> <span class="attr">prefixOverrides</span>=<span class="string">"and"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"roleName != null and roleName !=''"</span>&gt;</span></span><br><span class="line">            and role_name like concat('%', #&#123;roleName&#125;, '%')</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>Configuration</code>是通过<code>XMLConfigBuilder</code>去构建的，首先它会读出所有<code>XML</code>配置的信息，然后把它们解析并保存在<code>Configuration</code>单例中。它会做如下初始化：</p>
 <ul>
-<li><code>trim</code>代表要去掉一些特殊的字符串</li>
-<li><code>prefix</code>代表的是语句的前缀，而<code>prefixOverrides</code>代表的是要去掉哪种字符串</li>
+<li><code>properties</code> 全局参数。</li>
+<li><code>typeAliases</code> 别名。</li>
+<li><code>Plugins</code> 插件。</li>
+<li><code>objectFactory</code> 对象工厂。</li>
+<li><code>objectWrapperFactory</code> 对象包装工厂。</li>
+<li><code>reflectionFactory</code> 反射工厂。</li>
+<li><code>settings</code> 环境设置。</li>
+<li><code>environments</code> 数据库环境。</li>
+<li><code>databaseldProvider</code> 数据库标识。</li>
+<li><code>typeHandlers</code> 类型转换器。</li>
+<li><code>Mappers</code> 映射器。</li>
 </ul>
-<h4 id="6-4-3-set元素"><a href="#6-4-3-set元素" class="headerlink" title="6.4.3 set元素"></a>6.4.3 set元素</h4><p>在<code>Hibernate</code>中常常因为要更新某一对象，而发送所有的字段给持久对象，而现实中的场景是，只想更新某一个字段。在<code>MyBatis</code>中， 常常可以使用<code>set</code>元素来避免这样的问题，比如要更新一个角色的数据<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateRole"</span> <span class="attr">parameterType</span>=<span class="string">"role"</span>&gt;</span></span><br><span class="line">    update t_role</span><br><span class="line">    <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"roleName != null and roleName !=''"</span>&gt;</span></span><br><span class="line">            role_name = #&#123;roleName&#125;,</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"note != null and note != ''"</span>&gt;</span></span><br><span class="line">            note = #&#123;note&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">    where role_no = #&#123;roleNo&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="6-5-foreach元素"><a href="#6-5-foreach元素" class="headerlink" title="6.5 foreach元素"></a>6.5 foreach元素</h3><p><code>foreach</code>元素是一个循环语旬，它的作用是遍历集合，它能够很好地支持数组和<code>List</code>、<code>Set</code>接口的集合，对此提供遍历功能。它往往用于<code>SQL</code>中的<code>in</code>关键字。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findUserBySex"</span> <span class="attr">resultType</span>=<span class="string">"user"</span>&gt;</span></span><br><span class="line">    select * from t role where role no in</span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">item</span>=<span class="string">"roleNo"</span> <span class="attr">index</span>=<span class="string">"index"</span> <span class="attr">collection</span>=<span class="string">"roleNoList"</span> <span class="attr">open</span>=<span class="string">"("</span> <span class="attr">separator</span>=<span class="string">","</span> <span class="attr">close</span>=<span class="string">")"</span>&gt;</span></span><br><span class="line">        #&#123;roleNo&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>它们都会以类似<code>typeHandler</code>注册那样的方法被存放到<code>Configuration</code>单例中，以便未来将其取出。</p>
+<h4 id="7-1-2-构建映射器的内部组成"><a href="#7-1-2-构建映射器的内部组成" class="headerlink" title="7.1.2 构建映射器的内部组成"></a>7.1.2 构建映射器的内部组成</h4><p>当<code>XMLConfigBuilder</code>解析<code>XML</code>时，会将每一个<code>SQL</code>和其配置的内容保存起来。一般而言，在<code>MyBatis</code>中一条<code>SQL</code>和它相关的配置信息是由3个部分组成的，它们分别是<code>MappedStatement</code>、<code>SqlSource</code>和<code>BoundSql</code></p>
 <ul>
-<li><code>collection</code>配置的<code>roleNoList</code>是传递进来的参数名称，它可以是一个数组、<code>List</code>、<code>Set</code>等集合</li>
-<li><code>index</code>配置的是循环中当前的元素</li>
-<li><code>index</code>配置的是当前元素在集合的位置下标</li>
-<li><code>open</code>和<code>close</code>配置的是以什么符号将这些集合元素包装起来</li>
-<li><code>separator</code>是各个元素的间隔符</li>
+<li><code>MappedStatement</code>的作用是保存一个映射器节点(<code>select|insert|delete|update</code>)的内容。它是一个类，包括许多我们配置的<code>SQL</code>、<code>SQL</code>的<code>id</code>、缓存信息、<code>resultMap</code>、<code>parameterType</code>、<code>resultType</code>、<code>resultMap</code>、<code>languageDriver</code>等重要配置内容。</li>
+<li><code>SqlSource</code>是提供<code>BoundSql</code>对象的地方，它是<code>MappedStatement</code>的一个属性。它的作用是根据上下文和参数解析生成需要的<code>SQL</code></li>
+<li><code>BoundSql</code>是一个结果对象，也就是<code>SqlSource</code>通过解析得到的<code>SQL</code>和参数</li>
 </ul>
-<p>在<code>SQL</code>中常常用到<code>in</code>语句，但是对于大量数据的<code>in</code>语句要特别注意，因为它会消耗大量的性能</p>
-<h3 id="6-6-用test的属性判断字符串"><a href="#6-6-用test的属性判断字符串" class="headerlink" title="6.6 用test的属性判断字符串"></a>6.6 用test的属性判断字符串</h3><p><code>test</code>用于条件判断语句，作用相当于判断真假</p>
-<h3 id="6-7-bind元素"><a href="#6-7-bind元素" class="headerlink" title="6.7 bind元素"></a>6.7 bind元素</h3><p>在进行模糊查询时，如果是<code>MySQL</code>数据库，常常用到的是一个<code>concat</code>，它用<code>%</code>和参数相连。然而在<code>Oracle</code>数据库则没有，<code>Oracle</code>数据库用连接符号<code>||</code>，这样<code>SQL</code>就需要提供两种形式去实现。但是有了<code>bind</code>元素，就不必使用数据库的语言，而是使用<code>MyBatis</code>的动态<code>SQL</code>即可完成。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRole"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultType</span>=<span class="string">"com.bean.RoleBean"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bind</span> <span class="attr">name</span>=<span class="string">"pattern"</span> <span class="attr">value</span>=<span class="string">"'%' + _parameter + '%'"</span>&gt;</span></span><br><span class="line">    SELECT id, role_name as roleName, create_date as createDate, end_date as endFlag, note FROM t_role</span><br><span class="line">    WHERE role_name like #&#123;pattern&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这里的<code>_parameter</code>代表的是传递进来的参数，它和通配符(<code>%</code>)连接后赋给了<code>pattern</code>,然后就可以在<code>select</code>语句中使用这个变量进行模糊查询了。无论是<code>MySQL</code>还是<code>Oracle</code>都可以使用这样的语旬，提高了代码的可移植性。</p>
+<p><img src="/2020/01/31/SSM-7-MyBatis的解析和运行原理/200131_0.png" alt=""></p>
+<p>对于最终的参数和SQL 都反映在<code>BoundSql</code>类对象上，在插件中往往需要拿到它进而可以拿到当前运行的<code>SQL</code>和参数，从而对运行过程做出必要的修改，来满足特殊的需求</p>
+<p><code>BoundSql</code>会提供3个主要的属性：<code>parameterMappings</code>、<code>parameterObject</code>和<code>sql</code></p>
+<ol>
+<li><code>parameterObject</code>为参数本身，可以传递简单对象、<code>POJO</code>或者<code>Map</code>、<code>＠Param</code>注解的参数</li>
+<li><code>parameterMappings</code>是一个<code>List</code>，它的每一个元素都是<code>ParameterMapping</code>对象。对象会描述参数，参数包括属性名称、表达式、<code>javaType</code>、<code>jdbcType</code>、<code>typeHandler</code>等重要信息</li>
+<li><code>sql</code>属性就是书写在映射器里面的一条被<code>SqlSource</code>解析后的<code>SQL</code></li>
+</ol>
+<h3 id="7-2-SqlSession运行过程"><a href="#7-2-SqlSession运行过程" class="headerlink" title="7.2 SqlSession运行过程"></a>7.2 SqlSession运行过程</h3><h4 id="7-2-1-映射器-Mapper-的动态代理"><a href="#7-2-1-映射器-Mapper-的动态代理" class="headerlink" title="7.2.1 映射器(Mapper)的动态代理"></a>7.2.1 映射器(Mapper)的动态代理</h4><p>略(没看懂)</p>
+<h4 id="7-2-2-SqlSession下的四大对象"><a href="#7-2-2-SqlSession下的四大对象" class="headerlink" title="7.2.2 SqlSession下的四大对象"></a>7.2.2 SqlSession下的四大对象</h4><p><code>SqlSession</code>的执行过程是通过<code>Executor</code>、<code>StatementHandler</code>、<code>ParameterHandler</code>和<code>ResultSetHandler</code>来完成数据库操作和结果返回的</p>
+<ul>
+<li><code>Executor</code>代表执行器，由它调度<code>StatementHandler</code>、<code>ParameterHandler</code>、<code>ResultSetHandler</code><br>等来执行对应的<code>SQL</code>。其中<code>StatementHandler</code>是最重要的。</li>
+<li><code>StatementHandler</code>的作用是使用数据库的<code>Statement</code>执行操作</li>
+<li><code>ParameterHandler</code>是用来处理<code>SQL</code>参数的。</li>
+<li><code>ResultSetHandler</code>是进行数据集<code>ResultSet</code>的封装返回处理的，它相当复杂，好在我们不常用它。</li>
+</ul>
+<h4 id="7-2-3-SqlSession的运行"><a href="#7-2-3-SqlSession的运行" class="headerlink" title="7.2.3 SqlSession的运行"></a>7.2.3 SqlSession的运行</h4><p><img src="/2020/01/31/SSM-7-MyBatis的解析和运行原理/200131_1.png" alt=""></p>
+<p><code>SqlSession</code>是通过执行器<code>Executor</code>调度<code>StatementHandler</code>来运行的。而<code>StatementHandler</code>经过3步</p>
+<ul>
+<li><code>prepared</code>预编译<code>SQL</code></li>
+<li><code>parameterize</code>设置参数</li>
+<li><code>query/update</code>执行<code>SQL</code></li>
+</ul>
+<p>其中，<code>parameterize</code>是调用<code>parameterHandler</code>的方法设置的，而参数是根据类型处理器<code>typeHandler</code>处理的。<code>query/update</code>方法通过<code>ResultSetHandler</code>进行处理结果的封装，如果是<code>update</code>语句，就返回整数，否则就通过<code>typeHandler</code>处理结果类型，然后用<code>ObjectFactory</code>提供的规则组装对象，返回给调用者</p>
 
           
         
@@ -471,7 +464,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/44/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><span class="page-number current">45</span><a class="page-number" href="/page/46/">46</a><span class="space">&hellip;</span><a class="page-number" href="/page/100/">100</a><a class="extend next" rel="next" href="/page/46/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/44/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><span class="page-number current">45</span><a class="page-number" href="/page/46/">46</a><span class="space">&hellip;</span><a class="page-number" href="/page/101/">101</a><a class="extend next" rel="next" href="/page/46/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -519,7 +512,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">101</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -541,7 +534,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/github-1-git命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/github-2-github相关/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/28/github-1-git命令/" itemprop="url">[github][1][git命令]</a></h1>
+                <a class="post-title-link" href="/2019/05/28/github-2-github相关/" itemprop="url">[github][2][github相关]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-28T16:56:20+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-28T17:00:51+08:00">
                 2019-05-28
               </time>
             
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/05/28/github-1-git命令/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/28/github-1-git命令/" itemprop="commentCount"></span>
+                <a href="/2019/05/28/github-2-github相关/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/28/github-2-github相关/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,92 +362,57 @@
       
         
           
-            <h2 id="1-通过实际操作学习Git"><a href="#1-通过实际操作学习Git" class="headerlink" title="1 通过实际操作学习Git"></a>1 通过实际操作学习Git</h2><p><a href="https://learngitbranching.js.org/" target="_blank" rel="noopener">一个很好的git学习网站</a></p>
-<h3 id="1-1-基本操作"><a href="#1-1-基本操作" class="headerlink" title="1.1 基本操作"></a>1.1 基本操作</h3><h4 id="1-1-1-git-init-初始化仓库"><a href="#1-1-1-git-init-初始化仓库" class="headerlink" title="1.1.1 git init-初始化仓库"></a>1.1.1 git init-初始化仓库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
-<p>执行<code>git init</code>命令后会生成<code>.git</code>目录，这个目录中存储了管理当前目录内容所需的仓库数据</p>
-<p>我们当前所在的目录称为”附属于该仓库的工作树”，在工作树中对文件进行编辑，然后记录到仓库中，以此管理文件的历史快照。若想要将文件恢复到之前的状态，可从仓库中调取之前的快照，在工作树种打开</p>
-<h4 id="1-1-2-git-status-查看仓库的状态"><a href="#1-1-2-git-status-查看仓库的状态" class="headerlink" title="1.1.2 git status-查看仓库的状态"></a>1.1.2 git status-查看仓库的状态</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/05/28/github-1-git命令/0523_0.png" alt=""></p>
-<h4 id="1-1-3-git-add-向暂存区中添加文件"><a href="#1-1-3-git-add-向暂存区中添加文件" class="headerlink" title="1.1.3 git add-向暂存区中添加文件"></a>1.1.3 git add-向暂存区中添加文件</h4><p>假如只是在工作树中创建了文件，那么该文件不会被记入Git仓库的版本管理对象</p>
-<p>要想让文件成为Git仓库的管理对象，需要用<code>git add</code>命令将其假如暂存区(Stage或Index)中，暂存区是提交之前的临时区域</p>
-<p><img src="/2019/05/28/github-1-git命令/0523_1.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add README.md</span><br></pre></td></tr></table></figure>
-<h4 id="1-1-4-git-commit-保存仓库中的历史记录"><a href="#1-1-4-git-commit-保存仓库中的历史记录" class="headerlink" title="1.1.4 git commit-保存仓库中的历史记录"></a>1.1.4 git commit-保存仓库中的历史记录</h4><p>git commit 命令可以将当前暂存区中的文件实际保存到仓库的历史记录中。通过这些记录，可以在工作树中复原文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;first commit&quot;</span><br></pre></td></tr></table></figure>
-<h4 id="1-1-5-git-log-查看提交日志"><a href="#1-1-5-git-log-查看提交日志" class="headerlink" title="1.1.5 git log-查看提交日志"></a>1.1.5 git log-查看提交日志</h4><p><img src="/2019/05/28/github-1-git命令/0523_2.png" alt=""></p>
+            <h2 id="2-github相关"><a href="#2-github相关" class="headerlink" title="2 github相关"></a>2 github相关</h2><h3 id="2-2-Issue"><a href="#2-2-Issue" class="headerlink" title="2.2 Issue"></a>2.2 Issue</h3><p>开发者为了跟踪bug并进行软件相关讨论，进而方便管理，创建了Issue</p>
 <ul>
-<li><p><code>git log</code>:查看以往仓库中提交的日志</p>
+<li><p>GitHub的Issue和评论可以使用GFM语法进行描述</p>
 </li>
-<li><p><code>git log --pretty=short</code>:只显示提交日志的第一行</p>
+<li><p>Issue可以通过添加标签(Label)来进行整理，标签可以自由创建</p>
 </li>
-<li><p><code>git log -p</code>:显示提交后文件的改动</p>
+<li><p>可以通过添加里程碑来管理Issue，设置里程碑就可以通过Issue来管理任务</p>
+</li>
+<li><p>只要按照特定的格式描述提交信息，就可以像一般BTS带有的功能那样对Issue进行操作</p>
+<ul>
+<li>每个Issue标题下面都分配了一个诸如”#24”一样的序号，只要在提交信息的描述中加入”#24”，就可以在Issue中显示相关信息</li>
+<li>当一个处于<code>open</code>状态的<code>Issue</code>处理完毕，只要在该提交中以下列任意一种格式描述提交信息，对应的<code>Issue</code>就会被<code>close</code>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fix #24</span><br><span class="line">fixes #24</span><br><span class="line">fixed #24</span><br><span class="line">close #24</span><br><span class="line">closes #24</span><br><span class="line">closed #24</span><br><span class="line">resolve #24</span><br><span class="line">resolves #24</span><br><span class="line">resolved #24</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="1-1-6-git-diff-查看更改前后的区别"><a href="#1-1-6-git-diff-查看更改前后的区别" class="headerlink" title="1.1.6 git diff-查看更改前后的区别"></a>1.1.6 git diff-查看更改前后的区别</h4><p><code>git diff</code>命令可以查看工作树、暂存区、最新提交之间的差别</p>
-<ul>
-<li><p><code>git diff</code>:查看当前工作树和暂存区的区别</p>
-</li>
-<li><p><code>git add</code>:使用此指令将工作树中的文件加入暂存区，此时工作树和暂存区没有区别</p>
-</li>
-<li><p><code>git diff HEAD</code>:查看暂存区与最新提交的区别</p>
 </li>
 </ul>
-<h3 id="1-2-分支的操作"><a href="#1-2-分支的操作" class="headerlink" title="1.2 分支的操作"></a>1.2 分支的操作</h3><p>在进行多个并行作业时，我们会用到分支。在这类分支中往往同时存在多个最新代码状态。</p>
-<p>master分支是Git默认创建的分支，因此基本上所有开发都是以这个分支为中心进行的</p>
-<h4 id="1-2-1-git-branch-展示分支一览表"><a href="#1-2-1-git-branch-展示分支一览表" class="headerlink" title="1.2.1 git branch-展示分支一览表"></a>1.2.1 git branch-展示分支一览表</h4><p><img src="/2019/05/28/github-1-git命令/0523_3.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br></pre></td></tr></table></figure>
-<p>分支左侧的星号，表示我们当前所在的分支</p>
-<h4 id="1-2-2-git-checkout-b-创建、切换分支"><a href="#1-2-2-git-checkout-b-创建、切换分支" class="headerlink" title="1.2.2 git checkout -b-创建、切换分支"></a>1.2.2 git checkout -b-创建、切换分支</h4><p><code>git checkout -b feature-A</code>:创建并切换到feature-A分支</p>
-<p><code>git checkout -</code>:切换回上一分支</p>
-<p><img src="/2019/05/28/github-1-git命令/0523_4.png" alt=""></p>
-<h4 id="1-2-3-特性分支"><a href="#1-2-3-特性分支" class="headerlink" title="1.2.3 特性分支"></a>1.2.3 特性分支</h4><p>特性分支是集中实现单一特性(功能)，除此之外不进行任何作业的分支。日常开发中往往会创建数个特性分支，并保留一个稳定分支，一般是master分支担当</p>
-<p>基于特性的工作在特性分支中进行，特性完成后再与master合并。这样可以保证master分支随时供人查看和创建新的特性分支</p>
-<h4 id="1-2-4-git-merge-合并分支"><a href="#1-2-4-git-merge-合并分支" class="headerlink" title="1.2.4 git merge-合并分支"></a>1.2.4 git merge-合并分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge --no-ff feature-A</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/05/28/github-1-git命令/0523_5.png" alt=""></p>
-<h4 id="1-2-5-git-log-–graph-以图表形式查看分支"><a href="#1-2-5-git-log-–graph-以图表形式查看分支" class="headerlink" title="1.2.5 git log –graph-以图表形式查看分支"></a>1.2.5 git log –graph-以图表形式查看分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --graph</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/05/28/github-1-git命令/0523_6.png" alt=""></p>
-<h4 id="1-2-6-git-reset-回溯历史版本"><a href="#1-2-6-git-reset-回溯历史版本" class="headerlink" title="1.2.6 git reset-回溯历史版本"></a>1.2.6 git reset-回溯历史版本</h4><p>借助分散仓库的优势，可以在不影响其他仓库的前提下对历史版本进行操作</p>
-<p><code>git reset --hard</code>根据目标时间点的哈希值，将当前仓库回溯到指定状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard fd0cbcsdfa</span><br><span class="line">HEAD is now at fd0cbf0 Add index</span><br></pre></td></tr></table></figure></p>
-<p><code>git reflog</code>查看当前仓库的操作日志，可以在日志中找到对应的哈希值</p>
-<h4 id="1-2-7-git-commit-–amend-修改提交信息"><a href="#1-2-7-git-commit-–amend-修改提交信息" class="headerlink" title="1.2.7 git commit –amend-修改提交信息"></a>1.2.7 git commit –amend-修改提交信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend</span><br></pre></td></tr></table></figure>
-<p>此命令可以修改上一条提交信息</p>
-<h3 id="1-3-合并冲突"><a href="#1-3-合并冲突" class="headerlink" title="1.3 合并冲突"></a>1.3 合并冲突</h3><p>此处合并时发生了冲突</p>
-<p><img src="/2019/05/28/github-1-git命令/0523_7.png" alt=""></p>
+<h3 id="2-2-发送-Pull-Request"><a href="#2-2-发送-Pull-Request" class="headerlink" title="2.2 发送 Pull Request"></a>2.2 发送 Pull Request</h3><ul>
+<li><p>Pull Request是自己修改源代码后，请求对方仓库采纳该修改时采取的一种行为</p>
+</li>
+<li><p>在Github上发送Pull Request后，接收方的仓库会创建一个附带源代码的Issue，我们在这个Issue中记录详细内容。这就是Pull Request</p>
+</li>
+<li><p>发送过来的Pull Request是否被采纳，要由接收方仓库的管理者进行判断</p>
+</li>
+<li><p>一般说来，在Github上修改对方的代码，需要先将仓库fork到本地，然后再修改代码，发送Pull Request。但是，如果用户对该仓库有编辑权限，则可以直接创建分支，从分支上发送Pull Request。利用这一设计，团队开发时不妨为每一个成员赋予编辑权限，免去<code>fork</code>仓库的麻烦。这样，成员在有需要时就可以创建自己的分支，然后直接向master分支等发送Pull Request</p>
+</li>
+</ul>
+<h3 id="2-3-接收-Pull-Request"><a href="#2-3-接收-Pull-Request" class="headerlink" title="2.3 接收 Pull Request"></a>2.3 接收 Pull Request</h3><p>有两种Pull Request方式:</p>
 <ol>
-<li><p>查看冲突部分并解决</p>
-</li>
-<li><p>冲突解决后，使用<code>git add</code>和<code>git commit</code>命令，将合并的处理结果提交</p>
-</li>
+<li>直接在github上接受此次Pull Request</li>
+<li>拉取到本地，然后校验，校验之后，执行<code>git merge</code>，解决冲突后，push到远端</li>
 </ol>
-<p><img src="/2019/05/28/github-1-git命令/0523_8.png" alt=""></p>
-<h3 id="1-4-推送到远程仓库"><a href="#1-4-推送到远程仓库" class="headerlink" title="1.4 推送到远程仓库"></a>1.4 推送到远程仓库</h3><p>远程仓库，是与本地仓库相对独立的另一个仓库，主要部署在github上</p>
-<h4 id="1-4-1-在github上创建远程仓库"><a href="#1-4-1-在github上创建远程仓库" class="headerlink" title="1.4.1 在github上创建远程仓库"></a>1.4.1 在github上创建远程仓库</h4><h4 id="1-4-2-git-remote-add-添加远程仓库"><a href="#1-4-2-git-remote-add-添加远程仓库" class="headerlink" title="1.4.2 git remote add-添加远程仓库"></a>1.4.2 git remote add-添加远程仓库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add origin git@github.com:t0ugh/git-tutorial.git</span><br></pre></td></tr></table></figure>
-<h4 id="1-4-3-git-push-推送到远程仓库"><a href="#1-4-3-git-push-推送到远程仓库" class="headerlink" title="1.4.3 git push 推送到远程仓库"></a>1.4.3 git push 推送到远程仓库</h4><ol>
-<li><p>推送到<code>master</code>分支</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push -u origin master</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>-u</code>参数可以在推送的同时将<code>origin</code>仓库的<code>master</code>分支设置为本地仓库当前分支的<code>upstream</code></li>
-</ul>
-</li>
-<li><p>推送到<code>master</code>之外的分支</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b feature-D</span><br><span class="line">$ git push -u origin feature-D</span><br></pre></td></tr></table></figure>
-<ul>
-<li>我们在本地仓库中创建<code>feature-D</code>分支，然后将它<code>push</code>给远程仓库并保持分支名称不变</li>
-<li>现在，在远程仓库的GitHub页面就可以查看到<code>feature-D</code>分支S</li>
-</ul>
-</li>
+<h3 id="2-4-团队开发的步骤"><a href="#2-4-团队开发的步骤" class="headerlink" title="2.4 团队开发的步骤"></a>2.4 团队开发的步骤</h3><p>自己总结的开发流程</p>
+<ol>
+<li>git pull 更新本地</li>
+<li>从master新建分支并切换到该分支，以开发新功能</li>
+<li>开发新功能</li>
+<li>将此分支推送到远程仓库</li>
+<li>在github上发送pull request请求</li>
+<li>管理员将此分支拉取到本地</li>
+<li>在本地将此分支合并到master分支并消除冲突</li>
 </ol>
-<h3 id="1-5-从远程仓库获取"><a href="#1-5-从远程仓库获取" class="headerlink" title="1.5 从远程仓库获取"></a>1.5 从远程仓库获取</h3><h4 id="1-5-1-git-clone-获取远程仓库"><a href="#1-5-1-git-clone-获取远程仓库" class="headerlink" title="1.5.1 git clone-获取远程仓库"></a>1.5.1 git clone-获取远程仓库</h4><h5 id="1-获取远程仓库"><a href="#1-获取远程仓库" class="headerlink" title="1 获取远程仓库"></a>1 获取远程仓库</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@github.com:t0ugh/git-tutorial.git</span><br></pre></td></tr></table></figure>
-<p>执行<code>git clone</code>命令后，我们会默认位于<code>master</code>分支下，同时系统将<code>origin</code>设置为该远程仓库的标识符</p>
-<p>也就是说当前本地仓库的<code>master</code>分支与Github端远程仓库(<code>origin</code>)的<code>master</code>分支在内容上完全相同</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -a</span><br><span class="line">* master</span><br><span class="line">  remotes/origin/HEAD -&gt; origin/master</span><br><span class="line">  remotes/origin/feature-D</span><br><span class="line">  remotes/origin/master</span><br></pre></td></tr></table></figure>
-<h5 id="2-获取远程的feature-D分支"><a href="#2-获取远程的feature-D分支" class="headerlink" title="2 获取远程的feature-D分支"></a>2 获取远程的feature-D分支</h5><p>将feature-D分支获取到本地仓库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b feature-D origin/feature-D</span><br></pre></td></tr></table></figure></p>
-<h5 id="3-修改并推送feature-D分支"><a href="#3-修改并推送feature-D分支" class="headerlink" title="3 修改并推送feature-D分支"></a>3 修改并推送feature-D分支</h5><p>以名为origin的feature-D分支为来源，在本地创建feature-D分支</p>
-<p>对本地内容进行修改和提交，提交后，推送到远程的feature-D分支</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure>
-<h4 id="1-5-2-git-pull-获取最新的远程仓库分支"><a href="#1-5-2-git-pull-获取最新的远程仓库分支" class="headerlink" title="1.5.2 git pull-获取最新的远程仓库分支"></a>1.5.2 git pull-获取最新的远程仓库分支</h4><p>使用git pull命令，将本地的feature-D分支更新到最新状态</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull origin feature-D</span><br></pre></td></tr></table></figure>
-<p>如果两人同时修改了同一部分的源代码，push很容易发生冲突。所以多名开发者在同一个分支中进行工作时，为减少冲突情况的发生，建议更频繁的进行push和pull操作</p>
+<p>Github Flow的开发流程</p>
+<ol>
+<li>令master分支时常保持可以部署的状态</li>
+<li>进行新的工作时要从master分支创建新分支，新分支名称要具有描述性</li>
+<li>在<code>2</code>新建的本地仓库分支中进行提交</li>
+<li>在Github端仓库创建同名分支，定期push</li>
+<li>需要帮助或者反馈时创建Pull Request，以Pull Request进行交流和讨论</li>
+<li>让其他开发者进行审查，确定作业完成后与master分支合并</li>
+<li>与master分支合并后立即部署</li>
+</ol>
 
           
         
@@ -487,7 +452,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/71/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><span class="page-number current">72</span><a class="page-number" href="/page/73/">73</a><span class="space">&hellip;</span><a class="page-number" href="/page/100/">100</a><a class="extend next" rel="next" href="/page/73/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/71/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><span class="page-number current">72</span><a class="page-number" href="/page/73/">73</a><span class="space">&hellip;</span><a class="page-number" href="/page/101/">101</a><a class="extend next" rel="next" href="/page/73/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -535,7 +500,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">101</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -557,7 +522,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

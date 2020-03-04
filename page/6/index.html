@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/26/MySQL-4-Schema与数据类型优化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/27/MySQL-5-创建高性能的索引/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/02/26/MySQL-4-Schema与数据类型优化/" itemprop="url">[MySQL][4][Schema与数据类型优化]</a></h1>
+                <a class="post-title-link" href="/2020/02/27/MySQL-5-创建高性能的索引/" itemprop="url">[MySQL][5][创建高性能的索引]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-26T11:36:41+08:00">
-                2020-02-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-27T17:31:37+08:00">
+                2020-02-27
               </time>
             
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/02/26/MySQL-4-Schema与数据类型优化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/26/MySQL-4-Schema与数据类型优化/" itemprop="commentCount"></span>
+                <a href="/2020/02/27/MySQL-5-创建高性能的索引/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/27/MySQL-5-创建高性能的索引/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,135 +362,231 @@
       
         
           
-            <h2 id="第-4-章-Schema与数据类型优化"><a href="#第-4-章-Schema与数据类型优化" class="headerlink" title="第 4 章 Schema与数据类型优化"></a>第 4 章 Schema与数据类型优化</h2><p>良好的逻辑设计和物理设计是高性能的基石，应该根据系统将要执行的查询语句来设计schema，这往往需要权衡各种因素。例如，反范式的设计可以加快某些类型的查询，但同时可能使另一些类型的查询变慢。比如添加计数表和汇总表是一种很好的优化查询的方式但这些表的维护成本可能会很高。 </p>
-<h3 id="4-1-选择优化的数据类型"><a href="#4-1-选择优化的数据类型" class="headerlink" title="4.1 选择优化的数据类型"></a>4.1 选择优化的数据类型</h3><p>不管存储哪种类型的数据，下面几个简单的原则都有助于做出更好的选择。</p>
+            <h2 id="第-5-章-创建高性能的索引"><a href="#第-5-章-创建高性能的索引" class="headerlink" title="第 5 章 创建高性能的索引"></a>第 5 章 创建高性能的索引</h2><p><strong>索引</strong>是存储引擎用于快速找到记录的一种数据结构。</p>
+<p>索引对于良好的性能非常关键。尤其是当表中的数据量越来越大时，索引对性能的影响愈发重要。在数据量较小且负载较低时，不恰当的索引对性能的影响可能还不明显，但当数据量逐渐增大时，性能则会急速下降。</p>
+<h3 id="5-1-索引基础"><a href="#5-1-索引基础" class="headerlink" title="5.1 索引基础"></a>5.1 索引基础</h3><p>要理解MySQL中索引是如何工作的，最简单的方法就是去看看一本书的“索引”部分如果想在一本书中找到某个特定主题，一般会先看书的“索引”，找到对应的页码，然后直接翻到那一页即可。MySQL中的索引与一本书的目录作用差不多，都是用来快速定位想要找的内容。</p>
+<p>在MySQL中，存储引擎先在索引中找到对应值，然后根据匹配的索引记录找到对应的数据行。例如要运行下面的查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> first_name <span class="keyword">FROM</span> actor <span class="keyword">WHERE</span> actor_id = <span class="number">5</span>;</span><br></pre></td></tr></table></figure></p>
+<p>MySQL会先在索引上按值进行查找，找到<code>actor_id</code>等于<code>5</code>的索引项，这个索引项中包含数据行的地址，然后返回所有包含该值的数据行。</p>
+<p>索引可以包含一个或多个列的值。如果索引包含多个列，那么列的顺序也十分重要，因为 MySQL只能高效地使用索引的最左前缀列。</p>
+<h4 id="5-1-1-索引的类型"><a href="#5-1-1-索引的类型" class="headerlink" title="5.1.1 索引的类型"></a>5.1.1 索引的类型</h4><p>在MySQL中，索引是在存储引擎层而不是服务器层实现的。所以，并没有统一的索引标准：不同存储引擎的索引的工作方式并不一样，也不是所有的存储引擎都支持所有类型的索引。即使多个存储引擎支持同一种类型的索引，其底层的实现也可能不同。</p>
+<h4 id="5-1-2-B-Tree索引"><a href="#5-1-2-B-Tree索引" class="headerlink" title="5.1.2 B-Tree索引"></a>5.1.2 B-Tree索引</h4><p>大多数 MySQL引擎都支持这种索引，它使用B-Tree数据结构来存储数据</p>
+<p>B-Tree通常意味着所有的值都是按顺序存储的，并且每一个叶子页到根的距离相同。如下图所示</p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_1.png" alt=""></p>
+<p>B-Tree索引能够加快访问数据的速度，因为存储引擎不再需要进行全表扫描来获取需要的数据，取而代之的是从索引的根节点（图示并未画出）开始进行搜索。根节点的槽中存放了指向子节点的指针，存储引擎根据这些指针向下层查找。通过比较节点页的值和要查找的值可以找到合适的指针进入下层子节点，这些指针实际上定义了子节点页中值的上限和下限。最终存储引擎要么是找到对应的值，要么该记录不存在。</p>
+<p>叶子节点比较特别，它们的指针指向的是被索引的数据，而不是其他的节点页。此外，树的深度和表的大小直接相关。</p>
+<p>B-Tree对索引列是顺序组织存储的，所以很适合査找范围数据。例如像“找出所有以I到K开头的名字”这样的查找效率会非常高。</p>
+<h5 id="5-1-2-1-B-Tree索引的一个例子"><a href="#5-1-2-1-B-Tree索引的一个例子" class="headerlink" title="5.1.2.1 B-Tree索引的一个例子"></a>5.1.2.1 B-Tree索引的一个例子</h5><p>下面举一个B-Tree索引的例子</p>
+<p>假设有如下数据表</p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_2.png" alt=""></p>
+<p>对于表中的每一行数据，索引中包含了<code>last_name</code>、<code>first_name</code>和<code>dob</code>列的值，下图显示了该索引是如何组织数据的存储的。</p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_3.png" alt=""></p>
+<p>请注意，索引对多个值进行排序的依据是<code>CREATE TABLE</code>语句中定义索引时列的顺序。看下最后两个条目，两个人的姓和名都一样，则根据他们的出生日期来排列顺序。</p>
+<h5 id="5-1-2-2-可以使用B-Tree索引的查询类型"><a href="#5-1-2-2-可以使用B-Tree索引的查询类型" class="headerlink" title="5.1.2.2 可以使用B-Tree索引的查询类型"></a>5.1.2.2 可以使用B-Tree索引的查询类型</h5><ul>
+<li><p>全值匹配</p>
 <ul>
-<li><p>更小的逋常更好。</p>
-<ul>
-<li>一般情况下，应该尽量使用可以正确存储数据的最小数据类型。更小的数据类型通常更快，因为它们占用更少的磁盘、内存和CPU缓存，并且处理时需要的CPU周期也更少。</li>
-<li>但是要确保没有低估需要存储的值的范围</li>
+<li>全值匹配指的是和索引中的所有列进行匹配</li>
+<li>例如前面提到的索引可用于查找姓名为Cuba Allen、出生于1960-01-01的人</li>
 </ul>
 </li>
-<li><p>简单就好</p>
+<li><p>匹配最左前缀</p>
 <ul>
-<li>简单数据类型的操作通常需要更少的CPU周期。例如，整型比字符操作代价更低，因为字符集和校对规则使字符比较比整型比较更复杂。</li>
-<li>这里有两个例子：一个是应该使用MySQL内建的类型而不是字符串来存储日期和时间，另外一个是应该用整型存储IP地址。</li>
+<li>前面提到的索引可用于查找所有姓为Allen的人，即只使用索引的第一列</li>
 </ul>
 </li>
-<li><p>尽量避免NULL</p>
+<li><p>匹配列前缀</p>
 <ul>
-<li>很多表都包含可为NULL的列，即使应用程序并不需要保存NULL也是如此，这是因为可为NULL是列的默认属性。</li>
-<li>如果查询中包含可为NULL的列，对MySQL来说更难优化，因为可为NULL的列使得索引、索引统计和值比较都更复杂。</li>
+<li>也可以只匹配某一列的值的开头部分。</li>
+<li>例如前面提到的索引可用于查找所有以J开头的姓的人。这里也只使用了索引的列的开头。</li>
+</ul>
+</li>
+<li><p>匹配范围值</p>
+<ul>
+<li>例如前面提到的索引可用于查找姓在Allen和Barrymore之间的人。这里也只使用了索引的第一列</li>
+</ul>
+</li>
+<li><p>精确匹配某一列并范围匹配另外一列</p>
+<ul>
+<li>前面提到的索引也可用于查找所有姓为Allen，并且名字是字母K开头（比如Kim Karl等）的人。</li>
+<li>即第一列<code>last_name</code>全匹配，第二列<code>first_name</code>范围匹配。</li>
+</ul>
+</li>
+<li><p>只访问索引的查询</p>
+<ul>
+<li>B-Tree通常可以支持“只访问索引的查询”</li>
+<li>它会直接读取索引中保存的数据信息，这样就无需访问数据行了</li>
 </ul>
 </li>
 </ul>
-<p>在为列选择数据类型时，要遵循如下顺序</p>
+<h5 id="5-1-2-3-B-Tree索引的其他作用"><a href="#5-1-2-3-B-Tree索引的其他作用" class="headerlink" title="5.1.2.3 B-Tree索引的其他作用"></a>5.1.2.3 B-Tree索引的其他作用</h5><p>因为索引树中的节点是有序的，所以除了按值查找之外，索引还可以用于查询中的<code>ORDER BY</code>操作。一般来说，如果B-Tree可以按照某种方式查找到值，那么也可以按照这种方式用于排序。所以，如果<code>ORDER BY</code>子句满足前面列出的几种査询类型，则这个索引也可以满足对应的排序需求</p>
+<h5 id="5-1-2-4-使用B-Tree索引的限制"><a href="#5-1-2-4-使用B-Tree索引的限制" class="headerlink" title="5.1.2.4 使用B-Tree索引的限制"></a>5.1.2.4 使用B-Tree索引的限制</h5><ul>
+<li><p>如果不是按照索引的最左列开始查找，则无法使用索引。例如上面例子中的索引无法用于查找名字为Bill的人，也无法查找某个特定生日的人，因为这两列都不是最左数据列。类似地，也无法查找姓氏以某个字母结尾的人。</p>
+</li>
+<li><p>不能跳过索引中的列。也就是说，前面所述的索引无法用于查找姓为Smith并且在某个特定日期出生的人。如果不指定名(<code>first name</code>)，则MySQL只能使用索引的第一列。</p>
+</li>
+<li><p>如果查询中有某个列的范围查询，则其右边所有列都无法使用索引优化查找。例如有查询 <code>WHERE last_name=&#39;Smith&#39; AND first name LIKE&#39;J%&#39; AND dob != &#39;1976-12-23&#39;</code>，这个查询只能使用索引的前两列，因为这里<code>LIKE</code>是一个范围条件</p>
+</li>
+</ul>
+<h4 id="5-1-3-哈希索引"><a href="#5-1-3-哈希索引" class="headerlink" title="5.1.3 哈希索引"></a>5.1.3 哈希索引</h4><p>哈希索引基于哈希表实现，只有精确匹配索引所有列的查询才有效。对于每一行数据，存储引擎都会对所有的索引列计算一个哈希码。哈希索引将所有的哈希码存储在索引中，同时在哈希表中保存指向每个数据行的指针</p>
+<p>在MySQL中，只有Memory引擎显式支持哈希索引。这也是Memory引擎表的默认索引类型，Memory引擎同时也支持B-Tree索引。如果多个列的哈希值相同，索引会以链表的方式存放多个记录指针到同一个哈希条目中。</p>
+<h5 id="5-1-3-4-哈希索引的限制"><a href="#5-1-3-4-哈希索引的限制" class="headerlink" title="5.1.3.4 哈希索引的限制"></a>5.1.3.4 哈希索引的限制</h5><ul>
+<li><p>哈希索引只包含哈希值和行指针，而不存储字段值，所以不能使用索引中的值来避免读取行。</p>
+</li>
+<li><p>哈希索引数据并不是按照索引值顺序存储的，所以也就无法用于排序。</p>
+</li>
+<li><p>哈希索引也不支持部分索引列匹配查找，因为哈希索引始终是使用索引列的全部内容来计算哈希值的。</p>
+</li>
+<li><p>哈希索引只支持等值比较查询，包括<code>=</code>、<code>IN()</code>。也不支持任何范围查询，例如，<code>WHERE price &gt; 18</code></p>
+</li>
+<li><p>如果哈希冲突很多的话，一些索引维护操作的代价也会很高。当出现哈希冲突的时候，存储引擎必须遍历链表中所有的行指针，逐行进行比较，直到找到所有符合条件的行。</p>
+</li>
+</ul>
+<h5 id="5-1-3-4-哈希索引与InnoDB"><a href="#5-1-3-4-哈希索引与InnoDB" class="headerlink" title="5.1.3.4 哈希索引与InnoDB"></a>5.1.3.4 哈希索引与InnoDB</h5><p>InnoDB引擎有一个特殊的功能叫做“自适应哈希索引”。当InnoDB注意到某些索引值被使用得非常频繁时，它会在内存中基于B-Tree索引之上再创建一个哈希索引，这样就让B-Tree索引也具有哈希索引的一些优点，比如快速的哈希查找。这是一个完全自动的、内部的行为，用户无法控制或者配置，不过如果有必要完全可以关闭该功能。</p>
+<h3 id="5-2-索引的优点"><a href="#5-2-索引的优点" class="headerlink" title="5.2 索引的优点"></a>5.2 索引的优点</h3><p>索引可以让服务器快速地定位到表的指定位置。根据创建索引的数据结构不同，索引也有一些其他的附加作用。</p>
+<p>例如B-Tree索引，最常见的B-Tree索引，按照顺序存储数据，所以MySQL可以用来做<code>ORDER BY</code>和<code>GROUP BY</code>操作。因为数据是有序的，所以B-Tree也就会将相关的列值都存储在一起。最后，因为索引中存储了实际的列值，所以某些査询只使用索引就能够完成全部查询。</p>
+<p>泛泛而谈，索引有如下优点</p>
 <ol>
-<li>选择确定合适的大类型：数字、字符串、时间等</li>
-<li><p>选择具体的类型。很多MySQL的数据类型可以存储相同类型的数据，只是存储的长度和范围不一样、允许的精度不同。</p>
-<p>MySQL为了兼容性支持很多别名，例如 INTEGER、B00L，以及 NUMERIC它们都只是别名。这些别名可能令人不解，但不会影响性能。</p>
-</li>
+<li>索引大大减少了服务器需要扫描的数据量。</li>
+<li>索引可以帮助服务器避免排序和临时表。</li>
+<li>索引可以将随机I/O变为顺序I/O。</li>
 </ol>
-<h4 id="4-1-1-整数类型"><a href="#4-1-1-整数类型" class="headerlink" title="4.1.1 整数类型"></a>4.1.1 整数类型</h4><p>如果存储整数，可以使用这几种整数类型：<code>TINYINT</code>,<code>SMALLINT</code>,<code>MEDIUMINT</code>,<code>INT</code>,<code>BIGINT</code>。分别使用8，<br>16,24,32,64位存储空间。</p>
-<p>整数类型有可选的<code>UNSIGNED</code>属性，表示不允许负值，这大致可以使正数的上限提高一倍。</p>
-<p>但是在<strong>运算</strong>时，整数计算一般使用64位的 BIGINT整数，即使在32位环境也是如此。</p>
-<p>MySQL可以为整数类型指定宽度，例如<code>INT(11)</code>，对大多数应用这是没有意义的：它不会限制值的合法范围，只是规定了MySQL的一些交互工具（例如MySQL命令行客户端）用来显示字符的个数。对于存储和计算来说，<code>INT(1)</code>和<code>INT(20)</code>是相同的。</p>
-<h4 id="4-1-2-实数类型"><a href="#4-1-2-实数类型" class="headerlink" title="4.1.2 实数类型"></a>4.1.2 实数类型</h4><p>实数是带有小数部分的数字。然而，它们不只是为了存储小数部分；也可以使用<code>DECIMAL</code>存储比<code>BIGINT</code>还大的整数。<code>FLOAT</code>和<code>DOUBLE</code>类型支持使用标准的浮点运算进行近似计算。<code>DECIMAL</code>类型用于存储精确的小数， DECIMAL类型支持精确计算。</p>
-<p>因为CPU不支持对<code>DECIMAL</code>的直接计算，MySQL服务器自身实现了<code>DECIMAL</code>的高精度计算。相对而言，CPU直接支持原生浮点计算，所以浮点运算明显更快。</p>
-<p>浮点和<code>DECIMAL</code>类型都可以指定精度。对于<code>DECIMAL</code>列，可以指定小数点前后所允许的最大位数。这会影响列的空间消耗。 MySQL将数字打包保存到一个二进制字符串中（每4个字节存9个数字）。例如，<code>DECIMAL(18,9)</code>小数点两边将各存储9个数字，一共使用9个字节：小数点前的数字用4个字节，小数点后的数字用4个字节，小数点本身占1个字节。MySQL5.0和更高版本中的<code>DECIMAL</code>类型允许最多65个数字。</p>
-<p>有多种方法可以指定浮点列所需要的精度，这会使得MySQL悄悄选择不同的数据类型，或者在存储时对值进行取舍。这些精度定义是非标准的，所以对于浮点数我们建议只指定数据类型不指定精度。</p>
-<p>浮点类型在存储同样范围的值时，通常比<code>DECIMAL</code>使用更少的空间。<code>FLOAT</code>使用4个字节存储。<code>DOUBLE</code>占用8个字节，相比<code>FLOAT</code>有更高的精度和更大的范围。但是对于浮点计算，MySQL统一使用<code>DOUBLE</code>作为内部浮点计算的类型。</p>
-<h4 id="4-1-3-字符串类型"><a href="#4-1-3-字符串类型" class="headerlink" title="4.1.3 字符串类型"></a>4.1.3 字符串类型</h4><p><code>VARCHAR</code>和<code>CHAR</code>是两种最主要的字符串类型。不幸的是，很难精确地解释这些值是怎么存储在磁盘和内存中的，因为这跟存储引擎的具体实现有关。</p>
-<h5 id="4-1-3-1-VARCHAR类型"><a href="#4-1-3-1-VARCHAR类型" class="headerlink" title="4.1.3.1 VARCHAR类型"></a>4.1.3.1 VARCHAR类型</h5><p><code>VARCHAR</code>类型用于存储可变长字符串，是最常见的字符串数据类型。它比定长类型更节省空间，因为它仅使用必要的空间。<code>VARCHAR</code>需要使用1或2个额外字节记录字符串的长度：假设采用latin1字符集，一个<code>VARCHAR(10)</code>的列需要11个字节的存储空间。<code>VARCHAR(1000)</code>的列则需要1002个字节，因为需要2个字节存储长度信息。</p>
-<p><code>VARCHAR</code>节省了存储空间，所以对性能也有帮助。但是，由于行是变长的，在<code>UPDATE</code>时可能使行变得比原来更长，这就导致需要做额外的工作。如果一个行占用的空间增长，并且在页内没有更多的空间可以存储，在这种情况下，MyISAM会将行拆成不同的片段存储，InnoDB则需要分裂页来使行可以放进页内。</p>
-<p>下面这些情况下使用<code>VARCHAR</code>是合适的</p>
+<p>Lahdenmaki和Leach在书中介绍了如何评价一个索引是否适合某个查询的“三星系统”</p>
 <ul>
-<li>字符串列的最大长度比平均长度大很多</li>
-<li>列的更新很少，所以碎片不是问题</li>
-<li>使用了像UTF-8这样复杂的字符集，每个字符都使用不同的字节数进行存储</li>
+<li>索引将相关的记录放到一起则获得一星</li>
+<li>如果索引中的数据顺序和查找中的排列顺序一致则获得二星</li>
+<li>如果索引中的列包含了查询中需要的全部列则获得三星</li>
 </ul>
-<p>此外</p>
+<h3 id="5-3-高性能的索引策略"><a href="#5-3-高性能的索引策略" class="headerlink" title="5.3 高性能的索引策略"></a>5.3 高性能的索引策略</h3><p>正确地创建和使用索引是实现髙性能査询的基础。下面介绍高性能使用索引的策略。</p>
+<h4 id="5-3-1-独立的列"><a href="#5-3-1-独立的列" class="headerlink" title="5.3.1 独立的列"></a>5.3.1 独立的列</h4><p>独立的列是指索引列不能是表达式的一部分，也不能是函数的参数。如果查询中使用的不是独立的列，则MySQL不会使用索引。下面就是两个反例</p>
+<p>反例1，表达式，无法使用索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> actor_id <span class="keyword">FROM</span> actor <span class="keyword">WHERE</span> actor_id + <span class="number">1</span> = <span class="number">5</span>;</span><br></pre></td></tr></table></figure></p>
+<p>反例2，函数的参数，无法使用索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ... <span class="keyword">WHERE</span> <span class="keyword">TO_DAYS</span>(<span class="keyword">CURRENT_DATE</span>) - <span class="keyword">TO_DAYS</span>(date_col) &lt;= <span class="number">10</span>;</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-3-2-前缀索引和索引选择性"><a href="#5-3-2-前缀索引和索引选择性" class="headerlink" title="5.3.2 前缀索引和索引选择性"></a>5.3.2 前缀索引和索引选择性</h4><p>有时候需要索引很长的字符列，这会让索引变得大且慢。通常可以索引开始的部分字符，这样可以大大节约索引空间，从而提高索引效率。</p>
+<p>下面演示一下如何创建前缀索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> city_demo <span class="keyword">ADD</span> <span class="keyword">KEY</span> (city(<span class="number">7</span>));</span><br></pre></td></tr></table></figure></p>
+<p>但使用前缀索引会降低索引的选择性。索引的选择性是指，不重复的索引值和数据表的记录总数的比值(T)，范围从l/T到1之间。索引的选择性越高则查询效率越高，因为选择性高的索引可以让MySQL在查找时过滤掉更多的行。无重复索引的选择性是1，这是最好的索引选择性，性能也是最好的。</p>
+<p>后缀索引：有时候后缀索引（suffix index）也有用途（例如，找到某个域名的所有电子邮件地址）。MySQL原生并不支持反向索引，但是可以把宇符串反转后存储，并基于此建立前缀索引。</p>
+<h4 id="5-3-3-多列索引"><a href="#5-3-3-多列索引" class="headerlink" title="5.3.3 多列索引"></a>5.3.3 多列索引</h4><p>在多个列上建立独立的单列索引大部分情况下并不能提高MySQL的查询性能。MySQL5.0和更新版本引入了一种叫“索引合并”（index merge）的策略，一定程度上可以使用表上的多个单列索引来定位指定的行。更早版本的MySQL只能使用其中某一个单列索引，然而这种情况下没有哪一个独立的单列索引是非常有效的。</p>
+<p>索引合并虽然是一种很好的策略，但是有时成本比较高。如果在<code>EXPLAIN</code>中看到有索引合并，应该好好检查一下查询和表的结构，看是不是已经是最优的。</p>
+<h4 id="5-3-4-选择合适的索引列顺序"><a href="#5-3-4-选择合适的索引列顺序" class="headerlink" title="5.3.4 选择合适的索引列顺序"></a>5.3.4 选择合适的索引列顺序</h4><p>正确的顺序依赖于使用该索引的查询，并且同时需要考虑如何更好地满足排序和分组的需要。</p>
+<p>在一个多列B-Tree索引中，索引列的顺序意味着索引首先按照最左列进行排序，其次是第二列，等等。所以，索引可以按照升序或者降序进行扫描，以满足精确符合列顺序的<code>ORDER BY</code>、<code>GROUP BY</code>和<code>DISTINCT</code>等子句的查询需求。</p>
+<p>对于如何选择索引的列顺序有一个经验法则：将选择性最高的列放到索引最前列。</p>
+<h4 id="5-3-5-聚簇索引"><a href="#5-3-5-聚簇索引" class="headerlink" title="5.3.5 聚簇索引"></a>5.3.5 聚簇索引</h4><p>当表有聚簇索引时，它的数据行实际上存放在索引的叶子页（leaf page）中。术语“聚簇”表示数据行和相邻的键值紧凑地存储在一起。因为无法同时把数据行存放在两个不同的地方，所以一个表只能有一个聚簇索引。</p>
+<p>下图展示了聚簇索引中的记录是如何存放的。注意到，叶子页包含了行的全部数据，但是节点页只包含了索引列。在这个案例中，索引列包含的是整数值。</p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_4.png" alt=""></p>
+<p>InnoDB将通过主键聚集数据，如果没有定义主键，InnoDB会选择一个唯一的非空索引代替。如果没有这样的索引， InnoDB会隐式定义一个主键来作为聚簇索引。</p>
+<p>InnoDB只聚集在同一个页面中的记录包含相邻键值的页面可能在物理空间中相距甚远。但是通常前页会保存后页的指针，这样方便寻找。</p>
+<h4 id="5-3-5-1-聚簇索引的优点和缺点"><a href="#5-3-5-1-聚簇索引的优点和缺点" class="headerlink" title="5.3.5.1  聚簇索引的优点和缺点"></a>5.3.5.1  聚簇索引的优点和缺点</h4><p>优点</p>
 <ul>
-<li>MySQL在存储和检索时会保留末尾空格。</li>
-<li>InnoDB则更灵活，它可以把过长的<code>VARCHAR</code>存储为<code>BLOB</code></li>
+<li>可以把相关数据保存在一起。例如实现电子邮箱时，可以根据用户ID来聚集数据，这样只需要从磁盘读取少数的数据页就能获取某个用户的全部邮件。如没有使用聚簇索引，则每封邮件都可能导致一次磁盘I/O。</li>
+<li>数据访问更快。聚簇索引将索引和数据保存在同一个B-Tree中，因此从聚簇索引中获取数据通常比在非聚簇索引中查找要快。</li>
+<li>使用覆盖索引扫描的查询可以直接使用页节点中的主键值（这点要后面再解释，看不懂没关系）。</li>
 </ul>
-<h5 id="4-1-3-2-CHAR类型"><a href="#4-1-3-2-CHAR类型" class="headerlink" title="4.1.3.2 CHAR类型"></a>4.1.3.2 CHAR类型</h5><p><code>CHAR</code>类型是定长的：MySQL总是根据定义的字符串长度分配足够的空间。当存储<code>CHAR</code>值时，MySQL会删除所有的末尾空格</p>
-<p><code>CHAR</code>适合存储的类型</p>
+<p>缺点</p>
 <ul>
-<li>所有值都接近同一个长度。例如，<code>CHAR</code>非常适合存储密码的<code>MD5</code>值，因为这是一个定长的值。</li>
-<li>对于经常变更的数据，<code>CHAR</code>也比<code>VARCHAR</code>更好，因为定长的<code>CHAR</code>类型不容易产生碎片。</li>
-<li>对于非常短的列，<code>CHAR</code>比<code>VARCHAR</code>在存储空间上也更有效率。例如用<code>CHAR(1)</code>来存储只有<code>Y</code>和<code>N</code>的值，只需要一个字节，但是<code>VARCHAR(1)</code>却需要两个字节，因为还有一个记录长度的额外字节。</li>
+<li>如果数据全部都放在内存中，则访问的顺序就没那么重要了，聚簇索引也就没什么优势了。</li>
+<li>插入速度严重依赖于插入顺序。按照主键的顺序插入是加载数据到InnoDB表中速度最快的方式。</li>
+<li>更新聚簇索引列的代价很高，因为会强制InnoDB将每个被更新的行移动到新的位置</li>
+<li>聚簇索引可能导致全表扫描变慢，比如由于页分裂导致数据存储不连续的时候。</li>
+<li>二级索引（非聚簇索引，也就是此表上的其他索引）可能比想象的要更大，因为在二级索引的叶子节点包含了引用行的主键列</li>
+<li>二级索引访问需要两次索引查找，而不是一次。因为通过二级索引査找行，存储引擎需要找到二级索引的叶子节点获得对应的主键值，然后根据这个值去聚簇索引中查找到对应的行。这里做了重复的工作：两次B-Tree查找而不是一次。</li>
 </ul>
-<p>与<code>CHAR</code>和<code>VARCHAR</code>类似的类型还有<code>BINARY</code>和<code>VARBINARY</code>，它们存储的是二进制字符串二进制字符串跟常规字符串非常相似，但是二进制字符串存储的是字节码而不是字符。</p>
-<p>二进制优势体现在大小写敏感上。并且二进制比较比字符比较简单很多，所以也就更快。</p>
-<h5 id="4-1-3-3-BLOB和TEXT类型"><a href="#4-1-3-3-BLOB和TEXT类型" class="headerlink" title="4.1.3.3 BLOB和TEXT类型"></a>4.1.3.3 BLOB和TEXT类型</h5><p><code>BLOB</code>和<code>TEXT</code>都是为存储很大的数据而设计的字符串数据类型，分别采用二进制和字符方式存储。</p>
-<p>实际上，它们分别属于两组不同的数据类型家族：字符类型是<code>TINYTEXT</code>,<code>SMALLTEXT</code>,<code>TEXT</code>,<code>MEDIUMTEXT</code>, <code>LONGTEXT</code>；对应的二进制类型是<code>TINYBLOB</code>,<code>SMALLBLOB</code>,<code>BLOB</code>, <code>MEDTUMBLOB</code>,<code>LONGBLOB</code>。<code>BL0B</code>是<code>SMALLBLOB</code>的同义词，<code>TEXT</code>是<code>SMALLTEXT</code>的同义词。</p>
-<p>与其他类型不同， MySQL把每个<code>BLOB</code>和<code>TEXT</code>值当作一个独立的对象处理，会使用专门的外部村储区域来进行存储，此时每个值在行内需要1~4个字节存储一个指针，然后在外部存储区域存储实际的值。</p>
-<p><code>BLOB</code>和<code>TEXT</code>家族之间仅有的不同是<code>BLOB</code>类型存储的是二进制数据，没有排序规则或字符集，而<code>TEXT</code>类型有字符集和排序规则。</p>
-<p>MySQL对<code>BLOB</code>和<code>TEXT</code>列进行排序与其他类型是不同的：它只对每个列的最前<code>max_sort_length</code>字节而不是整个字符串做排序。</p>
-<p>MySQL不能将<code>BLOB</code>和<code>TEXT</code>列全部长度的宇符串进行索引，也不能使用这些索引消除排序。</p>
-<h5 id="4-1-3-4-使用枚举（ENUM）代替字符串类型"><a href="#4-1-3-4-使用枚举（ENUM）代替字符串类型" class="headerlink" title="4.1.3.4 使用枚举（ENUM）代替字符串类型"></a>4.1.3.4 使用枚举（ENUM）代替字符串类型</h5><p>有时候可以使用枚举列代替常用的字符串类型。枚举列可以把一些不重复的字符串存储成一个预定义的集合。MySQL在存储枚举时非常紧凑，会根据列表值的数量压缩到个或者两个字节中。MySQL在内部会将每个值在列表中的位置保存为整数，并且在表的<code>.frm</code>文件中保存“数字-字符串”映射关系的“查找表”。</p>
-<p><img src="/2020/02/26/MySQL-4-Schema与数据类型优化/200226_0.png" alt=""></p>
-<p>此外要注意</p>
+<h4 id="5-3-5-2-InnoDB与MyISAM数据分布对比"><a href="#5-3-5-2-InnoDB与MyISAM数据分布对比" class="headerlink" title="5.3.5.2  InnoDB与MyISAM数据分布对比"></a>5.3.5.2  InnoDB与MyISAM数据分布对比</h4><p>InnoDB是使用聚簇索引的存储引擎，而MyISAM不使用。通过它们的对比，我们将更好的理解聚簇索引的概念和存储方式。</p>
+<p>这里为了方便理解，我们先写一个样例表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> layout_test(</span><br><span class="line">    col1 <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    col2 <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span>(col1),</span><br><span class="line">    <span class="keyword">KEY</span>(col2)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>首先介绍MyISAM。</p>
+<p>当插入数据时，MyISAM按照数据插入的顺序存储在磁盘上，如下图。<br><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_5.png" alt=""></p>
+<p>这种分布方式下，主键索引和非主键索引其实结构上没什么区别，如下图。</p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_6.png" alt=""></p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_7.png" alt=""></p>
+<p>然后是InnoDB</p>
+<p>首先，它的主键索引是聚簇索引，如下图结构</p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_8.png" alt=""></p>
+<p>它其实就是整张表，表中所有的数据都存储在这颗B-Tree中。聚簇索引的每一个叶子节点都包含了主键值、事务ID、用于事务和MVCC的回滚指针以及所有的剩余列。</p>
+<p>InnoDB的二级索引和聚簇索引很不相同。InnoDB二级索引的叶子节点中存储的不是“行指针”，而是主键值，并以此作为指向行的“指针”这样的策略减少了当出现行移动或者数据页分裂时二级索引的维护工作。但是使用主键值当作指针会让二级索引占用更多的空间。</p>
+<p>下面是一个二级索引的结构图</p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_9.png" alt=""></p>
+<p>最后，我们通过下图来看看InnoDB和MyISAM保存数据和索引的区别</p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_10.png" alt=""></p>
+<h4 id="5-3-5-3-InnoDB主键的选择"><a href="#5-3-5-3-InnoDB主键的选择" class="headerlink" title="5.3.5.3 InnoDB主键的选择"></a>5.3.5.3 InnoDB主键的选择</h4><p>如果正在使用InnoDB表并且没有什么数据需要聚集，那么可以定义一个代理键（surrogate key）作为主键，这种主键的数据应该和应用无关，最简单的方法是使用<code>AUTO_INCREMENT</code>自增列。这样可以保证数据行是按顺序写入，对于根据主键做关联操作的性能也会更好。</p>
+<p>原因如下图，因为主键的值是顺序的，所以InnoDB把每一条记录都存储在上一条记录的后面。当达到页的最大填充因子时，下一条记录就会写入新的页中。一旦数据按照这种顺序的方式加载，主键页就会近似于被顺序的记录填满。<br><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_11.png" alt=""></p>
+<p>但是，假如我们选择一个相对随机无插入顺序的主键呢？</p>
+<p>如下图<br><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_12.png" alt=""></p>
+<p>这将造成大量的随机I/O，大量的页分裂操作，并产生很多磁盘碎片。</p>
+<p>因此，尽可能使用单调增加的聚簇键的值来插入新行。</p>
+<h4 id="5-3-6-覆盖索引"><a href="#5-3-6-覆盖索引" class="headerlink" title="5.3.6 覆盖索引"></a>5.3.6 覆盖索引</h4><p>如果索引的叶子节点中已经包含要查询的数据，那么就没有必要再回表查询。如果一个索引包含所有需要查询的字段的值，我们就称之为“覆盖索引”。</p>
+<h5 id="5-3-6-1-覆盖索引的好处"><a href="#5-3-6-1-覆盖索引的好处" class="headerlink" title="5.3.6.1 覆盖索引的好处"></a>5.3.6.1 覆盖索引的好处</h5><ul>
+<li><p>索引条目通常远小于数据行大小，所以如果只需要读取索引，那MySQL就会极大地减少数据访问量。</p>
+</li>
+<li><p>因为索引是按照列值顺序存储的（至少在单个页内是如此），所以对于I/O密集型的范围查询会比随机从磁盘读取每一行数据的I/O要少得多。</p>
+</li>
+<li><p>由于InnoDB的聚簇索引，覆盖索引对InnoDB表特别有用。InnoDB的二级索引在叶子节点中保存了行的主键值，所以如果二级主键能够覆盖查询，则可以避免对主键索引的二次查询。</p>
+</li>
+</ul>
+<h4 id="5-3-7-使用索引扫描来做排序"><a href="#5-3-7-使用索引扫描来做排序" class="headerlink" title="5.3.7 使用索引扫描来做排序"></a>5.3.7 使用索引扫描来做排序</h4><p>MySQL可以使用同一个索引既满足排序，又用于查找行。因此，如果可能，设计索引时应该尽可能地同时满足这两种任务，这样是最好的。</p>
+<p>只有当索引的列顺序和<code>ORDER BY</code>子句的顺序完全一致，并且所有列的排序方向都一样时，MySQL才能够使用索引来对结果做排序。如果查询需要关联多张表，则只有当<code>ORDER BY</code>子句引用的字段全部为第一个表时，才能使用索引做排序。<code>ORDER BY</code>子句和查找型查询的限制是一样的：需要满足索引的最左前缀的要求；否则，MySQL都需要执行排序操作，而无法利用索引排序。</p>
+<p>但是同时还要注意与<code>where</code>条件的交互，假设表<code>rental</code>有索引<code>(rental_date, inventory_id, customer_id)</code>，下面举例说明</p>
+<p>下面这个查询可以使用索引，因为第一列被指定为了常数<code>rental_date=&#39;2015_05_25&#39;</code>，然后使用第二列排序，将两列组合起来就形成了索引的最左前缀。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">... where rental_date = '2005-05-25' ORDER BY inventory_id;</span><br></pre></td></tr></table></figure></p>
+<p>下面这个查询也没问题，因为<code>ORDER BY</code>使用的两列就是索引的最左前缀：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE rental_date &gt; '2005-05-25' ORDER BY rental_date, inventory_id;</span><br></pre></td></tr></table></figure></p>
+<p>下面是一些不能使用索引做排序的查询</p>
 <ul>
-<li>如果使用数字作为<code>ENUM</code>枚举常量，这种双重性很容易导致混乱，例如<code>ENUM(&#39;1&#39;,&#39;2&#39;,&#39;3&#39;)</code>。建议尽量避免这么做。</li>
-<li>另外一个让人吃惊的地方是，枚举字段是按照内部存储的整数而不是定义的字符串进行排序的</li>
-<li>枚举最不好的地方是，字符串列表是固定的，添加或删除字符串必须使用<code>ALTER TABLE</code>。因此，对于一系列未来可能会改变的字符串，使用枚举不是一个好主意</li>
-<li>在特定情况下，把<code>CHAR</code>/<code>VARCHAR</code>列与枚举列进行关联可能会比直接关联<code>CHAR</code>/<code>VARCHAR</code>列更慢。</li>
+<li><p>下面这个查询的<code>ORDER BY</code>子句中引用了一个不在索引中的列</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE rental_date = '2005-05-25' ORDER BY inventory_id, staff_id;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下面这个查询的<code>WHERE</code>和<code>ORDER BY</code>中的列无法组合成索引的最左前缀</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE rental_date = '2005-05-25' ORDER BY customer_id;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下面这个查询在索引列的第一列上使用了范围条件，这个列倒是可以使用索引，但是会导致后面的列无法使用</p>
+  <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE rental_date &gt; '2005-05-25' ORDER BY inventory_id, customer_id;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下面这个查询在<code>inventory_id</code>列上有多个等于条件，对于排序来说，这也是一种范围查询</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE rental_date = '2005-05-25' AND inventory_id IN(1, 2) ORDER BY customer_id</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h4 id="4-1-4-日期和时间类型"><a href="#4-1-4-日期和时间类型" class="headerlink" title="4.1.4 日期和时间类型"></a>4.1.4 日期和时间类型</h4><p>MySQL可以使用许多类型来保存日期和时间值，例如<code>YEAR</code>和<code>DATE</code>。MySQL能存储的最小时间粒度为秒。</p>
-<p>MySQL提供两种相似的日期类型：<code>DATETIME</code>和<code>TIMESTAMP</code>。</p>
-<h4 id="4-1-4-1-DATETIME"><a href="#4-1-4-1-DATETIME" class="headerlink" title="4.1.4.1 DATETIME"></a>4.1.4.1 DATETIME</h4><p>这个类型能保存大范围的值，从1001年到999年，精度为秒。它把日期和时间封装到格式为<code>YYYYMMDDHHMMSS</code>的整数中，与时区无关。使用8个字节的存储空间。</p>
-<h4 id="4-1-4-2-TIMESTAMP"><a href="#4-1-4-2-TIMESTAMP" class="headerlink" title="4.1.4.2 TIMESTAMP"></a>4.1.4.2 TIMESTAMP</h4><p>就像它的名字一样，<code>TIMETAMP</code>类型保存了从1970年1月1日午夜（格林尼治标准时间）以来的秒数，它和UNIX时间戳相同。<code>TIMESTAMP</code>只使用4个字节的存储空间因此它的范围比<code>DATETIME</code>小得多：只能表示从1970年到2038年。 MySQL提供了<code>FROM_UNIXTIME()</code>函数把Unix时间戳转换为日期，并提供了<code>UNIX_TIMESTAMP()</code>函数把日期转换为Unix时间戳。</p>
-<p><code>TIMESTAMP</code>显示的值依赖于时区。MySQL服务器、操作系统，以及客户端连接都有时区设置。如果在多个时区存储或访问数据，<code>TIMESTAMP</code>和<code>DATETIME</code>的行为将很不一样。前者提供的值与时区有关系，后者则保留文本表示的日期和时间。</p>
-<p><code>TIMESTAMP</code>也有<code>DATETIME</code>没有的特殊属性。默认情况下，如果插入时没有指定第一个<code>TIMESTAMP</code>列的值， MySQL则把这个列的值设置为当前时间。</p>
-<p>除了特殊行为之外，通常也应该尽量使用<code>TIMESTAMP</code>，因为它比<code>DATETIME</code>空间效率更高</p>
-<h4 id="4-1-5-位数据类型"><a href="#4-1-5-位数据类型" class="headerlink" title="4.1.5 位数据类型"></a>4.1.5 位数据类型</h4><p>MySQL有少数几种存储类型使用紧凑的位存储数据。所有这些位类型，不管底层存储格式和处理方式如何，从技术上来说都是字符串类型。</p>
-<h5 id="4-1-5-1-BIT"><a href="#4-1-5-1-BIT" class="headerlink" title="4.1.5.1 BIT"></a>4.1.5.1 BIT</h5><p>可以使用<code>BIT</code>列在一列中存储一个或多个<code>true/false</code>值。<code>BIT(1)</code>定义一个包含单个位的字段，<code>BIT(2)</code>存储2个位，依此类推。<code>BIT</code>列的最大长度是64个位。</p>
-<p>但是由于一些原因，我们认为应该谨慎使用<code>BIT</code>类型。对于大部分应用，最好避免使用这种类型。</p>
-<p>如果想在一个<code>bit</code>的存储空间中存储一个<code>true/false</code>值，另一个方法是创建一个可以为空的<code>CHAR(0)</code>列。该列可以保存空值（<code>NULL</code>）或者长度为零的字符串（空字符串）。</p>
-<h5 id="4-1-5-2-SET"><a href="#4-1-5-2-SET" class="headerlink" title="4.1.5.2 SET"></a>4.1.5.2 SET</h5><p>如果需要保存很多<code>true/false</code>值，可以考虑合并这些列到一个<code>SET</code>数据类型，它在<code>MySQL</code>内部是以一系列打包的位的集合来表示的。这样就有效地利用了存储空间，并且<code>MYSQL</code>有像<code>FIND_IN_SET()</code>和<code>FIELD()</code>这样的函数，方便地在查询中使用。</p>
-<p><img src="/2020/02/26/MySQL-4-Schema与数据类型优化/200226_1.png" alt=""></p>
-<h4 id="4-1-6-选择标识符"><a href="#4-1-6-选择标识符" class="headerlink" title="4.1.6 选择标识符"></a>4.1.6 选择标识符</h4><p>为标识符(如表中的<code>id</code>列，就是常见的标识符)选择合适的数据类型非常重要。一般来说更有可能用标识列与其他值进行比较（例如，在关联操作中），或者通过标识列寻找其他列。标识列也可能在另外的表中作为外键使用，所以为标识列选择数据类型时，应该选择跟关联表中的对应列一样的类型。</p>
-<p>下面是几种标识符的选择</p>
+<h4 id="5-3-8-压缩（前缀压缩）索引"><a href="#5-3-8-压缩（前缀压缩）索引" class="headerlink" title="5.3.8 压缩（前缀压缩）索引"></a>5.3.8 压缩（前缀压缩）索引</h4><p>MyISAM使用前缀压缩来减少索引的大小，从而让更多的索引可以放入内存中，这在某些情况下能极大地提高性能。默认只压缩字符串，但通过参数设置也可以对整数做压缩。</p>
+<p>MyISAM压缩每个索引块的方法是，先完全保存索引块中的第一个值，然后将其他值和第一个值进行比较得到相同前缀的字节数和剩余的不同后缀部分，把这部分存储起来即可。例如，索引块中的第一个值是<code>perform</code>，第二个值是<code>performance</code>，那么第二个值的前缀压缩后存储的是类似<code>7, ance</code>这样的形式。</p>
+<h4 id="5-3-9-重复索引"><a href="#5-3-9-重复索引" class="headerlink" title="5.3.9 重复索引"></a>5.3.9 重复索引</h4><p>重复索引是指在相同的列上按照相同的顺序创建的相同类型的索引。</p>
+<p>MySQL允许在相同列上创建重复索引，但是这会大大影响性能。因为MySQL需要单独维护重复的索引，并且优化器在优化查询的时候也需要逐个地进行考虑。</p>
+<p>应该避免这样创建重复索引，发现以后也应该立即移除。</p>
+<p>例如下图<br><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_13.png" alt=""></p>
+<p>一个经验不足的用户可能是想创建一个主键，先加上唯一限制，然后再加上索引以供查询使用。事实上，MySQL的唯一限制和主键限制都是通过索引实现的，因此，上面的写法实际上在相同的列上创建了三个重复的索引。</p>
+<h4 id="5-3-10-冗余索引"><a href="#5-3-10-冗余索引" class="headerlink" title="5.3.10 冗余索引"></a>5.3.10 冗余索引</h4><p>冗余索引和重复索引有一些不同。如果创建了索引<code>(A, B)</code>，再创建索引<code>(A)</code>就是冗余索引，因为这只是前一个索引的前缀索引。但是如果再创建索引<code>(B,A)</code>，则不是冗余索引。另外，将一个索引扩展为<code>(A, ID)</code>，其中<code>ID</code>是主键，对于InnoDB来说主键列已经包含在二级索引中了，所以这也是冗余的。</p>
+<p>但也有时候出于性能方面的考虑需要冗余索引，因为扩展已有的索引会导致其变得太大，从而影响其他使用该索引的查询的性能。</p>
+<p>建立过多冗余索引的缺点是导致写操作过慢</p>
+<h4 id="5-3-11-未使用的索引"><a href="#5-3-11-未使用的索引" class="headerlink" title="5.3.11 未使用的索引"></a>5.3.11 未使用的索引</h4><p>可能还会有一些服务器永远不用的索引。这样的索引完全是累赘，建议考虑删除。</p>
+<h4 id="5-3-12-索引和锁"><a href="#5-3-12-索引和锁" class="headerlink" title="5.3.12 索引和锁"></a>5.3.12 索引和锁</h4><p>InnoDB只有在访问行的时候才会对其加锁，而索引能够减少InnoDB访问的行的次数，从而减少锁的数量。</p>
+<p>此外，InnoDB在二级索引上使用共享（读）锁，但访问主键索引需要排他（写）锁。</p>
+<h3 id="5-4-索引案例学习"><a href="#5-4-索引案例学习" class="headerlink" title="5.4 索引案例学习"></a>5.4 索引案例学习</h3><p>假设要设计一个在线约会网站，用户信息表有很多列，包括国家、地区、城市、性别、眼睛颜色，等等。网站必须支持上面这些特征的各种组合来搜索用户，还必须允许根据用户的最后在线时间、其他会员对用户的评分等对用户进行排序并对结果进行限制。如何设计索引满足上面的复杂需求呢？</p>
+<h4 id="5-4-1-支持多种过滤条件"><a href="#5-4-1-支持多种过滤条件" class="headerlink" title="5.4.1 支持多种过滤条件"></a>5.4.1 支持多种过滤条件</h4><p>现在需要看看这两方面</p>
+<ol>
+<li>哪些列拥有很多不同的取值，在有更多不同值的列上创建索引的选择性会更好。</li>
+<li>哪些列在<code>WHERE</code>子句中出现得最频繁，更频繁则用到此索引的机会越多</li>
+</ol>
+<p>按照这两点，我们筛选出了<code>(sex, country)</code>列作为前缀。</p>
+<p><code>sex</code>的选择性很低，但是为什么要选择它呢？因为我们有方法去绕过它：</p>
 <ul>
-<li>整数类型：整数通常是标识列最好的选择，因为它们很快并且可以使用<code>AUTO_INCREMENT</code>。</li>
-<li><code>ENUM</code>和<code>SET</code>类型：对于标识列来说，<code>ENUM</code>和<code>SET</code>类型通常是一个糟糕的选择，尽管对某些只包含固定状态或者类型的静态“定义表”来说可能是没有问题的</li>
-<li>字符串类型：如果可能，应该避免使用字符串类型作为标识列，因为它们很消耗空间，并且通常比数字类型慢。</li>
+<li>如果某个査询不限制性别，那么可以通过在查询条件中新增<code>AND SEX IN(&#39;m&#39;, &#39;f&#39;)</code>来让MySQL选择该索引。</li>
+<li>这样写并不会过滤任何行，和没有这个条件时返回的结果相同。</li>
+<li>但是必须加上这个列的条件，MySQL才能够匹配索引的最左前缀</li>
 </ul>
-<h4 id="4-1-7-特殊类型数据"><a href="#4-1-7-特殊类型数据" class="headerlink" title="4.1.7 特殊类型数据"></a>4.1.7 特殊类型数据</h4><p>IPV4地址实际上是32位无符号整数，不是字符串。用小数点将地址分成四段的表示方法只是为了让人们阅读容易。所以应该用无符号整数存储IP地址。 MySQL提供<code>INET_ATON()</code>和<code>INET_NI0A()</code>函数在这两种表示方法之间转换。</p>
-<h3 id="4-2-MySQL-schema-设计中的陷阱"><a href="#4-2-MySQL-schema-设计中的陷阱" class="headerlink" title="4.2 MySQL schema 设计中的陷阱"></a>4.2 MySQL schema 设计中的陷阱</h3><p>下面列举一些在MySQL中不好的设计</p>
-<h4 id="4-2-1-太多的列"><a href="#4-2-1-太多的列" class="headerlink" title="4.2.1 太多的列"></a>4.2.1 太多的列</h4><p>MySQL的存储引擎API工作时需要在服务器层和存储引擎层之间通过行缓冲格式拷贝数据，然后在服务器层将缓冲内容解码成各个列。从行缓冲中将编码过的列转换成行数据结构的操作代价是非常高的。MyISAM的变长行结构和InnoDB的行结构则总是需要转换。转换的代价依赖于列的数量。当我们研究一个CPU占用非常高的案例时，发现客户使用了非常宽的表（数千个字段），然而只有一小部分列会实际用到，这时转换的代价就非常高。</p>
-<h4 id="4-2-2-太多的关联"><a href="#4-2-2-太多的关联" class="headerlink" title="4.2.2 太多的关联"></a>4.2.2 太多的关联</h4><p>EAV的定义可以参看<a href="https://blog.huoding.com/2016/06/29/522" target="_blank" rel="noopener">这里</a></p>
-<p>所谓的“实体-属性-值”（EAV）设计模式是一个常见的糟糕设计模式，尤其是在MySQL下不能靠谱地工作。 MySQL限制了每个关联操作最多只能有61张表，但是EAV数据库需要许多自关联。我们见过不少EAV数据库最后超过了这个限制。<br>一个粗略的经验法则，如果希望查询执行得快速且并发性好，单个查询最好在12个表以内做关联。</p>
-<h4 id="4-2-3-全能的枚举"><a href="#4-2-3-全能的枚举" class="headerlink" title="4.2.3 全能的枚举"></a>4.2.3 全能的枚举</h4><p>注意防止过度使用枚举（ENUM）。下面是我们见过的一个例子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> ...(</span><br><span class="line">    country enum(<span class="string">''</span>, <span class="string">'0'</span>, <span class="string">'1'</span>, <span class="string">'2'</span>,...,<span class="string">'31'</span>)</span><br></pre></td></tr></table></figure>
-<p>这种模式的schema设计非常凌乱。这么使用枚举值类型也许在任何支持枚举类型的数据库都是一个有问题的设计方案，这里应该用整数作为外键关联到字典表或者查找表来查找具体值。</p>
-<h4 id="4-2-4-变相的枚举"><a href="#4-2-4-变相的枚举" class="headerlink" title="4.2.4 变相的枚举"></a>4.2.4 变相的枚举</h4><p>枚举（ENUM）列允许在列中存储一组定义值中的单个值，集合（SET）列则允许在列中存储一组定义值中的一个或多个值。有时候这可能比较容易导致混乱。这是一个例子：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> ...(</span><br><span class="line">    is_default <span class="keyword">set</span>(<span class="string">'Y'</span>，<span class="string">'N'</span>)<span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">default</span> <span class="string">'N'</span></span><br></pre></td></tr></table></figure>
-<p>如果这里真和假两种情况不会同时出现，那么毫无疑问应该使用枚举列代替集合列。</p>
-<h4 id="4-2-5-比NULL更差的不可能值"><a href="#4-2-5-比NULL更差的不可能值" class="headerlink" title="4.2.5 比NULL更差的不可能值"></a>4.2.5 比NULL更差的不可能值</h4><p>当确实需要表示未知值时也不要害怕使用<code>NULL</code>。在一些场景中，使用<code>NULL</code>可能会比某个神奇常数更好。从特定类型的值域中选择个不可能的值，例如用<code>-1</code>代表一个未知的整数，可能导致代码复杂很多，并容易引入bug，还可能会让事情变得一团糟。处理<code>NULL</code>确实不容易，但有时候会比它的替代方案更好。</p>
-<h3 id="4-3-范式与反范式"><a href="#4-3-范式与反范式" class="headerlink" title="4.3 范式与反范式"></a>4.3 范式与反范式</h3><p>对于任何给定的数据通常都有很多种表示方法，从完全的范式化到完全的反范式化，以及两者的折中。在范式化的数据库中，每个事实数据会出现并且只出现一次。相反，在反范式化的数据库中，信息是冗余的，可能会存储在多个地方。</p>
-<h4 id="4-3-1-范式的优点和缺点"><a href="#4-3-1-范式的优点和缺点" class="headerlink" title="4.3.1 范式的优点和缺点"></a>4.3.1 范式的优点和缺点</h4><p>范式化通常能够带来好处：</p>
+<p>接下来我们又选出了<code>(sex, country, age)</code>，<code>(sex, country, region, age)</code>，<code>(sex, country, city, age)</code>这样的组合。由于我们有了<code>(sex, country, age)</code>，而<code>age</code>并不会导致性能的太多下降，所以我们去掉<code>(sex, country)</code></p>
+<p>我们一直把<code>age</code>放到索引的最后面，<code>age</code>有什么特殊的地方吗</p>
 <ul>
-<li>范式化的更新操作通常比反范式化要快。</li>
-<li>当数据较好地范式化时，就只有很少或者没有重复数据，所以只需要修改更少的数据。</li>
-<li>范式化的表通常更小，可以更好地放在内存里，所以执行操作会更快。</li>
-<li>很少有多余的数据意味着检索列表数据时更少需要<code>DISTINCT</code>或者<code>GROUP BY</code>语句</li>
+<li>前面提到的列在<code>WHERE</code>子句中都是等于条件，但是<code>age</code>列则多半是范围查询（例如查找年龄在18-25岁之间的人）</li>
+<li>原则上，尽可能将需要做范围查询的列放到索引的后面，以便优化器能使用尽可能多的索引列。</li>
 </ul>
-<p>但是范式化也有缺点</p>
+<h4 id="5-4-2-避免多个范围条件"><a href="#5-4-2-避免多个范围条件" class="headerlink" title="5.4.2 避免多个范围条件"></a>5.4.2 避免多个范围条件</h4><p>假设我们有一个<code>last_online</code>列并希望通过下面的查询显示在过去几周上线过的用户<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">WHERE eye_color IN('brown', 'blue', 'hazel')</span><br><span class="line">AND hair color IN（'black', 'red', 'blonde', 'brown')</span><br><span class="line">AND sex IN('M', 'F')</span><br><span class="line">AND last_online &gt; DATE_SUB(NOW(), INTERVAL 7 DAY)</span><br><span class="line">ANd age BETWEEN 18 AND 25</span><br></pre></td></tr></table></figure></p>
+<p>这个查询有一个问题：它有两个范围条件，<code>last_online</code>列和<code>age</code>列，MySQL可以使用<code>last_online</code>列索引或者<code>age</code>列索引，但无法同时使用它们。</p>
+<p>我们可以用下面的方法避免这个问题</p>
 <ul>
-<li>范式化设计的schema的缺点是通常需要关联。稍微复杂一些的查询语句在符合范式的schema上都可能需要至少一次关联，也许更多。这不但代价昂贵，也可能使一些索引策略无效。</li>
+<li>我们需要事先计算好一个<code>active</code>列，这个字段由定时任务来维护。当用户每次登录时，将对应值设置为1，并且定时任务定时将过去连续七天未曾登录的用户的值设置为0。</li>
+<li>这个方法可以让MySQL使用<code>(active,sex, country,age)</code>索引。</li>
+<li>并且我们还可以使用上面5.4.1提到的方法来绕过<code>active</code>属性</li>
 </ul>
-<h4 id="4-3-2-反范式的优点与缺点"><a href="#4-3-2-反范式的优点与缺点" class="headerlink" title="4.3.2 反范式的优点与缺点"></a>4.3.2 反范式的优点与缺点</h4><p>反范式化的schema因为所有数据都在一张表中，可以很好地避免关联。</p>
-<p>但这会导致信息的冗余，同样的数据可能存在于很多地方。</p>
-<h4 id="4-3-3-混用范式化与反范式化"><a href="#4-3-3-混用范式化与反范式化" class="headerlink" title="4.3.3 混用范式化与反范式化"></a>4.3.3 混用范式化与反范式化</h4><p>事实是，完全的范式化和完全的反范式化 schema都是实验室里才有的东西：在真实世界中很少会这么极端地使用。在实际应用中经常需要混用，可能使用部分范式化的schema、缓存表，以及其他技巧。</p>
-<h3 id="4-4-计数器表"><a href="#4-4-计数器表" class="headerlink" title="4.4 计数器表"></a>4.4 计数器表</h3><p>如果应用在表中保存计数器，则在更新计数器时可能碰到并发问题。计数器表在Web应用中很常见。可以用这种表缓存一个用户的朋友数、文件下载次数等。创建一张独立的表存储计数器通常是个好主意，这样可使计数器表小且快。使用独立的表可以帮助避免查询缓存失效，并且可以使用本节展示的一些更高级的技巧。</p>
-<p>假设有一个计数器表，只有一行数据，记录网站的点击次数：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> hit_counter(</span><br><span class="line">    cnt <span class="built_in">int</span> <span class="keyword">unsigned</span> <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line">)<span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</span><br></pre></td></tr></table></figure></p>
-<p>网站的每次点击都会导致对计数器进行更新：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> hit_counter <span class="keyword">SET</span> cnt = cnt + <span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
-<p>问题在于，对于任何想要更新这一行的事务来说，这条记录上都有一个全局的互斥锁。这会使得这些事务只能申行执行。要获得更高的并发更新性能，也可以将计数器保存在多行中，每次随机选择一行进行更新。这样做需要对计数器表进行如下修改<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> hit_counter(</span><br><span class="line">    slot <span class="built_in">int</span> <span class="keyword">unsigned</span> <span class="keyword">not</span> <span class="literal">null</span> primary <span class="keyword">key</span>,</span><br><span class="line">    cnt <span class="built_in">int</span> <span class="keyword">unsigned</span> <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line">)<span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</span><br></pre></td></tr></table></figure></p>
-<p>然后预先在这张表增加10行数据。现在选择一个随机的槽（slot）进行更新<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> hit_counter <span class="keyword">SET</span> cnt = cnt + <span class="number">1</span> <span class="keyword">WHERE</span> slot = <span class="keyword">RAND</span>() * <span class="number">100</span>;</span><br></pre></td></tr></table></figure></p>
-<h3 id="4-5-更快地读，更慢地写"><a href="#4-5-更快地读，更慢地写" class="headerlink" title="4.5 更快地读，更慢地写"></a>4.5 更快地读，更慢地写</h3><p>为了提升读查询的速度，经常会需要建一些额外索引，增加冗余列，甚至是创建缓存表和汇总表。这些方法会增加写查询的负担，也需要额外的维护任务，但在设计高性能数据库时，这些都是常见的技巧：虽然写操作变得更慢了，但更显著地提高了读操作的性能。</p>
+<h4 id="5-4-3-优化排序"><a href="#5-4-3-优化排序" class="headerlink" title="5.4.3 优化排序"></a>5.4.3 优化排序</h4><p>使用文件排序对小数据集是很快的，但如果一个查询匹配的结果有上百万行的话就很慢了。所以根据5.3节我们可以创建一些索引用于排序。</p>
+<p>但是分页是另一个性能瓶颈，例如下面的查询<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> col1 <span class="keyword">FROM</span> <span class="keyword">profiles</span> <span class="keyword">WHERE</span> sex = <span class="string">'M'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> rating <span class="keyword">LIMIT</span> <span class="number">100000</span>, <span class="number">10</span>;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>无论如何创建索引，这种査询都是个严重的问题。</li>
+<li>因为随着偏移量的增加，MySQL需要花费大量的时间来扫描需要丢弃的数据。反范式化、预先计算和缓存可能是解决这类查询的仅有策略。</li>
+</ul>
+<p>优化这类索引的另一个比较好的策略是使用延迟关联，通过使用覆盖索引查询返回需要的主键，再根据这些主键关联原表获得需要的行。如下所示</p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_14.png" alt=""></p>
 
           
         
@@ -530,7 +626,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/100/">100</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/101/">101</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -578,7 +674,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">101</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -600,7 +696,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
