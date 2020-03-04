@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="redis,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第 12 章 事件Redis服务器是一个事件驱动程序，服务器需要处理下面两类事件  文件事件：Redis服务器通过socket与客户端连接，而文件事件就是客户端与服务器之间的各种操作，例如：服务器接受并处理客户端请求删除某个键，这就是一个具体的文件事件。 时间事件：Redis服务器的一些操作需要在给定时间点执行，例如前面提到的serverCron函数，就是一种时间事件  下面我们将具体介绍这两种事">
+<meta name="keywords" content="redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Redis][12][事件]">
+<meta property="og:url" content="http://yoursite.com/2020/03/04/Redis-12-事件/index.html">
+<meta property="og:site_name" content="打怪升级日常">
+<meta property="og:description" content="第 12 章 事件Redis服务器是一个事件驱动程序，服务器需要处理下面两类事件  文件事件：Redis服务器通过socket与客户端连接，而文件事件就是客户端与服务器之间的各种操作，例如：服务器接受并处理客户端请求删除某个键，这就是一个具体的文件事件。 时间事件：Redis服务器的一些操作需要在给定时间点执行，例如前面提到的serverCron函数，就是一种时间事件  下面我们将具体介绍这两种事">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2020/03/04/Redis-12-事件/200303_5.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/04/Redis-12-事件/200303_6.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/04/Redis-12-事件/200303_7.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/04/Redis-12-事件/200303_8.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/04/Redis-12-事件/200303_9.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/04/Redis-12-事件/200303_10.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/04/Redis-12-事件/200303_11.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/04/Redis-12-事件/200303_12.png">
+<meta property="og:updated_time" content="2020-03-04T05:49:36.674Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Redis][12][事件]">
+<meta name="twitter:description" content="第 12 章 事件Redis服务器是一个事件驱动程序，服务器需要处理下面两类事件  文件事件：Redis服务器通过socket与客户端连接，而文件事件就是客户端与服务器之间的各种操作，例如：服务器接受并处理客户端请求删除某个键，这就是一个具体的文件事件。 时间事件：Redis服务器的一些操作需要在给定时间点执行，例如前面提到的serverCron函数，就是一种时间事件  下面我们将具体介绍这两种事">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/04/Redis-12-事件/200303_5.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/04/Redis-12-事件/">
+
+
+
+
+
+  <title>[Redis][12][事件] | 打怪升级日常</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/T0UGH" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">打怪升级日常</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">两星炸弹人(╯‵□′)╯炸弹！•••</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/04/Redis-12-事件/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="T0UGH(GuiPing Wang)">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/33653960?s=400&u=eb438b904ecb9d91f3aa9b777155a6488599493b&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="打怪升级日常">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Redis][12][事件]</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-04T13:49:00+08:00">
+                2020-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/redis/" itemprop="url" rel="index">
+                    <span itemprop="name">redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/03/04/Redis-12-事件/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/04/Redis-12-事件/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第-12-章-事件"><a href="#第-12-章-事件" class="headerlink" title="第 12 章 事件"></a>第 12 章 事件</h2><p>Redis服务器是一个事件驱动程序，服务器需要处理下面两类事件</p>
+<ul>
+<li>文件事件：Redis服务器通过socket与客户端连接，而文件事件就是客户端与服务器之间的各种操作，例如：服务器接受并处理客户端请求删除某个键，这就是一个具体的文件事件。</li>
+<li>时间事件：Redis服务器的一些操作需要在给定时间点执行，例如前面提到的<code>serverCron</code>函数，就是一种时间事件</li>
+</ul>
+<p>下面我们将具体介绍这两种事件，并且说明服务器如何调度这些事件</p>
+<h3 id="12-1-文件事件"><a href="#12-1-文件事件" class="headerlink" title="12.1 文件事件"></a>12.1 文件事件</h3><p>文件事件交给文件事件处理器来负责。Redis的文件事件处理器基于Reactor模式，并且使用I/O多路服用，这样可以以单线程的方式运行并且监听多个不同的socket</p>
+<h4 id="12-1-1-文件事件处理器的构成"><a href="#12-1-1-文件事件处理器的构成" class="headerlink" title="12.1.1 文件事件处理器的构成"></a>12.1.1 文件事件处理器的构成</h4><p>文件事件处理器的架构如下图，它包含了4个模块：socket、I/O多路复用程序、文件事件分派器、事件处理器</p>
+<p><img src="/2020/03/04/Redis-12-事件/200303_5.png" alt=""></p>
+<ul>
+<li>文件事件是对Socket操作的抽象，每当一个Socket准备好执行连接应答、写入、读取、关闭等操作的时候，就会产生一个文件事件。这些文件事件很可能并发出现</li>
+<li>I/O多路复用程序负责监听多个Socket端口，并向文件事件分派器传送那些产生了事件的Socket。这时，I/O多路复用会将这些事件都放入一个队列中，这时就把并发变成了有序的、同步的形式。如下图<br><img src="/2020/03/04/Redis-12-事件/200303_6.png" alt=""></li>
+<li>文件事件分派器接收I/O多路复用程序传来的套接字，并根据套接字产生的事件的类型，调用相应的事件处理器。</li>
+<li>服务器会为执行不同任务的套接字关联不同的事件处理器，这些处理器是一个个函数它们定义了某个事件发生时，服务器应该执行的动作。</li>
+</ul>
+<h4 id="12-1-2-I-O多路复用程序的实现"><a href="#12-1-2-I-O多路复用程序的实现" class="headerlink" title="12.1.2 I/O多路复用程序的实现"></a>12.1.2 I/O多路复用程序的实现</h4><p>Redis的I/O多路复用程序的所有功能都是通过包装常见的<code>select</code>、<code>epoll</code>、<code>export</code>和<code>kqueue</code>这些I/O多路复用函数库来实现的，因为 Redis为每个IO多路复用函数库都实现了相同的API，所以I/O多路复用程序的底层实现是可以互换的，如下图</p>
+<p><img src="/2020/03/04/Redis-12-事件/200303_7.png" alt=""></p>
+<h4 id="12-1-3-事件的类型"><a href="#12-1-3-事件的类型" class="headerlink" title="12.1.3 事件的类型"></a>12.1.3 事件的类型</h4><p>文件事件其实只有两种类型，<code>AE_READABLE</code>事件和<code>AE_WRITABLE</code>事件</p>
+<ul>
+<li>当套接字变得可读时（客户端对套接字执行<code>write</code>操作，或者执行<code>close</code>操作），或者有新的可应答套接字出现时（客户端对服务器的监听套接字执行<code>connect</code>操作），套接字产生<code>AE_READABLE</code>事件。<br>当套接字变得可写时（客户端对套接字执行<code>read</code>操作），套接字产生<code>AE_WRITABLE</code>事件。</li>
+</ul>
+<p>客户端写，则服务器可读。客户端读，则服务器可写。</p>
+<h4 id="12-1-4-文件事件的处理器"><a href="#12-1-4-文件事件的处理器" class="headerlink" title="12.1.4 文件事件的处理器"></a>12.1.4 文件事件的处理器</h4><p>Redis为文件事件编写了多个处理器，这些事件处理器分别用于实现不同的网络通信需求，比如说：</p>
+<ul>
+<li>为了对连接服务器的各个客户端进行应答，服务器要为监听套接字关联连接应答处理器。</li>
+<li>为了接收客户端传来的命令请求，服务器要为客户端套接字关联命令请求处理器。</li>
+<li>为了向客户端返回命令的执行结果，服务器要为客户端套接字关联命令回复处理器。</li>
+<li>当主服务器和从服务器进行复制操作时，主从服务器都需要关联特别为复制功能编写的复制处理器。</li>
+</ul>
+<h5 id="1-连接应答处理器"><a href="#1-连接应答处理器" class="headerlink" title="1 连接应答处理器"></a>1 连接应答处理器</h5><p>当 Redis服务器进行初始化的时候，程序会将这个连接应答处理器和服务器监听套接字的<code>AE_READABLE</code>事件关联起来，当有客户端连接服务器监听套接字的时候，套接字就会产生AE_READABLE事件，引发连接应答处理器执行，并执行相应的套接字应答操作，如下图</p>
+<p><img src="/2020/03/04/Redis-12-事件/200303_8.png" alt=""></p>
+<h5 id="2-命令请求处理器"><a href="#2-命令请求处理器" class="headerlink" title="2 命令请求处理器"></a>2 命令请求处理器</h5><p>当一个客户端通过连接应答处理器成功连接到服务器之后，服务器会将客户端套接字的<code>AE_READABLE</code>事件和命令请求处理器关联起来，当客户端向服务器发送命令请求的时候，套接字就会产生<code>AE_READABLE</code>事件，引发命令请求处理器执行，命令请求处理器负责执行命令。</p>
+<p>在客户端连接服务器的整个过程中，服务器将会一直为客户端套接字的<code>AE_READABLE</code>事件关联命令请求处理器</p>
+<p><img src="/2020/03/04/Redis-12-事件/200303_9.png" alt=""></p>
+<h5 id="3-命令回复处理器"><a href="#3-命令回复处理器" class="headerlink" title="3 命令回复处理器"></a>3 命令回复处理器</h5><p>这个处理器负责将服务器执行命令后得到的命令回复通过套接字返回给客户端</p>
+<p>当服务器有命令回复需要传送给客户端的时候，服务器会将客户端套接字的<code>AE_WRITABLE</code>事件与命令回复处理器关联起来。</p>
+<p>当命令回复发送完毕之后，服务器会解除命令回复处理器与客户端套接字的<code>AE_WRITABLE</code>的关联</p>
+<p><img src="/2020/03/04/Redis-12-事件/200303_10.png" alt=""></p>
+<h5 id="4-一次完整的客户端与服务器连接事件示例"><a href="#4-一次完整的客户端与服务器连接事件示例" class="headerlink" title="4 一次完整的客户端与服务器连接事件示例"></a>4 一次完整的客户端与服务器连接事件示例</h5><ol>
+<li>假设一个Redis服务器正在运作，那么这个服务器的<strong>监听套接字</strong>的<strong>AE_READABLE事件</strong>应该正处于监听状态之下，而该事件所对应的处理器为<strong>连接应答处理器</strong>。</li>
+<li>如果这时有一个Redis客户端向服务器发起<strong>连接</strong>，那么监听套接字将<strong>产生AE_READABLE事件</strong>，<strong>触发连接应答处理器执行</strong>。处理器会对客户端的连接请求进行应答，然后<strong>创建客户端套接字</strong>，以及客户端状态，并将<strong>客户端套接字</strong>的AE_READABLE事件与<strong>命令请求处理器</strong>进行关联，使得客户端可以向主服务器发送命令请求。</li>
+<li>之后，假设客户端向主服务器发送一个命令请求，那么客户端套接字将<strong>产生AE_READABLE事件</strong>，引发<strong>命令请求处理器</strong>执行，处理器读取客户端的命令内容，然后通知相关程序去执行。</li>
+<li>执行结束后，当客户端尝试读取命令回复时，就会产生<code>AE_WRITABLE</code>事件，服务器将回复发回给客户端</li>
+</ol>
+<h3 id="12-2-时间事件"><a href="#12-2-时间事件" class="headerlink" title="12.2 时间事件"></a>12.2 时间事件</h3><p>服务器将所有时间事件都放在一个无序链表中，每当时间事件执行器运行时，它就遍历整个链表，查找所有已到达的时间事件，并调用相应的事件处理器。</p>
+<p>例如下图<br><img src="/2020/03/04/Redis-12-事件/200303_11.png" alt=""></p>
+<p>持续运行的Redis服务器需要定期对自身的资源和状态进行检查和调整，从而确保服务器可以长期、稳定地运行，这些定期操作由<code>redis.c/serverCron</code>函数负责执行，它的主要工作包括：</p>
+<ul>
+<li>更新服务器的各类统计信息，比如时间、内存占用、数据库占用情况等。</li>
+<li>清理数据库中的过期键值对。</li>
+<li>关闭和清理连接失效的客户端。</li>
+<li>尝试进行AOF或RDB持久化操作。</li>
+<li>如果服务器是主服务器，那么对从服务器进行定期同步口如果处于集群模式，对集群进行定期同步和连接测试</li>
+</ul>
+<h3 id="12-3-事件的调度与执行"><a href="#12-3-事件的调度与执行" class="headerlink" title="12.3 事件的调度与执行"></a>12.3 事件的调度与执行</h3><p>因为服务器中同时存在文件事件和时间事件两种事件类型，所以服务器必须对这两种事件进行调度，决定何时应该处理文件事件，何时又应该处理时间事件，以及花多少时间来处理它们等等。</p>
+<p>事件的调度和执行由<code>ae.c/aeProcessEvents</code>函数负责，伪代码如下<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">aeProcessEvents</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获得到达时间离当前时间最接近的时间事件</span></span><br><span class="line">    time_event = aeSearchNearestTimer()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算最接近的时间事件距离到达还有多少毫秒</span></span><br><span class="line">    remaind_ms = time_event.when - unix_ts_now()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 若事件已到达，remaind_ms将会是一个负数，这里将负数重设为0</span></span><br><span class="line">    <span class="keyword">if</span> remaind_ms &lt; <span class="number">0</span>:</span><br><span class="line">        remaind_ms = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 使用remaind_ms创建一个timeval结构体，以传给aeApiPoll函数</span></span><br><span class="line">    timeval = create_timeval_with_ms(remaind_ms)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 阻塞并等待文件事件的产生</span></span><br><span class="line">    <span class="comment"># 这个函数会产生阻塞并监听所有连接，当任何一个连接产生了文件事件，这个方法会返回；此外，若到达了timeval规定的时间，方法也会返回</span></span><br><span class="line">    aeApiPoll(timeval)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 执行文件事件</span></span><br><span class="line">    processFileEvents()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 执行时间事件</span></span><br><span class="line">    processTimeEvents()</span><br></pre></td></tr></table></figure></p>
+<p>将aeProcessEvents函数置于一个循环中，再加上初始化和清理函数，就构成了Redis服务器的主函数，伪码如下<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">    init_server()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 循环执行aeProcessEvents()以处理各种事件</span></span><br><span class="line">    <span class="keyword">while</span> server_is_not_shutdown():</span><br><span class="line">        aeProcessEvents()</span><br><span class="line"></span><br><span class="line">    close_server()</span><br></pre></td></tr></table></figure></p>
+<p>整个过程的流程图如下<br><img src="/2020/03/04/Redis-12-事件/200303_12.png" alt=""></p>
+<p>事件的调度和规则如下</p>
+<ol>
+<li><code>aeApiPoll</code>函数的最大阻塞时间由到达时间最接近当前时间的时间事件决定，这既避免了服务器对时间事件进行频繁的轮询（忙等待），也确保了<code>aeApiPoll</code>函数不会阻塞太长时间</li>
+<li>对文件事件和时间事件的处理是同步、有序、原子地执行</li>
+<li>因为时间事件在文件事件之后执行，并且事件之间不会出现抢占，所以时间事件的实际处理时间通常比预设的时间要晚一点</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/redis/" rel="tag"><i class="fa fa-tag"></i> redis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/04/Redis-11-AOF持久化/" rel="next" title="[Redis][11][AOF持久化]">
+                <i class="fa fa-chevron-left"></i> [Redis][11][AOF持久化]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/33653960?s=400&u=eb438b904ecb9d91f3aa9b777155a6488599493b&v=4" alt="T0UGH(GuiPing Wang)">
+            
+              <p class="site-author-name" itemprop="name">T0UGH(GuiPing Wang)</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/T0UGH" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="tough.neu.edu@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Friends
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://neusoftware.top/solo" title="ChengYi" target="_blank">ChengYi</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://mike4ellis.github.io/" title="Mike" target="_blank">Mike</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第-12-章-事件"><span class="nav-number">1.</span> <span class="nav-text">第 12 章 事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#12-1-文件事件"><span class="nav-number">1.1.</span> <span class="nav-text">12.1 文件事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#12-1-1-文件事件处理器的构成"><span class="nav-number">1.1.1.</span> <span class="nav-text">12.1.1 文件事件处理器的构成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-1-2-I-O多路复用程序的实现"><span class="nav-number">1.1.2.</span> <span class="nav-text">12.1.2 I/O多路复用程序的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-1-3-事件的类型"><span class="nav-number">1.1.3.</span> <span class="nav-text">12.1.3 事件的类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-1-4-文件事件的处理器"><span class="nav-number">1.1.4.</span> <span class="nav-text">12.1.4 文件事件的处理器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-连接应答处理器"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">1 连接应答处理器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-命令请求处理器"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">2 命令请求处理器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-命令回复处理器"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">3 命令回复处理器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-一次完整的客户端与服务器连接事件示例"><span class="nav-number">1.1.4.4.</span> <span class="nav-text">4 一次完整的客户端与服务器连接事件示例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-2-时间事件"><span class="nav-number">1.2.</span> <span class="nav-text">12.2 时间事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-3-事件的调度与执行"><span class="nav-number">1.3.</span> <span class="nav-text">12.3 事件的调度与执行</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">T0UGH(GuiPing Wang)</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'E1MH6h0YP3yhA0PJsohNBgiT-gzGzoHsz',
+        appKey: 'YOiN6zLq3XGfKmlR0b8vyHtN',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

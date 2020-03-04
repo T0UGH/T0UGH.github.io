@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/github-2-github相关/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/05/javascript-11-js模块/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/28/github-2-github相关/" itemprop="url">[github][2][github相关]</a></h1>
+                <a class="post-title-link" href="/2019/06/05/javascript-11-js模块/" itemprop="url">[javascript][11][js模块]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-28T17:00:51+08:00">
-                2019-05-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-05T15:09:05+08:00">
+                2019-06-05
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/GitHub/" itemprop="url" rel="index">
-                    <span itemprop="name">GitHub</span>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/05/28/github-2-github相关/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/28/github-2-github相关/" itemprop="commentCount"></span>
+                <a href="/2019/06/05/javascript-11-js模块/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/06/05/javascript-11-js模块/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,57 +362,105 @@
       
         
           
-            <h2 id="2-github相关"><a href="#2-github相关" class="headerlink" title="2 github相关"></a>2 github相关</h2><h3 id="2-2-Issue"><a href="#2-2-Issue" class="headerlink" title="2.2 Issue"></a>2.2 Issue</h3><p>开发者为了跟踪bug并进行软件相关讨论，进而方便管理，创建了Issue</p>
+            <h2 id="11-代码模块化"><a href="#11-代码模块化" class="headerlink" title="11 代码模块化"></a>11 代码模块化</h2><p>小的、组织良好的代码远比庞大的代码更容易<strong>理解和维护</strong>。优化程序结构和组织方式的一种方式是将代码拆分为小的、耦合相对松散的片段或模块</p>
+<p><strong>模块</strong>是比对象或者函数稍大的、用于组织代码的单元，通过模块可以将程序进行分类</p>
+<p><strong>模块化</strong>的好处</p>
+<ol>
+<li>降低理解成本</li>
+<li>模块易于维护</li>
+<li>提高代码的重用性</li>
+</ol>
+<h3 id="11-1-在ES6之前的版本中模块化代码"><a href="#11-1-在ES6之前的版本中模块化代码" class="headerlink" title="11.1 在ES6之前的版本中模块化代码"></a>11.1 在ES6之前的版本中模块化代码</h3><h4 id="11-1-1-使用对象、闭包和立即执行函数实现模块"><a href="#11-1-1-使用对象、闭包和立即执行函数实现模块" class="headerlink" title="11.1.1 使用对象、闭包和立即执行函数实现模块"></a>11.1.1 使用对象、闭包和立即执行函数实现模块</h4><p>ES6之前没有模块，开发者创造性的发挥JS语言现有的特性实现模块化。最流行的方式是使用立即执行函数的闭包实现模块</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MouseCounterModule = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> numClicks = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">const</span> handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        alert(++numClicks);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        countClicks: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">document</span>.addEventListener(<span class="string">"click"</span>, handleClick);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
+<ol>
+<li>在立即执行函数内部，定义模块内部的实现细节，这些细节只能在模块内部访问:局部变量<code>numClicks</code>和局部函数<code>handleClick</code></li>
+<li>创建并返回一个对象作为模块的”公共接口”。该接口包括<code>countClicks</code>方法</li>
+<li>由于暴露了模块接口，模块内部细节仍然可以通过接口创建的闭包保持活跃</li>
+<li>最后，保存代表模块接口的变量，通过立即执行函数返回给变量<code>MouseCounterModule</code></li>
+</ol>
+<p>这种在JavaScript中通过使用立即执行函数、对象和闭包来创建模块的方式称为<strong>模块模式</strong></p>
+<p>模块模式的问题</p>
+<ol>
+<li>难以扩展</li>
+<li>模块模式无法很好的处理对于其他模块的依赖</li>
+</ol>
+<h4 id="11-1-2-使用AMD模块化JavaScript应用"><a href="#11-1-2-使用AMD模块化JavaScript应用" class="headerlink" title="11.1.2 使用AMD模块化JavaScript应用"></a>11.1.2 使用AMD模块化JavaScript应用</h4><p>AMD的设计理念是明确基于浏览器，而CommonJS的设计是面向通用JavaScript环境，而不局限于浏览器</p>
+<p>AMD提供名为<code>define</code>的函数，它接受如下参数</p>
 <ul>
-<li><p>GitHub的Issue和评论可以使用GFM语法进行描述</p>
-</li>
-<li><p>Issue可以通过添加标签(Label)来进行整理，标签可以自由创建</p>
-</li>
-<li><p>可以通过添加里程碑来管理Issue，设置里程碑就可以通过Issue来管理任务</p>
-</li>
-<li><p>只要按照特定的格式描述提交信息，就可以像一般BTS带有的功能那样对Issue进行操作</p>
+<li>先创建模块的<code>id</code>，使用该<code>id</code>，可以在系统的其他部分引入该模块</li>
+<li>当前模块依赖的模块<code>id</code>列表</li>
+<li>初始化模块的工厂函数，该工厂函数接收依赖的模块列表作为参数</li>
+</ul>
+<p>AMD定义模块示例<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">'MouseCounterModule`, ['</span>jquery<span class="string">'], $ =&gt; &#123;</span></span><br><span class="line"><span class="string">    let numClicks = 0;</span></span><br><span class="line"><span class="string">    const handleClick = () =&gt; &#123;</span></span><br><span class="line"><span class="string">        alert(++numClicks);</span></span><br><span class="line"><span class="string">    &#125;;</span></span><br><span class="line"><span class="string">    return &#123;</span></span><br><span class="line"><span class="string">        countClicks: () =&gt; &#123;</span></span><br><span class="line"><span class="string">            document.addEventListener("click", handleClick);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;;</span></span><br><span class="line"><span class="string">&#125;);</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="11-1-3-使用CommonJS模块化JavaScript应用"><a href="#11-1-3-使用CommonJS模块化JavaScript应用" class="headerlink" title="11.1.3 使用CommonJS模块化JavaScript应用"></a>11.1.3 使用CommonJS模块化JavaScript应用</h4><p>CommonJS提供<code>module</code>变量，通过<code>module.exports</code>对象暴露的对象或函数可以在模块外部访问</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> $ = <span class="built_in">require</span>(<span class="string">"jquery"</span>);</span><br><span class="line"><span class="keyword">let</span> numClicks = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">const</span> handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        alert(++numClicks);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    countClicks: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">document</span>.addEventListener(<span class="string">"click"</span>, handleClick);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MouseCounterModule = <span class="built_in">require</span>(<span class="string">"MouseCounterModule.js"</span>);</span><br><span class="line">MouseCounterModule.countClicks();</span><br></pre></td></tr></table></figure>
+<h3 id="11-2-ES6模块"><a href="#11-2-ES6模块" class="headerlink" title="11.2 ES6模块"></a>11.2 ES6模块</h3><p>ES6模块的主要思想是必须显式地使用标识符导出模块，才能从外部访问模块</p>
+<p>ES6引入了两个关键字</p>
 <ul>
-<li>每个Issue标题下面都分配了一个诸如”#24”一样的序号，只要在提交信息的描述中加入”#24”，就可以在Issue中显示相关信息</li>
-<li>当一个处于<code>open</code>状态的<code>Issue</code>处理完毕，只要在该提交中以下列任意一种格式描述提交信息，对应的<code>Issue</code>就会被<code>close</code>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fix #24</span><br><span class="line">fixes #24</span><br><span class="line">fixed #24</span><br><span class="line">close #24</span><br><span class="line">closes #24</span><br><span class="line">closed #24</span><br><span class="line">resolve #24</span><br><span class="line">resolves #24</span><br><span class="line">resolved #24</span><br></pre></td></tr></table></figure>
-</li>
+<li>export: 从模块外部指定标识符</li>
+<li>import: 导入模块标识符</li>
 </ul>
-</li>
-</ul>
-<h3 id="2-2-发送-Pull-Request"><a href="#2-2-发送-Pull-Request" class="headerlink" title="2.2 发送 Pull Request"></a>2.2 发送 Pull Request</h3><ul>
-<li><p>Pull Request是自己修改源代码后，请求对方仓库采纳该修改时采取的一种行为</p>
-</li>
-<li><p>在Github上发送Pull Request后，接收方的仓库会创建一个附带源代码的Issue，我们在这个Issue中记录详细内容。这就是Pull Request</p>
-</li>
-<li><p>发送过来的Pull Request是否被采纳，要由接收方仓库的管理者进行判断</p>
-</li>
-<li><p>一般说来，在Github上修改对方的代码，需要先将仓库fork到本地，然后再修改代码，发送Pull Request。但是，如果用户对该仓库有编辑权限，则可以直接创建分支，从分支上发送Pull Request。利用这一设计，团队开发时不妨为每一个成员赋予编辑权限，免去<code>fork</code>仓库的麻烦。这样，成员在有需要时就可以创建自己的分支，然后直接向master分支等发送Pull Request</p>
-</li>
-</ul>
-<h3 id="2-3-接收-Pull-Request"><a href="#2-3-接收-Pull-Request" class="headerlink" title="2.3 接收 Pull Request"></a>2.3 接收 Pull Request</h3><p>有两种Pull Request方式:</p>
-<ol>
-<li>直接在github上接受此次Pull Request</li>
-<li>拉取到本地，然后校验，校验之后，执行<code>git merge</code>，解决冲突后，push到远端</li>
-</ol>
-<h3 id="2-4-团队开发的步骤"><a href="#2-4-团队开发的步骤" class="headerlink" title="2.4 团队开发的步骤"></a>2.4 团队开发的步骤</h3><p>自己总结的开发流程</p>
-<ol>
-<li>git pull 更新本地</li>
-<li>从master新建分支并切换到该分支，以开发新功能</li>
-<li>开发新功能</li>
-<li>将此分支推送到远程仓库</li>
-<li>在github上发送pull request请求</li>
-<li>管理员将此分支拉取到本地</li>
-<li>在本地将此分支合并到master分支并消除冲突</li>
-</ol>
-<p>Github Flow的开发流程</p>
-<ol>
-<li>令master分支时常保持可以部署的状态</li>
-<li>进行新的工作时要从master分支创建新分支，新分支名称要具有描述性</li>
-<li>在<code>2</code>新建的本地仓库分支中进行提交</li>
-<li>在Github端仓库创建同名分支，定期push</li>
-<li>需要帮助或者反馈时创建Pull Request，以Pull Request进行交流和讨论</li>
-<li>让其他开发者进行审查，确定作业完成后与master分支合并</li>
-<li>与master分支合并后立即部署</li>
-</ol>
+<h4 id="11-2-1-导出和导入功能"><a href="#11-2-1-导出和导入功能" class="headerlink" title="11.2.1 导出和导入功能"></a>11.2.1 导出和导入功能</h4><p>通过在需要导出的标识符(如变量、函数和类)使用关键字<code>export</code>，就可以实现模块导出<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ninja = <span class="string">"Yoshi"</span>;</span><br><span class="line"><span class="comment">//导出变量</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> message = <span class="string">"Hello"</span>;</span><br><span class="line"><span class="comment">//导出函数</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">sayHiToNinja</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> message + <span class="string">" "</span> + ninja;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用关键字<code>import</code>将变量和函数导入<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;message, sayHiToNinja&#125; <span class="keyword">from</span> <span class="string">"Ninja.js"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br><span class="line">sayHiToNinja();</span><br></pre></td></tr></table></figure></p>
+<p>使用简化符号<code>*</code>可以导入全部标识符<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> ninjaModule <span class="keyword">from</span> <span class="string">"Ninja.js"</span></span><br><span class="line"><span class="built_in">console</span>.log(ninjaModule.message);</span><br><span class="line">ninjaModule.sayHiToNinja();</span><br></pre></td></tr></table></figure></p>
+<h4 id="11-2-2-默认导出"><a href="#11-2-2-默认导出" class="headerlink" title="11.2.2 默认导出"></a>11.2.2 默认导出</h4><p>通常我们不需要从模块中导出一组相关的标识符，只需要导出一个标识符来代表整个模块的导出，常见情况为，当模块中包含一个类，只需要导出整个类</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Ninja</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name)&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">compareNinjas</span>(<span class="params">ninja1, ninja2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ninja1.name === ninja2.name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>导入模块默认导出的内容，不需要使用花括号{},可以任意指定名称<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ImportedNinja <span class="keyword">from</span> <span class="string">"Ninja.js"</span></span><br><span class="line"><span class="keyword">import</span> &#123;compareNinjas&#125; <span class="keyword">from</span> <span class="string">"Ninja.js"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ninja1 = <span class="keyword">new</span> ImportedNinja(<span class="string">"Yoshi"</span>);</span><br><span class="line"><span class="keyword">const</span> ninja2 = <span class="keyword">new</span> ImportedNinja(<span class="string">"Hattori"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(ninja1 === ninja2);</span><br></pre></td></tr></table></figure></p>
+<h4 id="11-2-3-模块语法表"><a href="#11-2-3-模块语法表" class="headerlink" title="11.2.3 模块语法表"></a>11.2.3 模块语法表</h4><table>
+<thead>
+<tr>
+<th>代码</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>export const ninja = &quot;Yoshi&quot;</code></td>
+<td>导出变量</td>
+</tr>
+<tr>
+<td><code>export function compare()</code></td>
+<td>导出函数</td>
+</tr>
+<tr>
+<td><code>export class Ninja()</code></td>
+<td>导出类</td>
+</tr>
+<tr>
+<td><code>export default class Ninja()</code></td>
+<td>导出默认类</td>
+</tr>
+<tr>
+<td><code>export default function Ninja()</code></td>
+<td>导出默认函数</td>
+</tr>
+<tr>
+<td><code>const ninja = &quot;Yoshi&quot;; function compare(){}; export{ninja, compare};</code></td>
+<td>导出存在的变量</td>
+</tr>
+<tr>
+<td><code>export {ninja as samurai};</code></td>
+<td>使用别名导出变量</td>
+</tr>
+<tr>
+<td><code>import Ninja from &quot;Ninja.js&quot;</code></td>
+<td>导入默认导出</td>
+</tr>
+<tr>
+<td><code>import {ninja} from &quot;Ninja.js&quot;</code></td>
+<td>导入命名导出</td>
+</tr>
+<tr>
+<td><code>import * as Ninja from &quot;Ninja.js&quot;</code></td>
+<td>导入模块声明的全部导出内容</td>
+</tr>
+<tr>
+<td><code>import {ninja as iNinja from &quot;Ninja.js&quot;</code></td>
+<td>通过别名导入模块中声明的全部导出内容</td>
+</tr>
+</tbody>
+</table>
 
           
         
@@ -452,7 +500,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/71/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><span class="page-number current">72</span><a class="page-number" href="/page/73/">73</a><span class="space">&hellip;</span><a class="page-number" href="/page/101/">101</a><a class="extend next" rel="next" href="/page/73/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/71/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><span class="page-number current">72</span><a class="page-number" href="/page/73/">73</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/73/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -500,7 +548,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

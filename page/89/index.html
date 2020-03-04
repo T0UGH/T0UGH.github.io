@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Tensorflow-8-循环神经网络/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/11/算法导论-15-动态规划/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/10/Tensorflow-8-循环神经网络/" itemprop="url">[Tensorflow][8]循环神经网络</a></h1>
+                <a class="post-title-link" href="/2019/03/11/算法导论-15-动态规划/" itemprop="url">算法导论[15][动态规划]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-10T14:54:13+08:00">
-                2019-03-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-11T15:54:50+08:00">
+                2019-03-11
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tensorflow/" itemprop="url" rel="index">
-                    <span itemprop="name">Tensorflow</span>
+                  <a href="/categories/算法导论/" itemprop="url" rel="index">
+                    <span itemprop="name">算法导论</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/10/Tensorflow-8-循环神经网络/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/10/Tensorflow-8-循环神经网络/" itemprop="commentCount"></span>
+                <a href="/2019/03/11/算法导论-15-动态规划/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/算法导论-15-动态规划/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,240 +362,135 @@
       
         
           
-            <h2 id="第8章-循环神经网络"><a href="#第8章-循环神经网络" class="headerlink" title="第8章 循环神经网络"></a>第8章 循环神经网络</h2><ul>
-<li>本章将介绍<ol>
-<li>循环神经网络(recurrent neural network, RNN)</li>
-<li>长短时记忆网络(long short-term memory, LSTM)—–循环神经网络中的一个重要结构</li>
+            <h2 id="第15章-动态规划"><a href="#第15章-动态规划" class="headerlink" title="第15章 动态规划"></a>第15章 动态规划</h2><p><strong>动态规划</strong>(dynamic programming)与分治方法相似，都是通过组合子问题的解来求解原问题。分治方法是将问题划分为互不相交的子问题，递归地求解子问题，再将它们的解结合起来，求出原问题的解。与之相反，动态规划用于子问题重叠的情况，即不同的子问题具有公共的子子问题。动态规划算法对每个子问题只求解一次，将其解保存到一个表格中，从而无需每次求解一个子子问题时都重新计算，避免了这种不必要的计算工作</p>
+<p>动态规划方法通常用来求解<strong>最优化问题</strong>。这类问题可以有很多可行解，每个解都有一个值，我们希望寻找具有最优值的解。我们称这个解为问题的一个最优解</p>
+<p>我们按照如下4个步骤来设计一个动态规划算法</p>
+<ol>
+<li>刻画一个最优解的结构特征</li>
+<li>递归地定义最优解的值</li>
+<li>计算最优解的值，通常采用自底向上的方法</li>
+<li>利用计算出来的信息构建最优解</li>
 </ol>
+<h3 id="15-1-钢条切割"><a href="#15-1-钢条切割" class="headerlink" title="15.1 钢条切割"></a>15.1 钢条切割</h3><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>给定一段长度为n英寸的钢条和一个价格表p<sub>i</sub>(i = 1, 2, …, n)，求切割钢条方案，使得销售收益r<sub>n</sub>最大</p>
+<h4 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h4><p>假设钢条的价格表如下</p>
+<p><img src="/2019/03/11/算法导论-15-动态规划/钢条价格表.PNG" alt=""></p>
+<p>考虑n=4的情况，下图给出了n=4的所有可能的切割情况</p>
+<p><img src="/2019/03/11/算法导论-15-动态规划/0310_1.PNG" alt=""></p>
+<p>我们用普通的加号来代表切割方案，例如: 将<code>7=2+2+3</code>表示为将长度7英寸的钢条切割为三段。</p>
+<p>对于上述价格表样例，我们可以观察所有最优收益值r<sub>i</sub> (i = 1, 2, …, 10)及对应的最初切割方案</p>
+<p><img src="/2019/03/11/算法导论-15-动态规划/0310_2.PNG" alt=""></p>
+<p>第一个参数p<sub>n</sub>表示不切割，直接出售长度为 <code>n</code> 英尺的钢条的方案。其他 <code>n-1</code> 个参数对应另外 <code>n - 1</code>种方案: 对每个 <code>i = 1, 2, ..., n-1</code>，首先把钢条切割为长度为<code>i</code>和<code>n-i</code>的两段，接着求解这两段的最优切割收益r<sub>n</sub>和r<sub>n-1</sub>。由于无法预知哪种方案会获得最优收益，我们必须考察所有可能的<code>i</code>，选取其中收益最大者。如果直接出售原钢条会获得最大收益，我们当然可以选择不做任何切割。</p>
+<p>注意到，为了求解规模为<code>n</code>的原问题，我们先求解形式完全相同，但规模更小的子问题。即当完成首次切割后，我们将两端钢条看成两个独立的钢条切割问题实例。我们通过组合两个相关子问题的最优解，并在所有可能的两段切割方案中提取组合收益最大者，构成原问题的最优解。我们称钢条切割问题满足最优子结构性质: 问题的最优解由相关子问题的最优解组合而成，而这些子问题可以独立求解</p>
+<h4 id="解决方案1—使用自顶向下的递归方法求解"><a href="#解决方案1—使用自顶向下的递归方法求解" class="headerlink" title="解决方案1—使用自顶向下的递归方法求解"></a>解决方案1—使用自顶向下的递归方法求解</h4><p>我们将钢条从左边切割下长度为 <code>i</code> 的一段，支队右边剩下的长度为 <code>n-i</code> 的一段继续进行切割(递归求解)，对左边的一段则不再进行切割。即问题分解的方式为：将长度为<code>n</code>的钢条分解为左边开始一段，以及剩余部分继续分解的结果。</p>
+<p>这样，不做任何切割的方案就可以描述为: 第一段的长度为 <code>n</code>，收益为 p<sub>n</sub>，剩余部分长度为0，对应的收益为r<sub>0</sub> = 0。</p>
+<p>公式如下<br><img src="/2019/03/11/算法导论-15-动态规划/0310_3.PNG" alt=""></p>
+<p>伪代码如下,它采用的是一种直接的自顶向下的递归方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CUT-ROD(p, n)</span><br><span class="line">    if n == 0</span><br><span class="line">        return 0</span><br><span class="line">    q = -∞</span><br><span class="line">    for i = 1 to n</span><br><span class="line">        q = max(q, p[i] + CUT-ROD(p, n-i))</span><br><span class="line">    return q</span><br></pre></td></tr></table></figure></p>
+<p>一旦输入规模稍微变大，程序运行时间会变得相当长。每当将 <code>n</code> 增加 <code>1</code> ，程序运行时间差不多会增加 <code>1</code> 倍。</p>
+<p>为什么<code>CUT-ROD</code>的效率如此差，原因是，<code>CUT-ROD</code>反复地用相同的参数值对自身进行递归调用，即它反复求解相同的子问题。如下图所示<br><img src="/2019/03/11/算法导论-15-动态规划/0310_4.PNG" alt=""></p>
+<p>此算法的时间复杂度为<br><img src="/2019/03/11/算法导论-15-动态规划/0310_5.PNG" alt=""></p>
+<h4 id="解决方案2—使用动态规划方法求解最优钢条切割问题"><a href="#解决方案2—使用动态规划方法求解最优钢条切割问题" class="headerlink" title="解决方案2—使用动态规划方法求解最优钢条切割问题"></a>解决方案2—使用动态规划方法求解最优钢条切割问题</h4><p>动态规划的思想如下所述。我们已经看到，朴素递归算法之所以效率很低，是因为它反复求解同样的子问题。因此，动态规划方法仔细安排求解顺序，对每个问题只求解一次，并将结果保存下来。如果随后再次需要此子问题的解，只需查找保存的结果，而不必重复计算。因此，动态规划方法是付出额外的内存空间来节省计算时间，是典型的时空权衡(time-memory-trade-off)的例子。而时间上的节省可能是非常巨大的:可能将指数时间的解转化为一个多项式时间的解。</p>
+<p>动态规划有两种等价的实现方法</p>
+<ol>
+<li><p>第一种方法称为带备忘的自顶向下法(top-down with memorization)。此方法仍按照自然的递归形式编写过程，但过程会保存每个子问题的解(通常保存在一个数组或散列表中)。当需要一个子问题的解时，过程首先检查是否已经保存过此解。如果是，则直接返回保存的值，从而节省了计算时间；否则，按通常方式计算这个子问题。我们称这个递归过程是带备忘的(memoized)，因为它记住了之前已经计算出的结果。</p>
 </li>
-</ul>
-<hr>
-<h3 id="8-1-循环神经网络简介"><a href="#8-1-循环神经网络简介" class="headerlink" title="8.1 循环神经网络简介"></a>8.1 循环神经网络简介</h3><ul>
-<li><p>循环神经网络的历史、传统机器学习和全连接的瓶颈</p>
-<ul>
-<li>循环神经网络(RNN)源自1982年由Saratha Sathasivam提出的霍普菲尔德网络</li>
-<li>传统的机器学习算法非常依赖于人工提取的特征</li>
-<li>基于全连接神经网络的方法也存在参数太多，无法利用数据中时间序列信息等问题</li>
-<li>循环神经网络挖掘数据中时序信息以及语义信息的深度表达能力被充分利用，并在语音识别、语言模型、机器翻译以及时序分析等方面实现了突破</li>
-</ul>
+<li><p>第二种方法称为自底向上法(bottom-up method)。这种方法一般需要恰当定义子问题”规模”的概念，使得任何子问题的求解都只依赖于”更小的”子问题的求解。因此我们可以将子问题按规模排序，按照由小至大的顺序进行求解。当求解某个子问题时，它所依赖的那些更小的子问题都已求解完毕，结果已经保存。每个子问题只需求解一次，当我们求解它时，它的所有前提子问题都已求解完成</p>
 </li>
-<li><p>循环神经网络简介</p>
-<ul>
-<li>循环神经网络的主要用途是处理和预测<strong>序列</strong>数据</li>
-<li>循环神经网络的来源就是为了刻画一个序列<strong>当前的输入</strong>与<strong>之前信息</strong>的关系</li>
-<li>从网络结构上，循环神经网络会记忆之前的信息，并利用之前的信息影响后面节点的输出</li>
-<li>循环神经网络的隐藏层之间的节点是有连接的，<strong>隐藏层的输入</strong>不仅包括<strong>输入层的输入</strong>，还包括<strong>上一时刻隐藏层的输入</strong></li>
-</ul>
-</li>
-<li><p>循环神经网络的经典结构</p>
-<ul>
-<li>如图<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/循环神经网络经典结构.jpg" alt=""></li>
-<li>解释<ul>
-<li>在每一时刻t,循环神经网络会针对该时刻的输入结合当前模型的状态给出一个输出，并更新模型状态</li>
-<li>循环神经网络的主体结构A的输入除了来自输入层xt，还有一个循环的边来提供上一时刻的隐藏状态(hidden state)ht-1</li>
-<li>在每一个时刻，循环神经网络的模块A在读取了xt和ht-1之后会生成新的隐藏状态ht,并产生本时刻的输出ot</li>
-<li>由于模块A中的运算和变量在不同时刻是相同的，因此循环神经网络理论上可以被看作是同一神经网络结构无限复制的结果</li>
-<li>循环神经网络是在不同时间位置共享参数，从而能够使用有限的参数处理任意长度的序列</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>循环神经网络经典结构展开</p>
-<ul>
-<li>如图<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/循环神经网络经典结构展开.jpg" alt=""></li>
-<li>循环神经网络对长度为N的序列展开之后，可以视为一个有N个中间层的前馈神经网络</li>
-<li>这个前馈神经网络可以直接使用反向传播算法进行训练，这样的训练方法称为”沿时间反向传播”(Back-Propagation Through Time)</li>
-</ul>
-</li>
-<li><p>循环神经网络与时间序列处理</p>
-<ul>
-<li>从循环神经网络的结构特征可以很容易看出它擅长解决与时间序列相关的问题</li>
-<li>对于一个序列数据，可以将这个序列上不同时刻的数据依次传入循环神经网络的输入层</li>
-<li>输出可以是对序列中下一个时刻的预测，也可以是对当前时刻信息的处理结果</li>
-<li>循环神经网络要求每个时刻都有一个输入，但不一定每个时刻都需要有输出</li>
-</ul>
-</li>
-<li><p>以机器翻译为例介绍循环神经网络如何解决实际问题</p>
-<ul>
-<li>如图<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/循环神经网络实现机器翻译示意图.jpg" alt=""></li>
-<li>循环神经网络中每一个时刻的输入为需要翻译的句子中的单词</li>
-<li>需要翻译的句子是ABCD，那么循环神经网络第一段每一个时刻的输入就分别为A、B、C、D，然后用“_”作为待翻译句子的结束符</li>
-<li>在第一段，循环神经网络没有输出</li>
-<li>从结束符”_”开始，循环神经网络进入翻译阶段</li>
-<li>该阶段中每个时刻的输入是上一个时刻的输出，而最终得到的输出XYZ就是句子ABCD翻译的结果</li>
-</ul>
-</li>
-<li><p>循环体的概念</p>
-<ul>
-<li>循环神经网络可以看作是同一神经网络结构在时间序列上被复制多次的结果，这个被复制多次的结构被称为循环体</li>
-<li>一个简单的循环体<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/简单的循环体.jpg" alt=""></li>
-</ul>
-</li>
-<li><p>循环神经网络的前向传播简介</p>
-<ul>
-<li>循环体中的神经网络的输入有两部分<ol>
-<li>上一时刻的状态:ht-1</li>
-<li>当前时刻的输入样本:xt</li>
 </ol>
+<p>下面给出的是带备忘的自顶向下法的伪代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MEMOIZED-CUT-ROD(p,n)</span><br><span class="line">    let r[0..n] be a new array</span><br><span class="line">    for i = 0 to n</span><br><span class="line">        r[i] = -∞</span><br><span class="line">MEMORIZED-CUT-ROD-AUX(p,n,r)</span><br><span class="line">    if r[n] &gt;= 0</span><br><span class="line">        return r[n]</span><br><span class="line">    if n == 0</span><br><span class="line">        q = 0</span><br><span class="line">    else q = -∞</span><br><span class="line">        for i = 1 to n</span><br><span class="line">            q = max(q, p[i] + MEMOIZED-CUT-ROD-AUX(p, n-i, r))</span><br><span class="line">    r[n] = q</span><br><span class="line">    return q</span><br></pre></td></tr></table></figure></p>
+<p>自底向上版本更为简单<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">BOTTOM-UP-CUT-ROD(p, n)</span><br><span class="line">    let r[0..n] be a new array</span><br><span class="line">    r[0] = 0</span><br><span class="line">    for j = 1 to n</span><br><span class="line">        q = -∞</span><br><span class="line">        for i = 1 to j</span><br><span class="line">            q = max(q, p[i] + r[j - i])</span><br><span class="line">        r[j] = q</span><br><span class="line">    return r[n]</span><br></pre></td></tr></table></figure></p>
+<p>自底向上版本采用子问题的自然顺序；若 <code>i&lt;j</code>，则规模为 <code>i</code> 的子问题比规模为 <code>j</code> 的子问题”更小”。因此，过程依次求解规模为 <code>j = 0, 1, ..., n</code> 的子问题</p>
+<p>此算法的时间复杂度为 Θ(n<sup>2</sup>)</p>
+<h4 id="子问题图"><a href="#子问题图" class="headerlink" title="子问题图"></a>子问题图</h4><p>当思考一个动态规划问题时，我们应该弄清所涉及的子问题及子问题之间的依赖关系</p>
+<p>问题的子问题图准确地表达了这些信息，下图显示了 <code>n=4</code> 时钢条切割问题地子问题图。<br>它是一个有向图，每个顶点唯一地对应一个子问题。若求子问题x地最优解时需要直接用到子问题y地最优解，那么在子问题图中就会有一条从子问题x的定点到子问题y的定点的有向边。</p>
+<p><img src="/2019/03/11/算法导论-15-动态规划/0310_6.PNG" alt=""></p>
+<p>自底向上的动态规划方法处理子问题图中顶点的顺序为: 对于一个给定的子问题<code>x</code>，在求解它之前求解邻接它的子问题<code>y</code>。对于任何子问题，直至它依赖的所有子问题均已求解完成，才会求解它</p>
+<p>子问题图<code>G=(V, E)</code>的规模可以帮我们确定动态规划算法的运行时间。由于每个子问题只求解一次，因此算法运行时间等于每个子问题求解时间之和。通常，一个子问题的求解时间与子问题图中对应顶点的度(出射边的数目)成正比，而子问题的数目等于子问题图的顶点数。因此，通常情况下，动态规划算法的运行使劲按与顶点与边的数量呈线性关系</p>
+<h3 id="15-2-矩阵链乘法"><a href="#15-2-矩阵链乘法" class="headerlink" title="15.2 矩阵链乘法"></a>15.2 矩阵链乘法</h3><h4 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h4><p>给定一个 <code>n</code> 个矩阵的序列(矩阵链)(A<sub>1</sub>),我们希望计算它们的乘积如下</p>
+<p>A<sub>1</sub>A<sub>2</sub>…A<sub>n</sub></p>
+<p>由于矩阵乘法满足结合律，因此任何加括号的方法都会得到相同的计算结果。我们称有如下性质的矩阵乘积链为完全括号化的(fully parenthesized): 它是单一矩阵，或者是两个完全括号化的矩阵乘积链的积，且已外加括号。</p>
+<p>例如，如果矩阵链为(A1, A2, A3, A4)，则共有5种完全括号化的矩阵乘积链</p>
+<p>(A1(A2(A3A4)))<br>(A1((A2A3)A4))<br>((A1A2)(A3A4))<br>((A1(A2A3))A4)<br>(((A1A2)A3)A4)  </p>
+<p>对矩阵链加乘法的方式会对矩阵运算的代价产生重大影响</p>
+<p>两个矩阵 <code>A</code> 和 <code>B</code> 只有相容(compatible)，即 <code>A</code> 的列数等于 <code>B</code> 的行数时，才能相乘。如果 <code>A</code> 是 <code>p * q</code> 的矩阵,<code>B</code> 是 <code>q * r</code> 的矩阵，那么乘积 <code>C</code> 是 <code>p * r</code> 的矩阵。计算 <code>C</code> 所需时间由标量乘法的次数决定，即 <code>p * q * r</code></p>
+<p>以矩阵链 <code>(A1, A2, A3)</code> 相乘为例，来说明不同的加括号方式会导致不同的计算代价。假设三个矩阵的规模分别是 <code>10 * 100</code>、<code>100 * 5</code>、 <code>5 * 50</code>。如果按照 <code>((A1A2)A3)</code> 的顺序计算，为计算 <code>A1A2</code> ，需要做 <code>10 * 100 *5</code> 次标量乘法，再与A3相乘又需要做 <code>10 * 5 * 50</code> 次标量乘法，一共需要<code>7500</code>次。假如按照 <code>((A1)A2A3)</code> 的顺序，需要 <code>75000</code> 次</p>
+<p>矩阵链乘法问题(matrix-chain multiplication problem): 给定n个矩阵的链 <code>(A1, A2, ..., An)</code>, 矩阵<code>Ai</code> 的规模是p<sub>i-1</sub> * p<sub>i</sub>(1&lt;=i&lt;=n)，求完全括号化方案，使得计算乘积 <code>A1A2...An</code> 所需标量乘法次数最少</p>
+<h4 id="计算括号化方案的数量"><a href="#计算括号化方案的数量" class="headerlink" title="计算括号化方案的数量"></a>计算括号化方案的数量</h4><p>首先说明穷举所有可能的括号化方案不会产生一个高效的算法</p>
+<p>对于一个 <code>n</code> 个矩阵的链，令 <code>P(n)</code> 表示可供选择的括号化方案的数量。当 <code>n=1</code> 时，由于只有一个矩阵，因此只有一种完全括号化方案。当 <code>n&gt;=2</code> 时，完全括号化的矩阵乘积可描述为两个完全括号化的部分积相乘的形式，而两个部分积的划分点在第 <code>k</code> 个矩阵和第 <code>k+1</code> 个矩阵之间，<code>k</code> 为 <code>1, 2, ...., n - 1</code>中的任意一个值。可以得到递归式</p>
+<p><img src="/2019/03/11/算法导论-15-动态规划/0310_7.PNG" alt=""></p>
+<p>经过证明，这种方法的时间复杂度为 Ω(2<sup>n</sup>)。因此通过暴力搜索穷尽所有可能的括号化方案来寻求最优方案，是一个糟糕的策略</p>
+<h4 id="应用动态规划方法"><a href="#应用动态规划方法" class="headerlink" title="应用动态规划方法"></a>应用动态规划方法</h4><p>我们按照如下4个步骤来进行</p>
+<ol>
+<li>刻画一个最优解的结构特征(寻找最优子结构)</li>
+<li>递归地定义最优解的值</li>
+<li>计算最优解地值，通常采用自底向上的方法</li>
+<li>利用计算出的信息构建一个最优解</li>
+</ol>
+<h5 id="步骤1-最优括号化方案的结构特征-寻找最优子结构"><a href="#步骤1-最优括号化方案的结构特征-寻找最优子结构" class="headerlink" title="步骤1 : 最优括号化方案的结构特征(寻找最优子结构)"></a>步骤1 : 最优括号化方案的结构特征(寻找最优子结构)</h5><p>动态规划的第一步是寻找最优子结构，然后就可以利用这种子结构从子问题的最优解构造原问题的最优解</p>
+<p>下面给出本问题的最优子结构。假设<code>Ai Ai+1 ... Aj</code>的最优括号化方案的分割点在 <code>Ak</code> 和 <code>Ak+1</code> 之间。那么继续对子链<code>Ai Ai+1 ... Ak</code>和<code>Ak+1 ... Aj</code>进行括号化时，我们应该直接采用独立求解它时所得的最优方案</p>
+<p>我们已经看到，一个非平凡的矩阵链乘法问题的实例的任何解都需要划分链，而任何最优解都是由子问题实例的最优解构成的。因此，为了构建一个矩阵链乘法问题实例的最优解，我们可以将问题划分为两个子问题(<code>Ai Ai+1 ... Ak</code>和<code>Ak+1 ... Aj</code>的最优括号化问题)，求出子问题实例的最优解，然后将子问题的最优解组合起来。我们必须保证在确定分割点时，已经考察了所有可能的划分点，这样就可以保证不会遗漏最优解</p>
+<h5 id="步骤2-一个递归求解方案-递归地定义最优解的值"><a href="#步骤2-一个递归求解方案-递归地定义最优解的值" class="headerlink" title="步骤2 : 一个递归求解方案(递归地定义最优解的值)"></a>步骤2 : 一个递归求解方案(递归地定义最优解的值)</h5><p>下面用子问题的最优解来递归地定义原问题最优解地代价。对矩阵链乘法问题，我们可以将对所有 <code>1&lt;=i&lt;=j&lt;=n</code>确定<code>Ai Ai+1 ... Aj</code>的最小代价括号化方案作为子问题。令<code>m[i, j]</code>表示计算矩阵 A<sub>i <em> j</em></sub>所需标量乘法次数的最小值，那么。原问题的最优解—计算A<sub>1  n</sub>所需的最低代价就是<code>m[1, n]</code></p>
+<p>我们可以递归地定义<code>m[i, j]</code>如下。</p>
+<p>对于 i=j 时的平凡问题，矩阵链只包含唯一地矩阵A<sub>i * i</sub> = A<sub>i</sub>，不需要做任何标量乘法计算。所以，对所有 <code>i = 1, 2, ..., n</code> 来说，<code>m[i, i] = 0</code>。</p>
+<p>若 <code>i&lt;j</code>，我们利用步骤1中得到的最优子结构来计算<code>m[i, j]</code>。我们假设<code>Ai Ai+1 ... Aj</code>的最优括号化方案的分割点在矩阵<code>Ak</code>和<code>Ak+1</code>之间，其中<code>i&lt;=k&lt;j</code>。那么，<code>m[i, j]</code>就等于计算<code>Ai * k</code>和<code>Ak+1 * j</code>的代价加上两者相乘的代价的最小值。由于矩阵Ai的大小为 <code>pi-1 * pi</code>，易知<code>Ai * k</code>和<code>Ak+1 * j</code>相乘的代价为<code>pi-1 * pk * pj</code>次标量乘法运算。因此我们得到<br><img src="/2019/03/11/算法导论-15-动态规划/0310_8.PNG" alt=""></p>
+<p>上述递归公式假定最优分割点 <code>k</code> 是已知的，但实际上不知道。不过 <code>k</code> 只有 <code>j-i</code> 种可能的取值。我们只需检查这<code>j-i</code>种情况，找出最优者即可。一次迭代求解公式变为<br><img src="/2019/03/11/算法导论-15-动态规划/0310_9.PNG" alt=""></p>
+<h5 id="步骤3-计算最优代价"><a href="#步骤3-计算最优代价" class="headerlink" title="步骤3 : 计算最优代价"></a>步骤3 : 计算最优代价</h5><p>现在，我们可以很容易地基于上面的递归公式写出一个递归算法，来计算 <code>A1A2...An</code> 相乘的最小代价 <code>m[1, n]</code> 。此递归算法是指数时间的，并不比暴力搜索算法好</p>
+<p>此递归算法会在递归调用中多次遇到同一个子问题，这种子问题重叠的性质是应用动态规划的另一个标志</p>
+<p>我们采用自底向上表格法来计算最优代价。假定矩阵Ai的规模为 <code>pi-1 * pi(i = 1, 2, ..., n)</code>。它的输入是一个序列<code>p=(p0, p1, ..., pn)</code>，其长度为<code>p.length = n + 1</code>。过程用一个辅助表<code>m[1..n, 1..n]</code>来保存代码<code>m[i, j]</code>，用另一个辅助表<code>s[1..n-1, 2..n]</code>记录最优值<code>m[i, j]</code>对应的分割点<code>k</code>。我们就可以利用表s构建最优解。</p>
+<p>为了实现自底向上的方法，我们必须确定计算 <code>m[i, j]</code> 时需要访问哪些其他表项。<code>m[i, j]</code> 的值只依赖于那些少于 <code>j-i+1</code> 个矩阵链相乘的最优计算代价。因此算法应该按照长度递增的顺序求解矩阵链括号化问题，并按对应的顺序填写表<code>m</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">MATRIX-CHAIN-ORDER(p)</span><br><span class="line">    n = p.length - 1</span><br><span class="line">    let m[1..n,1..n] and s[1..n-1, 2..n]be new tables</span><br><span class="line">    for i = 1 to n</span><br><span class="line">        m[i, i] = 0</span><br><span class="line">    for l = 2 to n</span><br><span class="line">        for i = 1 to n - l + 1</span><br><span class="line">        j = i + l - 1</span><br><span class="line">        m[i, j] = ∞</span><br><span class="line">        for k = i to j - 1</span><br><span class="line">            q = m[i, k] + m[k+1, j] + p[i - 1] * p[k] * [pj]</span><br><span class="line">        if q &lt; m[i, j]</span><br><span class="line">            m[i, j] = q</span><br><span class="line">            s[i, j] = k</span><br><span class="line">    return m and s</span><br></pre></td></tr></table></figure>
+<p>下图展示了对一个长度为6的矩阵链执行此算法的过程<br><img src="/2019/03/11/算法导论-15-动态规划/0310_10.PNG" alt=""></p>
+<p>简单分析<code>MATRIX-CHAIN-ORDER</code>的嵌套循环结构，可以看到算法的运算时间为O(n<sup>3</sup>)。</p>
+<h5 id="步骤4-构建最优解"><a href="#步骤4-构建最优解" class="headerlink" title="步骤4: 构建最优解"></a>步骤4: 构建最优解</h5><p>我们可以根据表s记录的信息来递归地恢复最优解，算法如图<br><img src="/2019/03/11/算法导论-15-动态规划/0310_11.PNG" alt=""></p>
+<h3 id="15-3-动态规划原理"><a href="#15-3-动态规划原理" class="headerlink" title="15.3 动态规划原理"></a>15.3 动态规划原理</h3><p>在本节我们将关注适合应用动态规划方法求解的最优化问题应该具备的两个要素: 最优子结构和子问题重叠</p>
+<h4 id="最优子结构"><a href="#最优子结构" class="headerlink" title="最优子结构"></a>最优子结构</h4><p>用动态规划问题求解最优化问题的第一步就是刻画最优解的结构。如果一个问题的最优解包含其子问题的最优解，我们就称此问题具有最优子结构性质。因此，某个问题是否适合应用动态规划算法，它是否具有最优子结构性质是一个好结构(当然，具有最优子结构性质也可能意味着适合应用贪心策略)</p>
+<p>本章前面的两个问题都具有最优子结构性质。在15.1中，我们观察到，长度为 <code>n</code> 的钢条的最优切割方案是由第一次切割后得到的两端钢条的最优切割方案组成的。在15.2中，我们看到 <code>Ai Ai+1 ... Aj</code> 的最优括号化方案首先在 <code>Ak</code> 和 <code>Ak+1</code>之间进行划分，然后对 <code>Ai Ai+1 ... Ak</code> 和 <code>Ak+1 Ak+2 ... Aj</code>继续进行最优括号化</p>
+<p>发掘最优子结构性质的过程，遵循如下通用模式</p>
+<ol>
+<li><p>证明问题最优解的一个组成部分是做出一个选择，例如，选择钢条第一次切割位置，选择矩阵链的划分位置等，做出这次选择会产生一个或多个待解决的子问题</p>
 </li>
-<li>将上一时刻的状态与当前时刻的输入拼接为一个大的向量作为循环体中神经网络的输入<ul>
-<li>例如：假设输入向量的维度为x，隐藏状态的维度为n，那么循环体的全连接网络的输入大小为n+x</li>
-</ul>
+<li><p>对于一个给定问题，在其可能的第一步选择中，你假定已经知道哪种选择才会得到最优解，你现在并不关心这种选择具体是如何得到的，只是假定已经知道了这种选择</p>
 </li>
-<li>输出为当前时刻的状态ht，一个长度为n的向量</li>
-<li>然而有时RNN输出不仅需要提供给下一时刻作为状态，也需要提供给当前时刻作为当前时刻的输出</li>
-<li>此时需要一个全连接层，输入为前面计算出的状态向量，输出为当前时刻的输出，而不同时刻用于产生当前时刻输出的全连接层的参数也是共享的</li>
-<li>举例：一个循环神经网络前向传播的具体计算过程<ul>
-<li>如图<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/循环神经网络的前向传播计算过程.jpg" alt=""></li>
-<li>计算过程详解<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/RNN前向传播计算过程详解1.jpg" alt=""><br><img src="/2019/03/10/Tensorflow-8-循环神经网络/RNN前向传播计算过程详解2.jpg" alt=""></li>
-</ul>
+<li><p>给定可获得最优解的选择后，你确定这次选择会产生哪些子问题，以及如何最好地刻画子问题空间</p>
 </li>
-</ul>
+<li><p>利用”剪贴-粘贴”(cut-and-paste)技术证明: 作为构成子问题最优解的组成部分，每个子问题的解就是它本身的最优解。证明这一点可以用反证法: 假定子问题的解不是其自身的最优解，那么我们就可以从原问题的解中”剪切”掉哪些非最优解，将最优解”粘贴”进去，从而得到原问题一个更优的解，这与最初的解是原问题最优解的前提假设矛盾。</p>
 </li>
-<li><p>循环神经网络的损失函数和优化过程</p>
-<ul>
-<li>损失函数：因为RNN在每个时刻都有一个输出，所以循环神经网络的总损失为所有时刻上的损失函数的综合</li>
-<li>优化过程：在定义完损失函数之后，套用第四章介绍的优化框架即可完成模型训练的过程</li>
-<li>在实际训练过程中，如果序列太长，会导致优化时出现梯度消散和梯度爆炸的问题</li>
-</ul>
+</ol>
+<p>对于不同问题领域，最优子结构的不同体现在两个方面:</p>
+<ol>
+<li><p>原问题的最优解中涉及多少个子问题，以及</p>
 </li>
-<li><p>循环神经网络前向传播样例代码</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">X = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">state = [<span class="number">0.0</span>, <span class="number">0.0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义循环体A中产生当前状态的全连接层的参数，包括权重和偏置</span></span><br><span class="line">w_cell_state = np.asarray([[<span class="number">0.1</span>, <span class="number">0.2</span>], [<span class="number">0.3</span>, <span class="number">0.4</span>]])</span><br><span class="line">w_cell_input = np.asarray([<span class="number">0.5</span>, <span class="number">0.6</span>])</span><br><span class="line">b_cell = np.asarray([<span class="number">0.1</span>, <span class="number">-0.1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义用于输出的全连接层的参数</span></span><br><span class="line">w_output = np.asarray([[<span class="number">1.0</span>], [<span class="number">2.0</span>]])</span><br><span class="line">b_output = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 按照时间顺序执行循环神经网络的前向传播过程</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(X)):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算循环体中的全连接层神经网络</span></span><br><span class="line">    before_activation = np.dot(state, w_cell_state) + X[i] * w_cell_input + b_cell</span><br><span class="line">    state = np.tanh(before_activation)</span><br><span class="line">    <span class="comment"># 根据当前时刻状态计算最终输出</span></span><br><span class="line">    final_output = np.dot(state, w_output) + b_output</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 输出每个时刻的信息</span></span><br><span class="line">    print(<span class="string">"before activation: "</span>, before_activation)</span><br><span class="line">    print(<span class="string">"state: "</span>, state)</span><br><span class="line">    print(<span class="string">"output: "</span>, final_output)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">运行上面程序可以得到输出</span></span><br><span class="line"><span class="string">before activation:  [0.6 0.5]</span></span><br><span class="line"><span class="string">state:  [0.53704957 0.46211716]</span></span><br><span class="line"><span class="string">output:  [1.56128388]</span></span><br><span class="line"><span class="string">before activation:  [1.2923401  1.39225678]</span></span><br><span class="line"><span class="string">state:  [0.85973818 0.88366641]</span></span><br><span class="line"><span class="string">output:  [2.72707101]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<li><p>在确定最优解使用哪些子问题时，我们需要考察多少种选择</p>
 </li>
-</ul>
-<hr>
-<h3 id="8-2-长短时记忆网络-LSTM-结构"><a href="#8-2-长短时记忆网络-LSTM-结构" class="headerlink" title="8.2 长短时记忆网络(LSTM)结构"></a>8.2 长短时记忆网络(LSTM)结构</h3><ul>
-<li><p>背景</p>
-<ul>
-<li>循环神经网络通过保存历史信息来帮助当前的决策</li>
-<li>但是存在长期依赖(long-term dependecies)问题<ul>
-<li>有时模型可能需要某些长期的信息来执行当前的任务</li>
-<li>比如：当模型试图去预测段落“某地开设了大量工厂，空气污染十分严重……这里的天空都是灰色的”的最后一个单词时，仅仅根据短期依赖就无法解决这个问题。因为只根据最后一小段，最后一个词可以是“蓝色的”或者“灰色的”。但如果模型需要预测清楚具体是什么颜色，就需要考虑先前提到但离当前位置较远的上下文信息</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>LSTM简介</p>
-<ul>
-<li>LSTM的设计就是为了解决长期依赖问题</li>
-<li>LSTM是一种拥有三个“门”结构的特殊网络结构</li>
-<li>结构图如下<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/LSTM单元结构图.jpg" alt=""></li>
-</ul>
-</li>
-<li><p>门结构</p>
-<ul>
-<li>LSTM靠一些“门”的结构让信息有选择性地影响循环神经网络中每个时刻的状态</li>
-<li>所谓“门”的结构就是一个使用sigmoid神经网络和一个按位做乘法的操作，这两个操作合在一起就是一个“门”的结构</li>
-<li>为什么被称为“门”结构<ul>
-<li>因为sigmoid作为激活函数的全连接神经网络层会输出一个0到1之间的数值，描述当前输入有多少信号量可以通过这个结构</li>
-<li>这个结构的功能就类似于“门”，当门打开时(sigmoid神经网络层输出为1时)，全部信息都可以通过</li>
-<li>当门关上时(sigmoid神经网络层输出为0时)，任何信息都无法通过</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>遗忘门</p>
-<ul>
-<li>作用：让循环神经网络“忘记”之前没有用的信息</li>
-<li>工作原理<ul>
-<li>遗忘门会根据当前的输入xt和上一时刻输出ht-1决定哪一部分记忆需要被遗忘</li>
-<li>假设状态向量c的长度为n</li>
-<li>遗忘门会根据当前的输入xt和上一时刻输出ht-1计算一个维度为n的向量<code>f=sigmoid(W1x+W2h)</code>，它在每个维度的值都在<code>(0,1)</code>范围内</li>
-<li>再将上一时刻的状态ct-1与f向量按位相乘，那么f取值接近0的维度上的信息就会被遗忘，而f取值接近1的维度上的信息会被保留</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>输入门</p>
-<ul>
-<li>作用：循环神经网络忘记了部分之前的状态之后，还需要从当前的输入补充最新的记忆</li>
-<li>工作原理<ul>
-<li>输入门会根据当前的输入<code>xt</code>和上一时刻输出<code>ht-1</code>决定哪些信息加入到状态<code>ct-1</code>中生成新的状态<code>ct</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>输出门</p>
-<ul>
-<li>作用：LSTM在计算得到新的状态<code>ct</code>后需要产生当前时刻的输出，这个输出由输出门完成</li>
-<li>工作原理<ul>
-<li>输出门根据最新的状态<code>ct</code>、上一时刻的输出<code>ht-1</code>和当前的输入<code>xt</code>来决定该时刻的输出<code>ht</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>使用LSTM结构的RNN的前向传播过程</p>
-<ul>
-<li>LSTM单元细节图如下<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/LSTM单元细节图.jpg" alt=""></li>
-<li>具体LSTM每个门的公式定义如下<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/LSTM公式1.jpg" alt=""><br><img src="/2019/03/10/Tensorflow-8-循环神经网络/LSTM公式2.jpg" alt=""></li>
-</ul>
-</li>
-<li><p>在TensorFlow中实现LSTM结构的RNN前向传播</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个LSTM结构</span></span><br><span class="line"><span class="comment"># LSTM中使用的变量也会在该函数中自动被声明</span></span><br><span class="line">lstm = tf.nn.rnn_cell.BasicLSTMCell(lstm_hidden_size)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将LSTM中的状态初始化为全0数组</span></span><br><span class="line"><span class="comment"># state中包含两个张量，其中state.c和state.h分别对应了LSTM单元细节图中的c状态和h状态</span></span><br><span class="line"><span class="comment"># batch_size给出了一个batch的大小</span></span><br><span class="line">state = lstm.zero_state(batch_size, tf.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义损失函数</span></span><br><span class="line">loss = <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在训练中为了将循环神经网络展开成前馈神经网络，需要直到训练数据的序列长度</span></span><br><span class="line"><span class="comment"># 其中，num_steps代表了这个长度</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(num_steps):</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 在第一个时刻声明LSTM结构中使用的变量，在之后的时刻都需要复用之前定义好的变量</span></span><br><span class="line">    <span class="keyword">if</span> i &gt; <span class="number">0</span>:</span><br><span class="line">        tf.get_variable_scope().reuse_variables()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 每一步处理时间序列中的一个时刻</span></span><br><span class="line">    <span class="comment"># 将当前输入current_input和前一时刻状态state(ht-1和ct-1)传入LSTM结构，</span></span><br><span class="line">    <span class="comment"># 可以得到当前LSTM的输出lstm_output(ht)和更新后状态state(ht和ct)</span></span><br><span class="line">    <span class="comment"># lstm_output可以用于输出给其他层，state用于输出给下一时刻</span></span><br><span class="line">    lstm_output, state = lstm(current_input, state)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 将当前时刻LSTM结构的输出传入一个全连接层得到最后的输出</span></span><br><span class="line">    final_output = fully_connected(lstm_output)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 计算当前输出的损失</span></span><br><span class="line">    loss += calc_loss(final_output, expected_output)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 然后使用类似第四章介绍的方法训练模型</span></span><br><span class="line">train()</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="8-3-循环神经网络的变种"><a href="#8-3-循环神经网络的变种" class="headerlink" title="8.3 循环神经网络的变种"></a>8.3 循环神经网络的变种</h3><hr>
-<h4 id="8-3-1-双向循环神经网络和深层循环神经网络"><a href="#8-3-1-双向循环神经网络和深层循环神经网络" class="headerlink" title="8.3.1 双向循环神经网络和深层循环神经网络"></a>8.3.1 双向循环神经网络和深层循环神经网络</h4><ul>
-<li><p>双向循环神经网络(bidirectional RNN)</p>
-<ul>
-<li>简介<ul>
-<li>在有些问题中，当前时刻的输出不仅和之前的状态有关，也和之后的状态有关，这时就需要双向循环神经网络</li>
-<li>例如：预测一个语句中缺失的单词不仅需要根据前文判断，还需要根据后文判断，这时双向循环网络就可以发挥它的作用</li>
-<li>双向循环神经网络由两个独立的循环神经网络叠加在一起组成</li>
-<li>输出是由这两个循环神经网络的输出拼接而成</li>
-</ul>
-</li>
-<li>结构图<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/双向循环神经网络结构.jpg" alt=""></li>
-<li>工作原理<ul>
-<li>双向循环神经网络的主体结构就是两个单向循环神经网络的结合</li>
-<li>在每个时刻t，输入会同时提供给两个方向相反的循环神经网络</li>
-<li>两个网络独立进行计算，各自产生该时刻的新状态和输出，而双向循环神经网络的最终输出是这两个单向网络的输出的简单拼接</li>
-<li>两个循环神经网络除方向不同之外，其余结构完全对称</li>
-<li>每一层网络中的循环体可以自由选用任意结构，如前面介绍过的简单RNN、LSTM均可作为循环体</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>深层循环神经网络(deep RNN)</p>
-<ul>
-<li>简介<ul>
-<li>为了增强模型的表达能力，可以在网络中设置多个循环层，将每层循环网络的输出传给下一层进行处理</li>
-</ul>
-</li>
-<li>结构图<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/深层循环神经网络结构.jpg" alt=""></li>
-<li>工作原理<ul>
-<li>如图，在一个L层的深层循环网络中，每一时刻的输入xt到输出ot之间有L个循环体</li>
-<li>网络因此可以抽象更加高层的信息</li>
-<li>网络中每一层的循环体中参数是一致的，而不同层中的参数可以不同</li>
-</ul>
-</li>
-<li>代码实现  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf </span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个基本的LSTM结构作为循环体的基础结构</span></span><br><span class="line"><span class="comment"># 深层循环神经网络也支持使用其他的循环体结构</span></span><br><span class="line">lstm_cell = tf.nn.rnn_cell.BasicLSTMCell</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过MultiRNNCell类实现深层循环神经网络的结构</span></span><br><span class="line"><span class="comment"># 其中number_of_layers表示有多少层</span></span><br><span class="line">stacked_lstm = tf.nn.rnn_cell.MultiRNNCell([lstm_cell(lstm_size) <span class="keyword">for</span> _ <span class="keyword">in</span> range(number_of_layers)])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 和经典的循环神经网络一样，可以通过zero_state函数来获得初始状态</span></span><br><span class="line">state = stacked_lstm.zero_state(batch_size, tf.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算每一时刻的前向传播过程</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(num_steps)):</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> i &gt; <span class="number">0</span>:tf.get_variable_scope().reuse_variables()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 每一步处理时间序列中的一个时刻</span></span><br><span class="line">    <span class="comment"># 将当前输入current_input和前一时刻状态state(ht-1和ct-1)传入LSTM结构，</span></span><br><span class="line">    <span class="comment"># 可以得到当前LSTM的输出lstm_output(ht)和更新后状态state(ht和ct)</span></span><br><span class="line">    <span class="comment"># lstm_output可以用于输出给其他层，state用于输出给下一时刻</span></span><br><span class="line">    stacked_lstm_output, state = stacked_lstm(current_input, state)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 通过一个全连接层得到当前时刻的最终输出</span></span><br><span class="line">    final_output = fully_connected(stacked_lstm_output)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 累加损失函数</span></span><br><span class="line">    loss += calc_loss(final_output, expected_output)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="8-3-2-循环神经网络的dropout"><a href="#8-3-2-循环神经网络的dropout" class="headerlink" title="8.3.2 循环神经网络的dropout"></a>8.3.2 循环神经网络的dropout</h4><ul>
-<li><p>通过dropout，可以让神经网络更加健壮(robust)</p>
-</li>
-<li><p>循环神经网络一般只在不同层循环体结构之间使用dropout，而不在同一层的循环体结构之间使用</p>
-<ul>
-<li>也就是说，从时刻t-1传递到时刻t时，循环神经微那里过不会进行状态的dropout</li>
-<li>而在同一时刻t中，不同层循环体之间会使用dropout</li>
-<li>如图<br><img src="/2019/03/10/Tensorflow-8-循环神经网络/深层循环网络的dropout.jpg" alt=""></li>
-</ul>
-</li>
-<li><p>代码实现</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf </span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义LSTM结构</span></span><br><span class="line">lstm_cell = tf.nn.rnn_cell.BasicLSTMCell</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用DropoutWrapper类来实现dropout功能</span></span><br><span class="line"><span class="comment"># 这个类可以传入两个参数来控制dropout的概率</span></span><br><span class="line"><span class="comment"># input_keep_prob 用来控制输入的dropout概率</span></span><br><span class="line"><span class="comment"># output_keep_prob 用来控制输出的dropout概率</span></span><br><span class="line">stacked_lstm = tf.nn.rnn_cell.MultiRNNCell([tf.nn.rnn_cell.DropoutWrapper(lstm_cell(lstm_size)) <span class="keyword">for</span> _ <span class="keyword">in</span> range(number_of_layers)])</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h3 id="8-3-循环神经网络的变种-1"><a href="#8-3-循环神经网络的变种-1" class="headerlink" title="8.3 循环神经网络的变种"></a>8.3 循环神经网络的变种</h3><ul>
-<li><p>简介：以时序预测为例，利用循环神经网络实现对函数sinx取值的预测</p>
-</li>
-<li><p>代码如下</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明常量</span></span><br><span class="line">HIDDEN_SIZE = <span class="number">30</span>                    <span class="comment"># LSTM中隐藏节点的个数</span></span><br><span class="line">NUM_LAYERS = <span class="number">2</span>                      <span class="comment"># LSTM的层数</span></span><br><span class="line"></span><br><span class="line">TIMESTEPS = <span class="number">10</span>                      <span class="comment"># 循环神经网络的训练序列长度</span></span><br><span class="line">TRAINING_STEPS = <span class="number">6000</span>               <span class="comment"># 训练轮数</span></span><br><span class="line">BATCH_SIZE = <span class="number">32</span>                     <span class="comment"># batch的大小</span></span><br><span class="line"></span><br><span class="line">TRAINING_EXAMPLES = <span class="number">10000</span>           <span class="comment"># 训练数据个数</span></span><br><span class="line">TESTING_EXAMPLES = <span class="number">1000</span>             <span class="comment"># 测试数据个数</span></span><br><span class="line">SAMPLE_GAP = <span class="number">0.1</span>                    <span class="comment"># 采样间隔</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 产生训练所用数据集X和标记Y</span></span><br><span class="line"><span class="comment"># 输入为一个数组,数组中的每个元素是sin函数的x值和对应的y值</span></span><br><span class="line"><span class="comment"># 输出为生成的数据集x和标记y</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_data</span><span class="params">(seq)</span>:</span></span><br><span class="line">    x, y = [], []</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将序列的第i项到第i+TIMESTEPS-1项，共TIMESTEPS项作为输入</span></span><br><span class="line">    <span class="comment"># 将序列的第i+TIMESTEPS项作为输出</span></span><br><span class="line">    <span class="comment"># 即，使用sin函数前TIMESTEPS个节点的信息，来预测第i + TIMESTEPS个节点的函数值</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(seq) - TIMESTEPS):</span><br><span class="line">        x.append([seq[i:i+TIMESTEPS]])</span><br><span class="line">        y.append([seq[i + TIMESTEPS]])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> np.array(x, dtype=np.float32), np.array(y, dtype=np.float32)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义模型、前向传播过程、损失函数和优化过程</span></span><br><span class="line"><span class="comment"># 输入为数据x、标记y和是否是训练过程is_training</span></span><br><span class="line"><span class="comment"># 返回预测结果，损失函数，优化过程</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lstm_model</span><span class="params">(x, y, is_training)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用多层的LSTM结构</span></span><br><span class="line">    cell = tf.nn.rnn_cell.MultiRNNCell([tf.nn.rnn_cell.BasicLSTMCell(HIDDEN_SIZE) <span class="keyword">for</span> _ <span class="keyword">in</span> range(NUM_LAYERS)])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将多层的LSTM结构连接成RNN网络并计算其前向传播的结果</span></span><br><span class="line">    outputs, _ = tf.nn.dynamic_rnn(cell, x, dtype=tf.float32)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># outputs是顶层LSTM在每一步的输出结果</span></span><br><span class="line">    <span class="comment"># 它的维度为[batch_size, time, HIDDEN_SIZE]</span></span><br><span class="line">    <span class="comment"># 本问题中只关注最后一个时刻的输出结果</span></span><br><span class="line">    output = outputs[:, <span class="number">-1</span>, :]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对LSTM网络的输出再加一层全连接层并计算损失</span></span><br><span class="line">    predictions = tf.contrib.layers.fully_connected(output, <span class="number">1</span>, activation_fn=<span class="keyword">None</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 只在训练时计算损失函数和优化步骤，测试时直接返回预测结果</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> is_training:</span><br><span class="line">        <span class="keyword">return</span> predictions, <span class="keyword">None</span>, <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算损失函数</span></span><br><span class="line">    loss = tf.losses.mean_squared_error(y, predictions)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 创建模型优化器并得到优化步骤</span></span><br><span class="line">    train_op = tf.contrib.layers.optimize_loss(loss, tf.train.get_global_step(), optimizer=<span class="string">"Adagrad"</span>, learning_rate=<span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 返回预测结果，损失函数，优化过程</span></span><br><span class="line">    <span class="keyword">return</span> predictions, loss, train_op</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练模型</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(sess, train_x, train_y)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对数据进行处理，将训练数据以数据集的方式提供给计算图</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 切分传入Tensor的第一个维度，生成相应的dataSet</span></span><br><span class="line">    ds = tf.data.Dataset.from_tensor_slices((train_x, train_y))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># ds.repeat : Repeats this dataset `count` times.</span></span><br><span class="line">    <span class="comment"># ds.shuffle : 随机打乱这个数据集的元素</span></span><br><span class="line">    <span class="comment"># ds.batch : 将此数据集的连续元素组合成batch</span></span><br><span class="line">    ds = ds.repeat().shuffle(<span class="number">1000</span>).batch(BATCH_SIZE)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># make_one_shot_iterator()用来生成一个迭代器来读取数据</span></span><br><span class="line">    <span class="comment"># one_shot迭代器人如其名，意思就是数据输出一次后就丢弃了</span></span><br><span class="line">    <span class="comment"># 之后每次x, y被会话调用迭代器就会将指针指向下一个元素</span></span><br><span class="line">    x, y = ds.make_one_shot_iterator().get_next()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用模型传入数据并得到预测结果、损失函数和优化步骤</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">"model"</span>):</span><br><span class="line">        predictions, loss, train_op = lstm_model(x, y, <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 初始化变量</span></span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 开启训练</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(TRAINING_STEPS):</span><br><span class="line">        _, loss_result = sess.run([train_op, loss])</span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">"After %d training step(s), the loss result is %f"</span> % (i, loss_result))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试模型</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run_eval</span><span class="params">(sess, test_x, test_y)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将测试数据以数据集的方式提供给计算图</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 切分传入Tensor的第一个维度，生成相应的dataSet</span></span><br><span class="line">    data_set = tf.data.Dataset.from_tensor_slices((test_x, test_y))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 类型转换，将Dataset转换为BatchDataset</span></span><br><span class="line">    data_set = data_set.batch(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># make_one_shot_iterator()用来生成一个迭代器来读取数据</span></span><br><span class="line">    <span class="comment"># one_shot迭代器人如其名，意思就是数据输出一次后就丢弃了</span></span><br><span class="line">    x, y = data_set.make_one_shot_iterator().get_next()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">"model"</span>, reuse=<span class="keyword">True</span>):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 调用模型得到预测结果</span></span><br><span class="line">        prediction, _, _ = lstm_model(x, [<span class="number">0.0</span>], <span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 将预测结果存入数组中</span></span><br><span class="line">        predictions, labels = [], []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(TESTING_EXAMPLES):</span><br><span class="line">            prediction_result, labels_result = sess.run([prediction, y])</span><br><span class="line">            predictions.append(prediction_result)</span><br><span class="line">            labels.append(labels_result)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 计算rmse作为评价标准</span></span><br><span class="line">        predictions = np.array(predictions).squeeze()</span><br><span class="line">        labels = np.array(labels).squeeze()</span><br><span class="line">        rmse = np.sqrt(((predictions - labels) ** <span class="number">2</span>).mean(axis=<span class="number">0</span>))</span><br><span class="line">        print(<span class="string">"Mean Square Error is: %f"</span> % rmse)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 对预测的sin函数曲线进行绘图</span></span><br><span class="line">        plt.figure()</span><br><span class="line">        plt.plot(labels, label=<span class="string">"real_sin"</span>)</span><br><span class="line">        plt.plot(predictions, label=<span class="string">'predictions'</span>)</span><br><span class="line">        plt.legend()</span><br><span class="line">        plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 主程序入口</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(args=None)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 产生训练集数据的起始值</span></span><br><span class="line">    train_start = <span class="number">0</span></span><br><span class="line">    <span class="comment"># 产生训练集数据的终止值，也就是测试集数据的起始值</span></span><br><span class="line">    train_end = test_start = (TRAINING_EXAMPLES + TIMESTEPS) * SAMPLE_GAP</span><br><span class="line">    <span class="comment"># 产生测试集数据的终止值</span></span><br><span class="line">    test_end = test_start + (TESTING_EXAMPLES + TIMESTEPS) * SAMPLE_GAP</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 产生训练集数据和测试集数据</span></span><br><span class="line">    train_x, train_y = generate_data(np.sin(np.linspace(train_start, train_end, TRAINING_EXAMPLES + TIMESTEPS, dtype=np.float32)))</span><br><span class="line">    test_x, test_y = generate_data(np.sin(np.linspace(test_start, test_end, TESTING_EXAMPLES + TIMESTEPS, dtype=np.float32)))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 开启会话开始计算</span></span><br><span class="line">    <span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 训练模型</span></span><br><span class="line">        train(sess, train_x, train_y)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 使用训练好的模型对测试数据进行预测</span></span><br><span class="line">        run_eval(sess, test_x, test_y)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># TensorFlow提供的一个主程序入口，tf.app.run()会调用上面定义的main函数</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    tf.app.run()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 某次训练的结果</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">After 0 training step(s), the loss result is 0.525303</span></span><br><span class="line"><span class="string">After 100 training step(s), the loss result is 0.002255</span></span><br><span class="line"><span class="string">After 200 training step(s), the loss result is 0.000643</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">After 9800 training step(s), the loss result is 0.000001</span></span><br><span class="line"><span class="string">After 9900 training step(s), the loss result is 0.000001</span></span><br><span class="line"><span class="string">Mean Square Error is: 0.001200</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure></li>
-</ul>
+</ol>
+<p>在钢条切割问题中，长度为 <code>n</code> 的钢条的最优切割方案仅仅使用一个子问题(长度为<code>n - i</code> 的钢条的最有切割)，但必须考察 <code>i</code> 的 <code>n</code> 种不同取值，来确定哪一个会产生最优解。 <code>Ai Ai+1 ... Aj</code> 的矩阵链乘法问题种，最优解使用两个子问题，我们需要考察 <code>j - i</code> 种情况。对于给定的矩阵链划分位置—-矩阵<code>Ak</code>，我们需要求解两个子问题—- <code>Ai Ai+1 ... Ak</code>和<code>Ak+1 Ak+2 .. Aj</code>的括号化方案—-而且两个子问题都必须求解最优方案。一旦确定了子问题的最优解，就可以在 <code>j - i</code> 个候选的 <code>k</code> 中选取最优者</p>
+<p>我们可以用子问题的总数和每个子问题需要考察多少种选择这两个因素来粗略分析动态规划算法的运行时间。对于钢条切割问题，共有 Θ(n)个子问题，每个子问题最多需要考察 n 种选择，因此运行时间为O(n<sup>2</sup>)</p>
+<h4 id="一些微妙之处—-子问题无关性"><a href="#一些微妙之处—-子问题无关性" class="headerlink" title="一些微妙之处—-子问题无关性"></a>一些微妙之处—-子问题无关性</h4><p>为什么最长简单路径问题的子结构与最短路径有这么大的差别？原因在于，虽然最长路径问题和最短路径问题的解都用到了两个子问题，但两个最长简单路径子问题是相关的，而两个最短路径子问题是无关的。这里，子问题无关的含义是，同一个原问题的一个子问题的解不影响另一个子问题的解。换个角度来开，我们所面临的困境就是：求解一个子问题时用到了某些资源，导致这些资源在求解其他子问题时不可用。</p>
+<h4 id="重叠子问题"><a href="#重叠子问题" class="headerlink" title="重叠子问题"></a>重叠子问题</h4><p>适合用动态规划方法求解的最优化问题应该具备的第二个性质是子问题空间必须足够小，即问题的递归算法会反复求解相同的子问题，而不是一直产生新的子问题，一般来讲，不同子问题的总数是输入规模的多项式函数为好。如果递归算法求解相同的子问题，我们就称最优化问题具有重叠子问题性质。与之相对的，适合用分治方法求解的问题通常在递归的每一步都生成一个全新的子问题。动态规划算法通常这样利用重叠子问题性质: 对每个子问题求解一次，将解存在一张表种，当再次需要这个子问题时，直接查表，每次查表代价为常数时间</p>
+<h4 id="重构最优解"><a href="#重构最优解" class="headerlink" title="重构最优解"></a>重构最优解</h4><p>从实际考虑，我们通常将每个子问题所作的选择存在一个表中，这样就不必根据代价值来重构这些信息</p>
+<h4 id="备忘"><a href="#备忘" class="headerlink" title="备忘"></a>备忘</h4><p>带备忘的递归算法为每个子问题维护一个表项来保存它的解。每个表项的初值设为一个特殊值，表示尚未填入子问题的解。当递归调用过程第一次遇到子问题时，计算其解，并存入对应表项，随后每次遇到同一个子问题，只是简单地查表，返回其解</p>
+<p>为求解矩阵链乘法问题，我们既可以用带备忘地自顶向下动态规划算法，也可以用自底向上的动态规划算法，时间复杂度均为 O(n<sup>3</sup>)。两个方法都利用了重叠子问题性质。不同的子问题一共只有Θ(n<sup>2</sup>)个，对每个子问题，两种方法都只计算一次。而没有备忘机制的自然递归算法的运行时间是指数阶，因为它会反复求解同样的子问题</p>
+<p>通常情况下，如果每个子问题必须至少求解一次，自底向上动态规划算法会比自顶向下备忘算法快(都是O(n<sup>3</sup>)时间，相差一个常量系数)，因为自底向下算法没有递归调用的开销，表的维护开销也更小。</p>
+<p>相反，如果子问题空间中的某些子问题完全不必求解，备忘方法就体现其优势了，因为它只会求解那些绝对必要的子问题</p>
+<h3 id="15-4-最长公共子序列"><a href="#15-4-最长公共子序列" class="headerlink" title="15.4 最长公共子序列"></a>15.4 最长公共子序列</h3><h4 id="问题定义"><a href="#问题定义" class="headerlink" title="问题定义"></a>问题定义</h4><p>一种衡量DNA串S<sub>1</sub>和S<sub>2</sub>的相似度的方式是：寻找第三个串S<sub>3</sub>，它的所有碱基也都出现在S<sub>1</sub>和S<sub>2</sub>中，且在三个串中出现的顺序都相同，但在S<sub>1</sub>和S<sub>2</sub>中不要求连续出现，可以找到的S<sub>3</sub>越长，就可以认为S<sub>1</sub>和S<sub>2</sub>的相似度越高, 这种相似度概念就是最大公共子序列问题。</p>
+<p>一个给定序列的子序列，就是将给定序列中零个或多个元素去掉之后得到的结果。其形式化定义如下: 给定一个序列 X = (x<sub>1</sub>, x<sub>2</sub>, …, x<sub>m</sub>),另一个序列 Z = (z<sub>1</sub>, z<sub>2</sub>, …, z<sub>k</sub>)满足如下条件时称为X的子序列(subsequence)，即存在一个严格递增的X的下标序列(i<sub>1</sub>, i<sub>2</sub>, …, i<sub>k</sub>),对所有j = 1, 2, …k,满足 x<sub>i<sub>j</sub></sub> = z<sub>j</sub>。</p>
+<p>最大公共子序列问题(longest-common-subsequence problem)给定两个序列 X = (x<sub>1</sub>, x<sub>2</sub>, …, x<sub>m</sub>) 和 Y = (y<sub>1</sub>, y<sub>2</sub>, …, y<sub>n</sub>),求 X 和 Y 长度最长的公共子序列。</p>
+<h4 id="步骤1-刻画最大公共子序列的特征"><a href="#步骤1-刻画最大公共子序列的特征" class="headerlink" title="步骤1: 刻画最大公共子序列的特征"></a>步骤1: 刻画最大公共子序列的特征</h4><p>如下面的定理所示，LCS问题具有最优子结构性质。子问题的自然分类对应两个输入序列的”前缀”对。</p>
+<p>定理 15.1 (LCS的最优子结构) 令 <code>X=&lt;x1, x2, ..., xm&gt;</code> 和 <code>Y=&lt;y1, y2, ..., yn&gt;</code> 为两个序列，<code>Z=&lt;z1, z2, ..., zk&gt;</code> 为 <code>X</code> 和 <code>Y</code> 的任意LCS</p>
+<ol>
+<li>如果 x<sub>m</sub> = y<sub>n</sub>，则z<sub>k</sub>=x<sub>m</sub>=y<sub>n</sub>,且Z<sub>k-1</sub>是X<sub>m-1</sub>和Y<sub>n-1</sub>的一个LCS</li>
+<li>如果 x<sub>m</sub> != y<sub>n</sub>，那么z<sub>k</sub> != x<sub>m</sub>,意味着Z是X<sub>m-1</sub>和Y的一个LCS</li>
+<li>如果 x<sub>m</sub> != y<sub>n</sub>，那么z<sub>k</sub> != y<sub>n</sub>,意味着Z是X和Y<sub>n-1</sub>的一个LCS</li>
+</ol>
+<p>定理15.1告诉我们，两个序列的LCS包含两个序列前缀的LCS。因此，LCS问题具有最优子结构性质</p>
+<h4 id="步骤2-一个递归的求解方案"><a href="#步骤2-一个递归的求解方案" class="headerlink" title="步骤2: 一个递归的求解方案"></a>步骤2: 一个递归的求解方案</h4><p>定理 15.1 意味着，在求 <code>X=&lt;x1, x2, ..., xm&gt;</code> 和 <code>Y=&lt;y1, y2, ..., yn&gt;</code> 的一个LCS时，我们需要求解一个或两个子问题。如果 x<sub>m</sub> = y<sub>n</sub>, 我们应该求解X<sub>m-1</sub>和Y<sub>n-1</sub>的一个LCS。将 x<sub>m</sub> = y<sub>n</sub> 追加到一个LCS的末尾，就得到 X 和 Y 的一个LCS。如果 x<sub>m</sub> != y<sub>n</sub>，我们必须求解两个子问题，求 X<sub>m-1</sub> 和 Y 的一个LCS与 X 和 Y<sub>n-1</sub> 的一个LCS。两个LCS较长者即为 X 和 Y 的一个LCS。</p>
+<p>可以看出LCS问题的重叠子问题性质。为了求  X 和 Y 的LCS，要求 X<sub>m-1</sub> 和 Y 的一个LCS与 X 和 Y<sub>n-1</sub> 的LCS。但者几个子问题都包含求X<sub>m-1</sub>和Y<sub>n-1</sub>的LCS。</p>
+<p>设计LCS问题首先要建立最优解的递归式，如下</p>
+<p><img src="/2019/03/11/算法导论-15-动态规划/0311_1.PNG" alt=""></p>
+<p>LCS问题是一个根据条件排除子问题的动态规划算法</p>
+<h4 id="步骤3-计算LCS的长度"><a href="#步骤3-计算LCS的长度" class="headerlink" title="步骤3: 计算LCS的长度"></a>步骤3: 计算LCS的长度</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">LCS-LENGTH(X, Y)</span><br><span class="line"></span><br><span class="line">m = X.length</span><br><span class="line">n = Y.length</span><br><span class="line">let b[1..m, 1..n] and c[0..m, 0..n] be new table</span><br><span class="line">for i = 1 to m</span><br><span class="line">    c[i, 0] = 0</span><br><span class="line">for j = 0 to n</span><br><span class="line">    c[0, j] = 0</span><br><span class="line">for i = 1 to m</span><br><span class="line">    for j = 1 to n</span><br><span class="line">        if xi == yi</span><br><span class="line">            c[i, i] = c[i - 1, j - 1] + 1</span><br><span class="line">            b[i, j] = &quot;↖&quot;</span><br><span class="line">        elseif c[i - 1, j] &gt;= c[i, j - 1]</span><br><span class="line">            c[i, j] = c[i - 1, j]</span><br><span class="line">            b[i, j] = &quot;↑&quot;</span><br><span class="line">        else </span><br><span class="line">            c[i, j] = c[i, j - 1]</span><br><span class="line">            b[i, j] = &quot;←&quot;</span><br></pre></td></tr></table></figure>
+<p>过程LCS-LENGTH接受两个序列  <code>X=&lt;x1, x2, ..., xm&gt;</code> 和 <code>Y=&lt;y1, y2, ..., yn&gt;</code> 作为输入。它将 <code>c[i, j]</code> 的值保存在表 <code>c[0..m, 0..n]</code>中，并按行主次序(row-major order)计算表项(即首先由左至右计算c的第一行，然后计算第二行，依次类推)。过程还维护一个表<code>b[0..m, 0..n]</code>，帮助构建最优解。<code>b[i, j]</code> 指向的表项对应计算 <code>c[i, j]</code> 时所选择的子问题最优解。过程返回表b和表c, <code>c[m, n]</code> 保存了 <code>X</code> 和 <code>Y</code> 的LCS的长度</p>
+<h4 id="步骤4-构造LCS"><a href="#步骤4-构造LCS" class="headerlink" title="步骤4: 构造LCS"></a>步骤4: 构造LCS</h4><p>略</p>
+<h4 id="算法改进"><a href="#算法改进" class="headerlink" title="算法改进"></a>算法改进</h4><p>略</p>
 
           
         
@@ -635,7 +530,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/88/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/88/">88</a><span class="page-number current">89</span><a class="page-number" href="/page/90/">90</a><span class="space">&hellip;</span><a class="page-number" href="/page/101/">101</a><a class="extend next" rel="next" href="/page/90/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/88/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/88/">88</a><span class="page-number current">89</span><a class="page-number" href="/page/90/">90</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/90/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -683,7 +578,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
