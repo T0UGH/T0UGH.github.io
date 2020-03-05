@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/算法导论-5-概率分析和随机算法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/算法导论-6-堆排序/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/02/01/算法导论-5-概率分析和随机算法/" itemprop="url">[算法导论][5][概率分析和随机算法]</a></h1>
+                <a class="post-title-link" href="/2020/02/01/算法导论-6-堆排序/" itemprop="url">[算法导论][6][堆排序]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:59:47+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T21:00:45+08:00">
                 2020-02-01
               </time>
             
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/02/01/算法导论-5-概率分析和随机算法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/算法导论-5-概率分析和随机算法/" itemprop="commentCount"></span>
+                <a href="/2020/02/01/算法导论-6-堆排序/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/算法导论-6-堆排序/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,58 +362,135 @@
       
         
           
-            <h3 id="5-1-雇用问题"><a href="#5-1-雇用问题" class="headerlink" title="5.1 雇用问题"></a>5.1 雇用问题</h3><h4 id="5-1-1-问题描述"><a href="#5-1-1-问题描述" class="headerlink" title="5.1.1 问题描述"></a>5.1.1 问题描述</h4><ul>
-<li>问题<ul>
-<li>假如你要找一个雇佣代理，帮你雇佣一个办公助理</li>
-<li>雇佣代理每天给你推荐一个应聘者。你面试这个人，然后决定是否雇佣他。</li>
-<li>你必须付给雇佣代理一小笔费用，以便面试应聘者。然而要真的雇佣一个应聘者需要花更多的钱，因为你必须辞掉目前的办公助理，还要付一大笔中介费给雇佣代理</li>
-<li>你承诺任何时候都要找最适合的人来担任这项职务，因此，你决定在面试完每个应聘者后，如果该应聘者比当前的办公助理更合适，就会辞掉当前的办公助理，然后聘用新的</li>
-</ul>
+            <h2 id="第六章-堆排序"><a href="#第六章-堆排序" class="headerlink" title="第六章 堆排序"></a>第六章 堆排序</h2><ul>
+<li><p>与归并排序相同，堆排序的时间复杂度为O(nlgn)</p>
 </li>
-</ul>
-<ul>
-<li><p>伪代码</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HIRE-ASSISTANT(n)</span><br><span class="line">best = 0</span><br><span class="line">for i = 1 to n</span><br><span class="line">    interview candidate i</span><br><span class="line">    if candidate i is better than candidate best</span><br><span class="line">        best = i</span><br><span class="line">        hire condidate i</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>每次雇佣员工都会产生一笔费用，我们的任务是估算该费用会是多少</p>
-</li>
-</ul>
-<h4 id="5-1-2-最坏情形分析"><a href="#5-1-2-最坏情形分析" class="headerlink" title="5.1.2 最坏情形分析"></a>5.1.2 最坏情形分析</h4><ul>
-<li>在最坏的情况下，我们实际上雇佣了每个面试的应聘者，总的费用是O(c<sub>h</sub>n)</li>
-</ul>
-<h4 id="5-1-3-概率分析"><a href="#5-1-3-概率分析" class="headerlink" title="5.1.3 概率分析"></a>5.1.3 概率分析</h4><ul>
-<li><p>大多数情况下我们采用概率分析来分析一个算法的平均运行时间</p>
-</li>
-<li><p>为了进行概率分析，我们必须使用或者假设关于输入的分布。分析该算法，计算出一个平均情形下的运行时间，其中我们对所有可能的输入分布取平均值</p>
-</li>
-</ul>
-<h4 id="5-1-4-随机算法"><a href="#5-1-4-随机算法" class="headerlink" title="5.1.4 随机算法"></a>5.1.4 随机算法</h4><ul>
-<li><p>当一个算法的行为不仅由输入决定，而且也由随机数生成器产生的数值决定，则称这个算法是随机的</p>
-</li>
-<li><p>当分析一个随机算法的运行时间时，我们以运行时间的期望值衡量，我们将一个随机算法的运行时间称为<strong>期望运行时间</strong></p>
-</li>
-<li><p>一般而言，当概率分布是在算法的输入上时，我们讨论的是平均运行时间；当算法本身做出随机选择时，我们讨论其期望运行时间</p>
+<li><p>与插入排序相同，堆排序同样具有空间原址性：任何时候都只需要常数个额外的元素空间存储临时数据</p>
 </li>
 </ul>
 <hr>
-<h3 id="5-2-指示器随机变量"><a href="#5-2-指示器随机变量" class="headerlink" title="5.2 指示器随机变量"></a>5.2 指示器随机变量</h3><ul>
-<li><p>指示器随机变量</p>
+<h3 id="6-1-堆"><a href="#6-1-堆" class="headerlink" title="6.1 堆"></a>6.1 堆</h3><ul>
+<li><p>堆的简介</p>
 <ul>
-<li>它为概率与期望之间的转换提供了一个便利的方法</li>
-<li>定义<ul>
-<li>给定一个样本空间S和一个事件A，那么事件A对应的指示器随机变量I{A}定义为  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I(A) = 1 如果A发生</span><br><span class="line">I(A) = 0 如果A不发生</span><br></pre></td></tr></table></figure>
-</li>
+<li>堆被存储在一个数组中，可近似看成是完全二叉树</li>
+<li>除了最底层外，该树是完全充满的，而且是从左到右填充</li>
+<li>如图<br><img src="/2020/02/01/算法导论-6-堆排序/堆.PNG" alt=""></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p>定理</p>
+<li><p>堆的分类</p>
 <ul>
-<li>E[IA] = P(A)</li>
+<li>最大堆和最小堆</li>
+<li>在这两种堆中，节点的值都要满足堆的性质，但一些细节定义则有所差异</li>
+</ul>
+</li>
+<li><p>最大堆性质</p>
+<ul>
+<li>在最大堆中，除了根以外的所有结点<code>i</code>都要满足: <code>A[PARENT(i)] &gt;= A[i]</code></li>
+<li>因此，堆中的最大元素存放在根节点</li>
+</ul>
+</li>
+<li><p>高度</p>
+<ul>
+<li>堆中节点的高度：该节点到叶节点最长简单路径上<strong>边</strong>的数目</li>
+<li>堆的高度：根节点的高度</li>
+</ul>
+</li>
+<li><p>对于堆的一些基本操作</p>
+<ul>
+<li>MAX-HEAPIFY过程：其时间复杂度为O(lgn)，它是维护最大堆性质的关键</li>
+<li>BUILD-MAX-HEAP过程：具有线性时间复杂度，功能是从无序的输入数据数组中构造一个最大堆</li>
+<li>HEAPSORT过程：时间复杂度为O(nlgn)，功能是对一个数组进行原址排序</li>
+<li>MAX-HEAP_INSERT、HEAP-EXTRACT-MAX、HEAP-INCREASE-KEY和HEAP-MAXIMUM过程：时间复杂度为O(lgn),功能是实现一个优先队列</li>
 </ul>
 </li>
 </ul>
-
+<hr>
+<h3 id="6-2-维护堆的性质"><a href="#6-2-维护堆的性质" class="headerlink" title="6.2 维护堆的性质"></a>6.2 维护堆的性质</h3><ul>
+<li><p><strong>MAX-HEAPIFY</strong>简介</p>
+<ul>
+<li>MAX-HEAPIFY用来维护最大堆性质</li>
+<li>它的输入是一个数组 <code>A</code> 和一个下标 <code>i</code></li>
+<li>我们假定 <code>A[i]</code> 的值有可能小于它的孩子，但是节点 <code>i</code> 的左右子树都是最大堆</li>
+<li>MAX-HEAPIFY的目的是让以<code>i</code>节点为根的子树重新遵循最大堆性质</li>
+</ul>
+</li>
+<li><p>伪代码描述<br>  <img src="/2020/02/01/算法导论-6-堆排序/MAXHEAPIFY.PNG" alt=""></p>
+</li>
+<li><p>代码实现: <code>max_heapify</code> (python实现)</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">max_heapify</span><span class="params">(i)</span>:</span></span><br><span class="line">    <span class="comment"># print("max_heapify: ", i)</span></span><br><span class="line">    l = left(i)</span><br><span class="line">    r = right(i)</span><br><span class="line">    <span class="keyword">if</span> l &lt;= heap_size <span class="keyword">and</span> arr[l] &gt; arr[i]:</span><br><span class="line">        largest = l</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        largest = i</span><br><span class="line">    <span class="keyword">if</span> r &lt;= heap_size <span class="keyword">and</span> arr[r] &gt; arr[largest]:</span><br><span class="line">        largest = r</span><br><span class="line">    <span class="keyword">if</span> largest != i:</span><br><span class="line">        arr[i], arr[largest] = arr[largest], arr[i]</span><br><span class="line">        max_heapify(largest)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>图片描述<br>  <img src="/2020/02/01/算法导论-6-堆排序/MAXHEAPIFYIMG.PNG" alt=""></p>
+</li>
+<li><p>文字描述</p>
+<ol>
+<li>在程序的每一步中，从<code>A[i]</code>、<code>A[LEFT(i)]</code>、<code>A[RIGHT(i)]</code>中选出最大的，存储在largest中</li>
+<li>如果A[i]是最大的，那么以i为根节点的子树已经是最大堆了，程序结束</li>
+<li>否则，最大元素是i的某个孩子节点，则交换<code>A[i]</code>和<code>A[largest]</code>的值</li>
+<li>在交换后，需要对该子树递归调用<code>MAX-HEAPIFY</code></li>
+</ol>
+</li>
+<li><p>运行时间分析</p>
+<ul>
+<li>递归式<br><img src="/2020/02/01/算法导论-6-堆排序/MAXHEAPIFYRECUR.PNG" alt=""></li>
+<li>运行时间:T(n) = O(lgn)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="6-3-建堆"><a href="#6-3-建堆" class="headerlink" title="6.3 建堆"></a>6.3 建堆</h3><ul>
+<li><p>思路</p>
+<ul>
+<li>我们可以用自底向上调用 <code>max_heapify</code>，把一个数组转换为最大堆</li>
+<li>因为堆中从 <code>A(n/2 + 1, n)</code> 的元素都是树的叶节点，对于这些节点不需要调用 <code>max_heapify</code> 过程</li>
+</ul>
+</li>
+<li><p>代码实现： <code>build_max_heap</code>(python实现)</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">build_max_heap</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(int(len_arr() / <span class="number">2</span>), <span class="number">0</span>, <span class="number">-1</span>):</span><br><span class="line">        print(i)</span><br><span class="line">        max_heapify(i)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>时间复杂度 : O(n)，证明见书 <code>P88</code></p>
+</li>
+<li><p>例子如图<br><img src="/2020/02/01/算法导论-6-堆排序/BUILDMAXHEAPDEMO.PNG" alt=""></p>
+</li>
+</ul>
+<h3 id="6-4-堆排序算法"><a href="#6-4-堆排序算法" class="headerlink" title="6.4 堆排序算法"></a>6.4 堆排序算法</h3><ul>
+<li><p>思路 </p>
+<ol>
+<li>首先，利用<code>build_max_heap</code>将输入数组建成最大堆</li>
+<li>因为根节点保存的是最大元素，所以将根节点与<code>A[n]</code>互换</li>
+<li>从堆中去掉节点n(通过减小heap_size的方式)</li>
+<li>调用<code>max_heapify</code>保持堆的性质</li>
+<li>重复执行步骤2，3，4，直到堆的大小降为<code>1</code></li>
+</ol>
+</li>
+<li><p>代码实现: <code>heap_sort</code>(Python实现)</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heap_sort</span><span class="params">()</span>:</span></span><br><span class="line"><span class="keyword">global</span> heap_size</span><br><span class="line">build_max_heap()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len_arr(), <span class="number">1</span>, <span class="number">-1</span>):</span><br><span class="line">    arr[i], arr[<span class="number">1</span>] = arr[<span class="number">1</span>], arr[i]</span><br><span class="line">    heap_size -= <span class="number">1</span></span><br><span class="line">    max_heapify(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>时间复杂度</p>
+<ul>
+<li>O(nlgn)</li>
+<li>因为每次调用<code>build_max_heap</code>的时间复杂度为O(n)，而n-1次调用MAX-HEAPIFY，每次时间为O(lgn)</li>
+</ul>
+</li>
+<li><p>例子如图<br><img src="/2020/02/01/算法导论-6-堆排序/HEAPSORTDEMO.PNG" alt=""></p>
+</li>
+</ul>
+<h3 id="6-5-优先队列"><a href="#6-5-优先队列" class="headerlink" title="6.5 优先队列"></a>6.5 优先队列</h3><h4 id="6-5-1-优先队列的性质"><a href="#6-5-1-优先队列的性质" class="headerlink" title="6.5.1 优先队列的性质"></a>6.5.1 优先队列的性质</h4><ul>
+<li><p>简介</p>
+<ul>
+<li>优先队列是一种维护由一组元素构成的集合S的数据结构</li>
+<li>其中的每个元素都有一个相关的值，称为关键字(key)</li>
+</ul>
+</li>
+<li><p>最大优先队列支持的操作</p>
+<ul>
+<li><code>insert(S, x)</code> : 把元素 <code>x</code> 插入到集合 <code>S</code> 中</li>
+<li><code>maximum(S)</code> : 返回S中具有最大键字的元素</li>
+<li><code>extract_max(S)</code> : 去掉并返回S中的具有最大键字的元素</li>
+<li><code>increase_key(S, x, k)</code> : 把元素<code>x</code>的关键字值增加到<code>k</code>，这里假设<code>k</code>的值不小于<code>x</code>的关键字值</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-5-2-通过堆来实现优先队列"><a href="#6-5-2-通过堆来实现优先队列" class="headerlink" title="6.5.2 通过堆来实现优先队列"></a>6.5.2 通过堆来实现优先队列</h4>
           
         
       
@@ -452,7 +529,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/37/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><span class="page-number current">38</span><a class="page-number" href="/page/39/">39</a><span class="space">&hellip;</span><a class="page-number" href="/page/103/">103</a><a class="extend next" rel="next" href="/page/39/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/37/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><span class="page-number current">38</span><a class="page-number" href="/page/39/">39</a><span class="space">&hellip;</span><a class="page-number" href="/page/104/">104</a><a class="extend next" rel="next" href="/page/39/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -500,7 +577,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-count">104</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

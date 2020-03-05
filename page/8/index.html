@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/27/MySQL-5-创建高性能的索引/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/Redis-8-对象/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/02/27/MySQL-5-创建高性能的索引/" itemprop="url">[MySQL][5][创建高性能的索引]</a></h1>
+                <a class="post-title-link" href="/2020/02/29/Redis-8-对象/" itemprop="url">[Redis][8][对象]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-27T17:31:37+08:00">
-                2020-02-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-29T16:18:26+08:00">
+                2020-02-29
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index">
-                    <span itemprop="name">MySQL</span>
+                  <a href="/categories/redis/" itemprop="url" rel="index">
+                    <span itemprop="name">redis</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/02/27/MySQL-5-创建高性能的索引/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/27/MySQL-5-创建高性能的索引/" itemprop="commentCount"></span>
+                <a href="/2020/02/29/Redis-8-对象/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/29/Redis-8-对象/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,231 +362,225 @@
       
         
           
-            <h2 id="第-5-章-创建高性能的索引"><a href="#第-5-章-创建高性能的索引" class="headerlink" title="第 5 章 创建高性能的索引"></a>第 5 章 创建高性能的索引</h2><p><strong>索引</strong>是存储引擎用于快速找到记录的一种数据结构。</p>
-<p>索引对于良好的性能非常关键。尤其是当表中的数据量越来越大时，索引对性能的影响愈发重要。在数据量较小且负载较低时，不恰当的索引对性能的影响可能还不明显，但当数据量逐渐增大时，性能则会急速下降。</p>
-<h3 id="5-1-索引基础"><a href="#5-1-索引基础" class="headerlink" title="5.1 索引基础"></a>5.1 索引基础</h3><p>要理解MySQL中索引是如何工作的，最简单的方法就是去看看一本书的“索引”部分如果想在一本书中找到某个特定主题，一般会先看书的“索引”，找到对应的页码，然后直接翻到那一页即可。MySQL中的索引与一本书的目录作用差不多，都是用来快速定位想要找的内容。</p>
-<p>在MySQL中，存储引擎先在索引中找到对应值，然后根据匹配的索引记录找到对应的数据行。例如要运行下面的查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> first_name <span class="keyword">FROM</span> actor <span class="keyword">WHERE</span> actor_id = <span class="number">5</span>;</span><br></pre></td></tr></table></figure></p>
-<p>MySQL会先在索引上按值进行查找，找到<code>actor_id</code>等于<code>5</code>的索引项，这个索引项中包含数据行的地址，然后返回所有包含该值的数据行。</p>
-<p>索引可以包含一个或多个列的值。如果索引包含多个列，那么列的顺序也十分重要，因为 MySQL只能高效地使用索引的最左前缀列。</p>
-<h4 id="5-1-1-索引的类型"><a href="#5-1-1-索引的类型" class="headerlink" title="5.1.1 索引的类型"></a>5.1.1 索引的类型</h4><p>在MySQL中，索引是在存储引擎层而不是服务器层实现的。所以，并没有统一的索引标准：不同存储引擎的索引的工作方式并不一样，也不是所有的存储引擎都支持所有类型的索引。即使多个存储引擎支持同一种类型的索引，其底层的实现也可能不同。</p>
-<h4 id="5-1-2-B-Tree索引"><a href="#5-1-2-B-Tree索引" class="headerlink" title="5.1.2 B-Tree索引"></a>5.1.2 B-Tree索引</h4><p>大多数 MySQL引擎都支持这种索引，它使用B-Tree数据结构来存储数据</p>
-<p>B-Tree通常意味着所有的值都是按顺序存储的，并且每一个叶子页到根的距离相同。如下图所示</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_1.png" alt=""></p>
-<p>B-Tree索引能够加快访问数据的速度，因为存储引擎不再需要进行全表扫描来获取需要的数据，取而代之的是从索引的根节点（图示并未画出）开始进行搜索。根节点的槽中存放了指向子节点的指针，存储引擎根据这些指针向下层查找。通过比较节点页的值和要查找的值可以找到合适的指针进入下层子节点，这些指针实际上定义了子节点页中值的上限和下限。最终存储引擎要么是找到对应的值，要么该记录不存在。</p>
-<p>叶子节点比较特别，它们的指针指向的是被索引的数据，而不是其他的节点页。此外，树的深度和表的大小直接相关。</p>
-<p>B-Tree对索引列是顺序组织存储的，所以很适合査找范围数据。例如像“找出所有以I到K开头的名字”这样的查找效率会非常高。</p>
-<h5 id="5-1-2-1-B-Tree索引的一个例子"><a href="#5-1-2-1-B-Tree索引的一个例子" class="headerlink" title="5.1.2.1 B-Tree索引的一个例子"></a>5.1.2.1 B-Tree索引的一个例子</h5><p>下面举一个B-Tree索引的例子</p>
-<p>假设有如下数据表</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_2.png" alt=""></p>
-<p>对于表中的每一行数据，索引中包含了<code>last_name</code>、<code>first_name</code>和<code>dob</code>列的值，下图显示了该索引是如何组织数据的存储的。</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_3.png" alt=""></p>
-<p>请注意，索引对多个值进行排序的依据是<code>CREATE TABLE</code>语句中定义索引时列的顺序。看下最后两个条目，两个人的姓和名都一样，则根据他们的出生日期来排列顺序。</p>
-<h5 id="5-1-2-2-可以使用B-Tree索引的查询类型"><a href="#5-1-2-2-可以使用B-Tree索引的查询类型" class="headerlink" title="5.1.2.2 可以使用B-Tree索引的查询类型"></a>5.1.2.2 可以使用B-Tree索引的查询类型</h5><ul>
-<li><p>全值匹配</p>
+            <h2 id="第-8-章-Redis对象"><a href="#第-8-章-Redis对象" class="headerlink" title="第 8 章 Redis对象"></a>第 8 章 Redis对象</h2><p>Redis基于C语言实现了一整套底层<strong>数据结构</strong>，用于Redis上层构件使用</p>
 <ul>
-<li>全值匹配指的是和索引中的所有列进行匹配</li>
-<li>例如前面提到的索引可用于查找姓名为Cuba Allen、出生于1960-01-01的人</li>
+<li>简单动态字符串（SDS）</li>
+<li>双端链表</li>
+<li>跳跃表</li>
+<li>字典</li>
+<li>整数集合</li>
+<li>压缩列表</li>
 </ul>
-</li>
-<li><p>匹配最左前缀</p>
+<p>然后Redis并没有直接使用这些数据结构来实现键值对数据库，而是基于这些数据结构创建了一个<strong>对象系统</strong>，这个系统包含<strong>五种</strong>类型的对象，每种对象都用到了至少一种我们前面所介绍的数据结构。</p>
 <ul>
-<li>前面提到的索引可用于查找所有姓为Allen的人，即只使用索引的第一列</li>
+<li>字符串对象</li>
+<li>列表对象</li>
+<li>哈希对象</li>
+<li>集合对象</li>
+<li>有序集合对象</li>
 </ul>
-</li>
-<li><p>匹配列前缀</p>
+<h3 id="8-1-对象的类型与编码"><a href="#8-1-对象的类型与编码" class="headerlink" title="8.1 对象的类型与编码"></a>8.1 对象的类型与编码</h3><p>Redis<strong>使用对象来表示数据库中的键和值</strong>，每次当我们在Redis的数据库中新创建一个键值对时，我们至少会创建两个对象，一个对象用作键值对的键，另一个对象用作键值对的值。</p>
+<p>Redis中的每个对象都由一个<code>redisObject</code>结构表示，该结构中和保存数据有关的三个属性分别是<code>type</code>属性、 <code>encoding</code>属性和<code>ptr</code>属性：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisObject</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 类型</span></span><br><span class="line">    <span class="keyword">unsigned</span> type:<span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 编码</span></span><br><span class="line">    <span class="keyword">unsigned</span> encoding:<span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对象最后一次被访问的时间</span></span><br><span class="line">    <span class="keyword">unsigned</span> lru:REDIS_LRU_BITS; <span class="comment">/* lru time (relative to server.lruclock) */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 引用计数</span></span><br><span class="line">    <span class="keyword">int</span> refcount;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 指向实际值的指针</span></span><br><span class="line">    <span class="keyword">void</span> *ptr;</span><br><span class="line"></span><br><span class="line">&#125; robj;</span><br></pre></td></tr></table></figure></p>
 <ul>
-<li>也可以只匹配某一列的值的开头部分。</li>
-<li>例如前面提到的索引可用于查找所有以J开头的姓的人。这里也只使用了索引的列的开头。</li>
+<li>其中，为了节省内存，前三个属性采用了位域，如<code>unsign type:4</code>，指定了<code>type</code>属性使用前四个<code>bit</code></li>
 </ul>
-</li>
-<li><p>匹配范围值</p>
+<p>下面将对上面代码的属性进行解读</p>
+<h4 id="8-1-1-类型"><a href="#8-1-1-类型" class="headerlink" title="8.1.1 类型"></a>8.1.1 类型</h4><p>对象的<code>type</code>属性记录了对象的类型，这个属性的值可以是下表列出的常量的其中一个。<br><img src="/2020/02/29/Redis-8-对象/200229_0.png" alt=""></p>
+<p>对于Redis数据库保存的键值对来说，键总是一个字符串对象，而值则可以是这五种对象的任意一种。并且，当我们称呼一个键为“列表键”时，我们指的是“这个数据库键所对应的值为列表对象”。</p>
+<p><code>TYPE</code>命令：当我们对一个数据库键执行<code>TYPE</code>命令时，命令返回的结果为数据库键对应的值对象的类型。例如，列表键将返回列表类型。</p>
+<h4 id="8-1-2-编码"><a href="#8-1-2-编码" class="headerlink" title="8.1.2 编码"></a>8.1.2 编码</h4><p><code>encoding</code>属性记录了对象所使用的编码，也即是说这个对象使用了什么数据结构作为对象的底层实现。每种类型的对象都至少使用了两种不同的编码，下表列出了每种类型的对象可以使用的编码。</p>
+<p><img src="/2020/02/29/Redis-8-对象/200229_1.png" alt=""></p>
+<p>使用<code>OBJECT ENCODING</code>命令可以查看一个数据库键的值对象的编码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SET msg &quot;hello, world&quot;</span><br><span class="line">OK</span><br><span class="line">redis&gt; OBJECT ENCODING msg</span><br><span class="line">&quot;embstr&quot;</span><br></pre></td></tr></table></figure></p>
+<p>通过<code>encoding</code>属性来设定对象所使用的编码，而不是为特定类型的对象关联一种固定的编码，极大地提升了Redis的灵活性和效率，因为Redis可以根据不同的使用场景来为一个对象设置不同的编码，从而优化对象在某一场景下的效率。</p>
+<h3 id="8-2-字符串对象"><a href="#8-2-字符串对象" class="headerlink" title="8.2 字符串对象"></a>8.2 字符串对象</h3><h4 id="8-2-1-字符串对象的编码"><a href="#8-2-1-字符串对象的编码" class="headerlink" title="8.2.1 字符串对象的编码"></a>8.2.1 字符串对象的编码</h4><p>字符串对象的编码可以是<code>int</code>、<code>raw</code>或者 <code>embstr</code></p>
 <ul>
-<li>例如前面提到的索引可用于查找姓在Allen和Barrymore之间的人。这里也只使用了索引的第一列</li>
-</ul>
-</li>
-<li><p>精确匹配某一列并范围匹配另外一列</p>
+<li><p><code>int</code></p>
 <ul>
-<li>前面提到的索引也可用于查找所有姓为Allen，并且名字是字母K开头（比如Kim Karl等）的人。</li>
-<li>即第一列<code>last_name</code>全匹配，第二列<code>first_name</code>范围匹配。</li>
+<li>如果一个字符串对象保存的是整数值，并且这个整数值可以<code>long</code>类型来表示</li>
+<li>那么字符串对象会直接将整数值保存在字符串对象结构的<code>ptr</code>属性里面（将<code>void*</code>转换成<code>1ong</code>）</li>
+<li>并将字符串对象的编码设置为<code>int</code>。</li>
+<li>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_3.png" alt=""></li>
 </ul>
 </li>
-<li><p>只访问索引的查询</p>
+<li><p><code>raw</code></p>
 <ul>
-<li>B-Tree通常可以支持“只访问索引的查询”</li>
-<li>它会直接读取索引中保存的数据信息，这样就无需访问数据行了</li>
+<li>如果字符串对象保存的是一个字符串值，并且这个字符串值的长度大于32字节</li>
+<li>那么字符串对象将使用一个简单动态字符串（<code>SDS</code>）来保存这个字符串值</li>
+<li>并将对象的编码设置为<code>raw</code></li>
+<li>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_2.png" alt=""></li>
+</ul>
+</li>
+<li><p><code>embstr</code></p>
+<ul>
+<li>如果字符串对象保存的是一个字符串值，并且这个字符串值的长度小于等于32字节</li>
+<li>那么字符串对象将使用<code>embstr</code>编码的方式来保存这个字符串值</li>
+<li>这种编码和<code>raw</code>编码一样，都使用<code>redisObject</code>结构和<code>sdshdr</code>结构来表示字符串对象</li>
+<li><code>embstr</code>编码只调用一次内存分配函数分配一块连续的空间，空间中依次包含 <code>redisObject</code>和<code>sdshdr</code>两个结构，</li>
+<li>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_4.png" alt=""></li>
 </ul>
 </li>
 </ul>
-<h5 id="5-1-2-3-B-Tree索引的其他作用"><a href="#5-1-2-3-B-Tree索引的其他作用" class="headerlink" title="5.1.2.3 B-Tree索引的其他作用"></a>5.1.2.3 B-Tree索引的其他作用</h5><p>因为索引树中的节点是有序的，所以除了按值查找之外，索引还可以用于查询中的<code>ORDER BY</code>操作。一般来说，如果B-Tree可以按照某种方式查找到值，那么也可以按照这种方式用于排序。所以，如果<code>ORDER BY</code>子句满足前面列出的几种査询类型，则这个索引也可以满足对应的排序需求</p>
-<h5 id="5-1-2-4-使用B-Tree索引的限制"><a href="#5-1-2-4-使用B-Tree索引的限制" class="headerlink" title="5.1.2.4 使用B-Tree索引的限制"></a>5.1.2.4 使用B-Tree索引的限制</h5><ul>
-<li><p>如果不是按照索引的最左列开始查找，则无法使用索引。例如上面例子中的索引无法用于查找名字为Bill的人，也无法查找某个特定生日的人，因为这两列都不是最左数据列。类似地，也无法查找姓氏以某个字母结尾的人。</p>
+<p>使用<code>embstr</code>编码的好处如下</p>
+<ul>
+<li>将创建字符串对象所需的内存分配次数从<code>raw</code>编码的两次降低为一次</li>
+<li>释放<code>embstr</code>编码的字符串对象只需要调用一次内存释放函数，而释放<code>raw</code>编码的字符串对象需要调用两次内存释放函数</li>
+<li>所有数据都保存在一块连续的内存里面</li>
+</ul>
+<p>此外，<strong>浮点数</strong>在Redis中也是作为字符串值来存储的</p>
+<h4 id="8-2-1-字符串对象编码转换"><a href="#8-2-1-字符串对象编码转换" class="headerlink" title="8.2.1 字符串对象编码转换"></a>8.2.1 字符串对象编码转换</h4><p><code>int</code>到<code>raw</code>的转换</p>
+<ul>
+<li>对于<code>int</code>编码的字符串对象来说，如果我们向对象执行了一些命令，使得这个对象保存的不再是整数值，而是一个字符串值</li>
+<li>那么字符串对象的编码将从<code>int</code>变为<code>raw</code>。</li>
+</ul>
+<p><code>embstr</code>到<code>raw</code>的转换</p>
+<ul>
+<li>Redis没有为<code>embstr</code>编码的字符串对象编写任何相应的修改程序，所以<code>embstr</code>编码的字符串对象实际上是<strong>只读的</strong></li>
+<li><code>embstr</code>编码的字符串对象在<strong>执行修改命令</strong>之后，总会变成一个<code>raw</code>编码的字符串对象。</li>
+</ul>
+<h4 id="8-2-2-字符串命令的实现"><a href="#8-2-2-字符串命令的实现" class="headerlink" title="8.2.2 字符串命令的实现"></a>8.2.2 字符串命令的实现</h4><p><img src="/2020/02/29/Redis-8-对象/200229_5.png" alt=""></p>
+<h3 id="8-3-列表对象"><a href="#8-3-列表对象" class="headerlink" title="8.3 列表对象"></a>8.3 列表对象</h3><h4 id="8-3-1-列表对象的编码"><a href="#8-3-1-列表对象的编码" class="headerlink" title="8.3.1 列表对象的编码"></a>8.3.1 列表对象的编码</h4><p>列表对象的编码可以是<code>ziplist</code>或者<code>linkedlist</code></p>
+<p><code>ziplist</code></p>
+<ul>
+<li><code>ziplist</code>编码的列表对象使用压缩列表作为底层实现，每个压缩列表节点保存了一个列表元素</li>
+<li><p>例如我们执行如下命令，创建一个包括三个元素的<code>numbers</code>列表键</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; RPUSH numbers 1 <span class="string">"three"</span> 5</span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>不能跳过索引中的列。也就是说，前面所述的索引无法用于查找姓为Smith并且在某个特定日期出生的人。如果不指定名(<code>first name</code>)，则MySQL只能使用索引的第一列。</p>
-</li>
-<li><p>如果查询中有某个列的范围查询，则其右边所有列都无法使用索引优化查找。例如有查询 <code>WHERE last_name=&#39;Smith&#39; AND first name LIKE&#39;J%&#39; AND dob != &#39;1976-12-23&#39;</code>，这个查询只能使用索引的前两列，因为这里<code>LIKE</code>是一个范围条件</p>
+<li><p>结果如下图<br><img src="/2020/02/29/Redis-8-对象/200229_6.png" alt=""></p>
 </li>
 </ul>
-<h4 id="5-1-3-哈希索引"><a href="#5-1-3-哈希索引" class="headerlink" title="5.1.3 哈希索引"></a>5.1.3 哈希索引</h4><p>哈希索引基于哈希表实现，只有精确匹配索引所有列的查询才有效。对于每一行数据，存储引擎都会对所有的索引列计算一个哈希码。哈希索引将所有的哈希码存储在索引中，同时在哈希表中保存指向每个数据行的指针</p>
-<p>在MySQL中，只有Memory引擎显式支持哈希索引。这也是Memory引擎表的默认索引类型，Memory引擎同时也支持B-Tree索引。如果多个列的哈希值相同，索引会以链表的方式存放多个记录指针到同一个哈希条目中。</p>
-<h5 id="5-1-3-4-哈希索引的限制"><a href="#5-1-3-4-哈希索引的限制" class="headerlink" title="5.1.3.4 哈希索引的限制"></a>5.1.3.4 哈希索引的限制</h5><ul>
-<li><p>哈希索引只包含哈希值和行指针，而不存储字段值，所以不能使用索引中的值来避免读取行。</p>
-</li>
-<li><p>哈希索引数据并不是按照索引值顺序存储的，所以也就无法用于排序。</p>
-</li>
-<li><p>哈希索引也不支持部分索引列匹配查找，因为哈希索引始终是使用索引列的全部内容来计算哈希值的。</p>
-</li>
-<li><p>哈希索引只支持等值比较查询，包括<code>=</code>、<code>IN()</code>。也不支持任何范围查询，例如，<code>WHERE price &gt; 18</code></p>
-</li>
-<li><p>如果哈希冲突很多的话，一些索引维护操作的代价也会很高。当出现哈希冲突的时候，存储引擎必须遍历链表中所有的行指针，逐行进行比较，直到找到所有符合条件的行。</p>
-</li>
+<p><code>linkedlist</code></p>
+<ul>
+<li><code>linkedlist</code>编码的列表对象使用双端链表作为底层实现，每个链表节点都保存了一个<strong>字符串对象</strong>，而每个<strong>字符串对象</strong>都保存了一个<strong>列表元素</strong></li>
+<li>还是上面的<code>numbers</code>列表，在<code>linkedlist</code>以下图结构存储<br><img src="/2020/02/29/Redis-8-对象/200229_7.png" alt=""></li>
 </ul>
-<h5 id="5-1-3-4-哈希索引与InnoDB"><a href="#5-1-3-4-哈希索引与InnoDB" class="headerlink" title="5.1.3.4 哈希索引与InnoDB"></a>5.1.3.4 哈希索引与InnoDB</h5><p>InnoDB引擎有一个特殊的功能叫做“自适应哈希索引”。当InnoDB注意到某些索引值被使用得非常频繁时，它会在内存中基于B-Tree索引之上再创建一个哈希索引，这样就让B-Tree索引也具有哈希索引的一些优点，比如快速的哈希查找。这是一个完全自动的、内部的行为，用户无法控制或者配置，不过如果有必要完全可以关闭该功能。</p>
-<h3 id="5-2-索引的优点"><a href="#5-2-索引的优点" class="headerlink" title="5.2 索引的优点"></a>5.2 索引的优点</h3><p>索引可以让服务器快速地定位到表的指定位置。根据创建索引的数据结构不同，索引也有一些其他的附加作用。</p>
-<p>例如B-Tree索引，最常见的B-Tree索引，按照顺序存储数据，所以MySQL可以用来做<code>ORDER BY</code>和<code>GROUP BY</code>操作。因为数据是有序的，所以B-Tree也就会将相关的列值都存储在一起。最后，因为索引中存储了实际的列值，所以某些査询只使用索引就能够完成全部查询。</p>
-<p>泛泛而谈，索引有如下优点</p>
+<h4 id="8-3-2-列表对象编码转换"><a href="#8-3-2-列表对象编码转换" class="headerlink" title="8.3.2 列表对象编码转换"></a>8.3.2 列表对象编码转换</h4><p>当列表对象可以<strong>同时满足</strong>以下两个条件时，列表对象使用<code>zip1ist</code>编码：</p>
+<ul>
+<li>列表对象保存的所有<strong>字符串元素的长度</strong>都小于64字节</li>
+<li>列表对象保存的<strong>元素数量</strong>小于512个</li>
+</ul>
+<p><strong>不能</strong>满足上述两个条件的列表对象需要使用<code>linkedlist</code>编码。</p>
+<p>当使用<code>ziplist</code>编码所需的两个条件的任意一个<strong>不能</strong>被满足时，对象的<strong>编码转换</strong>操作就会被执行，原本保存在<strong>压缩列表</strong>里的所有列表元素都会被<strong>转移</strong>并保存到<strong>双端链表</strong>里面，对象的<strong>编码</strong>也会从<code>zip1ist</code>变为<code>linkedlist</code></p>
+<h4 id="8-3-3-列表命令的实现"><a href="#8-3-3-列表命令的实现" class="headerlink" title="8.3.3 列表命令的实现"></a>8.3.3 列表命令的实现</h4><p><img src="/2020/02/29/Redis-8-对象/200229_8.png" alt=""></p>
+<h3 id="8-4-哈希对象"><a href="#8-4-哈希对象" class="headerlink" title="8.4 哈希对象"></a>8.4 哈希对象</h3><h4 id="8-4-1-哈希对象的编码"><a href="#8-4-1-哈希对象的编码" class="headerlink" title="8.4.1 哈希对象的编码"></a>8.4.1 哈希对象的编码</h4><p>哈希对象的<strong>编码</strong>可以是<code>ziplist</code>或者<code>hashtable</code></p>
+<p><code>ziplist</code></p>
+<ul>
+<li><code>ziplist</code>编码的哈希对象使用<strong>压缩列表</strong>作为<strong>底层实现</strong></li>
+<li>每当有键值对要<strong>新加入</strong>到哈希对象时<ul>
+<li>程序会先将保存了<strong>键</strong>的压缩列表节点推入到压缩列表<strong>表尾</strong></li>
+<li>然后再将保存了<strong>值</strong>的压缩列表节点推入到压缩列表<strong>表尾</strong></li>
+</ul>
+</li>
+<li>保存了<strong>同一键值对</strong>的两个节点总是<strong>紧挨</strong>在一起</li>
+<li><strong>先添加</strong>到哈希对象中的键值对会被放在压缩列表的<strong>表头</strong>方向，而<strong>后添加</strong>到哈希对象中的键值对会被放在压缩列表的<strong>表尾</strong>方向。</li>
+<li>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_9.png" alt=""></li>
+</ul>
+<p><code>hashtable</code></p>
+<ul>
+<li><code>hashtable</code>编码的哈希对象使用<strong>字典</strong>作为底层实现</li>
+<li>哈希对象中的每个键值对都使用一个<strong>字典键值对</strong>来保存<ul>
+<li>字典的每个<strong>键</strong>都是一个<strong>字符串对象</strong>，对象中保存了键值对的键</li>
+<li>字典的每个<strong>值</strong>都是一个<strong>字符串对象</strong>，对象中保存了键值对的值。</li>
+</ul>
+</li>
+<li>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_10.png" alt=""></li>
+</ul>
+<h4 id="8-4-2-哈希对象编码转换"><a href="#8-4-2-哈希对象编码转换" class="headerlink" title="8.4.2 哈希对象编码转换"></a>8.4.2 哈希对象编码转换</h4><p>当哈希对象可以<strong>同时</strong>满足以下两个条件时，哈希对象使用<code>ziplist</code>编码：</p>
+<ul>
+<li>哈希对象保存的所有键值对的<strong>键和值</strong>的<strong>字符串长度</strong>都小于64字节</li>
+<li>哈希对象保存的<strong>键值对数量</strong>小于512个</li>
+</ul>
+<p><strong>不能</strong>满足这两个条件的哈希对象需要使用<code>hashtable</code>编码。</p>
+<p>当使用<code>ziplist</code>编码所需的两个条件的<strong>任意</strong>一个<strong>不能</strong>被满足时，对象的<strong>编码转换</strong>操作就会被执行，原本保存在<strong>压缩列表</strong>里的所有键值对都会被<strong>转移</strong>并保存到<strong>字典</strong>里面，对象的<strong>编码</strong>也会从<code>zip1ist</code>变为<code>hashtable</code></p>
+<h4 id="8-4-2-哈希命令的实现"><a href="#8-4-2-哈希命令的实现" class="headerlink" title="8.4.2 哈希命令的实现"></a>8.4.2 哈希命令的实现</h4><p><img src="/2020/02/29/Redis-8-对象/200229_11.png" alt=""></p>
+<h3 id="8-5-集合对象"><a href="#8-5-集合对象" class="headerlink" title="8.5 集合对象"></a>8.5 集合对象</h3><h4 id="8-5-1-集合对象的编码"><a href="#8-5-1-集合对象的编码" class="headerlink" title="8.5.1 集合对象的编码"></a>8.5.1 集合对象的编码</h4><p>集合对象的<strong>编码</strong>可以是<code>intset</code>或者<code>hashtable</code>。</p>
+<p><code>intset</code></p>
+<ul>
+<li><code>intset</code>编码的集合对象使用<strong>整数集合</strong>作为底层实现，集合对象包含的所有元素都被保存在整数集合里面</li>
+<li>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_12.png" alt=""></li>
+</ul>
+<p><code>hashtable</code></p>
+<ul>
+<li><code>hashtable</code>编码的集合对象使用<strong>字典</strong>作为底层实现</li>
+<li>字典的每个<strong>键</strong>都是一个<strong>字符串对象</strong>，每个字符串对象包含了一个集合元素，而字典的<strong>值</strong>则全部被设置为<strong>NULL</strong>。</li>
+</ul>
+<h4 id="8-5-2-集合对象编码转换"><a href="#8-5-2-集合对象编码转换" class="headerlink" title="8.5.2 集合对象编码转换"></a>8.5.2 集合对象编码转换</h4><p>当集合对象可以<strong>同时满足</strong>以下两个条件时，对象使用<code>intset</code>编码</p>
+<ul>
+<li>集合对象保存的所有元素都是<strong>整数值</strong></li>
+<li>集合对象保存的<strong>元素数量</strong>不超过512个</li>
+</ul>
+<p><strong>不能</strong>满足这两个条件的集合对象需要使用 <code>hashtable</code>编码。</p>
+<h4 id="8-5-3-集合命令的实现"><a href="#8-5-3-集合命令的实现" class="headerlink" title="8.5.3 集合命令的实现"></a>8.5.3 集合命令的实现</h4><p><img src="/2020/02/29/Redis-8-对象/200229_13.png" alt=""><br><img src="/2020/02/29/Redis-8-对象/200229_14.png" alt=""></p>
+<h3 id="8-6-有序集合对象"><a href="#8-6-有序集合对象" class="headerlink" title="8.6 有序集合对象"></a>8.6 有序集合对象</h3><h4 id="8-6-1-有序集合对象的编码"><a href="#8-6-1-有序集合对象的编码" class="headerlink" title="8.6.1 有序集合对象的编码"></a>8.6.1 有序集合对象的编码</h4><p>有序集合的<strong>编码</strong>可以是<code>ziplist</code>或者<code>skiplist</code></p>
+<p><code>ziplist</code></p>
+<ul>
+<li><code>zip1ist</code>编码的压缩列表对象使用<strong>压缩列表</strong>作为底层实现</li>
+<li>每个集合元素使用<strong>两个紧挨</strong>在一起的压缩列表节点来<strong>保存</strong>，第一个节点保存元素的<strong>成员</strong>（member），而第二个元素则保存元素的<strong>分值</strong>（score，作为排序的依据）</li>
+<li>压缩列表内的集合元素按分值<strong>从小到大</strong>进行<strong>排序</strong></li>
+<li>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_15.png" alt=""></li>
+</ul>
+<p><code>skiplist</code></p>
+<ul>
+<li><code>skiplist</code>编码的有序集合对象使用<code>zset</code>结构作为底层实现，一个<code>zset</code>结构<strong>同时</strong>包含一个<strong>字典</strong>和一个<strong>跳跃表</strong></li>
+<li><strong>跳跃表</strong>按分值<strong>从小到大</strong>保存了所有集合元素，每个跳跃表节点都保存了一个集合元素：跳跃表节点的<code>object</code>属性保存了元素的<strong>成员</strong>，而跳跃表节点的<code>score</code>属性则保存了元素的<strong>分值</strong>。</li>
+<li>字典为有序集合创建了一个<strong>从成员到分值的映射</strong>，字典中的每个键值对都保存了一个集合元素：<ul>
+<li>字典的<strong>键</strong>保存了元素的<strong>成员</strong></li>
+<li>而字典的<strong>值</strong>则保存了元素的<strong>分值</strong></li>
+<li>通过这个字典，程序可以用 $O(1)$ 复杂度<strong>查找给定成员的分值</strong></li>
+</ul>
+</li>
+<li>有序集合每个元素的<strong>成员</strong>都是一个<strong>字符串对象</strong>，而每个元素的<strong>分值</strong>都是一个<code>double</code>类型的<strong>浮点数</strong></li>
+<li>这两种数据结构都会通过<strong>指针共享相同元素</strong>的成员和分值，所以同时使用跳跃表和字典来保存集合元素<strong>不会产生重复</strong>成员或者分值</li>
+<li>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_16.png" alt=""></li>
+</ul>
+<h4 id="8-6-2-有序集合对象编码转换"><a href="#8-6-2-有序集合对象编码转换" class="headerlink" title="8.6.2 有序集合对象编码转换"></a>8.6.2 有序集合对象编码转换</h4><p>当有序集合对象可以<strong>同时</strong>满足以下两个条件时，对象使用<code>ziplist</code>编码</p>
+<ul>
+<li>有序集合保存的<strong>元素数量</strong>小于128个</li>
+<li>有序集合保存的所有<strong>元素成员的长度</strong>都小于64字节</li>
+</ul>
+<p><strong>不能</strong>满足以上两个条件的有序集合对象将使用<code>skiplist</code>编码</p>
+<h4 id="8-6-2-有序集合命令的实现"><a href="#8-6-2-有序集合命令的实现" class="headerlink" title="8.6.2 有序集合命令的实现"></a>8.6.2 有序集合命令的实现</h4><p><img src="/2020/02/29/Redis-8-对象/200229_17.png" alt=""></p>
+<h3 id="8-7-类型检查与命令多态"><a href="#8-7-类型检查与命令多态" class="headerlink" title="8.7 类型检查与命令多态"></a>8.7 类型检查与命令多态</h3><p>Redis中用于操作键的命令可以分为两种</p>
 <ol>
-<li>索引大大减少了服务器需要扫描的数据量。</li>
-<li>索引可以帮助服务器避免排序和临时表。</li>
-<li>索引可以将随机I/O变为顺序I/O。</li>
+<li>其中一种命令可以对<strong>任何类型的键</strong>使用，例如<code>DEL</code>命令、<code>EXPIRE</code>命令、<code>RENAME</code>命令、<code>TYPE</code>命令等，这种命令背后的实现机制是<strong>命令多态</strong></li>
+<li>另一种命令只能应用于<strong>特定类型</strong>的键，例如<code>SET</code>、<code>GET</code>、<code>APPEND</code>、<code>STRLEN</code>等命令只能对字符串键执行，这种命令的实现需要经过<strong>类型检查</strong></li>
 </ol>
-<p>Lahdenmaki和Leach在书中介绍了如何评价一个索引是否适合某个查询的“三星系统”</p>
+<h4 id="8-7-1-类型检查的实现"><a href="#8-7-1-类型检查的实现" class="headerlink" title="8.7.1 类型检查的实现"></a>8.7.1 类型检查的实现</h4><p>在执行一个<strong>类型特定的命令</strong>之前，Redis会先检查<strong>输入键</strong>的<strong>类型</strong>是否正确，然后再决定是否执行给定的命令。</p>
+<p>类型特定命令所进行的<strong>类型检查</strong>是通过<code>redisObject</code>结构的<code>type</code>属性来实现的</p>
 <ul>
-<li>索引将相关的记录放到一起则获得一星</li>
-<li>如果索引中的数据顺序和查找中的排列顺序一致则获得二星</li>
-<li>如果索引中的列包含了查询中需要的全部列则获得三星</li>
+<li>在执行一个类型特定命令之前，服务器会先检查输入数据库键的<strong>值对象</strong>是否为执行命令所需的类型</li>
+<li>如果是的话，服务器就对键执行指定的命令；否则，服务器将<strong>拒绝</strong>执行命令，并向客户端返回一个<strong>类型错误</strong>。</li>
 </ul>
-<h3 id="5-3-高性能的索引策略"><a href="#5-3-高性能的索引策略" class="headerlink" title="5.3 高性能的索引策略"></a>5.3 高性能的索引策略</h3><p>正确地创建和使用索引是实现髙性能査询的基础。下面介绍高性能使用索引的策略。</p>
-<h4 id="5-3-1-独立的列"><a href="#5-3-1-独立的列" class="headerlink" title="5.3.1 独立的列"></a>5.3.1 独立的列</h4><p>独立的列是指索引列不能是表达式的一部分，也不能是函数的参数。如果查询中使用的不是独立的列，则MySQL不会使用索引。下面就是两个反例</p>
-<p>反例1，表达式，无法使用索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> actor_id <span class="keyword">FROM</span> actor <span class="keyword">WHERE</span> actor_id + <span class="number">1</span> = <span class="number">5</span>;</span><br></pre></td></tr></table></figure></p>
-<p>反例2，函数的参数，无法使用索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ... <span class="keyword">WHERE</span> <span class="keyword">TO_DAYS</span>(<span class="keyword">CURRENT_DATE</span>) - <span class="keyword">TO_DAYS</span>(date_col) &lt;= <span class="number">10</span>;</span><br></pre></td></tr></table></figure></p>
-<h4 id="5-3-2-前缀索引和索引选择性"><a href="#5-3-2-前缀索引和索引选择性" class="headerlink" title="5.3.2 前缀索引和索引选择性"></a>5.3.2 前缀索引和索引选择性</h4><p>有时候需要索引很长的字符列，这会让索引变得大且慢。通常可以索引开始的部分字符，这样可以大大节约索引空间，从而提高索引效率。</p>
-<p>下面演示一下如何创建前缀索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> city_demo <span class="keyword">ADD</span> <span class="keyword">KEY</span> (city(<span class="number">7</span>));</span><br></pre></td></tr></table></figure></p>
-<p>但使用前缀索引会降低索引的选择性。索引的选择性是指，不重复的索引值和数据表的记录总数的比值(T)，范围从l/T到1之间。索引的选择性越高则查询效率越高，因为选择性高的索引可以让MySQL在查找时过滤掉更多的行。无重复索引的选择性是1，这是最好的索引选择性，性能也是最好的。</p>
-<p>后缀索引：有时候后缀索引（suffix index）也有用途（例如，找到某个域名的所有电子邮件地址）。MySQL原生并不支持反向索引，但是可以把宇符串反转后存储，并基于此建立前缀索引。</p>
-<h4 id="5-3-3-多列索引"><a href="#5-3-3-多列索引" class="headerlink" title="5.3.3 多列索引"></a>5.3.3 多列索引</h4><p>在多个列上建立独立的单列索引大部分情况下并不能提高MySQL的查询性能。MySQL5.0和更新版本引入了一种叫“索引合并”（index merge）的策略，一定程度上可以使用表上的多个单列索引来定位指定的行。更早版本的MySQL只能使用其中某一个单列索引，然而这种情况下没有哪一个独立的单列索引是非常有效的。</p>
-<p>索引合并虽然是一种很好的策略，但是有时成本比较高。如果在<code>EXPLAIN</code>中看到有索引合并，应该好好检查一下查询和表的结构，看是不是已经是最优的。</p>
-<h4 id="5-3-4-选择合适的索引列顺序"><a href="#5-3-4-选择合适的索引列顺序" class="headerlink" title="5.3.4 选择合适的索引列顺序"></a>5.3.4 选择合适的索引列顺序</h4><p>正确的顺序依赖于使用该索引的查询，并且同时需要考虑如何更好地满足排序和分组的需要。</p>
-<p>在一个多列B-Tree索引中，索引列的顺序意味着索引首先按照最左列进行排序，其次是第二列，等等。所以，索引可以按照升序或者降序进行扫描，以满足精确符合列顺序的<code>ORDER BY</code>、<code>GROUP BY</code>和<code>DISTINCT</code>等子句的查询需求。</p>
-<p>对于如何选择索引的列顺序有一个经验法则：将选择性最高的列放到索引最前列。</p>
-<h4 id="5-3-5-聚簇索引"><a href="#5-3-5-聚簇索引" class="headerlink" title="5.3.5 聚簇索引"></a>5.3.5 聚簇索引</h4><p>当表有聚簇索引时，它的数据行实际上存放在索引的叶子页（leaf page）中。术语“聚簇”表示数据行和相邻的键值紧凑地存储在一起。因为无法同时把数据行存放在两个不同的地方，所以一个表只能有一个聚簇索引。</p>
-<p>下图展示了聚簇索引中的记录是如何存放的。注意到，叶子页包含了行的全部数据，但是节点页只包含了索引列。在这个案例中，索引列包含的是整数值。</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_4.png" alt=""></p>
-<p>InnoDB将通过主键聚集数据，如果没有定义主键，InnoDB会选择一个唯一的非空索引代替。如果没有这样的索引， InnoDB会隐式定义一个主键来作为聚簇索引。</p>
-<p>InnoDB只聚集在同一个页面中的记录包含相邻键值的页面可能在物理空间中相距甚远。但是通常前页会保存后页的指针，这样方便寻找。</p>
-<h4 id="5-3-5-1-聚簇索引的优点和缺点"><a href="#5-3-5-1-聚簇索引的优点和缺点" class="headerlink" title="5.3.5.1  聚簇索引的优点和缺点"></a>5.3.5.1  聚簇索引的优点和缺点</h4><p>优点</p>
+<p>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_18.png" alt=""></p>
+<h4 id="8-7-1-多态命令的实现"><a href="#8-7-1-多态命令的实现" class="headerlink" title="8.7.1 多态命令的实现"></a>8.7.1 多态命令的实现</h4><p>Redis除了会根据值对象的类型来判断键是否能够执行指定命令之外，还会根据<strong>值对象</strong>的<strong>编码</strong>方式，选择正确的命令<strong>实现代码</strong>来执行命令。</p>
+<p>如下图<br><img src="/2020/02/29/Redis-8-对象/200229_19.png" alt=""></p>
+<h3 id="8-8-内存回收"><a href="#8-8-内存回收" class="headerlink" title="8.8 内存回收"></a>8.8 内存回收</h3><p>因为C语言并不具备自动内存回收功能，所以Redis在自己的对象系统中构建了一个<strong>引用计数技术</strong>实现的<strong>内存回收</strong>机制，通过这一机制，程序可以通过跟踪对象的引用计数信息，在适当的时候自动释放对象并进行内存回收。</p>
+<p>每个对象的引用计数信息由<code>redisObject</code>结构的 <code>refCount</code>属性记录（可以查看本章第一节）</p>
+<p>对象的<strong>引用计数信息</strong>会随着对象的<strong>使用状态</strong>而不断变化：</p>
 <ul>
-<li>可以把相关数据保存在一起。例如实现电子邮箱时，可以根据用户ID来聚集数据，这样只需要从磁盘读取少数的数据页就能获取某个用户的全部邮件。如没有使用聚簇索引，则每封邮件都可能导致一次磁盘I/O。</li>
-<li>数据访问更快。聚簇索引将索引和数据保存在同一个B-Tree中，因此从聚簇索引中获取数据通常比在非聚簇索引中查找要快。</li>
-<li>使用覆盖索引扫描的查询可以直接使用页节点中的主键值（这点要后面再解释，看不懂没关系）。</li>
+<li>在<strong>创建</strong>一个新对象时，引用计数的值会被<strong>初始化</strong>为1</li>
+<li>当对象被一个<strong>新程序</strong>使用时，它的引用计数值会被<strong>增一</strong></li>
+<li>当对象<strong>不再</strong>被一个程序使用时，它的引用计数值会被<strong>减一</strong></li>
+<li>当对象的引用计数值<strong>变为0</strong>时，对象所占用的内存会被<strong>释放</strong></li>
 </ul>
-<p>缺点</p>
-<ul>
-<li>如果数据全部都放在内存中，则访问的顺序就没那么重要了，聚簇索引也就没什么优势了。</li>
-<li>插入速度严重依赖于插入顺序。按照主键的顺序插入是加载数据到InnoDB表中速度最快的方式。</li>
-<li>更新聚簇索引列的代价很高，因为会强制InnoDB将每个被更新的行移动到新的位置</li>
-<li>聚簇索引可能导致全表扫描变慢，比如由于页分裂导致数据存储不连续的时候。</li>
-<li>二级索引（非聚簇索引，也就是此表上的其他索引）可能比想象的要更大，因为在二级索引的叶子节点包含了引用行的主键列</li>
-<li>二级索引访问需要两次索引查找，而不是一次。因为通过二级索引査找行，存储引擎需要找到二级索引的叶子节点获得对应的主键值，然后根据这个值去聚簇索引中查找到对应的行。这里做了重复的工作：两次B-Tree查找而不是一次。</li>
-</ul>
-<h4 id="5-3-5-2-InnoDB与MyISAM数据分布对比"><a href="#5-3-5-2-InnoDB与MyISAM数据分布对比" class="headerlink" title="5.3.5.2  InnoDB与MyISAM数据分布对比"></a>5.3.5.2  InnoDB与MyISAM数据分布对比</h4><p>InnoDB是使用聚簇索引的存储引擎，而MyISAM不使用。通过它们的对比，我们将更好的理解聚簇索引的概念和存储方式。</p>
-<p>这里为了方便理解，我们先写一个样例表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> layout_test(</span><br><span class="line">    col1 <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    col2 <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span>(col1),</span><br><span class="line">    <span class="keyword">KEY</span>(col2)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>首先介绍MyISAM。</p>
-<p>当插入数据时，MyISAM按照数据插入的顺序存储在磁盘上，如下图。<br><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_5.png" alt=""></p>
-<p>这种分布方式下，主键索引和非主键索引其实结构上没什么区别，如下图。</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_6.png" alt=""></p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_7.png" alt=""></p>
-<p>然后是InnoDB</p>
-<p>首先，它的主键索引是聚簇索引，如下图结构</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_8.png" alt=""></p>
-<p>它其实就是整张表，表中所有的数据都存储在这颗B-Tree中。聚簇索引的每一个叶子节点都包含了主键值、事务ID、用于事务和MVCC的回滚指针以及所有的剩余列。</p>
-<p>InnoDB的二级索引和聚簇索引很不相同。InnoDB二级索引的叶子节点中存储的不是“行指针”，而是主键值，并以此作为指向行的“指针”这样的策略减少了当出现行移动或者数据页分裂时二级索引的维护工作。但是使用主键值当作指针会让二级索引占用更多的空间。</p>
-<p>下面是一个二级索引的结构图</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_9.png" alt=""></p>
-<p>最后，我们通过下图来看看InnoDB和MyISAM保存数据和索引的区别</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_10.png" alt=""></p>
-<h4 id="5-3-5-3-InnoDB主键的选择"><a href="#5-3-5-3-InnoDB主键的选择" class="headerlink" title="5.3.5.3 InnoDB主键的选择"></a>5.3.5.3 InnoDB主键的选择</h4><p>如果正在使用InnoDB表并且没有什么数据需要聚集，那么可以定义一个代理键（surrogate key）作为主键，这种主键的数据应该和应用无关，最简单的方法是使用<code>AUTO_INCREMENT</code>自增列。这样可以保证数据行是按顺序写入，对于根据主键做关联操作的性能也会更好。</p>
-<p>原因如下图，因为主键的值是顺序的，所以InnoDB把每一条记录都存储在上一条记录的后面。当达到页的最大填充因子时，下一条记录就会写入新的页中。一旦数据按照这种顺序的方式加载，主键页就会近似于被顺序的记录填满。<br><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_11.png" alt=""></p>
-<p>但是，假如我们选择一个相对随机无插入顺序的主键呢？</p>
-<p>如下图<br><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_12.png" alt=""></p>
-<p>这将造成大量的随机I/O，大量的页分裂操作，并产生很多磁盘碎片。</p>
-<p>因此，尽可能使用单调增加的聚簇键的值来插入新行。</p>
-<h4 id="5-3-6-覆盖索引"><a href="#5-3-6-覆盖索引" class="headerlink" title="5.3.6 覆盖索引"></a>5.3.6 覆盖索引</h4><p>如果索引的叶子节点中已经包含要查询的数据，那么就没有必要再回表查询。如果一个索引包含所有需要查询的字段的值，我们就称之为“覆盖索引”。</p>
-<h5 id="5-3-6-1-覆盖索引的好处"><a href="#5-3-6-1-覆盖索引的好处" class="headerlink" title="5.3.6.1 覆盖索引的好处"></a>5.3.6.1 覆盖索引的好处</h5><ul>
-<li><p>索引条目通常远小于数据行大小，所以如果只需要读取索引，那MySQL就会极大地减少数据访问量。</p>
-</li>
-<li><p>因为索引是按照列值顺序存储的（至少在单个页内是如此），所以对于I/O密集型的范围查询会比随机从磁盘读取每一行数据的I/O要少得多。</p>
-</li>
-<li><p>由于InnoDB的聚簇索引，覆盖索引对InnoDB表特别有用。InnoDB的二级索引在叶子节点中保存了行的主键值，所以如果二级主键能够覆盖查询，则可以避免对主键索引的二次查询。</p>
-</li>
-</ul>
-<h4 id="5-3-7-使用索引扫描来做排序"><a href="#5-3-7-使用索引扫描来做排序" class="headerlink" title="5.3.7 使用索引扫描来做排序"></a>5.3.7 使用索引扫描来做排序</h4><p>MySQL可以使用同一个索引既满足排序，又用于查找行。因此，如果可能，设计索引时应该尽可能地同时满足这两种任务，这样是最好的。</p>
-<p>只有当索引的列顺序和<code>ORDER BY</code>子句的顺序完全一致，并且所有列的排序方向都一样时，MySQL才能够使用索引来对结果做排序。如果查询需要关联多张表，则只有当<code>ORDER BY</code>子句引用的字段全部为第一个表时，才能使用索引做排序。<code>ORDER BY</code>子句和查找型查询的限制是一样的：需要满足索引的最左前缀的要求；否则，MySQL都需要执行排序操作，而无法利用索引排序。</p>
-<p>但是同时还要注意与<code>where</code>条件的交互，假设表<code>rental</code>有索引<code>(rental_date, inventory_id, customer_id)</code>，下面举例说明</p>
-<p>下面这个查询可以使用索引，因为第一列被指定为了常数<code>rental_date=&#39;2015_05_25&#39;</code>，然后使用第二列排序，将两列组合起来就形成了索引的最左前缀。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">... where rental_date = '2005-05-25' ORDER BY inventory_id;</span><br></pre></td></tr></table></figure></p>
-<p>下面这个查询也没问题，因为<code>ORDER BY</code>使用的两列就是索引的最左前缀：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE rental_date &gt; '2005-05-25' ORDER BY rental_date, inventory_id;</span><br></pre></td></tr></table></figure></p>
-<p>下面是一些不能使用索引做排序的查询</p>
-<ul>
-<li><p>下面这个查询的<code>ORDER BY</code>子句中引用了一个不在索引中的列</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE rental_date = '2005-05-25' ORDER BY inventory_id, staff_id;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>下面这个查询的<code>WHERE</code>和<code>ORDER BY</code>中的列无法组合成索引的最左前缀</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE rental_date = '2005-05-25' ORDER BY customer_id;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>下面这个查询在索引列的第一列上使用了范围条件，这个列倒是可以使用索引，但是会导致后面的列无法使用</p>
-  <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE rental_date &gt; '2005-05-25' ORDER BY inventory_id, customer_id;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>下面这个查询在<code>inventory_id</code>列上有多个等于条件，对于排序来说，这也是一种范围查询</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE rental_date = '2005-05-25' AND inventory_id IN(1, 2) ORDER BY customer_id</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="5-3-8-压缩（前缀压缩）索引"><a href="#5-3-8-压缩（前缀压缩）索引" class="headerlink" title="5.3.8 压缩（前缀压缩）索引"></a>5.3.8 压缩（前缀压缩）索引</h4><p>MyISAM使用前缀压缩来减少索引的大小，从而让更多的索引可以放入内存中，这在某些情况下能极大地提高性能。默认只压缩字符串，但通过参数设置也可以对整数做压缩。</p>
-<p>MyISAM压缩每个索引块的方法是，先完全保存索引块中的第一个值，然后将其他值和第一个值进行比较得到相同前缀的字节数和剩余的不同后缀部分，把这部分存储起来即可。例如，索引块中的第一个值是<code>perform</code>，第二个值是<code>performance</code>，那么第二个值的前缀压缩后存储的是类似<code>7, ance</code>这样的形式。</p>
-<h4 id="5-3-9-重复索引"><a href="#5-3-9-重复索引" class="headerlink" title="5.3.9 重复索引"></a>5.3.9 重复索引</h4><p>重复索引是指在相同的列上按照相同的顺序创建的相同类型的索引。</p>
-<p>MySQL允许在相同列上创建重复索引，但是这会大大影响性能。因为MySQL需要单独维护重复的索引，并且优化器在优化查询的时候也需要逐个地进行考虑。</p>
-<p>应该避免这样创建重复索引，发现以后也应该立即移除。</p>
-<p>例如下图<br><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_13.png" alt=""></p>
-<p>一个经验不足的用户可能是想创建一个主键，先加上唯一限制，然后再加上索引以供查询使用。事实上，MySQL的唯一限制和主键限制都是通过索引实现的，因此，上面的写法实际上在相同的列上创建了三个重复的索引。</p>
-<h4 id="5-3-10-冗余索引"><a href="#5-3-10-冗余索引" class="headerlink" title="5.3.10 冗余索引"></a>5.3.10 冗余索引</h4><p>冗余索引和重复索引有一些不同。如果创建了索引<code>(A, B)</code>，再创建索引<code>(A)</code>就是冗余索引，因为这只是前一个索引的前缀索引。但是如果再创建索引<code>(B,A)</code>，则不是冗余索引。另外，将一个索引扩展为<code>(A, ID)</code>，其中<code>ID</code>是主键，对于InnoDB来说主键列已经包含在二级索引中了，所以这也是冗余的。</p>
-<p>但也有时候出于性能方面的考虑需要冗余索引，因为扩展已有的索引会导致其变得太大，从而影响其他使用该索引的查询的性能。</p>
-<p>建立过多冗余索引的缺点是导致写操作过慢</p>
-<h4 id="5-3-11-未使用的索引"><a href="#5-3-11-未使用的索引" class="headerlink" title="5.3.11 未使用的索引"></a>5.3.11 未使用的索引</h4><p>可能还会有一些服务器永远不用的索引。这样的索引完全是累赘，建议考虑删除。</p>
-<h4 id="5-3-12-索引和锁"><a href="#5-3-12-索引和锁" class="headerlink" title="5.3.12 索引和锁"></a>5.3.12 索引和锁</h4><p>InnoDB只有在访问行的时候才会对其加锁，而索引能够减少InnoDB访问的行的次数，从而减少锁的数量。</p>
-<p>此外，InnoDB在二级索引上使用共享（读）锁，但访问主键索引需要排他（写）锁。</p>
-<h3 id="5-4-索引案例学习"><a href="#5-4-索引案例学习" class="headerlink" title="5.4 索引案例学习"></a>5.4 索引案例学习</h3><p>假设要设计一个在线约会网站，用户信息表有很多列，包括国家、地区、城市、性别、眼睛颜色，等等。网站必须支持上面这些特征的各种组合来搜索用户，还必须允许根据用户的最后在线时间、其他会员对用户的评分等对用户进行排序并对结果进行限制。如何设计索引满足上面的复杂需求呢？</p>
-<h4 id="5-4-1-支持多种过滤条件"><a href="#5-4-1-支持多种过滤条件" class="headerlink" title="5.4.1 支持多种过滤条件"></a>5.4.1 支持多种过滤条件</h4><p>现在需要看看这两方面</p>
+<h3 id="8-9-对象共享"><a href="#8-9-对象共享" class="headerlink" title="8.9 对象共享"></a>8.9 对象共享</h3><p>除了用于实现引用计数内存回收机制之外，对象的<strong>引用计数</strong>属性还带有<strong>对象共享</strong>的作用。</p>
+<p>在Redis中，让多个键共享同一个值对象需要执行以下两个步骤：</p>
 <ol>
-<li>哪些列拥有很多不同的取值，在有更多不同值的列上创建索引的选择性会更好。</li>
-<li>哪些列在<code>WHERE</code>子句中出现得最频繁，更频繁则用到此索引的机会越多</li>
+<li>将数据库键的<strong>值指针</strong>指向一个现有的<strong>值对象</strong>；</li>
+<li>将被共享的<strong>值对象</strong>的<strong>引用计数增一</strong></li>
 </ol>
-<p>按照这两点，我们筛选出了<code>(sex, country)</code>列作为前缀。</p>
-<p><code>sex</code>的选择性很低，但是为什么要选择它呢？因为我们有方法去绕过它：</p>
-<ul>
-<li>如果某个査询不限制性别，那么可以通过在查询条件中新增<code>AND SEX IN(&#39;m&#39;, &#39;f&#39;)</code>来让MySQL选择该索引。</li>
-<li>这样写并不会过滤任何行，和没有这个条件时返回的结果相同。</li>
-<li>但是必须加上这个列的条件，MySQL才能够匹配索引的最左前缀</li>
+<p>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_20.png" alt=""></p>
+<p>Redis只<strong>对包含整数值的字符串对象</strong>进行<strong>共享</strong>，也就是<code>type</code>为<code>StringObject</code>，<code>encoding</code>为<code>int</code>。</p>
+<p>目前来说， Redis会在<strong>初始化服务器</strong>时，<strong>创建</strong>一万个<strong>字符串对象</strong>，这些对象包含了从0到9999的所有整数值，当服务器需要用到值为0到9999的字符串对象时，服务器就会使用这些共享对象，而不是新创建对象。</p>
+<h3 id="8-10-对象的空转时长"><a href="#8-10-对象的空转时长" class="headerlink" title="8.10 对象的空转时长"></a>8.10 对象的空转时长</h3><p><code>redisObject</code>结构包含的最后一个属性为<code>lru</code>属性，该属性记录了对象<strong>最后一次被命令程序访问的时间</strong></p>
+<p><code>OBJECT IDLETIME</code>命令可以打印出给定键的<strong>空转时长</strong>，这一空转时长就是通过将当前时间减去键的值对象的lru时间计算得出的：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET msg <span class="string">"hello, world"</span></span><br><span class="line">OBJECT IDLETIME msg</span><br></pre></td></tr></table></figure></p>
+<h3 id="8-11-本章重点"><a href="#8-11-本章重点" class="headerlink" title="8.11 本章重点"></a>8.11 本章重点</h3><ul>
+<li>Redis数据库中的每个<strong>键值对</strong>的键和值都是一个<strong>对象</strong>。</li>
+<li>Redis共有字符串、列表、哈希、集合、有序集合五种类型的<strong>对象</strong>，每种类型的对象至少都有两种或以上的<strong>编码方式</strong>，不同的编码可以在不同的使用场景上优化对象的使用效率。</li>
+<li>服务器在执行某些命令之前，会先<strong>检查</strong>给定键的<strong>类型</strong>能否执行指定的命令。</li>
+<li>Redis的对象系统带有<strong>引用计数</strong>实现的<strong>内存回收</strong>机制，当一个对象不再被使用时，该对象所占用的内存就会被自动释放</li>
+<li>Redis会<strong>共享</strong>值为0到9999的字符串<strong>对象</strong></li>
+<li>对象会记录自己的最后一次被访问的时间，这个时间可以用于计算对象的<strong>空转时间</strong>。</li>
 </ul>
-<p>接下来我们又选出了<code>(sex, country, age)</code>，<code>(sex, country, region, age)</code>，<code>(sex, country, city, age)</code>这样的组合。由于我们有了<code>(sex, country, age)</code>，而<code>age</code>并不会导致性能的太多下降，所以我们去掉<code>(sex, country)</code></p>
-<p>我们一直把<code>age</code>放到索引的最后面，<code>age</code>有什么特殊的地方吗</p>
-<ul>
-<li>前面提到的列在<code>WHERE</code>子句中都是等于条件，但是<code>age</code>列则多半是范围查询（例如查找年龄在18-25岁之间的人）</li>
-<li>原则上，尽可能将需要做范围查询的列放到索引的后面，以便优化器能使用尽可能多的索引列。</li>
-</ul>
-<h4 id="5-4-2-避免多个范围条件"><a href="#5-4-2-避免多个范围条件" class="headerlink" title="5.4.2 避免多个范围条件"></a>5.4.2 避免多个范围条件</h4><p>假设我们有一个<code>last_online</code>列并希望通过下面的查询显示在过去几周上线过的用户<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">WHERE eye_color IN('brown', 'blue', 'hazel')</span><br><span class="line">AND hair color IN（'black', 'red', 'blonde', 'brown')</span><br><span class="line">AND sex IN('M', 'F')</span><br><span class="line">AND last_online &gt; DATE_SUB(NOW(), INTERVAL 7 DAY)</span><br><span class="line">ANd age BETWEEN 18 AND 25</span><br></pre></td></tr></table></figure></p>
-<p>这个查询有一个问题：它有两个范围条件，<code>last_online</code>列和<code>age</code>列，MySQL可以使用<code>last_online</code>列索引或者<code>age</code>列索引，但无法同时使用它们。</p>
-<p>我们可以用下面的方法避免这个问题</p>
-<ul>
-<li>我们需要事先计算好一个<code>active</code>列，这个字段由定时任务来维护。当用户每次登录时，将对应值设置为1，并且定时任务定时将过去连续七天未曾登录的用户的值设置为0。</li>
-<li>这个方法可以让MySQL使用<code>(active,sex, country,age)</code>索引。</li>
-<li>并且我们还可以使用上面5.4.1提到的方法来绕过<code>active</code>属性</li>
-</ul>
-<h4 id="5-4-3-优化排序"><a href="#5-4-3-优化排序" class="headerlink" title="5.4.3 优化排序"></a>5.4.3 优化排序</h4><p>使用文件排序对小数据集是很快的，但如果一个查询匹配的结果有上百万行的话就很慢了。所以根据5.3节我们可以创建一些索引用于排序。</p>
-<p>但是分页是另一个性能瓶颈，例如下面的查询<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> col1 <span class="keyword">FROM</span> <span class="keyword">profiles</span> <span class="keyword">WHERE</span> sex = <span class="string">'M'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> rating <span class="keyword">LIMIT</span> <span class="number">100000</span>, <span class="number">10</span>;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>无论如何创建索引，这种査询都是个严重的问题。</li>
-<li>因为随着偏移量的增加，MySQL需要花费大量的时间来扫描需要丢弃的数据。反范式化、预先计算和缓存可能是解决这类查询的仅有策略。</li>
-</ul>
-<p>优化这类索引的另一个比较好的策略是使用延迟关联，通过使用覆盖索引查询返回需要的主键，再根据这些主键关联原表获得需要的行。如下所示</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_14.png" alt=""></p>
 
           
         
@@ -626,7 +620,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/103/">103</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/104/">104</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -674,7 +668,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-count">104</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
