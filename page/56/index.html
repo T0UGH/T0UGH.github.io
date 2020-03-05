@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/25/数据结构考研-4-树与二叉树/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/25/SSM-2-JAVA设计模式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/25/数据结构考研-4-树与二叉树/" itemprop="url">[数据结构考研][4][树与二叉树]</a></h1>
+                <a class="post-title-link" href="/2019/12/25/SSM-2-JAVA设计模式/" itemprop="url">[SSM][2][JAVA设计模式]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-25T12:31:39+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-25T12:39:40+08:00">
                 2019-12-25
               </time>
             
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
+                  <a href="/categories/SSM/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/12/25/数据结构考研-4-树与二叉树/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/25/数据结构考研-4-树与二叉树/" itemprop="commentCount"></span>
+                <a href="/2019/12/25/SSM-2-JAVA设计模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/25/SSM-2-JAVA设计模式/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,272 +362,300 @@
       
         
           
-            <h2 id="第四章-树与二叉树"><a href="#第四章-树与二叉树" class="headerlink" title="第四章 树与二叉树"></a>第四章 树与二叉树</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">digraph demo&#123;</span><br><span class="line">    树形结构-&gt;二叉树[dir=none];</span><br><span class="line">    树形结构-&gt;树和森林[dir=none];</span><br><span class="line">    二叉树-&gt;概念[dir=none];</span><br><span class="line">    二叉树-&gt;操作[dir=none];</span><br><span class="line">    二叉树-&gt;应用[dir=none];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-1-树的基本概念"><a href="#4-1-树的基本概念" class="headerlink" title="4.1 树的基本概念"></a>4.1 树的基本概念</h3><h4 id="4-1-1-树的定义"><a href="#4-1-1-树的定义" class="headerlink" title="4.1.1 树的定义"></a>4.1.1 树的定义</h4><p>任何一颗非空树要满足</p>
-<ol>
-<li>有且只有一个特定的称为根的节点</li>
-<li>当$n$大于$1$时，其余节点可分为$m(m&gt;0)$个互不相交的有限集合$T_1, T_2, …,T_m$，其中每个集合本身又是一颗树，并且称为根节点的子树</li>
-</ol>
-<p>树是一种递归结构也是一种层次结构</p>
-<h4 id="4-1-2-基本术语"><a href="#4-1-2-基本术语" class="headerlink" title="4.1.2 基本术语"></a>4.1.2 基本术语</h4><ul>
-<li>祖先节点和子孙节点</li>
-<li>双亲节点和孩子节点</li>
-<li>兄弟节点</li>
-<li>节点的度: 某节点的子节点的个数称为该节点的度</li>
-<li>树的度: 树中节点的最大度数</li>
-<li>分支节点: 度大于$0$的节点</li>
-<li>叶子节点: 度为$0$的节点</li>
-<li>节点的层次、深度、高度，数的高度</li>
-<li>有序树和无序树</li>
-<li>路径和路径长度</li>
-<li>森林: 森林是$m(m\ge0)$棵互不相交的树的集合</li>
+            <h2 id="第-2-章-JAVA设计模式"><a href="#第-2-章-JAVA设计模式" class="headerlink" title="第 2 章 JAVA设计模式"></a>第 2 章 JAVA设计模式</h2><h3 id="2-1-JAVA反射技术"><a href="#2-1-JAVA反射技术" class="headerlink" title="2.1 JAVA反射技术"></a>2.1 JAVA反射技术</h3><ul>
+<li><p>Java反射技术应用广泛，它能够配置：类的全限定名、方法和参数，完成对象的初始化，甚至是反射某些方法</p>
+</li>
+<li><p>在Java中，反射是通过包<code>java.lang.reflect.*</code>来实现的</p>
+</li>
 </ul>
-<h4 id="4-1-3-树的性质"><a href="#4-1-3-树的性质" class="headerlink" title="4.1.3 树的性质"></a>4.1.3 树的性质</h4><ol>
-<li>树中的节点数等于所有节点的度数$+1$</li>
-<li>度为$m$的树中第$i$层上至多有$m^{i-1}$个节点</li>
-<li>高度为$h$的$m$叉树至多有$\frac{m^h-1}{m-1}$个节点</li>
-<li>具有$n$个节点的$m$叉树的最小高度为$log_m(n(m-1)+1)$</li>
-</ol>
-<h3 id="4-2-二叉树的概念"><a href="#4-2-二叉树的概念" class="headerlink" title="4.2 二叉树的概念"></a>4.2 二叉树的概念</h3><h4 id="4-2-1-二叉树的定义及其主要特性"><a href="#4-2-1-二叉树的定义及其主要特性" class="headerlink" title="4.2.1 二叉树的定义及其主要特性"></a>4.2.1 二叉树的定义及其主要特性</h4><h5 id="1-二叉树的定义"><a href="#1-二叉树的定义" class="headerlink" title="1 二叉树的定义"></a>1 二叉树的定义</h5><p>二叉树每个节点至多只有两棵子树，并且二叉树的子树有左右之分，其次序不能任意颠倒</p>
-<p>二叉树与度为$2$的有序树的区别</p>
-<ol>
-<li>度为$2$的树至少有$3$个节点，而二叉树可以为空</li>
-<li>度为$2$的有序树的孩子节点的左右次序是相对另一个孩子节点而言的，若某个节点只有一个孩子节点，则这个孩子节点就无需区分其左右顺序，而二叉树无论其孩子数是否为$2$，均需要确定其左右次序，即二叉树的节点次序不是相对于另一节点而言，而是确定的</li>
-</ol>
-<h5 id="2-几个特殊的二叉树"><a href="#2-几个特殊的二叉树" class="headerlink" title="2 几个特殊的二叉树"></a>2 几个特殊的二叉树</h5><ol>
-<li><p>满二叉树: 除了叶子节点，所有节点度都是2</p>
+<h4 id="2-1-1-通过反射构建对象"><a href="#2-1-1-通过反射构建对象" class="headerlink" title="2.1.1 通过反射构建对象"></a>2.1.1 通过反射构建对象</h4><ul>
+<li><p>Java中允许通过反射配置信息构建对象</p>
 </li>
-<li><p>完全二叉树: 略</p>
-</li>
-<li><p>二叉排序树</p>
+<li><p>示例一: 通过反射构建无参数的实例</p>
 <ul>
-<li>左子树上所有节点的关键字均小于根节点和关键字</li>
-<li>右子树上所有节点的关键字均大于根节点和关键字</li>
-<li>左子树和右子树又各是一棵二叉排序树</li>
+<li><p>ReflectServiceImpl: 我们要构建的类</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReflectServiceImpl</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello, "</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>反射生成对象的方式</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ReflectServiceImpl <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ReflectServiceImpl object = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">//给类加载器注册了一个类ReflectServiceImpl的全限定名，然后通过newInstance方法初始化一个对象</span></span><br><span class="line">        object = (ReflectServiceImpl)Class.forName(<span class="string">"com.edu.neu.ReflectServiceImpl"</span>).newInstance();</span><br><span class="line">    &#125;<span class="keyword">catch</span>(ClassNotFoundException | InstantiationException | IllegalAccessException ex)&#123;</span><br><span class="line">        ex.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> object;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-<li><p>平衡二叉树</p>
+<li><p>示例二: 通过反射构建有参数的实例</p>
 <ul>
-<li>树上任一节点的左子树和右子树的深度之差不超过$1$</li>
+<li><p>ReflectServiceImpl2: 构造方法含有参数的类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReflectServiceImpl2</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ReflectServiceImpl2</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hello "</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过反射生成带有参数的构造方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ReflectServiceImpl2 <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ReflectServiceImpl2 object = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">//先通过forName加载到类的加载器。然后通过getConstructor方法，它的参数可以是多个，这里定义为String.class,意为有且只有一个参数类型为String的构造方法</span></span><br><span class="line">        object = (ReflectServiceImpl2)Class.forName("com.edu.neu.ReflectServiceImpl2").getConstructor(String,class).newInstance("张三");</span><br><span class="line">    &#125;<span class="keyword">catch</span>(ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException ex)&#123;</span><br><span class="line">        ex.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> object;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-</ol>
-<h5 id="3-二叉树的性质"><a href="#3-二叉树的性质" class="headerlink" title="3 二叉树的性质"></a>3 二叉树的性质</h5><ol>
-<li>非空二叉树上的叶子节点数等于度为$2$的节点数加$1$，即$n_0=n_2+1$</li>
-<li>非空二叉树上第$k$层上至多又$2^{k-1}$个节点</li>
-<li>高度为$h$的二叉树至多为$2^h-1$</li>
-<li>具有$n$个($n&gt;0$)节点的完全二叉树的高度为$log_2(n+1)$或$log_2n+1$</li>
-</ol>
-<h4 id="4-2-2-二叉树的存储结构"><a href="#4-2-2-二叉树的存储结构" class="headerlink" title="4.2.2 二叉树的存储结构"></a>4.2.2 二叉树的存储结构</h4><h5 id="1-顺序存储结构"><a href="#1-顺序存储结构" class="headerlink" title="1 顺序存储结构"></a>1 顺序存储结构</h5><p>二叉树的顺序存储结构是指用一组地址连续的存储单元依次自上而下、自左而右存储完全二叉树上的节点元素</p>
-<p>依据二叉树的性质，完全二叉树和满二叉树采用顺序存储比较合适，树中节点的序号可以唯一地反应节点之间的逻辑关系，这样既可以节省存储空间，又能利用数组元素的下标值确定节点在二叉树中的位置，以及节点之间的关系</p>
-<p>对于一般二叉树，为了让数组下标能反映二叉树中节点之间的逻辑关系，只能添加一些并不存在的空节点</p>
-<h5 id="2-链式存储结构"><a href="#2-链式存储结构" class="headerlink" title="2 链式存储结构"></a>2 链式存储结构</h5><p>由于顺序存储的空间利用率较低，因此二叉树一般采用链式存储结构</p>
-<p>二叉链表至少包含$3$个域: 数据域<code>data</code>、左指针域<code>lchild</code>和右指针域<code>rchild</code></p>
-<p>二叉树的链式存储结构描述如下<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span> *<span class="title">lchild</span>, *<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BiTNode, *BiTree;</span><br></pre></td></tr></table></figure></p>
-<h3 id="4-3-二叉树的遍历和线索二叉树"><a href="#4-3-二叉树的遍历和线索二叉树" class="headerlink" title="4.3 二叉树的遍历和线索二叉树"></a>4.3 二叉树的遍历和线索二叉树</h3><h4 id="4-3-1-二叉树的遍历"><a href="#4-3-1-二叉树的遍历" class="headerlink" title="4.3.1 二叉树的遍历"></a>4.3.1 二叉树的遍历</h4><p>二叉树的遍历是指按照某条搜索路径访问树中的每个节点，使得每个节点均被访问一次</p>
-<h5 id="1-先序遍历-PreOrder"><a href="#1-先序遍历-PreOrder" class="headerlink" title="1 先序遍历(PreOrder)"></a>1 先序遍历(PreOrder)</h5><p>步骤如下:</p>
-<ol>
-<li>先访问根节点</li>
-<li>先序遍历左子树</li>
-<li>先序遍历右子树<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrder</span><span class="params">(BiTree t)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(t != <span class="literal">NULL</span>)&#123;</span><br><span class="line">        visit(t);</span><br><span class="line">        PreOrder(t-&gt;lchild);</span><br><span class="line">        PreOrder(t-&gt;rchild);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>反射的优点: 只要配置就可以生成对象，可以解除程序的耦合度，比较灵活</p>
 </li>
-</ol>
-<h5 id="2-中序遍历"><a href="#2-中序遍历" class="headerlink" title="2 中序遍历"></a>2 中序遍历</h5><p>步骤如下:</p>
-<ol>
-<li>中序遍历左子树</li>
-<li>访问根节点</li>
-<li>中序遍历右子树</li>
-</ol>
-<h5 id="3-后序遍历"><a href="#3-后序遍历" class="headerlink" title="3 后序遍历"></a>3 后序遍历</h5><p>步骤如下:</p>
-<ol>
-<li>后序遍历左子树</li>
-<li>后序遍历右子树</li>
-<li>访问根节点</li>
-</ol>
-<h5 id="4-递归算法与非递归算法的转换"><a href="#4-递归算法与非递归算法的转换" class="headerlink" title="4 递归算法与非递归算法的转换"></a>4 递归算法与非递归算法的转换</h5><p>以先序遍历和中序遍历为例</p>
-<p>中序遍历</p>
-<ol>
-<li>先将根节点的左子孙全加入栈中</li>
-<li>弹出并访问，并将该节点的右孩子和右孩子的所有左子孙加入栈中</li>
-<li>重复执行2，直到栈为空</li>
-</ol>
-<p>先序遍历</p>
-<ol>
-<li>对于根节点和它的所有左子孙，先访问并加入栈中</li>
-<li>弹出，访问该节点的右孩子和右孩子的所有左子孙并将它们加入栈中</li>
-<li>重复执行2，直到栈为空</li>
-</ol>
-<p>后序遍历</p>
-<ul>
-<li>每个节点需要一个标志来判断是不是第一次被访问</li>
-<li>先略</li>
-</ul>
-<h5 id="5-层次遍历"><a href="#5-层次遍历" class="headerlink" title="5 层次遍历"></a>5 层次遍历</h5><p>要进行层次遍历，需要借助一个队列</p>
-<ol>
-<li>先将二叉树的根节点入队，</li>
-<li>然后出队，访问该节点，若它有左子树，则将左子树根节点入队；若它有右子树，则将右子树根节点入队。</li>
-<li>如此反复，直到队列为空</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">levelOrder</span><span class="params">(BiTree T)</span></span>&#123;</span><br><span class="line">    InitQueue(Q);</span><br><span class="line">    BiTree p;</span><br><span class="line">    EnQueue(Q, T);</span><br><span class="line">    <span class="keyword">while</span>(!IsEmpty(Q))&#123;</span><br><span class="line">        DeQueue(Q, p);</span><br><span class="line">        visit(p);</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;lchild != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            EnQueue(Q, p-&gt;lchild);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;rchild != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            EnQueue(Q, p-&gt;rchild);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="6-由遍历构造二叉树"><a href="#6-由遍历构造二叉树" class="headerlink" title="6 由遍历构造二叉树"></a>6 由遍历构造二叉树</h5><p>由二叉树的先序遍历和中序遍历可以唯一地确定一棵二叉树，以下几种也可以</p>
-<ol>
-<li>中序和后序</li>
-<li>层序和中序</li>
-</ol>
-<p>但是先序和后序不可以</p>
-<h4 id="4-3-2-线索二叉树"><a href="#4-3-2-线索二叉树" class="headerlink" title="4.3.2 线索二叉树"></a>4.3.2 线索二叉树</h4><h5 id="1-线索二叉树的基本概念"><a href="#1-线索二叉树的基本概念" class="headerlink" title="1 线索二叉树的基本概念"></a>1 线索二叉树的基本概念</h5><p>遍历二叉树的实质: 是对一个非线性结构进行线性化操作，使这个访问序列中的每个节点都有一个直接前驱和一个直接后继</p>
-<p>引入线索二叉树是为了加快查找节点前驱和后继的速度</p>
-<p>二叉树线索化的方法</p>
-<ol>
-<li>若无左子树，令<code>lchild</code>指向其前驱节点；若无右子树，令<code>rchild</code>指向其后继节点</li>
-<li>还需要增加两个标志域来表明当前指针域所指对象是指向左/右子节点还是直接前驱/后继</li>
-</ol>
-<p>线索二叉树的储存结构描述为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ThreadNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ThreadNode</span> *<span class="title">lchild</span>, *<span class="title">rchild</span>;</span></span><br><span class="line">    <span class="keyword">int</span> ltag, rtag;</span><br><span class="line">&#125;ThreadNode;</span><br></pre></td></tr></table></figure></p>
-<h5 id="2-线索二叉树的构造"><a href="#2-线索二叉树的构造" class="headerlink" title="2 线索二叉树的构造"></a>2 线索二叉树的构造</h5><p>对二叉树的线索化，实质上是遍历一次二叉树，只是在遍历的过程中，检查当前节点左、右指针是否为空，若为空，将它们改为指向前驱节点和后继节点的线索</p>
-<p>中序遍历的递归算法为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InThread</span><span class="params">(ThreadTree *p, ThreadTree *pre)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        InThread(p-&gt;lchild, pre);</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;lchild == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            p-&gt;lchild = pre;</span><br><span class="line">            p-&gt;ltag = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( pre != <span class="literal">NULL</span> &amp;&amp; pre-&gt;rchilc == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            pre-&gt;rchild = p;</span><br><span class="line">            pre-&gt;rtag = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        pre=p;</span><br><span class="line">        InThread(p-&gt;rchild, pre);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateInThread</span><span class="params">(ThreadTree T)</span></span>&#123;</span><br><span class="line">    ThreadTree pre = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">if</span>(T != <span class="literal">NULL</span>)&#123;</span><br><span class="line">        InThread(T, pre);</span><br><span class="line">        pre-&gt;rchild = <span class="literal">NULL</span>;</span><br><span class="line">        pre-&gt;rtag = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="3-线索二叉树的遍历"><a href="#3-线索二叉树的遍历" class="headerlink" title="3 线索二叉树的遍历"></a>3 线索二叉树的遍历</h5><p>中序线索化二叉树主要是为了访问运算服务的，这种遍历不再需要借助栈，因为它的节点隐含了线索二叉树的前驱和后继信息</p>
-<p>算法如下</p>
-<ol>
-<li><p>求中序线索二叉树中中序序列下的第一个节点</p>
- <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ThreadNode *<span class="title">FirstNode</span><span class="params">(ThreadNode *p)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(p-&gt;ltag==<span class="number">0</span>)&#123;</span><br><span class="line">        p=p-&gt;lchild;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>反射的缺点: 运行比较慢</p>
 </li>
-<li><p>求中序线索二叉树中节点p在中序序列下的后继节点</p>
- <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function">ThreadNode *<span class="title">NextNode</span><span class="params">(ThreadNode *p)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;rtag==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> FirstNode(p-&gt;rchild);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> p-&gt;rchild;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ````    </span><br><span class="line"><span class="number">3.</span> 利用上面两个算法可以实现线索二叉树的中序遍历</span><br><span class="line">    ````c</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">InOrder</span><span class="params">(ThreadNode *T)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(ThreadNode *p=FirstNode(T); p!=<span class="literal">NULL</span>; p=NextNode(p))&#123;</span><br><span class="line">            visit(p);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</ul>
+<h4 id="2-1-2-反射方法"><a href="#2-1-2-反射方法" class="headerlink" title="2.1.2 反射方法"></a>2.1.2 反射方法</h4><ul>
+<li><p>下面讲解如何使用反射机制调用方法</p>
 </li>
-</ol>
-<h3 id="4-4-树、森林"><a href="#4-4-树、森林" class="headerlink" title="4.4 树、森林"></a>4.4 树、森林</h3><h4 id="4-4-1-树的存储结构"><a href="#4-4-1-树的存储结构" class="headerlink" title="4.4.1 树的存储结构"></a>4.4.1 树的存储结构</h4><h5 id="1-父亲表示法"><a href="#1-父亲表示法" class="headerlink" title="1 父亲表示法"></a>1 父亲表示法</h5><p>这种存储方式采用一组连续空间来存储每个节点，同时在每个节点中增设一个伪指针，指示其父亲节点在数组中的位置</p>
-<h5 id="2-孩子表示法"><a href="#2-孩子表示法" class="headerlink" title="2 孩子表示法"></a>2 孩子表示法</h5><p>孩子表示法是将每个节点的孩子节点都用单链表链接起来形成一个线性结构，此时$n$个节点就有$n$个孩子链表</p>
-<h5 id="3-孩子兄弟表示法"><a href="#3-孩子兄弟表示法" class="headerlink" title="3 孩子兄弟表示法"></a>3 孩子兄弟表示法</h5><p>又称为二叉树表示法，以二叉链表作为树的存储结构，孩子兄弟表示法使每个节点包括三部分内容</p>
-<ul>
-<li>节点值</li>
-<li>指向节点第一个孩子节点的指针</li>
-<li>指向节点下一个兄弟节点的指针</li>
+<li><p>示例: 获取和反射方法</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">reflectMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Object returnObj = <span class="keyword">null</span>;</span><br><span class="line">    ReflectServiceImpl tatget = <span class="keyword">new</span> ReflectServiceImpl();</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        Method method = ReflectServiceImpl.class.getMethod(<span class="string">"sayHello"</span>, String.class);</span><br><span class="line">        returnObj = method.invoke(target, <span class="string">"张三"</span>);</span><br><span class="line">    &#125;<span class="keyword">catch</span>(ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException ex)&#123;</span><br><span class="line">        ex.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> returnObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>孩子兄弟表示法的存储结构描述<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">CSNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">CSNode</span> *<span class="title">firstchild</span>, *<span class="title">nextsibling</span>;</span></span><br><span class="line">&#125;CSNode</span><br></pre></td></tr></table></figure></p>
-<h4 id="4-4-2-树、森林和二叉树的转换"><a href="#4-4-2-树、森林和二叉树的转换" class="headerlink" title="4.4.2 树、森林和二叉树的转换"></a>4.4.2 树、森林和二叉树的转换</h4><p>树与二叉树的关系</p>
-<ul>
-<li>给定一棵树，可以找到唯一的一棵二叉树与之对应。</li>
-<li>从物理结构上看，树的孩子兄弟表示法与二叉树的二叉链表表示法相同</li>
-<li>因此，可以用同一存储结构的不同解释将一棵树转换为二叉树</li>
+<h4 id="2-1-3-实例"><a href="#2-1-3-实例" class="headerlink" title="2.1.3 实例"></a>2.1.3 实例</h4><ul>
+<li><p>示例: 如何通过反射生成对象和反射调用方法</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">reflect</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ReflectServiceImpl object = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        object = (ReflectServiceImpl)Class.forName(<span class="string">"com.edu.neu.ReflectServiceImpl"</span>).newInstance();</span><br><span class="line">        Method method = object.getClass().getMethod(<span class="string">"sayHello"</span>, String,<span class="class"><span class="keyword">class</span>)</span>;</span><br><span class="line">        method.invoke(object, <span class="string">"张三"</span>);</span><br><span class="line">    &#125;<span class="keyword">catch</span>(ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException ex)&#123;</span><br><span class="line">        ex.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> object;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对象在反射机制下生成后，反射了方法，这样我们完全可以通过配置来完成对象和方法的反射，大大增加了Java的可配置性和可扩展性，其中<code>Spring IoC</code>就是一个典型的例子</p>
+</li>
 </ul>
-<p>树转换为二叉树的规则</p>
+<h3 id="2-2-动态代理模式和责任链模式"><a href="#2-2-动态代理模式和责任链模式" class="headerlink" title="2.2 动态代理模式和责任链模式"></a>2.2 动态代理模式和责任链模式</h3><ul>
+<li><p>动态代理的意义在于生成一个占位(又称代理对象)，来代理真实对象，从而控制对真实对象的访问</p>
+</li>
+<li><p>代理的作用就是，在真实对象访问之前或之后加入对应的逻辑，或者根据其他规则控制是否使用真实对象，显然在这个例子中商务控制了客户对软件工程师的访问</p>
+</li>
+<li><p>示例<br>  <img src="/2019/12/25/SSM-2-JAVA设计模式/0423_0.PNG" alt=""></p>
+</li>
+<li><p>我们需要在调用调用对象之前产生一个代理对象，而这个代理对象需要和真实对象建立起代理关系，所以代理对象分为两步</p>
 <ul>
-<li>每个节点左指针指向它的第一个孩子节点</li>
-<li>右指针指向它在树中的相邻兄弟节点</li>
-</ul>
-<p>森林转换为二叉树的规则</p>
-<ul>
-<li>先将森林中的每棵树转换为二叉树</li>
-<li>将第一棵树的根作为转换后二叉树的根，将第一棵树的左子树作为转换后二叉树根的左子树</li>
-<li>将第二棵树作为转化后二叉树的右子树</li>
-<li>将第三棵树作为转化后二叉树根的右子树的右子树</li>
-</ul>
-<p>二叉树转换回森林的规则</p>
-<ul>
-<li>略，与前面的过程相反</li>
-</ul>
-<h4 id="4-4-3-树和森林的遍历"><a href="#4-4-3-树和森林的遍历" class="headerlink" title="4.4.3 树和森林的遍历"></a>4.4.3 树和森林的遍历</h4><h5 id="1-树的遍历"><a href="#1-树的遍历" class="headerlink" title="1 树的遍历"></a>1 树的遍历</h5><ol>
-<li>先根遍历: 若树非空，则先访问根节点，再按从左到右的顺序遍历根节点的每棵子树。其顺序与这棵树相应二叉树的先序遍历顺序相同</li>
-<li>后根遍历: 若树非空，则按从左到右的顺序遍历根节点的每棵子树，之后再访问根节点，其访问顺序与这棵树对应二叉树的中序遍历顺序相同</li>
-</ol>
-<h5 id="2-森林的遍历"><a href="#2-森林的遍历" class="headerlink" title="2 森林的遍历"></a>2 森林的遍历</h5><ol>
-<li><p>先序遍历森林</p>
-<ul>
-<li>访问森林中第一课树的根节点</li>
-<li>先序遍历第一课树中根节点的子树森林</li>
-<li>先序遍历除去第一棵树之后剩余的树构成的森林</li>
+<li>代理对象和真实对象建立代理关系</li>
+<li>实现代理对象的代理逻辑技术</li>
 </ul>
 </li>
-<li><p>中序遍历森林</p>
+<li><p>常见的动态代理技术</p>
+<ol>
+<li>JDK</li>
+<li>CGLIB</li>
+<li>Javassist</li>
+<li>ASM</li>
+</ol>
+</li>
+</ul>
+<h4 id="2-2-1-JDK动态代理"><a href="#2-2-1-JDK动态代理" class="headerlink" title="2.2.1 JDK动态代理"></a>2.2.1 JDK动态代理</h4><ul>
+<li><p>简介: JDK动态代理是<code>java.lang.reflect.*</code>包提供的方式，它<strong>必须借助一个接口</strong>才能产生代理对象</p>
+</li>
+<li><p>示例代码:使用JDK动态代理</p>
 <ul>
-<li>中序遍历森林中第一棵树的根节点的子树森林</li>
-<li>访问第一棵树的根节点</li>
-<li>中序遍历除去第一棵树之后剩余的树构成的森林</li>
+<li><p>定义<code>HelloWorld</code>接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sayHelloWorld</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义<code>HelloWorldImpl</code>类实现<code>HelloWorld</code>接口，这个类充当真实对象的角色</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldImpl</span> <span class="keyword">implements</span> <span class="title">HelloWorld</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHelloWorld</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello World"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义<code>JdkProxyExample</code>类来实现<code>java.lang.reflect.InvocationHandler</code>接口，这个类用来动态绑定代理和实现代理逻辑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdkProxyExample</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object target = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 建立代理对象和真实对象的代理关系，并返回代理对象</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> target 真实对象</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span> 代理对象</span></span><br><span class="line"><span class="comment">    * */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">bind</span><span class="params">(Object target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target = target;</span><br><span class="line">        <span class="keyword">return</span> Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), <span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 代理方法逻辑</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> proxy	代理对象</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> method 当前调用方法</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> args 当前方法参数</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span> java.lang.Object 代理结果返回</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@author</span> t0ugh</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@date</span> 2019/4/23 16:26</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"进入代理逻辑方法"</span>);</span><br><span class="line">        System.out.println(<span class="string">"在调度真实对象之前的服务"</span>);</span><br><span class="line">        Object obj = method.invoke(target, args);</span><br><span class="line">        System.out.println(<span class="string">"在调度真实对象之后的服务"</span>);</span><br><span class="line">        <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>程序主入口，测试JDK动态代理<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        JdkProxyExample jdk = <span class="keyword">new</span> JdkProxyExample();</span><br><span class="line">        HelloWorld proxy = (HelloWorld)jdk.bind(<span class="keyword">new</span> HelloWorldImpl());</span><br><span class="line">        proxy.sayHelloWorld();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>代码解读(<code>JdkProxyExample</code>类)</p>
+<ol>
+<li>建立代理对象和真实对象的关系<ul>
+<li>这里使用<code>bind</code>方法完成，方法里首先用类的属性<code>target</code>保存了真实对象，并且调用<code>Proxy.newProxyInstace</code>建立并生成了代理对象</li>
+<li><code>newProxyInstance</code>方法包含3个参数<ul>
+<li>第1个是类加载器，我们采用了<code>target</code>本身的类加载器。</li>
+<li>第2个是把生成的动态代理对象下挂在哪些接口下，这个写法就是放在<code>target</code>实现的接口下。<code>HelloWorldlmpl</code>对象的接口显然就是<code>HelloWorld</code></li>
+<li>第3个是定义实现方法逻辑的代理类，<code>this</code>表示当前对象，它必须实现<code>InvocationHandler</code>接口的<code>invoke</code>方法，它就是代理逻辑方法的现实方法。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>实现代理逻辑方法<ul>
+<li><code>invoke</code>方法可以实现代理逻辑</li>
+<li><code>invoke</code>方法的三个参数如下<ul>
+<li><code>proxy</code>, 代理对象，也就是通过<code>bind</code>方法生成的对象</li>
+<li><code>method</code>, 当前调度的方法</li>
+<li><code>args</code>，调度方法的参数</li>
+</ul>
+</li>
 </ul>
 </li>
 </ol>
-<h4 id="4-4-5-树的应用–并查集"><a href="#4-4-5-树的应用–并查集" class="headerlink" title="4.4.5 树的应用–并查集"></a>4.4.5 树的应用–并查集</h4><p>并查集是一种简单的集合表示，它支持以下三种操作</p>
-<ol>
-<li><code>Union(S, Root1, Root2)</code>: 把集合<code>S</code>中的子集合<code>Root2</code>并入子集合<code>Root1</code>。要求<code>Root1</code>和<code>Root2</code>互不相交，否则无法合并</li>
-<li><code>Find(S, x)</code>: 查找集合<code>S</code>中单元素<code>x</code>所在的子集合，并返回该子集合的名字</li>
-<li><code>Initial(S)</code>: 将集合<code>S</code>中的每个元素都初始化为只有一个单元素的子集合</li>
-</ol>
-<p>通常用树的父亲表示法作为并查集的存储结构</p>
+</li>
+<li><p>类比前面的例子</p>
 <ul>
-<li>每个子集合以一棵树表示</li>
-<li>所有表示子集合的树，构成全集合的森林，存放在父亲表示数组内</li>
-<li>为了得到两个子集合的并，只需要将其中一个子集合根节点的父亲指针指向另一个集合的根节点</li>
+<li>proxy 相当于商务</li>
+<li>target 相当于软件工程师</li>
+<li>bind 方法就是建立商务和软件工程师代理关系的方法</li>
+<li>invoke，相当于商务逻辑，它控制对软件工程师的访问</li>
 </ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">define</span> SIZE 100</span></span><br><span class="line"><span class="keyword">int</span> UFSets[SIZE];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Initial</span><span class="params">(<span class="keyword">int</span> S[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i ++)&#123;</span><br><span class="line">        S[i] = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> S[], <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(S[x] &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">        x = S[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(<span class="keyword">int</span> S[], <span class="keyword">int</span> Root1, <span class="keyword">int</span> Root2)</span></span>&#123;</span><br><span class="line">    S[Root2]=Root1;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-5-树与二叉树的应用"><a href="#4-5-树与二叉树的应用" class="headerlink" title="4.5 树与二叉树的应用"></a>4.5 树与二叉树的应用</h3><h4 id="4-5-1-二叉排序树"><a href="#4-5-1-二叉排序树" class="headerlink" title="4.5.1 二叉排序树"></a>4.5.1 二叉排序树</h4><h5 id="1-二叉排序树的定义"><a href="#1-二叉排序树的定义" class="headerlink" title="1 二叉排序树的定义"></a>1 二叉排序树的定义</h5><p>二叉排序树(BST)，又称二叉查找树</p>
-<ol>
-<li>若左子树非空，则左子树上所有节点关键字值均小于根节点关键字值</li>
-<li>若右子树非空。则右子树上所有节点关键字值均大于根节点关键字值</li>
-<li>左、右子树本身也分别是一棵二叉排序树</li>
-</ol>
-<h5 id="2-二叉排序树的查找"><a href="#2-二叉排序树的查找" class="headerlink" title="2 二叉排序树的查找"></a>2 二叉排序树的查找</h5><p>二叉排序树的查找从根节点开始，沿某个分支逐层向下进行比较。若当前节点为空，则查找失败。若当前节点非空且与给定值相等，则查找成功。若给定关键字小于当前节点关键字，则在这个节点的左子树查找，否则在右子树查找。</p>
-<h5 id="3-二叉排序树的插入"><a href="#3-二叉排序树的插入" class="headerlink" title="3 二叉排序树的插入"></a>3 二叉排序树的插入</h5><p>若为空，则直接插入节点；否则，若给定值小于当前节点值，则插入到左子树；否则，插入到右子树</p>
-<h5 id="4-二叉排序树的构建"><a href="#4-二叉排序树的构建" class="headerlink" title="4 二叉排序树的构建"></a>4 二叉排序树的构建</h5><p>略</p>
-<h5 id="5-二叉排序树的删除"><a href="#5-二叉排序树的删除" class="headerlink" title="5 二叉排序树的删除"></a>5 二叉排序树的删除</h5><ol>
-<li>若被删除节点$z$是叶子节点，则直接删除</li>
-<li>若节点$z$只有左子树或右子树，则让$z$的子树成为$z$父节点的子树，替代$z$的位置</li>
-<li>若节点$z$有左、右两棵子树，则令$z$的直接后继(或直接前驱)替代$z$，然后将问题转换为$z$的直接后继(或直接前驱)的删除问题，直到转换为情况1或情况2</li>
-</ol>
-<h5 id="6-二叉排序树的查找效率分析"><a href="#6-二叉排序树的查找效率分析" class="headerlink" title="6 二叉排序树的查找效率分析"></a>6 二叉排序树的查找效率分析</h5><p>二叉排序树查找算法的效率，主要取决于树的高度。对于高度为$h$的二叉排序树，其插入和删除操作的运行时间都为$O(h)$</p>
+</li>
+</ul>
+<h4 id="2-2-2-CGLIB动态代理"><a href="#2-2-2-CGLIB动态代理" class="headerlink" title="2.2.2 CGLIB动态代理"></a>2.2.2 CGLIB动态代理</h4><ul>
+<li><p>CGLIB动态代理的优势在于它不需要提供接口，只要一个非抽象类就可以实现动态代理</p>
+</li>
+<li><p>示例代码: CGLIB动态代理</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CglibProxyExample</span> <span class="keyword">implements</span> <span class="title">MethodInterceptor</span></span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生成CGLIB代理对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> cls Class类</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Class类的CGLIB代理对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getProxy</span><span class="params">(Class cls)</span></span>&#123;</span><br><span class="line">        <span class="comment">//CGLIB enhancer增强类对象</span></span><br><span class="line">        Enhancer enhancer = <span class="keyword">new</span> Enhancer();</span><br><span class="line">        <span class="comment">//设置增强类型</span></span><br><span class="line">        enhancer.setSuperclass(cls);</span><br><span class="line">        <span class="comment">//定义代理逻辑对象为当前对象，要求当前对象实现MethodInterceptor接口</span></span><br><span class="line">        enhancer.setCallback(<span class="keyword">this</span>);</span><br><span class="line">        <span class="comment">//生成并返回代理对象</span></span><br><span class="line">        <span class="keyword">return</span> enhancer.create();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 代理逻辑方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> proxy 代理对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> method 方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> args 方法参数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> methodProxy 方法代理</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object proxy, Method method, Object[] args, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"调用真实对象前"</span>);</span><br><span class="line">        <span class="comment">//CGLIB反射调用真实对象</span></span><br><span class="line">        Object result = methodProxy.invokeSuper(proxy, args);</span><br><span class="line">        System.out.println(<span class="string">"调用真实对象后"</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        CglibProxyExample cpe = <span class="keyword">new</span> CglibProxyExample();</span><br><span class="line">        ReflectServiceImpl obj = (ReflectServiceImpl)cpe.getProxy(ReflectServiceImpl.class);</span><br><span class="line">        obj.sayHello(<span class="string">"张三"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>概括: JDK动态代理和CGLIB动态代理都是通过<code>getProxy</code>方法生成代理对象，制定代理的逻辑类。而代理的逻辑类要实现一个接口的一个方法，这个方法就是代理对象的逻辑方法，它可以控制真实对象的方法</p>
+</li>
+</ul>
+<h4 id="2-2-3-拦截器"><a href="#2-2-3-拦截器" class="headerlink" title="2.2.3 拦截器"></a>2.2.3 拦截器</h4><ul>
+<li><p>拦截器可以进一步简化动态代理的使用方法，使程序变得更简单</p>
 <ul>
-<li>若二叉排序树是一个只有左(或右)孩子的单支树，则其平均查找长度与单链表相同，为$O(n)$</li>
-<li>若二叉排序树的左、右子树的高度之差的绝对值不超过$1$，则这样的二叉排序树为平衡二叉树，它的平均查找长度为$O(log_2n)$</li>
+<li>开发者只要知道拦截器的作用就可以编写拦截器，编写完后可以设置拦截器，这样就完成了任务，所以对于开发者来说相对简单了</li>
+<li>设计者可能是精通java的开发人员，他来完成动态代理的逻辑</li>
+<li>设计者只会把拦截器接口暴露给开发者使用，让动态代理的逻辑在开发者的视野中“消失”</li>
 </ul>
-<h4 id="4-5-2-平衡二叉树"><a href="#4-5-2-平衡二叉树" class="headerlink" title="4.5.2 平衡二叉树"></a>4.5.2 平衡二叉树</h4><h5 id="1-平衡二叉树的定义"><a href="#1-平衡二叉树的定义" class="headerlink" title="1 平衡二叉树的定义"></a>1 平衡二叉树的定义</h5><p>平衡二叉树: 任意节点的左、右子树高度差的绝对值不超过1，将这样的二叉树称为平衡二叉树</p>
-<p>平衡因子: 定义节点左子树与右子树的高度差为该节点的平衡因子</p>
-<h5 id="2-平衡二叉树的插入"><a href="#2-平衡二叉树的插入" class="headerlink" title="2 平衡二叉树的插入"></a>2 平衡二叉树的插入</h5><p>二叉排序树保证平衡的基本思想如下</p>
+</li>
+<li><p>示例：使用JDK实现一个拦截器</p>
+<ol>
+<li><p>定义拦截器接口<code>Interceptor</code>,通常存在于类库中，由类库的设计人员实现</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> t0ugh</span></span><br><span class="line"><span class="comment">* <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment">* <span class="doctag">@date</span> 2019/4/24 20:11</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Interceptor</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">before</span><span class="params">(Object proxy, Object target, Method method, Object[] args)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">around</span><span class="params">(Object proxy, Object target, Method method, Object[] args)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">after</span><span class="params">(Object proxy, Object target, Method method, Object[] args)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>每当在二叉排序树中插入一个节点时，首先检查其插入路径上的节点是否因为此次操作而导致了不平衡</li>
-<li>若导致了不平衡，则先找到插入路径上离插入节点最近的平衡因子的绝对值大于$1$的节点A</li>
-<li>再对以A为根的子树，在保持二叉排序树特性的前提下，调整各节点的位置关系，使之重新达到平衡</li>
+<li><code>before</code>方法: 返回<code>boolean</code>值，它在真实对象前调用。当返回<code>true</code>时，则反射真实对象的方法；当返回为<code>false</code>时，则调用<code>around</code>方法</li>
+<li><code>around</code>方法: 当<code>before</code>方法返回为<code>false</code>时，执行<code>around</code>方法</li>
+<li>在反射真实对象方法或者<code>around</code>方法执行之后，调用<code>after</code>方法</li>
 </ul>
-<p>调整方法如下</p>
+</li>
+<li><p>定义一个<code>Interceptor</code>接口的实现类，由开发人员实现，来控制对真实对象的访问，这里只是随便实现一个比较简单的没有任何功能的<code>Interceptor</code></p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> t0ugh</span></span><br><span class="line"><span class="comment">* <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment">* <span class="doctag">@date</span> 2019/4/24 20:14</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInterceptor</span> <span class="keyword">implements</span> <span class="title">Interceptor</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">before</span><span class="params">(Object proxy, Object target, Method method, Object[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"反射方法前逻辑"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">around</span><span class="params">(Object proxy, Object target, Method method, Object[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"取代了被代理对象的方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">after</span><span class="params">(Object proxy, Object target, Method method, Object[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"反射方法后逻辑"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在JDK动态代理中使用拦截器，由类库的设计者实现，对程序开发人员透明</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> t0ugh</span></span><br><span class="line"><span class="comment">* <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment">* <span class="doctag">@date</span> 2019/4/24 20:16</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterceptorJdkProxy</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object target;<span class="comment">//真实对象</span></span><br><span class="line">    <span class="keyword">private</span> String interceptorClass = <span class="keyword">null</span>;<span class="comment">//拦截器全限定名</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">InterceptorJdkProxy</span><span class="params">(Object target, String interceptorClass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target = target;</span><br><span class="line">        <span class="keyword">this</span>.interceptorClass = interceptorClass;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 绑定委托对象并返回一个[代理占位]</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> target 真实对象</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> interceptorClass 实现了InvocationHandler的类</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span> 代理对象[占位]</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">bind</span><span class="params">(Object target, String interceptorClass)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), <span class="keyword">new</span> InterceptorJdkProxy(target, interceptorClass));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">    * 通过代理对象调用方法， 首先进入这个方法</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> proxy 代理对象</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> method 方法，被调用的方法</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> args 方法的参数</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    * <span class="doctag">@throws</span> Throwable</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(interceptorClass == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">//没有设置拦截器则直接反射原有的方法</span></span><br><span class="line">            <span class="keyword">return</span> method.invoke(target, args);</span><br><span class="line">        &#125;</span><br><span class="line">        Object result = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//通过反射生成拦截器</span></span><br><span class="line">        Interceptor interceptor = (Interceptor) Class.forName(interceptorClass).newInstance();</span><br><span class="line">        <span class="comment">//调用前置方法</span></span><br><span class="line">        <span class="keyword">if</span>(interceptor.before(proxy, target, method, args))&#123;</span><br><span class="line">            <span class="comment">//反射原有的方法</span></span><br><span class="line">            result = method.invoke(target, args);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;<span class="comment">//假如返回false执行around方法</span></span><br><span class="line">            interceptor.around(proxy, target, method, args);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//调用后置方法</span></span><br><span class="line">        interceptor.after(proxy, target, method, args);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>执行步骤(针对上文<code>InterceptorProxy</code>类)<ol>
+<li>在bind 方法中用JDK 动态代理绑定了一个对象，然后返回代理对象。</li>
+<li>如果没有设置拦截器， 则直接反射真实对象的方法，然后结束，否则进行第 3 步。</li>
+<li>通过反射生成拦截器，并准备使用它。</li>
+<li>调用拦截器的before 方法，如果返回为true ，反射原来的方法；否则运行拦截器的around 方法。</li>
+<li>调用拦截器的after 方法。</li>
+<li>返回结果。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>测试拦截器：可以看出，比手动实现Proxy的方式更加简单了 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ReflectDemo.JDKProxy.HelloWorld;</span><br><span class="line"><span class="keyword">import</span> ReflectDemo.JDKProxy.HelloWorldImpl;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> t0ugh</span></span><br><span class="line"><span class="comment">* <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment">* <span class="doctag">@date</span> 2019/4/24 20:32</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        HelloWorld proxy = (HelloWorld) InterceptorJdkProxy.bind(<span class="keyword">new</span> HelloWorldImpl(), <span class="string">"InterceptorDemo.MyInterceptor"</span>);</span><br><span class="line">        proxy.sayHelloWorld();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>拦截器的工作流程图<br>  <img src="/2019/12/25/SSM-2-JAVA设计模式/0424_1.PNG" alt=""></p>
+</li>
+</ul>
+<h4 id="2-2-4-责任链模式"><a href="#2-2-4-责任链模式" class="headerlink" title="2.2.4 责任链模式"></a>2.2.4 责任链模式</h4><ul>
+<li><p>责任链模式</p>
+<ul>
+<li>当一个对象在一个链上被多个拦截器拦截处理（拦截器也可以选择不拦截处理它）时，我们把这种设计模式称为责任链模式</li>
+<li>可以考虑用层层代理的方式来实现这种模式</li>
+<li>拦截逻辑如下图<br>  <img src="/2019/12/25/SSM-2-JAVA设计模式/0424_0.PNG" alt=""></li>
+</ul>
+</li>
+<li><p>示例：使用层层代理的方式实现责任链模式</p>
 <ol>
-<li>LL平衡旋转<ul>
-<li>将A的左孩子B向右上旋转代替A成为根节点</li>
-<li>将A节点向右下旋转成为B的右子树的根节点</li>
-<li>B的原右子树作为A的左子树</li>
-</ul>
+<li><p>定义3个拦截器</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Interceptor1</span> <span class="keyword">implements</span> <span class="title">Interceptor</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">before</span> <span class="params">(Object proxy, Object target , Method method , Object [] args)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"拦截器1的before方法"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">around</span><span class="params">(Object proxy, Object target, Method method, Object [] args)</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">after</span> <span class="params">(Object proxy, Object target, Method method, Object [] args)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"拦截器1的after方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Interceptor2</span> <span class="keyword">implements</span> <span class="title">Interceptor</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">before</span> <span class="params">(Object proxy, Object target , Method method , Object [] args)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"拦截器2的before方法"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">around</span><span class="params">(Object proxy, Object target, Method method, Object [] args)</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">after</span> <span class="params">(Object proxy, Object target, Method method, Object [] args)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"拦截器2的after方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Interceptor3</span> <span class="keyword">implements</span> <span class="title">Interceptor</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">before</span> <span class="params">(Object proxy, Object target , Method method , Object [] args)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"拦截器3的before方法"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">around</span><span class="params">(Object proxy, Object target, Method method, Object [] args)</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">after</span> <span class="params">(Object proxy, Object target, Method method, Object [] args)</span></span>&#123; </span><br><span class="line">        System.out.println(<span class="string">"拦截器3的after方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>RR平衡旋转<ul>
-<li>略</li>
-</ul>
-</li>
-<li>LR平衡旋转<ul>
-<li>先将A节点的左孩子B的右子树的根节点C向左上旋转提升到B节点的位置</li>
-<li>然后再把该C节点向右上旋转提升到A节点的位置</li>
-</ul>
-</li>
-<li>RL平衡旋转<ul>
-<li>略<h5 id="3-平衡二叉树的查找"><a href="#3-平衡二叉树的查找" class="headerlink" title="3 平衡二叉树的查找"></a>3 平衡二叉树的查找</h5></li>
+<li><p>测试责任链模式上的多拦截器</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    HelloWorld proxy1 = (HelloWorld)InterceptorJdkProxy.bind(<span class="keyword">new</span> HelloWorldimpl(), <span class="string">"interceptor.Interceptorl"</span>);</span><br><span class="line">    HelloWorld proxy2 = (HelloWorld)InterceptorJdkProxy.bind(proxy1, <span class="string">"interceptor.Interceptor2"</span>);</span><br><span class="line">    HelloWorld proxy3 = (HelloWorld)InterceptorJdkProxy.bind(proxy2, <span class="string">"interceptor.Interceptor3"</span>);           </span><br><span class="line">    proxy3.sayHelloWorld() ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>before</code>方法按照从最后一个拦截器都第一个拦截器的加载顺序运行</li>
+<li><code>after</code>方法按照从第一个拦截器到最后一个拦截器的加载顺序运行</li>
 </ul>
 </li>
 </ol>
-<p>含有n个节点的平衡二叉树的最大深度为$O(log_2n)$，因此平衡二叉树的平均查找长度为$O(log_2n)$</p>
-<h4 id="4-5-3-哈夫曼树和哈夫曼编码"><a href="#4-5-3-哈夫曼树和哈夫曼编码" class="headerlink" title="4.5.3 哈夫曼树和哈夫曼编码"></a>4.5.3 哈夫曼树和哈夫曼编码</h4><h5 id="1-哈夫曼树的定义"><a href="#1-哈夫曼树的定义" class="headerlink" title="1 哈夫曼树的定义"></a>1 哈夫曼树的定义</h5><p>节点的权: 为树中节点赋予的一个表示某种特殊意义的数值</p>
-<p>节点的带权路径长度: 从树根节点到该节点的路径长度与该节点上权值的乘积</p>
-<p>树的带权路径长度: 树中所有叶节点的带权路径长度之和称为该树的带权路径长度</p>
-<p>哈夫曼树(最优二叉树): 在含有n个带权叶子节点的二叉树中，带权路径长度最小的二叉树</p>
-<h5 id="2-哈夫曼树的构建"><a href="#2-哈夫曼树的构建" class="headerlink" title="2 哈夫曼树的构建"></a>2 哈夫曼树的构建</h5><p>通过哈夫曼算法可以构建最优二叉树，如下</p>
+</li>
+</ul>
+<ul>
+<li>责任链模式的优缺点<ul>
+<li>优点：可以在传递链上加入新的拦截器，增加拦截逻辑</li>
+<li>缺点：会增加代理和反射，而代理和反射的性能不高</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-观察者模式"><a href="#2-3-观察者模式" class="headerlink" title="2.3 观察者模式"></a>2.3 观察者模式</h3><ul>
+<li><p>观察者模式</p>
+<ul>
+<li>又称为发布订阅模式，是对象的行为模式</li>
+<li>观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监视着被观察者的状态，当被观察者的状态发生变化时，会通知所有观察者，并让其自动更新自己</li>
+<li>被观察者是自变量而观察者是因变量</li>
+</ul>
+</li>
+<li><p>示例：如何使用JDK中的观察者模式</p>
 <ol>
-<li>将这$n$个节点分别作为$n$棵仅含有一个节点的二叉树，构成森林$F$</li>
-<li>构造一个新节点，从$F$中选取两棵根节点权值最小的树作为新节点的左、右子树，并且将新节点的权值置为左、右子树上根节点的权值之和</li>
-<li>从$F$中删除刚才选出的两棵树，同时将新得到的树加入到$F$中</li>
-<li>重复2和3，直到F中只剩下一棵树为止</li>
+<li><p>继承类库中的Observable类，定义一个被观察者</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Observable;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> t0ugh</span></span><br><span class="line"><span class="comment">* <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment">* <span class="doctag">@date</span> 2019/4/24 21:22</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductList</span> <span class="keyword">extends</span> <span class="title">Observable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; productList = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ProductList instance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">ProductList</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ProductList <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> ProductList();</span><br><span class="line">            instance.productList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addProduct</span><span class="params">(String newProduct)</span></span>&#123;</span><br><span class="line">        productList.add(newProduct);</span><br><span class="line">        System.out.println(<span class="string">"产品列表增加了: "</span> + newProduct);</span><br><span class="line">        <span class="keyword">this</span>.setChanged();</span><br><span class="line">        <span class="keyword">this</span>.notifyObservers(newProduct);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现类库中的Observer接口，定义两个被观察者</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Observable;</span><br><span class="line"><span class="keyword">import</span> java.util.Observer;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> t0ugh</span></span><br><span class="line"><span class="comment">* <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment">* <span class="doctag">@date</span> 2019/4/24 21:27</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JingDongObserver</span> <span class="keyword">implements</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Observable o, Object product)</span> </span>&#123;</span><br><span class="line">        String newProduct = (String) product;</span><br><span class="line">        System.out.println(<span class="string">"发布了新产品: "</span> + newProduct + <span class="string">"，已加入京东"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Observable;</span><br><span class="line"><span class="keyword">import</span> java.util.Observer;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> t0ugh</span></span><br><span class="line"><span class="comment">* <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment">* <span class="doctag">@date</span> 2019/4/24 21:28</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TaoBaoObserver</span> <span class="keyword">implements</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Observable o, Object product)</span> </span>&#123;</span><br><span class="line">        String newProduct = (String) product;</span><br><span class="line">        System.out.println(<span class="string">"发布了新产品: "</span> + newProduct + <span class="string">"，已加入淘宝"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试观察者模式</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@author</span> t0ugh</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@date</span> 2019/4/24 21:30</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">                ProductList productList =ProductList.getInstance();</span><br><span class="line">                productList.addObserver(<span class="keyword">new</span> JingDongObserver());</span><br><span class="line">                productList.addObserver(<span class="keyword">new</span> TaoBaoObserver());</span><br><span class="line">                productList.addProduct(<span class="string">"呆滞牌夹心饼干"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ````### 2.3 观察者模式</span><br><span class="line"></span><br><span class="line">- 观察者模式</span><br><span class="line">    - 又称为发布订阅模式，是对象的行为模式</span><br><span class="line">    - 观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监视着被观察者的状态，当被观察者的状态发生变化时，会通知所有观察者，并让其自动更新自己</span><br><span class="line">    - 被观察者是自变量而观察者是因变量</span><br><span class="line"></span><br><span class="line">- 示例：如何使用JDK中的观察者模式</span><br><span class="line">    <span class="number">1</span>. 继承类库中的Observable类，定义一个被观察者</span><br><span class="line">        ````java</span><br><span class="line">        <span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line">        <span class="keyword">import</span> java.util.List;</span><br><span class="line">        <span class="keyword">import</span> java.util.Observable;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@author</span> t0ugh</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment">        * <span class="doctag">@date</span> 2019/4/24 21:22</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductList</span> <span class="keyword">extends</span> <span class="title">Observable</span> </span>&#123;</span><br><span class="line">            <span class="keyword">private</span> List&lt;String&gt; productList = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">private</span> <span class="keyword">static</span> ProductList instance;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">private</span> <span class="title">ProductList</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ProductList <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> ProductList();</span><br><span class="line">                    instance.productList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> instance;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addProduct</span><span class="params">(String newProduct)</span></span>&#123;</span><br><span class="line">                productList.add(newProduct);</span><br><span class="line">                System.out.println(<span class="string">"产品列表增加了: "</span> + newProduct);</span><br><span class="line">                <span class="keyword">this</span>.setChanged();</span><br><span class="line">                <span class="keyword">this</span>.notifyObservers(newProduct);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现类库中的Observer接口，定义两个被观察者</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Observable;</span><br><span class="line"><span class="keyword">import</span> java.util.Observer;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> t0ugh</span></span><br><span class="line"><span class="comment">* <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment">* <span class="doctag">@date</span> 2019/4/24 21:27</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JingDongObserver</span> <span class="keyword">implements</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Observable o, Object product)</span> </span>&#123;</span><br><span class="line">        String newProduct = (String) product;</span><br><span class="line">        System.out.println(<span class="string">"发布了新产品: "</span> + newProduct + <span class="string">"，已加入京东"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Observable;</span><br><span class="line"><span class="keyword">import</span> java.util.Observer;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> t0ugh</span></span><br><span class="line"><span class="comment">* <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment">* <span class="doctag">@date</span> 2019/4/24 21:28</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TaoBaoObserver</span> <span class="keyword">implements</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Observable o, Object product)</span> </span>&#123;</span><br><span class="line">        String newProduct = (String) product;</span><br><span class="line">        System.out.println(<span class="string">"发布了新产品: "</span> + newProduct + <span class="string">"，已加入淘宝"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试观察者模式</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> t0ugh</span></span><br><span class="line"><span class="comment">* <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment">* <span class="doctag">@date</span> 2019/4/24 21:30</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ProductList productList =ProductList.getInstance();</span><br><span class="line">        productList.addObserver(<span class="keyword">new</span> JingDongObserver());</span><br><span class="line">        productList.addObserver(<span class="keyword">new</span> TaoBaoObserver());</span><br><span class="line">        productList.addProduct(<span class="string">"呆滞牌夹心饼干"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<p>从上述构建过程可以看出哈夫曼树的特点</p>
-<ol>
-<li>每个初始节点最终都成为叶节点，且权值越小的节点到根节点的路径长度越大</li>
-<li>构建过程中共新建了$n-1$个节点，因此哈夫曼树中节点总数为$2n-1$</li>
-<li>每次构建都选择两棵树作为新节点的孩子，因此哈夫曼树不存在度为1的节点</li>
-</ol>
-<h5 id="3-哈夫曼编码"><a href="#3-哈夫曼编码" class="headerlink" title="3 哈夫曼编码"></a>3 哈夫曼编码</h5><p>固定长度编码和可变长度编码: 对于待处理的一个字符串序列，若对每个字符用相同长度的二进制位表示，则称这种编码方式为固定长度编码；若允许对不同字符用不等长的二进制表示，则这种方式称为可变长度编码</p>
-<p>可变长度编码的好处: 对频率高的字符赋以短编码，而对频率低的字符赋以长编码，从而可以使字符平均编码长度减短，达到压缩数据的效果</p>
+</li>
+</ul>
+<h3 id="2-4-工厂模式和抽象工厂模式"><a href="#2-4-工厂模式和抽象工厂模式" class="headerlink" title="2.4 工厂模式和抽象工厂模式"></a>2.4 工厂模式和抽象工厂模式</h3><h4 id="2-4-1-普通工厂-Simple-Factory-模式"><a href="#2-4-1-普通工厂-Simple-Factory-模式" class="headerlink" title="2.4.1 普通工厂(Simple Factory)模式"></a>2.4.1 普通工厂(Simple Factory)模式</h4><ul>
+<li><p>简介</p>
+<ul>
+<li>在简单工厂模式中，可以根据参数的不同返回不同类的实例</li>
+<li>简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。</li>
+</ul>
+</li>
+<li><p>模式结构</p>
+<ul>
+<li><code>Factory</code>(工厂角色): 工厂角色负责实现创建所有实例的内部逻辑</li>
+<li><code>Product</code>(抽象产品角色): 抽象产品角色是创建的所有产品的父类，负责描述所有实例所共有的公共接口</li>
+<li><code>ConcreteProduct</code>(具体产品角色): 具体产品角色是创建目标，所有创建的对象都充当了这个角色的某个具体类的实例</li>
+</ul>
+</li>
+<li><p>类图<br>  <img src="/2019/12/25/SSM-2-JAVA设计模式/0424_2.png" alt=""></p>
+</li>
+<li><p>时序图<br>  <img src="/2019/12/25/SSM-2-JAVA设计模式/0424_5.jpg" alt=""></p>
+</li>
+</ul>
+<h4 id="2-4-2-抽象工厂-Abstract-Factory-模式"><a href="#2-4-2-抽象工厂-Abstract-Factory-模式" class="headerlink" title="2.4.2 抽象工厂(Abstract Factory)模式"></a>2.4.2 抽象工厂(Abstract Factory)模式</h4><ul>
+<li><p>简介: </p>
+<ul>
+<li>提供一个创建一系列相关或相互依赖对象的接口，而无须指定它们具体的类。</li>
+<li>抽象工厂模式又称为Kit模式，属于对象创建型模式。</li>
+<li>用于生产一个产品族的产品</li>
+</ul>
+</li>
+<li><p>模式结构</p>
+<ul>
+<li>AbstractFactory：抽象工厂</li>
+<li>ConcreteFactory：具体工厂</li>
+<li>AbstractProduct：抽象产品</li>
+<li>Product：具体产品</li>
+</ul>
+</li>
+<li><p>类图<br>  <img src="/2019/12/25/SSM-2-JAVA设计模式/0424_3.jpg" alt=""></p>
+</li>
+<li><p>时序图<br>  <img src="/2019/12/25/SSM-2-JAVA设计模式/0424_4.jpg" alt=""></p>
+</li>
+</ul>
+<h3 id="2-5-建造者模式"><a href="#2-5-建造者模式" class="headerlink" title="2.5 建造者模式"></a>2.5 建造者模式</h3><ul>
+<li><p>简介</p>
+<ul>
+<li>建造者模式可以将部件和其组装过程分开，一步一步创建一个复杂的对象。用户只需要指定复杂对象的类型就可以得到该对象，而无须知道其内部的具体构造细节。</li>
+<li>建造者模式是一步一步创建一个复杂的对象，它允许用户只通过指定复杂对象的类型和内容就可以构建它们，用户不需要知道内部的具体构建细节。建造者模式属于对象创建型模式。根据中文翻译的不同，建造者模式又可以称为生成器模式。</li>
+</ul>
+</li>
+<li><p>模式结构</p>
+<ul>
+<li>Builder：抽象建造者</li>
+<li>ConcreteBuilder：具体建造者</li>
+<li>Director：指挥者</li>
+<li>Product：产品角色</li>
+</ul>
+</li>
+<li><p>类图<br>  <img src="/2019/12/25/SSM-2-JAVA设计模式/0425_0.jpg" alt=""></p>
+</li>
+<li><p>时序图<br>  <img src="/2019/12/25/SSM-2-JAVA设计模式/0425_1.jpg" alt=""></p>
+</li>
+</ul>
 
           
         
@@ -667,7 +695,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/55/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/55/">55</a><span class="page-number current">56</span><a class="page-number" href="/page/57/">57</a><span class="space">&hellip;</span><a class="page-number" href="/page/104/">104</a><a class="extend next" rel="next" href="/page/57/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/55/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/55/">55</a><span class="page-number current">56</span><a class="page-number" href="/page/57/">57</a><span class="space">&hellip;</span><a class="page-number" href="/page/105/">105</a><a class="extend next" rel="next" href="/page/57/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -715,7 +743,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">105</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
