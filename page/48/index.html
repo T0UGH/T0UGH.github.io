@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-3-字典和集合/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/流畅的Python-4-文本和字节序列/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/02/01/流畅的Python-3-字典和集合/" itemprop="url">[流畅的Python][3][字典和集合]</a></h1>
+                <a class="post-title-link" href="/2020/02/01/流畅的Python-4-文本和字节序列/" itemprop="url">[流畅的Python][4][文本和字节序列]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:34:21+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-01T20:35:52+08:00">
                 2020-02-01
               </time>
             
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/02/01/流畅的Python-3-字典和集合/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-3-字典和集合/" itemprop="commentCount"></span>
+                <a href="/2020/02/01/流畅的Python-4-文本和字节序列/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/01/流畅的Python-4-文本和字节序列/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,342 +362,344 @@
       
         
           
-            <h2 id="第3章-字典和集合"><a href="#第3章-字典和集合" class="headerlink" title="第3章 字典和集合"></a>第3章 字典和集合</h2><blockquote>
-<p>字典这个数据结构活跃在所有的python程序背后，即便你的源码中并没有直接用到它。—A.M.Kuching</p>
+            <h2 id="第4章-文本和字节序列"><a href="#第4章-文本和字节序列" class="headerlink" title="第4章 文本和字节序列"></a>第4章 文本和字节序列</h2><blockquote>
+<p>人类使用文本，计算机使用字节序列。————————Esther Nam和Travis Fischer</p>
 </blockquote>
 <ul>
-<li><p>dict类型不但在各种程序里广泛使用，它也是Python语言的基石</p>
+<li>Python3明确地区分了人类可读的文本字符串和原始的字节序列</li>
+</ul>
+<hr>
+<h3 id="4-1-字符问题"><a href="#4-1-字符问题" class="headerlink" title="4.1 字符问题"></a>4.1 字符问题</h3><ul>
+<li><p>字符串：字符串是一个简单的概念，一个<strong>字符串</strong>就是一个<strong>字符序列</strong></p>
 </li>
-<li><p>模块的命名空间、实例的属性和函数的关键字参数里都可以看到字典的影子</p>
+<li><p>字符：字符的最佳定义就是Unicode字符</p>
 </li>
-<li><p>正因为字典至关重要，Python对它的实现做了高度优化，而散列表则是字典类型性能出众的根本原因</p>
+<li><p>Unicode标准把<strong>字符的标识</strong>和<strong>具体的字节表述</strong>进行了如下的明确区分</p>
+<ul>
+<li><p><strong>字符的标识</strong></p>
+<ul>
+<li>即<strong>码位</strong>，是0-1114111的数字(十进制)，在Unicode标准中以4-6个十六进制数字表示，而且加上前缀“U+”</li>
+<li>例如，字母A的码位是<code>U+0041</code>，欧元符号的码位是<code>U+20AC</code>，高音谱号的码位是<code>U+1D11E</code></li>
+<li>大约<code>10%</code>的有效码位有对应的字符</li>
+<li>使用内置的<code>ord()</code>函数可以查看码位的具体值</li>
+</ul>
 </li>
-<li><p>集合(set)的实现也依赖于散列表</p>
+<li><p><strong>字符的具体表述</strong></p>
+<ul>
+<li>字符的具体表述取决于所用的<strong>编码</strong></li>
+<li><strong>编码</strong>是<strong>在码位和字节序列之间转换时使用的算法</strong></li>
+<li>例如，A(<code>U+0041</code>)的码位编码成单个字节<code>\x41</code>，而在UTF-16LE编码中编码成两个字节<code>\x41\x00</code></li>
+<li>再例如，欧元符号(<code>U+20AC</code>)再UTF-8编码中是三个字节:<code>\xe2\x82\xac</code>，而在UTF-16LE中编码成两个字节：<code>\xac\x200</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>把码位转换成字节序列的过程叫做<strong>编码</strong>，把字节序列转换成码位的过程是<strong>解码</strong></p>
+</li>
+<li><p>示例：编码与解码</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'café'</span></span><br><span class="line">&gt;&gt;&gt;len(s)</span><br><span class="line"><span class="number">4</span>                                                                                                                                     </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = s.encode(<span class="string">'utf8'</span>)                                                                                                </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b                                                                                                                   </span><br><span class="line"><span class="string">b'caf\xc3\xa9'</span></span><br><span class="line">&gt;&gt;&gt;len(b)</span><br><span class="line"><span class="number">5</span>                                                                                                          </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.decode(<span class="string">'utf8'</span>)                                                                                                    </span><br><span class="line"><span class="string">'café'</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
-<h3 id="3-1-泛映射类型"><a href="#3-1-泛映射类型" class="headerlink" title="3.1 泛映射类型"></a>3.1 泛映射类型</h3><ul>
-<li><p>抽象基类</p>
+<h3 id="4-2-字节概要"><a href="#4-2-字节概要" class="headerlink" title="4.2 字节概要"></a>4.2 字节概要</h3><ul>
+<li><p>首先要知道，Python内置了两种基本的二进制序列类型：Python3引入的不可变bytes类型和Python2.6添加的可变bytearray类型</p>
+</li>
+<li><p>bytes和bytearray对象的各个元素是介于0-255（含）之间的整数</p>
+</li>
+<li><p>示例：包含5个字节的bytes和bytearray对象</p>
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># bytes对象可以从str对象使用给定的编码构建</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe = bytes(<span class="string">'café'</span>, encoding=<span class="string">'U8'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe</span><br><span class="line"><span class="string">b'caf\xc3\xa9'</span></span><br><span class="line"><span class="comment"># 各个元素是range(256)内的整数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe[<span class="number">0</span>]</span><br><span class="line"><span class="number">99</span></span><br><span class="line"><span class="comment"># bytes对象的切片还是bytes对象，即使是只有一个字节的切片</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe[:<span class="number">1</span>]</span><br><span class="line"><span class="string">b'c'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe_array = bytearray(cafe)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe_array</span><br><span class="line"><span class="comment"># bytearray没有字面量句法，而是以bytearray()和字节序列字面量参数的形式表示</span></span><br><span class="line">bytearray(<span class="string">b'caf\xc3\xa9'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe_array[<span class="number">0</span>]</span><br><span class="line"><span class="number">99</span></span><br><span class="line"><span class="comment"># bytearray对象的切片还是bytearray对象</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cafe_array[:<span class="number">1</span>]</span><br><span class="line">bytearray(<span class="string">b'c'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <ul>
-<li><p>collections.abc模块中有Maping和MutableMapping这两个抽象基类，它们的作用是为dict和其他类似的类型定义<strong>形式接口</strong>，如图<br>![]</p>
+<li><p>注意</p>
+<ul>
+<li>my_bytes[0]获得的是一个整数，而my_bytes[:1]返回的是一个长度为1的bytes对象——————这一点应该不会十分意外</li>
+<li>对于除了str之外的其他序列类型,s[i]返回的都是一个元素，而s[i:i+1]则返回一个序列，里面只有s[i]这个元素</li>
+<li>对于str来说,s[i] == s[i:i+1]，它们返回的都是一个只有一个字符的字符串</li>
+</ul>
 </li>
-<li><p>然而，非抽象映射类型一般不会直接继承这些抽象基类，它们会直接对dict或是collections.UserDict进行扩展。这些抽象基类的主要作用是作为形式化文档，它们定义了构建一个映射类型所需要的最基本的接口。</p>
+<li><p>在bytes或者bytearray中，各个字节的值可能会使用下列三种不同的方式显示</p>
+<ul>
+<li>方式<ol>
+<li>可打印的ASCII范围内的字节(从空格到~)，使用ASCII字符本身</li>
+<li>制表符、换行符、回车符和<code>\</code>对应的字节，使用转义序列<code>\t</code>、<code>\n</code>、<code>\r</code>、<code>\\</code></li>
+<li>其他字节的值，使用十六进制转义序列(例如，\x00是空字节)</li>
+</ol>
 </li>
-<li><p>他们还可以跟isinstance一起被用来判定某个数据是不是广义上的映射类型</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my_dict = &#123;&#125;</span><br><span class="line">print(isinstance(my_dict,abc.Mapping))</span><br><span class="line"><span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+<li>例如:字符序列<code>&#39;café&#39;</code>的使用uft8编码的字节序列为<code>b&#39;caf\xc3\xa9&#39;</code>，前3个字节<code>b&#39;caf&#39;</code>在可打印的ASCII范围内，后两个字节则不然</li>
+</ul>
+</li>
+<li><p>除了格式化方法和几个处理unicode数据的方法之外，str类型的其他方法都支持bytes和bytearray类型</p>
+</li>
+<li><p>构建bytes或bytearay实例可以调用各自的构造方法，传入下述参数</p>
+<ul>
+<li>一个str对象和一个encoding关键字参数</li>
+<li>一个可迭代对象，提供0~255之间的数值</li>
+<li>一个实现了缓冲协议的对象(如bytes、bytearray、memoryview、array.array)；此时，把源对象中的字节序列复制到新建的二进制序列中</li>
+</ul>
+</li>
+<li><p>结构体和内存视图</p>
+<ul>
+<li>struct模块<ul>
+<li>struct模块提供了一些函数，把打包的字节序列转换成不同类型的字段组成的元组</li>
+<li>struct模块能处理bytes、bytearray和memoryview对象</li>
+</ul>
+</li>
+<li>memoryview类<ul>
+<li>memoryview类不是用来创建或储存字节序列，而是共享内存，让你访问其他二进制序列、打包的数组和缓冲中的数据切片，而无需复制字节序列</li>
+</ul>
+</li>
+<li>示例：使用memoryview和struct提取一个GIF图像的宽度和高度  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"><span class="comment"># 结构体的格式：&lt;是小字节符，3s3s是两个3字节序列，HH是两个16位二进制整数</span></span><br><span class="line">fmt = <span class="string">'&lt;3s3sHH'</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'fil.gif'</span>,<span class="string">'rb'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    <span class="comment"># 使用内存中的文件内容创建一个memoryview对象</span></span><br><span class="line">    img = memoryview(fp.read())</span><br><span class="line">    <span class="comment"># 使用它的切片再创建一个memoryview对象；这里不会复制字节序列</span></span><br><span class="line">    header = img[:<span class="number">10</span>]</span><br><span class="line">    <span class="comment"># 转换为字节序列</span></span><br><span class="line">    print(bytes(header))</span><br><span class="line">    <span class="comment"># 拆包memoryview对象，得到一个元组，包含类型、版本、宽度和高度</span></span><br><span class="line">    print(struct.unpack(fmt, header))</span><br><span class="line">    <span class="comment"># 删除引用，释放memoryview实例所占用的内存</span></span><br><span class="line">    <span class="keyword">del</span> header</span><br><span class="line">    <span class="keyword">del</span> img</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">b'GIF98a+\x02\xe6\x00'</span></span><br><span class="line"><span class="string">(b'GIF', b'89a', 555, 230)</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
-<li><p>标准库里的所有映射类型都是利用<strong>dict</strong>来实现的，因此它们有个共同的限制，即只有<strong>可散列的数据类型</strong>才能作为这些映射里的键</p>
-</li>
-<li><p>什么是可散列的数据类型</p>
-<ul>
-<li>如果一个对象是可散列的，那么在这个对象的生命周期中，它的散列值是不变的，而且这个对象需要实现<code>__hash()__</code>方法</li>
-<li>另外可散列对象还要有<code>__eq()__</code>方法，这样才能跟其他键做比较</li>
-<li><strong>原子不可变数据类型</strong>都是可散列的,如：<code>str</code>、<code>bytes</code>和数值类型</li>
-<li><strong>元组</strong>的话，只有当一个元组包含的所有元素都是可散列类型的情况下，它才是可散列的</li>
-<li>一般来讲<strong>用户自定义的数据类型</strong>都是可散列的，散列值就是它们的<code>id()</code>函数的返回值，所以所有这些对象在比较的时候都是不相等的</li>
 </ul>
-</li>
-<li><p>字典的多种<strong>构造方法</strong></p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = dict(one=<span class="number">1</span>, two=<span class="number">2</span>, three=<span class="number">3</span>)</span><br><span class="line">b = &#123;<span class="string">'one'</span>: <span class="number">1</span>, <span class="string">'two'</span>: <span class="number">2</span>, <span class="string">'three'</span>: <span class="number">3</span>&#125;</span><br><span class="line">c = dict(zip([<span class="string">'one'</span> ,<span class="string">'two'</span> ,<span class="string">'three'</span>], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]))</span><br><span class="line">d = dict([(<span class="string">'two'</span>, <span class="number">2</span>), (<span class="string">'one'</span>, <span class="number">1</span>), (<span class="string">'three'</span>,<span class="number">3</span>)])</span><br><span class="line">e = dict(&#123;<span class="string">'one'</span>: <span class="number">1</span>, <span class="string">'two'</span>: <span class="number">2</span>, <span class="string">'three'</span>: <span class="number">3</span>&#125;)</span><br><span class="line">print(a==b==c==d==e)</span><br><span class="line"><span class="comment"># True</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="3-2-字典推导"><a href="#3-2-字典推导" class="headerlink" title="3.2 字典推导"></a>3.2 字典推导</h3><ul>
-<li><p>字典推导可以从任何以键值对作为元素的可迭代对象中构建出字典</p>
-</li>
-<li><p>dictcompDemo</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">DIAL_CODES = [</span><br><span class="line">    (<span class="number">86</span>, <span class="string">'China'</span>),</span><br><span class="line">    (<span class="number">91</span>, <span class="string">'India'</span>),</span><br><span class="line">    (<span class="number">1</span>, <span class="string">'United States'</span>),</span><br><span class="line">    (<span class="number">62</span>, <span class="string">'Indonesia'</span>),</span><br><span class="line">    (<span class="number">55</span>, <span class="string">'Brazil'</span>),</span><br><span class="line">    (<span class="number">92</span>, <span class="string">'Pakistan'</span>),</span><br><span class="line">    (<span class="number">880</span>, <span class="string">'Bangladesh'</span>),</span><br><span class="line">    (<span class="number">234</span>, <span class="string">'Nigeria'</span>),</span><br><span class="line">    (<span class="number">7</span>, <span class="string">'Russia'</span>),</span><br><span class="line">    (<span class="number">81</span>, <span class="string">'Japan'</span>)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里使用国家名作为key,国家码作为value</span></span><br><span class="line">country_code = &#123;country: code <span class="keyword">for</span> code, country <span class="keyword">in</span> DIAL_CODES&#125;</span><br><span class="line">print(country_code)</span><br><span class="line"><span class="comment"># 这里用国家码作为key,并且将国家名称转化为大写,过滤掉区域码大于或等于66的地区</span></span><br><span class="line">code_country = &#123;code: country.upper() <span class="keyword">for</span> country, code <span class="keyword">in</span> country_code.items() <span class="keyword">if</span> code &lt; <span class="number">66</span>&#125;</span><br><span class="line">print(code_country)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">&#123;'China': 86, 'India': 91, 'United States': 1, 'Indonesia': 62, 'Brazil': 55, 'Pakistan': 92, 'Bangladesh': 880, 'Nigeria': 234, 'Russia': 7, 'Japan': 81&#125;</span></span><br><span class="line"><span class="string">&#123;1: 'UNITED STATES', 62: 'INDONESIA', 55: 'BRAZIL', 7: 'RUSSIA'&#125;</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="3-3-常见的映射方法"><a href="#3-3-常见的映射方法" class="headerlink" title="3.3 常见的映射方法"></a>3.3 常见的映射方法</h3><hr>
+<h3 id="4-3-基本的编解码器"><a href="#4-3-基本的编解码器" class="headerlink" title="4.3 基本的编解码器"></a>4.3 基本的编解码器</h3><hr>
 <ul>
-<li><p>dict、defaultdict和OrderedDict的常见方法</p>
+<li><p>Python自带超过100种编解码器(codec, encoder/decoder)，用于在文本和字节之间相互转换</p>
+</li>
+<li><p>每个编解码器有一个名称，如’utf_8’，而且经常有几个别名，如’utf8’,’utf-8’和’U8’</p>
+</li>
+<li><p>这些名称可以传给<code>open()</code>、<code>str.encode()</code>、<code>bytes.decode()</code>等函数的encoding参数</p>
+</li>
+<li><p>示例：使用3个编解码器编码字符串’中国’，而得到的字节序列差异很大</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> codec <span class="keyword">in</span> [<span class="string">'gb2312'</span>, <span class="string">'utf-8'</span>, <span class="string">'utf-16'</span>]:</span><br><span class="line"><span class="meta">... </span>    print(codec, <span class="string">'中国'</span>.encode(codec), sep=<span class="string">'\t'</span>)</span><br><span class="line">...</span><br><span class="line">gb2312  <span class="string">b'\xd6\xd0\xb9\xfa'</span></span><br><span class="line">utf<span class="number">-8</span>   <span class="string">b'\xe4\xb8\xad\xe5\x9b\xbd'</span></span><br><span class="line">utf<span class="number">-16</span>  <span class="string">b'\xff\xfe-N\xfdV'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一些典型的编码</p>
 <ul>
-<li>如图<br><img src="" alt=""></li>
-<li>update方法处理参数m的方式，是典型的“鸭子类型”<ol>
-<li>函数首先检查m是否有keys方法，如果有，那么update函数就把它当作映射对象来处理</li>
-<li>否则，函数会退一步，转而把m当作包含了键值对(key, value)元素的迭代器</li>
-<li>因此你既可以用一个映射对象来新建一个映射对象，也可以用包含(key, value)元素的可迭代对象来初始化一个映射对象</li>
+<li>如图<br><img src="/2020/02/01/流畅的Python-4-文本和字节序列/编码方式.jpg" alt=""></li>
+<li>编码<ol>
+<li>latin1(即iso8859_1)：一种重要的编码，是其他编码的基础，例如cp1252和Unicode</li>
+<li>cp1252：Microsoft指定的latin1的超集，添加了许多有用的符号</li>
+<li>cp437：IBM PC最初的字符集，包含框图符号。与后面出现的latin1不兼容</li>
+<li>gb2312：用于编码简体中文的陈旧标准</li>
+<li>utf-8：目前web中最常用的8位编码；与ASCII兼容(纯ASCII文本是有效地UTF-8文本)</li>
+<li>utf-16le：UTF-16是16位编码方案的一种形式</li>
 </ol>
 </li>
 </ul>
 </li>
-<li><p>用setdefault处理找不到的键</p>
-<ul>
-<li>d.setdefault(k, [default])：若字典中有键k，则直接返回k所对应的值；若无，则让d[k]=default，然后返回default</li>
-<li>setdefaultDemo  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这段程序用来从文件中统计每个单词出现的位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明一个选择单词的正则式</span></span><br><span class="line">WORD_RE = re.compile(<span class="string">r'\w+'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化index字典</span></span><br><span class="line">index = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开文件并按行迭代每个单词</span></span><br><span class="line"><span class="keyword">with</span> open(sys.argv[<span class="number">1</span>], encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    <span class="keyword">for</span> line_no, line <span class="keyword">in</span> enumerate(fp, <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> match <span class="keyword">in</span> WORD_RE.finditer(line):</span><br><span class="line">            word = match.group()</span><br><span class="line">            <span class="comment"># 获得这个单词的列坐标</span></span><br><span class="line">            column_no = match.start() + <span class="number">1</span></span><br><span class="line">            location = (line_no, column_no)</span><br><span class="line">            <span class="comment"># 获得单词的出现情况表，如果单词不存在，把单词和一个空列表放进映射，然后返回这个空列表，这样就能在不进行第二次查找的情况下更新列表了</span></span><br><span class="line">            index.setdefault(word, []).append(location)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看结果</span></span><br><span class="line"><span class="keyword">for</span> word <span class="keyword">in</span> sorted(index, key=str.upper):</span><br><span class="line">    print(word, index[word])</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li></li>
 </ul>
 <hr>
-<h3 id="3-4-映射的弹性键查询"><a href="#3-4-映射的弹性键查询" class="headerlink" title="3.4 映射的弹性键查询"></a>3.4 映射的弹性键查询</h3><ul>
-<li><p>就算某个键在映射中不存在，我们还是希望在通过这个键读取值的时候能得到一个默认值</p>
-</li>
-<li><p>有两种途径可以帮我们达到这个目的</p>
-<ol>
-<li>通过defaultdict这个类型而不是普通的dict</li>
-<li>给自己定义一个dict的子类，然后在子类中实现<code>__missing__</code>方法</li>
-</ol>
-</li>
-</ul>
-<hr>
-<h4 id="3-4-1-defaultdict-处理找不到的键的一个选择"><a href="#3-4-1-defaultdict-处理找不到的键的一个选择" class="headerlink" title="3.4.1 defaultdict:处理找不到的键的一个选择"></a>3.4.1 defaultdict:处理找不到的键的一个选择</h4><ul>
-<li><p>简介：</p>
-<ul>
-<li>在实例化一个defaultdict的时候，需要给构造方法提供一个可调用对象</li>
-<li>这个可调用对象会在<strong>getitem</strong>碰到找不到的键的时候被调用，让<code>__getitem__</code>返回某种默认值</li>
-</ul>
-</li>
-<li><p>例如:我们新建一个这样的字典,<code>dd = defaultdict(list)</code>，如果键’new-key’在dd中不存在的话，表达式<code>dd[&#39;new-key&#39;]</code>会按照以下步骤来行事</p>
-<ol>
-<li>调用list()来建立一个新列表</li>
-<li>把这个新列表作为值，’new-key’作为它的键，放在dd中</li>
-<li>返回这个列表的引用</li>
-</ol>
-</li>
-<li><p>如果在创建defaultdict的时候没有指定default_factory，查询不存在的键会触发keyError</p>
-</li>
-<li><p>defaultdict里的default_factory只会在<code>__getitem__</code>里被调用，在其他方法里完全不会发挥作用</p>
-<ul>
-<li>比如，dd是个defaultdict,k是个找不到的键，dd[k]这个表达式会调用default_factory来创建一个默认值，而dd.get(k)则会返回None</li>
-</ul>
-</li>
-<li><p>defaultdictDemo</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这段程序用来从文件中统计每个单词出现的位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明一个选择单词的正则式</span></span><br><span class="line">WORD_RE = re.compile(<span class="string">r'\w+'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化index字典</span></span><br><span class="line">index = collections.defaultdict(list)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开文件并按行迭代每个单词</span></span><br><span class="line"><span class="keyword">with</span> open(sys.argv[<span class="number">1</span>], encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    <span class="keyword">for</span> line_no, line <span class="keyword">in</span> enumerate(fp, <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> match <span class="keyword">in</span> WORD_RE.finditer(line):</span><br><span class="line">            word = match.group()</span><br><span class="line">            <span class="comment"># 获得这个单词的列坐标</span></span><br><span class="line">            column_no = match.start() + <span class="number">1</span></span><br><span class="line">            location = (line_no, column_no)</span><br><span class="line">            <span class="comment"># 获得此单词在字典中的value,若之前不存在就设置为[],并返回</span></span><br><span class="line">            index[word].append(location)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看结果</span></span><br><span class="line"><span class="keyword">for</span> word <span class="keyword">in</span> sorted(index, key=str.upper):</span><br><span class="line">    print(word, index[word])</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h4 id="3-4-2-特殊方法-missing"><a href="#3-4-2-特殊方法-missing" class="headerlink" title="3.4.2 特殊方法__missing__"></a>3.4.2 特殊方法<code>__missing__</code></h4><ul>
-<li><p>所有的映射类型在处理找不到的键的时候，都会牵扯到<code>__missing__</code>方法</p>
-</li>
-<li><p>虽然基类dict并没有定义这个方法，但是dict是知道有这么个东西存在的</p>
-<ul>
-<li>也就是说，如果有一个类继承了dict，然后这个继承类提供了<code>__missing__</code>方法，那么在<code>__getitem__</code>碰到找不到的键的时候，Python会自动调用它，而不是抛出一个KeyError异常</li>
-</ul>
-</li>
-<li><p><code>__missing__</code>方法只会被<code>__getitem__</code>调用，提供<strong>missing</strong>方法对<code>get</code>或者<code>__contains__</code>这些方法的使用没有影响</p>
-</li>
-<li><p>missingDemo</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># StrKeyDict在查询的时候会把非字符串的键转换为字符串</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># StrKeyDict继承自dict</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrKeyDict0</span><span class="params">(dict)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__missing__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="comment"># 如果找不到的键本身就是字符串,那就抛出KeyError异常</span></span><br><span class="line">        <span class="keyword">if</span> isinstance(key, str):</span><br><span class="line">            <span class="keyword">raise</span> KeyError(key)</span><br><span class="line">        <span class="comment"># 如果找不到的键不是字符串,就把它转换为字符串再查找</span></span><br><span class="line">        <span class="keyword">return</span> self[str(key)]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key, default=None)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># get方法把查找工作用self[key]的形式委托给`__getitem__`，这样就宣布了查找失败之前,还能通过`__missing__`再给某个键一个机会</span></span><br><span class="line">            <span class="keyword">return</span> self[key]</span><br><span class="line">        <span class="keyword">except</span> KeyError:</span><br><span class="line">            <span class="comment"># 如果抛出异常,那么说明__missing__也失败了,于是返回default</span></span><br><span class="line">            <span class="keyword">return</span> default</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__contains__</span><span class="params">(self, item)</span>:</span></span><br><span class="line">        <span class="comment"># 先按照传入键的原本的值来查找，如果没有找到，再用str()方法把键转换成字符串再查找一次</span></span><br><span class="line">        <span class="keyword">return</span> item <span class="keyword">in</span> self.keys() <span class="keyword">or</span> str(item) <span class="keyword">in</span> self.keys()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用尝试1</span></span><br><span class="line">d = StrKeyDict0([(<span class="string">'2'</span>, <span class="string">'two'</span>), (<span class="number">4</span>, <span class="string">'four'</span>)])</span><br><span class="line">print(d[<span class="string">'2'</span>])</span><br><span class="line">print(d[<span class="number">4</span>])</span><br><span class="line">print(d[<span class="number">1</span>])</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">two</span></span><br><span class="line"><span class="string">four</span></span><br><span class="line"><span class="string">Traceback (most recent call last):</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">KeyError: '1'</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用尝试2</span></span><br><span class="line">print(d.get(<span class="string">'2'</span>))</span><br><span class="line">print(d.get(<span class="number">4</span>))</span><br><span class="line">print(d.get(<span class="number">1</span>, <span class="string">'N/A'</span>))</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">two</span></span><br><span class="line"><span class="string">four</span></span><br><span class="line"><span class="string">N/A</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用尝试3</span></span><br><span class="line">print(<span class="number">2</span> <span class="keyword">in</span> d)</span><br><span class="line">print(<span class="number">1</span> <span class="keyword">in</span> d)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">True</span></span><br><span class="line"><span class="string">False</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>像 k in my_dict().keys()这种操作在Python3中是很快的，因为dict.keys()的返回值是一个’视图’，’视图’就像一个集合，而且跟字典类似的是，在视图里查找一个元素的速度很快</p>
-</li>
-</ul>
-<hr>
-<h3 id="3-5-字典的变种"><a href="#3-5-字典的变种" class="headerlink" title="3.5 字典的变种"></a>3.5 字典的变种</h3><ol>
-<li><p>collections.OrderedDict</p>
-<ul>
-<li>这个类型在添加键的时候会保持顺序，因此键的迭代次序总是一致的</li>
-</ul>
-</li>
-<li><p>collectinos.ChainMap</p>
-<ul>
-<li>该类型可以容纳数个不同的映射对象，然后在进行键查找操作的时候，这些对象会被当作一个整体被逐个查找，直到键被找到为止</li>
-<li>例如<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> builtins</span><br><span class="line">pylookup = ChainMap(local(), <span class="keyword">global</span>(), vars(builtins))</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>collections.Counter</p>
-<ul>
-<li>这个映射类型会给键准备一个整数计数器</li>
-<li>每次更新一个键的时候都会增加这个计数器</li>
-<li>所以这个类型可以用来给可散列对象计数，或者被当成多重集来用</li>
-<li>demo<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> collections</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct = collections.Counter(<span class="string">'abracadabra'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct</span><br><span class="line">Counter(&#123;<span class="string">'a'</span>: <span class="number">5</span>, <span class="string">'b'</span>: <span class="number">2</span>, <span class="string">'r'</span>: <span class="number">2</span>, <span class="string">'c'</span>: <span class="number">1</span>, <span class="string">'d'</span>: <span class="number">1</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct.update(<span class="string">'aaaaazzz'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct</span><br><span class="line">Counter(&#123;<span class="string">'a'</span>: <span class="number">10</span>, <span class="string">'z'</span>: <span class="number">3</span>, <span class="string">'b'</span>: <span class="number">2</span>, <span class="string">'r'</span>: <span class="number">2</span>, <span class="string">'c'</span>: <span class="number">1</span>, <span class="string">'d'</span>: <span class="number">1</span>&#125;)</span><br><span class="line"><span class="comment"># most_common会按照次序返回映射中最常用的n个键和它们的计数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ct.most_common(<span class="number">2</span>)</span><br><span class="line">[(<span class="string">'a'</span>, <span class="number">10</span>), (<span class="string">'z'</span>, <span class="number">3</span>)]</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>collections.UserDict</p>
-<ul>
-<li>这个类其实就是把标准dict用纯Python的方式又实现了一编</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3 id="3-6-子类化UserDict"><a href="#3-6-子类化UserDict" class="headerlink" title="3.6 子类化UserDict"></a>3.6 子类化UserDict</h3><hr>
-<ul>
-<li><p>就创造自定义映射类型来说，以UserDict作为基类，总比以普通的dict作为基类要来得方便</p>
-</li>
-<li><p>更倾向于从UserDict而不是dict继承的原因是,后者有时会在某些方法的实现上走一些捷径，导致我们不得不在它的子类中重写这些方法，但是UserDict就不会带来这些问题</p>
-</li>
-<li><p>另外一个值得注意的地方是，UserDict并不是dict的子类，但是UserDict有一个叫做data的属性，是dict的实例，这个属性实际上是UserDict最终存储数据的地方</p>
-</li>
-<li><p>demo：StrKeyDict</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># StrKeyDict是对UserDict的扩展</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrKeyDict</span><span class="params">(collections.UserDict)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__missing__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> isinstance(key, str):</span><br><span class="line">            <span class="keyword">raise</span> KeyError(key)</span><br><span class="line">        <span class="keyword">return</span> self[str(key)]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># contains比上一章的实现要简单,因为通过重写setitem,此时可以默认所有的key都是字符串</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__contains__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> str(key) <span class="keyword">in</span> self.data</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># setitem会把所有的键都转换为字符串</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__setitem__</span><span class="params">(self, key, value)</span>:</span></span><br><span class="line">        self.data[str(key)] = value</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># get方法与父类的get方法完全一致,所以不用再实现一遍</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>因为UserDict继承的是MutableMapping，所以StrKeyDict里剩下的那些映射类型的方法都是从UserDict、MutableMapping和Mapping这些超类继承而来的</p>
-</li>
-</ul>
-<hr>
-<h3 id="3-7-不可变映射类型"><a href="#3-7-不可变映射类型" class="headerlink" title="3.7 不可变映射类型"></a>3.7 不可变映射类型</h3><hr>
-<ul>
-<li><p>从Python3.3开始，types模块中引入了一个封装类名为MappingProxyType</p>
-<ul>
-<li>如果给这个类一个映射，它会返回一个只读的映射视图</li>
-<li>虽然是个只读视图，但它是动态的</li>
-<li>这意味着如果对原映射作出了改动，我们可以通过这个视图观察到，但无法通过这个视图对原映射作出修改</li>
-</ul>
-</li>
-<li><p>demo:用MappingProxyType来获取字典的只读实例mappingproxy</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> types <span class="keyword">import</span> MappingProxyType</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = &#123;<span class="number">1</span>:<span class="string">'A'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy = MappingProxyType(d)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy</span><br><span class="line">mappingproxy(&#123;<span class="number">1</span>: <span class="string">'A'</span>&#125;)</span><br><span class="line"><span class="comment"># d中的内容在d_proxy中可以看到</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy[<span class="number">1</span>]</span><br><span class="line"><span class="string">'A'</span></span><br><span class="line"><span class="comment"># 但是通过d_proxy不能对它作出任何修改</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy[<span class="number">2</span>] = <span class="string">'B'</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: <span class="string">'mappingproxy'</span> object does <span class="keyword">not</span> support item assignment</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="number">2</span>] = <span class="string">'B'</span></span><br><span class="line"><span class="comment"># d_proxy是动态的，也就是说对d所做的任何改动都会反馈到它的上面</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy</span><br><span class="line">mappingproxy(&#123;<span class="number">1</span>: <span class="string">'A'</span>, <span class="number">2</span>: <span class="string">'B'</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_proxy[<span class="number">2</span>]</span><br><span class="line"><span class="string">'B'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h3 id="3-8-集合论"><a href="#3-8-集合论" class="headerlink" title="3.8 集合论"></a>3.8 集合论</h3><ul>
-<li><p>set和它的不可变姊妹类型frozenset直到Python2.3才首次以模块的形式出现,然后在Python2.6中它们升级为内置类型</p>
-</li>
-<li><p>集合的本质是许多唯一对象的聚集。因此，集合可以用来去重:</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>l = [<span class="string">'spam'</span>, <span class="string">'spam'</span>, <span class="string">'eggs'</span>, <span class="string">'spam'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>set(l)</span><br><span class="line">&#123;<span class="string">'spam'</span>, <span class="string">'eggs'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(set(l))</span><br><span class="line">[<span class="string">'spam'</span>, <span class="string">'eggs'</span>]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>集合中的元素必须是可散列的，set类型本身是不可散列的，但是frozenset可以，因此可以创建一个包含不同frozenset的set</p>
-</li>
-<li><p>除了保证唯一性，集合还实现了许多基础的中缀运算符</p>
-<ul>
-<li><code>a | b</code> 返回它们的合集</li>
-<li><code>a &amp; b</code> 得到的是交集</li>
-<li><code>a - b</code> 得到的是差集</li>
+<h3 id="4-4-了解编解码问题"><a href="#4-4-了解编解码问题" class="headerlink" title="4.4 了解编解码问题"></a>4.4 了解编解码问题</h3><ul>
+<li>简介<ul>
+<li>虽然有个一般性的UnicodeError异常，但是报告错误时几乎都会指明具体的异常</li>
+<li>UnicodeEncodeError:把字符串转换为二进制序列时发生的异常</li>
+<li>UnicodeDecodeError:把二进制序列转换为字符串时发生的异常</li>
+<li>SyntaxError:如果源码的编码与预期不符，加载Python模块时还可能抛出SyntaxError</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h4 id="3-8-1-集合字面量"><a href="#3-8-1-集合字面量" class="headerlink" title="3.8.1 集合字面量"></a>3.8.1 集合字面量</h4><ul>
-<li><p>除了空集之外，集合的字面量—————{1}、{1, 2}，等等，看起来跟它的数学形式一模一样；如果是空集，那么必须写成set()形式</p>
-</li>
-<li><p>如果要创建一个空集，必须使用不带任何参数的构造方法set()。如果只是写成{}的形式，跟以前一样，你创建的其实是空字典</p>
-</li>
-<li><p>除了空集，集合的字符串表示形式总是以{…}的形式出现</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = &#123;<span class="number">1</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(s)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">set</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">s</span></span></span><br><span class="line">&#123;1&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.pop()</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line">set()</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>像{1, 2, 3}这样字面量句法相比于构造方法<code>set([1, 2, 3])</code>要更快且更易读</p>
-<ul>
-<li>针对{1, 2, 3}这样的字面量，Python会利用一个专门的叫做BUILD_SET的字节码来创建集合</li>
-</ul>
-</li>
-<li><p>由于Python没有针对frozenset的特殊字面量句法，我们只能采用构造函数</p>
-  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frozenset(range(<span class="number">10</span>))</span><br><span class="line">frozenset(&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h4 id="3-8-2-集合推导"><a href="#3-8-2-集合推导" class="headerlink" title="3.8.2 集合推导"></a>3.8.2 集合推导</h4><ul>
-<li>示例<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从unicodedata模块中导入name函数，用以获得字符的名字</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> unicodedata <span class="keyword">import</span> name</span><br><span class="line"><span class="comment"># 把编码在32-255之间的字符的名字里有"SIGN"的单词挑出来，放到一个集合中</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>&#123;chr(i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">32</span>, <span class="number">256</span>) <span class="keyword">if</span> <span class="string">'SIGN'</span> <span class="keyword">in</span> name(chr(i), <span class="string">''</span>)&#125;</span><br><span class="line">&#123;<span class="string">'$'</span>, <span class="string">'µ'</span>, <span class="string">'¬'</span>, <span class="string">'÷'</span>, <span class="string">'&lt;'</span>, <span class="string">'§'</span>, <span class="string">'×'</span>, <span class="string">'='</span>, <span class="string">'¢'</span>, <span class="string">'¶'</span>, <span class="string">'%'</span>, <span class="string">'+'</span>, <span class="string">'£'</span>, <span class="string">'±'</span>, <span class="string">'&gt;'</span>, <span class="string">'#'</span>, <span class="string">'®'</span>, <span class="string">'©'</span>, <span class="string">'¤'</span>, <span class="string">'°'</span>, <span class="string">'¥'</span>&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h4 id="3-8-3-集合的操作"><a href="#3-8-3-集合的操作" class="headerlink" title="3.8.3 集合的操作"></a>3.8.3 集合的操作</h4><h3 id="3-9-dict和set的背后"><a href="#3-9-dict和set的背后" class="headerlink" title="3.9 dict和set的背后"></a>3.9 dict和set的背后</h3><hr>
-<h4 id="3-9-1-一个关于效率的实验"><a href="#3-9-1-一个关于效率的实验" class="headerlink" title="3.9.1 一个关于效率的实验"></a>3.9.1 一个关于效率的实验</h4><ul>
-<li><p>用in运算符在5个不同大小的haystack字典里搜索1000个元素所需要的时间</p>
-</li>
-<li><p>在5个不同大小的haystack里搜索1000个元素所需要的时间，haystack分别以字典、集合和列表的形式出现</p>
-</li>
-</ul>
-<hr>
-<h4 id="3-9-2-字典中的散列表"><a href="#3-9-2-字典中的散列表" class="headerlink" title="3.9.2 字典中的散列表"></a>3.9.2 字典中的散列表</h4><ul>
+<h4 id="4-4-1-处理UnicodeEncodeError"><a href="#4-4-1-处理UnicodeEncodeError" class="headerlink" title="4.4.1 处理UnicodeEncodeError"></a>4.4.1 处理UnicodeEncodeError</h4><ul>
 <li><p>简介</p>
 <ul>
-<li>散列表其实是一个稀疏数组(总是有空白元素的数组称为稀疏数组)</li>
-<li>在一般的数据结构教材中，散列表里的单元叫做表元(bucket)</li>
-<li>在dict的散列表当中，每个键值对都占用一个表元</li>
-<li>每个表元都有两个部分，一个是对键的引用，另一个是对值的引用</li>
-<li>因为所有表元的大小一致，所以可以通过偏移量来读取某个表元</li>
+<li>多数非UTF编解码器只能处理Unicode字符的小部分子集</li>
+<li>把文本转换为字节序列时，如果目标编码中没有定义某个字符，就会抛出UnicodeEncodeError异常，除非把errors参数传给编码方法或函数，对错误进行特殊处理</li>
 </ul>
 </li>
-<li><p>Python会设法保证大概还有三分之一的表元是空的，所以在快要达到这个阈值的时候，原有的散列表会被复制到一个更大的空间中</p>
-</li>
-<li><p>散列值和相等性</p>
-<ul>
-<li><p>内置的hash()方法可以用在所有的内置类型对象</p>
-</li>
-<li><p>如果是自定义对象调用hash()的话，实际上运行的是自定义的<strong>hash</strong></p>
-</li>
-<li><p>如果两个对象在比较的时候是相等的，那它们的散列值必须相等，否则散列表就不能正常运行了</p>
-<ul>
-<li>例如，如果 1 == 1.0 成立，那么hash(1) == hash(1.0)也必须成立</li>
-</ul>
-</li>
-<li><p>为了让散列表能够胜任散列表索引这一角色，它们必须在索引空间中尽量分散开来</p>
-<ul>
-<li>最理想的状况下，越是相似但是不相等的对象，它们散列值的差别应该越大</li>
-</ul>
-</li>
-<li><p>加盐</p>
-<ul>
-<li>str、bytes和datetime对象的散列值计算有随机的”加盐”这一步</li>
-<li>所加盐值是Python进程内的一个常量，但是每次启动Python解释器都会生成一个不同的盐值</li>
-<li>随机盐值的加入是为了防止dos攻击而采取的一种安全措施</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>散列表算法</p>
-<ul>
-<li><p>算法的步骤</p>
-<ol>
-<li>为了获取my_dict[search_key]背后的值，Python首先会调用hash(search_key)来计算search_key的散列值</li>
-<li>然后把散列值的最低几位数字作为偏移量，在散列表里查找表元</li>
-<li>若找到的表元为空，则抛出KeyError异常</li>
-<li>若不是空的，则表元里会有一对found_key:found_value。这时检测search_key是否等于found_key，如果它们相等的话，就返回found_value</li>
-</ol>
+<li><p>示例：编码成字节序列：成功和错误处理</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>city = <span class="string">'São paulo'</span></span><br><span class="line"><span class="comment"># utf编码可以处理任何字符串</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>city.encode(<span class="string">'utf8'</span>)</span><br><span class="line"><span class="string">b'S\xc3\xa3o paulo'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>city.encode(<span class="string">'utf16'</span>)</span><br><span class="line"><span class="string">b'\xff\xfeS\x00\xe3\x00o\x00 \x00p\x00a\x00u\x00l\x00o\x00'</span></span><br><span class="line"><span class="comment"># cp437无法处理'ã'字符，从而抛出UnicodeEncodeError异常</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>city.encode(<span class="string">'cp437'</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">File <span class="string">"/usr/lib/python3.6/encodings/cp437.py"</span>, line <span class="number">12</span>, <span class="keyword">in</span> encode</span><br><span class="line">    <span class="keyword">return</span> codecs.charmap_encode(input,errors,encoding_map)</span><br><span class="line">UnicodeEncodeError: <span class="string">'charmap'</span> codec can<span class="string">'t encode character '</span>\xe3<span class="string">' in position 1: character maps to &lt;undefined&gt;</span></span><br><span class="line"><span class="string"># error='</span>ignore<span class="string">'方法悄无声息的跳过无法编码的字符，这样做通常不很妥当</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; city.encode('</span>cp437<span class="string">', errors='</span>ignore<span class="string">')</span></span><br><span class="line"><span class="string">b'</span>So paulo<span class="string">'</span></span><br><span class="line"># error='replace'把无法编码的字符替换成'?'；数据损坏了，但是用户知道出现了问题</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>city.encode(<span class="string">'cp437'</span>, errors=<span class="string">'replace'</span>)</span><br><span class="line"><span class="string">b'S?o paulo'</span></span><br><span class="line"><span class="comment"># 'xmlcharrefreplace'把无法编码的字符替换成了XML实体</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>city.encode(<span class="string">'cp437'</span>, errors=<span class="string">'xmlcharrefreplace'</span>)</span><br><span class="line"><span class="string">b'S&amp;#227;o paulo'</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>另外</p>
 <ul>
-<li>在插入新值的时候，Python可能会按照散列表的拥挤程度来决定是否要重新分配内存为它扩容，这样做的目的是为了减少散列冲突发生的概率</li>
-</ul>
-</li>
+<li>编解码器的错误处理方式时可扩展的。你可以为errors参数注册额外的字符串</li>
+<li>方法是把一个名称和一个错误处理函数传给<code>codecs.register_error</code>函数</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h4 id="3-9-3-dict的实现及其导致的结果"><a href="#3-9-3-dict的实现及其导致的结果" class="headerlink" title="3.9.3 dict的实现及其导致的结果"></a>3.9.3 dict的实现及其导致的结果</h4><ol>
-<li><p>键必须是可散列的</p>
+<h4 id="4-4-2-处理UnicodeDecodeError"><a href="#4-4-2-处理UnicodeDecodeError" class="headerlink" title="4.4.2 处理UnicodeDecodeError"></a>4.4.2 处理UnicodeDecodeError</h4><ul>
+<li><p>简介</p>
 <ul>
-<li>一个可散列的对象需要满足的条件<ol>
-<li>支持hash()函数，并且通过<strong>hash</strong>()方法得到的散列值是不变的</li>
-<li>支持通过<strong>eq</strong>()方法来检测相等性</li>
-<li>若 a==b 为真，则 hash(a) == hash(b) 也为真</li>
-</ol>
-</li>
-<li>所有由用户自定义的对象默认都是可散列的，因为它们的散列值有id()来获取，而且它们是不相等的</li>
-<li>如果你实现了一个类的<strong>eq</strong>方法，并且希望它是可散列的，那么它一定要有个恰当的<strong>hash</strong>方法，保证在a==b为真的情况下hash(a)==hash(b)也必定为真</li>
+<li>不是每个字节都包含有效的ASCII字符，也不是每个字符序列都是有效的UTF-8或者UTF-16</li>
+<li>因此，把二进制序列转换为文本时，如果假设是UTF-8或者UTF-16中的一个，遇到无法转换的字节序列时会抛出UnicodeDecodeError</li>
+<li>另一方面，许多陈旧的8位编码——如’cp1252’、’iso8859-1’、’koi8_r’等——能解码任何字节序列流而不抛出错误，因此，如果程序使用错误的8位编码，解码过程悄无声息，而得到的是无用输出</li>
 </ul>
 </li>
-<li><p>字典在内存上的开销巨大</p>
-<ul>
-<li>由于字典使用了散列表，散列表必须是稀疏的，这导致它在空间上的效率低下</li>
-<li>在用户自定义的类型中，<strong>slot</strong>属性可以改变实例属性的存储方式，由dict变成tuple</li>
-</ul>
+<li><p>鬼符(gremlin)：乱码字符称为鬼符</p>
 </li>
-<li><p>键查询很快</p>
-<ul>
-<li>dict的实现是典型的空间换时间：字典有巨大的内存开销，但它们提供了无视数据量大小的快速访问————只要字典能被放入内存中</li>
-</ul>
+<li><p>示例：把字节序列解码成字符串：成功和错误处理</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这些字节序列是使用latin1编码的"Montréal"；'\xe9'字节对应'é'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets = <span class="string">b'Montr\xe9al'</span></span><br><span class="line"><span class="comment"># 可以使用'cp1252'解码，因为它是latin1的有效超集</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets.decode(<span class="string">'cp1252'</span>)</span><br><span class="line"><span class="string">'Montréal'</span></span><br><span class="line"><span class="comment"># ISO-8859-7用于编码希腊文，因此无法正确解释'\xe9'字节，而且没有抛出错误</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets.decode(<span class="string">'iso8859_7'</span>)</span><br><span class="line"><span class="string">'Montrιal'</span></span><br><span class="line"><span class="comment"># KOI8-R用来编码俄文，这里'\xe9'对应西里尔字母'И'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets.decode(<span class="string">'koi8_r'</span>)</span><br><span class="line"><span class="string">'MontrИal'</span></span><br><span class="line"><span class="comment"># 'utf-8'编解码器检测到octets不是有效的utf-8字符串，抛出UnicodeDecodeError</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>octets.decode(<span class="string">'utf_8'</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">UnicodeDecodeError: <span class="string">'utf-8'</span> codec can<span class="string">'t decode byte 0xe9 in position 5: invalid continuation byte</span></span><br><span class="line"><span class="string"># 使用'</span>replace<span class="string">'错误处理方式，`\xe9`替换成了"�"(码位是U+FFFD)，这是官方指定的REPLACEMENT CHARACTER(替换字符)，表示未知字符</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; octets.decode('</span>utf_8<span class="string">', errors='</span>replace<span class="string">')</span></span><br><span class="line"><span class="string">'</span>Montr�al<span class="string">'</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>键的次序取决于添加顺序</p>
-<ul>
-<li>这是因为当往dict里添加新键而又发生散列冲突的时候，新键可能会被安排存放到另一个位置</li>
-<li>但是即使顺序不同，内容相同的字典也被认为是相等的</li>
 </ul>
-</li>
-<li><p>往字典里添加新键可能会改变原有键的顺序</p>
-<ul>
-<li>因为往字典中添加键可能会导致字典扩容，从而改变原有键的位置和顺序</li>
-<li>所以不要在对字典进行迭代的同时进行修改</li>
-</ul>
-</li>
-</ol>
 <hr>
-<h4 id="3-9-4-set的实现及其导致的结果"><a href="#3-9-4-set的实现及其导致的结果" class="headerlink" title="3.9.4 set的实现及其导致的结果"></a>3.9.4 set的实现及其导致的结果</h4><ul>
-<li><p>set和frozenset的实现也依赖散列表，但在它们的散列表中存放的只有元素的引用</p>
+<h4 id="4-4-3-使用预期之外的编码加载模块时抛出的SyntaxError"><a href="#4-4-3-使用预期之外的编码加载模块时抛出的SyntaxError" class="headerlink" title="4.4.3 使用预期之外的编码加载模块时抛出的SyntaxError"></a>4.4.3 使用预期之外的编码加载模块时抛出的SyntaxError</h4><ul>
+<li><p>Python源码的默认编码</p>
+<ul>
+<li>Python3默认使用utf-8编码源码</li>
+<li>Python2默认使用ASCII</li>
+</ul>
 </li>
-<li><p>集合的特点</p>
-<ol>
-<li>集合中的元素必须是可散列的</li>
-<li>集合很消耗内存</li>
-<li>可以很高效地判断元素是否存在于某个集合</li>
-<li>元素的次序取决于被添加到集合里的次序</li>
-<li>往集合中添加元素，可能会改变集合里已有元素的顺序</li>
+<li><p>如果加载的.py模块中包含utf-8之外的数据会产生SyntaxError异常</p>
+<ul>
+<li>为了修正这个问题有两种解决办法<ol>
+<li>在文件顶部添加一个神奇的coding注释<ul>
+<li>例如:<code># coding: cp1252</code></li>
+</ul>
+</li>
+<li>将这个源码的编码方式直接转换成UTF8</li>
 </ol>
+</li>
+</ul>
+</li>
+<li><p>源码中能否使用非ASCII名称</p>
+<ul>
+<li>Python3允许源码中使用非ASCII标识符，但是通常Python2不允许这么做</li>
+<li>如果代码是开源的，那么标识符应该使用英文，也就是只能使用ASCII字符</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="4-4-4-如何找出字节序列的编码"><a href="#4-4-4-如何找出字节序列的编码" class="headerlink" title="4.4.4 如何找出字节序列的编码"></a>4.4.4 如何找出字节序列的编码</h4><ul>
+<li><p>如何找出字节序列的编码</p>
+<ul>
+<li>简单来说，不能。必须有人告诉你</li>
+</ul>
+</li>
+<li><p>有些通信协议和文件格式，比如HTTP和XML，包含明确制定内容编码的首部</p>
+</li>
+<li><p>统一字符编码侦测包Chardet</p>
+<ul>
+<li>它通过试探和分析编码中字节的特点来确定编码的类型</li>
+<li>可以识别所支持的30种编码</li>
+<li>Chardet是个Python库，可以在程序中使用，不过它也提供了命令行工具chardetext</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="4-4-5-BOM-有用的鬼符"><a href="#4-4-5-BOM-有用的鬼符" class="headerlink" title="4.4.5 BOM:有用的鬼符"></a>4.4.5 BOM:有用的鬼符</h4><ul>
+<li>BOM<ul>
+<li>就是字节序标识(byte-order mark)，指明编码时使用Intel CPU的大字节序还是小字节序</li>
+<li>例如:u16编码开头的`b’\xff\xfe’</li>
+</ul>
+</li>
+<li><p>小字节序和大字节序</p>
+<ul>
+<li>在小字节序设备中，各个码位的最低有效字节在前面<ul>
+<li>例如:字母”E”的码位是U+0049，十进制为69，所以在字节偏移的第二位和第三位编码为69和0</li>
+</ul>
+</li>
+<li>在大字节序CPU中，编码顺序相反</li>
+</ul>
+</li>
+<li><p>为了避免混淆，UTF-16编码在要编码的文本钱吗需要加上特殊的不可见字符ZERO WIDTH NO-BREAK SPACE(U+FEFF)。在小字节序系统中，这个字符编码为<code>b\xff\xfe</code>；而在大字节序系统中，这个编码时<code>b\xfe\xff</code>，以此来进行区分。</p>
+</li>
+<li><p>UTF-16有两个变种:UTF-16LE，显式地指出使用小字节序；UTF-16BE，显式地指出使用大字节序。如果使用这两种编码，不会生成BOM</p>
+</li>
+<li><p>与字节序有关个问题只对一个字(word)占多个字节的编码(如utf-16和utf-32)有影响；UTF-8不管使用什么字节序，生成的字节序列都是一致的，所以不需要使用BOM</p>
+</li>
+</ul>
+<hr>
+<h3 id="4-5-处理文本文件"><a href="#4-5-处理文本文件" class="headerlink" title="4.5 处理文本文件"></a>4.5 处理文本文件</h3><ul>
+<li><p>Unicode三明治</p>
+<ul>
+<li>处理文本的最佳实践就是”Unicode三明治”</li>
+<li>意思是<ol>
+<li>要尽早把输入的字节序列解码为字符串</li>
+<li>程序的业务逻辑部分只负责处理字符串</li>
+<li>对输出来说，要尽量晚地把字符串编码成字节序列</li>
+</ol>
+</li>
+<li>多数web框架都是这样做的，使用框架时很少接触字节序列</li>
+</ul>
+</li>
+<li><p>Python3中的Unicode三明治</p>
+<ul>
+<li>在Python3中能轻松地采纳Unicode三明治的建议</li>
+<li>因为内置的<code>open</code>函数会在读取文件的时候进行必要的解码，以文本模式写入文件的时候还会进行必要的编码</li>
+<li>所以调用<code>my_file.read()</code>得到的以及传给<code>my_file.write(text)</code>方法的都是字符串对象</li>
+</ul>
+</li>
+<li><p>默认编码问题</p>
+<ul>
+<li>如果在打开文件的时候没有指定编码，将使用当前环境的默认编码</li>
+<li>在Windows环境下的默认编码是(windows 1252)，而在GNU/Linux或Mac OS X中的默认编码时utf-8</li>
+<li>所以需要在多台设备或者多种场合下运行的代码，一定不能依赖默认编码。打开文件时始终应该明确传入<code>encoding=</code>参数</li>
+</ul>
+</li>
+<li><p>继续探究</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认情况下,open函数采用文本模式，返回一个TextIOWrapper对象</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp = open(<span class="string">'cafe.txt'</span>,<span class="string">'w'</span>,encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp</span><br><span class="line">&lt;_io.TextIOWrapper name=<span class="string">'cafe.txt'</span> mode=<span class="string">'w'</span> encoding=<span class="string">'utf-8'</span>&gt;</span><br><span class="line"><span class="comment"># 在TextIOWrapper对象上调用write方法返回写入的Unicode字符数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp.write(<span class="string">'café'</span>)</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp.close()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</span><br><span class="line"><span class="comment"># 在os.stat的报告文件中有5个字节，UTF-8编码的'é'占两个字节:\xc3\xa9</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.stat(<span class="string">'cafe.txt'</span>).st_size</span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="comment"># `rb`标识表明在二进制模式中读取文件，返回的是BufferedReader对象而不是TextIOWrapper对象</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp4 = open(<span class="string">'cafe.txt'</span>,<span class="string">'rb'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp4</span><br><span class="line">&lt;_io.BufferedReader name=<span class="string">'cafe.txt'</span>&gt;</span><br><span class="line"><span class="comment"># 读取得到的是字节序列，符合预期</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp4.read()</span><br><span class="line"><span class="string">b'caf\xc3\xa9'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意</p>
+<ul>
+<li>除非想判断编码，否则不要在二进制模式下打开文本文件</li>
+<li>即使如此，也应该使用Chardet，而不是重新发明轮子</li>
+</ul>
+</li>
+<li><p>Windows系统的编码问题</p>
+<ul>
+<li>在Windows中，不仅同一个系统中使用不同的编码(如cp850和cp1252)</li>
+<li>还有只支持ASCII和127个额外的字符的代码页，而且不同代码页之间增加的字符也有所不同</li>
+</ul>
+</li>
+<li><p>关于编码默认值的最佳建议是:别依赖默认值，如果遵从Unicode三明治建议，而且始终在程序中显式指定编码，将避免很多问题</p>
+</li>
+</ul>
+<hr>
+<h3 id="4-6-为了正确比较而规范化的Unicode字符串"><a href="#4-6-为了正确比较而规范化的Unicode字符串" class="headerlink" title="4.6 为了正确比较而规范化的Unicode字符串"></a>4.6 为了正确比较而规范化的Unicode字符串</h3><ul>
+<li><p>因为unicode有组合字符(变音符号和附加到前一个字符上的记号，打印时作为一个整体)，所以字符串比较起来很麻烦</p>
+<ul>
+<li>例如:<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1 = <span class="string">'café'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s2 = <span class="string">'cafe\u0301'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1, s2</span><br><span class="line">(<span class="string">'café'</span>, <span class="string">'café'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(s1),len(s2)</span><br><span class="line">(<span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1 == s2</span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>这个问题的解决方案是使用unicodedata.normalize函数提供的Unicode规范化，这个函数的第一个参数是这4个字符串中的一个</p>
+<ul>
+<li>NFC:使用最少的码位构建等价的字符串</li>
+<li>NFD：把组合字符分解为基字符和单独的组合字符</li>
+<li>NFKC和NFKD：会进行一定的字符替换(略)</li>
+</ul>
+</li>
+<li><p>使用<code>str.casefold()</code>可以把所有的文本都变成小写</p>
+</li>
+<li><p>使用<code>nfc_equal</code>和<code>fold_equal</code>可以对字符串进行规范化或小写化之后再比较</p>
+</li>
+</ul>
+<hr>
+<h3 id="4-7-Unicode文本排序"><a href="#4-7-Unicode文本排序" class="headerlink" title="4.7 Unicode文本排序"></a>4.7 Unicode文本排序</h3><ul>
+<li><p>Python比较任何类型的序列时，会一一比较序列里的各个元素，对于字符串来说，比较的是码位</p>
+</li>
+<li><p>然而不同的地区采用的排序规则可能有所区别</p>
+</li>
+<li><p>在Python中，非ASCII文本的标准排序方式是使用locale.strxfrm函数，它会把字符串转换成适合所在地域进行比较的形式</p>
+</li>
+<li><p>PyUCA库使用纯Python实现了Unicode排序算法，它没有考虑地区设置</p>
+</li>
+</ul>
+<h3 id="4-8-Unicode数据库"><a href="#4-8-Unicode数据库" class="headerlink" title="4.8 Unicode数据库"></a>4.8 Unicode数据库</h3><ul>
+<li><p>Unicode标准提供了一个完整的数据库</p>
+<ul>
+<li>不仅包括码位与字符名称之间的映射，还有各个字符的元数据，以及字符之间的关系</li>
+<li>例如,Unicode数据库记录了字符是否可以打印，是不是字母、是不是数字，或者是不是其他数值符号</li>
+</ul>
+</li>
+<li><p>unicodedata模块中有几个函数用来获取字符的元数据</p>
+<ul>
+<li>例如<ul>
+<li>字符在标准中的官方名称是不是组合字符</li>
+<li>符号对应的人类可读数值(不是码位)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-9-本章小结"><a href="#4-9-本章小结" class="headerlink" title="4.9 本章小结"></a>4.9 本章小结</h3><ul>
+<li><p>本章首先澄清了人们对一个字符等于一个字节的误解，我们必须把文本字符串和它们在文件中的二进制序列标书区分开</p>
+</li>
+<li><p>bytes和bytearray是两种二进制序列类型</p>
+</li>
+<li><p>编码和解码</p>
+</li>
+<li><p>UnicodeEncodeError、UnicodeDecodeError和由于Python源码文件编码错误导致的SyntaxError</p>
+</li>
+<li><p>Chardet包用于检测元数据使用的是什么编码</p>
+</li>
+<li><p>在打开文件时，encoding-关键字参数不是必需的，但是应该指定。不然不一致的默认编码会导致跨平台不兼容性</p>
+</li>
+<li><p>文本比较很复杂，因为Unicode为某些字符提供了不同的表示，所以匹配文本之前一定要先规范化</p>
+</li>
+<li><p>Unicode数据库包括码位与字符名称之间的映射，还有各个字符的元数据，以及字符之间的关系</p>
 </li>
 </ul>
 <hr>
@@ -740,7 +742,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/47/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><span class="page-number current">48</span><a class="page-number" href="/page/49/">49</a><span class="space">&hellip;</span><a class="page-number" href="/page/105/">105</a><a class="extend next" rel="next" href="/page/49/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/47/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><span class="page-number current">48</span><a class="page-number" href="/page/49/">49</a><span class="space">&hellip;</span><a class="page-number" href="/page/106/">106</a><a class="extend next" rel="next" href="/page/49/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -788,7 +790,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

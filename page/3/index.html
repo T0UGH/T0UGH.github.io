@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/04/Redis-13-客户端/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/05/Redis-14-服务器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/04/Redis-13-客户端/" itemprop="url">[Redis][13][客户端]</a></h1>
+                <a class="post-title-link" href="/2020/03/05/Redis-14-服务器/" itemprop="url">[Redis][14][服务器]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-04T16:06:57+08:00">
-                2020-03-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-05T11:05:34+08:00">
+                2020-03-05
               </time>
             
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/03/04/Redis-13-客户端/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/04/Redis-13-客户端/" itemprop="commentCount"></span>
+                <a href="/2020/03/05/Redis-14-服务器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/05/Redis-14-服务器/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,59 +362,108 @@
       
         
           
-            <h2 id="第-13-章-客户端"><a href="#第-13-章-客户端" class="headerlink" title="第 13 章 客户端"></a>第 13 章 客户端</h2><p>Redis服务器是典型的<strong>一对多服务器</strong>程序：一个服务器可以与多个客户端建立网络连接。</p>
-<p>通过使用由<strong>I/O多路复用</strong>技术实现的文件事件处理器，Redis服务器使用<strong>单线程单进程</strong>的方式来处理命令请求，并与多个客户端进行网络通信。</p>
-<p>对于每个与服务器进行连接的客户端，服务器都为这些客户端建立了相应的<code>redis.h/redisclient</code>结构（客户端状态），这个结构保存了客户端当前的<strong>状态信息</strong>，以及<strong>执行相关功能</strong>时需要用到的<strong>数据结构</strong>，具体属性本节稍后会介绍</p>
-<p>Redis服务器结构中存储了一个<code>redisClient</code>类型的链表，它保存了所有与服务器连接的客户端状态结构</p>
-<h3 id="13-1-客户端属性"><a href="#13-1-客户端属性" class="headerlink" title="13.1 客户端属性"></a>13.1 客户端属性</h3><p><code>redisClient</code>结构的源码如下<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisClient</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 套接字描述符</span></span><br><span class="line">    <span class="keyword">int</span> fd;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当前正在使用的数据库</span></span><br><span class="line">    redisDb *db;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当前正在使用的数据库的 id （号码）</span></span><br><span class="line">    <span class="keyword">int</span> dictid;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 客户端的名字</span></span><br><span class="line">    robj *name;             <span class="comment">/* As set by CLIENT SETNAME */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查询缓冲区</span></span><br><span class="line">    sds querybuf;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查询缓冲区长度峰值</span></span><br><span class="line">    <span class="keyword">size_t</span> querybuf_peak;   <span class="comment">/* Recent (100ms or more) peak of querybuf size */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 参数数量</span></span><br><span class="line">    <span class="keyword">int</span> argc;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 参数对象数组</span></span><br><span class="line">    robj **argv;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 记录被客户端执行的命令</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">redisCommand</span> *<span class="title">cmd</span>, *<span class="title">lastcmd</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 请求的类型：内联命令还是多条命令</span></span><br><span class="line">    <span class="keyword">int</span> reqtype;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 剩余未读取的命令内容数量</span></span><br><span class="line">    <span class="keyword">int</span> multibulklen;       <span class="comment">/* number of multi bulk arguments left to read */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 命令内容的长度</span></span><br><span class="line">    <span class="keyword">long</span> bulklen;           <span class="comment">/* length of bulk argument in multi bulk request */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 回复链表</span></span><br><span class="line">    <span class="built_in">list</span> *reply;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 回复链表中对象的总大小</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> reply_bytes; <span class="comment">/* Tot bytes of objects in reply list */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 已发送字节，处理 short write 用</span></span><br><span class="line">    <span class="keyword">int</span> sentlen;            <span class="comment">/* Amount of bytes already sent in the current</span></span><br><span class="line"><span class="comment">                               buffer or object being sent. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建客户端的时间</span></span><br><span class="line">    <span class="keyword">time_t</span> ctime;           <span class="comment">/* Client creation time */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 客户端最后一次和服务器互动的时间</span></span><br><span class="line">    <span class="keyword">time_t</span> lastinteraction; <span class="comment">/* time of the last interaction, used for timeout */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 客户端的输出缓冲区超过软性限制的时间</span></span><br><span class="line">    <span class="keyword">time_t</span> obuf_soft_limit_reached_time;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 客户端状态标志</span></span><br><span class="line">    <span class="keyword">int</span> flags;              <span class="comment">/* REDIS_SLAVE | REDIS_MONITOR | REDIS_MULTI ... */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当 server.requirepass 不为 NULL 时</span></span><br><span class="line">    <span class="comment">// 代表认证的状态</span></span><br><span class="line">    <span class="comment">// 0 代表未认证， 1 代表已认证</span></span><br><span class="line">    <span class="keyword">int</span> authenticated;      <span class="comment">/* when requirepass is non-NULL */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 复制状态</span></span><br><span class="line">    <span class="keyword">int</span> replstate;          <span class="comment">/* replication state if this is a slave */</span></span><br><span class="line">    <span class="comment">// 用于保存主服务器传来的 RDB 文件的文件描述符</span></span><br><span class="line">    <span class="keyword">int</span> repldbfd;           <span class="comment">/* replication DB file descriptor */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取主服务器传来的 RDB 文件的偏移量</span></span><br><span class="line">    <span class="keyword">off_t</span> repldboff;        <span class="comment">/* replication DB file offset */</span></span><br><span class="line">    <span class="comment">// 主服务器传来的 RDB 文件的大小</span></span><br><span class="line">    <span class="keyword">off_t</span> repldbsize;       <span class="comment">/* replication DB file size */</span></span><br><span class="line">    </span><br><span class="line">    sds replpreamble;       <span class="comment">/* replication DB preamble. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 主服务器的复制偏移量</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> reploff;      <span class="comment">/* replication offset if this is our master */</span></span><br><span class="line">    <span class="comment">// 从服务器最后一次发送 REPLCONF ACK 时的偏移量</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> repl_ack_off; <span class="comment">/* replication ack offset, if this is a slave */</span></span><br><span class="line">    <span class="comment">// 从服务器最后一次发送 REPLCONF ACK 的时间</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> repl_ack_time;<span class="comment">/* replication ack time, if this is a slave */</span></span><br><span class="line">    <span class="comment">// 主服务器的 master run ID</span></span><br><span class="line">    <span class="comment">// 保存在客户端，用于执行部分重同步</span></span><br><span class="line">    <span class="keyword">char</span> replrunid[REDIS_RUN_ID_SIZE+<span class="number">1</span>]; <span class="comment">/* master run id if this is a master */</span></span><br><span class="line">    <span class="comment">// 从服务器的监听端口号</span></span><br><span class="line">    <span class="keyword">int</span> slave_listening_port; <span class="comment">/* As configured with: SLAVECONF listening-port */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 事务状态</span></span><br><span class="line">    multiState mstate;      <span class="comment">/* MULTI/EXEC state */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 阻塞类型</span></span><br><span class="line">    <span class="keyword">int</span> btype;              <span class="comment">/* Type of blocking op if REDIS_BLOCKED. */</span></span><br><span class="line">    <span class="comment">// 阻塞状态</span></span><br><span class="line">    blockingState bpop;     <span class="comment">/* blocking state */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 最后被写入的全局复制偏移量</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> woff;         <span class="comment">/* Last write global replication offset. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 被监视的键</span></span><br><span class="line">    <span class="built_in">list</span> *watched_keys;     <span class="comment">/* Keys WATCHED for MULTI/EXEC CAS */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这个字典记录了客户端所有订阅的频道</span></span><br><span class="line">    <span class="comment">// 键为频道名字，值为 NULL</span></span><br><span class="line">    <span class="comment">// 也即是，一个频道的集合</span></span><br><span class="line">    dict *pubsub_channels;  <span class="comment">/* channels a client is interested in (SUBSCRIBE) */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 链表，包含多个 pubsubPattern 结构</span></span><br><span class="line">    <span class="comment">// 记录了所有订阅频道的客户端的信息</span></span><br><span class="line">    <span class="comment">// 新 pubsubPattern 结构总是被添加到表尾</span></span><br><span class="line">    <span class="built_in">list</span> *pubsub_patterns;  <span class="comment">/* patterns a client is interested in (SUBSCRIBE) */</span></span><br><span class="line">    sds peerid;             <span class="comment">/* Cached peer ID. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Response buffer */</span></span><br><span class="line">    <span class="comment">// 回复偏移量</span></span><br><span class="line">    <span class="keyword">int</span> bufpos;</span><br><span class="line">    <span class="comment">// 回复缓冲区</span></span><br><span class="line">    <span class="keyword">char</span> buf[REDIS_REPLY_CHUNK_BYTES];</span><br><span class="line"></span><br><span class="line">&#125; redisClient;</span><br></pre></td></tr></table></figure></p>
-<h4 id="13-1-1-套接字描述符"><a href="#13-1-1-套接字描述符" class="headerlink" title="13.1.1 套接字描述符"></a>13.1.1 套接字描述符</h4><p>客户端状态的<code>fd</code>属性记录了客户端正在使用的套接字描述符</p>
-<p>若<code>fd = -1</code>则说明这个客户端是用来执行Lua脚本或者AOF操作的伪客户端</p>
-<p>可以通过<code>CLIENT list</code>命令列出目前所有连接到服务器的普通客户端<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CLIENT list</span><br><span class="line">addr=127.0.0.1:53428 fd=6 name= age=1242 idle=0</span><br><span class="line">addr=127.0.0.1:53428 fd=7 name= age=1242 idle=0</span><br></pre></td></tr></table></figure></p>
-<h4 id="13-1-2-名字"><a href="#13-1-2-名字" class="headerlink" title="13.1.2 名字"></a>13.1.2 名字</h4><p>使用<code>CLIENT setname</code>命令可以为客户端设置名字，让客户端身份更加清晰</p>
-<h4 id="13-1-3-标志"><a href="#13-1-3-标志" class="headerlink" title="13.1.3 标志"></a>13.1.3 标志</h4><p>客户端的标记属性<code>flags</code>记录了客户端的<strong>角色</strong>和当前所处的<strong>状态</strong></p>
-<p><code>flags</code>属性的值可以是多个标志的二进制或，例如<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flags = &lt;flag1&gt; | &lt;flag2&gt; | ...</span><br><span class="line">flags = REDIS_LUA_CLIENT | REDIS_FORCE_AOF | REDIS_FORCE_REPL</span><br></pre></td></tr></table></figure></p>
-<p>一部分标志记录了客户端的角色</p>
+            <h2 id="第-14-章-服务器"><a href="#第-14-章-服务器" class="headerlink" title="第 14 章 服务器"></a>第 14 章 服务器</h2><p>Redis服务器负责与多个客户端建立<strong>网络连接</strong>，<strong>处理</strong>客户端发送的<strong>命令请求</strong>，在<strong>数据库</strong>中<strong>保存</strong>客户端执行命令所产生的数据，并通过<strong>资源管理</strong>来维持服务器自身的运转。</p>
+<h3 id="14-1-命令请求的执行过程"><a href="#14-1-命令请求的执行过程" class="headerlink" title="14.1 命令请求的执行过程"></a>14.1 命令请求的执行过程</h3><p>下面我们将以<code>SET</code>命令为例子，详细描述命令请求的执行全过程</p>
+<h4 id="14-1-1-发送命令请求"><a href="#14-1-1-发送命令请求" class="headerlink" title="14.1.1 发送命令请求"></a>14.1.1 发送命令请求</h4><p>Redis服务器的命令请求来自Redis客户端，当用户在客户端中键入一个命令请求时，客户端会将这个命令请求转换成<strong>协议格式</strong>，然后通过连接到服务器的套接字，将协议格式的命令请求<strong>发送给服务器</strong></p>
+<p><img src="/2020/03/05/Redis-14-服务器/200305_0.png" alt=""></p>
+<h4 id="14-1-2-读取命令请求"><a href="#14-1-2-读取命令请求" class="headerlink" title="14.1.2 读取命令请求"></a>14.1.2 读取命令请求</h4><p>当客户端与服务器之间的<strong>连接套接字</strong>因为客户端的写入而变得<strong>可读</strong>时，服务器将调用<strong>命令请求处理器</strong>来执行以下操作</p>
+<ol>
+<li><strong>读取</strong>套接字中协议格式的命令请求，并将其保存到客户端状态的<strong>输入缓冲区</strong>中，如下图<br><img src="/2020/03/05/Redis-14-服务器/200305_1.png" alt=""></li>
+<li>对输入缓冲区中的命令请求进行<strong>分析</strong>，<strong>提取</strong>命令请求中包含的<strong>命令参数</strong>，以及命令参数的个数，然后分别将参数和参数个数保存到客户端状态的<code>argv</code>属性和<code>argc</code>属性中<br><img src="/2020/03/05/Redis-14-服务器/200305_2.png" alt=""></li>
+<li>调用<strong>命令执行器</strong>，执行客户端指定的命令</li>
+</ol>
+<h4 id="14-1-3-命令执行器：查找命令实现"><a href="#14-1-3-命令执行器：查找命令实现" class="headerlink" title="14.1.3 命令执行器：查找命令实现"></a>14.1.3 命令执行器：查找命令实现</h4><p>首先，命令执行器根据客户端状态的<code>argv[0]</code>参数，在命令表中查找参数指定的命令，并将找到的命令保存到客户端状态的<code>cmd</code>属性中</p>
+<p>命令表是一个<strong>字典</strong>，字典的键是命令的名字，而字典的值是<code>redisCommand</code>结构，这个结构的源代码如下<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Redis 命令</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">redisCommand</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 命令名字</span></span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 实现函数</span></span><br><span class="line">    redisCommandProc *proc;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 参数个数，如果是-N，则说明参数的数量大于等于N</span></span><br><span class="line">    <span class="keyword">int</span> arity;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 字符串表示的 FLAG</span></span><br><span class="line">    <span class="keyword">char</span> *sflags; <span class="comment">/* Flags as string representation, one char per flag. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 实际 FLAG</span></span><br><span class="line">    <span class="keyword">int</span> flags;    <span class="comment">/* The actual flags, obtained from the 'sflags' field. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Use a function to determine keys arguments in a command line.</span></span><br><span class="line"><span class="comment">     * Used for Redis Cluster redirect. */</span></span><br><span class="line">    <span class="comment">// 从命令中判断命令的键参数。在 Redis 集群转向时使用。</span></span><br><span class="line">    redisGetKeysProc *getkeys_proc;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* What keys should be loaded in background when calling this command? */</span></span><br><span class="line">    <span class="comment">// 指定哪些参数是 key</span></span><br><span class="line">    <span class="keyword">int</span> firstkey; <span class="comment">/* The first argument that's a key (0 = no keys) */</span></span><br><span class="line">    <span class="keyword">int</span> lastkey;  <span class="comment">/* The last argument that's a key */</span></span><br><span class="line">    <span class="keyword">int</span> keystep;  <span class="comment">/* The step between first and last key */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 统计信息</span></span><br><span class="line">    <span class="comment">// microseconds 记录了命令执行耗费的总毫微秒数</span></span><br><span class="line">    <span class="comment">// calls 是命令被执行的总次数</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> microseconds, calls;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>下图是一个命令表的例子</p>
+<p><img src="/2020/03/05/Redis-14-服务器/200305_3.png" alt=""></p>
+<p>当程序在命令表中查找到了对应的命令，则会将其保存到客户端状态的<code>cmd</code>指针中，如下图</p>
+<p><img src="/2020/03/05/Redis-14-服务器/200305_4.png" alt=""></p>
+<h4 id="14-1-4-命令执行器：执行预备操作"><a href="#14-1-4-命令执行器：执行预备操作" class="headerlink" title="14.1.4 命令执行器：执行预备操作"></a>14.1.4 命令执行器：执行预备操作</h4><p>目前为止，命令执行需要的信息已经收集齐了，但是为了保证命令的正确执行，还需要进行一些预备工作，包括</p>
 <ul>
-<li><p>在主从服务器进行复制操作时，主服务器会成为从服务器的客户端，而从服务器也会成为主服务器的客户端。<code>REDIS_MASTER</code>标志表示客户端代表的是一个主服务器，<code>REDIS SLAVE</code>标志表示客户端代表的是一个从服务器。</p>
+<li><p>检查客户端状态的<code>cmd</code>指针是否指向<code>NULL</code></p>
 </li>
-<li><p><code>REDIS_PRE_PSYNC</code>标志表示客户端代表的是一个版本低于Redis2.8的从服务器</p>
+<li><p>根据客户端<code>cmd</code>属性指向的<code>redisCommand</code>结构的<code>arity</code>属性，检查命令请求所给定的参数个数是否正确</p>
 </li>
-<li><p><code>REDIS_LUA_CLIENT</code>标识表示客户端是专门用于处理Lua脚本里面包含的Redis命令的伪客户端。</p>
+<li><p>检查客户端是否已经通过了身份验证，未通过身份验证的客户端只能执行<code>AUTH</code>命令</p>
+</li>
+<li><p>如果服务器因为执行Lua脚本而超时并进入阻塞状态，那么服务器只会执行客户端发来的<code>SHUTDOWN nosave</code>命令和<code>SCRIPT KILL</code>命令，其他命令都会被服务器拒绝。</p>
+</li>
+<li><p>如果客户端正在执行事务，那么服务器只会执行客户端发来的<code>EXEC</code>、<code>DISCARD</code>、<code>MULT</code>、<code>WATCH</code>四个命令，其他命令都会被放进事务队列中。</p>
+</li>
+<li><p>等等</p>
 </li>
 </ul>
-<p>另外一部分标志记录了客户端目前所处的状态</p>
+<h4 id="14-1-5-命令执行器：调用命令的实现函数"><a href="#14-1-5-命令执行器：调用命令的实现函数" class="headerlink" title="14.1.5 命令执行器：调用命令的实现函数"></a>14.1.5 命令执行器：调用命令的实现函数</h4><p>此时，我们不但准备好了执行命令所需的信息，而且还进行了预备工作，那么只要执行以下语句就可以执行命令了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client-&gt;cmd-&gt;proc(client)</span><br></pre></td></tr></table></figure>
+<p><code>cmd-&gt;proc</code>指针指向的是之前绑定的命令实现函数，通过这个函数，就可以对指定命令进行执行，并产生对应的操作，写入到客户端的输出缓冲区中。在这之后，命令实现函数还将为客户端套接字管理命令回复处理器，然后这个处理器可以在客户端可写的时候将回复返回给客户端。</p>
+<p>如下图<br><img src="/2020/03/05/Redis-14-服务器/200305_5.png" alt=""></p>
+<p><img src="/2020/03/05/Redis-14-服务器/200305_6.png" alt=""></p>
+<h4 id="14-1-6-命令执行器：执行后续操作"><a href="#14-1-6-命令执行器：执行后续操作" class="headerlink" title="14.1.6 命令执行器：执行后续操作"></a>14.1.6 命令执行器：执行后续操作</h4><p>在执行完实现函数后，还需要执行一些后续工作</p>
 <ul>
-<li><code>REDIS_MONITOR</code>标志表示客户端正在执行<code>MONITOR</code>命令。</li>
-<li><code>REDIS_UNIX_SOCKET</code>标志表示服务器使用<code>UNIX</code>套接字来连接客户端。</li>
-<li><code>REDIS_BLOCKED</code>标志表示客户端正在被<code>BRPOP</code>、<code>BLPOP</code>等命令阻塞。</li>
-<li>等等</li>
+<li>如果服务器开启了慢查询日志功能，那么慢查询日志模块会检查是否执行了刚刚执行完的命令请求添加一条新的慢查询日志</li>
+<li>更新被执行命令的<code>redisCommand</code>结构记录的总时长和次数</li>
+<li>如果开启了AOF，则将刚执行的命令写入到AOF缓冲区</li>
+<li>将刚执行的命令传播给所有从服务器</li>
 </ul>
-<h4 id="13-1-4-输入缓冲区"><a href="#13-1-4-输入缓冲区" class="headerlink" title="13.1.4 输入缓冲区"></a>13.1.4 输入缓冲区</h4><p>输入缓冲区是<code>querybuf</code>属性，它是一个Redis字符串结构，用于保存客户端发送的命令请求，大小可以根据输入内容动态地扩大和缩小。例子如下图</p>
-<p><img src="/2020/03/04/Redis-13-客户端/200304_0.png" alt=""></p>
-<h4 id="13-1-5-命令与命令参数"><a href="#13-1-5-命令与命令参数" class="headerlink" title="13.1.5 命令与命令参数"></a>13.1.5 命令与命令参数</h4><p>在服务器将客户端发送的命令请求保存到客户端状态的querybuf属性之后，服务器将对命令请求的内容进行分析，并将得到的命令参数以及命令参数的个数分别存储在客户端状态的<code>argv</code>和<code>argc</code>中。</p>
-<p>例如下图，假如客户端发送的命令为<code>SET key &quot;value&quot;</code>，那么将这样保存<br><img src="/2020/03/04/Redis-13-客户端/200304_1.png" alt=""></p>
-<h4 id="13-1-6-命令的实现函数"><a href="#13-1-6-命令的实现函数" class="headerlink" title="13.1.6 命令的实现函数"></a>13.1.6 命令的实现函数</h4><p>当服务器从协议内容中分析并得出<code>argv</code>属性和<code>argc</code>属性的值之后，服务器将根据项<code>argv[0]</code>的值，在命令表中查找命令所对应的命令实现函数。</p>
-<p>命令表是一个字典，字典的键是一个SDS结构(Redis定义的字符串结构)，保存了命令的名字，而字典的值是命令所对应的redisCommand结构，这个结构保存了命令的实现函数、命令的标志、命令应该给定的参数个数等信息。</p>
-<p>当程序成功的找到了<code>argv[0]</code>对应的<code>redisCommand</code>结构时，它会将客户端状态(<code>redisClient</code>)中的<code>cmd</code>指针指向这个命令</p>
-<p>例如下图，我们在命令表中查找<code>SET</code>命令，并将<code>cmd</code>指针指向它<br><img src="/2020/03/04/Redis-13-客户端/200304_2.png" alt=""></p>
-<h4 id="13-1-7-输出缓冲区"><a href="#13-1-7-输出缓冲区" class="headerlink" title="13.1.7 输出缓冲区"></a>13.1.7 输出缓冲区</h4><p>执行命令得到的命令回复将保存在客户端状态的输出缓冲区中，它有定长和变长两种选择</p>
-<h4 id="13-1-8-身份验证"><a href="#13-1-8-身份验证" class="headerlink" title="13.1.8 身份验证"></a>13.1.8 身份验证</h4><p>略</p>
-<h4 id="13-1-9-时间"><a href="#13-1-9-时间" class="headerlink" title="13.1.9 时间"></a>13.1.9 时间</h4><p>略</p>
-<h3 id="13-2-客户端的创建与关闭"><a href="#13-2-客户端的创建与关闭" class="headerlink" title="13.2 客户端的创建与关闭"></a>13.2 客户端的创建与关闭</h3><p>服务器使用不同的方式来创建和关闭不同类型的客户端</p>
-<h4 id="13-2-1-创建普通客户端"><a href="#13-2-1-创建普通客户端" class="headerlink" title="13.2.1 创建普通客户端"></a>13.2.1 创建普通客户端</h4><p>如果客户端是通过网络连接与服务器进行连接的普通客户端，那么在客户端使用<code>connect</code>函数连接到服务器时，服务器就会调用连接事件处理器，为客户端创建相应的客户端状态，并将这个新的客户端状态添加到服务器状态结构<code>client</code>链表的尾部</p>
-<p>如下图所示，当客户端c3连接时<br><img src="/2020/03/04/Redis-13-客户端/200304_3.png" alt=""></p>
-<h4 id="13-2-2-关闭普通客户端"><a href="#13-2-2-关闭普通客户端" class="headerlink" title="13.2.2 关闭普通客户端"></a>13.2.2 关闭普通客户端</h4><p>一个普通客户端可以因为多种原因而关闭</p>
+<h4 id="14-1-7-将命令回复发送给客户端"><a href="#14-1-7-将命令回复发送给客户端" class="headerlink" title="14.1.7 将命令回复发送给客户端"></a>14.1.7 将命令回复发送给客户端</h4><p>前面说过，命令实现函数会将命令回复保存到客户端的输出缓冲区里面，并为客户端的套接字关联命令回复处理器，当客户端套接字变为可写状态时，服务器就会执行命令回复处理器，将保存在客户端输出缓冲区中的命令回复发送给客户端。</p>
+<h4 id="14-1-8-客户端接收并打印命令请求"><a href="#14-1-8-客户端接收并打印命令请求" class="headerlink" title="14.1.8 客户端接收并打印命令请求"></a>14.1.8 客户端接收并打印命令请求</h4><p>当客户端接收到协议格式的命令回复之后，它会将这些回复转换成人类可读的格式，并打印给用户观看</p>
+<h3 id="14-2-serverCron函数"><a href="#14-2-serverCron函数" class="headerlink" title="14.2 serverCron函数"></a>14.2 serverCron函数</h3><p>这个函数负责管理服务器的资源，并保持服务器自身的良好运转</p>
+<h4 id="14-2-1-更新服务器时间缓存"><a href="#14-2-1-更新服务器时间缓存" class="headerlink" title="14.2.1 更新服务器时间缓存"></a>14.2.1 更新服务器时间缓存</h4><p>Redis服务器中有不少功能需要获取系统的当前时间，而每次获取系统的当前时间都需要执行一次系统调用，为了减少系统调用的执行次数，服务器状态中的<code>unixtime</code>属性和<code>mstime</code>属性被用作当前时间的缓存</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">redisServer</span>&#123;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保存了秒级精度的系统当前时间戳</span></span><br><span class="line">    <span class="keyword">time_t</span> unixtime;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保存了毫秒级精度的系统当前UNIX时间戳</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> mstime;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>serverCron</code>默认每100毫秒执行一次，所以这两个时间戳并不准确，若需要更高精度的时间，比如为键设置过期时间、添加慢查询日志等，则还是需要通过系统调用的方式。</p>
+<h4 id="14-2-2-更新LRU时钟"><a href="#14-2-2-更新LRU时钟" class="headerlink" title="14.2.2 更新LRU时钟"></a>14.2.2 更新LRU时钟</h4><p>服务器状态中的<code>lruclock</code>属性保存了服务器的<code>LRU</code>时钟。每个Redis对象都有一个<code>lru</code>属性，它保存了对象最后一次被命令访问的时间。</p>
+<p><code>serverCron</code>函数默认会每10秒更新一次<code>lruclock</code>属性的值，所以这个时钟精度很差，通过它计算出的对象空转时间也只是个模糊值</p>
+<h4 id="14-2-3-更新服务器每秒执行命令次数"><a href="#14-2-3-更新服务器每秒执行命令次数" class="headerlink" title="14.2.3 更新服务器每秒执行命令次数"></a>14.2.3 更新服务器每秒执行命令次数</h4><p>略</p>
+<h4 id="14-2-4-更新服务器内存峰值记录"><a href="#14-2-4-更新服务器内存峰值记录" class="headerlink" title="14.2.4 更新服务器内存峰值记录"></a>14.2.4 更新服务器内存峰值记录</h4><p><code>serverCron</code>还负责记录服务器运行期间的最大内存使用量</p>
+<h4 id="14-2-5-处理SIGTERM信号"><a href="#14-2-5-处理SIGTERM信号" class="headerlink" title="14.2.5 处理SIGTERM信号"></a>14.2.5 处理SIGTERM信号</h4><p>在启动服务器时，Redis会为服务器进程的<code>SIGTERM</code>信号关联处理器<code>sigtermHandler</code>函数，这个信号处理器负责在服务器接到<code>SIGTERM</code>信号时，打开服务器状态的<code>shutdown_asap</code>标识</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sigtermHandler</span><span class="params">(<span class="keyword">int</span> sig)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打印日志</span></span><br><span class="line">    redisLogFromHandler(REDIS_WARNING, <span class="string">"Received SIGTERM, scheduling shutdown..."</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打开关闭标志</span></span><br><span class="line">    server.shutdown_asap = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每次<code>serverCron</code>函数执行时，程序都会对服务器状态的<code>shutdown_asap</code>属性进行检查，并根据属性的值来决定是否关闭服务器</p>
+<h4 id="14-2-6-管理客户端资源"><a href="#14-2-6-管理客户端资源" class="headerlink" title="14.2.6 管理客户端资源"></a>14.2.6 管理客户端资源</h4><p><code>serverCron</code>每次执行都会调用<code>clientsCron</code>，它会进行如下检查</p>
 <ul>
-<li>客户端进程退出或者被杀死</li>
-<li>客户端向服务器发送了不符合协议格式的数据</li>
-<li>如果客户端成为<code>CLIENT KILL</code>命令的目标，它也会被关闭</li>
-<li>如果设置了timeout配置项，当客户端的空转时间超过了timeout时就会被关闭</li>
-<li>如果客户端发送的命令请求超过了输入缓冲区的限制大小，则它会被关闭</li>
-<li>如果客户端发送的命令请求超过了输出缓冲区的限制大小，则它会被关闭</li>
+<li>如果客户端超时，则释放客户端</li>
+<li>如果客户端上次执行命令请求之后，输入缓冲区大小超过了给定长度，则释放客户端当前的输入缓冲区，并新建一个输入缓冲区，以节省内存</li>
 </ul>
-<h4 id="13-2-3-Lua脚本的伪客户端"><a href="#13-2-3-Lua脚本的伪客户端" class="headerlink" title="13.2.3 Lua脚本的伪客户端"></a>13.2.3 Lua脚本的伪客户端</h4><p>服务器在初始化时创建负责执行Lua脚本的伪客户端，并将这个伪客户端关联在服务器状态结构(<code>redisServer</code>)的<code>lua_client</code>属性中<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisServer</span>&#123;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    redisClient *lua_client</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;redisServer</span><br></pre></td></tr></table></figure></p>
-<p><code>lua_client</code>伪客户端在服务器运行的整个生命周期中都会存在</p>
-<h4 id="13-2-4-AOF文件的伪客户端"><a href="#13-2-4-AOF文件的伪客户端" class="headerlink" title="13.2.4 AOF文件的伪客户端"></a>13.2.4 AOF文件的伪客户端</h4><p>服务器在<strong>载入</strong>AOF文件时，会创建用于执行存储于AOF中的<strong>写命令</strong>的伪客户端，当载入完成时，这个伪客户端就会关闭。</p>
+<h4 id="14-2-7-管理服务器资源"><a href="#14-2-7-管理服务器资源" class="headerlink" title="14.2.7 管理服务器资源"></a>14.2.7 管理服务器资源</h4><p><code>serverCron</code>每次执行都会调用<code>databasesCron</code>函数，这个函数会对服务器的一部分数据库进行检查、删除其中的过期键，并在有需要的时候，对字典进行收缩操作</p>
+<h4 id="14-2-8-执行被延迟的BGREWRITEAOF"><a href="#14-2-8-执行被延迟的BGREWRITEAOF" class="headerlink" title="14.2.8 执行被延迟的BGREWRITEAOF"></a>14.2.8 执行被延迟的BGREWRITEAOF</h4><p>每次<code>serverCron</code>函数执行时，函数都会检查<code>BGSAVE</code>命令或者<code>BGREWRITEAOF</code>命令是否正在执行，如果这两个命令都没在执行，并且有之前被推延的<code>BGREWRITEAOF</code>，那么服务器就会执行它。</p>
+<h4 id="14-2-9-检查持久化操作的运行状况"><a href="#14-2-9-检查持久化操作的运行状况" class="headerlink" title="14.2.9 检查持久化操作的运行状况"></a>14.2.9 检查持久化操作的运行状况</h4><p>略</p>
+<h4 id="14-2-10-将AOF缓冲区中的内容写入AOF文件"><a href="#14-2-10-将AOF缓冲区中的内容写入AOF文件" class="headerlink" title="14.2.10 将AOF缓冲区中的内容写入AOF文件"></a>14.2.10 将AOF缓冲区中的内容写入AOF文件</h4><p>略</p>
+<h4 id="14-2-11-关闭异步客户端"><a href="#14-2-11-关闭异步客户端" class="headerlink" title="14.2.11 关闭异步客户端"></a>14.2.11 关闭异步客户端</h4><p>服务器会关闭那些输出缓冲区大小超过限制的客户端</p>
+<h4 id="14-2-12-增加cronloops计数器的值"><a href="#14-2-12-增加cronloops计数器的值" class="headerlink" title="14.2.12 增加cronloops计数器的值"></a>14.2.12 增加cronloops计数器的值</h4><p><code>cronloops</code>记录了<code>serverCron</code>的执行次数，所以<code>serverCron</code>函数还有负责更新自己的执行次数</p>
+<h3 id="14-3-初始化服务器"><a href="#14-3-初始化服务器" class="headerlink" title="14.3 初始化服务器"></a>14.3 初始化服务器</h3><h4 id="14-3-1-初始化服务器状态结构"><a href="#14-3-1-初始化服务器状态结构" class="headerlink" title="14.3.1 初始化服务器状态结构"></a>14.3.1 初始化服务器状态结构</h4><p>初始化服务器的第一步是创建一个<code>redisServer</code>类型的实例变量<code>server</code>作为服务器的状态，并且为结构中的各个属性设置<strong>默认值</strong>。</p>
+<p>这一步由<code>redis.c/initServerConfig</code>来完成，它设置的主要是一些常量，并且会创建<strong>命令表</strong>数据结构，但是<strong>不会创建</strong>服务器状态的<strong>其他数据结构</strong>，理由下面会解释。</p>
+<h4 id="14-3-2-载入配置选项"><a href="#14-3-2-载入配置选项" class="headerlink" title="14.3.2 载入配置选项"></a>14.3.2 载入配置选项</h4><p>用户可以通过配置参数或者配置文件来修改服务器的默认配置。</p>
+<p>服务器在用<code>initServerConfig</code>初始化完<code>server</code>变量之后，会载入用户自定义的配置，并且对第一步初始化的<code>server</code>变量进行修改。</p>
+<p>配置的规则是</p>
+<ul>
+<li>如果用户自定义了新的值，那么服务器就使用用户自定义的值</li>
+<li>否则沿用<code>initServerConfig</code>函数设置的默认值</li>
+</ul>
+<h4 id="14-3-3-初始化服务器数据结构"><a href="#14-3-3-初始化服务器数据结构" class="headerlink" title="14.3.3 初始化服务器数据结构"></a>14.3.3 初始化服务器数据结构</h4><p>这一步在<code>initServer</code>函数中执行，它主要初始如下数据结构</p>
+<ul>
+<li><code>server.clients</code>链表：它记录了客户端状态</li>
+<li><code>server.db</code>数组：包含了服务器的所有数组</li>
+<li><code>server.pubsub_channels</code>字典：与发布订阅有关</li>
+<li><code>server.lua</code>用来执行lua脚本的伪客户端</li>
+<li><code>server.slowlog</code>用来保存慢查询日志</li>
+</ul>
+<p>之所以将初始化工作分在<code>initServerConfig</code>和<code>initServer</code>两个函数，是因为如果只用一步的话，一旦用户通过配置文件更改了与数据结构相关的配置，那么服务器还要重新调整已经创建的数据结构。分为两步可以避免这种情况。</p>
+<p>除此之外，<code>initServer</code>还进行了如下设置工作</p>
+<ul>
+<li><p>为服务器设置<strong>进程信号处理器</strong>。</p>
+</li>
+<li><p><strong>创建共享对象</strong>：这些对象包含Reds服务器经常用到的一些值，比如包含”oK”回复的字符串对象，包含”ERR”回复的字符串对象，包含整数1到10000的字符串对象等等，服务器通过重用这些共享对象来避免反复创建相同的对象</p>
+</li>
+<li><p>打开服务器的<strong>监听端口</strong>，并为监听套接字关联连接应答事件处理器，等待服务器正式运行时接受客户端的连接。</p>
+</li>
+<li><p>为<code>serverCron</code>函数创建<strong>时间事件</strong>，等待服务器正式运行时执行<code>servercron</code>函数。</p>
+</li>
+<li><p>如果AOF持久化功能已经打开，那么<strong>打开现有的AOF文件</strong>，如果AOF文件不存在，那么创建并打开一个新的AOF文件，为AOF写入做好准备。</p>
+</li>
+<li><p>初始化服务器的<strong>后台I/O模块</strong>，为将来的LO操作做好准备。</p>
+</li>
+</ul>
+<h4 id="14-3-4-还原数据库状态"><a href="#14-3-4-还原数据库状态" class="headerlink" title="14.3.4 还原数据库状态"></a>14.3.4 还原数据库状态</h4><p>在完成了服务器变量的初始化工作，服务器需要载入AOF或者RDB文件来还原服务器的数据库状态</p>
+<h4 id="14-3-5-执行事件循环"><a href="#14-3-5-执行事件循环" class="headerlink" title="14.3.5 执行事件循环"></a>14.3.5 执行事件循环</h4><p>在初始化的最后一步，服务器将开始事件循环的执行</p>
 
           
         
@@ -454,7 +503,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/105/">105</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/106/">106</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -502,7 +551,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

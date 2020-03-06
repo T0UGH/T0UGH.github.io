@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="redis,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第 16 章 SentinelSentinel（哨兵）是Redis的高可用性解决方案  由一个或多个Sentinel实例组成的Sentinel系统可以监视任意多个主服务器，以及这些主服务器属下的所有从服务器 并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升级为新的主服务器，  下面举个例子说明为什么Sentinal可以保证高可用 首先，我们假设有这样一个系统，如下图，它由">
+<meta name="keywords" content="redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Redis][16][Sentinel]">
+<meta property="og:url" content="http://yoursite.com/2020/03/06/Redis-16-Sentinel/index.html">
+<meta property="og:site_name" content="打怪升级日常">
+<meta property="og:description" content="第 16 章 SentinelSentinel（哨兵）是Redis的高可用性解决方案  由一个或多个Sentinel实例组成的Sentinel系统可以监视任意多个主服务器，以及这些主服务器属下的所有从服务器 并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升级为新的主服务器，  下面举个例子说明为什么Sentinal可以保证高可用 首先，我们假设有这样一个系统，如下图，它由">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2020/03/06/Redis-16-Sentinel/200305_26.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/06/Redis-16-Sentinel/200305_27.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/06/Redis-16-Sentinel/200305_28.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/06/Redis-16-Sentinel/200305_29.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/06/Redis-16-Sentinel/200305_30.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/06/Redis-16-Sentinel/200305_31.png">
+<meta property="og:updated_time" content="2020-03-06T08:28:36.676Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Redis][16][Sentinel]">
+<meta name="twitter:description" content="第 16 章 SentinelSentinel（哨兵）是Redis的高可用性解决方案  由一个或多个Sentinel实例组成的Sentinel系统可以监视任意多个主服务器，以及这些主服务器属下的所有从服务器 并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升级为新的主服务器，  下面举个例子说明为什么Sentinal可以保证高可用 首先，我们假设有这样一个系统，如下图，它由">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/06/Redis-16-Sentinel/200305_26.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/06/Redis-16-Sentinel/">
+
+
+
+
+
+  <title>[Redis][16][Sentinel] | 打怪升级日常</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/T0UGH" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">打怪升级日常</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">两星炸弹人(╯‵□′)╯炸弹！•••</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/06/Redis-16-Sentinel/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="T0UGH(GuiPing Wang)">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/33653960?s=400&u=eb438b904ecb9d91f3aa9b777155a6488599493b&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="打怪升级日常">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Redis][16][Sentinel]</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-06T16:27:36+08:00">
+                2020-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/redis/" itemprop="url" rel="index">
+                    <span itemprop="name">redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/03/06/Redis-16-Sentinel/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/06/Redis-16-Sentinel/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第-16-章-Sentinel"><a href="#第-16-章-Sentinel" class="headerlink" title="第 16 章 Sentinel"></a>第 16 章 Sentinel</h2><p>Sentinel（哨兵）是Redis的高可用性解决方案</p>
+<ul>
+<li>由一个或多个Sentinel实例组成的Sentinel系统可以监视任意多个主服务器，以及这些主服务器属下的所有从服务器</li>
+<li>并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升级为新的主服务器，</li>
+</ul>
+<p>下面举个例子说明为什么Sentinal可以保证高可用</p>
+<p>首先，我们假设有这样一个系统，如下图，它由sentinel系统、一个主服务器和三个从服务器组成<br><img src="/2020/03/06/Redis-16-Sentinel/200305_26.png" alt=""></p>
+<p>假设这时，主服务下线，则Sentinel系统可以察觉到它的下线<br><img src="/2020/03/06/Redis-16-Sentinel/200305_27.png" alt=""></p>
+<p>当主服务器下线事件过长，Sentinel系统就会进行故障转移操作</p>
+<ul>
+<li>首先，Sentinel系统会挑选server1属下的其中一个从服务器，并将这个被选中的从服务器升级为新的主服务器。</li>
+<li>之后，Sentinel系统会向server1属下的所有从服务器发送新的复制指令，让它们成为新的主服务器的从服务器，当所有从服务器都开始复制新的主服务器时，故障转移操作执行完毕。</li>
+<li>另外，Sentinel还会继续监视已下线的server1，并在它重新上线时，将它设置为新的主服务器的从服务器。<br><img src="/2020/03/06/Redis-16-Sentinel/200305_28.png" alt=""></li>
+</ul>
+<p>之后，如果server1重新上线的话，它将被Sentinel系统降级为server2的从服务器</p>
+<h3 id="16-1-启动并初始化Sentinel"><a href="#16-1-启动并初始化Sentinel" class="headerlink" title="16.1 启动并初始化Sentinel"></a>16.1 启动并初始化Sentinel</h3><p>使用下面的命令，可以启动一个Sentinel<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server /path/to/your/sentinel.conf --sentinel</span><br></pre></td></tr></table></figure></p>
+<p>当一个Sentinel启动时，它需要执行下面几步</p>
+<ol>
+<li><p>初始化服务器：这一步只是初始化一个普通的Redis服务器</p>
+</li>
+<li><p>将普通Redis服务器使用的代码替换成Sentinel专用代码：例如，普通Redis的命令表与Sentinel的命令表区别很大，这一步要使用Sentinel专用的命令表替换Redis命令表</p>
+</li>
+<li><p>初始化Sentinel状态：它会创建一个<code>sentinelState</code>结构来保存与sentinel功能相关的一些状态</p>
+</li>
+<li><p>初始化Sentinel的监视主服务器列表：它会根据配置文件，创建Sentinel要监控的一些主服务器</p>
+</li>
+<li><p>创建连向主服务器的网络连接，对于每个被监视的主服务器，Sentinel会创建两个连接</p>
+<ul>
+<li>一个是命令连接，这个连接专门用于向主服务器发送命令，并接收命令回复。</li>
+<li>另一个是订阅连接，这个连接专门用于订阅主服务器的<code>__sentinel__:he11o</code>频道。</li>
+</ul>
+</li>
+</ol>
+<h3 id="16-2-获取主服务器信息"><a href="#16-2-获取主服务器信息" class="headerlink" title="16.2 获取主服务器信息"></a>16.2 获取主服务器信息</h3><p>Sentinel默认会以<strong>每十秒一次</strong>的频率，通过命令连接向被监视的<strong>主服务器</strong>发送<strong>INFO</strong>命令，并通过分析INFO命令的回复来获取主服务器本身的信息以及与主服务器关联的从服务器信息。</p>
+<h3 id="16-3-获取从服务器信息"><a href="#16-3-获取从服务器信息" class="headerlink" title="16.3 获取从服务器信息"></a>16.3 获取从服务器信息</h3><p>通过上一步，Sentinel就可以得知主服务器下属的从服务器，然后Sentinel不但会保存这些从服务器信息，还会创建到从服务器的命令连接和订阅连接<br><img src="/2020/03/06/Redis-16-Sentinel/200305_29.png" alt=""></p>
+<p>在建立连接之后，Sentinel也会按照每十秒一次的频率向从服务器发送INFO命令，根据回复来维护从服务器的状态</p>
+<h3 id="16-4-订阅连接的作用"><a href="#16-4-订阅连接的作用" class="headerlink" title="16.4 订阅连接的作用"></a>16.4 订阅连接的作用</h3><p>每当建立起订阅连接之后，Sentinel就会发送下面的命令，来监听主服务的<code>__sentinel__:hello</code>频道。</p>
+<p>Sentinel会每隔两秒钟向这个频道发送下面格式的消息，这条消息主要包含了sentinel节点自身的信息和主服务器信息<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUBLISH __sentinel__:hello <span class="string">"&lt;s_ip&gt;,&lt;s_port&gt;,&lt;s_runid&gt;,&lt;s_epoch&gt;,&lt;m_name&gt;,&lt;m_ip&gt;,&lt;m_port&gt;,&lt;m_epoch&gt;"</span></span><br></pre></td></tr></table></figure></p>
+<p>然后以主服务器为跳板，其他Sentinel节点也会收到这个消息，因为所有的监视这个主服务器的Sentinel节点都会订阅这个频道，如下图<br><img src="/2020/03/06/Redis-16-Sentinel/200305_30.png" alt=""></p>
+<p>然后通过这种机制，监听同一个主服务器的Sentinel节点就可以自动发现对方了</p>
+<p>当某个Sentinel节点通过接收到<code>__sentinel__:hello</code>频道发送的消息发现了其他节点，它就会存储这个节点的信息，并且建立与这个节点的命令连接，如下图。实际上Sentinel系统中的所有Sentinel节点之间都有命令连接，它们可以互相通信<br><img src="/2020/03/06/Redis-16-Sentinel/200305_31.png" alt=""></p>
+<h3 id="16-6-检测主观下线状态"><a href="#16-6-检测主观下线状态" class="headerlink" title="16.6 检测主观下线状态"></a>16.6 检测主观下线状态</h3><p>每一秒，Sentinel都会向所有与它创建了连接的节点（包括主服务器、从服务器、其他Sentinel）发送<strong>PING</strong>命令，来判断对方是否在线。</p>
+<p>若一段时间内，某个节点始终没有有效回应，它就会被标记为下线，<code>flags</code>属性将开启<code>SRI_S_DOWN</code>标记，表示这个实例进入了主观下线状态</p>
+<h3 id="16-7-检查客观下线状态"><a href="#16-7-检查客观下线状态" class="headerlink" title="16.7 检查客观下线状态"></a>16.7 检查客观下线状态</h3><p>当Sentinel节点将一个主服务器判断为主观下线，它就会向其他Sentinel节点发送询问，看看其他节点是否也同样认为主服务器下线。</p>
+<p>Sentinel使用下面的命令询问其他Sentinel节点的意见<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SENTINEL is-master-down-by-addr &lt;ip&gt;&lt;port&gt;&lt;current_epoch&gt;&lt;runid&gt;</span><br></pre></td></tr></table></figure></p>
+<p>然后这个Sentinel节点就会接受其他节点的返回结果，如果有超过N个节点也这么认为，那么这个Sentinel节点就会将主服务器标注为客观下线，并开始选举领头Sentinel。</p>
+<h3 id="16-8-选举领头Sentinel"><a href="#16-8-选举领头Sentinel" class="headerlink" title="16.8 选举领头Sentinel"></a>16.8 选举领头Sentinel</h3><p>当一个主服务器被判定为客观下线后，Sentinel节点就会开始协商，选举出一个领头Sentinel，由它来进行故障转移</p>
+<p>以下是选举规则</p>
+<ol>
+<li>所有在线的Sentinel节点都由被选为领头Sentinel的资格</li>
+<li>每次进行领头Sentinel选举之后，所有Sentinel节点的配置纪元(epoch)就会自增一位，它是个计数器，用来判断选举的轮次</li>
+<li>在每个选举轮次中，也就是在每个配置纪元中，每个发现主服务器客观下线的Sentinel节点都会要求其他节点将自己设置为局部领头节点，我们称这些要当领头节点的节点为源节点</li>
+<li>然后根据先到先得的原则，假设有源节点A、源节点B都发送了选举信息给目标节点C，则C会设置先到达的为局部领头节点，并告知这两个源节点自己的想法</li>
+<li>这样每个源节点都会得知目标节点们的意见，如果有个源节点发现自己获得了半数以上的支持，它就会从局部领头节点变为领头节点，然后执行故障转移</li>
+<li>若本轮没有一个源节点得到半数支持，那么隔一段时间重新选举</li>
+</ol>
+<h3 id="16-9-故障转移"><a href="#16-9-故障转移" class="headerlink" title="16.9 故障转移"></a>16.9 故障转移</h3><p>然后领头Sentinel节点将，进行故障转移操作</p>
+<ul>
+<li>首先，领头Sentinel节点会挑选server1属下的其中一个从服务器，并将这个被选中的从服务器升级为新的主服务器。</li>
+<li>之后，领头Sentinel节点向server1属下的所有从服务器发送新的复制指令，让它们成为新的主服务器的从服务器，当所有从服务器都开始复制新的主服务器时，故障转移操作执行完毕。</li>
+<li>另外，Sentinel还会继续监视已下线的server1，并在它重新上线时，将它设置为新的主服务器的从服务器。</li>
+</ul>
+<h3 id="16-10-重点回顾"><a href="#16-10-重点回顾" class="headerlink" title="16.10 重点回顾"></a>16.10 重点回顾</h3><ul>
+<li>Sentinel只是一个运行在特殊模式下的Redis服务器，它使用了和普通模式不同的命令表</li>
+<li>Sentinel会读入用户指定的配置文件，为每个要被监视的主服务器创建相应的实例结构，并创建连向主服务器的命令连接和订阅连接</li>
+<li>Sentinel通过向主服务器发送INFO命令来获得主服务器属下所有从服务器的地址信息，然后与从服务器建立连接</li>
+<li>对于监视同一个主服务器和从服务器的多个Sentinel来说，它们会以每两秒一次的频率，通过向被监视服务器的<code>__sentinel__:he11o</code>频道发送消息来向其他Sentinel宣告自己的存在。</li>
+<li>每个Sentinel也会从<code>__sentinel__:he11o</code>频道中接收其他Sentinel发来的信息，并根据这些信息为其他Sentinel创建相应的实例结构，以及命令连接。</li>
+<li>Sentinel以每秒一次的频率向实例（包括主服务器、从服务器、其他 Sentinel）发送PING命令，并根据实例对PING命令的回复来判断实例是否在线，当一个实例在指定的时长中连续向Sentinel发送无效回复时， Sentinel会将这个实例判断为主观下线。</li>
+<li>当Sentinel将一个主服务器判断为主观下线时，它会向同样监视这个主服务器的其他Sentinel进行询问，看它们是否同意这个主服务器已经进入主观下线状态。</li>
+<li>当Sentinel收集到足够多的主观下线投票之后，它会将主服务器判断为客观下线，并发起一次针对主服务器的故障转移操作。</li>
+</ul>
+<p>此外，Sentinel系统选举领头节点的方法是对Raft算法的领头选举方法的实现</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/redis/" rel="tag"><i class="fa fa-tag"></i> redis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/05/Redis-15-复制/" rel="next" title="[Redis][15][复制]">
+                <i class="fa fa-chevron-left"></i> [Redis][15][复制]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/33653960?s=400&u=eb438b904ecb9d91f3aa9b777155a6488599493b&v=4" alt="T0UGH(GuiPing Wang)">
+            
+              <p class="site-author-name" itemprop="name">T0UGH(GuiPing Wang)</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/T0UGH" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="tough.neu.edu@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Friends
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://neusoftware.top/solo" title="ChengYi" target="_blank">ChengYi</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://mike4ellis.github.io/" title="Mike" target="_blank">Mike</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第-16-章-Sentinel"><span class="nav-number">1.</span> <span class="nav-text">第 16 章 Sentinel</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#16-1-启动并初始化Sentinel"><span class="nav-number">1.1.</span> <span class="nav-text">16.1 启动并初始化Sentinel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-2-获取主服务器信息"><span class="nav-number">1.2.</span> <span class="nav-text">16.2 获取主服务器信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-3-获取从服务器信息"><span class="nav-number">1.3.</span> <span class="nav-text">16.3 获取从服务器信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-4-订阅连接的作用"><span class="nav-number">1.4.</span> <span class="nav-text">16.4 订阅连接的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-6-检测主观下线状态"><span class="nav-number">1.5.</span> <span class="nav-text">16.6 检测主观下线状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-7-检查客观下线状态"><span class="nav-number">1.6.</span> <span class="nav-text">16.7 检查客观下线状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-8-选举领头Sentinel"><span class="nav-number">1.7.</span> <span class="nav-text">16.8 选举领头Sentinel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-9-故障转移"><span class="nav-number">1.8.</span> <span class="nav-text">16.9 故障转移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-10-重点回顾"><span class="nav-number">1.9.</span> <span class="nav-text">16.10 重点回顾</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">T0UGH(GuiPing Wang)</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'E1MH6h0YP3yhA0PJsohNBgiT-gzGzoHsz',
+        appKey: 'YOiN6zLq3XGfKmlR0b8vyHtN',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
