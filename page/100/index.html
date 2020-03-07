@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/07/树形动态规划-节点选择/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Tensorflow-2-Tensorflow环境搭建/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/07/树形动态规划-节点选择/" itemprop="url">树形动态规划--节点选择</a></h1>
+                <a class="post-title-link" href="/2019/03/10/Tensorflow-2-Tensorflow环境搭建/" itemprop="url">[Tensorflow][2]Tensorflow环境搭建</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-07T15:55:25+08:00">
-                2019-03-07
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-10T14:35:36+08:00">
+                2019-03-10
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/蓝桥杯/" itemprop="url" rel="index">
-                    <span itemprop="name">蓝桥杯</span>
+                  <a href="/categories/Tensorflow/" itemprop="url" rel="index">
+                    <span itemprop="name">Tensorflow</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/07/树形动态规划-节点选择/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/07/树形动态规划-节点选择/" itemprop="commentCount"></span>
+                <a href="/2019/03/10/Tensorflow-2-Tensorflow环境搭建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/10/Tensorflow-2-Tensorflow环境搭建/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,213 +362,97 @@
       
         
           
-            <h2 id="树形动态规划–节点选择"><a href="#树形动态规划–节点选择" class="headerlink" title="树形动态规划–节点选择"></a>树形动态规划–节点选择</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>有一棵 <code>n</code> 个节点的树，树上每个节点都有一个正整数权值。如果一个点被选择了，那么在树上和它相邻的点都不能被选择。求选出的点的权值和最大是多少？</p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>此题目可以使用动态规划来求解，一个节点只有被选择和不被选择两种情况。</p>
-<p>首先构建一个名为dp的 <code>n * 2</code> 大小的矩阵，矩阵中的<code>dp[i][0]</code>表示不选择<code>i</code>节点时的权重最大值,<code>dp[i][1]</code>表示选择<code>i</code>节点时的权重最大值。最初时将矩阵中所有元素全部初始化为 <code>0</code> 。</p>
-<p>然后我们列出状态转移方程</p>
-<ul>
-<li><p>假如 <code>i</code> 是叶子节点</p>
-<blockquote>
-<p>dp[i][0] = 0</p>
-<p>dp[i][1] = w(i)</p>
-</blockquote>
+            <h2 id="第2章-TensorFlow环境搭建"><a href="#第2章-TensorFlow环境搭建" class="headerlink" title="第2章 TensorFlow环境搭建"></a>第2章 TensorFlow环境搭建</h2><hr>
+<h3 id="2-1-TensorFlow的主要依赖包"><a href="#2-1-TensorFlow的主要依赖包" class="headerlink" title="2.1 TensorFlow的主要依赖包"></a>2.1 TensorFlow的主要依赖包</h3><hr>
+<h4 id="2-1-1-Protoval-Buffer"><a href="#2-1-1-Protoval-Buffer" class="headerlink" title="2.1.1 Protoval Buffer"></a>2.1.1 Protoval Buffer</h4><ul>
+<li><p>Protocal Buffer是谷歌开发的处理结构化数据的工具</p>
 </li>
-<li><p>假如 <code>i</code> 不是叶子节点</p>
-<blockquote>
-<p>dp[i][0] = ∑ max(dp[j][0], dp[j][1])</p>
-<p>dp[i][1] = w(i) + ∑ dp[j][0]</p>
-</blockquote>
+<li><p>什么是结构化数据</p>
+<ul>
+<li><p>例如：用户信息包括用户的名字、ID和Email</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name:张三</span><br><span class="line">id:12345</span><br><span class="line">email:zhangsan@abc.com</span><br></pre></td></tr></table></figure>
+<p>上面的用户信息就是一个结构化的数据</p>
 </li>
 </ul>
-<p>接下来按照后序遍历的顺序遍历整个树，来完成dp矩阵中所有值的计算，举例如下</p>
-<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><p>输入的树如图所示，共有五个节点，每个节点的权重值标注在其右侧。<br><img src="/2019/03/07/树形动态规划-节点选择/Tree_dp_0.png" alt=""></p>
-<p>按照后序遍历，节点遍历顺序为 <code>3 -&gt; 4 -&gt; 5 -&gt; 2 -&gt; 1</code></p>
-<h4 id="1-初始化状态"><a href="#1-初始化状态" class="headerlink" title="1 初始化状态"></a>1 初始化状态</h4><table>
-<thead>
-<tr>
-<th>Select\Node</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<h4 id="2-后序遍历到3号节点"><a href="#2-后序遍历到3号节点" class="headerlink" title="2 后序遍历到3号节点"></a>2 后序遍历到3号节点</h4><table>
-<thead>
-<tr>
-<th>Select\Node</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>3</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<h4 id="3-后序遍历到4号节点"><a href="#3-后序遍历到4号节点" class="headerlink" title="3 后序遍历到4号节点"></a>3 后序遍历到4号节点</h4><table>
-<thead>
-<tr>
-<th>Select\Node</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-<h4 id="4-后序遍历到5号节点"><a href="#4-后序遍历到5号节点" class="headerlink" title="4 后序遍历到5号节点"></a>4 后序遍历到5号节点</h4><table>
-<thead>
-<tr>
-<th>Select\Node</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-<h4 id="5-后序遍历到2号节点"><a href="#5-后序遍历到2号节点" class="headerlink" title="5 后序遍历到2号节点"></a>5 后序遍历到2号节点</h4><table>
-<thead>
-<tr>
-<th>Select\Node</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>9</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-<h4 id="6-后序遍历到1号节点"><a href="#6-后序遍历到1号节点" class="headerlink" title="6 后序遍历到1号节点"></a>6 后序遍历到1号节点</h4><table>
-<thead>
-<tr>
-<th>Select\Node</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>5</td>
-<td>9</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>10</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-<p>此时取根节点位置 <code>0</code> 和 位置 <code>1</code> 中值较大者即可，本例中显然 <code>5 &lt; 10</code> ,所以最终结果为 <code>10</code> </p>
-<h3 id="代码-java"><a href="#代码-java" class="headerlink" title="代码(java)"></a>代码(java)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> node_num;</span><br><span class="line">    <span class="keyword">int</span>[] weight;</span><br><span class="line">    ArrayList&lt;Integer&gt;[] adjacencyTable;</span><br><span class="line">    <span class="keyword">int</span>[][] dp;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">generate_dp</span><span class="params">(<span class="keyword">int</span> node_id, <span class="keyword">int</span> parent_id)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> temp_id: adjacencyTable[node_id]) &#123;</span><br><span class="line">            <span class="keyword">if</span>(temp_id != parent_id)&#123;</span><br><span class="line">                generate_dp(temp_id, node_id);</span><br><span class="line">                dp[node_id][<span class="number">0</span>] += Math.max(dp[temp_id][<span class="number">0</span>], dp[temp_id][<span class="number">1</span>]);</span><br><span class="line">                dp[node_id][<span class="number">1</span>] += dp[temp_id][<span class="number">0</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[node_id][<span class="number">1</span>] += weight[node_id];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Scanner scanner = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        node_num = scanner.nextInt();</span><br><span class="line">        weight = <span class="keyword">new</span> <span class="keyword">int</span>[node_num];</span><br><span class="line">        adjacencyTable = <span class="keyword">new</span> ArrayList[node_num];</span><br><span class="line">        dp = <span class="keyword">new</span> <span class="keyword">int</span>[node_num][<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; node_num; i ++)&#123;</span><br><span class="line">            weight[i] = scanner.nextInt();</span><br><span class="line">            adjacencyTable[i]= <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; node_num - <span class="number">1</span>; i ++)&#123;</span><br><span class="line">            <span class="keyword">int</span> node_1 = scanner.nextInt() - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> node_2 = scanner.nextInt() - <span class="number">1</span>;</span><br><span class="line">            adjacencyTable[node_1].add(node_2);</span><br><span class="line">            adjacencyTable[node_2].add(node_1);</span><br><span class="line">        &#125;</span><br><span class="line">        generate_dp(<span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line">        System.out.println(Math.max(dp[<span class="number">0</span>][<span class="number">0</span>], dp[<span class="number">0</span>][<span class="number">1</span>]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Main().run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注: oj只有50分，后5个点超时</p>
-<h3 id="代码-转-c"><a href="#代码-转-c" class="headerlink" title="代码(转, c ++)"></a>代码(转, c ++)</h3><p>原文链接 <a href="https://www.liuchuo.net/archives/3937" target="_blank" rel="noopener">蓝桥杯 ALGO-4 算法训练 结点选择</a></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">100010</span>][<span class="number">2</span>];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; v;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> node, <span class="keyword">int</span> pre)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v[node].size(); i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> temp = v[node][i];</span><br><span class="line">        <span class="keyword">if</span> (temp != pre) &#123;</span><br><span class="line">            dfs(temp, node);</span><br><span class="line">            dp[node][<span class="number">0</span>] += max(dp[temp][<span class="number">0</span>], dp[temp][<span class="number">1</span>]);</span><br><span class="line">            dp[node][<span class="number">1</span>] += dp[temp][<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, a, b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;dp[i][<span class="number">1</span>]);</span><br><span class="line">    v.resize(n + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">        v[a].push_back(b);</span><br><span class="line">        v[b].push_back(a);</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; max(dp[<span class="number">1</span>][<span class="number">0</span>], dp[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>另: 柳神是我的!!!</p>
+</li>
+<li><p>结构化数据处理</p>
+<ul>
+<li>背景：要将这些结构化的用户信息持久化或进行网络传输时，就需要先将它们序列化。</li>
+<li>序列化：所谓序列化，是将结构化的数据变成数据流的格式，简单地说就是变成一个字符串</li>
+<li>定义：将结构化的数据序列化，并从序列化之后的数据流中还原出原来的结构化数据，统称为结构化数据处理</li>
+</ul>
+</li>
+<li><p>常见的结构化数据处理工具</p>
+<ul>
+<li>XML</li>
+<li>JSON</li>
+<li>Protocal Buffer</li>
+</ul>
+</li>
+<li><p>Protocal Buffer</p>
+<ul>
+<li><p>与XML和JSON格式的区别</p>
+<ul>
+<li>Protocal Buffer序列化之后得到的数据不是可读的字符串，而是二进制流。</li>
+<li>使用Protocal Buffer时需要先定义数据的格式(schema)。还原一个序列化之后的数据将需要使用到这个定义好的数据格式<br>例如<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">message user&#123;</span><br><span class="line">    optional string name = 1;</span><br><span class="line">    required int32 id = 2;</span><br><span class="line">    repeated string email = 3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>基本语法</p>
+<ul>
+<li>Protocal Buffer定义数据格式的文件一般保存在.proto文件中</li>
+<li>每个message代表了一类结构化的数据</li>
+<li>message里面定义了每个属性的类型和名字</li>
+<li>属性的类型可以是像布尔型、整数型、实数型、字符型这样的基本类型，也可以使另外一个message</li>
+<li>也需要定义一个属性是必需的(required)、可选的(optional)、或者可重复的(repeated)<ul>
+<li>required：这个message的所有实例都需要这个属性</li>
+<li>optional：这个属性的取值可以为空</li>
+<li>repeated：这个属性的取值可以使一个列表</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="2-1-2-Bazel"><a href="#2-1-2-Bazel" class="headerlink" title="2.1.2 Bazel"></a>2.1.2 Bazel</h4><ul>
+<li><p>简介：Bazel是谷歌开源的自动化构建工具</p>
+</li>
+<li><p>项目空间(workspace)</p>
+<ul>
+<li>一个项目空间可以简单地理解为一个文件夹</li>
+<li>在这个文件夹中包含了编译一个软件所需要的源代码以及输出编译结果的软连接(symbolic link)地址</li>
+</ul>
+</li>
+<li><p>WORKSPACE文件</p>
+<ul>
+<li>一个项目空间所对应的文件夹是这个项目的根目录，在这个根目录中需要一个WORKSPACE文件，此文件定义了对外部资源的依赖关系</li>
+</ul>
+</li>
+<li><p>BUILD文件</p>
+<ul>
+<li>在一个项目空间中,Bazel通过BUILD文件来找到需要编译的目标</li>
+<li>Bazel对Python支持的编译方式<ol>
+<li>py_binary：将Python程序编译为可执行文件</li>
+<li>py_test：编译Python测试程序</li>
+<li>py_library：编译为库函数供其他py_binary或py_test调用</li>
+</ol>
+</li>
+<li><p>例子</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">py_library(</span><br><span class="line">    name=<span class="string">"hello_lib"</span>,</span><br><span class="line">    srcs=[</span><br><span class="line">        <span class="string">"hello_lib.py"</span>,</span><br><span class="line">    ]</span><br><span class="line">)</span><br><span class="line">py_binary(</span><br><span class="line">    name=<span class="string">"hello_main"</span>,</span><br><span class="line">    srcs=[</span><br><span class="line">        <span class="string">"hello_main.py"</span>,</span><br><span class="line">    ]</span><br><span class="line">    deps=[</span><br><span class="line">        <span class="string">":hello_lib"</span>,</span><br><span class="line">    ],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>其他</p>
+<ul>
+<li>BUILD文件由一系列编译目标组成</li>
+<li>定义编译目标的先后顺序不会影响编译的结果</li>
+<li>在每个编译目标的第一行要指定辨析方式</li>
+<li>在每个编译目标的主体中需要给出编译的具体信息，例如：names、srcs、deps等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
           
         
@@ -608,7 +492,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/99/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/99/">99</a><span class="page-number current">100</span><a class="page-number" href="/page/101/">101</a><span class="space">&hellip;</span><a class="page-number" href="/page/106/">106</a><a class="extend next" rel="next" href="/page/101/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/99/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/99/">99</a><span class="page-number current">100</span><a class="page-number" href="/page/101/">101</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/101/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -656,7 +540,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-count">107</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/05/Redis-15-复制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/06/Redis-16-Sentinel/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/05/Redis-15-复制/" itemprop="url">[Redis][15][复制]</a></h1>
+                <a class="post-title-link" href="/2020/03/06/Redis-16-Sentinel/" itemprop="url">[Redis][16][Sentinel]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-05T20:56:33+08:00">
-                2020-03-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-06T16:27:36+08:00">
+                2020-03-06
               </time>
             
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/03/05/Redis-15-复制/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/05/Redis-15-复制/" itemprop="commentCount"></span>
+                <a href="/2020/03/06/Redis-16-Sentinel/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/06/Redis-16-Sentinel/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,130 +362,79 @@
       
         
           
-            <h2 id="第-15-章-复制"><a href="#第-15-章-复制" class="headerlink" title="第 15 章 复制"></a>第 15 章 复制</h2><p>在Redis中，用户可以通过执行<code>SLAVEOF</code>命令或者设置<code>slaveof</code>选项，让一个服务器去复制另一个服务器，我们称呼被复制的服务器为<strong>主服务器</strong>(master)，而对主服务器进行复制的服务器叫做<strong>从服务器</strong>（slave）</p>
-<p>例如下面的命令<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:12345&gt;SLAVEOF 127.0.0.1:6379</span><br><span class="line">OK</span><br></pre></td></tr></table></figure></p>
-<p>然后12345就成了6379的从服务器</p>
-<p>进行复制的主从服务器双方的数据库将保存相同的数据，这称为数据库状态一致</p>
-<h3 id="15-1-旧版复制功能的实现"><a href="#15-1-旧版复制功能的实现" class="headerlink" title="15.1 旧版复制功能的实现"></a>15.1 旧版复制功能的实现</h3><p>Redis的<strong>复制</strong>功能分为<strong>同步</strong>（sync）和<strong>命令传播</strong>（command propagate）两个操作</p>
+            <h2 id="第-16-章-Sentinel"><a href="#第-16-章-Sentinel" class="headerlink" title="第 16 章 Sentinel"></a>第 16 章 Sentinel</h2><p>Sentinel（哨兵）是Redis的高可用性解决方案</p>
 <ul>
-<li><strong>同步</strong>操作用于将<strong>从服务器</strong>的<strong>数据库状态**</strong>更新<strong>至</strong>主服务器当前所处的数据库状态**。</li>
-<li><strong>命令传播</strong>操作则用于在主服务器的数据库状态被修改，导致主从服务器的数据库状态出现<strong>不一致时</strong>，让主从服务器的数据库<strong>重新回到一致状态</strong>。</li>
+<li>由一个或多个Sentinel实例组成的Sentinel系统可以监视任意多个主服务器，以及这些主服务器属下的所有从服务器</li>
+<li>并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升级为新的主服务器，</li>
 </ul>
-<h4 id="15-1-1-同步"><a href="#15-1-1-同步" class="headerlink" title="15.1.1 同步"></a>15.1.1 同步</h4><p>当客户端发送<code>SLAVEOF</code>命令给从服务器时，要求从服务器复制主服务器，从服务器会首先执行<strong>同步</strong>操作。</p>
-<p>从服务器对主服务器的<strong>同步操作</strong>需要通过向主服务器发送<strong>SYNC命令</strong>来完成</p>
+<p>下面举个例子说明为什么Sentinal可以保证高可用</p>
+<p>首先，我们假设有这样一个系统，如下图，它由sentinel系统、一个主服务器和三个从服务器组成<br><img src="/2020/03/06/Redis-16-Sentinel/200305_26.png" alt=""></p>
+<p>假设这时，主服务下线，则Sentinel系统可以察觉到它的下线<br><img src="/2020/03/06/Redis-16-Sentinel/200305_27.png" alt=""></p>
+<p>当主服务器下线事件过长，Sentinel系统就会进行故障转移操作</p>
+<ul>
+<li>首先，Sentinel系统会挑选server1属下的其中一个从服务器，并将这个被选中的从服务器升级为新的主服务器。</li>
+<li>之后，Sentinel系统会向server1属下的所有从服务器发送新的复制指令，让它们成为新的主服务器的从服务器，当所有从服务器都开始复制新的主服务器时，故障转移操作执行完毕。</li>
+<li>另外，Sentinel还会继续监视已下线的server1，并在它重新上线时，将它设置为新的主服务器的从服务器。<br><img src="/2020/03/06/Redis-16-Sentinel/200305_28.png" alt=""></li>
+</ul>
+<p>之后，如果server1重新上线的话，它将被Sentinel系统降级为server2的从服务器</p>
+<h3 id="16-1-启动并初始化Sentinel"><a href="#16-1-启动并初始化Sentinel" class="headerlink" title="16.1 启动并初始化Sentinel"></a>16.1 启动并初始化Sentinel</h3><p>使用下面的命令，可以启动一个Sentinel<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server /path/to/your/sentinel.conf --sentinel</span><br></pre></td></tr></table></figure></p>
+<p>当一个Sentinel启动时，它需要执行下面几步</p>
 <ol>
-<li><strong>从</strong>服务器向<strong>主</strong>服务器发送<strong>SYNC命令</strong></li>
-<li>收到SYNC命令的<strong>主服务器</strong>执行<strong>BGSAVE</strong>命令，在后台生成一个RDB文件，并使用一个<strong>缓冲区记录</strong>从现在开始执行的所有<strong>写命令</strong>。</li>
-<li>当主服务器的BGSAVE命令<strong>执行完毕</strong>时，主服务器会将BGSAVE命令生成的<strong>RDB文件发送</strong>给从服务器，从服务器接收并<strong>载入</strong>这个<strong>RDB文件</strong>，将自己的数据库状态<strong>更新至主服务器执行BGSAVE命令时的数据库状态</strong>。</li>
-<li>主服务器将记录在<strong>缓冲区</strong>里面的所有<strong>写命令</strong>发送给从服务器，从服务器执行这些写命令，将自己的数据库状态<strong>更新至主服务器数据库当前所处的状态</strong>。</li>
-</ol>
-<p>步骤如下图所示<br><img src="/2020/03/05/Redis-15-复制/200305_7.png" alt=""></p>
-<p>下表是一个主从服务器进行同步的例子<br><img src="/2020/03/05/Redis-15-复制/200305_8.png" alt=""></p>
-<h4 id="15-1-2-命令传播"><a href="#15-1-2-命令传播" class="headerlink" title="15.1.2 命令传播"></a>15.1.2 命令传播</h4><p>每当<strong>主服务器</strong>执行客户端发送的<strong>写命令</strong>时，主服务器的数据库就有可能会被修改，并导致主从服务器状态<strong>不一致</strong>。</p>
-<p>为了让主从服务器<strong>再次一致</strong>，主服务器需要对从服务器执行<strong>命令传播</strong>操作</p>
+<li><p>初始化服务器：这一步只是初始化一个普通的Redis服务器</p>
+</li>
+<li><p>将普通Redis服务器使用的代码替换成Sentinel专用代码：例如，普通Redis的命令表与Sentinel的命令表区别很大，这一步要使用Sentinel专用的命令表替换Redis命令表</p>
+</li>
+<li><p>初始化Sentinel状态：它会创建一个<code>sentinelState</code>结构来保存与sentinel功能相关的一些状态</p>
+</li>
+<li><p>初始化Sentinel的监视主服务器列表：它会根据配置文件，创建Sentinel要监控的一些主服务器</p>
+</li>
+<li><p>创建连向主服务器的网络连接，对于每个被监视的主服务器，Sentinel会创建两个连接</p>
 <ul>
-<li>主服务器会将自己执行的写命令，也即是<strong>造成</strong>主从服务器<strong>不一致</strong>的那条<strong>写命令</strong>，<strong>发送给从服务器</strong>执行</li>
-<li>当从服务器<strong>执行了相同的写命令</strong>之后，主从服务器将<strong>再次回到一致</strong>状态</li>
+<li>一个是命令连接，这个连接专门用于向主服务器发送命令，并接收命令回复。</li>
+<li>另一个是订阅连接，这个连接专门用于订阅主服务器的<code>__sentinel__:he11o</code>频道。</li>
 </ul>
-<p>例如下面几张图<br><img src="/2020/03/05/Redis-15-复制/200305_9.png" alt=""><br><img src="/2020/03/05/Redis-15-复制/200305_10.png" alt=""><br><img src="/2020/03/05/Redis-15-复制/200305_11.png" alt=""></p>
-<h3 id="15-2-旧版复制功能的缺陷"><a href="#15-2-旧版复制功能的缺陷" class="headerlink" title="15.2 旧版复制功能的缺陷"></a>15.2 旧版复制功能的缺陷</h3><p>在旧版，复制主要应用于以下两种场景</p>
+</li>
+</ol>
+<h3 id="16-2-获取主服务器信息"><a href="#16-2-获取主服务器信息" class="headerlink" title="16.2 获取主服务器信息"></a>16.2 获取主服务器信息</h3><p>Sentinel默认会以<strong>每十秒一次</strong>的频率，通过命令连接向被监视的<strong>主服务器</strong>发送<strong>INFO</strong>命令，并通过分析INFO命令的回复来获取主服务器本身的信息以及与主服务器关联的从服务器信息。</p>
+<h3 id="16-3-获取从服务器信息"><a href="#16-3-获取从服务器信息" class="headerlink" title="16.3 获取从服务器信息"></a>16.3 获取从服务器信息</h3><p>通过上一步，Sentinel就可以得知主服务器下属的从服务器，然后Sentinel不但会保存这些从服务器信息，还会创建到从服务器的命令连接和订阅连接<br><img src="/2020/03/06/Redis-16-Sentinel/200305_29.png" alt=""></p>
+<p>在建立连接之后，Sentinel也会按照每十秒一次的频率向从服务器发送INFO命令，根据回复来维护从服务器的状态</p>
+<h3 id="16-4-订阅连接的作用"><a href="#16-4-订阅连接的作用" class="headerlink" title="16.4 订阅连接的作用"></a>16.4 订阅连接的作用</h3><p>每当建立起订阅连接之后，Sentinel就会发送下面的命令，来监听主服务的<code>__sentinel__:hello</code>频道。</p>
+<p>Sentinel会每隔两秒钟向这个频道发送下面格式的消息，这条消息主要包含了sentinel节点自身的信息和主服务器信息<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUBLISH __sentinel__:hello <span class="string">"&lt;s_ip&gt;,&lt;s_port&gt;,&lt;s_runid&gt;,&lt;s_epoch&gt;,&lt;m_name&gt;,&lt;m_ip&gt;,&lt;m_port&gt;,&lt;m_epoch&gt;"</span></span><br></pre></td></tr></table></figure></p>
+<p>然后以主服务器为跳板，其他Sentinel节点也会收到这个消息，因为所有的监视这个主服务器的Sentinel节点都会订阅这个频道，如下图<br><img src="/2020/03/06/Redis-16-Sentinel/200305_30.png" alt=""></p>
+<p>然后通过这种机制，监听同一个主服务器的Sentinel节点就可以自动发现对方了</p>
+<p>当某个Sentinel节点通过接收到<code>__sentinel__:hello</code>频道发送的消息发现了其他节点，它就会存储这个节点的信息，并且建立与这个节点的命令连接，如下图。实际上Sentinel系统中的所有Sentinel节点之间都有命令连接，它们可以互相通信<br><img src="/2020/03/06/Redis-16-Sentinel/200305_31.png" alt=""></p>
+<h3 id="16-6-检测主观下线状态"><a href="#16-6-检测主观下线状态" class="headerlink" title="16.6 检测主观下线状态"></a>16.6 检测主观下线状态</h3><p>每一秒，Sentinel都会向所有与它创建了连接的节点（包括主服务器、从服务器、其他Sentinel）发送<strong>PING</strong>命令，来判断对方是否在线。</p>
+<p>若一段时间内，某个节点始终没有有效回应，它就会被标记为下线，<code>flags</code>属性将开启<code>SRI_S_DOWN</code>标记，表示这个实例进入了主观下线状态</p>
+<h3 id="16-7-检查客观下线状态"><a href="#16-7-检查客观下线状态" class="headerlink" title="16.7 检查客观下线状态"></a>16.7 检查客观下线状态</h3><p>当Sentinel节点将一个主服务器判断为主观下线，它就会向其他Sentinel节点发送询问，看看其他节点是否也同样认为主服务器下线。</p>
+<p>Sentinel使用下面的命令询问其他Sentinel节点的意见<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SENTINEL is-master-down-by-addr &lt;ip&gt;&lt;port&gt;&lt;current_epoch&gt;&lt;runid&gt;</span><br></pre></td></tr></table></figure></p>
+<p>然后这个Sentinel节点就会接受其他节点的返回结果，如果有超过N个节点也这么认为，那么这个Sentinel节点就会将主服务器标注为客观下线，并开始选举领头Sentinel。</p>
+<h3 id="16-8-选举领头Sentinel"><a href="#16-8-选举领头Sentinel" class="headerlink" title="16.8 选举领头Sentinel"></a>16.8 选举领头Sentinel</h3><p>当一个主服务器被判定为客观下线后，Sentinel节点就会开始协商，选举出一个领头Sentinel，由它来进行故障转移</p>
+<p>以下是选举规则</p>
 <ol>
-<li><strong>初次复制</strong>：从服务器之前没有复制过主服务器</li>
-<li><strong>断线后重复制</strong>：处于命令传播阶段的主从服务器因为网络问题而中断，但从服务器之后重连了主服务器。这时，发生了数据不一致。Redis旧版中面对这个情况，直接执行复制操作，将主服务器当前状态打包为RDB传送给从服务器</li>
+<li>所有在线的Sentinel节点都由被选为领头Sentinel的资格</li>
+<li>每次进行领头Sentinel选举之后，所有Sentinel节点的配置纪元(epoch)就会自增一位，它是个计数器，用来判断选举的轮次</li>
+<li>在每个选举轮次中，也就是在每个配置纪元中，每个发现主服务器客观下线的Sentinel节点都会要求其他节点将自己设置为局部领头节点，我们称这些要当领头节点的节点为源节点</li>
+<li>然后根据先到先得的原则，假设有源节点A、源节点B都发送了选举信息给目标节点C，则C会设置先到达的为局部领头节点，并告知这两个源节点自己的想法</li>
+<li>这样每个源节点都会得知目标节点们的意见，如果有个源节点发现自己获得了半数以上的支持，它就会从局部领头节点变为领头节点，然后执行故障转移</li>
+<li>若本轮没有一个源节点得到半数支持，那么隔一段时间重新选举</li>
 </ol>
-<p>例子如下表<br><img src="/2020/03/05/Redis-15-复制/200305_12.png" alt=""></p>
-<p><strong>问题的关键</strong>就在于：断线之后，从服务器只不过少执行了几条写指令而已。为了恢复一致性，却大动干戈地<strong>重新执行了全部的复制操作</strong>，这会浪费大量资源。</p>
-<h3 id="15-3-新版复制功能的实现"><a href="#15-3-新版复制功能的实现" class="headerlink" title="15.3 新版复制功能的实现"></a>15.3 新版复制功能的实现</h3><p>为了解决旧版复制功能在处理断线重复制情况时的低效问题，Redis从2.8版本开始，使用<code>PSYNC</code>命令代替<code>SYNC</code>命令来执行复制时的同步操作</p>
-<p>PSYNC命令具有完整重同步和部分重同步两种模式</p>
+<h3 id="16-9-故障转移"><a href="#16-9-故障转移" class="headerlink" title="16.9 故障转移"></a>16.9 故障转移</h3><p>然后领头Sentinel节点将，进行故障转移操作</p>
 <ul>
-<li><strong>完整重同步</strong>类似于<code>SYNC</code>命令，它会将主服务器状态打包为RDB发送</li>
-<li><strong>部分重同步</strong>则用于<strong>断线重连</strong>的情况。主服务器可以将主从服务器连接<strong>断开期间执行的写命令</strong>发送给从服务器，从服务器只要接收并执行这些写命令，就可以将数据库更新至主服务器当前所处的状态。</li>
+<li>首先，领头Sentinel节点会挑选server1属下的其中一个从服务器，并将这个被选中的从服务器升级为新的主服务器。</li>
+<li>之后，领头Sentinel节点向server1属下的所有从服务器发送新的复制指令，让它们成为新的主服务器的从服务器，当所有从服务器都开始复制新的主服务器时，故障转移操作执行完毕。</li>
+<li>另外，Sentinel还会继续监视已下线的server1，并在它重新上线时，将它设置为新的主服务器的从服务器。</li>
 </ul>
-<p>上一节的例子在新版会如下表方式执行<br><img src="/2020/03/05/Redis-15-复制/200305_13.png" alt=""></p>
-<p>下图展示了主从服务器执行部分重同步时的通信过程<br><img src="/2020/03/05/Redis-15-复制/200305_14.png" alt=""></p>
-<h3 id="15-4-部分重同步的实现"><a href="#15-4-部分重同步的实现" class="headerlink" title="15.4 部分重同步的实现"></a>15.4 部分重同步的实现</h3><p>部分重同步的功能由下面三部分组成</p>
-<ul>
-<li>主服务器的<strong>复制偏移量</strong>和从服务器的复制偏移量</li>
-<li>主服务器的<strong>复制积压缓冲区</strong></li>
-<li>服务器的<strong>运行ID</strong></li>
+<h3 id="16-10-重点回顾"><a href="#16-10-重点回顾" class="headerlink" title="16.10 重点回顾"></a>16.10 重点回顾</h3><ul>
+<li>Sentinel只是一个运行在特殊模式下的Redis服务器，它使用了和普通模式不同的命令表</li>
+<li>Sentinel会读入用户指定的配置文件，为每个要被监视的主服务器创建相应的实例结构，并创建连向主服务器的命令连接和订阅连接</li>
+<li>Sentinel通过向主服务器发送INFO命令来获得主服务器属下所有从服务器的地址信息，然后与从服务器建立连接</li>
+<li>对于监视同一个主服务器和从服务器的多个Sentinel来说，它们会以每两秒一次的频率，通过向被监视服务器的<code>__sentinel__:he11o</code>频道发送消息来向其他Sentinel宣告自己的存在。</li>
+<li>每个Sentinel也会从<code>__sentinel__:he11o</code>频道中接收其他Sentinel发来的信息，并根据这些信息为其他Sentinel创建相应的实例结构，以及命令连接。</li>
+<li>Sentinel以每秒一次的频率向实例（包括主服务器、从服务器、其他 Sentinel）发送PING命令，并根据实例对PING命令的回复来判断实例是否在线，当一个实例在指定的时长中连续向Sentinel发送无效回复时， Sentinel会将这个实例判断为主观下线。</li>
+<li>当Sentinel将一个主服务器判断为主观下线时，它会向同样监视这个主服务器的其他Sentinel进行询问，看它们是否同意这个主服务器已经进入主观下线状态。</li>
+<li>当Sentinel收集到足够多的主观下线投票之后，它会将主服务器判断为客观下线，并发起一次针对主服务器的故障转移操作。</li>
 </ul>
-<h4 id="15-4-1-复制偏移量"><a href="#15-4-1-复制偏移量" class="headerlink" title="15.4.1 复制偏移量"></a>15.4.1 复制偏移量</h4><p>主服务器和从服务器会<strong>分别</strong>维护一个<strong>复制偏移量</strong></p>
-<ul>
-<li>主服务器每次向从服务器<strong>传播N个字节</strong>的数据时，就将自己的复制偏移量的值<strong>加上N</strong></li>
-<li>从服务器每次<strong>收到</strong>主服务器传播来的<strong>N个字节</strong>的数据时，就将自己的复制偏移量的值<strong>加上N</strong></li>
-</ul>
-<p>下面举例说明</p>
-<p>刚开始主从服务器有相同的偏移量<code>10086</code><br><img src="/2020/03/05/Redis-15-复制/200305_15.png" alt=""></p>
-<p>此时，主服务器传播长度为33字节的数据，假如所有从服务器正常，如下图<br><img src="/2020/03/05/Redis-15-复制/200305_16.png" alt=""></p>
-<p>假如有一个从服务器掉线<br><img src="/2020/03/05/Redis-15-复制/200305_17.png" alt=""></p>
-<p>从上例，通过对比主从服务器的复制偏移量，程序可以很容易的直到主从服务器是否处于一致状态</p>
-<h4 id="15-4-2-复制积压缓冲区"><a href="#15-4-2-复制积压缓冲区" class="headerlink" title="15.4.2 复制积压缓冲区"></a>15.4.2 复制积压缓冲区</h4><p>复制积压缓冲区是由主服务器维护的一个固定长度先进先出队列，默认大小为1MB。</p>
-<p>当主服务器进行命令传播时，它不仅会将写命令发送给所有从服务器，还会将写命令入队到复制积压缓冲区里面，如下图<br><img src="/2020/03/05/Redis-15-复制/200305_18.png" alt=""></p>
-<p>复制积压缓冲区会保存最近传播的写命令，且缓冲区中的<strong>每个字节</strong>都<strong>对应</strong>一个<strong>复制偏移量</strong>，例如下图<br><img src="/2020/03/05/Redis-15-复制/200305_19.png" alt=""></p>
-<p>当从服务器重新连上主服务器时，从服务器会通过<code>PSYNC</code>命令将自己的复制偏移量<code>offset</code>发送给主服务器，主服务器会<strong>根据</strong>这个<strong>复制偏移量</strong>来<strong>决定</strong>对从服务器执行<strong>何种同步</strong></p>
-<ul>
-<li><p>如果<code>offset</code>偏移量之后的数据<strong>仍然存在</strong>于<strong>复制积压缓冲区</strong>里面，那么主服务器将对从服务器执行<strong>部分重同步</strong>操作。</p>
-</li>
-<li><p><strong>否则</strong>主服务器将对从服务器执行<strong>完整重同步</strong>操作。</p>
-</li>
-</ul>
-<p>回到上面的例子，当掉线的从服务器上线后，发送<code>PSYNC</code>命令并附上自己的复制偏移量<code>10086</code>，然后主服务器发现10086之后的字节都在缓冲区，直接取出并发送给从服务器<br><img src="/2020/03/05/Redis-15-复制/200305_20.png" alt=""></p>
-<h4 id="15-4-3-服务器运行ID"><a href="#15-4-3-服务器运行ID" class="headerlink" title="15.4.3 服务器运行ID"></a>15.4.3 服务器运行ID</h4><p>每个Redis服务器，无论主从，都拥有一个自己的运行ID，它在服务器启动时自动生成，由40个随机的十六进制字符组成</p>
-<p>当从服务器对主服务器进行初次复制时，主服务器会将自己的运行ID传送给从服务器保存。</p>
-<p>当从服务器掉线重连时，会发送这个ID。若ID相同，说明掉线之前的主服务器就是这个主服务器，则尝试执行部分重同步；若不相同，则执行完整重同步</p>
-<h3 id="15-5-PSYNC命令"><a href="#15-5-PSYNC命令" class="headerlink" title="15.5 PSYNC命令"></a>15.5 PSYNC命令</h3><p>本节将详细介绍<code>PSYNC</code>命令的完整细节</p>
-<p><code>PSYNC</code>命令的调用方法有两种</p>
-<ul>
-<li>如果从服务器以前没有复制过任何主服务器，那么从服务器在开始一次新的复制时将向主服务器发送<code>PSYNC ? -1</code>命令，主动请求主服务器进行完整重同步</li>
-<li>如果从服务器已经复制过某个主服务器，那么从服务器在开始一次新的复制时将向主服务器发送<code>PSYNC &lt;runid&gt; &lt;offset&gt;</code>命令：其中<code>runid</code>是上一次复制的主服务器的运行ID，而<code>offset</code>则是从服务器当前的复制偏移量</li>
-</ul>
-<p>根据情况，接收到<code>PSYNC</code>命令的主服务器会向从服务器返回以下三种回复的其中一种：</p>
-<ul>
-<li>如果主服务器返回<code>+FULLRESYNC &lt;runid&gt; &lt;offset&gt;</code>回复，那么表示主服务器将与从服务器执行完整重同步操作：其中<code>runid</code>是这个主服务器的运行ID，从服务器会将这个ID保存起来，在下一次发送<code>PSYNC</code>命令时使用；而<code>offset</code>则是主服务器当前的复制偏移量，从服务器会将这个值作为自己的初始化偏移量。</li>
-<li>如果主服务器返回<code>+CONTINUE</code>回复，那么表示主服务器将与从服务器执行部分重同步操作，从服务器只要等着主服务器将自己缺少的那部分数据发送过来就可以了。</li>
-<li>如果主服务器返回<code>-ERR</code>回复，那么表示主服务器的版本过低，它识别不了<code>PSYNC</code>命令，从服务器将向主服务器发送<code>SYNC</code>命令，并与主服务器执行完整同步操作。</li>
-</ul>
-<p>流程图如下<br><img src="/2020/03/05/Redis-15-复制/200305_21.png" alt=""></p>
-<h3 id="15-6-复制的实现"><a href="#15-6-复制的实现" class="headerlink" title="15.6 复制的实现"></a>15.6 复制的实现</h3><p>本节将按顺序介绍服务器收到客户端发送的<code>SLAVEOF</code>命令后的全部操作</p>
-<h4 id="15-6-1-设置主服务器的地址和端口"><a href="#15-6-1-设置主服务器的地址和端口" class="headerlink" title="15.6.1 设置主服务器的地址和端口"></a>15.6.1 设置主服务器的地址和端口</h4><p>从服务器首先要做的就是将客户端给定的主服务器IP地址以及端口保存到服务器状态的<code>masterhost</code>属性和<code>masterport</code>属性里面</p>
-<p><code>SLAVEOF</code>命令是一个异步命令，在完成<code>masterhost</code>属性和<code>masterport</code>属性的设置工作之后，从服务器将向发送<code>SLAVEOF</code>命令的客户端返回<code>OK</code>，表示复制指令已经被接收，而实际的复制工作将在<code>OK</code>返回之后才真正开始执行。</p>
-<h4 id="15-6-2-建立套接字连接"><a href="#15-6-2-建立套接字连接" class="headerlink" title="15.6.2 建立套接字连接"></a>15.6.2 建立套接字连接</h4><p>在<code>SLAVEOF</code>命令执行之后，从服务器将根据命令所设置的IP地址和端口，创建连向主服务器的套接字连接</p>
-<p>然后，从服务器将为这个套接字关联一个专门用于处理复制工作的文件事件处理器，这个处理器将负责执行后续的复制工作，比如接收RDB文件，以及接收主服务器传播来的写命令，诸如此类。</p>
-<p>而主服务器在接受从服务器的套接字连接之后，将为该套接字创建相应的客户端状态，并将从服务器看作是一个连接到主服务器的客户端来对待，</p>
-<h4 id="15-6-3-发送PING命令"><a href="#15-6-3-发送PING命令" class="headerlink" title="15.6.3 发送PING命令"></a>15.6.3 发送PING命令</h4><p>从服务器成为主服务器的客户端之后，做的第一件事就是向主服务器发送一个PING命令，它有两个作用</p>
-<ul>
-<li>通过发送PING命令可以检查套接字的读写状态是否正常。</li>
-<li>通过发送PING命令可以检查主服务器能否正常处理命令请求。</li>
-</ul>
-<p>从服务器发送PING命令后会遇到如下三种情况</p>
-<ul>
-<li>如果主服务器向从服务器返回了一个命令回复，但从服务器却不能在规定的时限内读取出命令回复的内容，那么表示主从服务器之间的网络连接状态不佳。这时，从服务器断开并重新创建连向主服务器的套接字</li>
-<li>如果主服务器向从服务器返回一个错误，那么表示主服务器暂时没办法处理从服务器的命令请求，不能继续执行复制工作的后续步骤。这时，从服务器断开并重新创建连向主服务器的套接字</li>
-<li>如果从服务器读取到<code>PONG</code>回复，那么表示连接正常，在这种情况下从服务器可以继续执行复制工作的下个步骤。</li>
-</ul>
-<h4 id="15-6-4-身份验证"><a href="#15-6-4-身份验证" class="headerlink" title="15.6.4 身份验证"></a>15.6.4 身份验证</h4><p>下一步，从服务器决定是否向主服务器发送身份验证，流程如下<br><img src="/2020/03/05/Redis-15-复制/200305_22.png" alt=""></p>
-<h4 id="15-6-5-发送端口信息"><a href="#15-6-5-发送端口信息" class="headerlink" title="15.6.5 发送端口信息"></a>15.6.5 发送端口信息</h4><p>在身份验证步骤之后，从服务器将执行命令<code>REPLCONF listening-port &lt;port-number&gt;</code>向主服务器发送从服务器的监听端口号</p>
-<p>主服务器接收到这个命令后，会将端口号记录在从服务器所对应对的客户端状态的<code>slave_listening_port</code>属性中</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisClient</span>&#123;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//从服务器的监听端口号</span></span><br><span class="line">    <span class="keyword">int</span> slave_listening_port;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125; redisClient</span><br></pre></td></tr></table></figure>
-<h4 id="15-6-6-同步"><a href="#15-6-6-同步" class="headerlink" title="15.6.6 同步"></a>15.6.6 同步</h4><p>在这一步，从服务器将向主服务器发送<code>PSYC</code>命令，执行同步操作，并将自己的数据库更新至主服务器数据库当前所处的状态。</p>
-<p><code>PSYC</code>的详细过程请参加上一节</p>
-<p>值得一提的是，在同步操作执行之后，主服务器也会成为从服务器的客户端。正因为主服务器成为了从服务器的客户端，所以主服务器才能通过发送写命令来改变从服务器的数据库状态</p>
-<p>如下图<br><img src="/2020/03/05/Redis-15-复制/200305_23.png" alt=""></p>
-<h4 id="15-6-7-命令传播"><a href="#15-6-7-命令传播" class="headerlink" title="15.6.7 命令传播"></a>15.6.7 命令传播</h4><p>当完成了同步之后，主从服务器就会进入命令传播阶段，这时主服务器只要一直将自己执行的写命令发送给从服务器，而从服务器只要一直接收并执行主服务器发来的写命令，就可以保证主从服务器一直保持一致了。</p>
-<h3 id="15-7-心跳检测"><a href="#15-7-心跳检测" class="headerlink" title="15.7 心跳检测"></a>15.7 心跳检测</h3><p>在命令传播阶段，从服务器默认会以每秒一次的频率，向主服务器发送命令<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REPLCONF ACK &lt;replication_offset&gt;</span><br></pre></td></tr></table></figure></p>
-<p>其中<code>replication_offset</code>命令是从服务器当前的复制偏移量</p>
-<p>发送<code>REPLCONF ACK</code>命令对于主服务器有三个作用</p>
-<ul>
-<li>检测主从服务器的网络连接状态</li>
-<li>辅助实现<code>min-slaves</code>选项</li>
-<li>检测命令丢失</li>
-</ul>
-<h4 id="15-7-1-检测主从服务器的网络连接状态"><a href="#15-7-1-检测主从服务器的网络连接状态" class="headerlink" title="15.7.1 检测主从服务器的网络连接状态"></a>15.7.1 检测主从服务器的网络连接状态</h4><p>主从服务器可以通过发送和接收<code>REPLCONF ACK</code>命令来检查两者之间的网络连接是否正常：如果主服务器超过一秒钟没有收到从服务器发来的 <code>REPLCONF ACK</code>命令，那么主服务器就知道主从服务器之间的连接出现问题了。</p>
-<h4 id="15-7-2-辅助事件min-slaves配置选项"><a href="#15-7-2-辅助事件min-slaves配置选项" class="headerlink" title="15.7.2 辅助事件min-slaves配置选项"></a>15.7.2 辅助事件min-slaves配置选项</h4><p>Redis的<code>min-s1aves-to-write</code>和<code>min-slaves-max-1ag</code>两个选项可以防止主服务器在不安全的情况下执行写命令。</p>
-<p>假设我们向主服务器提供如下设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">min-slaves-to-write 3</span><br><span class="line">min-slaves-max-lag 10</span><br></pre></td></tr></table></figure></p>
-<p>这个设置是指，如果从服务器的数量小于3，或者3个服务器的延迟值都大于或等于10秒时，主服务器将拒绝执行写命令</p>
-<h4 id="15-7-3-检测命令丢失"><a href="#15-7-3-检测命令丢失" class="headerlink" title="15.7.3 检测命令丢失"></a>15.7.3 检测命令丢失</h4><p>如果因为网络故障，主服务器传播给从服务器的写命令在半路丢失，那么当从服务器向主服务器发送<code>REPLCONF ACK</code>命令时，主服务器将发觉从服务器当前的复制偏移量少于自己的复制偏移量，然后主服务器就会根据从服务器提交的复制偏移量，在复制积压缓冲区里面找到从服务器缺少的数据，并将这些数据重新发送给从服务器。</p>
-<p>例如下图<br><img src="/2020/03/05/Redis-15-复制/200305_24.png" alt=""><br><img src="/2020/03/05/Redis-15-复制/200305_25.png" alt=""></p>
+<p>此外，Sentinel系统选举领头节点的方法是对Raft算法的领头选举方法的实现</p>
 
           
         
@@ -525,7 +474,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/106/">106</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -573,7 +522,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-count">107</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
