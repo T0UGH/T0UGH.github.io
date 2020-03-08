@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/21/微服务设计-2-演化式架构师/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/21/微服务设计-3-如何建模服务/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/21/微服务设计-2-演化式架构师/" itemprop="url">[微服务设计][2][演化式架构师]</a></h1>
+                <a class="post-title-link" href="/2019/06/21/微服务设计-3-如何建模服务/" itemprop="url">[微服务设计][3][如何建模服务]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-21T16:03:46+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-21T17:22:00+08:00">
                 2019-06-21
               </time>
             
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/06/21/微服务设计-2-演化式架构师/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/06/21/微服务设计-2-演化式架构师/" itemprop="commentCount"></span>
+                <a href="/2019/06/21/微服务设计-3-如何建模服务/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/06/21/微服务设计-3-如何建模服务/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,124 +362,26 @@
       
         
           
-            <h2 id="2-演化式架构师"><a href="#2-演化式架构师" class="headerlink" title="2 演化式架构师"></a>2 演化式架构师</h2><p>在微服务架构下，我们需要做一些决定，比如</p>
-<ol>
-<li>应该使用多少种不同的技术</li>
-<li>不同的团队是否应该使用不同的编码规范</li>
-<li>是应该合并多个服务还是把一个服务拆分为多个</li>
-</ol>
-<h3 id="2-1-不准确的比较"><a href="#2-1-不准确的比较" class="headerlink" title="2.1 不准确的比较"></a>2.1 不准确的比较</h3><ul>
-<li><p>架构师的重要职责</p>
-<ol>
-<li>确保团队有相同的技术愿景，以帮助我们向客户交付他们想要的系统</li>
-<li>保证该系统适合开发人员在其上工作</li>
-</ol>
-</li>
-<li><p>我们把自己称为软件工程师(engineer)或者架构师(architect)，但是对我们来说，工程师和架构师的精确度和纪律性是遥不可及的。建筑和桥梁倒塌的次数要比我们的程序崩溃的次数少的多</p>
-</li>
-<li><p>我们要创造的东西从设计上说就是要足够灵活，有很好的适应性，并且能够根据客户的需求进行演化</p>
-</li>
-<li><p>在我们这个行业。这种建筑师的视角会导致一些很糟糕的实践，人们视图通过大量的图表和文档创建出一个完美的方案，而忽略了很多基础性的未知因素。使用这种方式会导致人们很难真正理解实现起来的难度，甚至不知道这个设计能否奏效，想要对系统了解更多之后再对设计进行修改就更不可能了</p>
-</li>
-</ul>
-<h3 id="2-2-架构师的演化视角"><a href="#2-2-架构师的演化视角" class="headerlink" title="2.2 架构师的演化视角"></a>2.2 架构师的演化视角</h3><ul>
-<li><p>我们应该设计出一个合理的框架，在这个框架下可以慢慢演化出正确的系统，并且一旦我们学到了更多知识，应该可以很容易地应用到系统中</p>
-</li>
-<li><p>一个可以和IT架构师类比的角色: 城市规划师</p>
-</li>
-<li><p>当用户对软件提出变更需求时，我们需要对其进行响应并作出相应的改变。未来的变化很难预见，所以与其对所有变化的可能性进行预测，不如做一个允许变化的计划。为此，应该避免对所有事情进行过于详尽的设计</p>
-</li>
-</ul>
-<h3 id="2-3-分区"><a href="#2-3-分区" class="headerlink" title="2.3 分区"></a>2.3 分区</h3><ul>
-<li><p>区域的概念: 区域是我们的服务边界，或者是一些粗粒度的服务群组</p>
-</li>
-<li><p>我们应该考虑不同的服务之间怎么交互，或者说保证我们能够对整个系统的健康状态进行监控。不应过度介入细节</p>
-</li>
-<li><p>很多组织采用微服务是为了使团队的自治性最大化</p>
-</li>
-<li><p>每个服务内部可以允许团队自己选择不同的技术栈或者数据存储技术，但是也不会无限制地允许团队选择任意技术栈</p>
-</li>
-<li><p>但是我们要保证服务之间的交互是可控的，比如一个服务决定通过<code>HTTP</code>暴露<code>REST</code>接口，另一个用的是<code>protocol buffers</code>，第三个用的是<code>Java RMI</code>，这种设计就是糟糕的</p>
-</li>
-</ul>
-<h3 id="2-4-一个原则性的方法"><a href="#2-4-一个原则性的方法" class="headerlink" title="2.4 一个原则性的方法"></a>2.4 一个原则性的方法</h3><blockquote>
-<p>规划对于智者来说是指导，对于愚蠢者来说是遵从</p>
+            <h2 id="3-如何建模服务"><a href="#3-如何建模服务" class="headerlink" title="3 如何建模服务"></a>3 如何建模服务</h2><blockquote>
+<p>对手的论证让我想到了异教徒。当别人问异教徒世界是由什么支撑时，他说:”一只乌龟。”别人再问他:”那乌龟是由什么支撑呢?”他回答:”另一只乌龟。”</p>
 </blockquote>
-<h4 id="2-4-1-战略目标"><a href="#2-4-1-战略目标" class="headerlink" title="2.4.1 战略目标"></a>2.4.1 战略目标</h4><ul>
-<li>通常我们不需要定义战略目标，战略目标层次一般很高，关心的是团队的走向问题</li>
-</ul>
-<h4 id="2-4-2-原则"><a href="#2-4-2-原则" class="headerlink" title="2.4.2 原则"></a>2.4.2 原则</h4><ul>
-<li>为了和更大的目标保持一致，我们会提出一些具体的规则，称之为原则</li>
-<li>例如，如果组织的一个目标是在其他国家快速增长业务，我们需要使用的原则可能是，整个系统必须能够方便的部署在相应的国家</li>
-</ul>
-<h4 id="2-4-3-实践"><a href="#2-4-3-实践" class="headerlink" title="2.4.3 实践"></a>2.4.3 实践</h4><ul>
-<li><p>我们通过相应的实践来保证原则能够得到实施，这些实践能够指导我们如何完成任务</p>
-</li>
-<li><p>通常这些实践都是技术相关的，而且都是比较底层的，所以任何一个开发人员都能够理解</p>
-</li>
-<li><p>这些实践包括</p>
-<ol>
-<li>代码规范</li>
-<li>日志数据集中捕获</li>
-<li>或者<code>HTTP/REST</code>作为标准集成风格等</li>
-</ol>
-</li>
-</ul>
-<h4 id="2-4-4-一个例子"><a href="#2-4-4-一个例子" class="headerlink" title="2.4.4 一个例子"></a>2.4.4 一个例子</h4><p><img src="/2019/06/21/微服务设计-2-演化式架构师/0621_0.png" alt=""></p>
-<h3 id="2-5-要求的标准"><a href="#2-5-要求的标准" class="headerlink" title="2.5 要求的标准"></a>2.5 要求的标准</h3><ul>
-<li>我们需要给出一个好服务的特点<ul>
-<li>它需要有什么样的能力才能保证系统是可控的</li>
-<li>并且它除了问题不会导致系统瘫痪</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-5-1-监控"><a href="#2-5-1-监控" class="headerlink" title="2.5.1 监控"></a>2.5.1 监控</h4><ul>
-<li>建议确保所有的服务使用先沟通的方式报告健康状况及其与监控相关的数据</li>
-</ul>
-<h4 id="2-5-2-接口"><a href="#2-5-2-接口" class="headerlink" title="2.5.2 接口"></a>2.5.2 接口</h4><ul>
-<li>选用少数几种明确的接口技术有助于新消费者的集成。使用一种标准方式很好，两种也不太坏，但是20种不同的集成技术就太糟糕了</li>
-</ul>
-<h4 id="2-5-3-架构安全性"><a href="#2-5-3-架构安全性" class="headerlink" title="2.5.3 架构安全性"></a>2.5.3 架构安全性</h4><ul>
-<li><p>一个运行异常的服务可能会毁了整个系统，而这种后果是我们无法承担的，所以，必须保证每个服务都可以应对下游服务的错误请求</p>
-</li>
-<li><p>你可以至少保证每个下游服务使用它们自己的连接池，进一步让每个服务使用一个断路器</p>
-</li>
-<li><p>我们应该对以下几种请求做不同的处理可以帮助系统及时失败</p>
-<ol>
-<li>正常并且被正常处理的请求</li>
-<li>错误请求，并且服务识别了它是错误的，但什么都没做</li>
-<li>被访问的服务宕机了，所以无法判断请求</li>
-</ol>
-</li>
-</ul>
-<h3 id="2-6-代码治理"><a href="#2-6-代码治理" class="headerlink" title="2.6 代码治理"></a>2.6 代码治理</h3><ul>
-<li>在各个服务中引入标准的做法是提供范例和服务代码模板</li>
-</ul>
-<h4 id="2-6-1-范例"><a href="#2-6-1-范例" class="headerlink" title="2.6.1 范例"></a>2.6.1 范例</h4><ul>
-<li><p>开发人员更喜欢可以查看和运行的代码，如果你有一些很好的实践希望别人采纳，那么给出一系列的代码范例会很有帮助</p>
-</li>
-<li><p>如果在系统中人们有比较好的代码范例可以模仿，那么他们就不会错的太离谱</p>
-</li>
-</ul>
-<h4 id="2-6-2-服务代码模板"><a href="#2-6-2-服务代码模板" class="headerlink" title="2.6.2 服务代码模板"></a>2.6.2 服务代码模板</h4><ul>
-<li><p>当开发人员想要实现一个新功能时，所有实现核心属性的那些代码都应该是现成的</p>
-</li>
-<li><p><code>Dropwizard</code>和<code>Karyon</code>是两个基于<code>JVM</code>的开源微容器。它们会自动下载一系列第三方库，这些库提供一些特性，比如健康检查、HTTP服务、提供指标数据接口等</p>
-</li>
-<li><p>针对自己的开发实践裁剪出一个服务代码模板，不但可以提高k开发速度，还可以保证服务的质量</p>
-</li>
-</ul>
-<h3 id="2-7-技术债务"><a href="#2-7-技术债务" class="headerlink" title="2.7 技术债务"></a>2.7 技术债务</h3><ul>
-<li>我们的技术愿景本身有其道理，所以偏离了这个愿景短期可能会带来利益。但是长期来开是要付出代价的。可以使用技术债务的概念来帮助我们理解这种取舍</li>
-</ul>
-<h3 id="2-8-例外管理"><a href="#2-8-例外管理" class="headerlink" title="2.8 例外管理"></a>2.8 例外管理</h3><ul>
-<li><p>有时，我们会决定针对某个规则破一次例，并把它记录下来，这就是例外管理</p>
-</li>
-<li><p>如果这样的例外出现了很多次，就可以通过修改原则和实践的方式把我们的理解固化下来</p>
-</li>
-<li><p>例如: 我们有个实践论述是”总是使用mysql做数据存储”，但是后来有足够的证据证明在海量存储的场景下应使用Cassandra，这时就可以进行修改:”在大部分场景下用Mysql存储，如果数据快速增长，则用Cassandra”</p>
-</li>
-</ul>
+<h3 id="3-1-什么样的服务是好服务"><a href="#3-1-什么样的服务是好服务" class="headerlink" title="3.1 什么样的服务是好服务"></a>3.1 什么样的服务是好服务</h3><h4 id="3-1-1-松耦合"><a href="#3-1-1-松耦合" class="headerlink" title="3.1.1 松耦合"></a>3.1.1 松耦合</h4><p>如果做到服务之间的松耦合，那么修改一个服务就不需要修改另一个服务。使用微服务最重要的一点就是，能够独立修改及部署单个服务而不需要修改系统的其他部分</p>
+<p>什么会导致解耦合呢？一个典型的错误是，使用紧耦合的方式做服务之间的集成，从而使得一个服务的修改会招致其消费者的修改</p>
+<p>一个松耦合的服务应该尽可能少地知道与之协作地那些服务地信息，这也意味着，应该限制两个服务之间不同调用形式的数量，因为除了潜在的性能问题之外，过度的通信可能会导致紧耦合</p>
+<h4 id="3-1-2-高内聚"><a href="#3-1-2-高内聚" class="headerlink" title="3.1.2 高内聚"></a>3.1.2 高内聚</h4><p>我们希望把相关的行为聚集在一起，把不相关的行为放到别处。如果要改变某一个行为的话，最好能够只在一个地方进行修改，然后就可以尽快地发布。如果需要在很多不同地地方做这些修改，那么可能需要同时发布多个微服务才能交付这个功能。在多个不同的地方进行修改会很慢，同时部署多个服务的风险也很高</p>
+<h3 id="3-2-限界上下文"><a href="#3-2-限界上下文" class="headerlink" title="3.2 限界上下文"></a>3.2 限界上下文</h3><p>Eric Evans认为:”任何一个给定的领域都包含多个限界上下文，每个限界上下文中的模型分为两部分，一部分不需要与外界通信，另一部分需要，每个限界上下文都有明确的接口，该接口决定了它会暴露哪些模型给其他的上下文。”</p>
+<p>微服务应该清晰的与限定上下文保持一致</p>
+<p><img src="/2019/06/21/微服务设计-3-如何建模服务/0621_1.png" alt=""></p>
+<h4 id="3-2-1-共享的隐藏模型"><a href="#3-2-1-共享的隐藏模型" class="headerlink" title="3.2.1 共享的隐藏模型"></a>3.2.1 共享的隐藏模型</h4><p>不应该盲目地将一个模型全部暴露出去，所以对于某个模型，存在内部和外部两种表示方式</p>
+<h4 id="3-2-1-模块和服务"><a href="#3-2-1-模块和服务" class="headerlink" title="3.2.1 模块和服务"></a>3.2.1 模块和服务</h4><p>在同一个进程内使用模块可以减少耦合，所以一旦你发现领域内部的限界上下文(服务)，一定要使用模块对其进行建模。</p>
+<h4 id="3-2-3-过早划分"><a href="#3-2-3-过早划分" class="headerlink" title="3.2.3 过早划分"></a>3.2.3 过早划分</h4><p>将一个已有的代码块划分为微服务，要比从头开始构建微服务简单很多，所以不建议过早划分</p>
+<h3 id="3-3-业务功能"><a href="#3-3-业务功能" class="headerlink" title="3.3 业务功能"></a>3.3 业务功能</h3><p>当思考组织内的限界上下文时，应该从这些上下文能够提供的功能考虑。比如，仓库的一个功能是提供当前的库存清单，财务上下文能提供月末账单或者为一个新招的员工创建工资单。为了实现这些功能，可能需要交换存储信息的模型</p>
+<h3 id="3-4-逐步划分上下文"><a href="#3-4-逐步划分上下文" class="headerlink" title="3.4 逐步划分上下文"></a>3.4 逐步划分上下文</h3><p>一开始你会识别一些粗粒度的限界上下文，而这些限界上下文可能又包含一些嵌套的限界上下文。例如，可以将仓库分解为:订单管理、库存管理、货物接受等</p>
+<p>可以使嵌套上下文不直接对外可见。对于外界，它们用的还是仓库的功能，但发出的请求其实被透明地映射到了两个或多个服务上。</p>
+<p><img src="/2019/06/21/微服务设计-3-如何建模服务/0621_3.png" alt=""></p>
+<h3 id="3-5-关于业务概念的沟通"><a href="#3-5-关于业务概念的沟通" class="headerlink" title="3.5 关于业务概念的沟通"></a>3.5 关于业务概念的沟通</h3><p>如果把系统分解为限界上下文的话，对于某个功能所做的修改，更倾向于局限在一个单独的微服务边界之内，这样就减少了修改的范围，并能够更快地进行部署</p>
+<h3 id="3-6-技术边界"><a href="#3-6-技术边界" class="headerlink" title="3.6 技术边界"></a>3.6 技术边界</h3><p>按照地理位置或者技术接缝对单块系统进行划分是不合理的，例如下图</p>
+<p><img src="/2019/06/21/微服务设计-3-如何建模服务/0621_2.png" alt=""></p>
 
           
         
@@ -519,7 +421,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/70/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><span class="page-number current">71</span><a class="page-number" href="/page/72/">72</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/72/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/70/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><span class="page-number current">71</span><a class="page-number" href="/page/72/">72</a><span class="space">&hellip;</span><a class="page-number" href="/page/108/">108</a><a class="extend next" rel="next" href="/page/72/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -567,7 +469,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">107</span>
+                  <span class="site-state-item-count">108</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

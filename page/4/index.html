@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/05/Redis-14-服务器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/05/Redis-15-复制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/05/Redis-14-服务器/" itemprop="url">[Redis][14][服务器]</a></h1>
+                <a class="post-title-link" href="/2020/03/05/Redis-15-复制/" itemprop="url">[Redis][15][复制]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-05T11:05:34+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-05T20:56:33+08:00">
                 2020-03-05
               </time>
             
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/03/05/Redis-14-服务器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/05/Redis-14-服务器/" itemprop="commentCount"></span>
+                <a href="/2020/03/05/Redis-15-复制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/05/Redis-15-复制/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,108 +362,130 @@
       
         
           
-            <h2 id="第-14-章-服务器"><a href="#第-14-章-服务器" class="headerlink" title="第 14 章 服务器"></a>第 14 章 服务器</h2><p>Redis服务器负责与多个客户端建立<strong>网络连接</strong>，<strong>处理</strong>客户端发送的<strong>命令请求</strong>，在<strong>数据库</strong>中<strong>保存</strong>客户端执行命令所产生的数据，并通过<strong>资源管理</strong>来维持服务器自身的运转。</p>
-<h3 id="14-1-命令请求的执行过程"><a href="#14-1-命令请求的执行过程" class="headerlink" title="14.1 命令请求的执行过程"></a>14.1 命令请求的执行过程</h3><p>下面我们将以<code>SET</code>命令为例子，详细描述命令请求的执行全过程</p>
-<h4 id="14-1-1-发送命令请求"><a href="#14-1-1-发送命令请求" class="headerlink" title="14.1.1 发送命令请求"></a>14.1.1 发送命令请求</h4><p>Redis服务器的命令请求来自Redis客户端，当用户在客户端中键入一个命令请求时，客户端会将这个命令请求转换成<strong>协议格式</strong>，然后通过连接到服务器的套接字，将协议格式的命令请求<strong>发送给服务器</strong></p>
-<p><img src="/2020/03/05/Redis-14-服务器/200305_0.png" alt=""></p>
-<h4 id="14-1-2-读取命令请求"><a href="#14-1-2-读取命令请求" class="headerlink" title="14.1.2 读取命令请求"></a>14.1.2 读取命令请求</h4><p>当客户端与服务器之间的<strong>连接套接字</strong>因为客户端的写入而变得<strong>可读</strong>时，服务器将调用<strong>命令请求处理器</strong>来执行以下操作</p>
+            <h2 id="第-15-章-复制"><a href="#第-15-章-复制" class="headerlink" title="第 15 章 复制"></a>第 15 章 复制</h2><p>在Redis中，用户可以通过执行<code>SLAVEOF</code>命令或者设置<code>slaveof</code>选项，让一个服务器去复制另一个服务器，我们称呼被复制的服务器为<strong>主服务器</strong>(master)，而对主服务器进行复制的服务器叫做<strong>从服务器</strong>（slave）</p>
+<p>例如下面的命令<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:12345&gt;SLAVEOF 127.0.0.1:6379</span><br><span class="line">OK</span><br></pre></td></tr></table></figure></p>
+<p>然后12345就成了6379的从服务器</p>
+<p>进行复制的主从服务器双方的数据库将保存相同的数据，这称为数据库状态一致</p>
+<h3 id="15-1-旧版复制功能的实现"><a href="#15-1-旧版复制功能的实现" class="headerlink" title="15.1 旧版复制功能的实现"></a>15.1 旧版复制功能的实现</h3><p>Redis的<strong>复制</strong>功能分为<strong>同步</strong>（sync）和<strong>命令传播</strong>（command propagate）两个操作</p>
+<ul>
+<li><strong>同步</strong>操作用于将<strong>从服务器</strong>的<strong>数据库状态**</strong>更新<strong>至</strong>主服务器当前所处的数据库状态**。</li>
+<li><strong>命令传播</strong>操作则用于在主服务器的数据库状态被修改，导致主从服务器的数据库状态出现<strong>不一致时</strong>，让主从服务器的数据库<strong>重新回到一致状态</strong>。</li>
+</ul>
+<h4 id="15-1-1-同步"><a href="#15-1-1-同步" class="headerlink" title="15.1.1 同步"></a>15.1.1 同步</h4><p>当客户端发送<code>SLAVEOF</code>命令给从服务器时，要求从服务器复制主服务器，从服务器会首先执行<strong>同步</strong>操作。</p>
+<p>从服务器对主服务器的<strong>同步操作</strong>需要通过向主服务器发送<strong>SYNC命令</strong>来完成</p>
 <ol>
-<li><strong>读取</strong>套接字中协议格式的命令请求，并将其保存到客户端状态的<strong>输入缓冲区</strong>中，如下图<br><img src="/2020/03/05/Redis-14-服务器/200305_1.png" alt=""></li>
-<li>对输入缓冲区中的命令请求进行<strong>分析</strong>，<strong>提取</strong>命令请求中包含的<strong>命令参数</strong>，以及命令参数的个数，然后分别将参数和参数个数保存到客户端状态的<code>argv</code>属性和<code>argc</code>属性中<br><img src="/2020/03/05/Redis-14-服务器/200305_2.png" alt=""></li>
-<li>调用<strong>命令执行器</strong>，执行客户端指定的命令</li>
+<li><strong>从</strong>服务器向<strong>主</strong>服务器发送<strong>SYNC命令</strong></li>
+<li>收到SYNC命令的<strong>主服务器</strong>执行<strong>BGSAVE</strong>命令，在后台生成一个RDB文件，并使用一个<strong>缓冲区记录</strong>从现在开始执行的所有<strong>写命令</strong>。</li>
+<li>当主服务器的BGSAVE命令<strong>执行完毕</strong>时，主服务器会将BGSAVE命令生成的<strong>RDB文件发送</strong>给从服务器，从服务器接收并<strong>载入</strong>这个<strong>RDB文件</strong>，将自己的数据库状态<strong>更新至主服务器执行BGSAVE命令时的数据库状态</strong>。</li>
+<li>主服务器将记录在<strong>缓冲区</strong>里面的所有<strong>写命令</strong>发送给从服务器，从服务器执行这些写命令，将自己的数据库状态<strong>更新至主服务器数据库当前所处的状态</strong>。</li>
 </ol>
-<h4 id="14-1-3-命令执行器：查找命令实现"><a href="#14-1-3-命令执行器：查找命令实现" class="headerlink" title="14.1.3 命令执行器：查找命令实现"></a>14.1.3 命令执行器：查找命令实现</h4><p>首先，命令执行器根据客户端状态的<code>argv[0]</code>参数，在命令表中查找参数指定的命令，并将找到的命令保存到客户端状态的<code>cmd</code>属性中</p>
-<p>命令表是一个<strong>字典</strong>，字典的键是命令的名字，而字典的值是<code>redisCommand</code>结构，这个结构的源代码如下<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Redis 命令</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">redisCommand</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 命令名字</span></span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 实现函数</span></span><br><span class="line">    redisCommandProc *proc;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 参数个数，如果是-N，则说明参数的数量大于等于N</span></span><br><span class="line">    <span class="keyword">int</span> arity;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 字符串表示的 FLAG</span></span><br><span class="line">    <span class="keyword">char</span> *sflags; <span class="comment">/* Flags as string representation, one char per flag. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 实际 FLAG</span></span><br><span class="line">    <span class="keyword">int</span> flags;    <span class="comment">/* The actual flags, obtained from the 'sflags' field. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Use a function to determine keys arguments in a command line.</span></span><br><span class="line"><span class="comment">     * Used for Redis Cluster redirect. */</span></span><br><span class="line">    <span class="comment">// 从命令中判断命令的键参数。在 Redis 集群转向时使用。</span></span><br><span class="line">    redisGetKeysProc *getkeys_proc;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* What keys should be loaded in background when calling this command? */</span></span><br><span class="line">    <span class="comment">// 指定哪些参数是 key</span></span><br><span class="line">    <span class="keyword">int</span> firstkey; <span class="comment">/* The first argument that's a key (0 = no keys) */</span></span><br><span class="line">    <span class="keyword">int</span> lastkey;  <span class="comment">/* The last argument that's a key */</span></span><br><span class="line">    <span class="keyword">int</span> keystep;  <span class="comment">/* The step between first and last key */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 统计信息</span></span><br><span class="line">    <span class="comment">// microseconds 记录了命令执行耗费的总毫微秒数</span></span><br><span class="line">    <span class="comment">// calls 是命令被执行的总次数</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> microseconds, calls;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>下图是一个命令表的例子</p>
-<p><img src="/2020/03/05/Redis-14-服务器/200305_3.png" alt=""></p>
-<p>当程序在命令表中查找到了对应的命令，则会将其保存到客户端状态的<code>cmd</code>指针中，如下图</p>
-<p><img src="/2020/03/05/Redis-14-服务器/200305_4.png" alt=""></p>
-<h4 id="14-1-4-命令执行器：执行预备操作"><a href="#14-1-4-命令执行器：执行预备操作" class="headerlink" title="14.1.4 命令执行器：执行预备操作"></a>14.1.4 命令执行器：执行预备操作</h4><p>目前为止，命令执行需要的信息已经收集齐了，但是为了保证命令的正确执行，还需要进行一些预备工作，包括</p>
+<p>步骤如下图所示<br><img src="/2020/03/05/Redis-15-复制/200305_7.png" alt=""></p>
+<p>下表是一个主从服务器进行同步的例子<br><img src="/2020/03/05/Redis-15-复制/200305_8.png" alt=""></p>
+<h4 id="15-1-2-命令传播"><a href="#15-1-2-命令传播" class="headerlink" title="15.1.2 命令传播"></a>15.1.2 命令传播</h4><p>每当<strong>主服务器</strong>执行客户端发送的<strong>写命令</strong>时，主服务器的数据库就有可能会被修改，并导致主从服务器状态<strong>不一致</strong>。</p>
+<p>为了让主从服务器<strong>再次一致</strong>，主服务器需要对从服务器执行<strong>命令传播</strong>操作</p>
 <ul>
-<li><p>检查客户端状态的<code>cmd</code>指针是否指向<code>NULL</code></p>
+<li>主服务器会将自己执行的写命令，也即是<strong>造成</strong>主从服务器<strong>不一致</strong>的那条<strong>写命令</strong>，<strong>发送给从服务器</strong>执行</li>
+<li>当从服务器<strong>执行了相同的写命令</strong>之后，主从服务器将<strong>再次回到一致</strong>状态</li>
+</ul>
+<p>例如下面几张图<br><img src="/2020/03/05/Redis-15-复制/200305_9.png" alt=""><br><img src="/2020/03/05/Redis-15-复制/200305_10.png" alt=""><br><img src="/2020/03/05/Redis-15-复制/200305_11.png" alt=""></p>
+<h3 id="15-2-旧版复制功能的缺陷"><a href="#15-2-旧版复制功能的缺陷" class="headerlink" title="15.2 旧版复制功能的缺陷"></a>15.2 旧版复制功能的缺陷</h3><p>在旧版，复制主要应用于以下两种场景</p>
+<ol>
+<li><strong>初次复制</strong>：从服务器之前没有复制过主服务器</li>
+<li><strong>断线后重复制</strong>：处于命令传播阶段的主从服务器因为网络问题而中断，但从服务器之后重连了主服务器。这时，发生了数据不一致。Redis旧版中面对这个情况，直接执行复制操作，将主服务器当前状态打包为RDB传送给从服务器</li>
+</ol>
+<p>例子如下表<br><img src="/2020/03/05/Redis-15-复制/200305_12.png" alt=""></p>
+<p><strong>问题的关键</strong>就在于：断线之后，从服务器只不过少执行了几条写指令而已。为了恢复一致性，却大动干戈地<strong>重新执行了全部的复制操作</strong>，这会浪费大量资源。</p>
+<h3 id="15-3-新版复制功能的实现"><a href="#15-3-新版复制功能的实现" class="headerlink" title="15.3 新版复制功能的实现"></a>15.3 新版复制功能的实现</h3><p>为了解决旧版复制功能在处理断线重复制情况时的低效问题，Redis从2.8版本开始，使用<code>PSYNC</code>命令代替<code>SYNC</code>命令来执行复制时的同步操作</p>
+<p>PSYNC命令具有完整重同步和部分重同步两种模式</p>
+<ul>
+<li><strong>完整重同步</strong>类似于<code>SYNC</code>命令，它会将主服务器状态打包为RDB发送</li>
+<li><strong>部分重同步</strong>则用于<strong>断线重连</strong>的情况。主服务器可以将主从服务器连接<strong>断开期间执行的写命令</strong>发送给从服务器，从服务器只要接收并执行这些写命令，就可以将数据库更新至主服务器当前所处的状态。</li>
+</ul>
+<p>上一节的例子在新版会如下表方式执行<br><img src="/2020/03/05/Redis-15-复制/200305_13.png" alt=""></p>
+<p>下图展示了主从服务器执行部分重同步时的通信过程<br><img src="/2020/03/05/Redis-15-复制/200305_14.png" alt=""></p>
+<h3 id="15-4-部分重同步的实现"><a href="#15-4-部分重同步的实现" class="headerlink" title="15.4 部分重同步的实现"></a>15.4 部分重同步的实现</h3><p>部分重同步的功能由下面三部分组成</p>
+<ul>
+<li>主服务器的<strong>复制偏移量</strong>和从服务器的复制偏移量</li>
+<li>主服务器的<strong>复制积压缓冲区</strong></li>
+<li>服务器的<strong>运行ID</strong></li>
+</ul>
+<h4 id="15-4-1-复制偏移量"><a href="#15-4-1-复制偏移量" class="headerlink" title="15.4.1 复制偏移量"></a>15.4.1 复制偏移量</h4><p>主服务器和从服务器会<strong>分别</strong>维护一个<strong>复制偏移量</strong></p>
+<ul>
+<li>主服务器每次向从服务器<strong>传播N个字节</strong>的数据时，就将自己的复制偏移量的值<strong>加上N</strong></li>
+<li>从服务器每次<strong>收到</strong>主服务器传播来的<strong>N个字节</strong>的数据时，就将自己的复制偏移量的值<strong>加上N</strong></li>
+</ul>
+<p>下面举例说明</p>
+<p>刚开始主从服务器有相同的偏移量<code>10086</code><br><img src="/2020/03/05/Redis-15-复制/200305_15.png" alt=""></p>
+<p>此时，主服务器传播长度为33字节的数据，假如所有从服务器正常，如下图<br><img src="/2020/03/05/Redis-15-复制/200305_16.png" alt=""></p>
+<p>假如有一个从服务器掉线<br><img src="/2020/03/05/Redis-15-复制/200305_17.png" alt=""></p>
+<p>从上例，通过对比主从服务器的复制偏移量，程序可以很容易的直到主从服务器是否处于一致状态</p>
+<h4 id="15-4-2-复制积压缓冲区"><a href="#15-4-2-复制积压缓冲区" class="headerlink" title="15.4.2 复制积压缓冲区"></a>15.4.2 复制积压缓冲区</h4><p>复制积压缓冲区是由主服务器维护的一个固定长度先进先出队列，默认大小为1MB。</p>
+<p>当主服务器进行命令传播时，它不仅会将写命令发送给所有从服务器，还会将写命令入队到复制积压缓冲区里面，如下图<br><img src="/2020/03/05/Redis-15-复制/200305_18.png" alt=""></p>
+<p>复制积压缓冲区会保存最近传播的写命令，且缓冲区中的<strong>每个字节</strong>都<strong>对应</strong>一个<strong>复制偏移量</strong>，例如下图<br><img src="/2020/03/05/Redis-15-复制/200305_19.png" alt=""></p>
+<p>当从服务器重新连上主服务器时，从服务器会通过<code>PSYNC</code>命令将自己的复制偏移量<code>offset</code>发送给主服务器，主服务器会<strong>根据</strong>这个<strong>复制偏移量</strong>来<strong>决定</strong>对从服务器执行<strong>何种同步</strong></p>
+<ul>
+<li><p>如果<code>offset</code>偏移量之后的数据<strong>仍然存在</strong>于<strong>复制积压缓冲区</strong>里面，那么主服务器将对从服务器执行<strong>部分重同步</strong>操作。</p>
 </li>
-<li><p>根据客户端<code>cmd</code>属性指向的<code>redisCommand</code>结构的<code>arity</code>属性，检查命令请求所给定的参数个数是否正确</p>
-</li>
-<li><p>检查客户端是否已经通过了身份验证，未通过身份验证的客户端只能执行<code>AUTH</code>命令</p>
-</li>
-<li><p>如果服务器因为执行Lua脚本而超时并进入阻塞状态，那么服务器只会执行客户端发来的<code>SHUTDOWN nosave</code>命令和<code>SCRIPT KILL</code>命令，其他命令都会被服务器拒绝。</p>
-</li>
-<li><p>如果客户端正在执行事务，那么服务器只会执行客户端发来的<code>EXEC</code>、<code>DISCARD</code>、<code>MULT</code>、<code>WATCH</code>四个命令，其他命令都会被放进事务队列中。</p>
-</li>
-<li><p>等等</p>
+<li><p><strong>否则</strong>主服务器将对从服务器执行<strong>完整重同步</strong>操作。</p>
 </li>
 </ul>
-<h4 id="14-1-5-命令执行器：调用命令的实现函数"><a href="#14-1-5-命令执行器：调用命令的实现函数" class="headerlink" title="14.1.5 命令执行器：调用命令的实现函数"></a>14.1.5 命令执行器：调用命令的实现函数</h4><p>此时，我们不但准备好了执行命令所需的信息，而且还进行了预备工作，那么只要执行以下语句就可以执行命令了</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client-&gt;cmd-&gt;proc(client)</span><br></pre></td></tr></table></figure>
-<p><code>cmd-&gt;proc</code>指针指向的是之前绑定的命令实现函数，通过这个函数，就可以对指定命令进行执行，并产生对应的操作，写入到客户端的输出缓冲区中。在这之后，命令实现函数还将为客户端套接字管理命令回复处理器，然后这个处理器可以在客户端可写的时候将回复返回给客户端。</p>
-<p>如下图<br><img src="/2020/03/05/Redis-14-服务器/200305_5.png" alt=""></p>
-<p><img src="/2020/03/05/Redis-14-服务器/200305_6.png" alt=""></p>
-<h4 id="14-1-6-命令执行器：执行后续操作"><a href="#14-1-6-命令执行器：执行后续操作" class="headerlink" title="14.1.6 命令执行器：执行后续操作"></a>14.1.6 命令执行器：执行后续操作</h4><p>在执行完实现函数后，还需要执行一些后续工作</p>
+<p>回到上面的例子，当掉线的从服务器上线后，发送<code>PSYNC</code>命令并附上自己的复制偏移量<code>10086</code>，然后主服务器发现10086之后的字节都在缓冲区，直接取出并发送给从服务器<br><img src="/2020/03/05/Redis-15-复制/200305_20.png" alt=""></p>
+<h4 id="15-4-3-服务器运行ID"><a href="#15-4-3-服务器运行ID" class="headerlink" title="15.4.3 服务器运行ID"></a>15.4.3 服务器运行ID</h4><p>每个Redis服务器，无论主从，都拥有一个自己的运行ID，它在服务器启动时自动生成，由40个随机的十六进制字符组成</p>
+<p>当从服务器对主服务器进行初次复制时，主服务器会将自己的运行ID传送给从服务器保存。</p>
+<p>当从服务器掉线重连时，会发送这个ID。若ID相同，说明掉线之前的主服务器就是这个主服务器，则尝试执行部分重同步；若不相同，则执行完整重同步</p>
+<h3 id="15-5-PSYNC命令"><a href="#15-5-PSYNC命令" class="headerlink" title="15.5 PSYNC命令"></a>15.5 PSYNC命令</h3><p>本节将详细介绍<code>PSYNC</code>命令的完整细节</p>
+<p><code>PSYNC</code>命令的调用方法有两种</p>
 <ul>
-<li>如果服务器开启了慢查询日志功能，那么慢查询日志模块会检查是否执行了刚刚执行完的命令请求添加一条新的慢查询日志</li>
-<li>更新被执行命令的<code>redisCommand</code>结构记录的总时长和次数</li>
-<li>如果开启了AOF，则将刚执行的命令写入到AOF缓冲区</li>
-<li>将刚执行的命令传播给所有从服务器</li>
+<li>如果从服务器以前没有复制过任何主服务器，那么从服务器在开始一次新的复制时将向主服务器发送<code>PSYNC ? -1</code>命令，主动请求主服务器进行完整重同步</li>
+<li>如果从服务器已经复制过某个主服务器，那么从服务器在开始一次新的复制时将向主服务器发送<code>PSYNC &lt;runid&gt; &lt;offset&gt;</code>命令：其中<code>runid</code>是上一次复制的主服务器的运行ID，而<code>offset</code>则是从服务器当前的复制偏移量</li>
 </ul>
-<h4 id="14-1-7-将命令回复发送给客户端"><a href="#14-1-7-将命令回复发送给客户端" class="headerlink" title="14.1.7 将命令回复发送给客户端"></a>14.1.7 将命令回复发送给客户端</h4><p>前面说过，命令实现函数会将命令回复保存到客户端的输出缓冲区里面，并为客户端的套接字关联命令回复处理器，当客户端套接字变为可写状态时，服务器就会执行命令回复处理器，将保存在客户端输出缓冲区中的命令回复发送给客户端。</p>
-<h4 id="14-1-8-客户端接收并打印命令请求"><a href="#14-1-8-客户端接收并打印命令请求" class="headerlink" title="14.1.8 客户端接收并打印命令请求"></a>14.1.8 客户端接收并打印命令请求</h4><p>当客户端接收到协议格式的命令回复之后，它会将这些回复转换成人类可读的格式，并打印给用户观看</p>
-<h3 id="14-2-serverCron函数"><a href="#14-2-serverCron函数" class="headerlink" title="14.2 serverCron函数"></a>14.2 serverCron函数</h3><p>这个函数负责管理服务器的资源，并保持服务器自身的良好运转</p>
-<h4 id="14-2-1-更新服务器时间缓存"><a href="#14-2-1-更新服务器时间缓存" class="headerlink" title="14.2.1 更新服务器时间缓存"></a>14.2.1 更新服务器时间缓存</h4><p>Redis服务器中有不少功能需要获取系统的当前时间，而每次获取系统的当前时间都需要执行一次系统调用，为了减少系统调用的执行次数，服务器状态中的<code>unixtime</code>属性和<code>mstime</code>属性被用作当前时间的缓存</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">redisServer</span>&#123;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保存了秒级精度的系统当前时间戳</span></span><br><span class="line">    <span class="keyword">time_t</span> unixtime;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保存了毫秒级精度的系统当前UNIX时间戳</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> mstime;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>serverCron</code>默认每100毫秒执行一次，所以这两个时间戳并不准确，若需要更高精度的时间，比如为键设置过期时间、添加慢查询日志等，则还是需要通过系统调用的方式。</p>
-<h4 id="14-2-2-更新LRU时钟"><a href="#14-2-2-更新LRU时钟" class="headerlink" title="14.2.2 更新LRU时钟"></a>14.2.2 更新LRU时钟</h4><p>服务器状态中的<code>lruclock</code>属性保存了服务器的<code>LRU</code>时钟。每个Redis对象都有一个<code>lru</code>属性，它保存了对象最后一次被命令访问的时间。</p>
-<p><code>serverCron</code>函数默认会每10秒更新一次<code>lruclock</code>属性的值，所以这个时钟精度很差，通过它计算出的对象空转时间也只是个模糊值</p>
-<h4 id="14-2-3-更新服务器每秒执行命令次数"><a href="#14-2-3-更新服务器每秒执行命令次数" class="headerlink" title="14.2.3 更新服务器每秒执行命令次数"></a>14.2.3 更新服务器每秒执行命令次数</h4><p>略</p>
-<h4 id="14-2-4-更新服务器内存峰值记录"><a href="#14-2-4-更新服务器内存峰值记录" class="headerlink" title="14.2.4 更新服务器内存峰值记录"></a>14.2.4 更新服务器内存峰值记录</h4><p><code>serverCron</code>还负责记录服务器运行期间的最大内存使用量</p>
-<h4 id="14-2-5-处理SIGTERM信号"><a href="#14-2-5-处理SIGTERM信号" class="headerlink" title="14.2.5 处理SIGTERM信号"></a>14.2.5 处理SIGTERM信号</h4><p>在启动服务器时，Redis会为服务器进程的<code>SIGTERM</code>信号关联处理器<code>sigtermHandler</code>函数，这个信号处理器负责在服务器接到<code>SIGTERM</code>信号时，打开服务器状态的<code>shutdown_asap</code>标识</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sigtermHandler</span><span class="params">(<span class="keyword">int</span> sig)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打印日志</span></span><br><span class="line">    redisLogFromHandler(REDIS_WARNING, <span class="string">"Received SIGTERM, scheduling shutdown..."</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打开关闭标志</span></span><br><span class="line">    server.shutdown_asap = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>每次<code>serverCron</code>函数执行时，程序都会对服务器状态的<code>shutdown_asap</code>属性进行检查，并根据属性的值来决定是否关闭服务器</p>
-<h4 id="14-2-6-管理客户端资源"><a href="#14-2-6-管理客户端资源" class="headerlink" title="14.2.6 管理客户端资源"></a>14.2.6 管理客户端资源</h4><p><code>serverCron</code>每次执行都会调用<code>clientsCron</code>，它会进行如下检查</p>
+<p>根据情况，接收到<code>PSYNC</code>命令的主服务器会向从服务器返回以下三种回复的其中一种：</p>
 <ul>
-<li>如果客户端超时，则释放客户端</li>
-<li>如果客户端上次执行命令请求之后，输入缓冲区大小超过了给定长度，则释放客户端当前的输入缓冲区，并新建一个输入缓冲区，以节省内存</li>
+<li>如果主服务器返回<code>+FULLRESYNC &lt;runid&gt; &lt;offset&gt;</code>回复，那么表示主服务器将与从服务器执行完整重同步操作：其中<code>runid</code>是这个主服务器的运行ID，从服务器会将这个ID保存起来，在下一次发送<code>PSYNC</code>命令时使用；而<code>offset</code>则是主服务器当前的复制偏移量，从服务器会将这个值作为自己的初始化偏移量。</li>
+<li>如果主服务器返回<code>+CONTINUE</code>回复，那么表示主服务器将与从服务器执行部分重同步操作，从服务器只要等着主服务器将自己缺少的那部分数据发送过来就可以了。</li>
+<li>如果主服务器返回<code>-ERR</code>回复，那么表示主服务器的版本过低，它识别不了<code>PSYNC</code>命令，从服务器将向主服务器发送<code>SYNC</code>命令，并与主服务器执行完整同步操作。</li>
 </ul>
-<h4 id="14-2-7-管理服务器资源"><a href="#14-2-7-管理服务器资源" class="headerlink" title="14.2.7 管理服务器资源"></a>14.2.7 管理服务器资源</h4><p><code>serverCron</code>每次执行都会调用<code>databasesCron</code>函数，这个函数会对服务器的一部分数据库进行检查、删除其中的过期键，并在有需要的时候，对字典进行收缩操作</p>
-<h4 id="14-2-8-执行被延迟的BGREWRITEAOF"><a href="#14-2-8-执行被延迟的BGREWRITEAOF" class="headerlink" title="14.2.8 执行被延迟的BGREWRITEAOF"></a>14.2.8 执行被延迟的BGREWRITEAOF</h4><p>每次<code>serverCron</code>函数执行时，函数都会检查<code>BGSAVE</code>命令或者<code>BGREWRITEAOF</code>命令是否正在执行，如果这两个命令都没在执行，并且有之前被推延的<code>BGREWRITEAOF</code>，那么服务器就会执行它。</p>
-<h4 id="14-2-9-检查持久化操作的运行状况"><a href="#14-2-9-检查持久化操作的运行状况" class="headerlink" title="14.2.9 检查持久化操作的运行状况"></a>14.2.9 检查持久化操作的运行状况</h4><p>略</p>
-<h4 id="14-2-10-将AOF缓冲区中的内容写入AOF文件"><a href="#14-2-10-将AOF缓冲区中的内容写入AOF文件" class="headerlink" title="14.2.10 将AOF缓冲区中的内容写入AOF文件"></a>14.2.10 将AOF缓冲区中的内容写入AOF文件</h4><p>略</p>
-<h4 id="14-2-11-关闭异步客户端"><a href="#14-2-11-关闭异步客户端" class="headerlink" title="14.2.11 关闭异步客户端"></a>14.2.11 关闭异步客户端</h4><p>服务器会关闭那些输出缓冲区大小超过限制的客户端</p>
-<h4 id="14-2-12-增加cronloops计数器的值"><a href="#14-2-12-增加cronloops计数器的值" class="headerlink" title="14.2.12 增加cronloops计数器的值"></a>14.2.12 增加cronloops计数器的值</h4><p><code>cronloops</code>记录了<code>serverCron</code>的执行次数，所以<code>serverCron</code>函数还有负责更新自己的执行次数</p>
-<h3 id="14-3-初始化服务器"><a href="#14-3-初始化服务器" class="headerlink" title="14.3 初始化服务器"></a>14.3 初始化服务器</h3><h4 id="14-3-1-初始化服务器状态结构"><a href="#14-3-1-初始化服务器状态结构" class="headerlink" title="14.3.1 初始化服务器状态结构"></a>14.3.1 初始化服务器状态结构</h4><p>初始化服务器的第一步是创建一个<code>redisServer</code>类型的实例变量<code>server</code>作为服务器的状态，并且为结构中的各个属性设置<strong>默认值</strong>。</p>
-<p>这一步由<code>redis.c/initServerConfig</code>来完成，它设置的主要是一些常量，并且会创建<strong>命令表</strong>数据结构，但是<strong>不会创建</strong>服务器状态的<strong>其他数据结构</strong>，理由下面会解释。</p>
-<h4 id="14-3-2-载入配置选项"><a href="#14-3-2-载入配置选项" class="headerlink" title="14.3.2 载入配置选项"></a>14.3.2 载入配置选项</h4><p>用户可以通过配置参数或者配置文件来修改服务器的默认配置。</p>
-<p>服务器在用<code>initServerConfig</code>初始化完<code>server</code>变量之后，会载入用户自定义的配置，并且对第一步初始化的<code>server</code>变量进行修改。</p>
-<p>配置的规则是</p>
+<p>流程图如下<br><img src="/2020/03/05/Redis-15-复制/200305_21.png" alt=""></p>
+<h3 id="15-6-复制的实现"><a href="#15-6-复制的实现" class="headerlink" title="15.6 复制的实现"></a>15.6 复制的实现</h3><p>本节将按顺序介绍服务器收到客户端发送的<code>SLAVEOF</code>命令后的全部操作</p>
+<h4 id="15-6-1-设置主服务器的地址和端口"><a href="#15-6-1-设置主服务器的地址和端口" class="headerlink" title="15.6.1 设置主服务器的地址和端口"></a>15.6.1 设置主服务器的地址和端口</h4><p>从服务器首先要做的就是将客户端给定的主服务器IP地址以及端口保存到服务器状态的<code>masterhost</code>属性和<code>masterport</code>属性里面</p>
+<p><code>SLAVEOF</code>命令是一个异步命令，在完成<code>masterhost</code>属性和<code>masterport</code>属性的设置工作之后，从服务器将向发送<code>SLAVEOF</code>命令的客户端返回<code>OK</code>，表示复制指令已经被接收，而实际的复制工作将在<code>OK</code>返回之后才真正开始执行。</p>
+<h4 id="15-6-2-建立套接字连接"><a href="#15-6-2-建立套接字连接" class="headerlink" title="15.6.2 建立套接字连接"></a>15.6.2 建立套接字连接</h4><p>在<code>SLAVEOF</code>命令执行之后，从服务器将根据命令所设置的IP地址和端口，创建连向主服务器的套接字连接</p>
+<p>然后，从服务器将为这个套接字关联一个专门用于处理复制工作的文件事件处理器，这个处理器将负责执行后续的复制工作，比如接收RDB文件，以及接收主服务器传播来的写命令，诸如此类。</p>
+<p>而主服务器在接受从服务器的套接字连接之后，将为该套接字创建相应的客户端状态，并将从服务器看作是一个连接到主服务器的客户端来对待，</p>
+<h4 id="15-6-3-发送PING命令"><a href="#15-6-3-发送PING命令" class="headerlink" title="15.6.3 发送PING命令"></a>15.6.3 发送PING命令</h4><p>从服务器成为主服务器的客户端之后，做的第一件事就是向主服务器发送一个PING命令，它有两个作用</p>
 <ul>
-<li>如果用户自定义了新的值，那么服务器就使用用户自定义的值</li>
-<li>否则沿用<code>initServerConfig</code>函数设置的默认值</li>
+<li>通过发送PING命令可以检查套接字的读写状态是否正常。</li>
+<li>通过发送PING命令可以检查主服务器能否正常处理命令请求。</li>
 </ul>
-<h4 id="14-3-3-初始化服务器数据结构"><a href="#14-3-3-初始化服务器数据结构" class="headerlink" title="14.3.3 初始化服务器数据结构"></a>14.3.3 初始化服务器数据结构</h4><p>这一步在<code>initServer</code>函数中执行，它主要初始如下数据结构</p>
+<p>从服务器发送PING命令后会遇到如下三种情况</p>
 <ul>
-<li><code>server.clients</code>链表：它记录了客户端状态</li>
-<li><code>server.db</code>数组：包含了服务器的所有数组</li>
-<li><code>server.pubsub_channels</code>字典：与发布订阅有关</li>
-<li><code>server.lua</code>用来执行lua脚本的伪客户端</li>
-<li><code>server.slowlog</code>用来保存慢查询日志</li>
+<li>如果主服务器向从服务器返回了一个命令回复，但从服务器却不能在规定的时限内读取出命令回复的内容，那么表示主从服务器之间的网络连接状态不佳。这时，从服务器断开并重新创建连向主服务器的套接字</li>
+<li>如果主服务器向从服务器返回一个错误，那么表示主服务器暂时没办法处理从服务器的命令请求，不能继续执行复制工作的后续步骤。这时，从服务器断开并重新创建连向主服务器的套接字</li>
+<li>如果从服务器读取到<code>PONG</code>回复，那么表示连接正常，在这种情况下从服务器可以继续执行复制工作的下个步骤。</li>
 </ul>
-<p>之所以将初始化工作分在<code>initServerConfig</code>和<code>initServer</code>两个函数，是因为如果只用一步的话，一旦用户通过配置文件更改了与数据结构相关的配置，那么服务器还要重新调整已经创建的数据结构。分为两步可以避免这种情况。</p>
-<p>除此之外，<code>initServer</code>还进行了如下设置工作</p>
+<h4 id="15-6-4-身份验证"><a href="#15-6-4-身份验证" class="headerlink" title="15.6.4 身份验证"></a>15.6.4 身份验证</h4><p>下一步，从服务器决定是否向主服务器发送身份验证，流程如下<br><img src="/2020/03/05/Redis-15-复制/200305_22.png" alt=""></p>
+<h4 id="15-6-5-发送端口信息"><a href="#15-6-5-发送端口信息" class="headerlink" title="15.6.5 发送端口信息"></a>15.6.5 发送端口信息</h4><p>在身份验证步骤之后，从服务器将执行命令<code>REPLCONF listening-port &lt;port-number&gt;</code>向主服务器发送从服务器的监听端口号</p>
+<p>主服务器接收到这个命令后，会将端口号记录在从服务器所对应对的客户端状态的<code>slave_listening_port</code>属性中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisClient</span>&#123;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//从服务器的监听端口号</span></span><br><span class="line">    <span class="keyword">int</span> slave_listening_port;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125; redisClient</span><br></pre></td></tr></table></figure>
+<h4 id="15-6-6-同步"><a href="#15-6-6-同步" class="headerlink" title="15.6.6 同步"></a>15.6.6 同步</h4><p>在这一步，从服务器将向主服务器发送<code>PSYC</code>命令，执行同步操作，并将自己的数据库更新至主服务器数据库当前所处的状态。</p>
+<p><code>PSYC</code>的详细过程请参加上一节</p>
+<p>值得一提的是，在同步操作执行之后，主服务器也会成为从服务器的客户端。正因为主服务器成为了从服务器的客户端，所以主服务器才能通过发送写命令来改变从服务器的数据库状态</p>
+<p>如下图<br><img src="/2020/03/05/Redis-15-复制/200305_23.png" alt=""></p>
+<h4 id="15-6-7-命令传播"><a href="#15-6-7-命令传播" class="headerlink" title="15.6.7 命令传播"></a>15.6.7 命令传播</h4><p>当完成了同步之后，主从服务器就会进入命令传播阶段，这时主服务器只要一直将自己执行的写命令发送给从服务器，而从服务器只要一直接收并执行主服务器发来的写命令，就可以保证主从服务器一直保持一致了。</p>
+<h3 id="15-7-心跳检测"><a href="#15-7-心跳检测" class="headerlink" title="15.7 心跳检测"></a>15.7 心跳检测</h3><p>在命令传播阶段，从服务器默认会以每秒一次的频率，向主服务器发送命令<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REPLCONF ACK &lt;replication_offset&gt;</span><br></pre></td></tr></table></figure></p>
+<p>其中<code>replication_offset</code>命令是从服务器当前的复制偏移量</p>
+<p>发送<code>REPLCONF ACK</code>命令对于主服务器有三个作用</p>
 <ul>
-<li><p>为服务器设置<strong>进程信号处理器</strong>。</p>
-</li>
-<li><p><strong>创建共享对象</strong>：这些对象包含Reds服务器经常用到的一些值，比如包含”oK”回复的字符串对象，包含”ERR”回复的字符串对象，包含整数1到10000的字符串对象等等，服务器通过重用这些共享对象来避免反复创建相同的对象</p>
-</li>
-<li><p>打开服务器的<strong>监听端口</strong>，并为监听套接字关联连接应答事件处理器，等待服务器正式运行时接受客户端的连接。</p>
-</li>
-<li><p>为<code>serverCron</code>函数创建<strong>时间事件</strong>，等待服务器正式运行时执行<code>servercron</code>函数。</p>
-</li>
-<li><p>如果AOF持久化功能已经打开，那么<strong>打开现有的AOF文件</strong>，如果AOF文件不存在，那么创建并打开一个新的AOF文件，为AOF写入做好准备。</p>
-</li>
-<li><p>初始化服务器的<strong>后台I/O模块</strong>，为将来的LO操作做好准备。</p>
-</li>
+<li>检测主从服务器的网络连接状态</li>
+<li>辅助实现<code>min-slaves</code>选项</li>
+<li>检测命令丢失</li>
 </ul>
-<h4 id="14-3-4-还原数据库状态"><a href="#14-3-4-还原数据库状态" class="headerlink" title="14.3.4 还原数据库状态"></a>14.3.4 还原数据库状态</h4><p>在完成了服务器变量的初始化工作，服务器需要载入AOF或者RDB文件来还原服务器的数据库状态</p>
-<h4 id="14-3-5-执行事件循环"><a href="#14-3-5-执行事件循环" class="headerlink" title="14.3.5 执行事件循环"></a>14.3.5 执行事件循环</h4><p>在初始化的最后一步，服务器将开始事件循环的执行</p>
+<h4 id="15-7-1-检测主从服务器的网络连接状态"><a href="#15-7-1-检测主从服务器的网络连接状态" class="headerlink" title="15.7.1 检测主从服务器的网络连接状态"></a>15.7.1 检测主从服务器的网络连接状态</h4><p>主从服务器可以通过发送和接收<code>REPLCONF ACK</code>命令来检查两者之间的网络连接是否正常：如果主服务器超过一秒钟没有收到从服务器发来的 <code>REPLCONF ACK</code>命令，那么主服务器就知道主从服务器之间的连接出现问题了。</p>
+<h4 id="15-7-2-辅助事件min-slaves配置选项"><a href="#15-7-2-辅助事件min-slaves配置选项" class="headerlink" title="15.7.2 辅助事件min-slaves配置选项"></a>15.7.2 辅助事件min-slaves配置选项</h4><p>Redis的<code>min-s1aves-to-write</code>和<code>min-slaves-max-1ag</code>两个选项可以防止主服务器在不安全的情况下执行写命令。</p>
+<p>假设我们向主服务器提供如下设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">min-slaves-to-write 3</span><br><span class="line">min-slaves-max-lag 10</span><br></pre></td></tr></table></figure></p>
+<p>这个设置是指，如果从服务器的数量小于3，或者3个服务器的延迟值都大于或等于10秒时，主服务器将拒绝执行写命令</p>
+<h4 id="15-7-3-检测命令丢失"><a href="#15-7-3-检测命令丢失" class="headerlink" title="15.7.3 检测命令丢失"></a>15.7.3 检测命令丢失</h4><p>如果因为网络故障，主服务器传播给从服务器的写命令在半路丢失，那么当从服务器向主服务器发送<code>REPLCONF ACK</code>命令时，主服务器将发觉从服务器当前的复制偏移量少于自己的复制偏移量，然后主服务器就会根据从服务器提交的复制偏移量，在复制积压缓冲区里面找到从服务器缺少的数据，并将这些数据重新发送给从服务器。</p>
+<p>例如下图<br><img src="/2020/03/05/Redis-15-复制/200305_24.png" alt=""><br><img src="/2020/03/05/Redis-15-复制/200305_25.png" alt=""></p>
 
           
         
@@ -503,7 +525,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/108/">108</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -551,7 +573,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">107</span>
+                  <span class="site-state-item-count">108</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
