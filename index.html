@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/08/Redis-20-Lua脚本/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/微服务设计-5-分解单块系统/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/08/Redis-20-Lua脚本/" itemprop="url">[Redis][20][Lua脚本]</a></h1>
+                <a class="post-title-link" href="/2020/03/09/微服务设计-5-分解单块系统/" itemprop="url">[微服务设计][5][分解单块系统]</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-08T18:37:42+08:00">
-                2020-03-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-09T20:35:13+08:00">
+                2020-03-09
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/redis/" itemprop="url" rel="index">
-                    <span itemprop="name">redis</span>
+                  <a href="/categories/微服务设计/" itemprop="url" rel="index">
+                    <span itemprop="name">微服务设计</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/03/08/Redis-20-Lua脚本/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/08/Redis-20-Lua脚本/" itemprop="commentCount"></span>
+                <a href="/2020/03/09/微服务设计-5-分解单块系统/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/09/微服务设计-5-分解单块系统/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,116 +362,69 @@
       
         
           
-            <h2 id="第-20-章-Lua脚本"><a href="#第-20-章-Lua脚本" class="headerlink" title="第 20 章 Lua脚本"></a>第 20 章 Lua脚本</h2><p>通过在服务器中嵌入Lua环境，Redis客户端可以使用Lua脚本，直接在服务器端原子地执行多个Redis命令。</p>
+            <h2 id="第-5-章-分解单块系统"><a href="#第-5-章-分解单块系统" class="headerlink" title="第 5 章 分解单块系统"></a>第 5 章 分解单块系统</h2><h3 id="5-1-关键是接缝"><a href="#5-1-关键是接缝" class="headerlink" title="5.1 关键是接缝"></a>5.1 关键是接缝</h3><p>服务应该是高内聚、低耦合的。</p>
+<p>在《修改代码的艺术》这本书中定义了<strong>接缝</strong>的概念，从接缝处可以抽取出相对独立的一部分代码，对这部分代码进行修改不会影响系统的其他部分。识别出接缝不仅仅能够清理代码库，更重要的是，这些被识别出的接缝可以成为服务的边界。<strong>限界上下文</strong>就是一个非常好的接缝。</p>
+<h3 id="5-2-分解MusicCorp"><a href="#5-2-分解MusicCorp" class="headerlink" title="5.2 分解MusicCorp"></a>5.2 分解MusicCorp</h3><p>首先，我们应该<strong>识别</strong>出组织中的<strong>高层限界上下文</strong>。然后，尝试将这个<strong>单块</strong>系统的各部分代码<strong>映射</strong>到这些限界上下文中。</p>
+<p>举例说明，想象一下，现在有一个巨大的后台单块服务，其中包含了 MusicCorp在线音乐系统所需要的所有行为。假设一开始我们识别出这个单块后台系统包含以下四个上下文。</p>
 <ul>
-<li>使用EVAL命令可以直接对输入的脚本进行求值</li>
-<li>使用EVALSHA命令则可以根据脚本的SHA1校验和来对脚本进行求值</li>
-<li>使用SCRIPT LOAD命令可以载入这个校验和对应的脚本</li>
+<li>产品目录：与正在销售的商品相关的元数据。</li>
+<li>财务：账户、支付、退款等项目的报告。</li>
+<li>仓库：分发客户订单、处理退货、管理库存等。</li>
+<li>推荐：该系统的算法正在申请专利。它是革命性的推荐系统，代码非常复杂。该团队中博士的比例，比一般科学实验室的还要高。</li>
 </ul>
-<p>本章的安排</p>
+<p>首先创建<strong>包结构</strong>来表示这些上下文，然后把已有的代码移动到相应的位置。当移动之后，就可以看到哪些代码很好地找到了自己的位置，而哪些代码找不到合适的位置。这些剩下的代码很有可能就是我们遗漏掉的限界上下文。</p>
+<p>接着我们分析<strong>包之间的交互</strong>。代码应该与组织相匹配，所以表示限界上下文的这些包之间的交互，也应该与组织中不同部分的实际交互方式一致。举个例子，如果发现仓库包依赖于财务包中的代码，而真实的组织中并不存在这样的依赖，那么就需要看看到底是什么问题，并想办法解决它。</p>
+<h3 id="5-3-分解单块系统的原因"><a href="#5-3-分解单块系统的原因" class="headerlink" title="5.3 分解单块系统的原因"></a>5.3 分解单块系统的原因</h3><p>分解单块系统最好遵循增量模式，一步一步分解。把单块系统想象成为一块大理石，我们可以把整块石头炸开，但这样做的结果通常不好。增量开凿的方式更合理。增量的方式可以让你在进行的过程中学习微服务，同时也可以限制出错所造成的影响。</p>
+<h3 id="5-4-杂乱的依赖"><a href="#5-4-杂乱的依赖" class="headerlink" title="5.4 杂乱的依赖"></a>5.4 杂乱的依赖</h3><p>略</p>
+<h3 id="5-5-数据库"><a href="#5-5-数据库" class="headerlink" title="5.5 数据库"></a>5.5 数据库</h3><p>前面详细讨论了使用数据库作为服务之间集成方式的做法。而且我已经非常明确地表示我不喜欢这么做！这意味着需要找到数据库中的接缝，这样就可以把它们分离干净。然而数据库是一个棘手的怪物。</p>
+<h3 id="5-6-找到问题的关键"><a href="#5-6-找到问题的关键" class="headerlink" title="5.6 找到问题的关键"></a>5.6 找到问题的关键</h3><p>第一步是看看代码中对数据库进行读写的部分，通常这部分代码会存在于一个仓储层中。其中会使用某种框架，比如 Hibernate，来把代码和数据库进行绑定。对于数据库访问相关的代码来说，也应该做类似的事情，所以需要把仓储层的代码分成几部分，如下图所示。</p>
+<p><img src="/2020/03/09/微服务设计-5-分解单块系统/200309_0.png" alt=""></p>
+<p>把数据库映射相关的代码和功能代码放在同一个上下文中，可以帮助我们理解哪些代码用到了数据库中的哪些部分。</p>
+<p>当将持久层分包完毕后，你会发现，有的数据库表横跨不同的限界上下文；而不同上下文之间的表还保持着外键关系；甚至数据库事务也被分离到了不同的包中完成。下面我们来探讨如何解决这些问题</p>
+<h3 id="5-7-例子：打破外键关系"><a href="#5-7-例子：打破外键关系" class="headerlink" title="5.7 例子：打破外键关系"></a>5.7 例子：打破外键关系</h3><p>假设出于某些业务，财务的总账表有指向产品目录的外键。</p>
+<p><img src="/2020/03/09/微服务设计-5-分解单块系统/200309_1.png" alt=""></p>
+<p>我们现在要拆分数据库，怎么处理这个外键呢？事实上修改分为两步。</p>
 <ol>
-<li>介绍Redis服务器初始化Lua环境的整个过程</li>
-<li>介绍与Lua环境进行协作的两个组件，它们分别是负责执行Lua脚本中包含的Redis命令的伪客户端以及负责保存传入服务器的Lua脚本的脚本字典</li>
-<li>介绍EVAL和EVALSHA命令的实现原理</li>
-<li>介绍管理脚本的四个命令：SCRIPT FLUSH命令、SCRIPT EXISTS命令、SCRIPT LOAD命令和SCRIPT KILL命令的实现原理</li>
-<li>介绍Redis在主从服务器之间复制Lua脚本的方法</li>
+<li>首先要去除财务部分的代码对行条目表的访问。快速的修改方式是，让财务部分的代码通过产品目录服务暴露的API来访问数据，而不是直接访问数据库。这个API调用会成为微服务化的第一步，如下图所示。但是，这样做会导致一件事：原本只需要访问一次数据库就可以完成的业务，现在可能要访问多次了。好在Mysql数据库目前建立和断开连接的速度很快，所以也许多次数据库访问不是问题。</li>
 </ol>
-<h3 id="20-1-创建并修改Lua环境"><a href="#20-1-创建并修改Lua环境" class="headerlink" title="20.1 创建并修改Lua环境"></a>20.1 创建并修改Lua环境</h3><p>Redis在服务器内嵌了一个Lua环境并对这个Lua环境进行了一系列修改，</p>
-<h4 id="20-1-1-创建Lua环境"><a href="#20-1-1-创建Lua环境" class="headerlink" title="20.1.1 创建Lua环境"></a>20.1.1 创建Lua环境</h4><p>在最开始的这一步，服务器首先调用Lua的<code>C API</code>函数<code>lua_open()</code>，创建一个新的Lua环境</p>
-<h4 id="20-1-2-载入函数库"><a href="#20-1-2-载入函数库" class="headerlink" title="20.1.2 载入函数库"></a>20.1.2 载入函数库</h4><p>Redis修改Lua环境的第一步，就是将以下函数库载入到Lua环境里面：</p>
-<ul>
-<li>基础库</li>
-<li>表格库</li>
-<li>字符串库</li>
-<li>数学库</li>
-<li>调试库</li>
-<li>Lua CJSON库</li>
-<li>Struct库</li>
-<li>Lua cmsgpack库</li>
-</ul>
-<p>通过使用这些功能强大的函数库，Lua脚本可以直接对执行Redis命令获得的数据进行复杂的操作。</p>
-<h4 id="20-1-3-创建Redis全局表格"><a href="#20-1-3-创建Redis全局表格" class="headerlink" title="20.1.3 创建Redis全局表格"></a>20.1.3 创建Redis全局表格</h4><p>在这一步，服务器将在Lua环境中创建一个Redis表格，并将它设为全局变量。这个Redis表格主要包含各种对Redis中的数据进行操作的函数，使得Lua脚本具有操作Redis数据库的能力</p>
-<ul>
-<li>用于执行Redis命令的<code>redis.call</code>和<code>redis.pca11</code>函数。</li>
-<li>用于记录Redis日志的<code>redis.1og</code>函数</li>
-<li>用于计算SHA1校验和的<code>redis.sha1hex</code>函数。</li>
-<li>用于返回错误信息的<code>redis.error_rep1y</code>函数和<code>redis.status_reply</code>函数。</li>
-</ul>
-<p>在这些函数里面，最常用也最重要的要数<code>redis.ca11</code>函数和<code>redis.pca11</code>函数，通过这两个函数，用户可以直接在Lua脚本中执行Redis命令</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; EVAL <span class="string">"return redis.call('PING')"</span> 0</span><br><span class="line">PONG</span><br></pre></td></tr></table></figure>
-<h4 id="20-1-4-使用Redis自制的随机函数来替换Lua原有的随机函数"><a href="#20-1-4-使用Redis自制的随机函数来替换Lua原有的随机函数" class="headerlink" title="20.1.4 使用Redis自制的随机函数来替换Lua原有的随机函数"></a>20.1.4 使用Redis自制的随机函数来替换Lua原有的随机函数</h4><p>为了保证<strong>相同的脚本</strong>可以在<strong>不同的机器</strong>上产生<strong>相同的结果</strong>， Redis要求所有传入服务器的Lua脚本，以及Lua环境中的所有函数，都必须是无副作用的纯函数。</p>
-<p>因为这个原因，Redis使用<strong>自制的函数</strong>替换了<code>math</code>库中原有的<code>math.random</code>函数和<code>math.randomseed</code>函数，替换之后的两个函数有以下特征</p>
-<ul>
-<li>对于相同的<code>seed</code>来说，<code>math.random</code>总产生相同的随机数序列，这个函数是纯函数。</li>
-<li>除非在脚本中使用<code>math.randomseed</code>显式地修改<code>seed</code>，否则每次运行脚本时Lua环境都使用固定的<code>math.randomseed(0)</code>语句来初始化<code>seed</code>。</li>
-</ul>
-<h4 id="20-1-5-创建排序辅助函数"><a href="#20-1-5-创建排序辅助函数" class="headerlink" title="20.1.5 创建排序辅助函数"></a>20.1.5 创建排序辅助函数</h4><p>对于一个集合键来说，因为集合元素的排列是无序的，所以即使两个集合的元素完全相同，它们的输出结果也可能并不相同。</p>
-<p>为了消除这些命令带来的不确定性，服务器创建一个排序辅助函数<code>redis_compare_helper</code>，当Lua脚本执行完一个带有不确定性的命令之后，程序会使用<code>redis_compare_helper</code>作为对比函数，自动调用<code>table.sort</code>函数对命令的返回值做一次排序，以此来保证相同的数据集总是产生相同的输出。</p>
-<h4 id="20-1-6-创建redis-pcall函数的错误报告辅助函数"><a href="#20-1-6-创建redis-pcall函数的错误报告辅助函数" class="headerlink" title="20.1.6 创建redis.pcall函数的错误报告辅助函数"></a>20.1.6 创建redis.pcall函数的错误报告辅助函数</h4><p>在这一步，服务器将为Lua环境创建一个名为<code>redis_err_handler</code>的错误处理函数，当脚本调用<code>redis.pcall</code>函数执行Redis命令，并且被执行的命令出现错误时<code>redis_err_handler</code>就会打印出错代码的来源和发生错误的行数，为程序的调试提供方便。</p>
-<h4 id="20-1-7-保护Lua的全局环境"><a href="#20-1-7-保护Lua的全局环境" class="headerlink" title="20.1.7 保护Lua的全局环境"></a>20.1.7 保护Lua的全局环境</h4><p>在这一步，服务器将对Lua环境中的全局环境进行保护，确保传人服务器的脚本不会因为忘记使用1oca1关键字而将额外的全局变量添加到Lua环境里面，当一个脚本试图创建一个全局变量时，服务器将报告一个错误</p>
-<h4 id="20-1-8-将Lua环境保存到服务器状态的lua属性里面"><a href="#20-1-8-将Lua环境保存到服务器状态的lua属性里面" class="headerlink" title="20.1.8 将Lua环境保存到服务器状态的lua属性里面"></a>20.1.8 将Lua环境保存到服务器状态的lua属性里面</h4><p>在最后的这一步，服务器会将Lua环境和服务器状态的lua属性关联起来，如下图所示。</p>
-<p><img src="/2020/03/08/Redis-20-Lua脚本/200308_4.png" alt=""></p>
-<p>因为Redis使用串行化的方式来执行Redis命令，所以在任何特定时间里，最多都只会有一个脚本能够被放进Lua环境里面运行，因此，整个Redis服务器只需要创建一个Lua环境即可。</p>
-<h3 id="20-2-Lua环境协作组件"><a href="#20-2-Lua环境协作组件" class="headerlink" title="20.2 Lua环境协作组件"></a>20.2 Lua环境协作组件</h3><p>Redis还创建了与Lua环境进行协作的两个组件，它们分别是负责执行Lua脚本中包含的Redis命令的伪客户端以及负责保存传入服务器的Lua脚本的脚本字典</p>
-<h4 id="20-2-1-伪客户端"><a href="#20-2-1-伪客户端" class="headerlink" title="20.2.1 伪客户端"></a>20.2.1 伪客户端</h4><p>因为执行Reds命令必须有相应的客户端状态，所以为了执行Lua脚本中包含的 Redis命令， Redis服务器专门为Lua环境创建了一个伪客户端</p>
-<p>下图展示了Lua脚本在调用redis.call函数时，Lua环境、伪客户端、命令执行器之间的通信过程</p>
-<p><img src="/2020/03/08/Redis-20-Lua脚本/200308_5.png" alt=""></p>
-<h4 id="20-2-2-lua-script字典"><a href="#20-2-2-lua-script字典" class="headerlink" title="20.2.2 lua_script字典"></a>20.2.2 lua_script字典</h4><p> Redis服务器为Lua环境创建的另一个协作组件是<code>lua_scripts</code>字典，这个字典的键为某个Lua脚本的SHA1校验和，而字典的值则是SHA1校验和对应的Lua脚本，例子如下图</p>
-<p><img src="/2020/03/08/Redis-20-Lua脚本/200308_6.png" alt=""></p>
-<h3 id="20-3-EVAL命令的实现"><a href="#20-3-EVAL命令的实现" class="headerlink" title="20.3 EVAL命令的实现"></a>20.3 EVAL命令的实现</h3><p>EVAL命令的执行过程可以分为以下三个步骤：</p>
+<p><img src="/2020/03/09/微服务设计-5-分解单块系统/200309_2.png" alt=""></p>
+<ol start="2">
+<li>那外键关联怎么办？我们也只能放弃它了。所以你可能需要把这个约束从数据库移到代码中来实现。这也就意味着，我们可能需要实现跨服务的一致性检査，或者周期性触发清理数据的任务。</li>
+</ol>
+<h3 id="5-8-例子：共享静态数据"><a href="#5-8-例子：共享静态数据" class="headerlink" title="5.8 例子：共享静态数据"></a>5.8 例子：共享静态数据</h3><p>静态数据指的是：代码中很少更改的数据。我们可以理解为在业务中它们是只读的。例如：我们有一个表记录了本软件支持的国家。这个表通常很少通过代码进行写操作，更多是后台人员对它进行写维护。但是会有很多服务都用到国家表这种静态数据，如下图</p>
+<p><img src="/2020/03/09/微服务设计-5-分解单块系统/200309_3.png" alt=""></p>
+<p>有这么几个解决方案可供选择。第一个是为每个包复制一份该表的内容，也就是说，未来每个服务也都会保存这样一份副本。当然这会导致一个潜在的一致性问题。比如说，当澳大利亚东海岸新成立了一个国家叫作 Newmantopia，你有可能会漏修改掉一些服务中的表。</p>
+<p>第二个方法是，把这些共享的静态数据放入代码，比如放在属性文件中，或者简单地放在个枚举中。数据一致性的问题仍然存在，虽然从经验上看，修改配置文件比修改在线数据库要简单得多。通常这是比较合理的办法。</p>
+<p>第三个方法有些极端，即把这些静态数据放入一个单独的服务中。</p>
+<h3 id="5-9-例子：共享数据"><a href="#5-9-例子：共享数据" class="headerlink" title="5.9 例子：共享数据"></a>5.9 例子：共享数据</h3><p>前面我们讨论的是静态数据，那如果数据不是静态的呢？现在来考虑一个更为复杂的例子，共享的可变数据对于分离系统来说通常是一个大麻烦。<br>财务代码会追踪客户产生的订单信息，同时也会追踪退货和退款。仓库代码也会在客户订单被分发或者接受之后更新订单信息。它们都会依赖于客户信息表。如下所示</p>
+<p><img src="/2020/03/09/微服务设计-5-分解单块系统/200309_4.png" alt=""></p>
+<p>所以，无论是财务相关的代码还是仓库相关的代码，都会向同一个表写入数据，有时还会从中读取数据。在这种情况下应如何做分离？这种情况，可能提醒我们：缺少客户这个限界上下文。如下图所示。我们可以创建一个新的包，叫作Customer。然后让财务和仓库这些包，通过API来访问此新创建的包。</p>
+<p><img src="/2020/03/09/微服务设计-5-分解单块系统/200309_5.png" alt=""></p>
+<h3 id="5-10-例子：共享表"><a href="#5-10-例子：共享表" class="headerlink" title="5.10 例子：共享表"></a>5.10 例子：共享表</h3><p>下图展示了一个示例。产品目录需要存储记录的名字和价格，而仓库需要保存存储的电子记录。最初我们把这两部分数据全都存储在产品条目表中。但是现在仓储服务和产品服务都要访问这张表</p>
+<p><img src="/2020/03/09/微服务设计-5-分解单块系统/200309_6.png" alt=""></p>
+<p>这里的答案是分成两个表。可以对仓库创建库存项表，对产品目录详情创建产品目录项表。</p>
+<p><img src="/2020/03/09/微服务设计-5-分解单块系统/200309_7.png" alt=""></p>
+<h3 id="5-11-重构数据库"><a href="#5-11-重构数据库" class="headerlink" title="5.11 重构数据库"></a>5.11 重构数据库</h3><p>我们已经找到了应用程序中的接缝，按照限界上下文对它们进行分组，并且也找到了数据库中的接缝，尽量对其进行了分离。然后呢？你想要在一次发布中把单块服务直接变成两个服务，并且每个服务有各自的数据库结构吗？事实上，我会推荐你先分离数据库结构，暂时不对服务进行分离，如下图所示</p>
+<p><img src="/2020/03/09/微服务设计-5-分解单块系统/200309_8.png" alt=""></p>
+<p>表结构分离后</p>
 <ol>
-<li>根据客户端给定的Lua脚本，在Lua环境中定义一个Lua函数</li>
-<li>将客户端给定的脚本保存到<code>lua_scripts</code>字典，等待将来进一步使用。</li>
-<li>执行刚刚在Lua环境中定义的函数，以此来执行客户端给定的Lua脚本。</li>
+<li>对于原先的某个动作而言，对数据库访问的次数可能会变多。以前简单地用一个 SELECT语句就能得到所有的数据，现在则需要分别从不同的地方拿到数据，然后在内存中进行连接。</li>
+<li>分成两个表结构会破坏事务完整性，这会对应用程序造成很大的影响</li>
 </ol>
-<h4 id="20-3-1-定义脚本函数"><a href="#20-3-1-定义脚本函数" class="headerlink" title="20.3.1 定义脚本函数"></a>20.3.1 定义脚本函数</h4><p>当客户端向服务器发送EVAL命令，要求执行某个Lua脚本的时候，服务器首先要做的就是在Lua环境中，为传入的脚本定义一个与这个脚本相对应的Lua函数，其中，Lua函数的名字由f前缀加上脚本的SHA1校验和组成，而函数的体则是脚本本身。</p>
-<p>例如<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f_5332031c6b470dc5a0dd9b4bf2030dea6d65de91</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'hello, world'</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-<p>使用函数来保存客户端传入的脚本有以下好处：</p>
-<ul>
-<li>执行脚本的步骤非常简单，只要调用与脚本相对应的函数即可。</li>
-<li>通过函数的局部性来让Lua环境保持清洁，减少了垃圾回收的工作量，并且避免了使用全局变量。</li>
-<li>只要记得这个脚本的SHA1校验和，服务器就可以直接通过调用Lua函数来执行脚本，这是EVALSHA命令的实现原理</li>
-</ul>
-<h4 id="20-3-2-将脚本保存到lua-script字典"><a href="#20-3-2-将脚本保存到lua-script字典" class="headerlink" title="20.3.2 将脚本保存到lua_script字典"></a>20.3.2 将脚本保存到lua_script字典</h4><p>EVAL命令要做的第二件事是将客户端传人的脚本保存到服务器的<code>1ua_scripts</code>字典里面。</p>
-<h4 id="20-3-3-执行脚本函数"><a href="#20-3-3-执行脚本函数" class="headerlink" title="20.3.3 执行脚本函数"></a>20.3.3 执行脚本函数</h4><p>整个执行步骤如下</p>
+<h3 id="5-12-事务边界"><a href="#5-12-事务边界" class="headerlink" title="5.12 事务边界"></a>5.12 事务边界</h3><p>事务是很有用的东西，它可以保证一些事件要么都发生，要么都不发生。在插入数据库时这点非常有用，因为它允许我们对多个表同时进行修改，而且一旦发生任何错误，所有的操作都会被回退，从而保证数据库不会处于一个不一致的状态。</p>
+<p>使用单块表结构时，所有的创建或者更新操作都可以在一个事务边界内完成。例如，可以在同一个事务中进行订单的插入和仓库记录的插入操作</p>
+<p><img src="/2020/03/09/微服务设计-5-分解单块系统/200309_9.png" alt=""></p>
+<p>但是，分离数据库之后，我们就很难以如此简单的方式实现事务了。我们已经把表结构分成了两部分，其中一个与客户相关，其余的与仓库相关，那么就无法获得事务所能提供的安全性。下订单操作现在跨越了两个事务边界，如下图</p>
+<p><img src="/2020/03/09/微服务设计-5-分解单块系统/200309_10.png" alt=""></p>
+<h4 id="5-12-1-再试一次"><a href="#5-12-1-再试一次" class="headerlink" title="5.12.1 再试一次"></a>5.12.1 再试一次</h4><p>其实，对我们来说知道订单被捕获并被处理就足够了。我们可以把对仓库的提取表的操作放在一个队列或者日志文件中，之后再尝试对其进行触发。我们把这种形式叫作最终一致性。相对于使用事务来保证系统处于一致的状态，最终一致性可以接受系统在未来的某个时间达到一致。</p>
+<h4 id="5-12-2-终止整个操作"><a href="#5-12-2-终止整个操作" class="headerlink" title="5.12.2 终止整个操作"></a>5.12.2 终止整个操作</h4><p>另一个选择是拒绝整个操作。我们需要通过多个补偿事务，把系统重置到某种一致的状态。</p>
+<h4 id="5-12-3-分布式事务"><a href="#5-12-3-分布式事务" class="headerlink" title="5.12.3 分布式事务"></a>5.12.3 分布式事务</h4><p>我们还使用分布式事务。分布式事务会横跨多个事务，然后使用一个叫作事务管理器的工具来统一编配其他底层系统中运行的事务。就像普通的事务一样，一个分布式的事务会保证整个系统处于一致的状态。唯一不同的是，这里的事务会运行在不同系统的不同进程中，通常它们之间使用网络进行通信。</p>
+<p>处理分布式事务常用的算法是两阶段提交。</p>
 <ol>
-<li>将<code>EVAL</code>命令中传人的键名参数和脚本参数分别作为全局变量传入到Lua环境里面。</li>
-<li>为Lua环境装载超时处理钩子</li>
-<li>执行脚本函数</li>
-<li>移除之前装载的超时钩子</li>
-<li>将执行脚本函数所得的结果保存到客户端状态的输出缓冲区里面，等待服务器将结果返回给客户端。</li>
-<li>对Lua环境执行垃圾回收操作。</li>
+<li>首先是投票阶段。在这个阶段，每个参与者会告诉事务管理器它是否应该继续。</li>
+<li>如果事务管理器收到的所有投票都是成功，则会告知它们进行提交操作。</li>
+<li>只要收到一个否定的投票，事务管理器就会让所有的参与者回退。</li>
 </ol>
-<h3 id="20-4-EVALSHA命令的实现"><a href="#20-4-EVALSHA命令的实现" class="headerlink" title="20.4 EVALSHA命令的实现"></a>20.4 EVALSHA命令的实现</h3><p>每个被EVAL命令成功执行过的Lua脚本，在Lua环境里面都有一个与这个脚本相对应的Lua函数，函数的名字由f前缀加上40个字符长的SHA1校验和组成，例如<code>f_5332031c6b470dc5a0dd9b4bf2030dea6d65de91</code>。</p>
-<p>只要脚本对应的函数曾经在Lua环境里面定义过，那么即使不知道脚本的内容本身，客户端也可以根据脚本的SHA1校验和来调用脚本对应的函数，从而达到执行脚本的目的，这就是EVALSHA命令的实现原理。</p>
-<p>伪代码如下<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">EVALSHA</span><span class="params">(sha1)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 拼接出函数的名字</span></span><br><span class="line">    func_name = <span class="string">"f_"</span> + sha1</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 查看这个函数在Lua环境中是否存在</span></span><br><span class="line">    <span class="keyword">if</span> function_exists_in_lua_env(func_name):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果函数存在，那么执行它</span></span><br><span class="line">        execute_lua_function(func_name)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 否则，返回一个错误信息</span></span><br><span class="line">        send_script_error(<span class="string">"SCRIPT NOT FOUND"</span>)</span><br></pre></td></tr></table></figure></p>
-<h3 id="20-5-脚本管理命令的实现"><a href="#20-5-脚本管理命令的实现" class="headerlink" title="20.5 脚本管理命令的实现"></a>20.5 脚本管理命令的实现</h3><h4 id="20-5-1-SCRIPT-FLUSH"><a href="#20-5-1-SCRIPT-FLUSH" class="headerlink" title="20.5.1 SCRIPT FLUSH"></a>20.5.1 SCRIPT FLUSH</h4><p>SCRIPT FLUSH命令用于清除服务器中所有和Lua脚本有关的信息，这个命令会释放并重建<code>lua_scripts</code>字典，关闭现有的Lua环境并重新创建一个新的Lua环境。</p>
-<p>伪代码如下<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">SCRIPT_FLUSH</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 释放脚本字典</span></span><br><span class="line">    dictRelease(server.lua_scripts)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 重建脚本字典</span></span><br><span class="line">    server.lua_script = dictCreate()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 关闭Lua环境</span></span><br><span class="line">    lua_close(server.lua)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 初始化一个新的Lua环境</span></span><br><span class="line">    server.lua = init_lua_env()</span><br></pre></td></tr></table></figure></p>
-<h4 id="20-5-2-SCRIPT-EXISTS"><a href="#20-5-2-SCRIPT-EXISTS" class="headerlink" title="20.5.2 SCRIPT EXISTS"></a>20.5.2 SCRIPT EXISTS</h4><p>SCRIPT EXSTS命令根据输入的SHA1校验和，检查校验和对应的脚本是否存在于服务器中。</p>
-<p>SCRIPT EXSTS命令是通过检查给定的校验和是否存在于<code>lua_scripts</code>字典来实现的，以下是该命令的实现伪代码<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">SCRIPT_EXISTS</span><span class="params">(*sha1_list)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 结果列表</span></span><br><span class="line">    result_list = []</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 遍历输入的说有SHA1校验和</span></span><br><span class="line">    <span class="keyword">for</span> sha1 <span class="keyword">in</span> sha1_list:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> sha1 <span class="keyword">in</span> server.lua_scripts:</span><br><span class="line">            result_list.append(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            result_list.append(<span class="number">0</span>)</span><br><span class="line">    </span><br><span class="line">    send_list_reply(result_list)</span><br></pre></td></tr></table></figure></p>
-<h4 id="20-5-3-SCRIPT-LOAD"><a href="#20-5-3-SCRIPT-LOAD" class="headerlink" title="20.5.3 SCRIPT LOAD"></a>20.5.3 SCRIPT LOAD</h4><p>SCRIPT LOAD命令所做的事情和EVAL命令执行脚本时所做的前两步完全一样：</p>
-<ol>
-<li>命令首先在Lua环境中为脚本创建相对应的函数</li>
-<li>然后再将脚本保存到<code>lua_scripts</code>字典里面。</li>
-<li>最后将命令的sha1码返回给客户端</li>
-</ol>
-<h4 id="20-5-4-SCRIPT-KILL"><a href="#20-5-4-SCRIPT-KILL" class="headerlink" title="20.5.4 SCRIPT KILL"></a>20.5.4 SCRIPT KILL</h4><p>如果服务器设置了<code>1ua-time-limit</code>配置选项，那么在每次执行Lua脚本之前，服务器都会在Lua环境里面设置一个超时处理钩子</p>
-<p>超时处理钩子在脚本运行期间，会定期检查脚本已经运行了多长时间，一旦钩子发现脚本的运行时间已经超过了<code>1ua-time-1imit</code>选项设置的时长，钩子将定期在脚本运行的间隙中，查看是否有SCRIPT KILL命令或者SHUTDOWM命令到达服务器。</p>
-<p>流程如下<br><img src="/2020/03/08/Redis-20-Lua脚本/200308_7.png" alt=""></p>
-<h3 id="20-6-脚本复制"><a href="#20-6-脚本复制" class="headerlink" title="20.6 脚本复制"></a>20.6 脚本复制</h3><p>与其他普通Redis命令一样，当服务器运行在复制模式之下时，具有写性质的脚本命令也会被复制到从服务器</p>
-<h4 id="20-6-1-复制EVAL命令、SCRIPT-FLUSH命令和SCRIPT-LOAD命令"><a href="#20-6-1-复制EVAL命令、SCRIPT-FLUSH命令和SCRIPT-LOAD命令" class="headerlink" title="20.6.1 复制EVAL命令、SCRIPT FLUSH命令和SCRIPT LOAD命令"></a>20.6.1 复制EVAL命令、SCRIPT FLUSH命令和SCRIPT LOAD命令</h4><p>Redis复制EVAL、SCRIPT FLUSH、SCRIPT LOAD三个命令的方法和复制其他普通Redis命令的方法一样，当主服务器执行完以上三个命令的其中一个时，主服务器会直接将被执行的命令传播给所有从服务器，如下图所示</p>
-<p><img src="/2020/03/08/Redis-20-Lua脚本/200308_8.png" alt=""></p>
-<h4 id="20-6-2-复制EVALSHA命令"><a href="#20-6-2-复制EVALSHA命令" class="headerlink" title="20.6.2 复制EVALSHA命令"></a>20.6.2 复制EVALSHA命令</h4><p>对于一个在主服务器被成功执行的EVALSHA命令来说，相同的EVALSHA命令在从服务器执行时却可能会出现脚本未找到错误。因为从服务器可能并没有载入这个脚本</p>
-<p>因此Redis采取了如下的策略，来保证EVALSHA命令的安全</p>
-<p>Redis要求主服务器在传播EVALSHA命令的时候，必须确保EVALSHA命令要执行的脚本已经被所有从服务器载入过，如果不能确保这一点的话，主服务器会将EVALSHA命令转换成一个等价的EVAL命令，然后通过传播EVAL命令来代替 EVALSHA命令。</p>
-<h5 id="20-6-2-1-判断传播EVALSHA命令是否安全的方法"><a href="#20-6-2-1-判断传播EVALSHA命令是否安全的方法" class="headerlink" title="20.6.2.1 判断传播EVALSHA命令是否安全的方法"></a>20.6.2.1 判断传播EVALSHA命令是否安全的方法</h5><p>主服务器使用服务器状态的<code>repl_scriptcache_dict</code>字典记录自己已经将哪些脚本传播给了所有从服务器<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">redisServer</span>&#123;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    dict *repl_scriptcache_dict;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><code>repl_scriptcache_dict</code>字典的键是一个个Lua脚本的SHA1校验和，而字典的值则全部都是<code>NULL</code>，当一个校验和出现在<code>repl_scriptcache_dict</code>字典时，说明这个校验和对应的Lua脚本已经传播给了所有从服务器，这种情况下，主服务器可以直接向从服务器传播包含这个SHA1校验和的EVALSHA命令</p>
-<p>例如下图<br><img src="/2020/03/08/Redis-20-Lua脚本/200308_9.png" alt=""></p>
-<h5 id="20-6-2-2-清空repl-scriptcache-dict字典"><a href="#20-6-2-2-清空repl-scriptcache-dict字典" class="headerlink" title="20.6.2.2 清空repl_scriptcache_dict字典"></a>20.6.2.2 清空repl_scriptcache_dict字典</h5><p>每当主服务器添加一个新的从服务器时，主服务器都会清空自己的<code>repl_scriptcache_dict</code>字典，这是因为随着新从服务器的出现，<code>repl_scriptcache_dict</code>字典里面记录的脚本已经不再被所有从服务器载入过</p>
-<h5 id="20-6-2-3-EVALSHA命令转换为EVAL命令的方法"><a href="#20-6-2-3-EVALSHA命令转换为EVAL命令的方法" class="headerlink" title="20.6.2.3 EVALSHA命令转换为EVAL命令的方法"></a>20.6.2.3 EVALSHA命令转换为EVAL命令的方法</h5><p>通过使用EVALSHA命令指定的SHA1校验和，以及<code>lua_scripts</code>字典保存的Lua脚本，服务器总可以将一个EVALSHA命令<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EVALSHA &lt;sha1&gt; &lt;numkeys&gt; [key..] [arg..] I</span><br></pre></td></tr></table></figure></p>
-<p>转换成一个等价的EVAL命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EVAL &lt;script&gt; &lt;numkeys&gt; [key..] [arg..]</span><br></pre></td></tr></table></figure></p>
-<h5 id="20-6-2-4-传播EVALSHA命令的方法"><a href="#20-6-2-4-传播EVALSHA命令的方法" class="headerlink" title="20.6.2.4 传播EVALSHA命令的方法"></a>20.6.2.4 传播EVALSHA命令的方法</h5><p>当主服务器在传播完EVAL命令之后，会将被传播脚本的sha1校验和添加到<code>repl_scriptcache_dict</code>字典里面，如果之后EVALSHA命令再次指定这个SHA1校验和，主服务器就可以直接传播EVALSHA命令，而不必再次对EVALSHA命令进行转换。</p>
-<p>传播EVALSHA命令的流程图如下<br><img src="/2020/03/08/Redis-20-Lua脚本/200308_10.png" alt=""></p>
 
           
         
@@ -511,7 +464,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/109/">109</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/110/">110</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -559,7 +512,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">109</span>
+                  <span class="site-state-item-count">110</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/04/Redis-12-事件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/04/Redis-13-客户端/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/04/Redis-12-事件/" itemprop="url">[Redis][12][事件]</a></h1>
+                <a class="post-title-link" href="/2020/03/04/Redis-13-客户端/" itemprop="url">[Redis][13][客户端]</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-04T13:49:00+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-04T16:06:57+08:00">
                 2020-03-04
               </time>
             
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/03/04/Redis-12-事件/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/04/Redis-12-事件/" itemprop="commentCount"></span>
+                <a href="/2020/03/04/Redis-13-客户端/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/04/Redis-13-客户端/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,70 +362,59 @@
       
         
           
-            <h2 id="第-12-章-事件"><a href="#第-12-章-事件" class="headerlink" title="第 12 章 事件"></a>第 12 章 事件</h2><p>Redis服务器是一个事件驱动程序，服务器需要处理下面两类事件</p>
+            <h2 id="第-13-章-客户端"><a href="#第-13-章-客户端" class="headerlink" title="第 13 章 客户端"></a>第 13 章 客户端</h2><p>Redis服务器是典型的<strong>一对多服务器</strong>程序：一个服务器可以与多个客户端建立网络连接。</p>
+<p>通过使用由<strong>I/O多路复用</strong>技术实现的文件事件处理器，Redis服务器使用<strong>单线程单进程</strong>的方式来处理命令请求，并与多个客户端进行网络通信。</p>
+<p>对于每个与服务器进行连接的客户端，服务器都为这些客户端建立了相应的<code>redis.h/redisclient</code>结构（客户端状态），这个结构保存了客户端当前的<strong>状态信息</strong>，以及<strong>执行相关功能</strong>时需要用到的<strong>数据结构</strong>，具体属性本节稍后会介绍</p>
+<p>Redis服务器结构中存储了一个<code>redisClient</code>类型的链表，它保存了所有与服务器连接的客户端状态结构</p>
+<h3 id="13-1-客户端属性"><a href="#13-1-客户端属性" class="headerlink" title="13.1 客户端属性"></a>13.1 客户端属性</h3><p><code>redisClient</code>结构的源码如下<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisClient</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 套接字描述符</span></span><br><span class="line">    <span class="keyword">int</span> fd;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当前正在使用的数据库</span></span><br><span class="line">    redisDb *db;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当前正在使用的数据库的 id （号码）</span></span><br><span class="line">    <span class="keyword">int</span> dictid;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 客户端的名字</span></span><br><span class="line">    robj *name;             <span class="comment">/* As set by CLIENT SETNAME */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查询缓冲区</span></span><br><span class="line">    sds querybuf;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查询缓冲区长度峰值</span></span><br><span class="line">    <span class="keyword">size_t</span> querybuf_peak;   <span class="comment">/* Recent (100ms or more) peak of querybuf size */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 参数数量</span></span><br><span class="line">    <span class="keyword">int</span> argc;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 参数对象数组</span></span><br><span class="line">    robj **argv;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 记录被客户端执行的命令</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">redisCommand</span> *<span class="title">cmd</span>, *<span class="title">lastcmd</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 请求的类型：内联命令还是多条命令</span></span><br><span class="line">    <span class="keyword">int</span> reqtype;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 剩余未读取的命令内容数量</span></span><br><span class="line">    <span class="keyword">int</span> multibulklen;       <span class="comment">/* number of multi bulk arguments left to read */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 命令内容的长度</span></span><br><span class="line">    <span class="keyword">long</span> bulklen;           <span class="comment">/* length of bulk argument in multi bulk request */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 回复链表</span></span><br><span class="line">    <span class="built_in">list</span> *reply;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 回复链表中对象的总大小</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> reply_bytes; <span class="comment">/* Tot bytes of objects in reply list */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 已发送字节，处理 short write 用</span></span><br><span class="line">    <span class="keyword">int</span> sentlen;            <span class="comment">/* Amount of bytes already sent in the current</span></span><br><span class="line"><span class="comment">                               buffer or object being sent. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建客户端的时间</span></span><br><span class="line">    <span class="keyword">time_t</span> ctime;           <span class="comment">/* Client creation time */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 客户端最后一次和服务器互动的时间</span></span><br><span class="line">    <span class="keyword">time_t</span> lastinteraction; <span class="comment">/* time of the last interaction, used for timeout */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 客户端的输出缓冲区超过软性限制的时间</span></span><br><span class="line">    <span class="keyword">time_t</span> obuf_soft_limit_reached_time;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 客户端状态标志</span></span><br><span class="line">    <span class="keyword">int</span> flags;              <span class="comment">/* REDIS_SLAVE | REDIS_MONITOR | REDIS_MULTI ... */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当 server.requirepass 不为 NULL 时</span></span><br><span class="line">    <span class="comment">// 代表认证的状态</span></span><br><span class="line">    <span class="comment">// 0 代表未认证， 1 代表已认证</span></span><br><span class="line">    <span class="keyword">int</span> authenticated;      <span class="comment">/* when requirepass is non-NULL */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 复制状态</span></span><br><span class="line">    <span class="keyword">int</span> replstate;          <span class="comment">/* replication state if this is a slave */</span></span><br><span class="line">    <span class="comment">// 用于保存主服务器传来的 RDB 文件的文件描述符</span></span><br><span class="line">    <span class="keyword">int</span> repldbfd;           <span class="comment">/* replication DB file descriptor */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取主服务器传来的 RDB 文件的偏移量</span></span><br><span class="line">    <span class="keyword">off_t</span> repldboff;        <span class="comment">/* replication DB file offset */</span></span><br><span class="line">    <span class="comment">// 主服务器传来的 RDB 文件的大小</span></span><br><span class="line">    <span class="keyword">off_t</span> repldbsize;       <span class="comment">/* replication DB file size */</span></span><br><span class="line">    </span><br><span class="line">    sds replpreamble;       <span class="comment">/* replication DB preamble. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 主服务器的复制偏移量</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> reploff;      <span class="comment">/* replication offset if this is our master */</span></span><br><span class="line">    <span class="comment">// 从服务器最后一次发送 REPLCONF ACK 时的偏移量</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> repl_ack_off; <span class="comment">/* replication ack offset, if this is a slave */</span></span><br><span class="line">    <span class="comment">// 从服务器最后一次发送 REPLCONF ACK 的时间</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> repl_ack_time;<span class="comment">/* replication ack time, if this is a slave */</span></span><br><span class="line">    <span class="comment">// 主服务器的 master run ID</span></span><br><span class="line">    <span class="comment">// 保存在客户端，用于执行部分重同步</span></span><br><span class="line">    <span class="keyword">char</span> replrunid[REDIS_RUN_ID_SIZE+<span class="number">1</span>]; <span class="comment">/* master run id if this is a master */</span></span><br><span class="line">    <span class="comment">// 从服务器的监听端口号</span></span><br><span class="line">    <span class="keyword">int</span> slave_listening_port; <span class="comment">/* As configured with: SLAVECONF listening-port */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 事务状态</span></span><br><span class="line">    multiState mstate;      <span class="comment">/* MULTI/EXEC state */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 阻塞类型</span></span><br><span class="line">    <span class="keyword">int</span> btype;              <span class="comment">/* Type of blocking op if REDIS_BLOCKED. */</span></span><br><span class="line">    <span class="comment">// 阻塞状态</span></span><br><span class="line">    blockingState bpop;     <span class="comment">/* blocking state */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 最后被写入的全局复制偏移量</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> woff;         <span class="comment">/* Last write global replication offset. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 被监视的键</span></span><br><span class="line">    <span class="built_in">list</span> *watched_keys;     <span class="comment">/* Keys WATCHED for MULTI/EXEC CAS */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这个字典记录了客户端所有订阅的频道</span></span><br><span class="line">    <span class="comment">// 键为频道名字，值为 NULL</span></span><br><span class="line">    <span class="comment">// 也即是，一个频道的集合</span></span><br><span class="line">    dict *pubsub_channels;  <span class="comment">/* channels a client is interested in (SUBSCRIBE) */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 链表，包含多个 pubsubPattern 结构</span></span><br><span class="line">    <span class="comment">// 记录了所有订阅频道的客户端的信息</span></span><br><span class="line">    <span class="comment">// 新 pubsubPattern 结构总是被添加到表尾</span></span><br><span class="line">    <span class="built_in">list</span> *pubsub_patterns;  <span class="comment">/* patterns a client is interested in (SUBSCRIBE) */</span></span><br><span class="line">    sds peerid;             <span class="comment">/* Cached peer ID. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Response buffer */</span></span><br><span class="line">    <span class="comment">// 回复偏移量</span></span><br><span class="line">    <span class="keyword">int</span> bufpos;</span><br><span class="line">    <span class="comment">// 回复缓冲区</span></span><br><span class="line">    <span class="keyword">char</span> buf[REDIS_REPLY_CHUNK_BYTES];</span><br><span class="line"></span><br><span class="line">&#125; redisClient;</span><br></pre></td></tr></table></figure></p>
+<h4 id="13-1-1-套接字描述符"><a href="#13-1-1-套接字描述符" class="headerlink" title="13.1.1 套接字描述符"></a>13.1.1 套接字描述符</h4><p>客户端状态的<code>fd</code>属性记录了客户端正在使用的套接字描述符</p>
+<p>若<code>fd = -1</code>则说明这个客户端是用来执行Lua脚本或者AOF操作的伪客户端</p>
+<p>可以通过<code>CLIENT list</code>命令列出目前所有连接到服务器的普通客户端<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CLIENT list</span><br><span class="line">addr=127.0.0.1:53428 fd=6 name= age=1242 idle=0</span><br><span class="line">addr=127.0.0.1:53428 fd=7 name= age=1242 idle=0</span><br></pre></td></tr></table></figure></p>
+<h4 id="13-1-2-名字"><a href="#13-1-2-名字" class="headerlink" title="13.1.2 名字"></a>13.1.2 名字</h4><p>使用<code>CLIENT setname</code>命令可以为客户端设置名字，让客户端身份更加清晰</p>
+<h4 id="13-1-3-标志"><a href="#13-1-3-标志" class="headerlink" title="13.1.3 标志"></a>13.1.3 标志</h4><p>客户端的标记属性<code>flags</code>记录了客户端的<strong>角色</strong>和当前所处的<strong>状态</strong></p>
+<p><code>flags</code>属性的值可以是多个标志的二进制或，例如<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flags = &lt;flag1&gt; | &lt;flag2&gt; | ...</span><br><span class="line">flags = REDIS_LUA_CLIENT | REDIS_FORCE_AOF | REDIS_FORCE_REPL</span><br></pre></td></tr></table></figure></p>
+<p>一部分标志记录了客户端的角色</p>
 <ul>
-<li>文件事件：Redis服务器通过socket与客户端连接，而文件事件就是客户端与服务器之间的各种操作，例如：服务器接受并处理客户端请求删除某个键，这就是一个具体的文件事件。</li>
-<li>时间事件：Redis服务器的一些操作需要在给定时间点执行，例如前面提到的<code>serverCron</code>函数，就是一种时间事件</li>
+<li><p>在主从服务器进行复制操作时，主服务器会成为从服务器的客户端，而从服务器也会成为主服务器的客户端。<code>REDIS_MASTER</code>标志表示客户端代表的是一个主服务器，<code>REDIS SLAVE</code>标志表示客户端代表的是一个从服务器。</p>
+</li>
+<li><p><code>REDIS_PRE_PSYNC</code>标志表示客户端代表的是一个版本低于Redis2.8的从服务器</p>
+</li>
+<li><p><code>REDIS_LUA_CLIENT</code>标识表示客户端是专门用于处理Lua脚本里面包含的Redis命令的伪客户端。</p>
+</li>
 </ul>
-<p>下面我们将具体介绍这两种事件，并且说明服务器如何调度这些事件</p>
-<h3 id="12-1-文件事件"><a href="#12-1-文件事件" class="headerlink" title="12.1 文件事件"></a>12.1 文件事件</h3><p>文件事件交给文件事件处理器来负责。Redis的文件事件处理器基于Reactor模式，并且使用I/O多路服用，这样可以以单线程的方式运行并且监听多个不同的socket</p>
-<h4 id="12-1-1-文件事件处理器的构成"><a href="#12-1-1-文件事件处理器的构成" class="headerlink" title="12.1.1 文件事件处理器的构成"></a>12.1.1 文件事件处理器的构成</h4><p>文件事件处理器的架构如下图，它包含了4个模块：socket、I/O多路复用程序、文件事件分派器、事件处理器</p>
-<p><img src="/2020/03/04/Redis-12-事件/200303_5.png" alt=""></p>
+<p>另外一部分标志记录了客户端目前所处的状态</p>
 <ul>
-<li>文件事件是对Socket操作的抽象，每当一个Socket准备好执行连接应答、写入、读取、关闭等操作的时候，就会产生一个文件事件。这些文件事件很可能并发出现</li>
-<li>I/O多路复用程序负责监听多个Socket端口，并向文件事件分派器传送那些产生了事件的Socket。这时，I/O多路复用会将这些事件都放入一个队列中，这时就把并发变成了有序的、同步的形式。如下图<br><img src="/2020/03/04/Redis-12-事件/200303_6.png" alt=""></li>
-<li>文件事件分派器接收I/O多路复用程序传来的套接字，并根据套接字产生的事件的类型，调用相应的事件处理器。</li>
-<li>服务器会为执行不同任务的套接字关联不同的事件处理器，这些处理器是一个个函数它们定义了某个事件发生时，服务器应该执行的动作。</li>
+<li><code>REDIS_MONITOR</code>标志表示客户端正在执行<code>MONITOR</code>命令。</li>
+<li><code>REDIS_UNIX_SOCKET</code>标志表示服务器使用<code>UNIX</code>套接字来连接客户端。</li>
+<li><code>REDIS_BLOCKED</code>标志表示客户端正在被<code>BRPOP</code>、<code>BLPOP</code>等命令阻塞。</li>
+<li>等等</li>
 </ul>
-<h4 id="12-1-2-I-O多路复用程序的实现"><a href="#12-1-2-I-O多路复用程序的实现" class="headerlink" title="12.1.2 I/O多路复用程序的实现"></a>12.1.2 I/O多路复用程序的实现</h4><p>Redis的I/O多路复用程序的所有功能都是通过包装常见的<code>select</code>、<code>epoll</code>、<code>export</code>和<code>kqueue</code>这些I/O多路复用函数库来实现的，因为 Redis为每个IO多路复用函数库都实现了相同的API，所以I/O多路复用程序的底层实现是可以互换的，如下图</p>
-<p><img src="/2020/03/04/Redis-12-事件/200303_7.png" alt=""></p>
-<h4 id="12-1-3-事件的类型"><a href="#12-1-3-事件的类型" class="headerlink" title="12.1.3 事件的类型"></a>12.1.3 事件的类型</h4><p>文件事件其实只有两种类型，<code>AE_READABLE</code>事件和<code>AE_WRITABLE</code>事件</p>
+<h4 id="13-1-4-输入缓冲区"><a href="#13-1-4-输入缓冲区" class="headerlink" title="13.1.4 输入缓冲区"></a>13.1.4 输入缓冲区</h4><p>输入缓冲区是<code>querybuf</code>属性，它是一个Redis字符串结构，用于保存客户端发送的命令请求，大小可以根据输入内容动态地扩大和缩小。例子如下图</p>
+<p><img src="/2020/03/04/Redis-13-客户端/200304_0.png" alt=""></p>
+<h4 id="13-1-5-命令与命令参数"><a href="#13-1-5-命令与命令参数" class="headerlink" title="13.1.5 命令与命令参数"></a>13.1.5 命令与命令参数</h4><p>在服务器将客户端发送的命令请求保存到客户端状态的querybuf属性之后，服务器将对命令请求的内容进行分析，并将得到的命令参数以及命令参数的个数分别存储在客户端状态的<code>argv</code>和<code>argc</code>中。</p>
+<p>例如下图，假如客户端发送的命令为<code>SET key &quot;value&quot;</code>，那么将这样保存<br><img src="/2020/03/04/Redis-13-客户端/200304_1.png" alt=""></p>
+<h4 id="13-1-6-命令的实现函数"><a href="#13-1-6-命令的实现函数" class="headerlink" title="13.1.6 命令的实现函数"></a>13.1.6 命令的实现函数</h4><p>当服务器从协议内容中分析并得出<code>argv</code>属性和<code>argc</code>属性的值之后，服务器将根据项<code>argv[0]</code>的值，在命令表中查找命令所对应的命令实现函数。</p>
+<p>命令表是一个字典，字典的键是一个SDS结构(Redis定义的字符串结构)，保存了命令的名字，而字典的值是命令所对应的redisCommand结构，这个结构保存了命令的实现函数、命令的标志、命令应该给定的参数个数等信息。</p>
+<p>当程序成功的找到了<code>argv[0]</code>对应的<code>redisCommand</code>结构时，它会将客户端状态(<code>redisClient</code>)中的<code>cmd</code>指针指向这个命令</p>
+<p>例如下图，我们在命令表中查找<code>SET</code>命令，并将<code>cmd</code>指针指向它<br><img src="/2020/03/04/Redis-13-客户端/200304_2.png" alt=""></p>
+<h4 id="13-1-7-输出缓冲区"><a href="#13-1-7-输出缓冲区" class="headerlink" title="13.1.7 输出缓冲区"></a>13.1.7 输出缓冲区</h4><p>执行命令得到的命令回复将保存在客户端状态的输出缓冲区中，它有定长和变长两种选择</p>
+<h4 id="13-1-8-身份验证"><a href="#13-1-8-身份验证" class="headerlink" title="13.1.8 身份验证"></a>13.1.8 身份验证</h4><p>略</p>
+<h4 id="13-1-9-时间"><a href="#13-1-9-时间" class="headerlink" title="13.1.9 时间"></a>13.1.9 时间</h4><p>略</p>
+<h3 id="13-2-客户端的创建与关闭"><a href="#13-2-客户端的创建与关闭" class="headerlink" title="13.2 客户端的创建与关闭"></a>13.2 客户端的创建与关闭</h3><p>服务器使用不同的方式来创建和关闭不同类型的客户端</p>
+<h4 id="13-2-1-创建普通客户端"><a href="#13-2-1-创建普通客户端" class="headerlink" title="13.2.1 创建普通客户端"></a>13.2.1 创建普通客户端</h4><p>如果客户端是通过网络连接与服务器进行连接的普通客户端，那么在客户端使用<code>connect</code>函数连接到服务器时，服务器就会调用连接事件处理器，为客户端创建相应的客户端状态，并将这个新的客户端状态添加到服务器状态结构<code>client</code>链表的尾部</p>
+<p>如下图所示，当客户端c3连接时<br><img src="/2020/03/04/Redis-13-客户端/200304_3.png" alt=""></p>
+<h4 id="13-2-2-关闭普通客户端"><a href="#13-2-2-关闭普通客户端" class="headerlink" title="13.2.2 关闭普通客户端"></a>13.2.2 关闭普通客户端</h4><p>一个普通客户端可以因为多种原因而关闭</p>
 <ul>
-<li>当套接字变得可读时（客户端对套接字执行<code>write</code>操作，或者执行<code>close</code>操作），或者有新的可应答套接字出现时（客户端对服务器的监听套接字执行<code>connect</code>操作），套接字产生<code>AE_READABLE</code>事件。<br>当套接字变得可写时（客户端对套接字执行<code>read</code>操作），套接字产生<code>AE_WRITABLE</code>事件。</li>
+<li>客户端进程退出或者被杀死</li>
+<li>客户端向服务器发送了不符合协议格式的数据</li>
+<li>如果客户端成为<code>CLIENT KILL</code>命令的目标，它也会被关闭</li>
+<li>如果设置了timeout配置项，当客户端的空转时间超过了timeout时就会被关闭</li>
+<li>如果客户端发送的命令请求超过了输入缓冲区的限制大小，则它会被关闭</li>
+<li>如果客户端发送的命令请求超过了输出缓冲区的限制大小，则它会被关闭</li>
 </ul>
-<p>客户端写，则服务器可读。客户端读，则服务器可写。</p>
-<h4 id="12-1-4-文件事件的处理器"><a href="#12-1-4-文件事件的处理器" class="headerlink" title="12.1.4 文件事件的处理器"></a>12.1.4 文件事件的处理器</h4><p>Redis为文件事件编写了多个处理器，这些事件处理器分别用于实现不同的网络通信需求，比如说：</p>
-<ul>
-<li>为了对连接服务器的各个客户端进行应答，服务器要为监听套接字关联连接应答处理器。</li>
-<li>为了接收客户端传来的命令请求，服务器要为客户端套接字关联命令请求处理器。</li>
-<li>为了向客户端返回命令的执行结果，服务器要为客户端套接字关联命令回复处理器。</li>
-<li>当主服务器和从服务器进行复制操作时，主从服务器都需要关联特别为复制功能编写的复制处理器。</li>
-</ul>
-<h5 id="1-连接应答处理器"><a href="#1-连接应答处理器" class="headerlink" title="1 连接应答处理器"></a>1 连接应答处理器</h5><p>当 Redis服务器进行初始化的时候，程序会将这个连接应答处理器和服务器监听套接字的<code>AE_READABLE</code>事件关联起来，当有客户端连接服务器监听套接字的时候，套接字就会产生AE_READABLE事件，引发连接应答处理器执行，并执行相应的套接字应答操作，如下图</p>
-<p><img src="/2020/03/04/Redis-12-事件/200303_8.png" alt=""></p>
-<h5 id="2-命令请求处理器"><a href="#2-命令请求处理器" class="headerlink" title="2 命令请求处理器"></a>2 命令请求处理器</h5><p>当一个客户端通过连接应答处理器成功连接到服务器之后，服务器会将客户端套接字的<code>AE_READABLE</code>事件和命令请求处理器关联起来，当客户端向服务器发送命令请求的时候，套接字就会产生<code>AE_READABLE</code>事件，引发命令请求处理器执行，命令请求处理器负责执行命令。</p>
-<p>在客户端连接服务器的整个过程中，服务器将会一直为客户端套接字的<code>AE_READABLE</code>事件关联命令请求处理器</p>
-<p><img src="/2020/03/04/Redis-12-事件/200303_9.png" alt=""></p>
-<h5 id="3-命令回复处理器"><a href="#3-命令回复处理器" class="headerlink" title="3 命令回复处理器"></a>3 命令回复处理器</h5><p>这个处理器负责将服务器执行命令后得到的命令回复通过套接字返回给客户端</p>
-<p>当服务器有命令回复需要传送给客户端的时候，服务器会将客户端套接字的<code>AE_WRITABLE</code>事件与命令回复处理器关联起来。</p>
-<p>当命令回复发送完毕之后，服务器会解除命令回复处理器与客户端套接字的<code>AE_WRITABLE</code>的关联</p>
-<p><img src="/2020/03/04/Redis-12-事件/200303_10.png" alt=""></p>
-<h5 id="4-一次完整的客户端与服务器连接事件示例"><a href="#4-一次完整的客户端与服务器连接事件示例" class="headerlink" title="4 一次完整的客户端与服务器连接事件示例"></a>4 一次完整的客户端与服务器连接事件示例</h5><ol>
-<li>假设一个Redis服务器正在运作，那么这个服务器的<strong>监听套接字</strong>的<strong>AE_READABLE事件</strong>应该正处于监听状态之下，而该事件所对应的处理器为<strong>连接应答处理器</strong>。</li>
-<li>如果这时有一个Redis客户端向服务器发起<strong>连接</strong>，那么监听套接字将<strong>产生AE_READABLE事件</strong>，<strong>触发连接应答处理器执行</strong>。处理器会对客户端的连接请求进行应答，然后<strong>创建客户端套接字</strong>，以及客户端状态，并将<strong>客户端套接字</strong>的AE_READABLE事件与<strong>命令请求处理器</strong>进行关联，使得客户端可以向主服务器发送命令请求。</li>
-<li>之后，假设客户端向主服务器发送一个命令请求，那么客户端套接字将<strong>产生AE_READABLE事件</strong>，引发<strong>命令请求处理器</strong>执行，处理器读取客户端的命令内容，然后通知相关程序去执行。</li>
-<li>执行结束后，当客户端尝试读取命令回复时，就会产生<code>AE_WRITABLE</code>事件，服务器将回复发回给客户端</li>
-</ol>
-<h3 id="12-2-时间事件"><a href="#12-2-时间事件" class="headerlink" title="12.2 时间事件"></a>12.2 时间事件</h3><p>服务器将所有时间事件都放在一个无序链表中，每当时间事件执行器运行时，它就遍历整个链表，查找所有已到达的时间事件，并调用相应的事件处理器。</p>
-<p>例如下图<br><img src="/2020/03/04/Redis-12-事件/200303_11.png" alt=""></p>
-<p>持续运行的Redis服务器需要定期对自身的资源和状态进行检查和调整，从而确保服务器可以长期、稳定地运行，这些定期操作由<code>redis.c/serverCron</code>函数负责执行，它的主要工作包括：</p>
-<ul>
-<li>更新服务器的各类统计信息，比如时间、内存占用、数据库占用情况等。</li>
-<li>清理数据库中的过期键值对。</li>
-<li>关闭和清理连接失效的客户端。</li>
-<li>尝试进行AOF或RDB持久化操作。</li>
-<li>如果服务器是主服务器，那么对从服务器进行定期同步口如果处于集群模式，对集群进行定期同步和连接测试</li>
-</ul>
-<h3 id="12-3-事件的调度与执行"><a href="#12-3-事件的调度与执行" class="headerlink" title="12.3 事件的调度与执行"></a>12.3 事件的调度与执行</h3><p>因为服务器中同时存在文件事件和时间事件两种事件类型，所以服务器必须对这两种事件进行调度，决定何时应该处理文件事件，何时又应该处理时间事件，以及花多少时间来处理它们等等。</p>
-<p>事件的调度和执行由<code>ae.c/aeProcessEvents</code>函数负责，伪代码如下<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">aeProcessEvents</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获得到达时间离当前时间最接近的时间事件</span></span><br><span class="line">    time_event = aeSearchNearestTimer()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算最接近的时间事件距离到达还有多少毫秒</span></span><br><span class="line">    remaind_ms = time_event.when - unix_ts_now()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 若事件已到达，remaind_ms将会是一个负数，这里将负数重设为0</span></span><br><span class="line">    <span class="keyword">if</span> remaind_ms &lt; <span class="number">0</span>:</span><br><span class="line">        remaind_ms = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 使用remaind_ms创建一个timeval结构体，以传给aeApiPoll函数</span></span><br><span class="line">    timeval = create_timeval_with_ms(remaind_ms)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 阻塞并等待文件事件的产生</span></span><br><span class="line">    <span class="comment"># 这个函数会产生阻塞并监听所有连接，当任何一个连接产生了文件事件，这个方法会返回；此外，若到达了timeval规定的时间，方法也会返回</span></span><br><span class="line">    aeApiPoll(timeval)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 执行文件事件</span></span><br><span class="line">    processFileEvents()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 执行时间事件</span></span><br><span class="line">    processTimeEvents()</span><br></pre></td></tr></table></figure></p>
-<p>将aeProcessEvents函数置于一个循环中，再加上初始化和清理函数，就构成了Redis服务器的主函数，伪码如下<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">    init_server()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 循环执行aeProcessEvents()以处理各种事件</span></span><br><span class="line">    <span class="keyword">while</span> server_is_not_shutdown():</span><br><span class="line">        aeProcessEvents()</span><br><span class="line"></span><br><span class="line">    close_server()</span><br></pre></td></tr></table></figure></p>
-<p>整个过程的流程图如下<br><img src="/2020/03/04/Redis-12-事件/200303_12.png" alt=""></p>
-<p>事件的调度和规则如下</p>
-<ol>
-<li><code>aeApiPoll</code>函数的最大阻塞时间由到达时间最接近当前时间的时间事件决定，这既避免了服务器对时间事件进行频繁的轮询（忙等待），也确保了<code>aeApiPoll</code>函数不会阻塞太长时间</li>
-<li>对文件事件和时间事件的处理是同步、有序、原子地执行</li>
-<li>因为时间事件在文件事件之后执行，并且事件之间不会出现抢占，所以时间事件的实际处理时间通常比预设的时间要晚一点</li>
-</ol>
+<h4 id="13-2-3-Lua脚本的伪客户端"><a href="#13-2-3-Lua脚本的伪客户端" class="headerlink" title="13.2.3 Lua脚本的伪客户端"></a>13.2.3 Lua脚本的伪客户端</h4><p>服务器在初始化时创建负责执行Lua脚本的伪客户端，并将这个伪客户端关联在服务器状态结构(<code>redisServer</code>)的<code>lua_client</code>属性中<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisServer</span>&#123;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    redisClient *lua_client</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;redisServer</span><br></pre></td></tr></table></figure></p>
+<p><code>lua_client</code>伪客户端在服务器运行的整个生命周期中都会存在</p>
+<h4 id="13-2-4-AOF文件的伪客户端"><a href="#13-2-4-AOF文件的伪客户端" class="headerlink" title="13.2.4 AOF文件的伪客户端"></a>13.2.4 AOF文件的伪客户端</h4><p>服务器在<strong>载入</strong>AOF文件时，会创建用于执行存储于AOF中的<strong>写命令</strong>的伪客户端，当载入完成时，这个伪客户端就会关闭。</p>
 
           
         
@@ -465,7 +454,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/109/">109</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/110/">110</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -513,7 +502,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">109</span>
+                  <span class="site-state-item-count">110</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
