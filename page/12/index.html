@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/03/Redis-10-RDB持久化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/20/算法导论-4-分治策略/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="T0UGH(GuiPing Wang)">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/03/Redis-10-RDB持久化/" itemprop="url">[Redis][10][RDB持久化]</a></h1>
+                <a class="post-title-link" href="/2019/01/20/算法导论-4-分治策略/" itemprop="url">[算法导论][4]分治策略</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-03T15:35:14+08:00">
-                2020-03-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-20T19:51:16+08:00">
+                2019-01-20
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/redis/" itemprop="url" rel="index">
-                    <span itemprop="name">redis</span>
+                  <a href="/categories/算法导论/" itemprop="url" rel="index">
+                    <span itemprop="name">算法导论</span>
                   </a>
                 </span>
 
@@ -331,8 +331,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/03/03/Redis-10-RDB持久化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/03/Redis-10-RDB持久化/" itemprop="commentCount"></span>
+                <a href="/2019/01/20/算法导论-4-分治策略/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/20/算法导论-4-分治策略/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,65 +362,933 @@
       
         
           
-            <h2 id="第-10-章-RDB持久化"><a href="#第-10-章-RDB持久化" class="headerlink" title="第 10 章 RDB持久化"></a>第 10 章 RDB持久化</h2><p>Redis是一个键值对数据库服务器，服务器中通常包含着任意个非空数据库，而每个非空数据库中又可以包含任意个键值对，为了方便起见，我们将服务器中的<strong>非空数据库</strong>以及它的<strong>键值对</strong>统称为<strong>数据库状态</strong>。</p>
-<p>一个数据库状态如下图所示</p>
-<p><img src="/2020/03/03/Redis-10-RDB持久化/200302_0.png" alt=""></p>
-<p>Redis是<strong>内存数据库</strong>，它将自己的数据库状态储存在内存里面，一旦服务器进程退出，服务器中的数据库状态也会消失不见。为了解决这个问题， Redis提供了<strong>RDB持久化</strong>功能，这个功能可以将Redis在内存中的数据库状态<strong>保存到磁盘</strong>里面，避免数据意外丢失</p>
-<h3 id="10-1-RDB文件的创建与载入"><a href="#10-1-RDB文件的创建与载入" class="headerlink" title="10.1 RDB文件的创建与载入"></a>10.1 RDB文件的创建与载入</h3><p>RDB文件的<strong>创建</strong>命令有两个</p>
+            <h2 id="第4章-分治策略"><a href="#第4章-分治策略" class="headerlink" title="第4章 分治策略"></a>第4章 分治策略</h2><ul>
+<li><p>在分治策略中，我们递归地求解一个问题，在每层递归中运用如下三个步骤</p>
+<ol>
+<li><strong>分解</strong>(Divide)：将问题划分为一些子问题，子问题的形式与原问题一样，只是规模更小</li>
+<li><strong>解决</strong>(Comquer)：递归的求解出子问题，如果子问题的规模足够小，则停止递归，直接求解</li>
+<li><strong>合并</strong>(Combine)：将子问题的解组合成原问题的解</li>
+</ol>
+</li>
+<li><p>递归情况和基本情况</p>
 <ul>
-<li><strong>SAVE</strong>命令会<strong>阻塞</strong>Redis服务器进程，直到RDB文件创建完毕为止，在服务器进程阻塞期间，服务器<strong>不能处理任何命令请求</strong></li>
-<li><strong>BGSAVE</strong>命令会派生出一个<strong>子进程</strong>，然后由子进程负责创建RDB文件，<strong>服务器进程（父进程）继续</strong>处理命令请求</li>
+<li>当子问题足够大时，需要地柜求解，我们称之为<strong>递归情况</strong>(recursive case)</li>
+<li>当子问题变得足够小，不再需要递归时，我们说递归已经”触底”，进入<strong>基本情况</strong>(base case)</li>
 </ul>
-<p>Redis并没有专门用于<strong>载入</strong>RDB文件的命令，只要Redis服务器在<strong>启动时</strong>检测到RDB文件存在，它就会<strong>自动载入</strong>RDB文件。</p>
-<p>值得一提的是，因为AOF文件的更新频率更快，所以通常优先使用AOF文件来还原数据库状态，当没有开启AOF功能时，才使用RDB文件，判断流程如下<br><img src="/2020/03/03/Redis-10-RDB持久化/200302_1.png" alt=""></p>
-<p>此外</p>
+</li>
+<li><p>递归式</p>
 <ul>
-<li>当运行<strong>SAVE</strong>时，会<strong>阻塞所有命令</strong></li>
-<li>当运行<strong>BGSAVE</strong>时，<strong>SAVE</strong>和<strong>BGSAVE</strong>命令会<strong>被服务器拒绝</strong>；<strong>BGREWRITEAOF</strong>命令会被服务器<strong>阻塞</strong>，直到BGSAVE完成；<strong>其他命令</strong>则由父进程<strong>正常</strong>处理</li>
-<li>当<strong>载入RDB文件</strong>时，会<strong>阻塞所有命令</strong></li>
+<li>一个递归式(recurrence)就是一个等式或不等式，它通过更小的输入上的函数值来描述一个函数</li>
+<li>例如<br><img src="/2019/01/20/算法导论-4-分治策略/递归式例子.png" alt=""></li>
+<li>三种求解递归式的方法<ul>
+<li>代入法：我们猜测一个界，然后用数学归纳法证明其正确性</li>
+<li>递归树法：将递归式转换为一棵树，其节点表示不同层次的递归调用的代价，然后采用边界和技术求解</li>
+<li>主方法：可求解形如下式的递归式<br><img src="/2019/01/20/算法导论-4-分治策略/主方法递归式.png" alt=""></li>
 </ul>
-<h3 id="10-2-自动间隔性保存"><a href="#10-2-自动间隔性保存" class="headerlink" title="10.2 自动间隔性保存"></a>10.2 自动间隔性保存</h3><p>Redis允许用户通过<strong>设置</strong>服务器配置的<strong>save选项</strong>，让服务器每隔一段时间<strong>自动执行</strong>一次<strong>BGSAVE</strong>命令。<br>用户可以通过save选项设置<strong>多个保存条件</strong>，但只要其中<strong>任意一个</strong>条件被满足，服务器就会执行BGSAVE命令。</p>
-<p>例如条件如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">save 900 1</span><br><span class="line">save 300 10</span><br></pre></td></tr></table></figure></p>
-<p>这两个条件的解释是</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="4-1-最大子数组问题"><a href="#4-1-最大子数组问题" class="headerlink" title="4.1 最大子数组问题"></a>4.1 最大子数组问题</h3><h4 id="4-1-1-问题描述"><a href="#4-1-1-问题描述" class="headerlink" title="4.1.1 问题描述"></a>4.1.1 问题描述</h4><ul>
+<li><p>寻找一个数组的<strong>和最大</strong>的非空连续子数组，这样的数组我们称为<strong>最大子数组</strong>(maximum subarray)</p>
+</li>
+<li><p>注意：只有<strong>当数组中包含负数</strong>时，最大子数组问题才<strong>有意义</strong>。如果所有数组元素都是非负的，最大子数组问题没有任何难度，因为整个数组的和肯定是最大的</p>
+</li>
+</ul>
+<h4 id="4-1-2-暴力求解方法"><a href="#4-1-2-暴力求解方法" class="headerlink" title="4.1.2 暴力求解方法"></a>4.1.2 暴力求解方法</h4><ul>
+<li><p>简单的尝试每对可能的{数组下标,数组上标},寻找最大值</p>
+</li>
+<li><p>时间复杂度:O(n<sub>2</sub>),一共有(n-1)*n/2种情况</p>
+</li>
+<li><p>样例</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_maximum_subarray</span><span class="params">(A)</span>:</span></span><br><span class="line">    low = <span class="number">0</span></span><br><span class="line">    high = <span class="number">0</span></span><br><span class="line">    max_val = float(<span class="string">'-inf'</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(A)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i, len(A)):</span><br><span class="line">            sum = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> s <span class="keyword">in</span> range(i, j + <span class="number">1</span>):</span><br><span class="line">                sum += A[s]</span><br><span class="line">            <span class="keyword">if</span> sum &gt; max_val:</span><br><span class="line">                max_val = sum</span><br><span class="line">                low = i</span><br><span class="line">                high = j</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> low, high, max_val</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    A = [<span class="number">13</span>, <span class="number">-3</span>, <span class="number">-25</span>, <span class="number">20</span>, <span class="number">-3</span>, <span class="number">-16</span>, <span class="number">-23</span>, <span class="number">18</span>, <span class="number">20</span>, <span class="number">-7</span>, <span class="number">12</span>, <span class="number">-5</span>, <span class="number">-22</span>, <span class="number">15</span>, <span class="number">-4</span>, <span class="number">7</span>]</span><br><span class="line">    print(find_maximum_subarray(A))</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">(7, 10, 43)</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="4-1-3-使用分治策略的求解方法"><a href="#4-1-3-使用分治策略的求解方法" class="headerlink" title="4.1.3 使用分治策略的求解方法"></a>4.1.3 使用分治策略的求解方法</h4><ul>
+<li><p>首先我们把数组 <code>A[low..high]</code> 划分为两个规模尽量相等的子数组: <code>A[low..mid]</code> 和 <code>A[mid+1..high]</code></p>
+</li>
+<li><p><code>A[low..high]</code> 的任何连续子数组<code>A[i..j]</code>所处的位置必然是一下三种情况之一,如下图</p>
+<ol>
+<li>完全位于子数组 <code>A[low..mid]</code> 中，因此 <code>low&lt;=i&lt;=j&lt;=mid</code></li>
+<li>完全位于子数组 <code>A[mid+1..high]</code> 中，因此 <code>mid&lt;i&lt;=j&lt;=high</code></li>
+<li>跨越了中点,因此 <code>low&lt;=i&lt;=mid&lt;j&lt;=high</code><br><img src="/2019/01/20/算法导论-4-分治策略/子数组的三种情况.png" alt=""></li>
+</ol>
+</li>
+<li><p>因此 <code>A[low..high]</code> 的一个最大子数组所处的位置必定是这三种情况之一.我们可以递归的求解 <code>A[low..mid]</code> 和 <code>A[mid+1..high]</code> 的最大子数组，因为这两个子问题仍然是最大子数组问题，只是规模更小.因此，剩下的问题就是寻找跨越中点的最大子数组,然后在三种情况中选取和最大者</p>
+</li>
+<li><p>我们可以很容易地使用线性时间(O(n))内求出跨越中点的最大子数组，算法如下</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_max_crossing_subarray</span><span class="params">(A, low, mid, high)</span>:</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">求解跨越了中点的最大子数组</span></span><br><span class="line"><span class="string">:param A: 数组</span></span><br><span class="line"><span class="string">:param low: 数组下标</span></span><br><span class="line"><span class="string">:param mid: 数组中点</span></span><br><span class="line"><span class="string">:param high: 数组上标</span></span><br><span class="line"><span class="string">:return:</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">print(<span class="string">"find_max_crossing_subarray:"</span>, A, low, mid, high)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里需要考虑一种特殊情况,可以忽略但不影响逻辑理解</span></span><br><span class="line"><span class="keyword">if</span> low == mid:</span><br><span class="line">    <span class="keyword">return</span> find_max_crossing_subarray_base_case(A, low)</span><br><span class="line"></span><br><span class="line">left_sum = float(<span class="string">"-inf"</span>)</span><br><span class="line">sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(mid, low - <span class="number">1</span>, <span class="number">-1</span>):</span><br><span class="line">    sum += A[i]</span><br><span class="line">    <span class="keyword">if</span> sum &gt; left_sum:</span><br><span class="line">        left_sum = sum</span><br><span class="line">        max_left = i</span><br><span class="line"></span><br><span class="line">right_sum = float(<span class="string">"-inf"</span>)</span><br><span class="line">sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(mid + <span class="number">1</span>, high + <span class="number">1</span>):</span><br><span class="line">    sum += A[i]</span><br><span class="line">    <span class="keyword">if</span> sum &gt; right_sum:</span><br><span class="line">        right_sum = sum</span><br><span class="line">        max_right = i</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> max_left, max_right, left_sum + right_sum</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>有了一个线性的<code>find_max_crossing_subarray</code>在手，我们就可以设计求解最大子数组问题的分治算法了</p>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_maximum_subarray</span><span class="params">(A, low, high)</span>:</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">通过分治方法递归的求解最大子数组</span></span><br><span class="line"><span class="string">:param A: 数组</span></span><br><span class="line"><span class="string">:param low: 数组下标</span></span><br><span class="line"><span class="string">:param high: 数组上标</span></span><br><span class="line"><span class="string">:return:</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">print(<span class="string">"find_maximum_subarray:"</span>, A, low, high)</span><br><span class="line"><span class="keyword">if</span> low == high:</span><br><span class="line">    <span class="keyword">return</span> low, high, A[low]</span><br><span class="line"></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">    mid = int((low + high) / <span class="number">2</span>)</span><br><span class="line">    (left_low, left_high, left_sum) = find_maximum_subarray(A, low, mid)</span><br><span class="line">    (right_low, right_high, right_sum) = find_maximum_subarray(A, mid + <span class="number">1</span>, high)</span><br><span class="line">    (cross_low, cross_high, cross_sum) = find_max_crossing_subarray(A, low, mid, high)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> left_sum &gt;= right_sum <span class="keyword">and</span> left_sum &gt;= cross_sum:</span><br><span class="line">        <span class="keyword">return</span> left_low, left_high, left_sum</span><br><span class="line">    <span class="keyword">elif</span> right_sum &gt;= left_sum <span class="keyword">and</span> right_sum &gt;= cross_sum:</span><br><span class="line">        <span class="keyword">return</span> right_low, right_high, right_sum</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> cross_low, cross_high, cross_sum</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="4-1-4-分治算法的分析"><a href="#4-1-4-分治算法的分析" class="headerlink" title="4.1.4 分治算法的分析"></a>4.1.4 分治算法的分析</h4><ul>
+<li><p>接下来我们建立一个递归式来分析分治算法<br>  <img src="/2019/01/20/算法导论-4-分治策略/分治法递归式.png" alt=""></p>
+</li>
+<li><p>最终可以求得时间复杂度为:O(nlgn)</p>
+</li>
+</ul>
+<hr>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/20/软件测试/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="T0UGH(GuiPing Wang)">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="打怪升级日常">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/20/软件测试/" itemprop="url">软件测试</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-20T18:34:31+08:00">
+                2019-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/other/" itemprop="url" rel="index">
+                    <span itemprop="name">other</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/20/软件测试/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/20/软件测试/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Software-Quality-Assurance-and-Testing"><a href="#Software-Quality-Assurance-and-Testing" class="headerlink" title="Software Quality Assurance and Testing"></a>Software Quality Assurance and Testing</h2><h3 id="CH1-Overview"><a href="#CH1-Overview" class="headerlink" title="CH1 Overview"></a>CH1 Overview</h3><h4 id="1-1-About-Software-Quality-关于软件质量-P3"><a href="#1-1-About-Software-Quality-关于软件质量-P3" class="headerlink" title="1.1 About Software Quality(关于软件质量, P3)"></a>1.1 About Software Quality(关于软件质量, P3)</h4><ul>
+<li>What is Quality </li>
+</ul>
+<h4 id="1-2-About-Software-Testing-关于软件测试-P11"><a href="#1-2-About-Software-Testing-关于软件测试-P11" class="headerlink" title="1.2 About Software Testing(关于软件测试, P11)"></a>1.2 About Software Testing(关于软件测试, P11)</h4><ul>
+<li><p>Qualified rate of products(产品合格率)</p>
+</li>
+<li><p>Software defect(软件缺陷)</p>
 <ul>
-<li>若服务器在<strong>900秒</strong>内，对数据库进行了<strong>1次修改</strong>，则执行BGSAVE</li>
-<li>若服务器在<strong>300秒</strong>内，对数据库进行了<strong>10次修改</strong>，则执行BGSAVE</li>
+<li>What is software defect<ul>
+<li>软件产品中所存在的问题，最终表现为用户所需要的功能没有完全实现，没有满足用户的要求。</li>
 </ul>
-<h4 id="10-2-1-设置保存条件"><a href="#10-2-1-设置保存条件" class="headerlink" title="10.2.1 设置保存条件"></a>10.2.1 设置保存条件</h4><p>运行时，通过配置文件或者传入参数设置的保存条件会被加载到<code>redisServer</code>结构的<code>saveParams</code>属性中，结构如下图<br><img src="/2020/03/03/Redis-10-RDB持久化/200302_2.png" alt=""></p>
-<p>此外，服务器状态还维持着一个<code>dirty</code>计数器，以及一个<code>lastsave</code>属性</p>
+</li>
+<li>The Source of defects</li>
+</ul>
+</li>
+<li><p>Software testing(软件测试)</p>
 <ul>
-<li><strong>dirty计数器</strong>记录距离<strong>上一次</strong>成功保存之后，服务器对数据库状态进行了<strong>多少次修改</strong>。</li>
-<li><strong>lastsave属性</strong>是一个UNIX时间戳，记录了服务器<strong>上一次</strong>成功保存的<strong>时间</strong>。</li>
+<li>Software testing definition </li>
+<li>Verification(验证）&amp;Validation(确认)<ul>
+<li>The essential function of software testing is verification(验证）and validation(确认).</li>
 </ul>
-<h4 id="10-2-2-检查保存条件是否满足"><a href="#10-2-2-检查保存条件是否满足" class="headerlink" title="10.2.2 检查保存条件是否满足"></a>10.2.2 检查保存条件是否满足</h4><p>Redis的服务器<strong>周期性操作函数</strong><code>serverCron</code>默认每隔100毫秒就会执行一次，该函数用于对正在运行的服务器进行维护，它的其中一项工作就是<strong>检查</strong><code>save</code>选项所设置的<strong>保存条件</strong>是否已经满足，如果满足的话，就<strong>执行BGSAVE</strong>命令</p>
-<p>下面的伪代码展示了<code>serverCron</code>函数检查保存条件的过程<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">serverCron</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 遍历所有保存条件</span></span><br><span class="line">    <span class="keyword">for</span> saveparam <span class="keyword">in</span> server.saveparams:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 计算距离上次执行保存操作有多少秒</span></span><br><span class="line">        save_interval = unixtime_now() - server.lastsave</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果数据库状态的修改次数超过条件所设置的次数</span></span><br><span class="line">        <span class="comment"># 并且距离上次保存的时间超过了条件所设置的时间</span></span><br><span class="line">        <span class="comment"># 就执行保存操作</span></span><br><span class="line">        <span class="keyword">if</span> server.dirty &gt;= saveparam.changes <span class="keyword">and</span> save_interval &gt; saveparam.seconds:</span><br><span class="line">            BGSAVE()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># ...</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="10-3-RDB文件结构"><a href="#10-3-RDB文件结构" class="headerlink" title="10.3 RDB文件结构"></a>10.3 RDB文件结构</h3><p>一个完整的RDB文件包含下图所示的部分<br><img src="/2020/03/03/Redis-10-RDB持久化/200302_3.png" alt=""></p>
+</li>
+<li>Test &amp; debug</li>
+<li>Purpose of software testing</li>
+<li>Types of testing<ul>
+<li>C1:按照测试生成的来源</li>
+<li>C2：按照生命周期的阶段</li>
+<li>C3：按照测试活动的目的</li>
+<li>C4：按被测对象的特征</li>
+<li>C5：按测试过程的模型</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-3-Software-Testing-Rules-软件测试规则-P58"><a href="#1-3-Software-Testing-Rules-软件测试规则-P58" class="headerlink" title="1.3 Software Testing Rules(软件测试规则, P58)"></a>1.3 Software Testing Rules(软件测试规则, P58)</h4><ul>
+<li><p>Test passing Rules(测试通过规则)</p>
+</li>
+<li><p>What is test case</p>
+</li>
+<li><p>Test case design rules</p>
+</li>
+<li><p>Capability for Software Tester(软件测试员的能力)</p>
+</li>
+</ul>
+<hr>
+<h3 id="CH2-System-and-Software-Quality-Engineering-and-Standards-系统和软件质量工程和标准"><a href="#CH2-System-and-Software-Quality-Engineering-and-Standards-系统和软件质量工程和标准" class="headerlink" title="CH2 System and Software Quality Engineering and Standards(系统和软件质量工程和标准)"></a>CH2 System and Software Quality Engineering and Standards(系统和软件质量工程和标准)</h3><h4 id="2-1-SQC-Concepts-and-Methods-软件质量控制的概念和方法-P70"><a href="#2-1-SQC-Concepts-and-Methods-软件质量控制的概念和方法-P70" class="headerlink" title="2.1 SQC Concepts and Methods(软件质量控制的概念和方法, P70)"></a>2.1 SQC Concepts and Methods(软件质量控制的概念和方法, P70)</h4><ul>
+<li>What is Quality Control</li>
+</ul>
+<h4 id="2-2-SQC-Models-and-Techniques-软件质量控制的模型和技术-P92"><a href="#2-2-SQC-Models-and-Techniques-软件质量控制的模型和技术-P92" class="headerlink" title="2.2 SQC Models and Techniques(软件质量控制的模型和技术, P92)"></a>2.2 SQC Models and Techniques(软件质量控制的模型和技术, P92)</h4><ul>
+<li><p>Goal question metric approach(GQM, 目标问题度量方法)</p>
+</li>
+<li><p>Risk management approach(风险管理, RM)</p>
+</li>
+<li><p>PDCA quality control approach(Plan, Do, Check, and Action)</p>
+</li>
+<li><p>TSQC(Total Statistical Quality Control Model based on PDCA，全面统计质量控制)</p>
+</li>
+</ul>
+<h4 id="2-3-Software-Quality-Assurance-软件质量保证-P116"><a href="#2-3-Software-Quality-Assurance-软件质量保证-P116" class="headerlink" title="2.3 Software Quality Assurance(软件质量保证, P116)"></a>2.3 Software Quality Assurance(软件质量保证, P116)</h4><ul>
+<li><p>What is Quality Assurance? </p>
+</li>
+<li><p>Software Quality Assurance involves</p>
+</li>
+<li><p>Why are we concerned with software quality assurance</p>
+</li>
+<li><p>SQA Methodology(SQA方法论)</p>
 <ul>
-<li>最开头是五个字符”REDIS”，占5字节，用来标记这个文件是RDB文件</li>
-<li><code>db_version</code>长度为4字节，记录这个文件的版本号</li>
-<li><code>databases</code>部分包含了某个时间的数据库状态，也就是说它是数据部分</li>
-<li><code>EOF</code>是终止符，表示<code>databases</code>部分的结束，占1字节</li>
-<li><code>check_sum</code>是一个校验和，占8字节</li>
+<li>PPQA audits(审核)</li>
 </ul>
-<h4 id="10-3-1-databases部分"><a href="#10-3-1-databases部分" class="headerlink" title="10.3.1 databases部分"></a>10.3.1 databases部分</h4><p>一个RDB文件的<code>databases</code>部分包含多个非空数据库，按顺序存储</p>
-<p>每个非空数据库被保存为三部分</p>
+</li>
+<li><p>SQA activities</p>
+</li>
+<li><p>The role of SQA</p>
+</li>
+<li><p>Advantages of SQA</p>
+</li>
+<li><p>Quality Cost</p>
+</li>
+</ul>
+<h4 id="2-4-Software-Quality-Standards-软件质量标准-P130"><a href="#2-4-Software-Quality-Standards-软件质量标准-P130" class="headerlink" title="2.4 Software Quality Standards(软件质量标准, P130)"></a>2.4 Software Quality Standards(软件质量标准, P130)</h4><ul>
+<li><p>Why are software standards important?</p>
+</li>
+<li><p>Software Quality Standards Levels</p>
+</li>
+<li><p>Commonly used software quality standards</p>
 <ul>
-<li><code>SELECTDB</code>占1字节，当程序读到这个字节，它就直到下面要读的是一个数据库号码</li>
-<li><code>db_numbers</code>保存着一个数据库号码，载入程序读取后，会调用<code>SELECT</code>命令切换到指定数据库，然后再加载键值对</li>
-<li><code>key_value_pairs</code>实际保存了数据库中的所有键值对数据，如果键值对有过期时间，也会保存在一起</li>
+<li>ISO 9001/9000-3</li>
+<li>CMM</li>
+<li>CMMI</li>
+<li>IEEE Software engineering standars</li>
+<li>ISO/IEC TR 15504</li>
 </ul>
-<p>一个完整的RDB结构如下所示，假设0号和3号数据库是非空数据库<br><img src="/2020/03/03/Redis-10-RDB持久化/200302_4.png" alt=""></p>
-<h4 id="10-3-2-key-value-pairs部分"><a href="#10-3-2-key-value-pairs部分" class="headerlink" title="10.3.2 key_value_pairs部分"></a>10.3.2 key_value_pairs部分</h4><p>每个key_value_pair结构如下<br><img src="/2020/03/03/Redis-10-RDB持久化/200302_6.png" alt=""></p>
+</li>
+</ul>
+<hr>
+<h3 id="CH3-Software-Quality-Metrics-软件质量指标"><a href="#CH3-Software-Quality-Metrics-软件质量指标" class="headerlink" title="CH3 Software Quality Metrics(软件质量指标)"></a>CH3 Software Quality Metrics(软件质量指标)</h3><h4 id="3-1-Metrics-and-Software-Metrics-指标和软件指标-P147"><a href="#3-1-Metrics-and-Software-Metrics-指标和软件指标-P147" class="headerlink" title="3.1 Metrics and Software Metrics(指标和软件指标, P147)"></a>3.1 Metrics and Software Metrics(指标和软件指标, P147)</h4><ul>
+<li><p>Measure</p>
+</li>
+<li><p>Measurement</p>
+</li>
+<li><p>Metric(指标): 系统，组件或过程拥有给定属性的程度的定量度量</p>
+</li>
+<li><p>Indicator</p>
+</li>
+<li><p>Metrics Characteristics(指标的特征)</p>
+</li>
+<li><p>Why do we measure(为什么衡量)</p>
+</li>
+<li><p>Why do we use metrics(为什么使用指标)</p>
+</li>
+<li><p>Metric Guidelines(指标指南)</p>
+</li>
+<li><p>Example Metrics(指标的例子)</p>
+</li>
+<li><p>Types of metrics(指标的类型)</p>
 <ul>
-<li><code>EXPIRETIME_MS</code>表示接下来要读的是一个时间戳</li>
-<li><code>ms</code>保存了过期时间，占8字节</li>
-<li><code>TYPE</code>保存了键值对的类型，对于不同的类型，RDB采用了不同的存储方式</li>
-<li><code>key</code>实际保存键对象</li>
-<li><code>value</code>实际保存了值对象</li>
+<li>Process Metrics(过程指标)</li>
+<li>Product Metrics(产品指标)</li>
+<li>Project Metrics(项目指标)</li>
 </ul>
-<p>例如下图<br><img src="/2020/03/03/Redis-10-RDB持久化/200302_5.png" alt=""></p>
-<h4 id="10-3-3-value的编码"><a href="#10-3-3-value的编码" class="headerlink" title="10.3.3 value的编码"></a>10.3.3 value的编码</h4><p>不同类型的值对象在RDB文件中的保存结构不同，这里不展开介绍，但是对于<code>intset</code>和实际编码为<code>ziplist</code>的对象，都会被转化为字符串对象再存储。</p>
-<h4 id="10-3-4-分析RDB文件"><a href="#10-3-4-分析RDB文件" class="headerlink" title="10.3.4 分析RDB文件"></a>10.3.4 分析RDB文件</h4><p>可以使用Redis自带的RDB文件检查工具redis-check-dump来检查RDB文件</p>
+</li>
+<li><p>Process Metrics(过程指标)</p>
+<ul>
+<li>The rational way to improve any process</li>
+<li>Quantitative Management(量化管理)</li>
+<li>Statistical Software Process Improvement (SSPI, 统计软件过程改进)</li>
+<li>Defect Removal Efficiency (DRE, 缺陷排除效率)</li>
+<li>How to measure effectiveness of a software process?</li>
+</ul>
+</li>
+<li><p>Product Metrics(产品指标)</p>
+</li>
+<li><p>Project Metrics(项目指标)</p>
+</li>
+<li><p>Types of Software Measurements</p>
+<ul>
+<li>Direct measures</li>
+<li>Indirect measures</li>
+</ul>
+</li>
+<li><p>Normalization of Metrics(指标的标准化)</p>
+<ul>
+<li>Size-oriented metrics(面向大小的指标)<ul>
+<li>eg: Cost,LOC,kLOC… </li>
+<li>Advantages of size oriented metrics</li>
+<li>Disadvantages of size oriented metrics</li>
+</ul>
+</li>
+<li>Function oriented metrics(面向功能的指标)<ul>
+<li>Function point(功能点)</li>
+<li>steps in calculating FP(计算功能点的步骤)</li>
+<li>Software information domain values</li>
+<li>Rate Complexity Factors(比率复杂性因素)<ul>
+<li>For each complexity adjustment factor, give a rating on a scale of 0 to 5</li>
+</ul>
+</li>
+<li>Complexity Adjustment Factors(复杂度调整因素)</li>
+<li>Complexity Adjustment Value(复杂性调整价值)</li>
+<li>FP Characteristics<ul>
+<li>advantages</li>
+<li>disadvantages</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-2-Software-Quality-Metrics-软件质量指标-P202"><a href="#3-2-Software-Quality-Metrics-软件质量指标-P202" class="headerlink" title="3.2 Software Quality Metrics(软件质量指标, P202)"></a>3.2 Software Quality Metrics(软件质量指标, P202)</h4><ul>
+<li><p>Software Quality Metrics</p>
+</li>
+<li><p>Correctness</p>
+</li>
+<li><p>Maintainability</p>
+</li>
+</ul>
+<hr>
+<h3 id="CH4-Black-Box-Testing-黑盒测试"><a href="#CH4-Black-Box-Testing-黑盒测试" class="headerlink" title="CH4 Black-Box Testing(黑盒测试)"></a>CH4 Black-Box Testing(黑盒测试)</h3><h4 id="4-1-Introduction-P208"><a href="#4-1-Introduction-P208" class="headerlink" title="4.1 Introduction(P208)"></a>4.1 Introduction(P208)</h4><ul>
+<li><p>Black-Box Testing</p>
+</li>
+<li><p>The advantages of black-box testing</p>
+</li>
+<li><p>Test case</p>
+<ul>
+<li>Test case must be designed follow these characteristics</li>
+<li>How to design a test case?</li>
+<li>Test methods<ul>
+<li>Equivalence partitioning、Boundary value analysis、Decision tables、Cause-effect graphing、Orthogonal array testing、Scenario testing</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-2-Equivalence-Partitioning-等价划分-P220"><a href="#4-2-Equivalence-Partitioning-等价划分-P220" class="headerlink" title="4.2 Equivalence Partitioning(等价划分, P220)"></a>4.2 Equivalence Partitioning(等价划分, P220)</h4><ul>
+<li><p>Equivalence Partition</p>
+</li>
+<li><p>Equivalence class definition(等价类定义)</p>
+</li>
+<li><p>Partition situation(划分情况)</p>
+<ul>
+<li>Valid equivalence class(有效等价类)</li>
+<li>Invalid equivalence class(无效等价类)</li>
+</ul>
+</li>
+<li><p>Guidelines for  generating equivalence classes for variables(等价类划分指南)</p>
+</li>
+<li><p>Single Fault(单一故障，故障通常单一发生)</p>
+</li>
+<li><p>The steps of design test case(设计测试用例的步骤)</p>
+</li>
+</ul>
+<h4 id="4-3-Boundary-Value-Analysis-边界值分析-P246"><a href="#4-3-Boundary-Value-Analysis-边界值分析-P246" class="headerlink" title="4.3 Boundary Value Analysis(边界值分析, P246)"></a>4.3 Boundary Value Analysis(边界值分析, P246)</h4><ul>
+<li><p>Boundary Value Analysis</p>
+</li>
+<li><p>Basic idea(基本思路)</p>
+</li>
+<li><p>Boundary Value Analysis is based Single fault.</p>
+</li>
+<li><p>Limitations of Boundary Value Analysis(边界值分析的适用范围)</p>
+</li>
+<li><p>Robustness Testing(稳健性测试, 边界值测试的扩展版)</p>
+</li>
+</ul>
+<h4 id="4-4-Decision-Tables-决策表-P260"><a href="#4-4-Decision-Tables-决策表-P260" class="headerlink" title="4.4 Decision Tables(决策表, P260)"></a>4.4 Decision Tables(决策表, P260)</h4><ul>
+<li><p>Decision Tables</p>
+</li>
+<li><p>Four portions of decision table(决策表的四个部分)</p>
+</li>
+</ul>
+<h4 id="4-5-Cause-Effect-Graphing-因果图-P289"><a href="#4-5-Cause-Effect-Graphing-因果图-P289" class="headerlink" title="4.5 Cause-Effect Graphing(因果图, P289)"></a>4.5 Cause-Effect Graphing(因果图, P289)</h4><ul>
+<li><p>What is cause-effect graphing?</p>
+</li>
+<li><p>Notation used in cause-effect graphing(因果图表中使用的表示法)</p>
+<ul>
+<li>The relations between causes and effects(因果之间的关系)<ul>
+<li>Implication(等价)、Not(非)、Or(或)、And(与)</li>
+</ul>
+</li>
+<li>Constraint(约束)<ul>
+<li>Exclusive(E, 异)、Inclusive(I, 或)、One and only one(O, 唯一)、Requires(R, 要求)、Masking(M, 强制)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>The steps of cause-effect graph design(因果图设计的步骤)</p>
+</li>
+<li><p>How to use cause-effect graph design test case(如何使用因果图设计测试用例)</p>
+</li>
+<li><p>Disadvantages of CEG test case design</p>
+</li>
+</ul>
+<h4 id="4-6-Orthogonal-Array-Testing-正交阵列测试-P323"><a href="#4-6-Orthogonal-Array-Testing-正交阵列测试-P323" class="headerlink" title="4.6 Orthogonal Array Testing(正交阵列测试, P323)"></a>4.6 Orthogonal Array Testing(正交阵列测试, P323)</h4><ul>
+<li><p>Orthogonal Array Testing</p>
+</li>
+<li><p>The type of experimental design methods</p>
+<ul>
+<li><p>Comprehensive test(综合测试, 把所有的因素都组合一遍)</p>
+</li>
+<li><p>Single factor test(单因素测试, 每次只变动一个因素)</p>
+</li>
+<li><p>Orthogonal test(正交测试)</p>
+</li>
+</ul>
+</li>
+<li><p>Orthogonal table(正交表)</p>
+</li>
+<li><p>Steps of orthogonal test case design</p>
+</li>
+</ul>
+<h4 id="4-7-Scenario-Testing-场景测试-P347"><a href="#4-7-Scenario-Testing-场景测试-P347" class="headerlink" title="4.7 Scenario Testing(场景测试, P347)"></a>4.7 Scenario Testing(场景测试, P347)</h4><ul>
+<li><p>Scenario Testing</p>
+</li>
+<li><p>The ideal scenario has five key characteristics(理想场景有五个关键特征)</p>
+</li>
+<li><p>flow of events(事件流)</p>
+<ul>
+<li>Basic flow of events(基本流)</li>
+<li>Alternate flows events(备选流)</li>
+</ul>
+</li>
+<li><p>A three-step process for generating test cases from a fully-detailed use case(从详细用例生成测试用例的三个步骤)</p>
+<ul>
+<li>Step One: Generate Scenarios</li>
+<li>Step Two: Identify Test Cases and create a scenario matrix</li>
+<li>Step Three: Identify the data values with which to test.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="CH5-White-Box-Testing-白盒测试"><a href="#CH5-White-Box-Testing-白盒测试" class="headerlink" title="CH5 White-Box Testing(白盒测试)"></a>CH5 White-Box Testing(白盒测试)</h3><h4 id="5-1-Basic-Concepts-基本概念-P372"><a href="#5-1-Basic-Concepts-基本概念-P372" class="headerlink" title="5.1 Basic Concepts(基本概念, P372)"></a>5.1 Basic Concepts(基本概念, P372)</h4><ul>
+<li><p>White-box testing</p>
+</li>
+<li><p>static testing and dynamic testing(静态白盒测试和动态白盒测试)</p>
+</li>
+<li><p>White-box testing must follow several principles(白盒测试的准则)</p>
+</li>
+<li><p>White-box Testing Difficulties(白盒测试的难度)</p>
+</li>
+<li><p>Why we can’t use exhaustive testing(为什么我们不能使用穷举测试)</p>
+</li>
+<li><p>Development of White-box Testing divided into four generations(四代白盒测试)</p>
+</li>
+<li><p>A Comparison on four generations of White-box Testing(四代白盒测试的比较)</p>
+</li>
+<li><p>白盒测试方法测试过程</p>
+</li>
+</ul>
+<h4 id="5-2-Logic-Coverage-逻辑覆盖-P382"><a href="#5-2-Logic-Coverage-逻辑覆盖-P382" class="headerlink" title="5.2 Logic Coverage(逻辑覆盖, P382)"></a>5.2 Logic Coverage(逻辑覆盖, P382)</h4><ul>
+<li><p>Statement coverage(语句覆盖, 所有程序语句都执行一遍即可)</p>
+</li>
+<li><p>Decision coverage(判定覆盖, 判断语句的对错)</p>
+</li>
+<li><p>Condition coverage(条件覆盖, 判断语句中每个条件的对错)</p>
+</li>
+<li><p>Condition/decision coverage(条件判断覆盖, 判断语句的对错+判断语句中每个条件的对错)</p>
+</li>
+<li><p>Condition combination coverage(条件组合覆盖, 使每个判断的所有可能的条件组合至少一次) </p>
+</li>
+<li><p>Path coverage(路径覆盖, 覆盖过程中所有可能的路径)</p>
+</li>
+<li><p>N-S graph</p>
+</li>
+</ul>
+<h4 id="5-3-Control-Flow-Graph-控制流图-P406"><a href="#5-3-Control-Flow-Graph-控制流图-P406" class="headerlink" title="5.3 Control Flow Graph(控制流图, P406)"></a>5.3 Control Flow Graph(控制流图, P406)</h4><ul>
+<li><p>Concept</p>
+</li>
+<li><p>Common control flow graph(基本控制流图)</p>
+</li>
+<li><p>Change a program flow chart into a control flow graph(把程序流程图改成控制流图)</p>
+</li>
+</ul>
+<h4 id="5-4-Basis-Path-Testing-基本路径测试-P416"><a href="#5-4-Basis-Path-Testing-基本路径测试-P416" class="headerlink" title="5.4 Basis Path Testing(基本路径测试, P416)"></a>5.4 Basis Path Testing(基本路径测试, P416)</h4><ul>
+<li><p>Concept</p>
+</li>
+<li><p>Cyclomatic Complexity(圈复杂度)</p>
+</li>
+<li><p>Independent Paths(独立路径)</p>
+</li>
+</ul>
+<h4 id="5-5-Loop-Testing-循环测试-P433"><a href="#5-5-Loop-Testing-循环测试-P433" class="headerlink" title="5.5 Loop Testing(循环测试, P433)"></a>5.5 Loop Testing(循环测试, P433)</h4><ul>
+<li><p>Focuses exclusively on the validity of loop constructs(专门关注循环构造的有效性)</p>
+</li>
+<li><p>Types of Loop(循环的类型)</p>
+</li>
+<li><p>Simple Loops(简单循环)</p>
+</li>
+<li><p>Nested Loops(嵌套循环)</p>
+</li>
+<li><p>Concatenated Loops(连接式循环)</p>
+</li>
+<li><p>Unstructured Loops(非结构化循环)</p>
+</li>
+</ul>
+<h4 id="5-6-Data-Flow-Testing-数据流测试-P445"><a href="#5-6-Data-Flow-Testing-数据流测试-P445" class="headerlink" title="5.6 Data Flow Testing(数据流测试, P445)"></a>5.6 Data Flow Testing(数据流测试, P445)</h4><ul>
+<li><p>data flow testing(数据流测试)</p>
+</li>
+<li><p>data flow graph(数据流图)</p>
+</li>
+<li><p>define-use-kill patterns</p>
+</li>
+<li><p>Static Data Flow Testing</p>
+</li>
+<li><p>Dynamic Data Flow Testing</p>
+</li>
+</ul>
+<h4 id="5-7-Mutation-Testing-变异测试-P458"><a href="#5-7-Mutation-Testing-变异测试-P458" class="headerlink" title="5.7 Mutation Testing(变异测试,P458)"></a>5.7 Mutation Testing(变异测试,P458)</h4><ul>
+<li><p>Mutation Testing: 用来衡量软件测试的质量</p>
+</li>
+<li><p>We use mutation analysis for testing to</p>
+</li>
+<li><p>Mutation Testing is capable of testing software at</p>
+</li>
+<li><p>Fundamental Premise (基本前提) of Mutation Testing</p>
+</li>
+<li><p>Mutation and Mutants（变异体）</p>
+</li>
+<li><p>Mutation operators（变异算子）</p>
+</li>
+<li><p>First-order mutants And Higher-order mutants(一阶变异体和高阶变异体)</p>
+</li>
+<li><p>Syntax and semantics of mutants(突变体的句法和语义<br>)</p>
+</li>
+<li><p>Strong mutation testing &amp; Weak mutation testing</p>
+</li>
+<li><p>Procedure for test-adequacy assessment(测试充分性评估的步骤)</p>
+</li>
+</ul>
+<h4 id="5-8-A-Comparison-of-White-box-Testing-and-Black-box-Testing-白盒和黑盒测试的比较-P491"><a href="#5-8-A-Comparison-of-White-box-Testing-and-Black-box-Testing-白盒和黑盒测试的比较-P491" class="headerlink" title="5.8 A Comparison of White-box Testing and Black-box Testing(白盒和黑盒测试的比较, P491)"></a>5.8 A Comparison of White-box Testing and Black-box Testing(白盒和黑盒测试的比较, P491)</h4><hr>
+<h3 id="CH6-Unit-Testing-单元测试"><a href="#CH6-Unit-Testing-单元测试" class="headerlink" title="CH6 Unit Testing(单元测试)"></a>CH6 Unit Testing(单元测试)</h3><h4 id="6-1-What-is-Unit-Testing-P495"><a href="#6-1-What-is-Unit-Testing-P495" class="headerlink" title="6.1 What is Unit Testing(P495)"></a>6.1 What is Unit Testing(P495)</h4><ul>
+<li><p>Unit testing</p>
+</li>
+<li><p>Basic attributes of unit testing(单元测试基本属性)</p>
+</li>
+<li><p>Purpose of unit testing(单元测试的目的)</p>
+</li>
+<li><p>单元测试的过程</p>
+</li>
+<li><p>Benefits</p>
+</li>
+<li><p>Static testing And Dynamic testing</p>
+</li>
+<li><p>Misunderstanding about unit testing(对单元测试的误解)</p>
+</li>
+</ul>
+<h4 id="6-2-Unit-Testing-Strategies-P509"><a href="#6-2-Unit-Testing-Strategies-P509" class="headerlink" title="6.2 Unit Testing Strategies(P509)"></a>6.2 Unit Testing Strategies(P509)</h4><ul>
+<li><p>Stub(桩)</p>
+</li>
+<li><p>Driver module(驱动模块)</p>
+</li>
+<li><p>Top-down unit testing strategy</p>
+</li>
+<li><p>Bottom-up unit testing strategy</p>
+</li>
+<li><p>Isolation testing(隔离测试) </p>
+</li>
+</ul>
+<h4 id="6-3-Unit-Testing-Analysis-P513"><a href="#6-3-Unit-Testing-Analysis-P513" class="headerlink" title="6.3 Unit Testing Analysis(P513)"></a>6.3 Unit Testing Analysis(P513)</h4><ul>
+<li>Considered aspect of unit testing(单元测试需要考虑的方面)</li>
+</ul>
+<h4 id="6-4-Unit-Testing-Guidelines-27个原则-P514"><a href="#6-4-Unit-Testing-Guidelines-27个原则-P514" class="headerlink" title="6.4 Unit Testing Guidelines(27个原则, P514)"></a>6.4 Unit Testing Guidelines(27个原则, P514)</h4><h4 id="6-5-How-to-use-JUnit-P525"><a href="#6-5-How-to-use-JUnit-P525" class="headerlink" title="6.5 How to use JUnit(P525)"></a>6.5 How to use JUnit(P525)</h4><ul>
+<li><p>Tools of Unit test</p>
+</li>
+<li><p>JUnit features include(JUnit功能包括)</p>
+</li>
+<li><p>Test Fixtures(测试装置)</p>
+</li>
+<li><p>Test Suites(测试套件)</p>
+</li>
+<li><p>Test Execution(测试运行)</p>
+</li>
+<li><p>Assertions(断言)</p>
+</li>
+<li><p>Criteria for test methods(测试方法必须遵循的条件)</p>
+</li>
+<li><p>How JUnit run a test</p>
+</li>
+</ul>
+<hr>
+<h3 id="CH7-Integration-Testing"><a href="#CH7-Integration-Testing" class="headerlink" title="CH7 Integration Testing"></a>CH7 Integration Testing</h3><h4 id="7-1-Integration-Testing-Introduction-集成测试介绍-P554"><a href="#7-1-Integration-Testing-Introduction-集成测试介绍-P554" class="headerlink" title="7.1 Integration Testing Introduction(集成测试介绍, P554)"></a>7.1 Integration Testing Introduction(集成测试介绍, P554)</h4><ul>
+<li><p>Test、Software development、Gray Box Testing</p>
+</li>
+<li><p>Integration testing</p>
+</li>
+<li><p>Integration testing VS Unit testing</p>
+</li>
+<li><p>Integration testing VS System testing</p>
+</li>
+<li><p>The purpose of integration testing(集成测试的目的)</p>
+</li>
+<li><p>The major advantages of integration testing(集成测试的好处)</p>
+</li>
+<li><p>Major testing focuses(主要测试重点)</p>
+</li>
+<li><p>Integration Testing Steps(集成测试步骤)</p>
+</li>
+<li><p>决定重复测试周期的次数和总集成时间的因素</p>
+</li>
+<li><p>When to complete the integration testing</p>
+</li>
+<li><p>Integration testing features(集成测试特点)</p>
+</li>
+<li><p>The relationship between integration testing and development(集成测试与开发的关系)</p>
+</li>
+<li><p>When to carry out the integration testing(什么时候开始集成测试)</p>
+</li>
+<li><p>Integration testing levels(集成测试等级)</p>
+</li>
+</ul>
+<h4 id="7-2-Integration-Testing-Strategy-集成测试策略-P575"><a href="#7-2-Integration-Testing-Strategy-集成测试策略-P575" class="headerlink" title="7.2 Integration Testing Strategy(集成测试策略, P575)"></a>7.2 Integration Testing Strategy(集成测试策略, P575)</h4><ul>
+<li><p>Integration testing can be divided into two categories(集成测试基本策略分类)</p>
+</li>
+<li><p>Instantaneous vs. incremental integration testing</p>
+</li>
+<li><p>Big bang（大爆炸） integration </p>
+</li>
+<li><p>Top-down （自顶向下）integration </p>
+</li>
+<li><p>Bottom-up （自底向上）integration </p>
+</li>
+<li><p>Sandwich（三明治） integration </p>
+</li>
+<li><p>Layers（分层） integration </p>
+</li>
+<li><p>High-frequency （高频）integration </p>
+</li>
+<li><p>Event-based（基于事件） integration</p>
+</li>
+</ul>
+<h4 id="7-3-Integration-Testing-Analysis-集成测试分析-P621"><a href="#7-3-Integration-Testing-Analysis-集成测试分析-P621" class="headerlink" title="7.3 Integration Testing Analysis(集成测试分析, P621)"></a>7.3 Integration Testing Analysis(集成测试分析, P621)</h4><ul>
+<li><p>The concern contents of integration testing(集成测试关注)</p>
+</li>
+<li><p>Architecture Analysis(体系结构分析)</p>
+</li>
+<li><p>Module analysis(模块分析) </p>
+</li>
+<li><p>Interface analysis(接口分析) </p>
+</li>
+<li><p>Testability analysis(可测试性分析) </p>
+</li>
+<li><p>Integration testing strategy analysis(集成测试策略分析) </p>
+</li>
+<li><p>Common integration testing fault(常见的集成测试错误)  </p>
+</li>
+</ul>
+<h4 id="7-4-Test-Case-Design-of-Integration-Testing-集成测试的测试用例设计-P637"><a href="#7-4-Test-Case-Design-of-Integration-Testing-集成测试的测试用例设计-P637" class="headerlink" title="7.4 Test Case Design of Integration Testing(集成测试的测试用例设计, P637)"></a>7.4 Test Case Design of Integration Testing(集成测试的测试用例设计, P637)</h4><ul>
+<li><p>For the operation of the system design test cases.(为系统的操作设计测试用例)</p>
+</li>
+<li><p>Design test cases for positive testing.(设计正向测试测试用例)</p>
+</li>
+<li><p>Design test cases for reverse testing.(设计反向测试测试用例)</p>
+</li>
+<li><p>Design test cases for special requirement.(根据特殊要求设计测试用例)</p>
+</li>
+<li><p>Design test case for meet coverage.(设计符合覆盖率的测试用例)</p>
+</li>
+<li><p>Test cases complement.(测试用例补充)</p>
+</li>
+</ul>
+<h4 id="7-5-Integration-Testing-Process-P649"><a href="#7-5-Integration-Testing-Process-P649" class="headerlink" title="7.5 Integration Testing Process(P649)"></a>7.5 Integration Testing Process(P649)</h4><ul>
+<li>The process of integration testing can be divided into four stages</li>
+</ul>
+<h4 id="7-6-Integration-Testing-Environment-集成测试环境-P650"><a href="#7-6-Integration-Testing-Environment-集成测试环境-P650" class="headerlink" title="7.6 Integration Testing Environment(集成测试环境, P650)"></a>7.6 Integration Testing Environment(集成测试环境, P650)</h4><ul>
+<li>In considering integration testing environment, follow several aspects</li>
+</ul>
+<h4 id="7-7-Principle-of-Integration-Testing-集成测试原则-P654"><a href="#7-7-Principle-of-Integration-Testing-集成测试原则-P654" class="headerlink" title="7.7 Principle of Integration Testing(集成测试原则, P654)"></a>7.7 Principle of Integration Testing(集成测试原则, P654)</h4><hr>
+<h3 id="CH8-System-Testing-系统测试"><a href="#CH8-System-Testing-系统测试" class="headerlink" title="CH8 System Testing(系统测试)"></a>CH8 System Testing(系统测试)</h3><h4 id="8-1-System-Testing-Concepts-P657"><a href="#8-1-System-Testing-Concepts-P657" class="headerlink" title="8.1 System Testing Concepts(P657)"></a>8.1 System Testing Concepts(P657)</h4><ul>
+<li><p>System Testing</p>
+</li>
+<li><p>Why system testing is necessary?</p>
+</li>
+<li><p>System testing process</p>
+</li>
+</ul>
+<h4 id="8-2-System-Testing-Methods-P666"><a href="#8-2-System-Testing-Methods-P666" class="headerlink" title="8.2 System Testing Methods(P666)"></a>8.2 System Testing Methods(P666)</h4><ul>
+<li><p>GUI software testing(GUI测试)</p>
+</li>
+<li><p>Usability testing(可用性测试)</p>
+</li>
+<li><p>Performance testing(性能测试)</p>
+</li>
+<li><p>Stress testing(压力测试)</p>
+</li>
+<li><p>Volume testing(容量测试)</p>
+</li>
+<li><p>Load testing(负载测试)</p>
+</li>
+<li><p>Compatibility testing(兼容性测试)</p>
+</li>
+<li><p>Recovery testing(恢复测试)</p>
+</li>
+</ul>
+<h4 id="8-3-System-Testing-process-P696"><a href="#8-3-System-Testing-process-P696" class="headerlink" title="8.3 System Testing process(P696)"></a>8.3 System Testing process(P696)</h4><ul>
+<li>Deming Cycle(戴明环, 也叫PDCA)</li>
+</ul>
+<hr>
+<h3 id="CH9-Performance-Testing-性能测试"><a href="#CH9-Performance-Testing-性能测试" class="headerlink" title="CH9 Performance Testing(性能测试)"></a>CH9 Performance Testing(性能测试)</h3><h4 id="9-1-What-is-performance-什么是性能-P705"><a href="#9-1-What-is-performance-什么是性能-P705" class="headerlink" title="9.1 What is performance?(什么是性能, P705)"></a>9.1 What is performance?(什么是性能, P705)</h4><ul>
+<li><p>Performance(性能)</p>
+</li>
+<li><p>Commonly used performance indicators(常用的性能指标)</p>
+<ul>
+<li>Latency(延迟)</li>
+<li>Transaction processing time:(事务处理时间)</li>
+<li>Maximum transaction processing time(最大事务处理时间)</li>
+<li>Transaction operating time(事务操作时间)</li>
+<li>Database performance (数据库性能)</li>
+<li>The largest consumption of memory (最大内存消耗)</li>
+<li>Resource consumption(资源消耗)</li>
+<li>Peak time of memory(高峰内存时间)</li>
+<li>Response time(响应时间)</li>
+<li>System response time(系统响应时间)</li>
+<li>Present time(呈现时间)</li>
+<li>Concurrent users(并发用户数)</li>
+<li>Throughput(吞吐量)</li>
+<li>Performance counters and resource utilization(性能计数器和资源利用率)</li>
+<li>Dormancy time(休眠时间)</li>
+</ul>
+</li>
+</ul>
+<h4 id="9-2-What-is-performance-testing-什么是性能测试-P737"><a href="#9-2-What-is-performance-testing-什么是性能测试-P737" class="headerlink" title="9.2 What is performance testing?(什么是性能测试, P737)"></a>9.2 What is performance testing?(什么是性能测试, P737)</h4><ul>
+<li><p>performance testing</p>
+</li>
+<li><p>Performance testing profiles(性能测试的配置)</p>
+</li>
+<li><p>Load Testing(负载测试)</p>
+</li>
+<li><p>Load testing loading mode(负载测试的加载模式)</p>
+<ul>
+<li>One-time loading(一次性加载)</li>
+<li>Increasing loading(递增加载)</li>
+<li>High and low mutation loading(高低突变加载)</li>
+<li>Random loading method(随机加载方式)</li>
+</ul>
+</li>
+<li><p>Stress Testing(压力测试)</p>
+</li>
+</ul>
+<h4 id="9-3-What-are-the-types-of-performance-tests-性能测试的种类-P751"><a href="#9-3-What-are-the-types-of-performance-tests-性能测试的种类-P751" class="headerlink" title="9.3 What are the types of performance tests?(性能测试的种类, P751)"></a>9.3 What are the types of performance tests?(性能测试的种类, P751)</h4><ul>
+<li>The three most common types of software performance testing include(最常见的三个类型的软件性能测试包括)</li>
+</ul>
+<h4 id="9-4-How-to-conduct-performance-testing-如何进行性能测试-P753"><a href="#9-4-How-to-conduct-performance-testing-如何进行性能测试-P753" class="headerlink" title="9.4 How to conduct performance testing?(如何进行性能测试, P753)"></a>9.4 How to conduct performance testing?(如何进行性能测试, P753)</h4><ul>
+<li><p>The process of performance testing?(性能测试过程：计划，记录，修改，执行，分析)</p>
+</li>
+<li><p>Step1:Planning</p>
+<ul>
+<li>Understanding load(了解系统的负载情况)</li>
+<li>Load (Operational) Profile(建立负载概况)</li>
+<li>Test Sample Sizes(测试样本的大小)</li>
+<li>Sampling Errors(抽样误差)</li>
+<li>Number and types of users(用户的数量和类型)</li>
+<li>The number of users on the site will vary based on many factors(网站中用户数量的变化基于很多要素)</li>
+<li>Testing types and metrics needed(需要的测试的类型和量度)</li>
+</ul>
+</li>
+<li><p>Step2-Step4</p>
+<ul>
+<li>An abstract architecture for performance testing tools(一个性能测试工具抽象的结构包括：控制器，负载生成器，性能监视器，分析器，虚拟用户生成器)</li>
+<li>profiler(检验器)</li>
+<li>Virtual users generator (虚拟用户生成器)</li>
+<li>Controller (控制器)</li>
+<li>Load Generator(负载生成器)</li>
+<li>Analysis(分析器)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="CH11-Testing-Management"><a href="#CH11-Testing-Management" class="headerlink" title="CH11 Testing Management"></a>CH11 Testing Management</h3><h4 id="11-1-Test-Metrics-测试指标-P776"><a href="#11-1-Test-Metrics-测试指标-P776" class="headerlink" title="11.1 Test Metrics(测试指标, P776)"></a>11.1 Test Metrics(测试指标, P776)</h4><ul>
+<li><p>A classification of various types of metrics(度量标准的分类)</p>
+</li>
+<li><p>Four general core areas that assist in the design of metrics(协助度量标准设计的四个通用核心领域)</p>
+</li>
+<li><p>Organization metrics(组织度量)</p>
+</li>
+<li><p>Project metrics(项目指标)</p>
+</li>
+<li><p>Process metrics(过程度量)</p>
+</li>
+<li><p>Product metrics: Generic(产品度量：一般)</p>
+</li>
+<li><p>Product metrics: OO software(产品度量：OO软件)</p>
+</li>
+<li><p>Testability(可测试性)</p>
+</li>
+</ul>
+<h4 id="11-2-Defect-Management-缺陷测试-P787"><a href="#11-2-Defect-Management-缺陷测试-P787" class="headerlink" title="11.2 Defect Management(缺陷测试, P787)"></a>11.2 Defect Management(缺陷测试, P787)</h4><ul>
+<li><p>Defect management(缺陷管理)</p>
+</li>
+<li><p>Status associated with a defect(与缺陷相关的状态)</p>
+</li>
+<li><p>The structure of report a defect(报告缺陷的结构)</p>
+<ul>
+<li>Title</li>
+<li>Description</li>
+<li>Repro Steps(重现步骤)</li>
+<li>Actual Results(实际结果)</li>
+<li>Expected Results(预期结果)</li>
+<li>Test Environment(测试环境)</li>
+</ul>
+</li>
+<li><p>Defect Life Cycle(缺陷生命周期)</p>
+</li>
+<li><p>Defect Life Cycle Paths(缺陷生命周期路径)</p>
+</li>
+</ul>
+<h4 id="11-3-Software-Testing-Life-Cycle-软件测试生命周期-P802"><a href="#11-3-Software-Testing-Life-Cycle-软件测试生命周期-P802" class="headerlink" title="11.3 Software Testing Life Cycle(软件测试生命周期, P802)"></a>11.3 Software Testing Life Cycle(软件测试生命周期, P802)</h4><ul>
+<li><p>Test planning(测试计划)</p>
+<ul>
+<li>Parts of Test Planning</li>
+</ul>
+</li>
+<li><p>Test design(测试设计)</p>
+<ul>
+<li>Test design techniques(测试设计技巧)</li>
+<li>Categories of test design techniques(测试设计技巧分类)</li>
+</ul>
+</li>
+<li><p>Test development(测试开发)</p>
+</li>
+<li><p>Test execution(测试执行)</p>
+</li>
+<li><p>Test evaluation(测试评价)</p>
+</li>
+</ul>
+<h4 id="11-4-Basic-Knowledge-about-Software-Testing-Automation-自动化测试基础知识-P811"><a href="#11-4-Basic-Knowledge-about-Software-Testing-Automation-自动化测试基础知识-P811" class="headerlink" title="11.4 Basic Knowledge about Software Testing Automation(自动化测试基础知识, P811)"></a>11.4 Basic Knowledge about Software Testing Automation(自动化测试基础知识, P811)</h4><ul>
+<li><p>What is test automation?(什么是自动化测试)</p>
+</li>
+<li><p>Automated testing(自动化测试)</p>
+</li>
+<li><p>Which type of test can be automated(什么样的测试可以被自动化)</p>
+</li>
+<li><p>The advantages of automated testing(自动化测试的优点)</p>
+</li>
+<li><p>Disadvantages of automated testing(自动化测试的缺点)</p>
+</li>
+<li><p>Manual Testing vs Automated Testing(手工测试 vs 自动化测试)</p>
+</li>
+</ul>
+<h4 id="11-5-Automated-Testing-Tools-自动化测试工具-P824"><a href="#11-5-Automated-Testing-Tools-自动化测试工具-P824" class="headerlink" title="11.5 Automated Testing Tools(自动化测试工具, P824)"></a>11.5 Automated Testing Tools(自动化测试工具, P824)</h4><ul>
+<li><p>Automated Test Lifecycle Methodology(自动化测试生命周期方法)</p>
+</li>
+<li><p>Process Of Test Tools Import(导入测试工具的过程)</p>
+</li>
+<li><p>Misconceptions(对于自动化测试的误解) </p>
+</li>
+<li><p>Choosing Automation Tools(选择自动化工具)</p>
+</li>
+</ul>
 
           
         
@@ -460,7 +1328,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/111/">111</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span>
   </nav>
 
 
@@ -508,7 +1376,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-count">112</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
