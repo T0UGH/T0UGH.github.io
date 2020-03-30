@@ -40,7 +40,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -174,7 +174,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -314,47 +314,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-MySQL-6-查询性能优化" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-MySQL-6-查询性能优化" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [MySQL][6][查询性能优化]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/03/02/MySQL-6-查询性能优化/" class="article-date">
 	  <time datetime="2020-03-02T09:06:57.000Z" itemprop="datePublished">2020-03-02</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/MySQL/">MySQL</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/MySQL/">MySQL</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/02/MySQL-6-查询性能优化/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-6-章-查询性能优化"><a href="#第-6-章-查询性能优化" class="headerlink" title="第 6 章 查询性能优化"></a>第 6 章 查询性能优化</h2><p><strong>查询优化</strong>、<strong>索引优化</strong>、<strong>库表结构优化</strong>需要齐头并进，一个不落。如果查询写得很糟糕，即使库表结构再合理、索引再合适，也无法实现高性能。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/02/MySQL-6-查询性能优化/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-6-章-查询性能优化"><span class="toc-text">第 6 章 查询性能优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-为什么查询速度会慢"><span class="toc-text">6.1 为什么查询速度会慢</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-慢查询基础：优化数据访问"><span class="toc-text">6.2 慢查询基础：优化数据访问</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-1-是否向数据库请求了不需要的数据"><span class="toc-text">6.2.1 是否向数据库请求了不需要的数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-2-MySQL是否在扫描额外的记录"><span class="toc-text">6.2.2 MySQL是否在扫描额外的记录</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#6-2-2-1-响应时间"><span class="toc-text">6.2.2.1 响应时间</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-2-2-2-扫描的行数和返回的行数"><span class="toc-text">6.2.2.2 扫描的行数和返回的行数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-2-2-3-扫描的行数和访问类型"><span class="toc-text">6.2.2.3 扫描的行数和访问类型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-重构查询的方式"><span class="toc-text">6.3 重构查询的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-1-一个复杂查询还是多个简单查询"><span class="toc-text">6.3.1 一个复杂查询还是多个简单查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-2-切分耗时的大查询"><span class="toc-text">6.3.2 切分耗时的大查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-3-分解关联查询（这个思想挺厉害的）"><span class="toc-text">6.3.3 分解关联查询（这个思想挺厉害的）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-查询执行的基础"><span class="toc-text">6.4 查询执行的基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-1-MySQL客户端-服务器通信协议"><span class="toc-text">6.4.1 MySQL客户端/服务器通信协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-2-查询缓存"><span class="toc-text">6.4.2 查询缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-3-查询优化处理"><span class="toc-text">6.4.3 查询优化处理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#6-4-3-1-语法解析器和处理器"><span class="toc-text">6.4.3.1 语法解析器和处理器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-4-3-2-查询优化器"><span class="toc-text">6.4.3.2 查询优化器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-4-3-3-数据和索引的统计信息"><span class="toc-text">6.4.3.3 数据和索引的统计信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-4-3-4-MySQL如何执行关联查询"><span class="toc-text">6.4.3.4 MySQL如何执行关联查询</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-4-3-5-执行计划"><span class="toc-text">6.4.3.5 执行计划</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-4-3-6-关联查询优化器"><span class="toc-text">6.4.3.6 关联查询优化器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-4-3-7-排序优化"><span class="toc-text">6.4.3.7 排序优化</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-4-查询执行引擎"><span class="toc-text">6.4.4 查询执行引擎</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-5-返回结果给客户端"><span class="toc-text">6.4.5 返回结果给客户端</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-MySQL查询优化器的局限性"><span class="toc-text">6.5 MySQL查询优化器的局限性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-6-查询优化器的提示"><span class="toc-text">6.6 查询优化器的提示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-6-1-HIGH-PRIORITY-和-LOW-PRIORITY"><span class="toc-text">6.6.1 HIGH_PRIORITY 和 LOW_PRIORITY</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-6-2-DELAYED"><span class="toc-text">6.6.2 DELAYED</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-6-3-STRAIGHT-JOIN"><span class="toc-text">6.6.3 STRAIGHT_JOIN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-6-4-SQL-SMALL-RESULT和SQL-BIG-RESULT"><span class="toc-text">6.6.4 SQL_SMALL_RESULT和SQL_BIG_RESULT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-6-5-SQL-CACHE和SQL-NO-CACHE"><span class="toc-text">6.6.5 SQL_CACHE和SQL_NO_CACHE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-6-6-SQL-CALC-FOUND-ROWS"><span class="toc-text">6.6.6 SQL_CALC_FOUND_ROWS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-6-7-FOR-UPDATE-和-LOCK-IN-SHARE-MODE"><span class="toc-text">6.6.7 FOR UPDATE 和 LOCK IN SHARE MODE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-6-8-USE-INDEX、IGNORE-INDEX和FORCE-INDEX"><span class="toc-text">6.6.8 USE INDEX、IGNORE INDEX和FORCE INDEX</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-7-优化特定类型的查询"><span class="toc-text">6.7 优化特定类型的查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-7-1-优化COUNT-查询"><span class="toc-text">6.7.1 优化COUNT()查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-7-2-优化关联查询"><span class="toc-text">6.7.2 优化关联查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-7-3-优化子查询"><span class="toc-text">6.7.3 优化子查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-7-4-优化GROUP-BY和DISTINCT"><span class="toc-text">6.7.4 优化GROUP BY和DISTINCT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-7-5-优化LIMIT分页"><span class="toc-text">6.7.5 优化LIMIT分页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-7-6-优化SQL-CALC-FOUND-ROWS"><span class="toc-text">6.7.6 优化SQL_CALC_FOUND_ROWS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-7-7-优化UNION查询"><span class="toc-text">6.7.7 优化UNION查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-7-8-使用用户自定义变量"><span class="toc-text">6.7.8 使用用户自定义变量</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-6-章-查询性能优化"><a href="#第-6-章-查询性能优化" class="headerlink" title="第 6 章 查询性能优化"></a>第 6 章 查询性能优化</h2><p><strong>查询优化</strong>、<strong>索引优化</strong>、<strong>库表结构优化</strong>需要齐头并进，一个不落。如果查询写得很糟糕，即使库表结构再合理、索引再合适，也无法实现高性能。</p>
 <h3 id="6-1-为什么查询速度会慢"><a href="#6-1-为什么查询速度会慢" class="headerlink" title="6.1 为什么查询速度会慢"></a>6.1 为什么查询速度会慢</h3><p>真正重要是<strong>响应时间</strong>。如果把查询看作是一个任务，那么它由一系列<strong>子任务</strong>组成，每个子任务都会消耗一定的时间。如果要优化查询，实际上要优化其子任务，要么<strong>消除</strong>其中一些子任务，要么<strong>减少</strong>子任务的执行<strong>次数</strong>，要么让子任务<strong>运行</strong>得更<strong>快</strong>。</p>
 <p>査询的<strong>生命周期</strong>大致可以按照顺序来看</p>
 <ul>
@@ -590,10 +595,10 @@
 <h4 id="6-7-7-优化UNION查询"><a href="#6-7-7-优化UNION查询" class="headerlink" title="6.7.7 优化UNION查询"></a>6.7.7 优化UNION查询</h4><p>除非确实需要服务器消除重复的行，否则就一定要使用<code>UNION ALL</code>，这一点很重要。如果没有ALL关键字， MySQL会给临时表加上<code>DISTINCT</code>选项，这会导致对整个临时表的数据做<strong>唯一性检查</strong>，这样做的<strong>代价非常高</strong>。</p>
 <h4 id="6-7-8-使用用户自定义变量"><a href="#6-7-8-使用用户自定义变量" class="headerlink" title="6.7.8 使用用户自定义变量"></a>6.7.8 使用用户自定义变量</h4><p>略</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -625,10 +630,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -636,10 +641,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -665,9 +670,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

@@ -42,7 +42,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -176,7 +176,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -316,47 +316,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-微服务设计-4-集成" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-微服务设计-4-集成" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [微服务设计][4][集成]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2019/06/27/微服务设计-4-集成/" class="article-date">
 	  <time datetime="2019-06-27T09:16:59.000Z" itemprop="datePublished">2019-06-27</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/微服务设计/">微服务设计</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/微服务/">微服务</a>, <a class="article-tag-link" href="/tags/微服务设计/">微服务设计</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/06/27/微服务设计-4-集成/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="4-集成"><a href="#4-集成" class="headerlink" title="4 集成"></a>4 集成</h2><p>集成是微服务相关技术中最重要的一个。做的好的话，微服务可以保持自治性，可以独立地修改和发布它们。做的不好，会带来灾难</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/06/27/微服务设计-4-集成/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-集成"><span class="toc-text">4 集成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-寻找理想地集成技术"><span class="toc-text">4.1 寻找理想地集成技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-1-避免破坏性修改"><span class="toc-text">4.1.1 避免破坏性修改</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-2-保证API的技术无关性"><span class="toc-text">4.1.2 保证API的技术无关性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-3-使你的服务易于消费者使用"><span class="toc-text">4.1.3 使你的服务易于消费者使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-4-隐藏内部实现细节"><span class="toc-text">4.1.4 隐藏内部实现细节</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-共享数据库"><span class="toc-text">4.3 共享数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-同步与异步"><span class="toc-text">4.4 同步与异步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-编排与协同"><span class="toc-text">4.5 编排与协同</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-远程方法调用"><span class="toc-text">4.6 远程方法调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7-REST"><span class="toc-text">4.7 REST</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-7-1-REST和HTTP"><span class="toc-text">4.7.1 REST和HTTP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-7-2-超媒体作为程序状态的引擎"><span class="toc-text">4.7.2 超媒体作为程序状态的引擎</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-7-3-JSON、XML还是其他"><span class="toc-text">4.7.3 JSON、XML还是其他</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-7-4-留心过多的约定"><span class="toc-text">4.7.4 留心过多的约定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-7-5-基于HTTP的REST的缺点"><span class="toc-text">4.7.5 基于HTTP的REST的缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-8-实现基于事件的异步协作方式"><span class="toc-text">4.8 实现基于事件的异步协作方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-8-1-技术选择"><span class="toc-text">4.8.1 技术选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-8-2-异步架构的复杂性"><span class="toc-text">4.8.2 异步架构的复杂性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-9-服务即状态机"><span class="toc-text">4.9 服务即状态机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-10-响应式扩展"><span class="toc-text">4.10 响应式扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-11-微服务世界中的DRY和代码重用的危险"><span class="toc-text">4.11 微服务世界中的DRY和代码重用的危险</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-12-按引用访问"><span class="toc-text">4.12 按引用访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-13-版本管理"><span class="toc-text">4.13 版本管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-13-1-尽可能延迟"><span class="toc-text">4.13.1 尽可能延迟</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-13-2-及早发现破坏性修改"><span class="toc-text">4.13.2 及早发现破坏性修改</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-13-3-使用语义化的版本管理"><span class="toc-text">4.13.3 使用语义化的版本管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-13-4-不同的接口共存"><span class="toc-text">4.13.4 不同的接口共存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-13-5-同时使用多个版本的服务"><span class="toc-text">4.13.5 同时使用多个版本的服务</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-14-用户界面"><span class="toc-text">4.14 用户界面</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-14-1-API组合"><span class="toc-text">4.14.1 API组合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-14-2-UI片段的组合"><span class="toc-text">4.14.2 UI片段的组合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-14-3-为后端服务的前端"><span class="toc-text">4.14.3 为后端服务的前端</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="4-集成"><a href="#4-集成" class="headerlink" title="4 集成"></a>4 集成</h2><p>集成是微服务相关技术中最重要的一个。做的好的话，微服务可以保持自治性，可以独立地修改和发布它们。做的不好，会带来灾难</p>
 <h3 id="4-1-寻找理想地集成技术"><a href="#4-1-寻找理想地集成技术" class="headerlink" title="4.1 寻找理想地集成技术"></a>4.1 寻找理想地集成技术</h3><h4 id="4-1-1-避免破坏性修改"><a href="#4-1-1-避免破坏性修改" class="headerlink" title="4.1.1 避免破坏性修改"></a>4.1.1 避免破坏性修改</h4><p>有时候，对某个服务做的一些修改会导致该服务的消费方也随之发生改变。后面会讨论如何处理这种情形，但是我们希望选用的技术可以尽量避免这种情况的发生。比如，如果一个微服务在一个响应中添加了一个字段，那么已有的消费方不应该受到影响</p>
 <h4 id="4-1-2-保证API的技术无关性"><a href="#4-1-2-保证API的技术无关性" class="headerlink" title="4.1.2 保证API的技术无关性"></a>4.1.2 保证API的技术无关性</h4><p>在IT中，唯一不变的就是变化。新的工具、框架、语言层出不穷。</p>
 <p>保持开放，也是引入微服务的原因。保证微服务之间通信方式的技术无关性很重要。这意味着，不应该选择那种对微服务的具体实现技术有限制的集成方式</p>
@@ -557,10 +562,10 @@
 <p><img src="/2019/06/27/微服务设计-4-集成/0627_3.png" alt=""></p>
 <p>这种模式叫做BFF(Backends For Frontends, 为前端服务的后端)。这一层专门为前端提供服务，它也是用户界面的一部分，尽管它位于服务器端，但是业务逻辑不要泄漏到这一层中</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -592,10 +597,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -603,10 +608,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -632,9 +637,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

@@ -43,7 +43,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -177,7 +177,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -317,47 +317,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-SpringBoot-7-使用性能利器Redis" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-SpringBoot-7-使用性能利器Redis" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [SpringBoot][7][使用性能利器Redis]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/02/12/SpringBoot-7-使用性能利器Redis/" class="article-date">
 	  <time datetime="2020-02-12T01:58:55.000Z" itemprop="datePublished">2020-02-12</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/SpringBoot/">SpringBoot</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/Redis/">Redis</a>, <a class="article-tag-link" href="/tags/SpringBoot/">SpringBoot</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/12/SpringBoot-7-使用性能利器Redis/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-7-章-使用性能利器Redis"><a href="#第-7-章-使用性能利器Redis" class="headerlink" title="第 7 章 使用性能利器Redis"></a>第 7 章 使用性能利器Redis</h2><p>在现今互联网应用中，<code>NoSQL</code>已经广为应用，在互联网中起到加速系统的作用。有两种<code>NoSQL</code>使用最为广泛，那就是<code>Redis</code>和<code>MongoDB</code></p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/12/SpringBoot-7-使用性能利器Redis/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-7-章-使用性能利器Redis"><span class="toc-text">第 7 章 使用性能利器Redis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-spring-data-redis项目简介"><span class="toc-text">7.1 spring-data-redis项目简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1-1-spring-data-redis项目的设计"><span class="toc-text">7.1.1 spring-data-redis项目的设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1-2-RedisTemplate"><span class="toc-text">7.1.2 RedisTemplate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1-3-Spring对Redis数据类型的封装"><span class="toc-text">7.1.3 Spring对Redis数据类型的封装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1-4-SessionCallback和RedisCallback接口"><span class="toc-text">7.1.4 SessionCallback和RedisCallback接口</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-在SpringBoot中配置和使用Redis"><span class="toc-text">7.2 在SpringBoot中配置和使用Redis</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2-1-在SpringBoot中配置Redis"><span class="toc-text">7.2.1 在SpringBoot中配置Redis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2-2-操作Redis数据类型"><span class="toc-text">7.2.2 操作Redis数据类型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-Redis的一些特殊用法"><span class="toc-text">7.3 Redis的一些特殊用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-1-使用Redis事务"><span class="toc-text">7.3.1 使用Redis事务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-2-使用Redis流水线"><span class="toc-text">7.3.2 使用Redis流水线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-3-使用Redis发布订阅"><span class="toc-text">7.3.3 使用Redis发布订阅</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-4-使用Lua脚本"><span class="toc-text">7.3.4 使用Lua脚本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-使用Spring缓存注解操作Redis"><span class="toc-text">7.4 使用Spring缓存注解操作Redis</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-4-1-缓存管理器和缓存的启用"><span class="toc-text">7.4.1 缓存管理器和缓存的启用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-4-2-开发缓存注解"><span class="toc-text">7.4.2 开发缓存注解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-4-3-测试缓存注解"><span class="toc-text">7.4.3 测试缓存注解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-4-4-缓存注解自调用失效问题"><span class="toc-text">7.4.4 缓存注解自调用失效问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-4-5-缓存脏数据说明"><span class="toc-text">7.4.5 缓存脏数据说明</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-7-章-使用性能利器Redis"><a href="#第-7-章-使用性能利器Redis" class="headerlink" title="第 7 章 使用性能利器Redis"></a>第 7 章 使用性能利器Redis</h2><p>在现今互联网应用中，<code>NoSQL</code>已经广为应用，在互联网中起到加速系统的作用。有两种<code>NoSQL</code>使用最为广泛，那就是<code>Redis</code>和<code>MongoDB</code></p>
 <p><code>Redis</code>是一种运行在内存的数据库，支持7种数据类型的存储。<code>Redis</code>是一个开源、使用<code>ANSI C</code>编写、遵循<code>BSD</code>协议、支持网络、可基于内存亦可持久化的日志型、键值数据库，并提供了多种语言的<code>API</code>。<code>Redis</code>是基于内存的、所以运行速度很快，大约是关系数据库几倍到几十倍的速度。如果我们将常用的数据存储在<code>Redis</code>中，用来代替关系数据库的查询访问，网站性能将得到大幅度提高</p>
 <p>在现实中，查询数据要远远多于更新数据，一般一个网站的更新和查询比例是<code>1:9</code>到<code>3:7</code>，在查询比例比较大的网站使用<code>Redis</code>可以数倍地提高网站的性能。</p>
 <p>除此之外，<code>Redis</code>还提供了简单的事务机制，通过事务机制可以有效保证在高并发的场景下数据的一致性。<code>Redis</code>本身数据类型比较少，命令功能也比较有限，运算能力一直不强，所以<code>Redis</code>在2.6版本之后增加了<code>Lua</code>语言的支持，这样<code>Redis</code>的运算能力就大大提高了，而且在<code>Redis</code>中<code>Lua</code>语言的执行是原子性的，也就是在<code>Redis</code>执行<code>Lua</code>时，不会被其他命令所打断，这样就保证了在高并发场景下的一致性</p>
@@ -441,10 +446,10 @@
 <p>对于数据的读操作，一般而言是允许不是实时数据，如一些电商网站还存在一些排名榜单，它会存在延迟，存在脏数据是允许的。但是如果一个脏数据始终存在就说不通了，这样会造成数据失真比较严重。一般对于查询而言，我们可以规定一个时间，让缓存失效，对于那些要求实时性比较高的数据，我们可以把缓存时间设置得更少一些，这样就会更加频繁地刷新缓存</p>
 <p>对于数据的写操作，往往采取的策略就完全不一样，需要我们谨慎一些，一般会认为缓存不可信， 所以会考虑从数据库中先读取最新数据，然后再更新数据，以避免将缓存的脏数据写入数据库中，导致出现业务问题。</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -476,10 +481,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -487,10 +492,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -516,9 +521,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

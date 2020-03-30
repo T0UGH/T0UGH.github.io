@@ -38,7 +38,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -172,7 +172,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -312,47 +312,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-树形动态规划-节点选择" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-树形动态规划-节点选择" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       树形动态规划--节点选择
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2019/03/07/树形动态规划-节点选择/" class="article-date">
 	  <time datetime="2019-03-07T07:55:25.000Z" itemprop="datePublished">2019-03-07</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/蓝桥杯/">蓝桥杯</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/动态规划/">动态规划</a>, <a class="article-tag-link" href="/tags/算法/">算法</a>, <a class="article-tag-link" href="/tags/蓝桥杯/">蓝桥杯</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/07/树形动态规划-节点选择/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="树形动态规划–节点选择"><a href="#树形动态规划–节点选择" class="headerlink" title="树形动态规划–节点选择"></a>树形动态规划–节点选择</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>有一棵 <code>n</code> 个节点的树，树上每个节点都有一个正整数权值。如果一个点被选择了，那么在树上和它相邻的点都不能被选择。求选出的点的权值和最大是多少？</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/07/树形动态规划-节点选择/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#树形动态规划–节点选择"><span class="toc-text">树形动态规划–节点选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分析"><span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#举例"><span class="toc-text">举例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-初始化状态"><span class="toc-text">1 初始化状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-后序遍历到3号节点"><span class="toc-text">2 后序遍历到3号节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-后序遍历到4号节点"><span class="toc-text">3 后序遍历到4号节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-后序遍历到5号节点"><span class="toc-text">4 后序遍历到5号节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-后序遍历到2号节点"><span class="toc-text">5 后序遍历到2号节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-后序遍历到1号节点"><span class="toc-text">6 后序遍历到1号节点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-java"><span class="toc-text">代码(java)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-转-c"><span class="toc-text">代码(转, c ++)</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="树形动态规划–节点选择"><a href="#树形动态规划–节点选择" class="headerlink" title="树形动态规划–节点选择"></a>树形动态规划–节点选择</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>有一棵 <code>n</code> 个节点的树，树上每个节点都有一个正整数权值。如果一个点被选择了，那么在树上和它相邻的点都不能被选择。求选出的点的权值和最大是多少？</p>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>此题目可以使用动态规划来求解，一个节点只有被选择和不被选择两种情况。</p>
 <p>首先构建一个名为dp的 <code>n * 2</code> 大小的矩阵，矩阵中的<code>dp[i][0]</code>表示不选择<code>i</code>节点时的权重最大值,<code>dp[i][1]</code>表示选择<code>i</code>节点时的权重最大值。最初时将矩阵中所有元素全部初始化为 <code>0</code> 。</p>
 <p>然后我们列出状态转移方程</p>
@@ -560,10 +565,10 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">100010</span>][<span class="number">2</span>];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; v;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> node, <span class="keyword">int</span> pre)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v[node].size(); i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> temp = v[node][i];</span><br><span class="line">        <span class="keyword">if</span> (temp != pre) &#123;</span><br><span class="line">            dfs(temp, node);</span><br><span class="line">            dp[node][<span class="number">0</span>] += max(dp[temp][<span class="number">0</span>], dp[temp][<span class="number">1</span>]);</span><br><span class="line">            dp[node][<span class="number">1</span>] += dp[temp][<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, a, b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;dp[i][<span class="number">1</span>]);</span><br><span class="line">    v.resize(n + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">        v[a].push_back(b);</span><br><span class="line">        v[b].push_back(a);</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; max(dp[<span class="number">1</span>][<span class="number">0</span>], dp[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>另: 柳神是我的!!!</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -595,10 +600,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -606,10 +611,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -635,9 +640,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

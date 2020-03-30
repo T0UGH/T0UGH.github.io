@@ -40,7 +40,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -174,7 +174,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -314,47 +314,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-SpringBoot-15-SpringBoot处理高并发" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-SpringBoot-15-SpringBoot处理高并发" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [SpringBoot][15][SpringBoot处理高并发]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/02/22/SpringBoot-15-SpringBoot处理高并发/" class="article-date">
 	  <time datetime="2020-02-22T13:31:52.000Z" itemprop="datePublished">2020-02-22</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/SpringBoot/">SpringBoot</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/Redis/">Redis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/22/SpringBoot-15-SpringBoot处理高并发/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-15-章-SpringBoot处理高并发"><a href="#第-15-章-SpringBoot处理高并发" class="headerlink" title="第 15 章 SpringBoot处理高并发"></a>第 15 章 SpringBoot处理高并发</h2><p>在企业实际应用中，会遇到很多高并发场景，最典型的例子就是双十一的抢购。这时候，如果仅仅按照之前简单的方式进行处理，不仅性能无法保证，而且有可能导致数据库某些数据的超发。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/22/SpringBoot-15-SpringBoot处理高并发/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-15-章-SpringBoot处理高并发"><span class="toc-text">第 15 章 SpringBoot处理高并发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#15-1-悲观锁"><span class="toc-text">15.1 悲观锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-2-乐观锁"><span class="toc-text">15.2 乐观锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-3-使用Redis处理高并发"><span class="toc-text">15.3 使用Redis处理高并发</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-15-章-SpringBoot处理高并发"><a href="#第-15-章-SpringBoot处理高并发" class="headerlink" title="第 15 章 SpringBoot处理高并发"></a>第 15 章 SpringBoot处理高并发</h2><p>在企业实际应用中，会遇到很多高并发场景，最典型的例子就是双十一的抢购。这时候，如果仅仅按照之前简单的方式进行处理，不仅性能无法保证，而且有可能导致数据库某些数据的超发。</p>
 <p>下图演示了超发的一种情况</p>
 <p><img src="/2020/02/22/SpringBoot-15-SpringBoot处理高并发/200221_2.png" alt=""></p>
 <p>为此，我们提供了三种高并发场景下的方案：悲观锁、乐观锁和使用Redis</p>
@@ -379,10 +384,10 @@
 <li>此外，因为Redis基于内存，为了防止数据丢失，设置一个定时任务，定时将数据从Redis存入数据库。</li>
 </ul>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -414,10 +419,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -425,10 +430,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -454,9 +459,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

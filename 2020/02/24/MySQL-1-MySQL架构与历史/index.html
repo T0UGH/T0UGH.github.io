@@ -41,7 +41,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -175,7 +175,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -315,47 +315,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-MySQL-1-MySQL架构与历史" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-MySQL-1-MySQL架构与历史" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [MySQL][1][MySQL架构与历史]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/02/24/MySQL-1-MySQL架构与历史/" class="article-date">
 	  <time datetime="2020-02-24T15:10:04.000Z" itemprop="datePublished">2020-02-24</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/MySQL/">MySQL</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/MySQL/">MySQL</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/24/MySQL-1-MySQL架构与历史/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-1-章-MySQL架构与历史"><a href="#第-1-章-MySQL架构与历史" class="headerlink" title="第 1 章 MySQL架构与历史"></a>第 1 章 MySQL架构与历史</h2><p>和其他数据库系统相比， MySQL有点与众不同，它的架构可以在多种不同场景中应用并发挥好的作用。 MySQL并不完美，却足够灵活，能够适应高要求的环境。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/24/MySQL-1-MySQL架构与历史/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-1-章-MySQL架构与历史"><span class="toc-text">第 1 章 MySQL架构与历史</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-MySQL逻辑架构"><span class="toc-text">1.1 MySQL逻辑架构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-1-连接管理与安全性"><span class="toc-text">1.1.1 连接管理与安全性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-2-优化与执行"><span class="toc-text">1.1.2 优化与执行</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-并发控制"><span class="toc-text">1.2 并发控制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-读写锁"><span class="toc-text">1.2.1 读写锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-锁粒度"><span class="toc-text">1.2.2 锁粒度</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-2-1-表锁（table-lock）"><span class="toc-text">1.2.2.1 表锁（table lock）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-2-2-行级锁（row-lock）"><span class="toc-text">1.2.2.2 行级锁（row lock）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-事务"><span class="toc-text">1.3 事务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-隔离级别"><span class="toc-text">1.3.1 隔离级别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-死锁"><span class="toc-text">1.3.2 死锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3-事务日志"><span class="toc-text">1.3.3 事务日志</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-4-MySQL中的事务"><span class="toc-text">1.3.4 MySQL中的事务</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-4-1-自动提交"><span class="toc-text">1.3.4.1 自动提交</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-4-2-在事务中混合使用存储引擎"><span class="toc-text">1.3.4.2 在事务中混合使用存储引擎</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-4-3-隐式和显式锁定"><span class="toc-text">1.3.4.3 隐式和显式锁定</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-多版本控制"><span class="toc-text">1.4 多版本控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-MySQL的存储引擎"><span class="toc-text">1.5 MySQL的存储引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-1-InnoDB存储引擎"><span class="toc-text">1.5.1 InnoDB存储引擎</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-2-MyISAM存储引擎"><span class="toc-text">1.5.2 MyISAM存储引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-2-1-存储"><span class="toc-text">1.5.2.1 存储</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-2-2-MyISAM特性"><span class="toc-text">1.5.2.2 MyISAM特性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-2-3-MyISAM压缩表"><span class="toc-text">1.5.2.3 MyISAM压缩表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-2-4-MyISAM性能"><span class="toc-text">1.5.2.4 MyISAM性能</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-3-MySQL内建的其他存储引擎"><span class="toc-text">1.5.3 MySQL内建的其他存储引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-3-1-Archive引擎"><span class="toc-text">1.5.3.1 Archive引擎</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-3-2-Blackhole引擎"><span class="toc-text">1.5.3.2 Blackhole引擎</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-3-3-CSV引擎"><span class="toc-text">1.5.3.3 CSV引擎</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-3-4-Federated引擎"><span class="toc-text">1.5.3.4 Federated引擎</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-3-5-Memory引擎"><span class="toc-text">1.5.3.5 Memory引擎</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-3-6-Merge引擎"><span class="toc-text">1.5.3.6 Merge引擎</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-3-7-NDB集群引擎"><span class="toc-text">1.5.3.7 NDB集群引擎</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-4-第三方存储引擎"><span class="toc-text">1.5.4 第三方存储引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-4-1-OLTP类引擎"><span class="toc-text">1.5.4.1 OLTP类引擎</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-4-2-面向列的存储引擎"><span class="toc-text">1.5.4.2 面向列的存储引擎</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-5-选择合适的引擎"><span class="toc-text">1.5.5 选择合适的引擎</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-6-转换表的引擎"><span class="toc-text">1.5.6 转换表的引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-6-1-ALTER-TABLE"><span class="toc-text">1.5.6.1 ALTER TABLE</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-6-2-导出与导入"><span class="toc-text">1.5.6.2 导出与导入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-6-3-创建与查询-CREATE和SELECT"><span class="toc-text">1.5.6.3 创建与查询(CREATE和SELECT)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-MySQL的开发模式"><span class="toc-text">1.6 MySQL的开发模式</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-1-章-MySQL架构与历史"><a href="#第-1-章-MySQL架构与历史" class="headerlink" title="第 1 章 MySQL架构与历史"></a>第 1 章 MySQL架构与历史</h2><p>和其他数据库系统相比， MySQL有点与众不同，它的架构可以在多种不同场景中应用并发挥好的作用。 MySQL并不完美，却足够灵活，能够适应高要求的环境。</p>
 <p>MySQL最重要、最与众不同的特性是它的存储引擎架构这种架构的设计将<strong>查询</strong>处理（ Query Processing）及其他系统任务（Server Task）和数据的<strong>存储/提取</strong>相分离。这种处理和存储分离的设计可以在使用时根据性能、特性来选择数据存储的方式。</p>
 <h3 id="1-1-MySQL逻辑架构"><a href="#1-1-MySQL逻辑架构" class="headerlink" title="1.1 MySQL逻辑架构"></a>1.1 MySQL逻辑架构</h3><p>MySQL的逻辑架构图如下所示</p>
 <p><img src="/2020/02/24/MySQL-1-MySQL架构与历史/200224_0.png" alt=""></p>
@@ -549,10 +554,10 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">innodb</span> <span class="keyword">table</span> <span class="keyword">LIKE</span> myisam <span class="keyword">table</span>; </span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="keyword">innodb</span> <span class="keyword">table</span> <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>; </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">innodb</span> <span class="keyword">table</span> <span class="keyword">SELECT</span> <span class="keyword">FROM</span> mmyisam <span class="keyword">table</span>;</span><br></pre></td></tr></table></figure>
 <h3 id="1-6-MySQL的开发模式"><a href="#1-6-MySQL的开发模式" class="headerlink" title="1.6 MySQL的开发模式"></a>1.6 MySQL的开发模式</h3><p>MySQL依然遵循GPL开源协议，全部的源代码都会开放给社区。现在Oracle为付费用户提供了一些服务器插件，但是没有这些插件，MySQL也是功能完整的数据库。</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -584,10 +589,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -595,10 +600,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -624,9 +629,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

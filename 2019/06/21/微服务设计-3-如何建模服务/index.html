@@ -40,7 +40,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -174,7 +174,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -314,47 +314,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-微服务设计-3-如何建模服务" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-微服务设计-3-如何建模服务" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [微服务设计][3][如何建模服务]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2019/06/21/微服务设计-3-如何建模服务/" class="article-date">
 	  <time datetime="2019-06-21T09:22:00.000Z" itemprop="datePublished">2019-06-21</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/微服务设计/">微服务设计</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/微服务/">微服务</a>, <a class="article-tag-link" href="/tags/微服务设计/">微服务设计</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/06/21/微服务设计-3-如何建模服务/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="3-如何建模服务"><a href="#3-如何建模服务" class="headerlink" title="3 如何建模服务"></a>3 如何建模服务</h2><blockquote>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/06/21/微服务设计-3-如何建模服务/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-如何建模服务"><span class="toc-text">3 如何建模服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-什么样的服务是好服务"><span class="toc-text">3.1 什么样的服务是好服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-松耦合"><span class="toc-text">3.1.1 松耦合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-高内聚"><span class="toc-text">3.1.2 高内聚</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-限界上下文"><span class="toc-text">3.2 限界上下文</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-共享的隐藏模型"><span class="toc-text">3.2.1 共享的隐藏模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-模块和服务"><span class="toc-text">3.2.1 模块和服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-过早划分"><span class="toc-text">3.2.3 过早划分</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-业务功能"><span class="toc-text">3.3 业务功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-逐步划分上下文"><span class="toc-text">3.4 逐步划分上下文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-关于业务概念的沟通"><span class="toc-text">3.5 关于业务概念的沟通</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-技术边界"><span class="toc-text">3.6 技术边界</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="3-如何建模服务"><a href="#3-如何建模服务" class="headerlink" title="3 如何建模服务"></a>3 如何建模服务</h2><blockquote>
 <p>对手的论证让我想到了异教徒。当别人问异教徒世界是由什么支撑时，他说:”一只乌龟。”别人再问他:”那乌龟是由什么支撑呢?”他回答:”另一只乌龟。”</p>
 </blockquote>
 <h3 id="3-1-什么样的服务是好服务"><a href="#3-1-什么样的服务是好服务" class="headerlink" title="3.1 什么样的服务是好服务"></a>3.1 什么样的服务是好服务</h3><h4 id="3-1-1-松耦合"><a href="#3-1-1-松耦合" class="headerlink" title="3.1.1 松耦合"></a>3.1.1 松耦合</h4><p>如果做到服务之间的松耦合，那么修改一个服务就不需要修改另一个服务。使用微服务最重要的一点就是，能够独立修改及部署单个服务而不需要修改系统的其他部分</p>
@@ -375,10 +380,10 @@
 <h3 id="3-6-技术边界"><a href="#3-6-技术边界" class="headerlink" title="3.6 技术边界"></a>3.6 技术边界</h3><p>按照地理位置或者技术接缝对单块系统进行划分是不合理的，例如下图</p>
 <p><img src="/2019/06/21/微服务设计-3-如何建模服务/0621_2.png" alt=""></p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -410,10 +415,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -421,10 +426,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -450,9 +455,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

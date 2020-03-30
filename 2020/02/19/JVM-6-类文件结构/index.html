@@ -38,7 +38,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -172,7 +172,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -312,47 +312,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-JVM-6-类文件结构" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-JVM-6-类文件结构" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [JVM][6][类文件结构]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/02/19/JVM-6-类文件结构/" class="article-date">
 	  <time datetime="2020-02-19T12:32:35.000Z" itemprop="datePublished">2020-02-19</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/jvm/">jvm</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/java/">java</a>, <a class="article-tag-link" href="/tags/jvm/">jvm</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/19/JVM-6-类文件结构/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-6-章-类文件结构"><a href="#第-6-章-类文件结构" class="headerlink" title="第 6 章 类文件结构"></a>第 6 章 类文件结构</h2><h3 id="6-1-概述"><a href="#6-1-概述" class="headerlink" title="6.1 概述"></a>6.1 概述</h3><p>近几年内涌现了大量虚拟机以及大量建立在虚拟机上的程序设计语言，把编写的程序编译成二进制本地机器码(Native Code)不再是唯一选择，越来越多的程序语言选择了与操作系统和机器指令集无关的、平台中立的格式作为程序编译后的存储格式</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/19/JVM-6-类文件结构/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-6-章-类文件结构"><span class="toc-text">第 6 章 类文件结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-概述"><span class="toc-text">6.1 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-无关性的基石"><span class="toc-text">6.2 无关性的基石</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-Class类文件结构"><span class="toc-text">6.3 Class类文件结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-1-魔数和Class文件的版本"><span class="toc-text">6.3.1 魔数和Class文件的版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-2-常量池"><span class="toc-text">6.3.2 常量池</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-3-访问标志"><span class="toc-text">6.3.3 访问标志</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-4-类索引、父类索引与结构索引集合"><span class="toc-text">6.3.4 类索引、父类索引与结构索引集合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-5-字段表集合"><span class="toc-text">6.3.5 字段表集合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-6-方法表集合"><span class="toc-text">6.3.6 方法表集合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-7-属性表集合"><span class="toc-text">6.3.7 属性表集合</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-Code属性"><span class="toc-text">1 Code属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-Exceptions属性"><span class="toc-text">2 Exceptions属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-LineNumberTable属性"><span class="toc-text">3 LineNumberTable属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-LocalVaribleTable属性"><span class="toc-text">4 LocalVaribleTable属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-SourceFile及SourceDebugExtension"><span class="toc-text">5 SourceFile及SourceDebugExtension</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-ConstantValue"><span class="toc-text">6 ConstantValue</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-InnerClass"><span class="toc-text">7 InnerClass</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#8-Deprecated及Synthetic属性"><span class="toc-text">8 Deprecated及Synthetic属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#9-Signature"><span class="toc-text">9 Signature</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#10-运行时的注解相关属性"><span class="toc-text">10 运行时的注解相关属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-字节码指令简介"><span class="toc-text">6.4 字节码指令简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-1-字节码与数据类型"><span class="toc-text">6.4.1 字节码与数据类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-2-操作数栈"><span class="toc-text">6.4.2 操作数栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-3-加载和存储指令"><span class="toc-text">6.4.3 加载和存储指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-4-运算指令"><span class="toc-text">6.4.4 运算指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-5-类型转换指令"><span class="toc-text">6.4.5 类型转换指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-6-对象创建与访问指令"><span class="toc-text">6.5.6 对象创建与访问指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-7-操作数栈管理指令"><span class="toc-text">6.5.7 操作数栈管理指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-8-控制转移指令"><span class="toc-text">6.5.8 控制转移指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-9-方法调用和返回指令"><span class="toc-text">6.5.9 方法调用和返回指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-10-异常处理指令"><span class="toc-text">6.5.10 异常处理指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-11-同步指令"><span class="toc-text">6.5.11 同步指令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-公有设计，私有实现"><span class="toc-text">6.5 公有设计，私有实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-6-Class文件结构的发展"><span class="toc-text">6.6 Class文件结构的发展</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-6-章-类文件结构"><a href="#第-6-章-类文件结构" class="headerlink" title="第 6 章 类文件结构"></a>第 6 章 类文件结构</h2><h3 id="6-1-概述"><a href="#6-1-概述" class="headerlink" title="6.1 概述"></a>6.1 概述</h3><p>近几年内涌现了大量虚拟机以及大量建立在虚拟机上的程序设计语言，把编写的程序编译成二进制本地机器码(Native Code)不再是唯一选择，越来越多的程序语言选择了与操作系统和机器指令集无关的、平台中立的格式作为程序编译后的存储格式</p>
 <h3 id="6-2-无关性的基石"><a href="#6-2-无关性的基石" class="headerlink" title="6.2 无关性的基石"></a>6.2 无关性的基石</h3><p>各种各样的针对不同操作系统设计的Java虚拟机，载入和执行一种与平台无关的字节码，就实现了“一次编写，到处运行”。因此，各个不同平台的Java虚拟机以及所有平台都统一支持的程序存储格式——字节码（Byte Code）是构成平台无关性的基石。</p>
 <p>除此之外还出现了大量运行在Java虚拟机之上的语言，比如Kotlin、Clojure、Groovy等，使得Java虚拟机逐渐具备语言无关性</p>
 <p>Java虚拟机不与任何程序语言绑定，它只与<code>Class</code>文件这种特定的二进制文件格式所关联，<code>Class</code>文件中包含了<code>Java</code>虚拟机指令集、符号表以及若干其他辅助信息。图灵完备的字节码格式，保证了任何一门功能性语言都可以表示为一个能被Java虚拟机所接受的<code>Class</code>文件，如下图</p>
@@ -437,10 +442,10 @@
 <h3 id="6-6-Class文件结构的发展"><a href="#6-6-Class文件结构的发展" class="headerlink" title="6.6 Class文件结构的发展"></a>6.6 Class文件结构的发展</h3><p>Class文件结构自Java虚拟机规范第1版订立以来，已经有二十多年的历史。这十多年间， Java技术体系有了翻天覆地的改变， Class文件结构一直处于比较稳定的状态， Class文件的主体结构、字节码指令的语义和数量几乎没有出现过变动，所有对 Class文件格式的改进，都集中在向访问标志、属性表这些在设计上就可扩展的数据结构中添加内容。</p>
 <p>Class文件格式所具备的平台中立（不依赖于特定硬件及操作系统）、紧凑、稳定和可扩展的特点，是Java技术体系实现平台无关、语言无关两项特性的重要支柱。</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -472,10 +477,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -483,10 +488,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -512,9 +517,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

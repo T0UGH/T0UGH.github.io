@@ -36,7 +36,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -170,7 +170,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -310,47 +310,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-SSM-10-装配SpringBean" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-SSM-10-装配SpringBean" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [SSM][10][装配SpringBean]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2019/12/25/SSM-10-装配SpringBean/" class="article-date">
 	  <time datetime="2019-12-25T05:01:39.000Z" itemprop="datePublished">2019-12-25</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/SSM/">SSM</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/Spring/">Spring</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/12/25/SSM-10-装配SpringBean/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="10-装配SpringBean"><a href="#10-装配SpringBean" class="headerlink" title="10 装配SpringBean"></a>10 装配SpringBean</h2><h3 id="10-1-依赖注入的3种方式"><a href="#10-1-依赖注入的3种方式" class="headerlink" title="10.1 依赖注入的3种方式"></a>10.1 依赖注入的3种方式</h3><ul>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/12/25/SSM-10-装配SpringBean/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#10-装配SpringBean"><span class="toc-text">10 装配SpringBean</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10-1-依赖注入的3种方式"><span class="toc-text">10.1 依赖注入的3种方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#10-1-构造器注入"><span class="toc-text">10.1 构造器注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-1-2-使用setter注入"><span class="toc-text">10.1.2 使用setter注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-1-3-接口注入"><span class="toc-text">10.1.3 接口注入</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-2-装配Bean概述"><span class="toc-text">10.2 装配Bean概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-3-通过XML配置装配Bean"><span class="toc-text">10.3 通过XML配置装配Bean</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#10-3-1-装配简易值"><span class="toc-text">10.3.1 装配简易值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-3-2-装配集合"><span class="toc-text">10.3.2 装配集合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-3-3-命名空间装配"><span class="toc-text">10.3.3 命名空间装配</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-4-通过注解装配Bean"><span class="toc-text">10.4 通过注解装配Bean</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#10-4-1-使用-Component装配Bean"><span class="toc-text">10.4.1 使用@Component装配Bean</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-4-2-自动装配-Autowired"><span class="toc-text">10.4.2 自动装配---@Autowired</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-4-3-自动装配的歧义性-Primary和-Quaifier"><span class="toc-text">10.4.3 自动装配的歧义性(@Primary和@Quaifier)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-4-4-装载带有参数的构造方法类"><span class="toc-text">10.4.4 装载带有参数的构造方法类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-4-5-使用-Bean装配Bean"><span class="toc-text">10.4.5 使用@Bean装配Bean</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-5-装配的混合使用"><span class="toc-text">10.5 装配的混合使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-6-使用Profile"><span class="toc-text">10.6 使用Profile</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#10-6-1-使用注解-Profile配置"><span class="toc-text">10.6.1 使用注解@Profile配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-6-2-使用xml定义Profile"><span class="toc-text">10.6.2 使用xml定义Profile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-6-3-启动Profile"><span class="toc-text">10.6.3 启动Profile</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-7-加载属性-properties-文件"><span class="toc-text">10.7 加载属性(properties)文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-8-条件化装配Bean"><span class="toc-text">10.8 条件化装配Bean</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-9-Bean的作用域"><span class="toc-text">10.9 Bean的作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-10-使用Spring表达式-SpringEL"><span class="toc-text">10.10 使用Spring表达式(SpringEL)</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="10-装配SpringBean"><a href="#10-装配SpringBean" class="headerlink" title="10 装配SpringBean"></a>10 装配SpringBean</h2><h3 id="10-1-依赖注入的3种方式"><a href="#10-1-依赖注入的3种方式" class="headerlink" title="10.1 依赖注入的3种方式"></a>10.1 依赖注入的3种方式</h3><ul>
 <li><p>Spring主要使用依赖注入的方式来完成IoC</p>
 </li>
 <li><p>依赖注入可以分为3种方式</p>
@@ -640,10 +645,10 @@
 </ul>
 <p>也就是为注解提供一定的逻辑运算功能，具体使用方式略</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -675,10 +680,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -686,10 +691,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -715,9 +720,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

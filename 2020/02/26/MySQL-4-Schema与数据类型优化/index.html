@@ -39,7 +39,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -173,7 +173,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -313,47 +313,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-MySQL-4-Schema与数据类型优化" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-MySQL-4-Schema与数据类型优化" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [MySQL][4][Schema与数据类型优化]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/02/26/MySQL-4-Schema与数据类型优化/" class="article-date">
 	  <time datetime="2020-02-26T03:36:41.000Z" itemprop="datePublished">2020-02-26</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/MySQL/">MySQL</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/MySQL/">MySQL</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/26/MySQL-4-Schema与数据类型优化/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-4-章-Schema与数据类型优化"><a href="#第-4-章-Schema与数据类型优化" class="headerlink" title="第 4 章 Schema与数据类型优化"></a>第 4 章 Schema与数据类型优化</h2><p>良好的逻辑设计和物理设计是高性能的基石，应该根据系统将要执行的查询语句来设计schema，这往往需要权衡各种因素。例如，反范式的设计可以加快某些类型的查询，但同时可能使另一些类型的查询变慢。比如添加计数表和汇总表是一种很好的优化查询的方式但这些表的维护成本可能会很高。 </p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/26/MySQL-4-Schema与数据类型优化/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-4-章-Schema与数据类型优化"><span class="toc-text">第 4 章 Schema与数据类型优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-选择优化的数据类型"><span class="toc-text">4.1 选择优化的数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-1-整数类型"><span class="toc-text">4.1.1 整数类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-2-实数类型"><span class="toc-text">4.1.2 实数类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-3-字符串类型"><span class="toc-text">4.1.3 字符串类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-3-1-VARCHAR类型"><span class="toc-text">4.1.3.1 VARCHAR类型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-3-2-CHAR类型"><span class="toc-text">4.1.3.2 CHAR类型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-3-3-BLOB和TEXT类型"><span class="toc-text">4.1.3.3 BLOB和TEXT类型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-3-4-使用枚举（ENUM）代替字符串类型"><span class="toc-text">4.1.3.4 使用枚举（ENUM）代替字符串类型</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-4-日期和时间类型"><span class="toc-text">4.1.4 日期和时间类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-4-1-DATETIME"><span class="toc-text">4.1.4.1 DATETIME</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-4-2-TIMESTAMP"><span class="toc-text">4.1.4.2 TIMESTAMP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-5-位数据类型"><span class="toc-text">4.1.5 位数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-5-1-BIT"><span class="toc-text">4.1.5.1 BIT</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-5-2-SET"><span class="toc-text">4.1.5.2 SET</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-6-选择标识符"><span class="toc-text">4.1.6 选择标识符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-7-特殊类型数据"><span class="toc-text">4.1.7 特殊类型数据</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-MySQL-schema-设计中的陷阱"><span class="toc-text">4.2 MySQL schema 设计中的陷阱</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-太多的列"><span class="toc-text">4.2.1 太多的列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-太多的关联"><span class="toc-text">4.2.2 太多的关联</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-3-全能的枚举"><span class="toc-text">4.2.3 全能的枚举</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-4-变相的枚举"><span class="toc-text">4.2.4 变相的枚举</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-5-比NULL更差的不可能值"><span class="toc-text">4.2.5 比NULL更差的不可能值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-范式与反范式"><span class="toc-text">4.3 范式与反范式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-1-范式的优点和缺点"><span class="toc-text">4.3.1 范式的优点和缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-2-反范式的优点与缺点"><span class="toc-text">4.3.2 反范式的优点与缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-3-混用范式化与反范式化"><span class="toc-text">4.3.3 混用范式化与反范式化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-计数器表"><span class="toc-text">4.4 计数器表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-更快地读，更慢地写"><span class="toc-text">4.5 更快地读，更慢地写</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-4-章-Schema与数据类型优化"><a href="#第-4-章-Schema与数据类型优化" class="headerlink" title="第 4 章 Schema与数据类型优化"></a>第 4 章 Schema与数据类型优化</h2><p>良好的逻辑设计和物理设计是高性能的基石，应该根据系统将要执行的查询语句来设计schema，这往往需要权衡各种因素。例如，反范式的设计可以加快某些类型的查询，但同时可能使另一些类型的查询变慢。比如添加计数表和汇总表是一种很好的优化查询的方式但这些表的维护成本可能会很高。 </p>
 <h3 id="4-1-选择优化的数据类型"><a href="#4-1-选择优化的数据类型" class="headerlink" title="4.1 选择优化的数据类型"></a>4.1 选择优化的数据类型</h3><p>不管存储哪种类型的数据，下面几个简单的原则都有助于做出更好的选择。</p>
 <ul>
 <li><p>更小的逋常更好。</p>
@@ -483,10 +488,10 @@
 <p>然后预先在这张表增加10行数据。现在选择一个随机的槽（slot）进行更新<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> hit_counter <span class="keyword">SET</span> cnt = cnt + <span class="number">1</span> <span class="keyword">WHERE</span> slot = <span class="keyword">RAND</span>() * <span class="number">100</span>;</span><br></pre></td></tr></table></figure></p>
 <h3 id="4-5-更快地读，更慢地写"><a href="#4-5-更快地读，更慢地写" class="headerlink" title="4.5 更快地读，更慢地写"></a>4.5 更快地读，更慢地写</h3><p>为了提升读查询的速度，经常会需要建一些额外索引，增加冗余列，甚至是创建缓存表和汇总表。这些方法会增加写查询的负担，也需要额外的维护任务，但在设计高性能数据库时，这些都是常见的技巧：虽然写操作变得更慢了，但更显著地提高了读操作的性能。</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -518,10 +523,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -529,10 +534,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -558,9 +563,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

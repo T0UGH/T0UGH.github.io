@@ -50,7 +50,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -184,7 +184,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -324,47 +324,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-算法导论-15-动态规划" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-算法导论-15-动态规划" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       算法导论[15][动态规划]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2019/03/11/算法导论-15-动态规划/" class="article-date">
 	  <time datetime="2019-03-11T07:54:50.000Z" itemprop="datePublished">2019-03-11</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/算法导论/">算法导论</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/动态规划/">动态规划</a>, <a class="article-tag-link" href="/tags/算法导论/">算法导论</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/11/算法导论-15-动态规划/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第15章-动态规划"><a href="#第15章-动态规划" class="headerlink" title="第15章 动态规划"></a>第15章 动态规划</h2><p><strong>动态规划</strong>(dynamic programming)与分治方法相似，都是通过组合子问题的解来求解原问题。分治方法是将问题划分为互不相交的子问题，递归地求解子问题，再将它们的解结合起来，求出原问题的解。与之相反，动态规划用于子问题重叠的情况，即不同的子问题具有公共的子子问题。动态规划算法对每个子问题只求解一次，将其解保存到一个表格中，从而无需每次求解一个子子问题时都重新计算，避免了这种不必要的计算工作</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/11/算法导论-15-动态规划/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第15章-动态规划"><span class="toc-text">第15章 动态规划</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#15-1-钢条切割"><span class="toc-text">15.1 钢条切割</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题分析"><span class="toc-text">问题分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方案1—使用自顶向下的递归方法求解"><span class="toc-text">解决方案1—使用自顶向下的递归方法求解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方案2—使用动态规划方法求解最优钢条切割问题"><span class="toc-text">解决方案2—使用动态规划方法求解最优钢条切割问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#子问题图"><span class="toc-text">子问题图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-2-矩阵链乘法"><span class="toc-text">15.2 矩阵链乘法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题描述-1"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#计算括号化方案的数量"><span class="toc-text">计算括号化方案的数量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#应用动态规划方法"><span class="toc-text">应用动态规划方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#步骤1-最优括号化方案的结构特征-寻找最优子结构"><span class="toc-text">步骤1 : 最优括号化方案的结构特征(寻找最优子结构)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#步骤2-一个递归求解方案-递归地定义最优解的值"><span class="toc-text">步骤2 : 一个递归求解方案(递归地定义最优解的值)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#步骤3-计算最优代价"><span class="toc-text">步骤3 : 计算最优代价</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#步骤4-构建最优解"><span class="toc-text">步骤4: 构建最优解</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-3-动态规划原理"><span class="toc-text">15.3 动态规划原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#最优子结构"><span class="toc-text">最优子结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一些微妙之处—-子问题无关性"><span class="toc-text">一些微妙之处—-子问题无关性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#重叠子问题"><span class="toc-text">重叠子问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#重构最优解"><span class="toc-text">重构最优解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#备忘"><span class="toc-text">备忘</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-4-最长公共子序列"><span class="toc-text">15.4 最长公共子序列</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题定义"><span class="toc-text">问题定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤1-刻画最大公共子序列的特征"><span class="toc-text">步骤1: 刻画最大公共子序列的特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤2-一个递归的求解方案"><span class="toc-text">步骤2: 一个递归的求解方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤3-计算LCS的长度"><span class="toc-text">步骤3: 计算LCS的长度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤4-构造LCS"><span class="toc-text">步骤4: 构造LCS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#算法改进"><span class="toc-text">算法改进</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第15章-动态规划"><a href="#第15章-动态规划" class="headerlink" title="第15章 动态规划"></a>第15章 动态规划</h2><p><strong>动态规划</strong>(dynamic programming)与分治方法相似，都是通过组合子问题的解来求解原问题。分治方法是将问题划分为互不相交的子问题，递归地求解子问题，再将它们的解结合起来，求出原问题的解。与之相反，动态规划用于子问题重叠的情况，即不同的子问题具有公共的子子问题。动态规划算法对每个子问题只求解一次，将其解保存到一个表格中，从而无需每次求解一个子子问题时都重新计算，避免了这种不必要的计算工作</p>
 <p>动态规划方法通常用来求解<strong>最优化问题</strong>。这类问题可以有很多可行解，每个解都有一个值，我们希望寻找具有最优值的解。我们称这个解为问题的一个最优解</p>
 <p>我们按照如下4个步骤来设计一个动态规划算法</p>
 <ol>
@@ -494,10 +499,10 @@
 <h4 id="步骤4-构造LCS"><a href="#步骤4-构造LCS" class="headerlink" title="步骤4: 构造LCS"></a>步骤4: 构造LCS</h4><p>略</p>
 <h4 id="算法改进"><a href="#算法改进" class="headerlink" title="算法改进"></a>算法改进</h4><p>略</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -529,10 +534,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -540,10 +545,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -569,9 +574,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

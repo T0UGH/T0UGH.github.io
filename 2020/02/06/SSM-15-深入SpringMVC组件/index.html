@@ -45,7 +45,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -179,7 +179,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -319,47 +319,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-SSM-15-深入SpringMVC组件" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-SSM-15-深入SpringMVC组件" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [SSM][15][深入SpringMVC组件]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/02/06/SSM-15-深入SpringMVC组件/" class="article-date">
 	  <time datetime="2020-02-06T06:56:32.000Z" itemprop="datePublished">2020-02-06</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/SSM/">SSM</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/SpringMVC/">SpringMVC</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/06/SSM-15-深入SpringMVC组件/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-15-章-深入SpringMVC组件开发"><a href="#第-15-章-深入SpringMVC组件开发" class="headerlink" title="第 15 章 深入SpringMVC组件开发"></a>第 15 章 深入<code>SpringMVC</code>组件开发</h2><p>本章将对工作和学习中常用的组件进行讨论</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/06/SSM-15-深入SpringMVC组件/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-15-章-深入SpringMVC组件开发"><span class="toc-text">第 15 章 深入SpringMVC组件开发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#15-1-控制器接收各类请求参数"><span class="toc-text">15.1 控制器接收各类请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#15-1-1-接收普通请求参数"><span class="toc-text">15.1.1 接收普通请求参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-1-2-使用-RequestParam注解获取参数"><span class="toc-text">15.1.2 使用@RequestParam注解获取参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-1-3-使用URL传递参数"><span class="toc-text">15.1.3 使用URL传递参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-1-4-传递JSON参数"><span class="toc-text">15.1.4 传递JSON参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-1-5-接收列表数据和表单序列化"><span class="toc-text">15.1.5 接收列表数据和表单序列化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-2-重定向"><span class="toc-text">15.2 重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-3-保存并获取属性参数"><span class="toc-text">15.3 保存并获取属性参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#15-3-1-注解-RequestAttribute"><span class="toc-text">15.3.1 注解@RequestAttribute</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-3-2-注解-SessionAttribute和注解-SessionAttributes"><span class="toc-text">15.3.2 注解@SessionAttribute和注解@SessionAttributes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-3-3-注解-CookieValue和注解-RequestHeader"><span class="toc-text">15.3.3 注解@CookieValue和注解@RequestHeader</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-4-拦截器"><span class="toc-text">15.4 拦截器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#15-4-1-拦截器的定义"><span class="toc-text">15.4.1 拦截器的定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-4-2-拦截器的执行流程"><span class="toc-text">15.4.2 拦截器的执行流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-4-3-开发拦截器"><span class="toc-text">15.4.3 开发拦截器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-4-4-多个拦截器的执行顺序"><span class="toc-text">15.4.4 多个拦截器的执行顺序</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-5-验证表单"><span class="toc-text">15.5 验证表单</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#15-5-1-使用JSR300注解验证输入内容"><span class="toc-text">15.5.1 使用JSR300注解验证输入内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-5-2-使用验证器"><span class="toc-text">15.5.2 使用验证器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-6-数据模型"><span class="toc-text">15.6 数据模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-7-视图和视图解析器"><span class="toc-text">15.7 视图和视图解析器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#15-7-1-视图"><span class="toc-text">15.7.1 视图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-7-2-视图解析器"><span class="toc-text">15.7.2 视图解析器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-8-上传文件"><span class="toc-text">15.8 上传文件</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-15-章-深入SpringMVC组件开发"><a href="#第-15-章-深入SpringMVC组件开发" class="headerlink" title="第 15 章 深入SpringMVC组件开发"></a>第 15 章 深入<code>SpringMVC</code>组件开发</h2><p>本章将对工作和学习中常用的组件进行讨论</p>
 <h3 id="15-1-控制器接收各类请求参数"><a href="#15-1-控制器接收各类请求参数" class="headerlink" title="15.1 控制器接收各类请求参数"></a>15.1 控制器接收各类请求参数</h3><p><code>SpringMVC</code>提供了诸多的注解来解析参数，其目的是把控制器从复杂的<code>ServletAPI</code>中剥离，这样就可以在非<code>Web</code>容器环境中重用控制器</p>
 <h4 id="15-1-1-接收普通请求参数"><a href="#15-1-1-接收普通请求参数" class="headerlink" title="15.1.1 接收普通请求参数"></a>15.1.1 接收普通请求参数</h4><p><code>SpringMVC</code>目前比较智能化，如果传递过来的参数名称和<code>HTTP</code>的保存一致，那么无须任何注解也可以获取参数</p>
 <p>下面举一个例子，前端发送来一个<code>form</code>，<code>form</code>里有参数<code>roleName</code>和参数<code>note</code>，下面的方法可以通过保持方法签名的参数名称和<code>HTTP</code>请求参数名称一致来获取参数，如果不一致时则会获得空，如下所示<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/commonParams"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">commonParams</span><span class="params">(String roleName, String note)</span></span>&#123;</span><br><span class="line">    <span class="comment">//....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -465,10 +470,10 @@
 <p>对<code>SpringMVC</code>，它配置了多种视图解析器<br><img src="/2020/02/06/SSM-15-深入SpringMVC组件/200206_5.png" alt=""></p>
 <h3 id="15-8-上传文件"><a href="#15-8-上传文件" class="headerlink" title="15.8 上传文件"></a>15.8 上传文件</h3><p>略</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -500,10 +505,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -511,10 +516,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -540,9 +545,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

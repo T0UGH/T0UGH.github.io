@@ -64,7 +64,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -198,7 +198,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -338,47 +338,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-Redis-17-集群" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-Redis-17-集群" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [Redis][17][集群]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/03/07/Redis-17-集群/" class="article-date">
 	  <time datetime="2020-03-07T13:03:38.000Z" itemprop="datePublished">2020-03-07</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/redis/">redis</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/redis/">redis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/07/Redis-17-集群/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-17-章-集群"><a href="#第-17-章-集群" class="headerlink" title="第 17 章 集群"></a>第 17 章 集群</h2><p><strong>Redis集群</strong>是Redis提供的<strong>分布式数据库</strong>方案，集群通过<strong>分片</strong>来进行数据共享，并提供<strong>复制</strong>和<strong>故障转移功能</strong></p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/07/Redis-17-集群/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-17-章-集群"><span class="toc-text">第 17 章 集群</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#17-1-节点"><span class="toc-text">17.1 节点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#17-1-1-启动节点"><span class="toc-text">17.1.1 启动节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-1-2-集群数据结构"><span class="toc-text">17.1.2 集群数据结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-1-3-CLUSTER-MEET命令的实现"><span class="toc-text">17.1.3 CLUSTER MEET命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-2-槽指派"><span class="toc-text">17.2 槽指派</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#17-2-1-记录节点的槽指派信息"><span class="toc-text">17.2.1 记录节点的槽指派信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-2-2-传播节点的槽指派信息"><span class="toc-text">17.2.2 传播节点的槽指派信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-2-3-记录集群所有槽的指派信息"><span class="toc-text">17.2.3 记录集群所有槽的指派信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-2-4-CLUSTER-ADDSLOTS命令的实现"><span class="toc-text">17.2.4 CLUSTER ADDSLOTS命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-3-在集群中执行命令"><span class="toc-text">17.3 在集群中执行命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#17-3-1-节点数据库的实现"><span class="toc-text">17.3.1 节点数据库的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-4-重新分片"><span class="toc-text">17.4 重新分片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-5-ASK错误"><span class="toc-text">17.5 ASK错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-6-复制与故障转移"><span class="toc-text">17.6 复制与故障转移</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#17-6-1-设置从节点"><span class="toc-text">17.6.1 设置从节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-6-2-故障检测"><span class="toc-text">17.6.2 故障检测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-6-3-故障转移"><span class="toc-text">17.6.3 故障转移</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-6-4-选举新的主节点"><span class="toc-text">17.6.4 选举新的主节点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-7-消息"><span class="toc-text">17.7 消息</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-17-章-集群"><a href="#第-17-章-集群" class="headerlink" title="第 17 章 集群"></a>第 17 章 集群</h2><p><strong>Redis集群</strong>是Redis提供的<strong>分布式数据库</strong>方案，集群通过<strong>分片</strong>来进行数据共享，并提供<strong>复制</strong>和<strong>故障转移功能</strong></p>
 <h3 id="17-1-节点"><a href="#17-1-节点" class="headerlink" title="17.1 节点"></a>17.1 节点</h3><p>一个Redis集群通常由多个节点组成，在刚开始的时候，<strong>每个节点</strong>都是相互独立的，它们都<strong>处于一个只包含自己的集群当中</strong>，要组建一个真正可工作的集群，我们<strong>必须将各个独立的节点连接起来</strong>，构成一个包含多个节点的集群。</p>
 <p>连接各个节点的工作可以使用<code>CLUSTER MEET</code>命令来完成，该命令的格式如下：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CLUSTER MEET &lt;ip&gt; &lt;port&gt;</span><br></pre></td></tr></table></figure></p>
 <p>向一个节点发送<code>CLUSTER MEET</code>命令，可以让该节点与<code>ip+port</code>所指定的节点进行<strong>握手</strong>，当握手成功时，该节点就会将<code>ip+port</code>所指定的节点添加到该节点当前所在的集群中。</p>
@@ -520,10 +525,10 @@
 </ol>
 <p><img src="/2020/03/07/Redis-17-集群/200307_36.gif" alt=""></p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -555,10 +560,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -566,10 +571,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -595,9 +600,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

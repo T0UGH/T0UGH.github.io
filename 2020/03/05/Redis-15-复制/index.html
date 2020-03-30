@@ -56,7 +56,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -190,7 +190,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -330,47 +330,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-Redis-15-复制" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-Redis-15-复制" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [Redis][15][复制]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/03/05/Redis-15-复制/" class="article-date">
 	  <time datetime="2020-03-05T12:56:33.000Z" itemprop="datePublished">2020-03-05</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/redis/">redis</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/redis/">redis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/05/Redis-15-复制/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-15-章-复制"><a href="#第-15-章-复制" class="headerlink" title="第 15 章 复制"></a>第 15 章 复制</h2><p>在Redis中，用户可以通过执行<code>SLAVEOF</code>命令或者设置<code>slaveof</code>选项，让一个服务器去复制另一个服务器，我们称呼被复制的服务器为<strong>主服务器</strong>(master)，而对主服务器进行复制的服务器叫做<strong>从服务器</strong>（slave）</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/05/Redis-15-复制/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-15-章-复制"><span class="toc-text">第 15 章 复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#15-1-旧版复制功能的实现"><span class="toc-text">15.1 旧版复制功能的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#15-1-1-同步"><span class="toc-text">15.1.1 同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-1-2-命令传播"><span class="toc-text">15.1.2 命令传播</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-2-旧版复制功能的缺陷"><span class="toc-text">15.2 旧版复制功能的缺陷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-3-新版复制功能的实现"><span class="toc-text">15.3 新版复制功能的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-4-部分重同步的实现"><span class="toc-text">15.4 部分重同步的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#15-4-1-复制偏移量"><span class="toc-text">15.4.1 复制偏移量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-4-2-复制积压缓冲区"><span class="toc-text">15.4.2 复制积压缓冲区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-4-3-服务器运行ID"><span class="toc-text">15.4.3 服务器运行ID</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-5-PSYNC命令"><span class="toc-text">15.5 PSYNC命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-6-复制的实现"><span class="toc-text">15.6 复制的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#15-6-1-设置主服务器的地址和端口"><span class="toc-text">15.6.1 设置主服务器的地址和端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-6-2-建立套接字连接"><span class="toc-text">15.6.2 建立套接字连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-6-3-发送PING命令"><span class="toc-text">15.6.3 发送PING命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-6-4-身份验证"><span class="toc-text">15.6.4 身份验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-6-5-发送端口信息"><span class="toc-text">15.6.5 发送端口信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-6-6-同步"><span class="toc-text">15.6.6 同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-6-7-命令传播"><span class="toc-text">15.6.7 命令传播</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-7-心跳检测"><span class="toc-text">15.7 心跳检测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#15-7-1-检测主从服务器的网络连接状态"><span class="toc-text">15.7.1 检测主从服务器的网络连接状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-7-2-辅助事件min-slaves配置选项"><span class="toc-text">15.7.2 辅助事件min-slaves配置选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-7-3-检测命令丢失"><span class="toc-text">15.7.3 检测命令丢失</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-15-章-复制"><a href="#第-15-章-复制" class="headerlink" title="第 15 章 复制"></a>第 15 章 复制</h2><p>在Redis中，用户可以通过执行<code>SLAVEOF</code>命令或者设置<code>slaveof</code>选项，让一个服务器去复制另一个服务器，我们称呼被复制的服务器为<strong>主服务器</strong>(master)，而对主服务器进行复制的服务器叫做<strong>从服务器</strong>（slave）</p>
 <p>例如下面的命令<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:12345&gt;SLAVEOF 127.0.0.1:6379</span><br><span class="line">OK</span><br></pre></td></tr></table></figure></p>
 <p>然后12345就成了6379的从服务器</p>
 <p>进行复制的主从服务器双方的数据库将保存相同的数据，这称为数据库状态一致</p>
@@ -495,10 +500,10 @@
 <h4 id="15-7-3-检测命令丢失"><a href="#15-7-3-检测命令丢失" class="headerlink" title="15.7.3 检测命令丢失"></a>15.7.3 检测命令丢失</h4><p>如果因为网络故障，主服务器传播给从服务器的写命令在半路丢失，那么当从服务器向主服务器发送<code>REPLCONF ACK</code>命令时，主服务器将发觉从服务器当前的复制偏移量少于自己的复制偏移量，然后主服务器就会根据从服务器提交的复制偏移量，在复制积压缓冲区里面找到从服务器缺少的数据，并将这些数据重新发送给从服务器。</p>
 <p>例如下图<br><img src="/2020/03/05/Redis-15-复制/200305_24.png" alt=""><br><img src="/2020/03/05/Redis-15-复制/200305_25.png" alt=""></p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -530,10 +535,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -541,10 +546,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -570,9 +575,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

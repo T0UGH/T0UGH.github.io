@@ -36,7 +36,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -170,7 +170,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -310,47 +310,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-Docker-3-Dockerfile详解" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-Docker-3-Dockerfile详解" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [Docker][3][Dockerfile详解]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2019/06/14/Docker-3-Dockerfile详解/" class="article-date">
 	  <time datetime="2019-06-14T08:55:58.000Z" itemprop="datePublished">2019-06-14</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/Docker/">Docker</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/Docker/">Docker</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/06/14/Docker-3-Dockerfile详解/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="3-Dockerfile详述"><a href="#3-Dockerfile详述" class="headerlink" title="3 Dockerfile详述"></a>3 Dockerfile详述</h2><p><strong>镜像的定制</strong>实际上就是定制每一层所添加的配置、文件。<strong>如果我们可以把每一层修改、安装、构建、操作的命令都写入一个脚本，用这个脚本来构建、定制镜像</strong>，那么之前提及的无法重复的问题、镜像构建透明性的问题、体积的问题就都会解决。这个脚本就是<code>Dockerfile</code>。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/06/14/Docker-3-Dockerfile详解/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Dockerfile详述"><span class="toc-text">3 Dockerfile详述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-FROM-指定基础镜像"><span class="toc-text">3.1 FROM 指定基础镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-FROM指令简介"><span class="toc-text">3.1.1 FROM指令简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-高质量的官方镜像"><span class="toc-text">3.1.2 高质量的官方镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-Scratch镜像"><span class="toc-text">3.1.3 Scratch镜像</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-RUN-执行命令"><span class="toc-text">3.2 RUN 执行命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-RUN指令推荐写法"><span class="toc-text">3.2.1 RUN指令推荐写法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-构建镜像"><span class="toc-text">3.3 构建镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-镜像构建上下文"><span class="toc-text">3.4 镜像构建上下文</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-COPY指令"><span class="toc-text">3.4.1 COPY指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-为什么需要上下文"><span class="toc-text">3.4.2 为什么需要上下文</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-3-理解上下文的概念"><span class="toc-text">3.4.3 理解上下文的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-4-使用方式"><span class="toc-text">3.4.4 使用方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-Docker指令详解"><span class="toc-text">3.5 Docker指令详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-1-COPY-复制文件"><span class="toc-text">3.5.1 COPY 复制文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-2-ADD-更高级的复制文件"><span class="toc-text">3.5.2 ADD 更高级的复制文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-3-CMD-容器启动命令"><span class="toc-text">3.5.3 CMD 容器启动命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-4-ENTRYPOINT-入口点"><span class="toc-text">3.5.4 ENTRYPOINT 入口点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-5-ENV-设置环境变量"><span class="toc-text">3.5.5 ENV 设置环境变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-7-ARG-构建参数"><span class="toc-text">3.5.7 ARG 构建参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-8-VOLUME-定义匿名卷"><span class="toc-text">3.5.8 VOLUME 定义匿名卷</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-9-EXPOSE-声明端口"><span class="toc-text">3.5.9 EXPOSE 声明端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-10-WORKDIR-指定工作目录"><span class="toc-text">3.5.10 WORKDIR 指定工作目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-11-USER-指定当前用户"><span class="toc-text">3.5.11 USER 指定当前用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-12-ONBUILD"><span class="toc-text">3.5.12 ONBUILD</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-13-HEALTHCHECK-健康检查"><span class="toc-text">3.5.13 HEALTHCHECK 健康检查</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="3-Dockerfile详述"><a href="#3-Dockerfile详述" class="headerlink" title="3 Dockerfile详述"></a>3 Dockerfile详述</h2><p><strong>镜像的定制</strong>实际上就是定制每一层所添加的配置、文件。<strong>如果我们可以把每一层修改、安装、构建、操作的命令都写入一个脚本，用这个脚本来构建、定制镜像</strong>，那么之前提及的无法重复的问题、镜像构建透明性的问题、体积的问题就都会解决。这个脚本就是<code>Dockerfile</code>。</p>
 <p><code>Dockerfile</code>是一个文本文件，其内包含了一条条的 <strong>指令</strong>(Instruction)，每一条指令构建一层，因此每一条指令的内容，就是描述该层应当如何构建。</p>
 <p>例如<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> nginx</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'&lt;h1&gt;Hello, Docker!&lt;/h1&gt;'</span> &gt; /usr/share/nginx/html/index.html</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="3-1-FROM-指定基础镜像"><a href="#3-1-FROM-指定基础镜像" class="headerlink" title="3.1 FROM 指定基础镜像"></a>3.1 FROM 指定基础镜像</h3><h4 id="3-1-1-FROM指令简介"><a href="#3-1-1-FROM指令简介" class="headerlink" title="3.1.1 FROM指令简介"></a>3.1.1 FROM指令简介</h4><p>所谓定制镜像，那一定是以一个镜像为基础，在其上进行定制。就像我们之前运行了一个 nginx 镜像的容器，再进行修改一样，基础镜像是必须指定的。</p>
@@ -411,10 +416,10 @@
 <h4 id="3-5-12-ONBUILD"><a href="#3-5-12-ONBUILD" class="headerlink" title="3.5.12 ONBUILD"></a>3.5.12 ONBUILD</h4><p>略</p>
 <h4 id="3-5-13-HEALTHCHECK-健康检查"><a href="#3-5-13-HEALTHCHECK-健康检查" class="headerlink" title="3.5.13 HEALTHCHECK 健康检查"></a>3.5.13 HEALTHCHECK 健康检查</h4><p>HEALTHCHECK 指令是告诉 Docker 应该如何进行判断容器的状态是否正常，这是 Docker 1.12 引入的新指令。</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -446,10 +451,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -457,10 +462,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -486,9 +491,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

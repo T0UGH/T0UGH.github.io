@@ -39,7 +39,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -173,7 +173,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -313,47 +313,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-Tensorflow-1-深度学习简介" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-Tensorflow-1-深度学习简介" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [Tensorflow][1]深度学习简介
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2019/03/05/Tensorflow-1-深度学习简介/" class="article-date">
 	  <time datetime="2019-03-05T12:35:42.000Z" itemprop="datePublished">2019-03-05</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/Tensorflow/">Tensorflow</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/Tensorflow/">Tensorflow</a>, <a class="article-tag-link" href="/tags/深度学习/">深度学习</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/05/Tensorflow-1-深度学习简介/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="Tensorflow-1-深度学习简介"><a href="#Tensorflow-1-深度学习简介" class="headerlink" title="[Tensorflow][1]深度学习简介"></a>[Tensorflow][1]深度学习简介</h2><h3 id="1-1-人工智能、机器学习与深度学习"><a href="#1-1-人工智能、机器学习与深度学习" class="headerlink" title="1.1 人工智能、机器学习与深度学习"></a>1.1 人工智能、机器学习与深度学习</h3><h4 id="1-1-1-人工智能"><a href="#1-1-1-人工智能" class="headerlink" title="1.1.1 人工智能"></a>1.1.1 人工智能</h4><ul>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/05/Tensorflow-1-深度学习简介/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tensorflow-1-深度学习简介"><span class="toc-text">[Tensorflow][1]深度学习简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-人工智能、机器学习与深度学习"><span class="toc-text">1.1 人工智能、机器学习与深度学习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-1-人工智能"><span class="toc-text">1.1.1 人工智能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-2-机器学习"><span class="toc-text">1.1.2 机器学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-3-深度学习"><span class="toc-text">1.1.3 深度学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-4-深度学习与传统神经科学"><span class="toc-text">1.1.4 深度学习与传统神经科学</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-深度学习的发展历程"><span class="toc-text">1.2 深度学习的发展历程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-第一个阶段—仿生"><span class="toc-text">1.2.1 第一个阶段—仿生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-第二个阶段—分布式知识表达和反向传播算法"><span class="toc-text">1.2.2 第二个阶段—分布式知识表达和反向传播算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-第三个阶段—计算能力和数据量的提升"><span class="toc-text">1.2.2 第三个阶段—计算能力和数据量的提升</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-深度学习的应用"><span class="toc-text">1.3 深度学习的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-计算机视觉"><span class="toc-text">1.3.1 计算机视觉</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-语音识别"><span class="toc-text">1.3.2 语音识别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3-自然语言处理"><span class="toc-text">1.3.3 自然语言处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-4-人机博弈"><span class="toc-text">1.3.4 人机博弈</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="Tensorflow-1-深度学习简介"><a href="#Tensorflow-1-深度学习简介" class="headerlink" title="[Tensorflow][1]深度学习简介"></a>[Tensorflow][1]深度学习简介</h2><h3 id="1-1-人工智能、机器学习与深度学习"><a href="#1-1-人工智能、机器学习与深度学习" class="headerlink" title="1.1 人工智能、机器学习与深度学习"></a>1.1 人工智能、机器学习与深度学习</h3><h4 id="1-1-1-人工智能"><a href="#1-1-1-人工智能" class="headerlink" title="1.1.1 人工智能"></a>1.1.1 人工智能</h4><ul>
 <li><p>背景：一些人类通过直觉可以很快解决的问题，目前却很难通过计算机解决。这些问题包括自然语言处理、图像识别、语音识别等。</p>
 </li>
 <li><p>人工智能：一类非常广泛的问题，它旨在通过计算机实现类似人类的智能</p>
@@ -505,10 +510,10 @@
 </li>
 </ul>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -540,10 +545,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -551,10 +556,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -580,9 +585,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

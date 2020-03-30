@@ -36,7 +36,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -170,7 +170,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -310,47 +310,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-SpringBoot-8-文档数据库MongoDB" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-SpringBoot-8-文档数据库MongoDB" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [SpringBoot][8][文档数据库MongoDB]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/02/12/SpringBoot-8-文档数据库MongoDB/" class="article-date">
 	  <time datetime="2020-02-12T04:29:33.000Z" itemprop="datePublished">2020-02-12</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/SpringBoot/">SpringBoot</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/MongoDB/">MongoDB</a>, <a class="article-tag-link" href="/tags/SpringBoot/">SpringBoot</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/12/SpringBoot-8-文档数据库MongoDB/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-8-章-文档数据库MongoDB"><a href="#第-8-章-文档数据库MongoDB" class="headerlink" title="第 8 章 文档数据库MongoDB"></a>第 8 章 文档数据库MongoDB</h2><p>对于那些需要缓存而且经常需要统计、分析和查询的数据，<code>Redis</code>这样简单的<code>NoSQL</code>显然就不是那么便捷了， 这时另外一个<code>NoSQL</code>就派上用场了，它就是本章的主题<code>MongoDB</code>。对于那些需要统计、按条件查询和分析的数<br>据，它提供了支持，它可以说是一个最接近于关系数据库的<code>NoSQL</code>。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/12/SpringBoot-8-文档数据库MongoDB/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-8-章-文档数据库MongoDB"><span class="toc-text">第 8 章 文档数据库MongoDB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-配置MongoDB"><span class="toc-text">8.1 配置MongoDB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-使用MongoTemplate实例"><span class="toc-text">8.2 使用MongoTemplate实例</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-8-章-文档数据库MongoDB"><a href="#第-8-章-文档数据库MongoDB" class="headerlink" title="第 8 章 文档数据库MongoDB"></a>第 8 章 文档数据库MongoDB</h2><p>对于那些需要缓存而且经常需要统计、分析和查询的数据，<code>Redis</code>这样简单的<code>NoSQL</code>显然就不是那么便捷了， 这时另外一个<code>NoSQL</code>就派上用场了，它就是本章的主题<code>MongoDB</code>。对于那些需要统计、按条件查询和分析的数<br>据，它提供了支持，它可以说是一个最接近于关系数据库的<code>NoSQL</code>。</p>
 <p><code>MongoDB</code>是由<code>C++</code>语言编写的一种<code>NoSQL</code>，是一个基于分布式文件存储的开源数据库系统。在负载高时可以添加更多的节点，以保证服务器性能，<code>MongoDB</code>的目的是为<code>Web</code>应用提供可扩展的高性能数据存储解决方案。<code>MongoDB</code>将数据存储为一个文档，数据结构由键值(<code>key-value</code>)对组成。这里的<code>MongoDB</code>文档类似于<code>JSON</code> 数据集，所以很容易转化成为<code>JavaPOJO</code>对象或者<code>JavaScript</code>对象，这些字段值还可以包含其他文档、数组及文档数组。</p>
 <h3 id="8-1-配置MongoDB"><a href="#8-1-配置MongoDB" class="headerlink" title="8.1 配置MongoDB"></a>8.1 配置MongoDB</h3><p><code>SpringBoot</code>提供了<code>MongoDB</code>的配置，其默认的可配置项如下所示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spring.data.mongodb.host=192.168.11.131 #MongoDB服务器</span><br><span class="line">spring.data.mongodb.username=spring #MongoDB服务器用户名</span><br><span class="line">spring.data.mongodb.password=123456 #MongoDB服务器密码</span><br><span class="line">spring.data.mongodb.port=27017 #MongoDB服务器端口</span><br><span class="line">spring.data.mongodb.database=springboot #数据库名称</span><br><span class="line">spring.data.mongodb.repository.type=auto #是否启用MongoDB关于JPA规范的编程</span><br><span class="line">spring.data.mongodb.field-naming-strategy=xxx #使用字段名策略</span><br></pre></td></tr></table></figure></p>
 <h3 id="8-2-使用MongoTemplate实例"><a href="#8-2-使用MongoTemplate实例" class="headerlink" title="8.2 使用MongoTemplate实例"></a>8.2 使用MongoTemplate实例</h3><p><code>spring-data-mongodb</code>主要是通过<code>MongoTemplate</code>进行操作数据。<code>SpringBoot</code>会根据配置自动生成<code>MongoTemplate</code>对象来操作数据，下面举个例子来说明</p>
@@ -363,10 +368,10 @@
 <li>注意: 在<code>MongoDB</code>中的<code>save</code>，若已存在<code>id</code>相同的对象，那么更新其属性；如果是已经存在的对象，则它只是对对象进行更新</li>
 </ul>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -398,10 +403,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -409,10 +414,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -438,9 +443,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

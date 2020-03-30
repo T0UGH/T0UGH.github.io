@@ -39,7 +39,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -173,7 +173,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -313,47 +313,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-JVM-7-虚拟机类加载机制" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-JVM-7-虚拟机类加载机制" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [JVM][7][虚拟机类加载机制]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/02/20/JVM-7-虚拟机类加载机制/" class="article-date">
 	  <time datetime="2020-02-20T09:29:00.000Z" itemprop="datePublished">2020-02-20</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/jvm/">jvm</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/java/">java</a>, <a class="article-tag-link" href="/tags/jvm/">jvm</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/20/JVM-7-虚拟机类加载机制/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-7-章-虚拟机类加载机制"><a href="#第-7-章-虚拟机类加载机制" class="headerlink" title="第 7 章 虚拟机类加载机制"></a>第 7 章 虚拟机类加载机制</h2><p>代码编译的结果从本地机器码转变为字节码，是存储格式发展的一小步，却是编程语言发展的一大步</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/20/JVM-7-虚拟机类加载机制/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-7-章-虚拟机类加载机制"><span class="toc-text">第 7 章 虚拟机类加载机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-概述"><span class="toc-text">7.1 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-类加载的时机"><span class="toc-text">7.2 类加载的时机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-类加载的过程"><span class="toc-text">7.3 类加载的过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-1-加载"><span class="toc-text">7.3.1 加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-2-验证"><span class="toc-text">7.3.2 验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-3-准备"><span class="toc-text">7.3.3 准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-4-解析"><span class="toc-text">7.3.4 解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-5-初始化"><span class="toc-text">7.3.5 初始化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-类加载器"><span class="toc-text">7.4 类加载器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-4-1-类与类加载器"><span class="toc-text">7.4.1 类与类加载器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-4-2-双亲委派模型"><span class="toc-text">7.4.2 双亲委派模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-5-Java模块化系统"><span class="toc-text">7.5 Java模块化系统</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-7-章-虚拟机类加载机制"><a href="#第-7-章-虚拟机类加载机制" class="headerlink" title="第 7 章 虚拟机类加载机制"></a>第 7 章 虚拟机类加载机制</h2><p>代码编译的结果从本地机器码转变为字节码，是存储格式发展的一小步，却是编程语言发展的一大步</p>
 <h3 id="7-1-概述"><a href="#7-1-概述" class="headerlink" title="7.1 概述"></a>7.1 概述</h3><p>在Class文件中描述的各类信息，最终都需要加载到虚拟机中之后才能被运行和使用</p>
 <p>虚拟机的类加载机制就是Java虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成被虚拟机直接使用Java类型</p>
 <p>与那些编译时需要进行连接的语言不同，<strong>在Java语言里面，类型的加载、连接和初始化过程都是在程序运行期间完成的</strong>。Java天生可以动态扩展的语言特性就是依赖运行期动态加载和动态连接这个特点实现的。例如，编写一个面向接口的应用程序，可以等到运行时再指定其实际的实现类，用户可以通过Java预置的或自定义类加载器，让某个本地的应用程序在运行时从网络或其他地方加载一个二进制流作为其程序代码的一部分</p>
@@ -412,10 +417,10 @@
 <p>双亲委派模型对于保证Java程序的稳定运作很重要</p>
 <h3 id="7-5-Java模块化系统"><a href="#7-5-Java模块化系统" class="headerlink" title="7.5 Java模块化系统"></a>7.5 Java模块化系统</h3><p>略</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -447,10 +452,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -458,10 +463,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -487,9 +492,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

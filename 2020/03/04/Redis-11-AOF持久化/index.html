@@ -41,7 +41,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -175,7 +175,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -315,47 +315,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-Redis-11-AOF持久化" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-Redis-11-AOF持久化" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [Redis][11][AOF持久化]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/03/04/Redis-11-AOF持久化/" class="article-date">
 	  <time datetime="2020-03-04T05:46:38.000Z" itemprop="datePublished">2020-03-04</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/redis/">redis</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/aof/">aof</a>, <a class="article-tag-link" href="/tags/redis/">redis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/04/Redis-11-AOF持久化/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-11-章-AOF持久化"><a href="#第-11-章-AOF持久化" class="headerlink" title="第 11 章 AOF持久化"></a>第 11 章 AOF持久化</h2><p>AOF持久化是通过<strong>保存</strong>Redis服务器所执行的<strong>写命令</strong>来记录数据库状态的。服务器在<strong>启动</strong>时，可以通过<strong>载入和执行</strong>AOF文件中保存的<strong>命</strong>令来<strong>还原</strong>服务器关闭之前的数据库状态。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/04/Redis-11-AOF持久化/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-11-章-AOF持久化"><span class="toc-text">第 11 章 AOF持久化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-1-AOF持久化的实现"><span class="toc-text">11.1 AOF持久化的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#11-1-1-命令追加"><span class="toc-text">11.1.1 命令追加</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-1-2-AOF文件的写入与同步"><span class="toc-text">11.1.2 AOF文件的写入与同步</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-2-AOF文件的载入与数据还原"><span class="toc-text">11.2 AOF文件的载入与数据还原</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-3-AOF重写"><span class="toc-text">11.3 AOF重写</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#11-3-1-AOF文件重写的实现"><span class="toc-text">11.3.1 AOF文件重写的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-3-2-AOF后台重写"><span class="toc-text">11.3.2 AOF后台重写</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-4-重点回顾"><span class="toc-text">11.4 重点回顾</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-11-章-AOF持久化"><a href="#第-11-章-AOF持久化" class="headerlink" title="第 11 章 AOF持久化"></a>第 11 章 AOF持久化</h2><p>AOF持久化是通过<strong>保存</strong>Redis服务器所执行的<strong>写命令</strong>来记录数据库状态的。服务器在<strong>启动</strong>时，可以通过<strong>载入和执行</strong>AOF文件中保存的<strong>命</strong>令来<strong>还原</strong>服务器关闭之前的数据库状态。</p>
 <h3 id="11-1-AOF持久化的实现"><a href="#11-1-AOF持久化的实现" class="headerlink" title="11.1 AOF持久化的实现"></a>11.1 AOF持久化的实现</h3><p>AOF持久化功能的实现可以分为<strong>命令追加</strong>、<strong>文件写入</strong>、<strong>文件同步</strong>三个步骤。</p>
 <h4 id="11-1-1-命令追加"><a href="#11-1-1-命令追加" class="headerlink" title="11.1.1 命令追加"></a>11.1.1 命令追加</h4><p>当AOF持久化功能处于打开状态时，服务器在执行完一个<strong>写命令</strong>之后，会以协议格式将被执行的写命令<strong>追加</strong>到服务器状态的<code>aof_buf</code><strong>缓冲区的末尾</strong></p>
 <h4 id="11-1-2-AOF文件的写入与同步"><a href="#11-1-2-AOF文件的写入与同步" class="headerlink" title="11.1.2 AOF文件的写入与同步"></a>11.1.2 AOF文件的写入与同步</h4><p>Redis的服务器进程就是一个<strong>事件循环</strong>，这个循环中的<strong>文件事件</strong>负责接收客户端的命令请求，以及向客户端发送命令回复，而<strong>时间事件</strong>则负责执行像<code>serveCron</code>函数这样需要定时运行的函数。下一章将解释这些内容</p>
@@ -421,10 +426,10 @@
 </ol>
 <h3 id="11-4-重点回顾"><a href="#11-4-重点回顾" class="headerlink" title="11.4 重点回顾"></a>11.4 重点回顾</h3><p>略</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -456,10 +461,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -467,10 +472,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -496,9 +501,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

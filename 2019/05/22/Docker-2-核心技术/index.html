@@ -40,7 +40,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -174,7 +174,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -314,47 +314,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-Docker-2-核心技术" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-Docker-2-核心技术" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [Docker][2][核心技术]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2019/05/22/Docker-2-核心技术/" class="article-date">
 	  <time datetime="2019-05-22T15:19:50.000Z" itemprop="datePublished">2019-05-22</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/Docker/">Docker</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/Docker/">Docker</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/05/22/Docker-2-核心技术/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="2-核心技术"><a href="#2-核心技术" class="headerlink" title="2 核心技术"></a>2 核心技术</h2><h3 id="2-1-Docker镜像"><a href="#2-1-Docker镜像" class="headerlink" title="2.1 Docker镜像"></a>2.1 Docker镜像</h3><h4 id="2-1-1-Docker镜像"><a href="#2-1-1-Docker镜像" class="headerlink" title="2.1.1 Docker镜像"></a>2.1.1 Docker镜像</h4><ul>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/05/22/Docker-2-核心技术/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-核心技术"><span class="toc-text">2 核心技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Docker镜像"><span class="toc-text">2.1 Docker镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-Docker镜像"><span class="toc-text">2.1.1 Docker镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-镜像与容器"><span class="toc-text">2.1.2 镜像与容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-镜像通常较小"><span class="toc-text">2.1.3 镜像通常较小</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-4-镜像拉取和镜像仓库"><span class="toc-text">2.1.4 镜像拉取和镜像仓库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-5-镜像命名和标签"><span class="toc-text">2.1.5 镜像命名和标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-6-镜像与分层"><span class="toc-text">2.1.6 镜像与分层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-7-共享镜像层"><span class="toc-text">2.1.7 共享镜像层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-8-镜像散列值-摘要"><span class="toc-text">2.1.8 镜像散列值(摘要)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Docker容器"><span class="toc-text">2.2 Docker容器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-Docker容器"><span class="toc-text">2.2.1 Docker容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-容器vs虚拟机"><span class="toc-text">2.2.2 容器vs虚拟机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-虚拟机的额外开销"><span class="toc-text">2.2.3 虚拟机的额外开销</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-容器进程"><span class="toc-text">2.2.4 容器进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-容器生命周期"><span class="toc-text">2.2.5 容器生命周期</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-6-重启策略"><span class="toc-text">2.2.6 重启策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-7-docker-run的一些参数"><span class="toc-text">2.2.7 docker run的一些参数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-应用的容器化"><span class="toc-text">2.3 应用的容器化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-容器化简介"><span class="toc-text">2.3.1 容器化简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-单体应用容器化"><span class="toc-text">2.3.2 单体应用容器化</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-获取应用代码"><span class="toc-text">1 获取应用代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-分析Docker文件"><span class="toc-text">2 分析Docker文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-构建镜像"><span class="toc-text">3 构建镜像</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-推送镜像到仓库"><span class="toc-text">4 推送镜像到仓库</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-运行应用程序"><span class="toc-text">5 运行应用程序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-其他"><span class="toc-text">6 其他</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-3-生产环境中的多阶段构建"><span class="toc-text">2.3.3 生产环境中的多阶段构建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-4-其他"><span class="toc-text">2.3.4 其他</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-使用Docker-Compose部署应用"><span class="toc-text">2.4 使用Docker Compose部署应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-1-简介"><span class="toc-text">2.4.1 简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-2-在Linux上安装Docker-Compose"><span class="toc-text">2.4.2 在Linux上安装Docker Compose</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-3-解读Compose文件"><span class="toc-text">2.4.3 解读Compose文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-3-常用指令"><span class="toc-text">2.4.3 常用指令</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="2-核心技术"><a href="#2-核心技术" class="headerlink" title="2 核心技术"></a>2 核心技术</h2><h3 id="2-1-Docker镜像"><a href="#2-1-Docker镜像" class="headerlink" title="2.1 Docker镜像"></a>2.1 Docker镜像</h3><h4 id="2-1-1-Docker镜像"><a href="#2-1-1-Docker镜像" class="headerlink" title="2.1.1 Docker镜像"></a>2.1.1 Docker镜像</h4><ul>
 <li><p>Docker镜像就像停止运行的容器</p>
 </li>
 <li><p>可以从镜像仓库服务中拉取镜像，拉取操作会将镜像下载到本地Docker主机</p>
@@ -671,10 +676,10 @@
 </li>
 </ul>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -706,10 +711,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -717,10 +722,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -746,9 +751,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

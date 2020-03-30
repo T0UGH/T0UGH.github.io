@@ -40,7 +40,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -174,7 +174,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -314,47 +314,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-算法导论-16-贪心算法" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-算法导论-16-贪心算法" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [算法导论][16]贪心算法
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2019/03/13/算法导论-16-贪心算法/" class="article-date">
 	  <time datetime="2019-03-13T13:04:54.000Z" itemprop="datePublished">2019-03-13</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/算法导论/">算法导论</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/算法导论/">算法导论</a>, <a class="article-tag-link" href="/tags/贪心算法/">贪心算法</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/13/算法导论-16-贪心算法/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第16章-贪心算法"><a href="#第16章-贪心算法" class="headerlink" title="第16章 贪心算法"></a>第16章 贪心算法</h2><p>对于许多最优化问题，使用动态规划算法来求最优解有些杀鸡用牛刀了，可以使用更简单、更高效的算法。贪心算法(greedy algorithm)就是这样的算法，它在每一步都做出当时看起来最佳的选择。它总是做出局部最优的选择，寄希望这样的选择能导致全局最优解</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/13/算法导论-16-贪心算法/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第16章-贪心算法"><span class="toc-text">第16章 贪心算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#16-1-活动选择问题"><span class="toc-text">16.1 活动选择问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#活动选择问题的最优子结构"><span class="toc-text">活动选择问题的最优子结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#贪心选择"><span class="toc-text">贪心选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#递归贪心算法"><span class="toc-text">递归贪心算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#迭代贪心算法"><span class="toc-text">迭代贪心算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-2-贪心算法原理"><span class="toc-text">16.2 贪心算法原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#贪心选择性质"><span class="toc-text">贪心选择性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最优子结构"><span class="toc-text">最优子结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#贪心对动态规划"><span class="toc-text">贪心对动态规划</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第16章-贪心算法"><a href="#第16章-贪心算法" class="headerlink" title="第16章 贪心算法"></a>第16章 贪心算法</h2><p>对于许多最优化问题，使用动态规划算法来求最优解有些杀鸡用牛刀了，可以使用更简单、更高效的算法。贪心算法(greedy algorithm)就是这样的算法，它在每一步都做出当时看起来最佳的选择。它总是做出局部最优的选择，寄希望这样的选择能导致全局最优解</p>
 <p>贪心算法并不保证得到最优解，但对很多问题确实可以求得最优解</p>
 <p>有很多利用贪心策略设计的算法，包括最小生成树(minimum-spanning-tree)算法、单源最短路径算法的Dijkstra算法，以及集合覆盖问题的Chvatal贪心启发式算法</p>
 <h3 id="16-1-活动选择问题"><a href="#16-1-活动选择问题" class="headerlink" title="16.1 活动选择问题"></a>16.1 活动选择问题</h3><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>假定有一个 n 个活动(activity)的集合 S = {a<sub>1</sub>, a<sub>2</sub>, …, a<sub>n</sub>}，这些活动使用同一个资源，而这个资源在某个时刻只能供一个活动使用。每个活动 a<sub>i</sub> 都有一个开始时间 s<sub>i</sub> 和一个结束时间 f<sub>i</sub>。</p>
@@ -411,10 +416,10 @@
 <p>这种贪心算法的运行时间为 <code>O(nlgn)</code></p>
 <p>拿走商品1的策略对 0-1 背包问题无效是因为小偷无法装满背包，空闲空间降低了方案的有效每磅价值</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -446,10 +451,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -457,10 +462,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -486,9 +491,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

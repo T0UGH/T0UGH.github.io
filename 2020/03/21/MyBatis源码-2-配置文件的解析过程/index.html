@@ -39,7 +39,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -173,7 +173,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -313,47 +313,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-MyBatis源码-2-配置文件的解析过程" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-MyBatis源码-2-配置文件的解析过程" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [MyBatis源码][2][配置文件的解析过程]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/03/21/MyBatis源码-2-配置文件的解析过程/" class="article-date">
 	  <time datetime="2020-03-21T06:14:37.000Z" itemprop="datePublished">2020-03-21</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/MyBatis/">MyBatis</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/MyBatis/">MyBatis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/21/MyBatis源码-2-配置文件的解析过程/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第二章-配置文件的解析过程"><a href="#第二章-配置文件的解析过程" class="headerlink" title="第二章 配置文件的解析过程"></a>第二章 配置文件的解析过程</h2><p>首先我们从一个入口的例程开始：</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/21/MyBatis源码-2-配置文件的解析过程/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第二章-配置文件的解析过程"><span class="toc-text">第二章 配置文件的解析过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-lt-properties-gt-节点解析过程"><span class="toc-text">2.1 &lt;properties&gt;节点解析过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-lt-settings-gt-节点解析过程"><span class="toc-text">2.2 &lt;settings&gt;节点解析过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-lt-typeAliases-gt-节点解析过程"><span class="toc-text">2.3 &lt;typeAliases&gt;节点解析过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-lt-typeHandler-gt-节点解析过程"><span class="toc-text">2.4 &lt;typeHandler&gt;节点解析过程</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第二章-配置文件的解析过程"><a href="#第二章-配置文件的解析过程" class="headerlink" title="第二章 配置文件的解析过程"></a>第二章 配置文件的解析过程</h2><p>首先我们从一个入口的例程开始：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//id:2.0</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Logger logger = Logger.getLogger(MyApp.class);</span><br><span class="line">        InputStream inputStream = Resources.getResourceAsStream(<span class="string">"mybatis.xml"</span>);</span><br><span class="line">        SqlSessionFactory sqlSessionFactory = </span><br><span class="line">            <span class="keyword">new</span> SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">        ProductDao productDao = sqlSession.getMapper(ProductDao.class);</span><br><span class="line">        Product product= productDao.getProduct(<span class="number">12</span>);</span><br><span class="line">        logger.info(product);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>从这个例程我们可以看出：</p>
 <ol>
@@ -435,10 +440,10 @@
 <p>由代码段<code>2.10</code>可知，注册过程其实就是把这个新的类型处理器放到<code>Map</code>中，仅此而已。不过，值得注意的是，这个<code>Map</code>是一个两层嵌套结构，例子如下图所示。这也启示我们，如果要存储三元组，可以使用<code>Map</code>嵌套<code>Map</code>的方式。</p>
 <p><img src="https://i.loli.net/2020/03/21/ahi8fSrn53BZQ9w.png" alt=""></p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -470,10 +475,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -481,10 +486,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -510,9 +515,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

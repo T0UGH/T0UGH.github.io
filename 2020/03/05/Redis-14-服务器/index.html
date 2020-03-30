@@ -44,7 +44,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -178,7 +178,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -318,47 +318,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-Redis-14-服务器" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-Redis-14-服务器" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [Redis][14][服务器]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/03/05/Redis-14-服务器/" class="article-date">
 	  <time datetime="2020-03-05T03:05:34.000Z" itemprop="datePublished">2020-03-05</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/redis/">redis</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/redis/">redis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/05/Redis-14-服务器/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-14-章-服务器"><a href="#第-14-章-服务器" class="headerlink" title="第 14 章 服务器"></a>第 14 章 服务器</h2><p>Redis服务器负责与多个客户端建立<strong>网络连接</strong>，<strong>处理</strong>客户端发送的<strong>命令请求</strong>，在<strong>数据库</strong>中<strong>保存</strong>客户端执行命令所产生的数据，并通过<strong>资源管理</strong>来维持服务器自身的运转。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/05/Redis-14-服务器/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-14-章-服务器"><span class="toc-text">第 14 章 服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#14-1-命令请求的执行过程"><span class="toc-text">14.1 命令请求的执行过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#14-1-1-发送命令请求"><span class="toc-text">14.1.1 发送命令请求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-1-2-读取命令请求"><span class="toc-text">14.1.2 读取命令请求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-1-3-命令执行器：查找命令实现"><span class="toc-text">14.1.3 命令执行器：查找命令实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-1-4-命令执行器：执行预备操作"><span class="toc-text">14.1.4 命令执行器：执行预备操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-1-5-命令执行器：调用命令的实现函数"><span class="toc-text">14.1.5 命令执行器：调用命令的实现函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-1-6-命令执行器：执行后续操作"><span class="toc-text">14.1.6 命令执行器：执行后续操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-1-7-将命令回复发送给客户端"><span class="toc-text">14.1.7 将命令回复发送给客户端</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-1-8-客户端接收并打印命令请求"><span class="toc-text">14.1.8 客户端接收并打印命令请求</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-2-serverCron函数"><span class="toc-text">14.2 serverCron函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#14-2-1-更新服务器时间缓存"><span class="toc-text">14.2.1 更新服务器时间缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-2-2-更新LRU时钟"><span class="toc-text">14.2.2 更新LRU时钟</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-2-3-更新服务器每秒执行命令次数"><span class="toc-text">14.2.3 更新服务器每秒执行命令次数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-2-4-更新服务器内存峰值记录"><span class="toc-text">14.2.4 更新服务器内存峰值记录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-2-5-处理SIGTERM信号"><span class="toc-text">14.2.5 处理SIGTERM信号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-2-6-管理客户端资源"><span class="toc-text">14.2.6 管理客户端资源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-2-7-管理服务器资源"><span class="toc-text">14.2.7 管理服务器资源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-2-8-执行被延迟的BGREWRITEAOF"><span class="toc-text">14.2.8 执行被延迟的BGREWRITEAOF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-2-9-检查持久化操作的运行状况"><span class="toc-text">14.2.9 检查持久化操作的运行状况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-2-10-将AOF缓冲区中的内容写入AOF文件"><span class="toc-text">14.2.10 将AOF缓冲区中的内容写入AOF文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-2-11-关闭异步客户端"><span class="toc-text">14.2.11 关闭异步客户端</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-2-12-增加cronloops计数器的值"><span class="toc-text">14.2.12 增加cronloops计数器的值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-3-初始化服务器"><span class="toc-text">14.3 初始化服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#14-3-1-初始化服务器状态结构"><span class="toc-text">14.3.1 初始化服务器状态结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-3-2-载入配置选项"><span class="toc-text">14.3.2 载入配置选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-3-3-初始化服务器数据结构"><span class="toc-text">14.3.3 初始化服务器数据结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-3-4-还原数据库状态"><span class="toc-text">14.3.4 还原数据库状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-3-5-执行事件循环"><span class="toc-text">14.3.5 执行事件循环</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-14-章-服务器"><a href="#第-14-章-服务器" class="headerlink" title="第 14 章 服务器"></a>第 14 章 服务器</h2><p>Redis服务器负责与多个客户端建立<strong>网络连接</strong>，<strong>处理</strong>客户端发送的<strong>命令请求</strong>，在<strong>数据库</strong>中<strong>保存</strong>客户端执行命令所产生的数据，并通过<strong>资源管理</strong>来维持服务器自身的运转。</p>
 <h3 id="14-1-命令请求的执行过程"><a href="#14-1-命令请求的执行过程" class="headerlink" title="14.1 命令请求的执行过程"></a>14.1 命令请求的执行过程</h3><p>下面我们将以<code>SET</code>命令为例子，详细描述命令请求的执行全过程</p>
 <h4 id="14-1-1-发送命令请求"><a href="#14-1-1-发送命令请求" class="headerlink" title="14.1.1 发送命令请求"></a>14.1.1 发送命令请求</h4><p>Redis服务器的命令请求来自Redis客户端，当用户在客户端中键入一个命令请求时，客户端会将这个命令请求转换成<strong>协议格式</strong>，然后通过连接到服务器的套接字，将协议格式的命令请求<strong>发送给服务器</strong></p>
 <p><img src="/2020/03/05/Redis-14-服务器/200305_0.png" alt=""></p>
@@ -461,10 +466,10 @@
 <h4 id="14-3-4-还原数据库状态"><a href="#14-3-4-还原数据库状态" class="headerlink" title="14.3.4 还原数据库状态"></a>14.3.4 还原数据库状态</h4><p>在完成了服务器变量的初始化工作，服务器需要载入AOF或者RDB文件来还原服务器的数据库状态</p>
 <h4 id="14-3-5-执行事件循环"><a href="#14-3-5-执行事件循环" class="headerlink" title="14.3.5 执行事件循环"></a>14.3.5 执行事件循环</h4><p>在初始化的最后一步，服务器将开始事件循环的执行</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -496,10 +501,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -507,10 +512,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -536,9 +541,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

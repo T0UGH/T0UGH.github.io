@@ -41,7 +41,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -175,7 +175,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -315,47 +315,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-流畅的Python-2-序列构成的数组" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-流畅的Python-2-序列构成的数组" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [流畅的Python][2][序列构成的数组]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2019/03/16/流畅的Python-2-序列构成的数组/" class="article-date">
 	  <time datetime="2019-03-16T12:45:52.000Z" itemprop="datePublished">2019-03-16</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/流畅的Python/">流畅的Python</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/Python/">Python</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/16/流畅的Python-2-序列构成的数组/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第2章-序列构成的数组"><a href="#第2章-序列构成的数组" class="headerlink" title="第2章 序列构成的数组"></a>第2章 序列构成的数组</h2><blockquote>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/16/流畅的Python-2-序列构成的数组/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第2章-序列构成的数组"><span class="toc-text">第2章 序列构成的数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-内置序列类型概览"><span class="toc-text">2.1 内置序列类型概览</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-列表推导和生成器表达式"><span class="toc-text">2.2 列表推导和生成器表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-列表推导与和可读性"><span class="toc-text">2.2.1 列表推导与和可读性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-列表推导同filter和map的比较"><span class="toc-text">2.2.2 列表推导同filter和map的比较</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-笛卡尔积"><span class="toc-text">2.2.3 笛卡尔积</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-生成器表达式"><span class="toc-text">2.2.4 生成器表达式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-元组不仅仅是不可变的列表"><span class="toc-text">2.3 元组不仅仅是不可变的列表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-元组和记录"><span class="toc-text">2.3.1 元组和记录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-元组拆包"><span class="toc-text">2.3.2 元组拆包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-3-嵌套元组拆包"><span class="toc-text">2.3.3 嵌套元组拆包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-4-具名元组"><span class="toc-text">2.3.4 具名元组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-5-作为不可变列表的元组"><span class="toc-text">2.3.5 作为不可变列表的元组</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-切片"><span class="toc-text">2.4 切片</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-1-为什么切片和区间会忽略最后一个元素"><span class="toc-text">2.4.1 为什么切片和区间会忽略最后一个元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-2-切片对象"><span class="toc-text">2.4.2 切片对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-3-多维切片和省略"><span class="toc-text">2.4.3 多维切片和省略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-4-给切片赋值"><span class="toc-text">2.4.4 给切片赋值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-对序列使用-和"><span class="toc-text">2.5 对序列使用+和*</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-1-建立由列表组成的列表"><span class="toc-text">2.5.1 建立由列表组成的列表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-序列的增量赋值"><span class="toc-text">2.6 序列的增量赋值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-list-sort方法和内置函数sorted"><span class="toc-text">2.7 list.sort方法和内置函数sorted</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8-用bisect来管理已排序的序列"><span class="toc-text">2.8 用bisect来管理已排序的序列</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-8-1-用bisect来搜索"><span class="toc-text">2.8.1 用bisect来搜索</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-8-2-用bisect-insort插入新元素"><span class="toc-text">2.8.2 用bisect.insort插入新元素</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-9-当列表不是首选时"><span class="toc-text">2.9 当列表不是首选时</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-9-1-数组"><span class="toc-text">2.9.1 数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-9-2-内存视图"><span class="toc-text">2.9.2 内存视图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-9-3-NumPy和SciPy"><span class="toc-text">2.9.3 NumPy和SciPy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-9-4-双向队列和其他形式的队列"><span class="toc-text">2.9.4 双向队列和其他形式的队列</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-10-本章小结"><span class="toc-text">2.10 本章小结</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第2章-序列构成的数组"><a href="#第2章-序列构成的数组" class="headerlink" title="第2章 序列构成的数组"></a>第2章 序列构成的数组</h2><blockquote>
 <p>你可能注意到了，之前提到的几个操作可以无差别地应用于文本、列表和表格上，我们把文本、列表和表格叫做<strong>数据火车</strong>，for命令通常能作用于数据火车上。—Geurts、Meertens和Pemberton, ABC Programmer’s Handbook</p>
 </blockquote>
 <ul>
@@ -853,10 +858,10 @@
 </li>
 </ol>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -888,10 +893,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -899,10 +904,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -928,9 +933,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

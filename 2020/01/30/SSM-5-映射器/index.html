@@ -38,7 +38,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -172,7 +172,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -312,47 +312,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-SSM-5-映射器" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-SSM-5-映射器" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [SSM][5][映射器]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/01/30/SSM-5-映射器/" class="article-date">
 	  <time datetime="2020-01-30T09:30:16.000Z" itemprop="datePublished">2020-01-30</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/SSM/">SSM</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/MyBatis/">MyBatis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/01/30/SSM-5-映射器/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第5章-映射器"><a href="#第5章-映射器" class="headerlink" title="第5章 映射器"></a>第5章 映射器</h2><p>映射器由一个接口加上 <code>XML</code> 文件(或者注解)组成。在映射器中可以配置参数、各类的<code>SQL</code>语句、存储过程、缓存、级联等复杂的内容，并且通过简易的映射规则映射到指定的<code>POJO</code>或者其他对象上，映射器能有效消除<code>JDBC</code>底层的代码。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/01/30/SSM-5-映射器/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第5章-映射器"><span class="toc-text">第5章 映射器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-概述"><span class="toc-text">5.1 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-select元素-查询语句"><span class="toc-text">5.2 select元素(查询语句)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-1-简单的select元素的应用"><span class="toc-text">5.2.1 简单的select元素的应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-2-自动映射和驼峰映射"><span class="toc-text">5.2.2 自动映射和驼峰映射</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-3-传递多个参数"><span class="toc-text">5.2.3 传递多个参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-3-1-使用map接口传递多个参数"><span class="toc-text">5.2.3.1 使用map接口传递多个参数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-3-2-使用注解传递多个参数"><span class="toc-text">5.2.3.2 使用注解传递多个参数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-3-3-通过JavaBean传递多个参数"><span class="toc-text">5.2.3.3 通过JavaBean传递多个参数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-3-4-混合使用"><span class="toc-text">5.2.3.4 混合使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-3-5-总结"><span class="toc-text">5.2.3.5 总结</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-4-使用resultMap映射结果集"><span class="toc-text">5.2.4 使用resultMap映射结果集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-5-分页参数RowBounds"><span class="toc-text">5.2.5 分页参数RowBounds</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-insert元素-插入语句"><span class="toc-text">5.3 insert元素(插入语句)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-1-概述"><span class="toc-text">5.3.1 概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-2-简单的insert语句的应用"><span class="toc-text">5.3.2 简单的insert语句的应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-3-主键回填"><span class="toc-text">5.3.3 主键回填</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-4-自定义主键"><span class="toc-text">5.3.4 自定义主键</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-update元素和delete元素"><span class="toc-text">5.4 update元素和delete元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-sql元素"><span class="toc-text">5.5 sql元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-参数"><span class="toc-text">5.6 参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-6-1-概述"><span class="toc-text">5.6.1 概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-6-2-存储过程参数支持"><span class="toc-text">5.6.2 存储过程参数支持</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-6-3-特殊字符串的替换和处理"><span class="toc-text">5.6.3 特殊字符串的替换和处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-7-resultMap元素"><span class="toc-text">5.7 resultMap元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-7-1-resultMap元素的构成"><span class="toc-text">5.7.1 resultMap元素的构成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-7-2-使用map存储结果集"><span class="toc-text">5.7.2 使用map存储结果集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-7-3-使用POJO存储结果集"><span class="toc-text">5.7.3 使用POJO存储结果集</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-8-级联"><span class="toc-text">5.8 级联</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-8-1-MyBatis中的级联"><span class="toc-text">5.8.1 MyBatis中的级联</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-8-2-N-1问题"><span class="toc-text">5.8.2 N+1问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-8-3-延迟加载"><span class="toc-text">5.8.3 延迟加载</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-9-缓存"><span class="toc-text">5.9 缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-9-1-一级续存和二级缓存"><span class="toc-text">5.9.1 一级续存和二级缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-9-2-自定义缓存"><span class="toc-text">5.9.2 自定义缓存</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-10-存储过程"><span class="toc-text">5.10 存储过程</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第5章-映射器"><a href="#第5章-映射器" class="headerlink" title="第5章 映射器"></a>第5章 映射器</h2><p>映射器由一个接口加上 <code>XML</code> 文件(或者注解)组成。在映射器中可以配置参数、各类的<code>SQL</code>语句、存储过程、缓存、级联等复杂的内容，并且通过简易的映射规则映射到指定的<code>POJO</code>或者其他对象上，映射器能有效消除<code>JDBC</code>底层的代码。</p>
 <p><code>MyBatis</code>的映射器也可以使用注解完成，但是应用不广，原因主要来自3个方面</p>
 <ol>
 <li>面对复杂性，<code>SQL</code>会显得无力，尤其是长<code>SQL</code></li>
@@ -517,10 +522,10 @@
 <p>在现实中，我们可以使用<code>Redis</code>,<code>MongoDB</code>或者其他常用的缓存，假设存在一个<code>Redis</code>的缓存实现类<code>com.ssm.chapter5.cache.RedisCache</code> ，那么可以这样配置它：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span> <span class="attr">type</span> =<span class="string">"com.ssm.chapterS.cache.RedisCache"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"host"</span> <span class="attr">value</span>=<span class="string">"localhost"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">cache</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="5-10-存储过程"><a href="#5-10-存储过程" class="headerlink" title="5.10 存储过程"></a>5.10 存储过程</h3><p>略</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -552,10 +557,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -563,10 +568,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -592,9 +597,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

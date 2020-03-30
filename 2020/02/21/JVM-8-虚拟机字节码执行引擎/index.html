@@ -49,7 +49,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -183,7 +183,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -323,47 +323,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-JVM-8-虚拟机字节码执行引擎" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-JVM-8-虚拟机字节码执行引擎" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [JVM][8][虚拟机字节码执行引擎]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/02/21/JVM-8-虚拟机字节码执行引擎/" class="article-date">
 	  <time datetime="2020-02-21T12:30:43.000Z" itemprop="datePublished">2020-02-21</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/jvm/">jvm</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/java/">java</a>, <a class="article-tag-link" href="/tags/jvm/">jvm</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/21/JVM-8-虚拟机字节码执行引擎/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-8-章-虚拟机字节码执行引擎"><a href="#第-8-章-虚拟机字节码执行引擎" class="headerlink" title="第 8 章 虚拟机字节码执行引擎"></a>第 8 章 虚拟机字节码执行引擎</h2><p>代码编译的结果从本地机器码转变为字节码，是存储格式发展的一小步，却是编程语言发展的一大步</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/21/JVM-8-虚拟机字节码执行引擎/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-8-章-虚拟机字节码执行引擎"><span class="toc-text">第 8 章 虚拟机字节码执行引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-概述"><span class="toc-text">8.1 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-运行时栈帧结构"><span class="toc-text">8.2 运行时栈帧结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-1-局部变量表"><span class="toc-text">8.2.1 局部变量表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-2-操作数栈"><span class="toc-text">8.2.2 操作数栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-3-动态连接"><span class="toc-text">8.2.3 动态连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-4-方法返回地址"><span class="toc-text">8.2.4 方法返回地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-5-附加信息"><span class="toc-text">8.2.5 附加信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-方法调用"><span class="toc-text">8.3 方法调用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-3-1-解析"><span class="toc-text">8.3.1 解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-3-2-分派"><span class="toc-text">8.3.2 分派</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#8-3-2-1-静态分派"><span class="toc-text">8.3.2.1 静态分派</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#8-3-2-2-动态分派"><span class="toc-text">8.3.2.2 动态分派</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#8-3-2-3-单分派和多分派"><span class="toc-text">8.3.2.3 单分派和多分派</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#8-3-2-4-虚拟机动态分派的实现"><span class="toc-text">8.3.2.4 虚拟机动态分派的实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-动态类型语言支持"><span class="toc-text">8.4 动态类型语言支持</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-1-动态类型语言"><span class="toc-text">8.4.1 动态类型语言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-2-Java与动态类型"><span class="toc-text">8.4.2 Java与动态类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-3-java-lang-invoke包"><span class="toc-text">8.4.3 java.lang.invoke包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-4-invokedynamic指令"><span class="toc-text">8.4.4 invokedynamic指令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-5-基于栈的字节码解释执行引擎"><span class="toc-text">8.5 基于栈的字节码解释执行引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-5-1-解释执行"><span class="toc-text">8.5.1 解释执行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-5-2-基于栈的指令集与基于寄存器的指令集"><span class="toc-text">8.5.2 基于栈的指令集与基于寄存器的指令集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-5-3-基于栈的解释器执行过程"><span class="toc-text">8.5.3 基于栈的解释器执行过程</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-8-章-虚拟机字节码执行引擎"><a href="#第-8-章-虚拟机字节码执行引擎" class="headerlink" title="第 8 章 虚拟机字节码执行引擎"></a>第 8 章 虚拟机字节码执行引擎</h2><p>代码编译的结果从本地机器码转变为字节码，是存储格式发展的一小步，却是编程语言发展的一大步</p>
 <h3 id="8-1-概述"><a href="#8-1-概述" class="headerlink" title="8.1 概述"></a>8.1 概述</h3><p>“虚拟机”是一个相对于“物理机”的概念，这两种机器都有代码执行能力，其区别是物理机的执行引擎是直接建立在处理器、硬件、指令集和操作系统层面上的，而虚拟机的执行引擎則是由自己实现的，因此可以自行制定指令集与执行引擎的结构体系，并且能够执行那些不被硬件直接支持的指令集格式。</p>
 <p>各种虚拟机执行引擎要有统一的外观（Facade）。在不同的虚拟机实现里面，执行引擎在执行Java代码的时候通常会有解释执行（通过解释器执行）和编译执行（通过即时编译器产生本地代码执行）两种选择，也可能两者兼备，甚至还可能会包含几个不同级别的编译器执行引擎。但从外观上看起来，所有的Java虚拟机的执行引擎都是一致的：输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。</p>
 <h3 id="8-2-运行时栈帧结构"><a href="#8-2-运行时栈帧结构" class="headerlink" title="8.2 运行时栈帧结构"></a>8.2 运行时栈帧结构</h3><p>Java虚拟机以方法作为最基本的执行单元，“栈帧”则是用于支持虚拟机进行方法调用和方法执行背后的数据结构。每个方法从调用开始至执行结束的过程，都对应着一个栈帧在虚拟机栈里面从入栈到出栈的过程。</p>
@@ -474,10 +479,10 @@
 <p><img src="/2020/02/21/JVM-8-虚拟机字节码执行引擎/200220_12.png" alt=""></p>
 <p>但是上面的执行过程只是概念模型，实际上Java解释器会对字节码进行优化，不会按照上述图示逐条执行。</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -509,10 +514,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -520,10 +525,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -549,9 +554,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

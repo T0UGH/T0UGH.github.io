@@ -41,7 +41,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -175,7 +175,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -315,47 +315,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-SSM-11-面向切面编程" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-SSM-11-面向切面编程" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [SSM][11][面向切面编程]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/02/02/SSM-11-面向切面编程/" class="article-date">
 	  <time datetime="2020-02-02T03:34:20.000Z" itemprop="datePublished">2020-02-02</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/SSM/">SSM</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/AOP/">AOP</a>, <a class="article-tag-link" href="/tags/Spring/">Spring</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/02/SSM-11-面向切面编程/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-11-章-面向切面编程"><a href="#第-11-章-面向切面编程" class="headerlink" title="第 11 章 面向切面编程"></a>第 11 章 面向切面编程</h2><h3 id="11-1-一个简单的约定游戏"><a href="#11-1-一个简单的约定游戏" class="headerlink" title="11.1 一个简单的约定游戏"></a>11.1 一个简单的约定游戏</h3><p>略</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/02/SSM-11-面向切面编程/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-11-章-面向切面编程"><span class="toc-text">第 11 章 面向切面编程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-1-一个简单的约定游戏"><span class="toc-text">11.1 一个简单的约定游戏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-2-SpringAOP的基本概念"><span class="toc-text">11.2 SpringAOP的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#11-2-1-AOP的概念和使用原因"><span class="toc-text">11.2.1 AOP的概念和使用原因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-2-2-面向切面编程的术语"><span class="toc-text">11.2.2 面向切面编程的术语</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-切面"><span class="toc-text">1. 切面</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-通知"><span class="toc-text">2 通知</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-引入"><span class="toc-text">3 引入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-切点"><span class="toc-text">4 切点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-连接点"><span class="toc-text">5 连接点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-织入"><span class="toc-text">6 织入</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-2-3-Spring对AOP的支持"><span class="toc-text">11.2.3 Spring对AOP的支持</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-3-使用-AspectJ注解开发SpringAOP"><span class="toc-text">11.3 使用@AspectJ注解开发SpringAOP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#11-3-1-选择连接点"><span class="toc-text">11.3.1 选择连接点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-3-2-创建切面"><span class="toc-text">11.3.2 创建切面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-3-3-定义切点"><span class="toc-text">11.3.3 定义切点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-3-4-测试AOP"><span class="toc-text">11.3.4 测试AOP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-3-5-环绕通知"><span class="toc-text">11.3.5 环绕通知</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-3-6-织入"><span class="toc-text">11.3.6 织入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-3-7-给通知传递参数"><span class="toc-text">11.3.7 给通知传递参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-3-8-引入"><span class="toc-text">11.3.8 引入</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-4-使用XML配置开发SpringAOP"><span class="toc-text">11.4 使用XML配置开发SpringAOP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-5-经典SpringAOP应用程序"><span class="toc-text">11.5 经典SpringAOP应用程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-6-多个切面"><span class="toc-text">11.6 多个切面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-7-小结"><span class="toc-text">11.7 小结</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-11-章-面向切面编程"><a href="#第-11-章-面向切面编程" class="headerlink" title="第 11 章 面向切面编程"></a>第 11 章 面向切面编程</h2><h3 id="11-1-一个简单的约定游戏"><a href="#11-1-一个简单的约定游戏" class="headerlink" title="11.1 一个简单的约定游戏"></a>11.1 一个简单的约定游戏</h3><p>略</p>
 <h3 id="11-2-SpringAOP的基本概念"><a href="#11-2-SpringAOP的基本概念" class="headerlink" title="11.2 SpringAOP的基本概念"></a>11.2 SpringAOP的基本概念</h3><h4 id="11-2-1-AOP的概念和使用原因"><a href="#11-2-1-AOP的概念和使用原因" class="headerlink" title="11.2.1 AOP的概念和使用原因"></a>11.2.1 AOP的概念和使用原因</h4><p>先看一个不使用SpringAOP的例子，这里使用MyBatis框架，完成扣减一个产品的库存并且新增一笔交易记录的功能<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">savePurchaseRecord</span><span class="params">(Long productId, PurchaseRecord record)</span></span>&#123;</span><br><span class="line">    SqlSession sqlSession = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        sqlSession = SqlSessionFactoryUtils.openSqlSession();</span><br><span class="line">        ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);</span><br><span class="line">        Product product = productMapper.getRole(productId);</span><br><span class="line">        <span class="keyword">if</span>(product.getStock() &gt;= record.getQuantity())&#123;</span><br><span class="line">            product.setStock(product.getStock() - record.getQuantity());</span><br><span class="line">            productMapper.update(product);</span><br><span class="line">            PurchaseRecordMapper purchaseRecordMapper = sqlSession.getMapper(PurchaseRecordMapper.class);</span><br><span class="line">            purchaseRecordMapper.save(record);</span><br><span class="line">            sqlSession.commit();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">        sqlSession.rollBack();</span><br><span class="line">    &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sqlSession != <span class="keyword">null</span>)&#123;</span><br><span class="line">            sqlSession.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>这里的购买交易的产品和购买记录都在<code>try...catch...finally...</code>语句中</li>
@@ -498,10 +503,10 @@
 <p>Spring底层是通过责任链来处理多个切面的，如下图<br><img src="/2020/02/02/SSM-11-面向切面编程/200202_3.png" alt=""></p>
 <h3 id="11-7-小结"><a href="#11-7-小结" class="headerlink" title="11.7 小结"></a>11.7 小结</h3><p><code>AOP</code>是<code>Spring</code>两大核心内容之一，通过<code>AOP</code>可以将一些比较公用的代码抽取出来，进而减少开发者的工作量</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -533,10 +538,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -544,10 +549,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -573,9 +578,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

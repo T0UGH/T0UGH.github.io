@@ -41,7 +41,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -175,7 +175,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -315,47 +315,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-Redis-13-客户端" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-Redis-13-客户端" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [Redis][13][客户端]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/03/04/Redis-13-客户端/" class="article-date">
 	  <time datetime="2020-03-04T08:06:57.000Z" itemprop="datePublished">2020-03-04</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/redis/">redis</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/redis/">redis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/04/Redis-13-客户端/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-13-章-客户端"><a href="#第-13-章-客户端" class="headerlink" title="第 13 章 客户端"></a>第 13 章 客户端</h2><p>Redis服务器是典型的<strong>一对多服务器</strong>程序：一个服务器可以与多个客户端建立网络连接。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/04/Redis-13-客户端/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-13-章-客户端"><span class="toc-text">第 13 章 客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#13-1-客户端属性"><span class="toc-text">13.1 客户端属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#13-1-1-套接字描述符"><span class="toc-text">13.1.1 套接字描述符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-1-2-名字"><span class="toc-text">13.1.2 名字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-1-3-标志"><span class="toc-text">13.1.3 标志</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-1-4-输入缓冲区"><span class="toc-text">13.1.4 输入缓冲区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-1-5-命令与命令参数"><span class="toc-text">13.1.5 命令与命令参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-1-6-命令的实现函数"><span class="toc-text">13.1.6 命令的实现函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-1-7-输出缓冲区"><span class="toc-text">13.1.7 输出缓冲区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-1-8-身份验证"><span class="toc-text">13.1.8 身份验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-1-9-时间"><span class="toc-text">13.1.9 时间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-2-客户端的创建与关闭"><span class="toc-text">13.2 客户端的创建与关闭</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#13-2-1-创建普通客户端"><span class="toc-text">13.2.1 创建普通客户端</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-2-2-关闭普通客户端"><span class="toc-text">13.2.2 关闭普通客户端</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-2-3-Lua脚本的伪客户端"><span class="toc-text">13.2.3 Lua脚本的伪客户端</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-2-4-AOF文件的伪客户端"><span class="toc-text">13.2.4 AOF文件的伪客户端</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-13-章-客户端"><a href="#第-13-章-客户端" class="headerlink" title="第 13 章 客户端"></a>第 13 章 客户端</h2><p>Redis服务器是典型的<strong>一对多服务器</strong>程序：一个服务器可以与多个客户端建立网络连接。</p>
 <p>通过使用由<strong>I/O多路复用</strong>技术实现的文件事件处理器，Redis服务器使用<strong>单线程单进程</strong>的方式来处理命令请求，并与多个客户端进行网络通信。</p>
 <p>对于每个与服务器进行连接的客户端，服务器都为这些客户端建立了相应的<code>redis.h/redisclient</code>结构（客户端状态），这个结构保存了客户端当前的<strong>状态信息</strong>，以及<strong>执行相关功能</strong>时需要用到的<strong>数据结构</strong>，具体属性本节稍后会介绍</p>
 <p>Redis服务器结构中存储了一个<code>redisClient</code>类型的链表，它保存了所有与服务器连接的客户端状态结构</p>
@@ -409,10 +414,10 @@
 <p><code>lua_client</code>伪客户端在服务器运行的整个生命周期中都会存在</p>
 <h4 id="13-2-4-AOF文件的伪客户端"><a href="#13-2-4-AOF文件的伪客户端" class="headerlink" title="13.2.4 AOF文件的伪客户端"></a>13.2.4 AOF文件的伪客户端</h4><p>服务器在<strong>载入</strong>AOF文件时，会创建用于执行存储于AOF中的<strong>写命令</strong>的伪客户端，当载入完成时，这个伪客户端就会关闭。</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -444,10 +449,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -455,10 +460,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -484,9 +489,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

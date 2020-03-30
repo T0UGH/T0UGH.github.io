@@ -38,7 +38,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -172,7 +172,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -312,47 +312,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-MyBatis源码-5-连接池" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-MyBatis源码-5-连接池" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [MyBatis源码][5][连接池]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/03/28/MyBatis源码-5-连接池/" class="article-date">
 	  <time datetime="2020-03-28T09:10:54.000Z" itemprop="datePublished">2020-03-28</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/MyBatis/">MyBatis</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/MyBatis/">MyBatis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/28/MyBatis源码-5-连接池/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第五章-连接池"><a href="#第五章-连接池" class="headerlink" title="第五章 连接池"></a>第五章 连接池</h2><p>数据源主要用来获取数据库连接，本篇文章将向大家介绍 MyBatis 内置数据源的实现逻辑。MyBatis 支持三种数据源配置，分别为<code>UNPOOLED</code>、<code>POOLED</code>和<code>JNDI</code>。并提供了两种数据源实现，分别是<code>UnpooledDataSource</code>和<code>PooledDataSource</code>。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/28/MyBatis源码-5-连接池/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第五章-连接池"><span class="toc-text">第五章 连接池</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-内置数据源配置和初始化过程"><span class="toc-text">5.1 内置数据源配置和初始化过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-UnpooledDataSource"><span class="toc-text">5.2 UnpooledDataSource</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-1-初始化数据库驱动"><span class="toc-text">5.2.1 初始化数据库驱动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-2-配置数据库连接"><span class="toc-text">5.2.2 配置数据库连接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-PooledDataSource"><span class="toc-text">5.3 PooledDataSource</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-1-辅助类介绍"><span class="toc-text">5.3.1 辅助类介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-2-获取连接"><span class="toc-text">5.3.2 获取连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-3-回收连接"><span class="toc-text">5.3.3 回收连接</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第五章-连接池"><a href="#第五章-连接池" class="headerlink" title="第五章 连接池"></a>第五章 连接池</h2><p>数据源主要用来获取数据库连接，本篇文章将向大家介绍 MyBatis 内置数据源的实现逻辑。MyBatis 支持三种数据源配置，分别为<code>UNPOOLED</code>、<code>POOLED</code>和<code>JNDI</code>。并提供了两种数据源实现，分别是<code>UnpooledDataSource</code>和<code>PooledDataSource</code>。</p>
 <h3 id="5-1-内置数据源配置和初始化过程"><a href="#5-1-内置数据源配置和初始化过程" class="headerlink" title="5.1 内置数据源配置和初始化过程"></a>5.1 内置数据源配置和初始化过程</h3><p>在分析数据源之前，先看一下数据源如何配置</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"POOLED|UNPOOLED"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driver"</span> <span class="attr">value</span>=<span class="string">"com.mysql.cj.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbcc:mysql//..."</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"1234"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>数据源的配置是内嵌在<code>&lt;environment&gt;</code>节点中的，MyBatis 在解析<code>&lt;environment&gt;</code>节点时，<br>会一并解析数据源的配置。MyBatis 会根据具体的配置信息，为不同的数据源创建相应工厂<br>类，通过工厂类即可创建数据源实例。</p>
@@ -412,10 +417,10 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//5.14</span></span><br><span class="line"><span class="comment">//PooledConnection</span></span><br><span class="line"><span class="comment">//实际的代理逻辑</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//获取当前调用的方法名</span></span><br><span class="line">    String methodName = method.getName();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//如果connection.close()被调用</span></span><br><span class="line">    <span class="keyword">if</span> (CLOSE.hashCode() == methodName.hashCode() &amp;&amp; CLOSE.equals(methodName)) &#123;</span><br><span class="line">        <span class="comment">//并不会实际的去关闭这个连接，而是调用pushConnection()，分情况处理</span></span><br><span class="line">      	dataSource.pushConnection(<span class="keyword">this</span>);</span><br><span class="line">      	<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//对于Connection中其他方法的调用</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">//检查连接状态  </span></span><br><span class="line">      <span class="keyword">if</span> (!Object.class.equals(method.getDeclaringClass())) &#123;</span><br><span class="line">        <span class="comment">// issue #579 toString() should never fail</span></span><br><span class="line">        <span class="comment">// throw an SQLException instead of a Runtime</span></span><br><span class="line">        checkConnection();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//调用真实连接的对应方法  </span></span><br><span class="line">      <span class="keyword">return</span> method.invoke(realConnection, args);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">      <span class="keyword">throw</span> ExceptionUtil.unwrapThrowable(t);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>至此，回收连接的逻辑也看完了。</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -447,10 +452,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -458,10 +463,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -483,9 +488,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

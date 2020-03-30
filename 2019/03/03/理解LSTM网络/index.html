@@ -50,7 +50,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -184,7 +184,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -324,47 +324,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-理解LSTM网络" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-理解LSTM网络" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       理解LSTM网络
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2019/03/03/理解LSTM网络/" class="article-date">
 	  <time datetime="2019-03-03T07:27:26.000Z" itemprop="datePublished">2019-03-03</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/深度学习/">深度学习</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/LSTM/">LSTM</a>, <a class="article-tag-link" href="/tags/RNN/">RNN</a>, <a class="article-tag-link" href="/tags/深度学习/">深度学习</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/03/理解LSTM网络/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="理解LSTM网络"><a href="#理解LSTM网络" class="headerlink" title="理解LSTM网络"></a>理解LSTM网络</h2><h3 id="循环神经网络-RNN"><a href="#循环神经网络-RNN" class="headerlink" title="循环神经网络(RNN)"></a>循环神经网络(RNN)</h3><p>人类不会每时每刻都重新开始思考。当你阅读这篇文章时，你会根据你对之前单词的理解来理解每个单词。你不要丢掉之前的内容，然后再从头开始思考。你的思考是有持久性的。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/03/理解LSTM网络/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#理解LSTM网络"><span class="toc-text">理解LSTM网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#循环神经网络-RNN"><span class="toc-text">循环神经网络(RNN)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#长期依赖问题"><span class="toc-text">长期依赖问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LSTM-网络"><span class="toc-text">LSTM 网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LSTM的核心理念"><span class="toc-text">LSTM的核心理念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LSTM详细运算过程"><span class="toc-text">LSTM详细运算过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#长期记忆的变种"><span class="toc-text">长期记忆的变种</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="理解LSTM网络"><a href="#理解LSTM网络" class="headerlink" title="理解LSTM网络"></a>理解LSTM网络</h2><h3 id="循环神经网络-RNN"><a href="#循环神经网络-RNN" class="headerlink" title="循环神经网络(RNN)"></a>循环神经网络(RNN)</h3><p>人类不会每时每刻都重新开始思考。当你阅读这篇文章时，你会根据你对之前单词的理解来理解每个单词。你不要丢掉之前的内容，然后再从头开始思考。你的思考是有持久性的。</p>
 <p>传统的神经网络不能做到这一点，这似乎是一个主要的缺点。例如，假设您想要对电影中每个点发生的事件进行分类。目前尚不清楚传统神经网络如何利用其对电影中先前事件的推理来得出后面的事件。</p>
 <p>循环神经网络解决了这个问题。它们是带有循环的网络，允许信息持续存在。</p>
 <p><img src="/2019/03/03/理解LSTM网络/RNN-rolled.png" alt=""></p>
@@ -417,10 +422,10 @@
 <p>LSTM是我们通过RNN实现的重要一步。很自然地想知道：还有另一个重要的步骤吗？研究人员普遍认为：“是的！下一步是它的注意力！“我们的想法是让RNN的每一步都从一些更大的信息集中选择信息。例如，如果您使用RNN创建描述图像的标题，则可能会选择图像的一部分来查看其输出的每个单词。实际上，徐等人做到这一点，如果你想探索注意力，它可能是一个有趣的起点！使用注意力已经取得了许多非常令人兴奋的结果，而且似乎还有很多事情即将来临……</p>
 <p>注意力不是RNN研究中唯一激动人心的线索。例如，Kalchbrenner等人的Grid LSTMs似乎非常有希望。在生成模型中使用RNN的工作似乎也很有趣。过去几年对于递归神经网络来说是一个激动人心的时刻，即将到来的神经网络只会更加激动人心！</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -452,10 +457,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -463,10 +468,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -492,9 +497,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

@@ -58,7 +58,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -192,7 +192,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -332,47 +332,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-Redis-8-对象" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-Redis-8-对象" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [Redis][8][对象]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/02/29/Redis-8-对象/" class="article-date">
 	  <time datetime="2020-02-29T08:18:26.000Z" itemprop="datePublished">2020-02-29</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/redis/">redis</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/redis/">redis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/29/Redis-8-对象/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-8-章-Redis对象"><a href="#第-8-章-Redis对象" class="headerlink" title="第 8 章 Redis对象"></a>第 8 章 Redis对象</h2><p>Redis基于C语言实现了一整套底层<strong>数据结构</strong>，用于Redis上层构件使用</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/29/Redis-8-对象/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-8-章-Redis对象"><span class="toc-text">第 8 章 Redis对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-对象的类型与编码"><span class="toc-text">8.1 对象的类型与编码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-1-1-类型"><span class="toc-text">8.1.1 类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-1-2-编码"><span class="toc-text">8.1.2 编码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-字符串对象"><span class="toc-text">8.2 字符串对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-1-字符串对象的编码"><span class="toc-text">8.2.1 字符串对象的编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-1-字符串对象编码转换"><span class="toc-text">8.2.1 字符串对象编码转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-2-字符串命令的实现"><span class="toc-text">8.2.2 字符串命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-列表对象"><span class="toc-text">8.3 列表对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-3-1-列表对象的编码"><span class="toc-text">8.3.1 列表对象的编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-3-2-列表对象编码转换"><span class="toc-text">8.3.2 列表对象编码转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-3-3-列表命令的实现"><span class="toc-text">8.3.3 列表命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-哈希对象"><span class="toc-text">8.4 哈希对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-1-哈希对象的编码"><span class="toc-text">8.4.1 哈希对象的编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-2-哈希对象编码转换"><span class="toc-text">8.4.2 哈希对象编码转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-2-哈希命令的实现"><span class="toc-text">8.4.2 哈希命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-5-集合对象"><span class="toc-text">8.5 集合对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-5-1-集合对象的编码"><span class="toc-text">8.5.1 集合对象的编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-5-2-集合对象编码转换"><span class="toc-text">8.5.2 集合对象编码转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-5-3-集合命令的实现"><span class="toc-text">8.5.3 集合命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-6-有序集合对象"><span class="toc-text">8.6 有序集合对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-6-1-有序集合对象的编码"><span class="toc-text">8.6.1 有序集合对象的编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-6-2-有序集合对象编码转换"><span class="toc-text">8.6.2 有序集合对象编码转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-6-2-有序集合命令的实现"><span class="toc-text">8.6.2 有序集合命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-7-类型检查与命令多态"><span class="toc-text">8.7 类型检查与命令多态</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-7-1-类型检查的实现"><span class="toc-text">8.7.1 类型检查的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-7-1-多态命令的实现"><span class="toc-text">8.7.1 多态命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-8-内存回收"><span class="toc-text">8.8 内存回收</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-9-对象共享"><span class="toc-text">8.9 对象共享</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-10-对象的空转时长"><span class="toc-text">8.10 对象的空转时长</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-11-本章重点"><span class="toc-text">8.11 本章重点</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-8-章-Redis对象"><a href="#第-8-章-Redis对象" class="headerlink" title="第 8 章 Redis对象"></a>第 8 章 Redis对象</h2><p>Redis基于C语言实现了一整套底层<strong>数据结构</strong>，用于Redis上层构件使用</p>
 <ul>
 <li>简单动态字符串（SDS）</li>
 <li>双端链表</li>
@@ -592,10 +597,10 @@
 <li>对象会记录自己的最后一次被访问的时间，这个时间可以用于计算对象的<strong>空转时间</strong>。</li>
 </ul>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -627,10 +632,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -638,10 +643,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -667,9 +672,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

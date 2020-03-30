@@ -43,7 +43,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -177,7 +177,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -317,47 +317,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-Redis-16-Sentinel" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-Redis-16-Sentinel" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [Redis][16][Sentinel]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/03/06/Redis-16-Sentinel/" class="article-date">
 	  <time datetime="2020-03-06T08:27:36.000Z" itemprop="datePublished">2020-03-06</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/redis/">redis</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/redis/">redis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/06/Redis-16-Sentinel/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-16-章-Sentinel"><a href="#第-16-章-Sentinel" class="headerlink" title="第 16 章 Sentinel"></a>第 16 章 Sentinel</h2><p>Sentinel（哨兵）是Redis的高可用性解决方案</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/06/Redis-16-Sentinel/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-16-章-Sentinel"><span class="toc-text">第 16 章 Sentinel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#16-1-启动并初始化Sentinel"><span class="toc-text">16.1 启动并初始化Sentinel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-2-获取主服务器信息"><span class="toc-text">16.2 获取主服务器信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-3-获取从服务器信息"><span class="toc-text">16.3 获取从服务器信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-4-订阅连接的作用"><span class="toc-text">16.4 订阅连接的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-6-检测主观下线状态"><span class="toc-text">16.6 检测主观下线状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-7-检查客观下线状态"><span class="toc-text">16.7 检查客观下线状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-8-选举领头Sentinel"><span class="toc-text">16.8 选举领头Sentinel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-9-故障转移"><span class="toc-text">16.9 故障转移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-10-重点回顾"><span class="toc-text">16.10 重点回顾</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-16-章-Sentinel"><a href="#第-16-章-Sentinel" class="headerlink" title="第 16 章 Sentinel"></a>第 16 章 Sentinel</h2><p>Sentinel（哨兵）是Redis的高可用性解决方案</p>
 <ul>
 <li>由一个或多个Sentinel实例组成的Sentinel系统可以监视任意多个主服务器，以及这些主服务器属下的所有从服务器</li>
 <li>并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升级为新的主服务器，</li>
@@ -431,10 +436,10 @@
 </ul>
 <p>此外，Sentinel系统选举领头节点的方法是对Raft算法的领头选举方法的实现</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -466,10 +471,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -477,10 +482,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -506,9 +511,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

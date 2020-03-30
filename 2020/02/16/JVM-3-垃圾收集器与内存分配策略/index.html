@@ -44,7 +44,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -178,7 +178,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -318,47 +318,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-JVM-3-垃圾收集器与内存分配策略" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-JVM-3-垃圾收集器与内存分配策略" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [JVM][3][垃圾收集器与内存分配策略]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/" class="article-date">
 	  <time datetime="2020-02-16T06:52:55.000Z" itemprop="datePublished">2020-02-16</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/jvm/">jvm</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/java/">java</a>, <a class="article-tag-link" href="/tags/jvm/">jvm</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第3章-垃圾回收器与内存分配策略"><a href="#第3章-垃圾回收器与内存分配策略" class="headerlink" title="第3章 垃圾回收器与内存分配策略"></a>第3章 垃圾回收器与内存分配策略</h2><h3 id="3-1-概述"><a href="#3-1-概述" class="headerlink" title="3.1 概述"></a>3.1 概述</h3><p>在1960年诞生于麻省理工学院的<code>Lisp</code>是第一门开始使用动态内存分配和垃圾收集技术的语言。当<code>Lisp</code>还在胚胎时期，其作者<code>JohnMcCarthy</code>就思考过垃圾收集需要完成的三件事情</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第3章-垃圾回收器与内存分配策略"><span class="toc-text">第3章 垃圾回收器与内存分配策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-概述"><span class="toc-text">3.1 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-对象已死？"><span class="toc-text">3.2 对象已死？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-引用计数算法"><span class="toc-text">3.2.1 引用计数算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-可达性分析算法"><span class="toc-text">3.2.2 可达性分析算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-再谈引用"><span class="toc-text">3.2.3 再谈引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-生存还是死亡"><span class="toc-text">3.2.4 生存还是死亡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-5-回收方法区"><span class="toc-text">3.2.5 回收方法区</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-垃圾收集算法"><span class="toc-text">3.3 垃圾收集算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-分代收集理论"><span class="toc-text">3.3.1 分代收集理论</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-标记-清除算法"><span class="toc-text">3.3.2 标记-清除算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-3-标记-复制算法"><span class="toc-text">3.3.3 标记-复制算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-4-标记-整理算法"><span class="toc-text">3.3.4 标记-整理算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-HotSpot的算法细节实现"><span class="toc-text">3.4 HotSpot的算法细节实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-根节点枚举"><span class="toc-text">3.4.1 根节点枚举</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-安全点"><span class="toc-text">3.4.2 安全点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-3-安全区域"><span class="toc-text">3.4.3 安全区域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-4-记忆集与卡集"><span class="toc-text">3.4.4 记忆集与卡集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-5-写屏障"><span class="toc-text">3.4.5 写屏障</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-6-并发的可达性分析"><span class="toc-text">3.4.6 并发的可达性分析</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-垃圾收集器"><span class="toc-text">3.5 垃圾收集器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-1-Serial收集器"><span class="toc-text">3.5.1 Serial收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-2-ParNew收集器"><span class="toc-text">3.5.2 ParNew收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-3-Parallel-Scavenge收集器"><span class="toc-text">3.5.3 Parallel Scavenge收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-4-Serial-Old收集器"><span class="toc-text">3.5.4 Serial Old收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-5-Parallel-Old收集器"><span class="toc-text">3.5.5 Parallel Old收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-6-CMS收集器"><span class="toc-text">3.5.6 CMS收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-7-Garbage-First收集器"><span class="toc-text">3.5.7 Garbage First收集器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-低延迟垃圾收集器"><span class="toc-text">3.6 低延迟垃圾收集器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-1-Shenandoah收集器"><span class="toc-text">3.6.1 Shenandoah收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-2-ZGC收集器"><span class="toc-text">3.6.2 ZGC收集器</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第3章-垃圾回收器与内存分配策略"><a href="#第3章-垃圾回收器与内存分配策略" class="headerlink" title="第3章 垃圾回收器与内存分配策略"></a>第3章 垃圾回收器与内存分配策略</h2><h3 id="3-1-概述"><a href="#3-1-概述" class="headerlink" title="3.1 概述"></a>3.1 概述</h3><p>在1960年诞生于麻省理工学院的<code>Lisp</code>是第一门开始使用动态内存分配和垃圾收集技术的语言。当<code>Lisp</code>还在胚胎时期，其作者<code>JohnMcCarthy</code>就思考过垃圾收集需要完成的三件事情</p>
 <ul>
 <li>哪些内存需要回收</li>
 <li>什么时候回收</li>
@@ -567,10 +572,10 @@
 </ul>
 <p><code>ZGC</code>有着令开发人员趋之若鹜的性能，让以前大多数人只是听说，但从未用过的<code>Azul</code>式的垃圾收集器一下子飞入寻常百姓家。当它完全成熟后，将会成为服务端、大内存、低延迟应用首选收集器的有力竞争者</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -602,10 +607,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -613,10 +618,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -642,9 +647,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

@@ -48,7 +48,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -182,7 +182,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -322,47 +322,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-微服务设计-5-分解单块系统" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-微服务设计-5-分解单块系统" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [微服务设计][5][分解单块系统]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/03/09/微服务设计-5-分解单块系统/" class="article-date">
 	  <time datetime="2020-03-09T12:35:13.000Z" itemprop="datePublished">2020-03-09</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/微服务设计/">微服务设计</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/微服务/">微服务</a>, <a class="article-tag-link" href="/tags/微服务设计/">微服务设计</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/09/微服务设计-5-分解单块系统/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-5-章-分解单块系统"><a href="#第-5-章-分解单块系统" class="headerlink" title="第 5 章 分解单块系统"></a>第 5 章 分解单块系统</h2><h3 id="5-1-关键是接缝"><a href="#5-1-关键是接缝" class="headerlink" title="5.1 关键是接缝"></a>5.1 关键是接缝</h3><p>服务应该是高内聚、低耦合的。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/09/微服务设计-5-分解单块系统/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-5-章-分解单块系统"><span class="toc-text">第 5 章 分解单块系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-关键是接缝"><span class="toc-text">5.1 关键是接缝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-分解MusicCorp"><span class="toc-text">5.2 分解MusicCorp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-分解单块系统的原因"><span class="toc-text">5.3 分解单块系统的原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-杂乱的依赖"><span class="toc-text">5.4 杂乱的依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-数据库"><span class="toc-text">5.5 数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-找到问题的关键"><span class="toc-text">5.6 找到问题的关键</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-7-例子：打破外键关系"><span class="toc-text">5.7 例子：打破外键关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-8-例子：共享静态数据"><span class="toc-text">5.8 例子：共享静态数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-9-例子：共享数据"><span class="toc-text">5.9 例子：共享数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-10-例子：共享表"><span class="toc-text">5.10 例子：共享表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-11-重构数据库"><span class="toc-text">5.11 重构数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-12-事务边界"><span class="toc-text">5.12 事务边界</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-12-1-再试一次"><span class="toc-text">5.12.1 再试一次</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-12-2-终止整个操作"><span class="toc-text">5.12.2 终止整个操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-12-3-分布式事务"><span class="toc-text">5.12.3 分布式事务</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-5-章-分解单块系统"><a href="#第-5-章-分解单块系统" class="headerlink" title="第 5 章 分解单块系统"></a>第 5 章 分解单块系统</h2><h3 id="5-1-关键是接缝"><a href="#5-1-关键是接缝" class="headerlink" title="5.1 关键是接缝"></a>5.1 关键是接缝</h3><p>服务应该是高内聚、低耦合的。</p>
 <p>在《修改代码的艺术》这本书中定义了<strong>接缝</strong>的概念，从接缝处可以抽取出相对独立的一部分代码，对这部分代码进行修改不会影响系统的其他部分。识别出接缝不仅仅能够清理代码库，更重要的是，这些被识别出的接缝可以成为服务的边界。<strong>限界上下文</strong>就是一个非常好的接缝。</p>
 <h3 id="5-2-分解MusicCorp"><a href="#5-2-分解MusicCorp" class="headerlink" title="5.2 分解MusicCorp"></a>5.2 分解MusicCorp</h3><p>首先，我们应该<strong>识别</strong>出组织中的<strong>高层限界上下文</strong>。然后，尝试将这个<strong>单块</strong>系统的各部分代码<strong>映射</strong>到这些限界上下文中。</p>
 <p>举例说明，想象一下，现在有一个巨大的后台单块服务，其中包含了 MusicCorp在线音乐系统所需要的所有行为。假设一开始我们识别出这个单块后台系统包含以下四个上下文。</p>
@@ -426,10 +431,10 @@
 <li>只要收到一个否定的投票，事务管理器就会让所有的参与者回退。</li>
 </ol>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -461,10 +466,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -472,10 +477,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -501,9 +506,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

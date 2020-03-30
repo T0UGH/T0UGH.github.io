@@ -46,7 +46,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -180,7 +180,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -320,47 +320,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-SSM-14-SpringMVC的初始化和流程" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-SSM-14-SpringMVC的初始化和流程" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [SSM][14][SpringMVC的初始化和流程]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/02/04/SSM-14-SpringMVC的初始化和流程/" class="article-date">
 	  <time datetime="2020-02-04T13:45:44.000Z" itemprop="datePublished">2020-02-04</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/SSM/">SSM</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/SpringMVC/">SpringMVC</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/04/SSM-14-SpringMVC的初始化和流程/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-14-章-SpringMVC的初始化和流程"><a href="#第-14-章-SpringMVC的初始化和流程" class="headerlink" title="第 14 章 SpringMVC的初始化和流程"></a>第 14 章 SpringMVC的初始化和流程</h2><p><code>SpringMVC</code>是<code>Spring</code>提供给<code>web</code>应用的框架设计，而流程和各个组件的应用和改造是<code>springMVC</code>的根本</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/04/SSM-14-SpringMVC的初始化和流程/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-14-章-SpringMVC的初始化和流程"><span class="toc-text">第 14 章 SpringMVC的初始化和流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#14-1-MVC设计概述"><span class="toc-text">14.1 MVC设计概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#14-1-1-SpringMVC的架构"><span class="toc-text">14.1.1 SpringMVC的架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-1-2-SpringMVC组件与流程"><span class="toc-text">14.1.2 SpringMVC组件与流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-1-3-SpringMVC入门的实例"><span class="toc-text">14.1.3 SpringMVC入门的实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-2-SpringMVC初始化"><span class="toc-text">14.2 SpringMVC初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#14-2-1-初始化SpringIOC上下文"><span class="toc-text">14.2.1 初始化SpringIOC上下文</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-2-2-初始化映射请求上下文"><span class="toc-text">14.2.2 初始化映射请求上下文</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-2-3-使用注解配置方式初始化"><span class="toc-text">14.2.3 使用注解配置方式初始化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-3-SpringMVC开发流程详解"><span class="toc-text">14.3 SpringMVC开发流程详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#14-3-1-配置-RequestMapping"><span class="toc-text">14.3.1 配置@RequestMapping</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-3-2-控制器的开发"><span class="toc-text">14.3.2 控制器的开发</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#14-3-2-1-获取请求参数"><span class="toc-text">14.3.2.1 获取请求参数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#14-3-2-2-实现逻辑和绑定视图"><span class="toc-text">14.3.2.2 实现逻辑和绑定视图</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-3-3-视图渲染"><span class="toc-text">14.3.3 视图渲染</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-4-小结"><span class="toc-text">14.4 小结</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-14-章-SpringMVC的初始化和流程"><a href="#第-14-章-SpringMVC的初始化和流程" class="headerlink" title="第 14 章 SpringMVC的初始化和流程"></a>第 14 章 SpringMVC的初始化和流程</h2><p><code>SpringMVC</code>是<code>Spring</code>提供给<code>web</code>应用的框架设计，而流程和各个组件的应用和改造是<code>springMVC</code>的根本</p>
 <h3 id="14-1-MVC设计概述"><a href="#14-1-MVC设计概述" class="headerlink" title="14.1 MVC设计概述"></a>14.1 <code>MVC</code>设计概述</h3><p><code>MVC</code>的设计根本目的在于解耦各个模块</p>
 <p>在早期的<code>JavaWeb</code>开发中，主要是<code>JSP+JavaBean</code>模式，如下图。但是很快人们发现<code>JSP</code>和<code>JavaBean</code>之间出现了严重的耦合，<code>Java</code>和<code>HTML</code>也耦合在了一起。这样开发者不仅需要掌握<code>Java</code>，还需要有高超的前端技术，对开发者要求很高。更为严重的是，出现了页面前端和后端相互依赖的糟糕情况，前端需要等待后端完成，而后端也依赖于前端完成，才能进行有效测试。而且每一个场景操作几乎都难以复用，因为业务逻辑基本都是由<code>JSP</code>完成的，还混杂了很多页面逻辑功能。<br><img src="/2020/02/04/SSM-14-SpringMVC的初始化和流程/200204_0.png" alt=""></p>
 <p>正因为种种弊端，所以很快这种方式被<code>Servlet+JSP+JavaBean</code>给代替，如下图。这种模式多了一个<code>Servlet</code>组件，首先用户的请求到达<code>Servlet</code>，<code>Servlet</code>组件主要作为控制器，这样<code>Servlet</code>就接受了这个请求，可以通过它调度<code>JavaBean</code>，来读写数据库的数据，然后将结果放到<code>JSP</code>中，这样就可以获取数据并展示给用户<br>。使用了<code>MVC</code>后的一个根本好处是前台和后台得到了一定程度的分离，但是依旧存在一定的耦合。对于后端而言，由于控制器和模型层的分离使得大量的<code>Java</code>代码可以得到重用，而这时作为<code>MVC</code>框架的经典:<code>Struts1</code>、<code>Struts2</code>和<code>Hibernate</code>纷纷崛起。<br><img src="/2020/02/04/SSM-14-SpringMVC的初始化和流程/200204_1.png" alt=""></p>
@@ -478,10 +483,10 @@
 <li><code>SpringMVC</code>而言，控制器是开发的核心内容，要知道如何获取请求参数，处理逻辑业务，然后将得到的数据通过视图解析器和视图渲染出来展现出来</li>
 </ul>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -513,10 +518,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -524,10 +529,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -553,9 +558,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

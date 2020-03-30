@@ -38,7 +38,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -172,7 +172,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -312,47 +312,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-SSM-4-MyBatis配置" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-SSM-4-MyBatis配置" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [SSM][4][MyBatis配置]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/01/24/SSM-4-MyBatis配置/" class="article-date">
 	  <time datetime="2020-01-24T02:44:28.000Z" itemprop="datePublished">2020-01-24</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/SSM/">SSM</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/MyBatis/">MyBatis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/01/24/SSM-4-MyBatis配置/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第4章-MyBatis配置"><a href="#第4章-MyBatis配置" class="headerlink" title="第4章 MyBatis配置"></a>第4章 MyBatis配置</h2><h3 id="4-1-概述"><a href="#4-1-概述" class="headerlink" title="4.1 概述"></a>4.1 概述</h3><p>MyBatis配置文件中所有元素清单如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;? xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;properties/&gt;&lt;!--属性--&gt;</span><br><span class="line">    &lt;settings/&gt;&lt;!--设置--&gt;</span><br><span class="line">    &lt;typeAliases/&gt;&lt;!--类型命名--&gt;</span><br><span class="line">    &lt;typeHandlers&gt;&lt;!--类型处理器--&gt;</span><br><span class="line">    &lt;objectFactory/&gt;&lt;!--对象工厂--&gt;</span><br><span class="line">    &lt;plugins/&gt;&lt;!--插件--&gt;</span><br><span class="line">    &lt;environments&gt;&lt;!--配置环境--&gt;</span><br><span class="line">        &lt;environment&gt;&lt;!--环境变量--&gt;</span><br><span class="line">            &lt;transactionManager/&gt;&lt;!--事务管理器--&gt;</span><br><span class="line">            &lt;dataSource/&gt;&lt;!--数据源--&gt;</span><br><span class="line">        &lt;/environment&gt;</span><br><span class="line">    &lt;environments&gt;</span><br><span class="line">    &lt;databaseIdProvider/&gt;&lt;!--数据库厂商标识--&gt;</span><br><span class="line">    &lt;mappers/&gt;&lt;!--映射器--&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/01/24/SSM-4-MyBatis配置/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第4章-MyBatis配置"><span class="toc-text">第4章 MyBatis配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-概述"><span class="toc-text">4.1 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-properties属性"><span class="toc-text">4.2 properties属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-property子元素"><span class="toc-text">4.2.1 property子元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-使用properties文件"><span class="toc-text">4.2.2 使用properties文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-3-使用程序传递方式传递参数"><span class="toc-text">4.2.3 使用程序传递方式传递参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-4-总结"><span class="toc-text">4.2.4 总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-settings设置"><span class="toc-text">4.3 settings设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-typeAliases别名"><span class="toc-text">4.4 typeAliases别名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-typeHandler类型转换器"><span class="toc-text">4.5 typeHandler类型转换器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-1-系统定义的TypeHandler"><span class="toc-text">4.5.1 系统定义的TypeHandler</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-2-自定义的TypeHandler"><span class="toc-text">4.5.2 自定义的TypeHandler</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-3-枚举typeHandler"><span class="toc-text">4.5.3 枚举typeHandler</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-ObjectFactory-对象工厂"><span class="toc-text">4.6 ObjectFactory(对象工厂)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7-插件"><span class="toc-text">4.7 插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-8-运行环境-Environment"><span class="toc-text">4.8 运行环境(Environment)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-8-1-transactionManager-事务管理器"><span class="toc-text">4.8.1 transactionManager(事务管理器)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-8-2-environment-数据源环境"><span class="toc-text">4.8.2 environment(数据源环境)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-8-2-1-UNPOOLED"><span class="toc-text">4.8.2.1 UNPOOLED</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-8-2-2-POOLED"><span class="toc-text">4.8.2.2 POOLED</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-8-2-3-JNDI"><span class="toc-text">4.8.2.3 JNDI</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-9-databaseIdProvider数据库厂商标识"><span class="toc-text">4.9 databaseIdProvider数据库厂商标识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-10-引入映射器的方法"><span class="toc-text">4.10 引入映射器的方法</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第4章-MyBatis配置"><a href="#第4章-MyBatis配置" class="headerlink" title="第4章 MyBatis配置"></a>第4章 MyBatis配置</h2><h3 id="4-1-概述"><a href="#4-1-概述" class="headerlink" title="4.1 概述"></a>4.1 概述</h3><p>MyBatis配置文件中所有元素清单如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;? xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;properties/&gt;&lt;!--属性--&gt;</span><br><span class="line">    &lt;settings/&gt;&lt;!--设置--&gt;</span><br><span class="line">    &lt;typeAliases/&gt;&lt;!--类型命名--&gt;</span><br><span class="line">    &lt;typeHandlers&gt;&lt;!--类型处理器--&gt;</span><br><span class="line">    &lt;objectFactory/&gt;&lt;!--对象工厂--&gt;</span><br><span class="line">    &lt;plugins/&gt;&lt;!--插件--&gt;</span><br><span class="line">    &lt;environments&gt;&lt;!--配置环境--&gt;</span><br><span class="line">        &lt;environment&gt;&lt;!--环境变量--&gt;</span><br><span class="line">            &lt;transactionManager/&gt;&lt;!--事务管理器--&gt;</span><br><span class="line">            &lt;dataSource/&gt;&lt;!--数据源--&gt;</span><br><span class="line">        &lt;/environment&gt;</span><br><span class="line">    &lt;environments&gt;</span><br><span class="line">    &lt;databaseIdProvider/&gt;&lt;!--数据库厂商标识--&gt;</span><br><span class="line">    &lt;mappers/&gt;&lt;!--映射器--&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
 <p>MyBatis配置项的顺序不能颠倒，否则在启动阶段会发生异常</p>
 <h3 id="4-2-properties属性"><a href="#4-2-properties属性" class="headerlink" title="4.2 properties属性"></a>4.2 properties属性</h3><p>properties属性可以给系统配置一些运行参数，可以放在XML文件中，便于参数修改</p>
 <p>MyBatis提供3种方式来使用properties</p>
@@ -443,10 +448,10 @@
 </li>
 </ol>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -478,10 +483,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -489,10 +494,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -518,9 +523,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

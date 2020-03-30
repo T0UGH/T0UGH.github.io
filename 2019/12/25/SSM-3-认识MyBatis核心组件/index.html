@@ -41,7 +41,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -175,7 +175,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -315,47 +315,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-SSM-3-认识MyBatis核心组件" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-SSM-3-认识MyBatis核心组件" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [SSM][3][认识MyBatis核心组件]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2019/12/25/SSM-3-认识MyBatis核心组件/" class="article-date">
 	  <time datetime="2019-12-25T04:44:47.000Z" itemprop="datePublished">2019-12-25</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/SSM/">SSM</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/MyBatis/">MyBatis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/12/25/SSM-3-认识MyBatis核心组件/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-3-章-认识MyBatis核心组件"><a href="#第-3-章-认识MyBatis核心组件" class="headerlink" title="第 3 章 认识MyBatis核心组件"></a>第 3 章 认识MyBatis核心组件</h2><h3 id="3-1-持久层的概念和MyBatis的特点"><a href="#3-1-持久层的概念和MyBatis的特点" class="headerlink" title="3.1 持久层的概念和MyBatis的特点"></a>3.1 持久层的概念和MyBatis的特点</h3><ul>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/12/25/SSM-3-认识MyBatis核心组件/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-3-章-认识MyBatis核心组件"><span class="toc-text">第 3 章 认识MyBatis核心组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-持久层的概念和MyBatis的特点"><span class="toc-text">3.1 持久层的概念和MyBatis的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-准备MyBatis环境"><span class="toc-text">3.2 准备MyBatis环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-MyBatis的核心组件"><span class="toc-text">3.3 MyBatis的核心组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-SqlSessionFactory-工厂接口"><span class="toc-text">3.4 SqlSessionFactory(工厂接口)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-使用XML构建SqlSessionFactory"><span class="toc-text">3.4.1 使用XML构建SqlSessionFactory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-使用代码构建SqlSessionFactory"><span class="toc-text">3.4.2 使用代码构建SqlSessionFactory</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-SqlSession"><span class="toc-text">2.5 SqlSession</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-映射器-Mapper"><span class="toc-text">3.6 映射器(Mapper)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-1-用XML实现映射器"><span class="toc-text">3.6.1 用XML实现映射器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-2-注解实现映射器"><span class="toc-text">3.6.2 注解实现映射器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-3-SqlSession发送SQL"><span class="toc-text">3.6.3 SqlSession发送SQL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-4-用Mapper接口发送SQL"><span class="toc-text">3.6.4 用Mapper接口发送SQL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-5-对比两种发送SQL的方式"><span class="toc-text">3.6.5 对比两种发送SQL的方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-生命周期"><span class="toc-text">3.7 生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-7-1-SqlSessionFactoryBuilder"><span class="toc-text">3.7.1 SqlSessionFactoryBuilder</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-7-2-SqlSessionFactory"><span class="toc-text">3.7.2 SqlSessionFactory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-7-3-SqlSession"><span class="toc-text">3.7.3 SqlSession</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-7-4-Mapper"><span class="toc-text">3.7.4 Mapper</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-7-5-总结"><span class="toc-text">3.7.5 总结</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-3-章-认识MyBatis核心组件"><a href="#第-3-章-认识MyBatis核心组件" class="headerlink" title="第 3 章 认识MyBatis核心组件"></a>第 3 章 认识MyBatis核心组件</h2><h3 id="3-1-持久层的概念和MyBatis的特点"><a href="#3-1-持久层的概念和MyBatis的特点" class="headerlink" title="3.1 持久层的概念和MyBatis的特点"></a>3.1 持久层的概念和MyBatis的特点</h3><ul>
 <li><p>持久层概念</p>
 <ul>
 <li>持久层可以将业务数据存储到磁盘，具备长期存储能力</li>
@@ -587,10 +592,10 @@
 <li><code>MyBatis</code>组件的生命周期<br>  <img src="/2019/12/25/SSM-3-认识MyBatis核心组件/0428_0.png" alt=""></li>
 </ul>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -622,10 +627,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -633,10 +638,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -662,9 +667,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

@@ -46,7 +46,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -180,7 +180,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -320,47 +320,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-Tensorflow-3-Tensorflow入门" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-Tensorflow-3-Tensorflow入门" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [Tensorflow][3]Tensorflow入门
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2019/03/10/Tensorflow-3-Tensorflow入门/" class="article-date">
 	  <time datetime="2019-03-10T06:36:44.000Z" itemprop="datePublished">2019-03-10</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/Tensorflow/">Tensorflow</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/Tensorflow/">Tensorflow</a>, <a class="article-tag-link" href="/tags/深度学习/">深度学习</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/10/Tensorflow-3-Tensorflow入门/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第三章-TensorFlow入门"><a href="#第三章-TensorFlow入门" class="headerlink" title="第三章 TensorFlow入门"></a>第三章 TensorFlow入门</h2><hr>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/10/Tensorflow-3-Tensorflow入门/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第三章-TensorFlow入门"><span class="toc-text">第三章 TensorFlow入门</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-TensorFlow计算模型—计算图"><span class="toc-text">3.1 TensorFlow计算模型—计算图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-计算图的概念"><span class="toc-text">3.1.1 计算图的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-计算图的使用"><span class="toc-text">3.1.2 计算图的使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-TensorFlow数据模型—张量"><span class="toc-text">3.2 TensorFlow数据模型—张量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-张量的概念"><span class="toc-text">3.2.1 张量的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-张量的使用"><span class="toc-text">3.2.2 张量的使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-TensorFlow运行模型—会话"><span class="toc-text">3.3 TensorFlow运行模型—会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-TensorFlow实现神经网络"><span class="toc-text">3.4 TensorFlow实现神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-TensorFlow-Playground及神经网络简介"><span class="toc-text">3.4.1 TensorFlow Playground及神经网络简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-前向传播算法简介"><span class="toc-text">3.4.2 前向传播算法简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-3-神经网络参数与TensorFlow变量"><span class="toc-text">3.4.3 神经网络参数与TensorFlow变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-4-通过TensorFlow训练神经网络模型"><span class="toc-text">3.4.4 通过TensorFlow训练神经网络模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-5-完整神经网络样例程序"><span class="toc-text">3.4.5 完整神经网络样例程序</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-text">小结</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第三章-TensorFlow入门"><a href="#第三章-TensorFlow入门" class="headerlink" title="第三章 TensorFlow入门"></a>第三章 TensorFlow入门</h2><hr>
 <h3 id="3-1-TensorFlow计算模型—计算图"><a href="#3-1-TensorFlow计算模型—计算图" class="headerlink" title="3.1 TensorFlow计算模型—计算图"></a>3.1 TensorFlow计算模型—计算图</h3><ul>
 <li>计算图是TensorFlow中最基本的一个概念，TensorFlow中的所有计算都会被转化为计算图上的节点</li>
 </ul>
@@ -817,10 +822,10 @@
 </ul>
 <hr>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -852,10 +857,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -863,10 +868,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -892,9 +897,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

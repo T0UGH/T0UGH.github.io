@@ -41,7 +41,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -175,7 +175,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -315,47 +315,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-SpringBoot-6-SpringBoot整合数据库事务" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-SpringBoot-6-SpringBoot整合数据库事务" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [SpringBoot][6][SpringBoot整合数据库事务]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/02/08/SpringBoot-6-SpringBoot整合数据库事务/" class="article-date">
 	  <time datetime="2020-02-08T09:22:59.000Z" itemprop="datePublished">2020-02-08</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/SpringBoot/">SpringBoot</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/SpringBoot/">SpringBoot</a>, <a class="article-tag-link" href="/tags/数据库事务/">数据库事务</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/08/SpringBoot-6-SpringBoot整合数据库事务/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-6-章-SpringBoot整合数据库事务"><a href="#第-6-章-SpringBoot整合数据库事务" class="headerlink" title="第 6 章 SpringBoot整合数据库事务"></a>第 6 章 SpringBoot整合数据库事务</h2><p>在互联网数据库的使用中，对于那些电商和金融网站，最关注的内容毫无疑问就是数据库事务。它们的业务存在高并发，数据库的数据一般在一个多事务的场景下运行，如果不采取一定手段就会造成数据的不一致。面对这样的高井发场景，掌握数据库事务机制是至关重要的，它能够帮助我们在一定程度上保证数据的一致性，并且有效提高系<br>统性能，避免系统产生宕机。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/08/SpringBoot-6-SpringBoot整合数据库事务/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-6-章-SpringBoot整合数据库事务"><span class="toc-text">第 6 章 SpringBoot整合数据库事务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-JDBC的数据库事务"><span class="toc-text">6.1 JDBC的数据库事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-Spring声明式事务的使用"><span class="toc-text">6.2 Spring声明式事务的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-1-Spring声明式数据库事务约定"><span class="toc-text">6.2.1 Spring声明式数据库事务约定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-2-Transcational的配置项"><span class="toc-text">6.2.2 @Transcational的配置项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-3-Spring事务管理器"><span class="toc-text">6.2.3 Spring事务管理器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-隔离级别"><span class="toc-text">6.3 隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-1-丢失更新"><span class="toc-text">6.3.1 丢失更新</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-2-详解隔离级别"><span class="toc-text">6.3.2 详解隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#6-3-2-1-未提交读"><span class="toc-text">6.3.2.1 未提交读</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-3-2-2-读写提交"><span class="toc-text">6.3.2.2 读写提交</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-3-2-3-可重复读"><span class="toc-text">6.3.2.3 可重复读</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-3-2-4-串行化"><span class="toc-text">6.3.2.4 串行化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-3-2-5-使用合理的隔离等级"><span class="toc-text">6.3.2.5 使用合理的隔离等级</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-传播行为"><span class="toc-text">6.4 传播行为</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-1-传播行为的定义"><span class="toc-text">6.4.1 传播行为的定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-2-测试传播行为"><span class="toc-text">6.4.2 测试传播行为</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-Transcational自调用失效问题"><span class="toc-text">6.5 @Transcational自调用失效问题</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-6-章-SpringBoot整合数据库事务"><a href="#第-6-章-SpringBoot整合数据库事务" class="headerlink" title="第 6 章 SpringBoot整合数据库事务"></a>第 6 章 SpringBoot整合数据库事务</h2><p>在互联网数据库的使用中，对于那些电商和金融网站，最关注的内容毫无疑问就是数据库事务。它们的业务存在高并发，数据库的数据一般在一个多事务的场景下运行，如果不采取一定手段就会造成数据的不一致。面对这样的高井发场景，掌握数据库事务机制是至关重要的，它能够帮助我们在一定程度上保证数据的一致性，并且有效提高系<br>统性能，避免系统产生宕机。</p>
 <p>在<code>Spring</code>中，数据库事务是通过<code>AOP</code>技术来提供服务的。它擦除了<code>JDBC</code>中的大量冗余代码。</p>
 <p>在<code>Spring</code>数据库事务中可以使用编程式事务，也可以使用声明式事务(<code>@Transactional</code>)。大部分的情况下，会使用更加简单的声明式事务。</p>
 <h3 id="6-1-JDBC的数据库事务"><a href="#6-1-JDBC的数据库事务" class="headerlink" title="6.1 JDBC的数据库事务"></a>6.1 JDBC的数据库事务</h3><p>首先看看如何以<code>JDBC</code>的方式完成插入用户的功能<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdbcServiceimpl</span> <span class="keyword">implements</span> <span class="title">JdbcService</span></span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> DataSource dataSource = <span class="keyword">null</span>;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insertUser</span><span class="params">(String userName , String note)</span></span>&#123;</span><br><span class="line">        Connection conn = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//获取连接</span></span><br><span class="line">            conn = dataSource.getConnection();</span><br><span class="line">            <span class="comment">//开启事务</span></span><br><span class="line">            conn.setAutoCornrnit(<span class="keyword">false</span>);</span><br><span class="line">            <span class="comment">//设置隔离级别</span></span><br><span class="line">            conn.setTransactionIsolation(TransactionIsolationLevel.READ_COMMITTED.getLevel());</span><br><span class="line">            <span class="comment">//执行SQL</span></span><br><span class="line">            PreparedStatement ps = conn.prepareStatement(<span class="string">"insert into t_user(user name, note) values(?, ?)"</span>);</span><br><span class="line">            ps.setString(<span class="number">1</span>, userName);</span><br><span class="line">            ps.setString(<span class="number">2</span>, note);</span><br><span class="line">            result=ps.executeUpdate();</span><br><span class="line">            <span class="comment">//提交事务</span></span><br><span class="line">            conn.commit();</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            <span class="comment">//回滚事务</span></span><br><span class="line">            <span class="keyword">if</span>(conn != <span class="keyword">null</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span>&#123;</span><br><span class="line">                    conn.rollback();</span><br><span class="line">                &#125;<span class="keyword">catch</span>(SQLException el)&#123;</span><br><span class="line">                    el.printStackTrace();</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">                    <span class="comment">//关闭数据库连接</span></span><br><span class="line">                    <span class="keyword">try</span>&#123;</span><br><span class="line">                        <span class="keyword">if</span>(conn !=<span class="keyword">null</span> &amp;&amp; !conn.isClosed())&#123;</span><br><span class="line">                            conn.close() ;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;<span class="keyword">catch</span> (SQLException e)&#123;</span><br><span class="line">                        e.printStackTrace ();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -762,10 +767,10 @@
 <h3 id="6-5-Transcational自调用失效问题"><a href="#6-5-Transcational自调用失效问题" class="headerlink" title="6.5 @Transcational自调用失效问题"></a>6.5 @Transcational自调用失效问题</h3><p><code>@Transcatoinal</code>在某些场景下会失效，类之间自己方法的调用称为自调用，自调用不会启动<code>AOP</code>，从而导致事务失效<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span></span>&#123;</span><br><span class="line">    <span class="meta">@Transactional</span>(isolation=Isolation.READ_COMMITTED, propagation=Propagation.Nested)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insertUser</span><span class="params">(User user)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userDao.insertUser(user);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Transactional</span>(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insertUsers</span><span class="params">(List&lt;User&gt; userList)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(User user : userList)&#123;</span><br><span class="line">            <span class="comment">// 调用自己类的方法，产生自调用问题</span></span><br><span class="line">            count += insertUser(user);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>为了克服自调用问题，最好像6.4中那样，用一个<code>Service</code>去调用另一个<code>Service</code>，这样可以正常启用<code>AOP</code></p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -797,10 +802,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -808,10 +813,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -837,9 +842,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

@@ -39,7 +39,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -173,7 +173,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -313,47 +313,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-JVM-10-前端编译与优化" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-JVM-10-前端编译与优化" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [JVM][10][前端编译与优化]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/02/22/JVM-10-前端编译与优化/" class="article-date">
 	  <time datetime="2020-02-22T09:34:02.000Z" itemprop="datePublished">2020-02-22</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/jvm/">jvm</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/java/">java</a>, <a class="article-tag-link" href="/tags/jvm/">jvm</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/22/JVM-10-前端编译与优化/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-10-章-前端编译与优化"><a href="#第-10-章-前端编译与优化" class="headerlink" title="第 10 章 前端编译与优化"></a>第 10 章 前端编译与优化</h2><p>从计算机程序出现的第一天起，对效率的追逐就是程序员天生的坚定信仰，这个过程犹如一场没有终点，永不停歇的F1方程式竞赛，程序员是车手，技术平台则是在赛道上飞驰的赛车。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/22/JVM-10-前端编译与优化/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-10-章-前端编译与优化"><span class="toc-text">第 10 章 前端编译与优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10-1-概述"><span class="toc-text">10.1 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-2-Javac编译器"><span class="toc-text">10.2 Javac编译器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#10-2-1-Javac的源码与调试"><span class="toc-text">10.2.1 Javac的源码与调试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-2-2-解析与填充符号表"><span class="toc-text">10.2.2 解析与填充符号表</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#10-2-2-1-词法、语法分析"><span class="toc-text">10.2.2.1 词法、语法分析</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-2-3-注解处理器"><span class="toc-text">10.2.3 注解处理器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-2-4-语义分析与字节码生成"><span class="toc-text">10.2.4 语义分析与字节码生成</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#10-2-4-1-标注检查"><span class="toc-text">10.2.4.1 标注检查</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#10-2-4-2-数据及控制流分析"><span class="toc-text">10.2.4.2 数据及控制流分析</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#10-2-4-3-解语法糖"><span class="toc-text">10.2.4.3 解语法糖</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#10-2-4-4-字节码生成"><span class="toc-text">10.2.4.4 字节码生成</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-3-Java语法糖的味道"><span class="toc-text">10.3 Java语法糖的味道</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#10-3-1-泛型"><span class="toc-text">10.3.1 泛型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#10-3-1-1-Java与C-的泛型"><span class="toc-text">10.3.1.1 Java与C#的泛型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#10-3-1-2-类型擦除"><span class="toc-text">10.3.1.2 类型擦除</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#10-3-1-3-类型擦除的缺点"><span class="toc-text">10.3.1.3 类型擦除的缺点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#10-3-1-4-未来的泛型"><span class="toc-text">10.3.1.4 未来的泛型</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-3-2-自动装箱、自动拆箱、遍历循环以及变长参数"><span class="toc-text">10.3.2 自动装箱、自动拆箱、遍历循环以及变长参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-3-3-其他语法糖"><span class="toc-text">10.3.3 其他语法糖</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-10-章-前端编译与优化"><a href="#第-10-章-前端编译与优化" class="headerlink" title="第 10 章 前端编译与优化"></a>第 10 章 前端编译与优化</h2><p>从计算机程序出现的第一天起，对效率的追逐就是程序员天生的坚定信仰，这个过程犹如一场没有终点，永不停歇的F1方程式竞赛，程序员是车手，技术平台则是在赛道上飞驰的赛车。</p>
 <h3 id="10-1-概述"><a href="#10-1-概述" class="headerlink" title="10.1 概述"></a>10.1 概述</h3><p>在Java中有三种编译器</p>
 <ol>
 <li>前端编译器，负责把<code>*.java</code>文件转变成<code>*.class</code>文件，例如，JDK的<code>javac</code></li>
@@ -419,10 +424,10 @@
 <p>此外，鉴于包装类的<code>==</code>运算在不遇到算术运算的情况下不会自动拆箱，以及它们的<code>equal()</code>方法不处理数据转型的关系，因此建议实际编码中尽量少使用自动拆装箱</p>
 <h4 id="10-3-3-其他语法糖"><a href="#10-3-3-其他语法糖" class="headerlink" title="10.3.3 其他语法糖"></a>10.3.3 其他语法糖</h4><p>Java语言还有不少其他的语法糖，如内部类、枚举类、断言语句、数值字面量、对枚举和字符串的<code>switch</code>支持、<code>try</code>语句中定义和关闭资源、<code>lambda</code>表达式等</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -454,10 +459,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -465,10 +470,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -494,9 +499,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

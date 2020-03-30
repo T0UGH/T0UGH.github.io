@@ -41,7 +41,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -175,7 +175,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -315,47 +315,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-Redis-19-事务" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-Redis-19-事务" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [Redis][19][事务]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/03/08/Redis-19-事务/" class="article-date">
 	  <time datetime="2020-03-08T02:29:47.000Z" itemprop="datePublished">2020-03-08</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/redis/">redis</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/redis/">redis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/08/Redis-19-事务/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-19-章-事务"><a href="#第-19-章-事务" class="headerlink" title="第 19 章 事务"></a>第 19 章 事务</h2><p>Redis通过<code>MULTI</code>、<code>EXEC</code>、<code>WATCH</code>等命令来实现事务功能。事务提供了一种将多个命令请求打包，然后一次性、按顺序地执行多个命令的机制，并且在事务执行期间，服务器不会中断事务而改去执行其他客户端的命令请求。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/08/Redis-19-事务/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-19-章-事务"><span class="toc-text">第 19 章 事务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#19-1-事务的实现"><span class="toc-text">19.1 事务的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#19-1-1-事务开始"><span class="toc-text">19.1.1 事务开始</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#19-1-2-命令入队"><span class="toc-text">19.1.2 命令入队</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#19-1-3-事务队列"><span class="toc-text">19.1.3 事务队列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#19-1-4-执行事务"><span class="toc-text">19.1.4 执行事务</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#19-2-WATCH命令的实现"><span class="toc-text">19.2 WATCH命令的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#19-2-1-使用WATCH命令监视数据库键"><span class="toc-text">19.2.1 使用WATCH命令监视数据库键</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#19-2-2-监视机制的触发"><span class="toc-text">19.2.2 监视机制的触发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#19-2-3-判断事务是否安全"><span class="toc-text">19.2.3 判断事务是否安全</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#19-3-事务的ACID性质"><span class="toc-text">19.3 事务的ACID性质</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#19-3-1-原子性"><span class="toc-text">19.3.1 原子性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#19-3-2-一致性"><span class="toc-text">19.3.2 一致性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#19-3-3-隔离性"><span class="toc-text">19.3.3 隔离性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#19-3-4-耐久性"><span class="toc-text">19.3.4 耐久性</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-19-章-事务"><a href="#第-19-章-事务" class="headerlink" title="第 19 章 事务"></a>第 19 章 事务</h2><p>Redis通过<code>MULTI</code>、<code>EXEC</code>、<code>WATCH</code>等命令来实现事务功能。事务提供了一种将多个命令请求打包，然后一次性、按顺序地执行多个命令的机制，并且在事务执行期间，服务器不会中断事务而改去执行其他客户端的命令请求。</p>
 <p>以下是一个事务执行的过程，该事务首先以一个MULTI命令为开始，接着将多个命令放入事务当中，最后由EXEC命令将这个事务提交给服务器执行：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; MULTI</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">redis&gt; SET <span class="string">"name"</span> <span class="string">"Practical Common Lisp"</span></span><br><span class="line">QUEUED</span><br><span class="line"></span><br><span class="line">redis&gt; GET <span class="string">"name"</span></span><br><span class="line"></span><br><span class="line">redis&gt; SET <span class="string">"author"</span> <span class="string">"Peter Seibel"</span></span><br><span class="line">QUEUED</span><br><span class="line"></span><br><span class="line">redis&gt; GET <span class="string">"author"</span></span><br><span class="line">QUEUED</span><br><span class="line"></span><br><span class="line">redis&gt; EXEC</span><br><span class="line">1) OK</span><br><span class="line">2) <span class="string">"Practical Common Lisp"</span></span><br><span class="line">3) OK</span><br><span class="line">4) <span class="string">"Peter Seibel"</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="19-1-事务的实现"><a href="#19-1-事务的实现" class="headerlink" title="19.1 事务的实现"></a>19.1 事务的实现</h3><p>一个事务从开始到结東通常会经历以下三个阶段</p>
 <ol>
@@ -391,10 +396,10 @@
 <p>因为Redis使用单线程的方式来执行事务，并且服务器保证，在执行事务期间不会对事务进行中断，因此，Redis的事务总是以串行的方式运行的，并且事务也总是具有隔离性的。</p>
 <h4 id="19-3-4-耐久性"><a href="#19-3-4-耐久性" class="headerlink" title="19.3.4 耐久性"></a>19.3.4 耐久性</h4><p>只有当服务器运行在AOF持久性模式下，并且<code>appendfsync</code>选项的值为<code>always</code>时，程序总会在执行命令之后调用同步函数，将命令数据真正的保存到硬盘里面，因此这种配置下的事务是具有耐久性的</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -426,10 +431,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -437,10 +442,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -466,9 +471,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

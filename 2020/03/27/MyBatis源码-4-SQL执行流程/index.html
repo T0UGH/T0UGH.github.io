@@ -43,7 +43,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -177,7 +177,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -317,47 +317,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-MyBatis源码-4-SQL执行流程" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-MyBatis源码-4-SQL执行流程" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [MyBatis源码][4][SQL执行流程]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/03/27/MyBatis源码-4-SQL执行流程/" class="article-date">
 	  <time datetime="2020-03-27T14:21:01.000Z" itemprop="datePublished">2020-03-27</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/MyBatis/">MyBatis</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/MyBatis/">MyBatis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/27/MyBatis源码-4-SQL执行流程/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第四章-SQL执行流程"><a href="#第四章-SQL执行流程" class="headerlink" title="第四章 SQL执行流程"></a>第四章 SQL执行流程</h2><p>通过前两章对配置文件和映射文件的解析，现在MyBatis已经进入了就绪状态，就等着使用者发号施令了。本章将对MyBatis执行SQL的过程进行详尽的分析，将包括如下技术点的1、2、6。剩余的技术点将在下面的章节展开。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/27/MyBatis源码-4-SQL执行流程/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第四章-SQL执行流程"><span class="toc-text">第四章 SQL执行流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-SQL解析入口"><span class="toc-text">4.1 SQL解析入口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-1-为Mapper接口创建代理对象"><span class="toc-text">4.1.1 为Mapper接口创建代理对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-2-执行代理逻辑"><span class="toc-text">4.1.2 执行代理逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-2-1-创建MappedMethod对象"><span class="toc-text">4.1.2.1 创建MappedMethod对象</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-2-2-执行execute方法"><span class="toc-text">4.1.2.2 执行execute方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-查询语句的执行流程"><span class="toc-text">4.2 查询语句的执行流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-selectOne方法分析"><span class="toc-text">4.2.1 selectOne方法分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-获取BoundSql"><span class="toc-text">4.2.2 获取BoundSql</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-2-1-创建DynamicContext"><span class="toc-text">4.2.2.1 创建DynamicContext</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-2-2-解析SQL片段"><span class="toc-text">4.2.2.2 解析SQL片段</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-2-3-解析-占位符"><span class="toc-text">4.2.2.3 解析#{}占位符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-2-4-总结"><span class="toc-text">4.2.2.4 总结</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-3-创建StatementHandler"><span class="toc-text">4.2.3 创建StatementHandler</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-4-创建Statement并设置运行时参数"><span class="toc-text">4.2.4 创建Statement并设置运行时参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-5-处理查询结果"><span class="toc-text">4.2.5 处理查询结果</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-5-1-创建实体类对象"><span class="toc-text">4.2.5.1 创建实体类对象</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-5-2-自动映射属性到实体类对象"><span class="toc-text">4.2.5.2 自动映射属性到实体类对象</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-5-3-映射-lt-resultMap-gt-属性到实体类对象"><span class="toc-text">4.2.5.3 映射&lt;resultMap&gt;属性到实体类对象</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-5-4-关联查询"><span class="toc-text">4.2.5.4 关联查询</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-5-5-延迟加载"><span class="toc-text">4.2.5.5 延迟加载</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-5-6-存储映射结果"><span class="toc-text">4.2.5.6 存储映射结果</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-SQL执行过程总结"><span class="toc-text">4.3 SQL执行过程总结</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第四章-SQL执行流程"><a href="#第四章-SQL执行流程" class="headerlink" title="第四章 SQL执行流程"></a>第四章 SQL执行流程</h2><p>通过前两章对配置文件和映射文件的解析，现在MyBatis已经进入了就绪状态，就等着使用者发号施令了。本章将对MyBatis执行SQL的过程进行详尽的分析，将包括如下技术点的1、2、6。剩余的技术点将在下面的章节展开。</p>
 <ol>
 <li>为<code>mapper</code>接口生成实现类</li>
 <li>根据配置信息生成SQL，并将运行时参数设置到SQL中</li>
@@ -657,10 +662,10 @@
 <li>最后看一下右边横跨数层的类，<code>Configuration</code> 是一个全局配置类，很多地方都依赖它。<code>MappedStatement</code> 对应SQL 配置，包含了SQL 配置的相关信息。<code>BoundSql</code>中包含了已完成解析的SQL 语句，以及运行时参数等。到此，关于SQL 的执行过程就分析完了。</li>
 </ol>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -692,10 +697,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -703,10 +708,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -732,9 +737,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

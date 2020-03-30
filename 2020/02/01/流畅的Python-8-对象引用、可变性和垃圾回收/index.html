@@ -41,7 +41,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -175,7 +175,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -315,47 +315,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-流畅的Python-8-对象引用、可变性和垃圾回收" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-流畅的Python-8-对象引用、可变性和垃圾回收" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [流畅的Python][8][对象引用、可变性和垃圾回收]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/" class="article-date">
 	  <time datetime="2020-02-01T12:43:46.000Z" itemprop="datePublished">2020-02-01</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/流畅的Python/">流畅的Python</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/Python/">Python</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第8章-对象引用、可变性和垃圾回收"><a href="#第8章-对象引用、可变性和垃圾回收" class="headerlink" title="第8章 对象引用、可变性和垃圾回收"></a>第8章 对象引用、可变性和垃圾回收</h2><blockquote>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/01/流畅的Python-8-对象引用、可变性和垃圾回收/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第8章-对象引用、可变性和垃圾回收"><span class="toc-text">第8章 对象引用、可变性和垃圾回收</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-变量不是盒子"><span class="toc-text">8.1 变量不是盒子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-标识、相等性和别名"><span class="toc-text">8.2 标识、相等性和别名</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-1-在-和-is-之间选择"><span class="toc-text">8.2.1 在 == 和 is 之间选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-2-元组的相对不可变性"><span class="toc-text">8.2.2 元组的相对不可变性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-默认做浅复制"><span class="toc-text">8.3 默认做浅复制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-3-1-浅复制"><span class="toc-text">8.3.1 浅复制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-3-2-为任意对象做深复制和浅复制"><span class="toc-text">8.3.2 为任意对象做深复制和浅复制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-函数的参数作为引用时"><span class="toc-text">8.4 函数的参数作为引用时</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-1-不要使用可变类型作为参数的默认值"><span class="toc-text">8.4.1 不要使用可变类型作为参数的默认值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-2-防御可变参数"><span class="toc-text">8.4.2 防御可变参数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-5-del和垃圾回收"><span class="toc-text">8.5 del和垃圾回收</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第8章-对象引用、可变性和垃圾回收"><a href="#第8章-对象引用、可变性和垃圾回收" class="headerlink" title="第8章 对象引用、可变性和垃圾回收"></a>第8章 对象引用、可变性和垃圾回收</h2><blockquote>
 <p>“你不开心,”白骑士用一种忧虑的声调说,“让我给你唱一首歌安<br>慰你吧……这首歌的曲名叫作 :《黑线鳕的眼睛》。”<br>“哦,那是一首歌的曲名,是吗?”爱丽丝问道,她试着使自己感到<br>有兴趣。<br>“不,你不明白,”白骑士说,看来有些心烦的样子,“那是人家这<br>么叫的曲名。真正的曲名是《老而又老的老头儿》。”(改编自第<br>8 章“这是我自己的发明”)<br>——Lewis Carroll《爱丽丝镜中奇遇记》</p>
 </blockquote>
 <hr>
@@ -556,10 +561,10 @@
 </ul>
 <hr>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -591,10 +596,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -602,10 +607,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -631,9 +636,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

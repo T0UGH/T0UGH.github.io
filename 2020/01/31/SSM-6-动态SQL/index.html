@@ -36,7 +36,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -170,7 +170,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -310,47 +310,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-SSM-6-动态SQL" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-SSM-6-动态SQL" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [SSM][6][动态SQL]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/01/31/SSM-6-动态SQL/" class="article-date">
 	  <time datetime="2020-01-31T03:10:49.000Z" itemprop="datePublished">2020-01-31</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/SSM/">SSM</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/MyBatis/">MyBatis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/01/31/SSM-6-动态SQL/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第6章-动态SQL"><a href="#第6章-动态SQL" class="headerlink" title="第6章 动态SQL"></a>第6章 动态SQL</h2><p>如果使用<code>JDBC</code>或者类似于<code>Hibernate</code>的其他框架，很多时候要根据需要去拼装<code>SQL</code>,这是一个麻烦的事情。因为某些查询需要许多条件，比如查询角色，可以根据角色名称或者备注等信息查询，当不输入名称时使用名称作条件就不合适了。</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/01/31/SSM-6-动态SQL/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第6章-动态SQL"><span class="toc-text">第6章 动态SQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-概述"><span class="toc-text">6.1 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-if元素"><span class="toc-text">6.2 if元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-choose、when、otherwise元素"><span class="toc-text">6.3 choose、when、otherwise元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-trim、where、set元素"><span class="toc-text">6.4 trim、where、set元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-1-where元素"><span class="toc-text">6.4.1 where元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-2-trim元素"><span class="toc-text">6.4.2 trim元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-3-set元素"><span class="toc-text">6.4.3 set元素</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-foreach元素"><span class="toc-text">6.5 foreach元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-6-用test的属性判断字符串"><span class="toc-text">6.6 用test的属性判断字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-7-bind元素"><span class="toc-text">6.7 bind元素</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第6章-动态SQL"><a href="#第6章-动态SQL" class="headerlink" title="第6章 动态SQL"></a>第6章 动态SQL</h2><p>如果使用<code>JDBC</code>或者类似于<code>Hibernate</code>的其他框架，很多时候要根据需要去拼装<code>SQL</code>,这是一个麻烦的事情。因为某些查询需要许多条件，比如查询角色，可以根据角色名称或者备注等信息查询，当不输入名称时使用名称作条件就不合适了。</p>
 <p>通常使用其他框架需要大量的<code>Java</code>代码进行判断，可读性比较差，而<code>MyBatis</code>提供对<code>SQL</code>语句动态的组装能力，使用<code>XML</code>的几个简单的元素，便能完成动态<code>SQL</code>的功能。大量的判断都可以在<code>MyBatis</code>的映射<code>XML</code>里面配置，以达到许多需要大量代码才能实现的功能，大大减少了代码量，这体现了<code>MyBatis</code>的灵活、高度可配置性和可维护性。</p>
 <h3 id="6-1-概述"><a href="#6-1-概述" class="headerlink" title="6.1 概述"></a>6.1 概述</h3><p>MyBatis的动态SQL包括以下一个元素</p>
 <table>
@@ -421,10 +426,10 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findRole"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultType</span>=<span class="string">"com.bean.RoleBean"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bind</span> <span class="attr">name</span>=<span class="string">"pattern"</span> <span class="attr">value</span>=<span class="string">"'%' + _parameter + '%'"</span>&gt;</span></span><br><span class="line">    SELECT id, role_name as roleName, create_date as createDate, end_date as endFlag, note FROM t_role</span><br><span class="line">    WHERE role_name like #&#123;pattern&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>这里的<code>_parameter</code>代表的是传递进来的参数，它和通配符(<code>%</code>)连接后赋给了<code>pattern</code>,然后就可以在<code>select</code>语句中使用这个变量进行模糊查询了。无论是<code>MySQL</code>还是<code>Oracle</code>都可以使用这样的语旬，提高了代码的可移植性。</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -456,10 +461,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -467,10 +472,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -496,9 +501,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

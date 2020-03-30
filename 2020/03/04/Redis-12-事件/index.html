@@ -45,7 +45,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -179,7 +179,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -319,47 +319,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-Redis-12-事件" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-Redis-12-事件" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       [Redis][12][事件]
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2020/03/04/Redis-12-事件/" class="article-date">
 	  <time datetime="2020-03-04T05:49:00.000Z" itemprop="datePublished">2020-03-04</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/redis/">redis</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/redis/">redis</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/04/Redis-12-事件/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="第-12-章-事件"><a href="#第-12-章-事件" class="headerlink" title="第 12 章 事件"></a>第 12 章 事件</h2><p>Redis服务器是一个事件驱动程序，服务器需要处理下面两类事件</p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/04/Redis-12-事件/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-12-章-事件"><span class="toc-text">第 12 章 事件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#12-1-文件事件"><span class="toc-text">12.1 文件事件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#12-1-1-文件事件处理器的构成"><span class="toc-text">12.1.1 文件事件处理器的构成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-1-2-I-O多路复用程序的实现"><span class="toc-text">12.1.2 I/O多路复用程序的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-1-3-事件的类型"><span class="toc-text">12.1.3 事件的类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-1-4-文件事件的处理器"><span class="toc-text">12.1.4 文件事件的处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-连接应答处理器"><span class="toc-text">1 连接应答处理器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-命令请求处理器"><span class="toc-text">2 命令请求处理器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-命令回复处理器"><span class="toc-text">3 命令回复处理器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-一次完整的客户端与服务器连接事件示例"><span class="toc-text">4 一次完整的客户端与服务器连接事件示例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-2-时间事件"><span class="toc-text">12.2 时间事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-3-事件的调度与执行"><span class="toc-text">12.3 事件的调度与执行</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第-12-章-事件"><a href="#第-12-章-事件" class="headerlink" title="第 12 章 事件"></a>第 12 章 事件</h2><p>Redis服务器是一个事件驱动程序，服务器需要处理下面两类事件</p>
 <ul>
 <li>文件事件：Redis服务器通过socket与客户端连接，而文件事件就是客户端与服务器之间的各种操作，例如：服务器接受并处理客户端请求删除某个键，这就是一个具体的文件事件。</li>
 <li>时间事件：Redis服务器的一些操作需要在给定时间点执行，例如前面提到的<code>serverCron</code>函数，就是一种时间事件</li>
@@ -424,10 +429,10 @@
 <li>因为时间事件在文件事件之后执行，并且事件之间不会出现抢占，所以时间事件的实际处理时间通常比预设的时间要晚一点</li>
 </ol>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -459,10 +464,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -470,10 +475,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -499,9 +504,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">

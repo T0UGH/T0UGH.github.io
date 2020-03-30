@@ -43,7 +43,7 @@
     <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -177,7 +177,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>打怪升级日常!</p>
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
             </div>
         </div>
     </div>
@@ -317,47 +317,52 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-了解SpringCloud" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
+    <article id="post-了解SpringCloud" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
         
+            <div class="article-header">
+                
+                    
   
     <h1 class="article-title" itemprop="name">
       了解SpringCloud
     </h1>
   
 
-      
-      <div class="article-meta">
-        <span class="article-date">
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2019/07/18/了解SpringCloud/" class="article-date">
 	  <time datetime="2019-07-18T08:11:27.000Z" itemprop="datePublished">2019-07-18</time>
 	</a>
 </span>
-        
+                                    
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/other/">other</a>
   </span>
 
-        
+                                        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/SpringCloud/">SpringCloud</a>, <a class="article-tag-link" href="/tags/java/">java</a>
   </span>
 
 
-        
+                                            
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/07/18/了解SpringCloud/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="SpringCloud初步了解"><a href="#SpringCloud初步了解" class="headerlink" title="SpringCloud初步了解"></a>SpringCloud初步了解</h2><p><a href="http://www.ityouknow.com/spring-cloud.html" target="_blank" rel="noopener">原文地址</a></p>
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/07/18/了解SpringCloud/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringCloud初步了解"><span class="toc-text">SpringCloud初步了解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-大话SpringCloud"><span class="toc-text">1 大话SpringCloud</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-SpringCloud"><span class="toc-text">1.1 SpringCloud</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-和SpringBoot的关系"><span class="toc-text">1.2 和SpringBoot的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-Spring-Cloud的优势"><span class="toc-text">1.3 Spring Cloud的优势</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-其他"><span class="toc-text">1.4 其他</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-注册中心Eureka"><span class="toc-text">2 注册中心Eureka</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-注册中心"><span class="toc-text">2.1 注册中心</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-Eureka"><span class="toc-text">2.2 Eureka</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-熔断器Hystrix"><span class="toc-text">3 熔断器Hystrix</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-雪崩效应"><span class="toc-text">3.1 雪崩效应</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-熔断器"><span class="toc-text">3.2 熔断器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-Hystrix特性"><span class="toc-text">3.2.3 Hystrix特性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-服务网关Zuul"><span class="toc-text">4 服务网关Zuul</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-为什么需要API-GateWay"><span class="toc-text">4.1 为什么需要API GateWay</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Spring-Cloud-Config配置中心"><span class="toc-text">5 Spring Cloud Config配置中心</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-配置中心提供的核心功能"><span class="toc-text">5.1 配置中心提供的核心功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-Spring-Cloud-Config"><span class="toc-text">5.2 Spring Cloud Config</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="SpringCloud初步了解"><a href="#SpringCloud初步了解" class="headerlink" title="SpringCloud初步了解"></a>SpringCloud初步了解</h2><p><a href="http://www.ityouknow.com/spring-cloud.html" target="_blank" rel="noopener">原文地址</a></p>
 <h3 id="1-大话SpringCloud"><a href="#1-大话SpringCloud" class="headerlink" title="1 大话SpringCloud"></a>1 大话SpringCloud</h3><p>Spring Cloud从技术架构上降低了对大型系统构建的要求，使我们以非常低的成本（技术或者硬件）搭建一套高效、分布式、容错的平台</p>
 <h4 id="1-1-SpringCloud"><a href="#1-1-SpringCloud" class="headerlink" title="1.1 SpringCloud"></a>1.1 SpringCloud</h4><p>Spring Cloud是一系列框架的集合。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。</p>
 <p>微服务是可以独立部署、水平扩展、独立访问（或者有独立的数据库）的服务单元，springcloud就是这些微服务的管家，采用了微服务这种架构之后，项目的数量会非常多</p>
@@ -447,10 +452,10 @@
 <p>它包含了Client和Server两个部分，server提供配置文件的存储、以接口的形式将配置文件的内容提供出去，client通过接口获取数据、并依据此数据初始化自己的应用。</p>
 <p>Spring cloud使用git或svn存放配置文件，默认情况下使用git</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
     
     <li class="post-copyright-link hidden-xs">
@@ -482,10 +487,10 @@
 </div>
 
 
-    </div>
-  </article>
-  
+            </div>
+    </article>
     
+        
   <section id="comments">
   	
       <div id="vcomments"></div>
@@ -493,10 +498,10 @@
   </section>
 
 
-  
+            
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
   
   <ul class="pager pull-left">
@@ -522,9 +527,9 @@
   </div>
   </div>
 </nav>
-  
+        
 
-
+            
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
