@@ -18,15 +18,15 @@
   
   
   <title>[算法导论][6][堆排序] | T0UGU BLOG</title>
-  <meta name="description" content="第六章 堆排序 与归并排序相同，堆排序的时间复杂度为O(nlgn)  与插入排序相同，堆排序同样具有空间原址性：任何时候都只需要常数个额外的元素空间存储临时数据    6.1 堆 堆的简介  堆被存储在一个数组中，可近似看成是完全二叉树 除了最底层外，该树是完全充满的，而且是从左到右填充 如图   堆的分类  最大堆和最小堆 在这两种堆中，节点的值都要满足堆的性质，但一些细节定义则有所差异   最">
+  <meta name="description" content="第六章 堆排序   与归并排序相同，堆排序的时间复杂度为O(nlgn)   与插入排序相同，堆排序同样具有空间原址性：任何时候都只需要常数个额外的元素空间存储临时数据     6.1 堆   堆的简介  堆被存储在一个数组中，可近似看成是完全二叉树 除了最底层外，该树是完全充满的，而且是从左到右填充 如图     堆的分类  最大堆和最小堆 在这两种堆中，节点的值都要满足堆的性质，但一些细节定义">
 <meta name="keywords" content="算法导论,排序">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[算法导论][6][堆排序]">
 <meta property="og:url" content="https://t0ugh.biz/2020/02/01/算法导论-6-堆排序/index.html">
 <meta property="og:site_name" content="打怪升级日常">
-<meta property="og:description" content="第六章 堆排序 与归并排序相同，堆排序的时间复杂度为O(nlgn)  与插入排序相同，堆排序同样具有空间原址性：任何时候都只需要常数个额外的元素空间存储临时数据    6.1 堆 堆的简介  堆被存储在一个数组中，可近似看成是完全二叉树 除了最底层外，该树是完全充满的，而且是从左到右填充 如图   堆的分类  最大堆和最小堆 在这两种堆中，节点的值都要满足堆的性质，但一些细节定义则有所差异   最">
+<meta property="og:description" content="第六章 堆排序   与归并排序相同，堆排序的时间复杂度为O(nlgn)   与插入排序相同，堆排序同样具有空间原址性：任何时候都只需要常数个额外的元素空间存储临时数据     6.1 堆   堆的简介  堆被存储在一个数组中，可近似看成是完全二叉树 除了最底层外，该树是完全充满的，而且是从左到右填充 如图     堆的分类  最大堆和最小堆 在这两种堆中，节点的值都要满足堆的性质，但一些细节定义">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/01/算法导论-6-堆排序/堆.PNG">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/01/算法导论-6-堆排序/%E5%A0%86.PNG">
 <meta property="og:image" content="https://t0ugh.biz/2020/02/01/算法导论-6-堆排序/MAXHEAPIFY.PNG">
 <meta property="og:image" content="https://t0ugh.biz/2020/02/01/算法导论-6-堆排序/MAXHEAPIFYIMG.PNG">
 <meta property="og:image" content="https://t0ugh.biz/2020/02/01/算法导论-6-堆排序/MAXHEAPIFYRECUR.PNG">
@@ -35,8 +35,8 @@
 <meta property="og:updated_time" content="2020-02-01T13:02:56.110Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[算法导论][6][堆排序]">
-<meta name="twitter:description" content="第六章 堆排序 与归并排序相同，堆排序的时间复杂度为O(nlgn)  与插入排序相同，堆排序同样具有空间原址性：任何时候都只需要常数个额外的元素空间存储临时数据    6.1 堆 堆的简介  堆被存储在一个数组中，可近似看成是完全二叉树 除了最底层外，该树是完全充满的，而且是从左到右填充 如图   堆的分类  最大堆和最小堆 在这两种堆中，节点的值都要满足堆的性质，但一些细节定义则有所差异   最">
-<meta name="twitter:image" content="https://t0ugh.biz/2020/02/01/算法导论-6-堆排序/堆.PNG">
+<meta name="twitter:description" content="第六章 堆排序   与归并排序相同，堆排序的时间复杂度为O(nlgn)   与插入排序相同，堆排序同样具有空间原址性：任何时候都只需要常数个额外的元素空间存储临时数据     6.1 堆   堆的简介  堆被存储在一个数组中，可近似看成是完全二叉树 除了最底层外，该树是完全充满的，而且是从左到右填充 如图     堆的分类  最大堆和最小堆 在这两种堆中，节点的值都要满足堆的性质，但一些细节定义">
+<meta name="twitter:image" content="https://t0ugh.biz/2020/02/01/算法导论-6-堆排序/%E5%A0%86.PNG">
   <!-- Canonical links -->
   <link rel="canonical" href="https://t0ugh.biz/2020/02/01/算法导论-6-堆排序/index.html">
   
@@ -188,7 +188,7 @@
   <div class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flink/">Flink</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -198,7 +198,7 @@
   <div class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/">Flink</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流处理/">流处理</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -208,7 +208,7 @@
   <div class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.2px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.2px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.2px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.2px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.3px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.8px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.1px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.2px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.1px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.3px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.6px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.1px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.2px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.6px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.7px;">java</a> <a href="/tags/jvm/" style="font-size: 13.5px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.2px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.9px;">redis</a> <a href="/tags/vue/" style="font-size: 13.1px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.2px;">动态规划</a> <a href="/tags/微服务/" style="font-size: 13.4px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.4px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.2px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.3px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.1px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.4px;">数据结构</a> <a href="/tags/深度学习/" style="font-size: 13.7px;">深度学习</a> <a href="/tags/算法/" style="font-size: 13.1px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.7px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.1px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
+      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.18px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.18px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Flink/" style="font-size: 13.36px;">Flink</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.18px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.18px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.27px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.82px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.09px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.18px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.09px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.27px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.55px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.09px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.18px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.55px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.64px;">java</a> <a href="/tags/jvm/" style="font-size: 13.45px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.18px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.91px;">redis</a> <a href="/tags/vue/" style="font-size: 13.09px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.18px;">动态规划</a> <a href="/tags/大数据/" style="font-size: 13.36px;">大数据</a> <a href="/tags/微服务/" style="font-size: 13.36px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.36px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.18px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.27px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.09px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.36px;">数据结构</a> <a href="/tags/机器学习/" style="font-size: 13px;">机器学习</a> <a href="/tags/流处理/" style="font-size: 13.36px;">流处理</a> <a href="/tags/深度学习/" style="font-size: 13.73px;">深度学习</a> <a href="/tags/神经网络/" style="font-size: 13px;">神经网络</a> <a href="/tags/算法/" style="font-size: 13.09px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.64px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.09px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
     </div>
   </div>
 
@@ -217,7 +217,7 @@
   <div class="widget">
     <h3 class="widget-title">Archive</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -233,13 +233,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-0-MyBatis源码解析汇总篇/" class="title">[MyBatis源码][0][MyBatis源码解析汇总篇]</a>
+                <a href="/2020/11/08/Flink-5-DataStreamAPI/" class="title">[Flink][5][DataStreamAPI]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T13:20:28.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-08T11:09:54.000Z" itemprop="datePublished">2020-11-08</time>
               </p>
             </div>
           </li>
@@ -248,13 +248,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-7-插件机制/" class="title">[MyBatis源码][7][插件机制]</a>
+                <a href="/2020/11/02/Flink-4-设置Flink开发环境/" class="title">[Flink][4][设置Flink开发环境]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T13:16:34.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-02T11:08:53.000Z" itemprop="datePublished">2020-11-02</time>
               </p>
             </div>
           </li>
@@ -263,13 +263,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-6-缓存机制/" class="title">[MyBatis源码][6][缓存机制]</a>
+                <a href="/2020/11/01/Flink-3-ApacheFlink架构/" class="title">[Flink][3][ApacheFlink架构]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T11:55:22.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-01T11:08:14.000Z" itemprop="datePublished">2020-11-01</time>
               </p>
             </div>
           </li>
@@ -278,13 +278,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/28/MyBatis源码-5-连接池/" class="title">[MyBatis源码][5][连接池]</a>
+                <a href="/2020/10/30/Flink-2-流处理基础/" class="title">[Flink][2][流处理基础]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-28T09:10:54.000Z" itemprop="datePublished">2020-03-28</time>
+                <time datetime="2020-10-30T11:07:33.000Z" itemprop="datePublished">2020-10-30</time>
               </p>
             </div>
           </li>
@@ -293,13 +293,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/27/MyBatis源码-4-SQL执行流程/" class="title">[MyBatis源码][4][SQL执行流程]</a>
+                <a href="/2020/10/29/Flink-1-状态化流处理概述/" class="title">[Flink][1][状态化流处理概述]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-27T14:21:01.000Z" itemprop="datePublished">2020-03-27</time>
+                <time datetime="2020-10-29T03:18:58.000Z" itemprop="datePublished">2020-10-29</time>
               </p>
             </div>
           </li>
@@ -359,43 +359,53 @@
                 
                                     
                                         <div id="toc">
-                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第六章-堆排序"><span class="toc-text">第六章 堆排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-堆"><span class="toc-text">6.1 堆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-维护堆的性质"><span class="toc-text">6.2 维护堆的性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-建堆"><span class="toc-text">6.3 建堆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-堆排序算法"><span class="toc-text">6.4 堆排序算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-优先队列"><span class="toc-text">6.5 优先队列</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-1-优先队列的性质"><span class="toc-text">6.5.1 优先队列的性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-2-通过堆来实现优先队列"><span class="toc-text">6.5.2 通过堆来实现优先队列</span></a></li></ol></li></ol></li></ol>
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第六章-堆排序"><span class="toc-text"> 第六章 堆排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#61-堆"><span class="toc-text"> 6.1 堆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#62-维护堆的性质"><span class="toc-text"> 6.2 维护堆的性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#63-建堆"><span class="toc-text"> 6.3 建堆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#64-堆排序算法"><span class="toc-text"> 6.4 堆排序算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#65-优先队列"><span class="toc-text"> 6.5 优先队列</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#651-优先队列的性质"><span class="toc-text"> 6.5.1 优先队列的性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#652-通过堆来实现优先队列"><span class="toc-text"> 6.5.2 通过堆来实现优先队列</span></a></li></ol></li></ol></li></ol>
                                         </div>
                                         
-                                            <h2 id="第六章-堆排序"><a href="#第六章-堆排序" class="headerlink" title="第六章 堆排序"></a>第六章 堆排序</h2><ul>
-<li><p>与归并排序相同，堆排序的时间复杂度为O(nlgn)</p>
+                                            <h2 id="第六章-堆排序"><a class="markdownIt-Anchor" href="#第六章-堆排序"></a> 第六章 堆排序</h2>
+<ul>
+<li>
+<p>与归并排序相同，堆排序的时间复杂度为O(nlgn)</p>
 </li>
-<li><p>与插入排序相同，堆排序同样具有空间原址性：任何时候都只需要常数个额外的元素空间存储临时数据</p>
+<li>
+<p>与插入排序相同，堆排序同样具有空间原址性：任何时候都只需要常数个额外的元素空间存储临时数据</p>
 </li>
 </ul>
 <hr>
-<h3 id="6-1-堆"><a href="#6-1-堆" class="headerlink" title="6.1 堆"></a>6.1 堆</h3><ul>
-<li><p>堆的简介</p>
+<h3 id="61-堆"><a class="markdownIt-Anchor" href="#61-堆"></a> 6.1 堆</h3>
+<ul>
+<li>
+<p>堆的简介</p>
 <ul>
 <li>堆被存储在一个数组中，可近似看成是完全二叉树</li>
 <li>除了最底层外，该树是完全充满的，而且是从左到右填充</li>
-<li>如图<br><img src="/2020/02/01/算法导论-6-堆排序/堆.PNG" alt=""></li>
+<li>如图<br>
+<img src="/2020/02/01/算法导论-6-堆排序/%E5%A0%86.PNG" alt=""></li>
 </ul>
 </li>
-<li><p>堆的分类</p>
+<li>
+<p>堆的分类</p>
 <ul>
 <li>最大堆和最小堆</li>
 <li>在这两种堆中，节点的值都要满足堆的性质，但一些细节定义则有所差异</li>
 </ul>
 </li>
-<li><p>最大堆性质</p>
+<li>
+<p>最大堆性质</p>
 <ul>
 <li>在最大堆中，除了根以外的所有结点<code>i</code>都要满足: <code>A[PARENT(i)] &gt;= A[i]</code></li>
 <li>因此，堆中的最大元素存放在根节点</li>
 </ul>
 </li>
-<li><p>高度</p>
+<li>
+<p>高度</p>
 <ul>
 <li>堆中节点的高度：该节点到叶节点最长简单路径上<strong>边</strong>的数目</li>
 <li>堆的高度：根节点的高度</li>
 </ul>
 </li>
-<li><p>对于堆的一些基本操作</p>
+<li>
+<p>对于堆的一些基本操作</p>
 <ul>
 <li>MAX-HEAPIFY过程：其时间复杂度为O(lgn)，它是维护最大堆性质的关键</li>
 <li>BUILD-MAX-HEAP过程：具有线性时间复杂度，功能是从无序的输入数据数组中构造一个最大堆</li>
@@ -405,8 +415,10 @@
 </li>
 </ul>
 <hr>
-<h3 id="6-2-维护堆的性质"><a href="#6-2-维护堆的性质" class="headerlink" title="6.2 维护堆的性质"></a>6.2 维护堆的性质</h3><ul>
-<li><p><strong>MAX-HEAPIFY</strong>简介</p>
+<h3 id="62-维护堆的性质"><a class="markdownIt-Anchor" href="#62-维护堆的性质"></a> 6.2 维护堆的性质</h3>
+<ul>
+<li>
+<p><strong>MAX-HEAPIFY</strong>简介</p>
 <ul>
 <li>MAX-HEAPIFY用来维护最大堆性质</li>
 <li>它的输入是一个数组 <code>A</code> 和一个下标 <code>i</code></li>
@@ -414,14 +426,20 @@
 <li>MAX-HEAPIFY的目的是让以<code>i</code>节点为根的子树重新遵循最大堆性质</li>
 </ul>
 </li>
-<li><p>伪代码描述<br>  <img src="/2020/02/01/算法导论-6-堆排序/MAXHEAPIFY.PNG" alt=""></p>
+<li>
+<p>伪代码描述<br>
+<img src="/2020/02/01/算法导论-6-堆排序/MAXHEAPIFY.PNG" alt=""></p>
 </li>
-<li><p>代码实现: <code>max_heapify</code> (python实现)</p>
+<li>
+<p>代码实现: <code>max_heapify</code> (python实现)</p>
   <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">max_heapify</span><span class="params">(i)</span>:</span></span><br><span class="line">    <span class="comment"># print("max_heapify: ", i)</span></span><br><span class="line">    l = left(i)</span><br><span class="line">    r = right(i)</span><br><span class="line">    <span class="keyword">if</span> l &lt;= heap_size <span class="keyword">and</span> arr[l] &gt; arr[i]:</span><br><span class="line">        largest = l</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        largest = i</span><br><span class="line">    <span class="keyword">if</span> r &lt;= heap_size <span class="keyword">and</span> arr[r] &gt; arr[largest]:</span><br><span class="line">        largest = r</span><br><span class="line">    <span class="keyword">if</span> largest != i:</span><br><span class="line">        arr[i], arr[largest] = arr[largest], arr[i]</span><br><span class="line">        max_heapify(largest)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>图片描述<br>  <img src="/2020/02/01/算法导论-6-堆排序/MAXHEAPIFYIMG.PNG" alt=""></p>
+<li>
+<p>图片描述<br>
+<img src="/2020/02/01/算法导论-6-堆排序/MAXHEAPIFYIMG.PNG" alt=""></p>
 </li>
-<li><p>文字描述</p>
+<li>
+<p>文字描述</p>
 <ol>
 <li>在程序的每一步中，从<code>A[i]</code>、<code>A[LEFT(i)]</code>、<code>A[RIGHT(i)]</code>中选出最大的，存储在largest中</li>
 <li>如果A[i]是最大的，那么以i为根节点的子树已经是最大堆了，程序结束</li>
@@ -429,31 +447,41 @@
 <li>在交换后，需要对该子树递归调用<code>MAX-HEAPIFY</code></li>
 </ol>
 </li>
-<li><p>运行时间分析</p>
+<li>
+<p>运行时间分析</p>
 <ul>
-<li>递归式<br><img src="/2020/02/01/算法导论-6-堆排序/MAXHEAPIFYRECUR.PNG" alt=""></li>
+<li>递归式<br>
+<img src="/2020/02/01/算法导论-6-堆排序/MAXHEAPIFYRECUR.PNG" alt=""></li>
 <li>运行时间:T(n) = O(lgn)</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h3 id="6-3-建堆"><a href="#6-3-建堆" class="headerlink" title="6.3 建堆"></a>6.3 建堆</h3><ul>
-<li><p>思路</p>
+<h3 id="63-建堆"><a class="markdownIt-Anchor" href="#63-建堆"></a> 6.3 建堆</h3>
+<ul>
+<li>
+<p>思路</p>
 <ul>
 <li>我们可以用自底向上调用 <code>max_heapify</code>，把一个数组转换为最大堆</li>
 <li>因为堆中从 <code>A(n/2 + 1, n)</code> 的元素都是树的叶节点，对于这些节点不需要调用 <code>max_heapify</code> 过程</li>
 </ul>
 </li>
-<li><p>代码实现： <code>build_max_heap</code>(python实现)</p>
+<li>
+<p>代码实现： <code>build_max_heap</code>(python实现)</p>
   <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">build_max_heap</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(int(len_arr() / <span class="number">2</span>), <span class="number">0</span>, <span class="number">-1</span>):</span><br><span class="line">        print(i)</span><br><span class="line">        max_heapify(i)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>时间复杂度 : O(n)，证明见书 <code>P88</code></p>
+<li>
+<p>时间复杂度 : O(n)，证明见书 <code>P88</code></p>
 </li>
-<li><p>例子如图<br><img src="/2020/02/01/算法导论-6-堆排序/BUILDMAXHEAPDEMO.PNG" alt=""></p>
+<li>
+<p>例子如图<br>
+<img src="/2020/02/01/算法导论-6-堆排序/BUILDMAXHEAPDEMO.PNG" alt=""></p>
 </li>
 </ul>
-<h3 id="6-4-堆排序算法"><a href="#6-4-堆排序算法" class="headerlink" title="6.4 堆排序算法"></a>6.4 堆排序算法</h3><ul>
-<li><p>思路 </p>
+<h3 id="64-堆排序算法"><a class="markdownIt-Anchor" href="#64-堆排序算法"></a> 6.4 堆排序算法</h3>
+<ul>
+<li>
+<p>思路</p>
 <ol>
 <li>首先，利用<code>build_max_heap</code>将输入数组建成最大堆</li>
 <li>因为根节点保存的是最大元素，所以将根节点与<code>A[n]</code>互换</li>
@@ -462,26 +490,34 @@
 <li>重复执行步骤2，3，4，直到堆的大小降为<code>1</code></li>
 </ol>
 </li>
-<li><p>代码实现: <code>heap_sort</code>(Python实现)</p>
+<li>
+<p>代码实现: <code>heap_sort</code>(Python实现)</p>
   <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heap_sort</span><span class="params">()</span>:</span></span><br><span class="line"><span class="keyword">global</span> heap_size</span><br><span class="line">build_max_heap()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len_arr(), <span class="number">1</span>, <span class="number">-1</span>):</span><br><span class="line">    arr[i], arr[<span class="number">1</span>] = arr[<span class="number">1</span>], arr[i]</span><br><span class="line">    heap_size -= <span class="number">1</span></span><br><span class="line">    max_heapify(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>时间复杂度</p>
+<li>
+<p>时间复杂度</p>
 <ul>
 <li>O(nlgn)</li>
 <li>因为每次调用<code>build_max_heap</code>的时间复杂度为O(n)，而n-1次调用MAX-HEAPIFY，每次时间为O(lgn)</li>
 </ul>
 </li>
-<li><p>例子如图<br><img src="/2020/02/01/算法导论-6-堆排序/HEAPSORTDEMO.PNG" alt=""></p>
+<li>
+<p>例子如图<br>
+<img src="/2020/02/01/算法导论-6-堆排序/HEAPSORTDEMO.PNG" alt=""></p>
 </li>
 </ul>
-<h3 id="6-5-优先队列"><a href="#6-5-优先队列" class="headerlink" title="6.5 优先队列"></a>6.5 优先队列</h3><h4 id="6-5-1-优先队列的性质"><a href="#6-5-1-优先队列的性质" class="headerlink" title="6.5.1 优先队列的性质"></a>6.5.1 优先队列的性质</h4><ul>
-<li><p>简介</p>
+<h3 id="65-优先队列"><a class="markdownIt-Anchor" href="#65-优先队列"></a> 6.5 优先队列</h3>
+<h4 id="651-优先队列的性质"><a class="markdownIt-Anchor" href="#651-优先队列的性质"></a> 6.5.1 优先队列的性质</h4>
+<ul>
+<li>
+<p>简介</p>
 <ul>
 <li>优先队列是一种维护由一组元素构成的集合S的数据结构</li>
 <li>其中的每个元素都有一个相关的值，称为关键字(key)</li>
 </ul>
 </li>
-<li><p>最大优先队列支持的操作</p>
+<li>
+<p>最大优先队列支持的操作</p>
 <ul>
 <li><code>insert(S, x)</code> : 把元素 <code>x</code> 插入到集合 <code>S</code> 中</li>
 <li><code>maximum(S)</code> : 返回S中具有最大键字的元素</li>
@@ -490,7 +526,8 @@
 </ul>
 </li>
 </ul>
-<h4 id="6-5-2-通过堆来实现优先队列"><a href="#6-5-2-通过堆来实现优先队列" class="headerlink" title="6.5.2 通过堆来实现优先队列"></a>6.5.2 通过堆来实现优先队列</h4>
+<h4 id="652-通过堆来实现优先队列"><a class="markdownIt-Anchor" href="#652-通过堆来实现优先队列"></a> 6.5.2 通过堆来实现优先队列</h4>
+
                                                 
             </div>
             <div class="article-footer">

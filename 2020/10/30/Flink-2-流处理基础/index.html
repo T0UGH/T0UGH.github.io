@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>[Flink][2][流处理基础] | T0UGU BLOG</title>
+  <meta name="description" content="第2章 流处理基础 本章的目标是介绍流处理的基本概念以及对其处理框架的要求。  2.1 Dataflow编程概述  2.1.1 Dataflow图 Dataflow程序通常表示为有向图，  其中节点称为算子，代表计算，边代表数据依赖。 算子是数据流应用程序的基本功能单元。它们从输入中获取数据，对数据进行计算，然后将数据输出到输出端进行进一步处理。 没有输入端的算子称为数据源，没有输出端的算子称为">
+<meta name="keywords" content="大数据,Flink,流处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Flink][2][流处理基础]">
+<meta property="og:url" content="https://t0ugh.biz/2020/10/30/Flink-2-流处理基础/index.html">
+<meta property="og:site_name" content="打怪升级日常">
+<meta property="og:description" content="第2章 流处理基础 本章的目标是介绍流处理的基本概念以及对其处理框架的要求。  2.1 Dataflow编程概述  2.1.1 Dataflow图 Dataflow程序通常表示为有向图，  其中节点称为算子，代表计算，边代表数据依赖。 算子是数据流应用程序的基本功能单元。它们从输入中获取数据，对数据进行计算，然后将数据输出到输出端进行进一步处理。 没有输入端的算子称为数据源，没有输出端的算子称为">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://t0ugh.biz/2020/10/30/Flink-2-流处理基础/C:%5CUsers%5CMSI-NB%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201029121349342.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201029121750.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201029122417.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201029130444.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/29/P8xjLvlTe4CROzJ.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201029181959.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201029182355.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201029184237.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201029184559.png">
+<meta property="og:updated_time" content="2020-11-10T11:09:07.594Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Flink][2][流处理基础]">
+<meta name="twitter:description" content="第2章 流处理基础 本章的目标是介绍流处理的基本概念以及对其处理框架的要求。  2.1 Dataflow编程概述  2.1.1 Dataflow图 Dataflow程序通常表示为有向图，  其中节点称为算子，代表计算，边代表数据依赖。 算子是数据流应用程序的基本功能单元。它们从输入中获取数据，对数据进行计算，然后将数据输出到输出端进行进一步处理。 没有输入端的算子称为数据源，没有输出端的算子称为">
+<meta name="twitter:image" content="https://t0ugh.biz/2020/10/30/Flink-2-流处理基础/C:%5CUsers%5CMSI-NB%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201029121349342.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://t0ugh.biz/2020/10/30/Flink-2-流处理基础/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/t0ugh" target="_blank">
+          <img class="img-circle img-rotate" src="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">T0UGH</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生&amp;编程爱好者</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> ShenYang, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/t0ugh" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flink/">Flink</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/">Flink</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流处理/">流处理</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.18px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.18px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Flink/" style="font-size: 13.36px;">Flink</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.18px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.18px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.27px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.82px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.09px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.18px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.09px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.27px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.55px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.09px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.18px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.55px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.64px;">java</a> <a href="/tags/jvm/" style="font-size: 13.45px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.18px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.91px;">redis</a> <a href="/tags/vue/" style="font-size: 13.09px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.18px;">动态规划</a> <a href="/tags/大数据/" style="font-size: 13.36px;">大数据</a> <a href="/tags/微服务/" style="font-size: 13.36px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.36px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.18px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.27px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.09px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.36px;">数据结构</a> <a href="/tags/机器学习/" style="font-size: 13px;">机器学习</a> <a href="/tags/流处理/" style="font-size: 13.36px;">流处理</a> <a href="/tags/深度学习/" style="font-size: 13.73px;">深度学习</a> <a href="/tags/神经网络/" style="font-size: 13px;">神经网络</a> <a href="/tags/算法/" style="font-size: 13.09px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.64px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.09px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Flink/">Flink</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/08/Flink-5-DataStreamAPI/" class="title">[Flink][5][DataStreamAPI]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-08T11:09:54.000Z" itemprop="datePublished">2020-11-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Flink/">Flink</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/02/Flink-4-设置Flink开发环境/" class="title">[Flink][4][设置Flink开发环境]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-02T11:08:53.000Z" itemprop="datePublished">2020-11-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Flink/">Flink</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/01/Flink-3-ApacheFlink架构/" class="title">[Flink][3][ApacheFlink架构]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-01T11:08:14.000Z" itemprop="datePublished">2020-11-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Flink/">Flink</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/10/30/Flink-2-流处理基础/" class="title">[Flink][2][流处理基础]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-10-30T11:07:33.000Z" itemprop="datePublished">2020-10-30</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Flink/">Flink</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/10/29/Flink-1-状态化流处理概述/" class="title">[Flink][1][状态化流处理概述]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-10-29T03:18:58.000Z" itemprop="datePublished">2020-10-29</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+    <article id="post-Flink-2-流处理基础" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+        
+            <div class="article-header">
+                
+                    
+  
+    <h1 class="article-title" itemprop="name">
+      [Flink][2][流处理基础]
+    </h1>
+  
+
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/10/30/Flink-2-流处理基础/" class="article-date">
+	  <time datetime="2020-10-30T11:07:33.000Z" itemprop="datePublished">2020-10-30</time>
+	</a>
+</span>
+                                    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Flink/">Flink</a>
+  </span>
+
+                                        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/Flink/">Flink</a>, <a class="article-tag-link" href="/tags/大数据/">大数据</a>, <a class="article-tag-link" href="/tags/流处理/">流处理</a>
+  </span>
+
+
+                                            
+
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/10/30/Flink-2-流处理基础/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第2章-流处理基础"><span class="toc-text"> 第2章 流处理基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#21-dataflow编程概述"><span class="toc-text"> 2.1 Dataflow编程概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#211-dataflow图"><span class="toc-text"> 2.1.1 Dataflow图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#212-数据并行和任务并行"><span class="toc-text"> 2.1.2 数据并行和任务并行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#213-数据交换策略"><span class="toc-text"> 2.1.3 数据交换策略</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-并行流处理"><span class="toc-text"> 2.2 并行流处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#221-延迟和吞吐"><span class="toc-text"> 2.2.1 延迟和吞吐</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2211-延迟"><span class="toc-text"> 2.2.1.1 延迟</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2212-吞吐"><span class="toc-text"> 2.2.1.2 吞吐</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2213-延迟与吞吐"><span class="toc-text"> 2.2.1.3 延迟与吞吐</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#222-数据流上的操作"><span class="toc-text"> 2.2.2 数据流上的操作</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2221-数据接入和数据输出"><span class="toc-text"> 2.2.2.1 数据接入和数据输出</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2222-转换操作"><span class="toc-text"> 2.2.2.2 转换操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2223-滚动聚合"><span class="toc-text"> 2.2.2.3 滚动聚合</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2224-窗口操作"><span class="toc-text"> 2.2.2.4 窗口操作</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#22241-滚动窗口"><span class="toc-text"> 2.2.2.4.1 滚动窗口</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#22242-滑动窗口"><span class="toc-text"> 2.2.2.4.2 滑动窗口</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#22243-会话窗口"><span class="toc-text"> 2.2.2.4.3 会话窗口</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#23-时间语义"><span class="toc-text"> 2.3 时间语义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#232-处理时间"><span class="toc-text"> 2.3.2 处理时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#233-事件时间"><span class="toc-text"> 2.3.3 事件时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#234-水位线"><span class="toc-text"> 2.3.4 水位线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#235-处理时间与事件时间"><span class="toc-text"> 2.3.5 处理时间与事件时间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#24-状态和一致性模型"><span class="toc-text"> 2.4 状态和一致性模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#241-任务故障"><span class="toc-text"> 2.4.1 任务故障</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#242-结果保障"><span class="toc-text"> 2.4.2 结果保障</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2421-至多一次at-most-once"><span class="toc-text"> 2.4.2.1 至多一次(AT-MOST-ONCE)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2422-至少一次at-least-once"><span class="toc-text"> 2.4.2.2 至少一次(AT-LEAST-ONCE)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2423-精确一次exactly-once"><span class="toc-text"> 2.4.2.3 精确一次(EXACTLY-ONCE)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2424-端到端精确一次end-to-end-exactly-once"><span class="toc-text"> 2.4.2.4 端到端精确一次(END-TO-END EXACTLY-ONCE)</span></a></li></ol></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第2章-流处理基础"><a class="markdownIt-Anchor" href="#第2章-流处理基础"></a> 第2章 流处理基础</h2>
+<p>本章的目标是介绍流处理的基本概念以及对其处理框架的要求。</p>
+<h3 id="21-dataflow编程概述"><a class="markdownIt-Anchor" href="#21-dataflow编程概述"></a> 2.1 Dataflow编程概述</h3>
+<h4 id="211-dataflow图"><a class="markdownIt-Anchor" href="#211-dataflow图"></a> 2.1.1 Dataflow图</h4>
+<p>Dataflow程序通常表示为<strong>有向图</strong>，</p>
+<ul>
+<li>其中<strong>节点</strong>称为<strong>算子</strong>，代表计算，<strong>边</strong>代表<strong>数据依赖</strong>。</li>
+<li><strong>算子</strong>是<strong>数据流应用程序</strong>的<strong>基本功能单元</strong>。它们从输入中获取数据，对数据进行计算，然后将数据输出到输出端进行进一步处理。</li>
+<li><strong>没有输入端</strong>的算子称为<strong>数据源</strong>，<strong>没有输出端</strong>的算子称为<strong>数据汇</strong>。</li>
+<li><strong>数据流图</strong>必须<strong>至少</strong>有<strong>一个数据源</strong>和<strong>一个数据汇</strong>。</li>
+</ul>
+<p>图2-1显示了一个数据流程序，它从文章的输入流中提取并计数一些标签。</p>
+<p><img src="/2020/10/30/Flink-2-流处理基础/C:%5CUsers%5CMSI-NB%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201029121349342.png" alt="image-20201029121349342"></p>
+<p>像图2-1中的数据流图被称为逻辑图，因为它们传达了计算逻辑的高级视图。为了执行数据流程序，它的逻辑图被转换成物理Dataflow图，该图详细说明了程序是如何执行的。例如，如果我们使用分布式处理引擎，<strong>每个</strong> <strong>算子</strong>可能有<strong>几个</strong>并行<strong>任务</strong>在不同的物理机器上运行。</p>
+<p>图2-2显示了图2-1的逻辑图的物理数据流图。在<strong>逻辑Dataflow图</strong>中，节点代表<strong>算子</strong>，而在<strong>物理Dataflow图</strong>中，节点代表<strong>任务</strong>。每个任务负责计算一部分的输入数据。</p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201029121750.png" alt=""></p>
+<h4 id="212-数据并行和任务并行"><a class="markdownIt-Anchor" href="#212-数据并行和任务并行"></a> 2.1.2 数据并行和任务并行</h4>
+<p>可以以不同的方式利用数据流图中的并行性。</p>
+<p>首先，可以对<strong>某个算子</strong>的<strong>输入数据</strong>进行<strong>分区</strong>，并<strong>在数据子集</strong>上<strong>并行执行相同操作</strong>的任务。这种类型的并行称为<strong>数据并行</strong>。数据并行非常有用，因为它允许将大量计算数据分布到多个不同的物理节点上并行执行。</p>
+<p>其次，可以让<strong>不同算子</strong>的<strong>任务</strong> <strong>并行执行</strong>相同或不同数据的计算。这种类型的并行称为<strong>任务并行</strong>。使用任务并行，可以更好地利用集群的计算资源。</p>
+<h4 id="213-数据交换策略"><a class="markdownIt-Anchor" href="#213-数据交换策略"></a> 2.1.3 数据交换策略</h4>
+<p><strong>数据交换策略</strong>定义了<strong>数据项如何被分配给物理Dataflow图中的不同任务</strong>。在这里，我们简要介绍一些常见的数据交换策略，如图2-3所示。</p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201029122417.png" alt=""></p>
+<ul>
+<li><strong>转发策略</strong>在<strong>发送端任务</strong>和<strong>接收端任务</strong>之间<strong>一对一</strong>地进行<strong>数据传输</strong>。如果两个任务位于同一个物理机器上(这通常由任务调度器来保证)，这种交换策略避免了网络通信。</li>
+<li><strong>广播策略</strong>将<strong>每个数据项</strong>发送给算子的<strong>所有并行任务</strong>。因为这种策略复制数据并涉及网络通信，所以成本相当高。</li>
+<li><strong>基于键值的策略</strong>通过键属性<strong>划分数据</strong>，并保证具有<strong>相同键的数据项</strong>将<strong>由相同的任务处理</strong>。</li>
+<li><strong>随机策略</strong>将数据项<strong>均匀</strong>地<strong>随机</strong>分配给<strong>任务</strong>，以便<strong>负载均衡</strong></li>
+</ul>
+<h3 id="22-并行流处理"><a class="markdownIt-Anchor" href="#22-并行流处理"></a> 2.2 并行流处理</h3>
+<p>下面看看如何将Dataflow的概念运用到<strong>并行数据流处理</strong>中。我们先给出数据流的定义：<strong>数据流是一个长度可能无限长的事件序列</strong></p>
+<p>数据流的例子如下：监控器产生的监控数据、传感器产生的测量数据、信用卡交易数据、气象站观测数据、搜索引擎搜索记录等</p>
+<h4 id="221-延迟和吞吐"><a class="markdownIt-Anchor" href="#221-延迟和吞吐"></a> 2.2.1 延迟和吞吐</h4>
+<p>对于批处理应用程序，我们通常关心作业的总执行时间，或者我们的处理引擎读取输入、执行计算和写回结果需要多长时间。由于流应用程序连续运行，并且输入可能是无限的，因此在<strong>流处理</strong>中<strong>没有总执行时间的概念</strong>。取而代之的是，<strong>流处理</strong>必须尽可能<strong>快</strong>地为传入数据<strong>提供结果</strong>（延迟），同时还要应对<strong>很高的事件输入速率</strong>（吞吐）。我们用延迟和吞吐来表示这两方面的性能需求。</p>
+<h5 id="2211-延迟"><a class="markdownIt-Anchor" href="#2211-延迟"></a> 2.2.1.1 延迟</h5>
+<p><strong>延迟</strong>表示<strong>处理一个事件所需的时间</strong>。本质上，它是接收事件到在输出中看到事件处理效果的时间间隔。</p>
+<p>在数据流中，延迟以时间为单位进行衡量，例如<strong>毫秒</strong>。根据应用程序的不同，可能会关心<strong>平均延迟</strong>、<strong>最大延迟</strong>或<strong>百分比延迟</strong>。例如，10ms的平均延迟意味着平均在10ms内处理事件。或者，10毫秒的95%延迟值意味着95%的事件在10毫秒内得到处理。</p>
+<p>像Apache Flink这样的现代流处理引擎可以提供低至几毫秒的延迟。</p>
+<h5 id="2212-吞吐"><a class="markdownIt-Anchor" href="#2212-吞吐"></a> 2.2.1.2 吞吐</h5>
+<p><strong>吞吐量</strong>是对<strong>系统处理能力</strong>的一种<strong>度量</strong>——它的<strong>处理速率</strong>。也就是说，<strong>吞吐量</strong>告诉我们系统<strong>每单位时间可以处理多少个事件</strong>。</p>
+<p>需要注意的是，处理的速率取决于事件到达速率；低吞吐量不一定表示性能差。在流式系统中，通常希望确保系统能够处理<strong>最大的预期事件到达速率</strong>。也就是说，主要关心的是<strong>确定峰值吞吐量</strong>，即系统处于最大负载时的性能限制。</p>
+<p>一旦事件到达速率超过了预期的最大值，我们就不得不开始缓冲事件。如果系统继续以<strong>超过其处理能力</strong>的接收速率<strong>接收数据</strong>，缓冲区可能会变得不可用，数据可能会丢失。这种情况通常被称为<strong>背压</strong>。</p>
+<h5 id="2213-延迟与吞吐"><a class="markdownIt-Anchor" href="#2213-延迟与吞吐"></a> 2.2.1.3 延迟与吞吐</h5>
+<p>此时，应该清楚的是，<strong>延迟</strong>和<strong>吞吐</strong> <strong>不是独立的指标</strong>。</p>
+<ul>
+<li>如果事件需要很长时间才能在数据处理管道中传输，我们就无法轻松确保高吞吐量（延迟影响了吞吐）。</li>
+<li>同样，如果系统的处理能力过低，事件将被缓冲，必须等待才能得到处理（吞吐影响了延迟）。</li>
+</ul>
+<p><strong>降低延迟可提高吞吐量</strong>。如果一个系统可以更快地执行操作，它可以在相同的时间内执行更多的操作。而一个很好的方式就是<strong>并行处理</strong></p>
+<h4 id="222-数据流上的操作"><a class="markdownIt-Anchor" href="#222-数据流上的操作"></a> 2.2.2 数据流上的操作</h4>
+<p>流处理引擎通常提供一组<strong>内置操作</strong>来接收、转换和输出数据流。这些<strong>操作</strong>可以用来<strong>构成Dataflow图</strong>来<strong>代表流式应用的逻辑</strong>。在本节中，我们将介绍最<strong>常见的流式操作</strong>。</p>
+<p>操作可以是无状态的，也可以是有状态的。</p>
+<ul>
+<li><strong>无状态</strong>操作<strong>不维护任何内部状态</strong>。也就是说，<strong>一个事件的处理</strong> <strong>不依赖于</strong> <strong>任何历史事件</strong>，也不保留历史数据。无状态操作很<strong>容易并行化</strong>。</li>
+<li><strong>有状态</strong>操作会<strong>维护他们以前接收到的事件的信息</strong>。<strong>状态</strong>会<strong>通过传入的事件</strong>来<strong>更新</strong>，并且<strong>在未来事件</strong>的<strong>处理逻辑中使用</strong>。有状态流处理应用程序在<strong>并行化</strong>和<strong>容错</strong>方面<strong>更具挑战性</strong></li>
+</ul>
+<h5 id="2221-数据接入和数据输出"><a class="markdownIt-Anchor" href="#2221-数据接入和数据输出"></a> 2.2.2.1 数据接入和数据输出</h5>
+<p>数据接入和数据输出操作允许流处理器与外部系统通信。</p>
+<p><strong>数据接入</strong>是从<strong>外部系统</strong> <strong>获取</strong>原始数据并将其<strong>转换</strong>为适合处理格式的操作。实现<strong>数据接入逻辑</strong>的<strong>算子</strong>称为<strong>数据源</strong>。</p>
+<p><strong>数据输出</strong>是以适合<strong>外部系统</strong>使用的形式产生<strong>输出</strong>的操作。实现<strong>数据输出</strong>的<strong>算子</strong>称为<strong>数据汇</strong>，</p>
+<h5 id="2222-转换操作"><a class="markdownIt-Anchor" href="#2222-转换操作"></a> 2.2.2.2 转换操作</h5>
+<p>转换操作是<strong>单程操作</strong>（single-pass），<strong>每个事件</strong>都<strong>独立处理</strong>。操作<strong>一个接一个</strong>地<strong>处理事件</strong>，并对事件数据进行一些转换，产生一个新的输出流。一般来说，转换操作比较简单，<strong>不用维护内部状态</strong></p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201029130444.png" alt=""></p>
+<p>转换操作的算子可以接受多个输入并产生多个输出流。他们还可以通过将一个流分成多个流或将多个流合并成一个流来修改数据流图的结构。</p>
+<h5 id="2223-滚动聚合"><a class="markdownIt-Anchor" href="#2223-滚动聚合"></a> 2.2.2.3 滚动聚合</h5>
+<p><strong>滚动聚合</strong>是针对<strong>每个输入事件</strong>不断<strong>更新</strong>的<strong>聚合操作</strong>，比如<strong>总和</strong>、<strong>最小值</strong>和<strong>最大值</strong>。<strong>聚合操作</strong>是<strong>有状态</strong>的，并将<strong>当前状态</strong>与<strong>传入事件相结合</strong>以<strong>生成新的聚合值</strong>。图2-5显示了一个滚动最小聚合。操作符保持当前的最小值，并针对每个传入事件相应地更新它。</p>
+<p><img src="https://i.loli.net/2020/10/29/P8xjLvlTe4CROzJ.png" alt=""></p>
+<h5 id="2224-窗口操作"><a class="markdownIt-Anchor" href="#2224-窗口操作"></a> 2.2.2.4 窗口操作</h5>
+<p><strong>转换</strong>和<strong>滚动聚合</strong> <strong>每次处理一个事件</strong>，以生成输出事件并更新状态。但是，<strong>有些操作</strong>必须<strong>收集</strong>和<strong>缓存</strong>事件。例如<strong>求中位数的函数</strong>。为了在<strong>无限流</strong>上<strong>高效地计算这些操作</strong>，需要<strong>限制</strong>这些<strong>操作维护的数据量</strong>。在本节中，我们将讨论<strong>窗口操作</strong>。</p>
+<p><strong>窗口</strong>还支持在<strong>数据流</strong>上<strong>进行一些有趣的查询</strong>。例如：如果有一个为司机提供实时交通信息的应用程序。在这个场景中，您想知道在过去几分钟内某个位置是否发生了拥堵。这时候我们只关注过去几分钟这个窗口的数据。</p>
+<p>窗口操作不断地从一个<strong>无界事件流</strong>中<strong>创建</strong> <strong>长度有限的事件集</strong>(称为<strong>桶</strong>)，并让我们对这些<strong>桶</strong> <strong>执行计算</strong>。事件通常根据数据属性或时间分配到桶中。<strong>窗口的行为</strong>由<strong>一组策略定义</strong>。<strong>窗口策略</strong>决定<strong>何时创建</strong>新的存储桶，将哪些<strong>事件分配</strong>给哪些存储桶，以及<strong>何时计算</strong>桶中的数据。窗口<strong>策略</strong>的<strong>指定</strong>可以基于<strong>时间</strong>、<strong>数量</strong>或<strong>其他数据属性</strong></p>
+<p>下面介绍常见的窗口类型的语义</p>
+<h6 id="22241-滚动窗口"><a class="markdownIt-Anchor" href="#22241-滚动窗口"></a> 2.2.2.4.1 滚动窗口</h6>
+<p><strong>滚动窗口</strong>将<strong>事件分配</strong>到<strong>长度固定</strong>的<strong>不重叠</strong>的桶中。当<strong>窗口边界通过</strong>时，所有<strong>事件</strong>都被<strong>发送到</strong>一个<strong>计算函数</strong>进行处理。基于计数的滚动窗口定义了在触发评估之前收集了多少事件。图2-6显示了一个基于计数的滚动窗口，它将输入流分到<strong>四个元素</strong>组成的桶。基于时间的滚动窗口定义了桶中事件的时间间隔。图2-7显示了一个基于时间的滚动窗口，它将事件收集到桶中，并<strong>每10分钟</strong>触发一次计算。</p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201029181959.png" alt=""></p>
+<h6 id="22242-滑动窗口"><a class="markdownIt-Anchor" href="#22242-滑动窗口"></a> 2.2.2.4.2 滑动窗口</h6>
+<p>滑动窗口将事件分配到<strong>固定大小</strong>的<strong>允许互相重叠</strong>的桶中。因此，<strong>一个事件</strong> <strong>可能</strong>属于<strong>多个桶</strong>。我们通过指定<strong>桶的长度</strong>和<strong>滑动间隔</strong>来定义滑动窗口。图2-8中的窗口长度为4，滑动间隔为3。</p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201029182355.png" alt=""></p>
+<h6 id="22243-会话窗口"><a class="markdownIt-Anchor" href="#22243-会话窗口"></a> 2.2.2.4.3 会话窗口</h6>
+<p>会话窗口在常见的现实场景中非常有用，在这些场景中，滚动窗口和滑动窗口都不能应用。考虑一个分析在线用户行为的应用程序。在这样的应用程序中，我们希望将来自<strong>同一会话</strong>的<strong>事件</strong>分到<strong>一组</strong>。</p>
+<p>会话窗口根据<strong>会话间隔</strong>（session gap）对<strong>事件</strong>进行<strong>分组</strong>，会话间隔定义了认为会话已关闭的非活动时间。（也就是如果用户在很长的一段时间内没有与服务器通信就认为他的会话已经关闭了）</p>
+<p><strong>窗口操作</strong>与流处理中的两个主要概念密切相关:<strong>时间语义</strong>和<strong>状态管理</strong>。</p>
+<ul>
+<li>流数据通常会有延迟或者乱序到达，这时如何保证窗口正确划分就很重要</li>
+<li>此外，为了避免故障，需要在生成结果之前将窗口中的数据都采取安全措施保护起来</li>
+</ul>
+<h3 id="23-时间语义"><a class="markdownIt-Anchor" href="#23-时间语义"></a> 2.3 时间语义</h3>
+<h4 id="232-处理时间"><a class="markdownIt-Anchor" href="#232-处理时间"></a> 2.3.2 处理时间</h4>
+<p><strong>处理时间</strong>是<strong>机器</strong>上<strong>本地时钟</strong>的时间。处理时间窗口<strong>包括在</strong>一段时间内** <strong>碰巧到达窗口</strong>的<strong>所有事件</strong>，由机器的本地时钟测量。如图2-12所示</p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201029184237.png" alt=""></p>
+<h4 id="233-事件时间"><a class="markdownIt-Anchor" href="#233-事件时间"></a> 2.3.3 事件时间</h4>
+<p><strong>事件时间</strong>是流中的<strong>事件实际发生</strong>的<strong>时间</strong>。事件时间通过<strong>附加到流事件</strong>的<strong>时间戳</strong>来判断。</p>
+<p>图2-13显示：<strong>即使</strong>事件有<strong>延迟</strong>，事件时间窗口也能<strong>准确</strong>地把事件<strong>分配</strong>到正确的窗口中，从而<strong>反映事情发生的真实情况</strong>。</p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201029184559.png" alt=""></p>
+<p>无论数据流的处理速度有多快，事件到达算子的顺序是怎样的，事件时间窗口的计算将产生相同的结果。</p>
+<p>通过依赖事件时间，即使是在<strong>无序数据</strong>的情况下，我们<strong>也可以保证结果的正确性</strong>。此外，当与可重放的流结合时，时间戳的确定性使你能够回到过去。也就是说，你可以重放一个流并分析历史数据，就像事件是实时发生的一样。</p>
+<h4 id="234-水位线"><a class="markdownIt-Anchor" href="#234-水位线"></a> 2.3.4 水位线</h4>
+<p>到目前为止，在我们关于事件时间窗口的讨论中，我们忽略了一个非常重要的方面:我们如何决定<strong>事件时间窗口</strong>的<strong>触发时机</strong>（什么时候停止收集并开始计算）？也就是说，我们要等多久才能确定我们已经收到了某个时间点之前发生的所有事件？考虑到分布式系统的不可预测性和由外部带来的各种延迟，<strong>这些问题没有绝对正确的答案</strong>。</p>
+<p><strong>水位线</strong>(watermark)是一种<strong>全局进度度量</strong>，它是一个<strong>时间点</strong>。它表明我们确信<strong>这个时间点之前的事件全部到达了</strong>。本质上，水位线提供了一个<strong>逻辑时钟</strong>，通知系统<strong>当前的事件时间</strong>。当操作员收到时间为T的水位线时，可以假设不会再收到时间戳小于T的事件。水位线对于事件时间窗口和处理无序事件的算子都是必不可少的。</p>
+<p><strong>水位线</strong>提供了结果可信度和延迟之间<strong>trade-off</strong>。</p>
+<ul>
+<li><strong>激进</strong>的水位线确保<strong>低延迟</strong>，但提供<strong>较低</strong>的<strong>可信度</strong>。</li>
+<li><strong>保守</strong>的水位线带来<strong>高延迟</strong>，但同时带来<strong>较高</strong>的<strong>可信度</strong>。</li>
+</ul>
+<p>流处理系统会<strong>提供某种机制</strong>来<strong>处理</strong>在<strong>水位线之后到达</strong>的事件。</p>
+<h4 id="235-处理时间与事件时间"><a class="markdownIt-Anchor" href="#235-处理时间与事件时间"></a> 2.3.5 处理时间与事件时间</h4>
+<p>此刻你可能会想，既然事件时间解决了我们所有的问题，为什么我们还要去关心处理时间？</p>
+<p>事实是，在某些情况下，处理时间确实很有用。</p>
+<ul>
+<li>处理时间窗口<strong>引入了尽可能低的延迟</strong>。</li>
+<li>当你需要定期<strong>实时报告</strong>结果时，但是<strong>不太关注</strong>结果的<strong>精度</strong>时，处理时间是更合适的。</li>
+<li>最后，处理时间窗口提供了<strong>流本身的真实情况</strong>，这对于一些用例来说可能是一个理想的属性。</li>
+</ul>
+<h3 id="24-状态和一致性模型"><a class="markdownIt-Anchor" href="#24-状态和一致性模型"></a> 2.4 状态和一致性模型</h3>
+<p><strong>状态</strong>在数据处理中无处不在。任何复杂一点的计算都需要它。为了产生结果，函数在一段时间或多个事件上<strong>累积状态</strong>(例如，计算聚集或检测模式)。<strong>有状态算子</strong>使用<strong>传入事件</strong>和<strong>内部状态</strong>来<strong>计算它们的输出</strong>并<strong>更新状态</strong>。</p>
+<p>在连续运行的流作业中，状态在事件之间是持久的，我们可以在编程模型中将其作为一级公民公开。而在之前的批处理中，后一个批次的数据是看不到前一个批次的数据的。</p>
+<p>由于流操作引擎有可能处理的是<strong>无限流</strong>，因此应小心<strong>不要让内部状态无限增长</strong>。为了限制状态的大小，<strong>算子</strong>通常会对到目前为止看到的事件进行某种<strong>总结</strong>或<strong>概要</strong>。这样的摘要可以是<strong>计数</strong>、<strong>总和</strong>、迄今为止所看到的事件的<strong>抽样</strong>、<strong>窗口</strong>缓冲区。</p>
+<p>支持有状态算子会带来很多实现上的挑战:</p>
+<ol>
+<li><strong>状态管理</strong>：系统需要有效地<strong>管理状态</strong>，并<strong>确保它不受并发更新的影响</strong>。</li>
+<li><strong>状态划分</strong>：并行化变得复杂，因为结果取决于状态和传入的事件。幸运的是，在许多情况下，您可以通过一个键来划分状态，并独立管理每个分区的状态。例如，比如正在处理来自一组传感器的测量流，可以用不同的分区来处理不同的传感器。</li>
+<li><strong>状态恢复</strong>：有状态操作符带来的第三个也是最大的挑战是<strong>确保状态可以恢复</strong>，并且即使在出现故障的情况下结果也是正确的。</li>
+</ol>
+<h4 id="241-任务故障"><a class="markdownIt-Anchor" href="#241-任务故障"></a> 2.4.1 任务故障</h4>
+<p>流式作业中的<strong>算子状态</strong>非常<strong>重要</strong>，应防止出现故障。如果<strong>状态在故障期间丢失</strong>，恢复后的结果将是不正确的。流处理引擎不仅需要保证在出现任务故障时可以正常运行，还需要保证结果和算子状态的正确性。</p>
+<p>对于输入流中的每个事件，任务执行以下步骤:</p>
+<ol>
+<li><strong>接收</strong>事件，将其<strong>存储在本地缓冲区</strong>中；</li>
+<li><strong>更新内部状态</strong>；</li>
+<li>产生<strong>输出</strong>记录。</li>
+</ol>
+<p>在这些步骤中的任何一个都可能发生故障，系统必须清楚地定义其在每种<strong>故障场景</strong>中的<strong>如何处理</strong>。例如，一个定义完整的流式处理系统需要明确以下问题：如果任务在第一步失败，事件会丢失吗？如果在更新了内部状态后失败了，恢复后还会再更新吗？而在上面这些情况下，输出还是正确的吗？</p>
+<h4 id="242-结果保障"><a class="markdownIt-Anchor" href="#242-结果保障"></a> 2.4.2 结果保障</h4>
+<p>在批处理场景中，所有这些问题都得到了回答，因为批处理作业可以简单地从头开始重新启动。因此，没有事件丢失，状态完全是从零开始建立的。然而，在流处理中，这些问题很棘手。流式系统通过提供<strong>结果保障</strong>(result guarantee)来<strong>定义它们在出现故障时的行为</strong>。接下来，我们回顾了现代流处理引擎提供的几种不同级别的结果保障。</p>
+<h5 id="2421-至多一次at-most-once"><a class="markdownIt-Anchor" href="#2421-至多一次at-most-once"></a> 2.4.2.1 至多一次(AT-MOST-ONCE)</h5>
+<p><strong>当任务失败时</strong>，最简单的方法就是<strong>不做任何事情</strong>来恢复丢失的状态和重放丢失的事件。<strong>至多一次只保证每个事件至多处理一次</strong>。换句话说，系统可以简单地丢弃事件，不做任何事情来确保结果的正确性。这种类型的保障也被称为“<strong>无保障</strong>”，因为即使是系统丢弃所有事件也可以提供这种保证。</p>
+<h5 id="2422-至少一次at-least-once"><a class="markdownIt-Anchor" href="#2422-至少一次at-least-once"></a> 2.4.2.2 至少一次(AT-LEAST-ONCE)</h5>
+<p>在大多数现实世界的应用程序中，人们期望事件不会丢失。这种类型的保证被称为<strong>至少一次</strong>，<strong>这意味着所有事件都将被处理，并且其中一些事件有可能被处理多次</strong>。如果应用程序的正确性仅取决于信息的完整性，重复处理可能是可以接受的。</p>
+<p>为了确保<strong>至少一次</strong>这种结果保障，需要有一种方法来<strong>重放(replay)事件</strong>——要么从源(source)，要么从某个缓冲区(buffer)。</p>
+<p>下面介绍两种保证至少一次的方式</p>
+<ol>
+<li><strong>持久事件日志</strong>将所有事件写入持久存储，以便在任务失败时可以重放(replay)。</li>
+<li>另一种方法是<strong>使用记录确认</strong>。此方法将每个事件存储在缓冲区中，直到管道中的所有任务都确认这个事件已经处理过了，此时可以丢弃该事件。</li>
+</ol>
+<h5 id="2423-精确一次exactly-once"><a class="markdownIt-Anchor" href="#2423-精确一次exactly-once"></a> 2.4.2.3 精确一次(EXACTLY-ONCE)</h5>
+<p><strong>精确一次</strong>是最严格的保证，也很难实现。它意味着不仅<strong>不会有事件丢失</strong>，而且<strong>每个事件只允许处理一次</strong>。从本质上来说，精确一次<strong>意味着我们的应用程序将提供完全正确的结果，就好像从未发生过失败一样</strong>。</p>
+<p><strong>精确一次</strong>是<strong>以至少一次为前提</strong>的，因此<strong>数据重放机制</strong>必不可少。</p>
+<p>而且在故障恢复之后，处理引擎应该知道一个事件的更新是否已经反映在状态上。有两种实现方式：</p>
+<ul>
+<li>
+<p><strong>事务性更新</strong>是实现这一结果的一种方式，但是它们会导致大量的性能开销。</p>
+</li>
+<li>
+<p>相反，Flink使用轻量级<strong>快照机制</strong>来实现一次结果保证</p>
+</li>
+</ul>
+<h5 id="2424-端到端精确一次end-to-end-exactly-once"><a class="markdownIt-Anchor" href="#2424-端到端精确一次end-to-end-exactly-once"></a> 2.4.2.4 端到端精确一次(END-TO-END EXACTLY-ONCE)</h5>
+<p>端到端保证指的是整个数据处理流水线上的结果正确性。流水线上的每个组件都提供自己的保证，完整管道的<strong>端到端保证</strong>将由所有组件中<strong>最弱的</strong>那个组件来决定。有时候弱的保障可能会表现出强的语义，比如，你使用至少一次来求最大值或者最小值，管道的其他组件都使用精确一次，那么这个管道也是端到端精确一次的。</p>
+
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://t0ugh.biz/2020/10/30/Flink-2-流处理基础/" title="[Flink][2][流处理基础]" target="_blank" rel="external">https://t0ugh.biz/2020/10/30/Flink-2-流处理基础/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/t0ugh" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/t0ugh" target="_blank"><span class="text-dark">T0UGH</span><small class="ml-1x">学生&amp;编程爱好者</small></a></h3>
+        <div>很拽很拽很拽很拽很拽很拽很拽很拽</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+            </div>
+    </article>
+    
+        
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+            
+</div>
+
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/11/01/Flink-3-ApacheFlink架构/" title="[Flink][3][ApacheFlink架构]"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/10/29/Flink-1-状态化流处理概述/" title="[Flink][1][状态化流处理概述]"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+        
+
+            
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/t0ugh" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'E1MH6h0YP3yhA0PJsohNBgiT-gzGzoHsz',
+    appKey: 'YOiN6zLq3XGfKmlR0b8vyHtN',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

@@ -18,26 +18,26 @@
   
   
   <title>[JVM][3][垃圾收集器与内存分配策略] | T0UGU BLOG</title>
-  <meta name="description" content="第3章 垃圾回收器与内存分配策略3.1 概述在1960年诞生于麻省理工学院的Lisp是第一门开始使用动态内存分配和垃圾收集技术的语言。当Lisp还在胚胎时期，其作者JohnMcCarthy就思考过垃圾收集需要完成的三件事情  哪些内存需要回收 什么时候回收 如何回收  程序计数器、虚拟机栈、本地方法栈3个区域随线程而生，随线程而灭，栈中的帧栈随着方法的进入和退出而有条不紊地执行着入栈和出栈操作。每">
+  <meta name="description" content="第3章 垃圾回收器与内存分配策略  3.1 概述 在1960年诞生于麻省理工学院的Lisp是第一门开始使用动态内存分配和垃圾收集技术的语言。当Lisp还在胚胎时期，其作者JohnMcCarthy就思考过垃圾收集需要完成的三件事情  哪些内存需要回收 什么时候回收 如何回收  程序计数器、虚拟机栈、本地方法栈3个区域随线程而生，随线程而灭，栈中的帧栈随着方法的进入和退出而有条不紊地执行着入栈和出栈">
 <meta name="keywords" content="java,jvm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[JVM][3][垃圾收集器与内存分配策略]">
 <meta property="og:url" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/index.html">
 <meta property="og:site_name" content="打怪升级日常">
-<meta property="og:description" content="第3章 垃圾回收器与内存分配策略3.1 概述在1960年诞生于麻省理工学院的Lisp是第一门开始使用动态内存分配和垃圾收集技术的语言。当Lisp还在胚胎时期，其作者JohnMcCarthy就思考过垃圾收集需要完成的三件事情  哪些内存需要回收 什么时候回收 如何回收  程序计数器、虚拟机栈、本地方法栈3个区域随线程而生，随线程而灭，栈中的帧栈随着方法的进入和退出而有条不紊地执行着入栈和出栈操作。每">
+<meta property="og:description" content="第3章 垃圾回收器与内存分配策略  3.1 概述 在1960年诞生于麻省理工学院的Lisp是第一门开始使用动态内存分配和垃圾收集技术的语言。当Lisp还在胚胎时期，其作者JohnMcCarthy就思考过垃圾收集需要完成的三件事情  哪些内存需要回收 什么时候回收 如何回收  程序计数器、虚拟机栈、本地方法栈3个区域随线程而生，随线程而灭，栈中的帧栈随着方法的进入和退出而有条不紊地执行着入栈和出栈">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/200215_0.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/200215_1.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/200215_2.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/200215_3.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/200215_4.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/200215_5.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/200215_6.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/JVM-3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%5C200215_0.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/JVM-3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%5C200215_1.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/JVM-3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%5C200215_2.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/JVM-3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%5C200215_3.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/JVM-3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%5C200215_4.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/JVM-3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%5C200215_5.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/JVM-3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%5C200215_6.png">
 <meta property="og:updated_time" content="2020-02-16T06:53:26.291Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[JVM][3][垃圾收集器与内存分配策略]">
-<meta name="twitter:description" content="第3章 垃圾回收器与内存分配策略3.1 概述在1960年诞生于麻省理工学院的Lisp是第一门开始使用动态内存分配和垃圾收集技术的语言。当Lisp还在胚胎时期，其作者JohnMcCarthy就思考过垃圾收集需要完成的三件事情  哪些内存需要回收 什么时候回收 如何回收  程序计数器、虚拟机栈、本地方法栈3个区域随线程而生，随线程而灭，栈中的帧栈随着方法的进入和退出而有条不紊地执行着入栈和出栈操作。每">
-<meta name="twitter:image" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/200215_0.png">
+<meta name="twitter:description" content="第3章 垃圾回收器与内存分配策略  3.1 概述 在1960年诞生于麻省理工学院的Lisp是第一门开始使用动态内存分配和垃圾收集技术的语言。当Lisp还在胚胎时期，其作者JohnMcCarthy就思考过垃圾收集需要完成的三件事情  哪些内存需要回收 什么时候回收 如何回收  程序计数器、虚拟机栈、本地方法栈3个区域随线程而生，随线程而灭，栈中的帧栈随着方法的进入和退出而有条不紊地执行着入栈和出栈">
+<meta name="twitter:image" content="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/JVM-3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%5C200215_0.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://t0ugh.biz/2020/02/16/JVM-3-垃圾收集器与内存分配策略/index.html">
   
@@ -189,7 +189,7 @@
   <div class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flink/">Flink</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -199,7 +199,7 @@
   <div class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/">Flink</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流处理/">流处理</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -209,7 +209,7 @@
   <div class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.2px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.2px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.2px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.2px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.3px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.8px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.1px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.2px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.1px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.3px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.6px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.1px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.2px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.6px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.7px;">java</a> <a href="/tags/jvm/" style="font-size: 13.5px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.2px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.9px;">redis</a> <a href="/tags/vue/" style="font-size: 13.1px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.2px;">动态规划</a> <a href="/tags/微服务/" style="font-size: 13.4px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.4px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.2px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.3px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.1px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.4px;">数据结构</a> <a href="/tags/深度学习/" style="font-size: 13.7px;">深度学习</a> <a href="/tags/算法/" style="font-size: 13.1px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.7px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.1px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
+      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.18px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.18px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Flink/" style="font-size: 13.36px;">Flink</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.18px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.18px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.27px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.82px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.09px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.18px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.09px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.27px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.55px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.09px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.18px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.55px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.64px;">java</a> <a href="/tags/jvm/" style="font-size: 13.45px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.18px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.91px;">redis</a> <a href="/tags/vue/" style="font-size: 13.09px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.18px;">动态规划</a> <a href="/tags/大数据/" style="font-size: 13.36px;">大数据</a> <a href="/tags/微服务/" style="font-size: 13.36px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.36px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.18px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.27px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.09px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.36px;">数据结构</a> <a href="/tags/机器学习/" style="font-size: 13px;">机器学习</a> <a href="/tags/流处理/" style="font-size: 13.36px;">流处理</a> <a href="/tags/深度学习/" style="font-size: 13.73px;">深度学习</a> <a href="/tags/神经网络/" style="font-size: 13px;">神经网络</a> <a href="/tags/算法/" style="font-size: 13.09px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.64px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.09px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
     </div>
   </div>
 
@@ -218,7 +218,7 @@
   <div class="widget">
     <h3 class="widget-title">Archive</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -234,13 +234,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-0-MyBatis源码解析汇总篇/" class="title">[MyBatis源码][0][MyBatis源码解析汇总篇]</a>
+                <a href="/2020/11/08/Flink-5-DataStreamAPI/" class="title">[Flink][5][DataStreamAPI]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T13:20:28.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-08T11:09:54.000Z" itemprop="datePublished">2020-11-08</time>
               </p>
             </div>
           </li>
@@ -249,13 +249,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-7-插件机制/" class="title">[MyBatis源码][7][插件机制]</a>
+                <a href="/2020/11/02/Flink-4-设置Flink开发环境/" class="title">[Flink][4][设置Flink开发环境]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T13:16:34.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-02T11:08:53.000Z" itemprop="datePublished">2020-11-02</time>
               </p>
             </div>
           </li>
@@ -264,13 +264,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-6-缓存机制/" class="title">[MyBatis源码][6][缓存机制]</a>
+                <a href="/2020/11/01/Flink-3-ApacheFlink架构/" class="title">[Flink][3][ApacheFlink架构]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T11:55:22.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-01T11:08:14.000Z" itemprop="datePublished">2020-11-01</time>
               </p>
             </div>
           </li>
@@ -279,13 +279,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/28/MyBatis源码-5-连接池/" class="title">[MyBatis源码][5][连接池]</a>
+                <a href="/2020/10/30/Flink-2-流处理基础/" class="title">[Flink][2][流处理基础]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-28T09:10:54.000Z" itemprop="datePublished">2020-03-28</time>
+                <time datetime="2020-10-30T11:07:33.000Z" itemprop="datePublished">2020-10-30</time>
               </p>
             </div>
           </li>
@@ -294,13 +294,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/27/MyBatis源码-4-SQL执行流程/" class="title">[MyBatis源码][4][SQL执行流程]</a>
+                <a href="/2020/10/29/Flink-1-状态化流处理概述/" class="title">[Flink][1][状态化流处理概述]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-27T14:21:01.000Z" itemprop="datePublished">2020-03-27</time>
+                <time datetime="2020-10-29T03:18:58.000Z" itemprop="datePublished">2020-10-29</time>
               </p>
             </div>
           </li>
@@ -360,10 +360,12 @@
                 
                                     
                                         <div id="toc">
-                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第3章-垃圾回收器与内存分配策略"><span class="toc-text">第3章 垃圾回收器与内存分配策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-概述"><span class="toc-text">3.1 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-对象已死？"><span class="toc-text">3.2 对象已死？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-引用计数算法"><span class="toc-text">3.2.1 引用计数算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-可达性分析算法"><span class="toc-text">3.2.2 可达性分析算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-再谈引用"><span class="toc-text">3.2.3 再谈引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-生存还是死亡"><span class="toc-text">3.2.4 生存还是死亡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-5-回收方法区"><span class="toc-text">3.2.5 回收方法区</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-垃圾收集算法"><span class="toc-text">3.3 垃圾收集算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-分代收集理论"><span class="toc-text">3.3.1 分代收集理论</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-标记-清除算法"><span class="toc-text">3.3.2 标记-清除算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-3-标记-复制算法"><span class="toc-text">3.3.3 标记-复制算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-4-标记-整理算法"><span class="toc-text">3.3.4 标记-整理算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-HotSpot的算法细节实现"><span class="toc-text">3.4 HotSpot的算法细节实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-根节点枚举"><span class="toc-text">3.4.1 根节点枚举</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-安全点"><span class="toc-text">3.4.2 安全点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-3-安全区域"><span class="toc-text">3.4.3 安全区域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-4-记忆集与卡集"><span class="toc-text">3.4.4 记忆集与卡集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-5-写屏障"><span class="toc-text">3.4.5 写屏障</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-6-并发的可达性分析"><span class="toc-text">3.4.6 并发的可达性分析</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-垃圾收集器"><span class="toc-text">3.5 垃圾收集器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-1-Serial收集器"><span class="toc-text">3.5.1 Serial收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-2-ParNew收集器"><span class="toc-text">3.5.2 ParNew收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-3-Parallel-Scavenge收集器"><span class="toc-text">3.5.3 Parallel Scavenge收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-4-Serial-Old收集器"><span class="toc-text">3.5.4 Serial Old收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-5-Parallel-Old收集器"><span class="toc-text">3.5.5 Parallel Old收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-6-CMS收集器"><span class="toc-text">3.5.6 CMS收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-7-Garbage-First收集器"><span class="toc-text">3.5.7 Garbage First收集器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-低延迟垃圾收集器"><span class="toc-text">3.6 低延迟垃圾收集器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-1-Shenandoah收集器"><span class="toc-text">3.6.1 Shenandoah收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-2-ZGC收集器"><span class="toc-text">3.6.2 ZGC收集器</span></a></li></ol></li></ol></li></ol>
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第3章-垃圾回收器与内存分配策略"><span class="toc-text"> 第3章 垃圾回收器与内存分配策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#31-概述"><span class="toc-text"> 3.1 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#32-对象已死"><span class="toc-text"> 3.2 对象已死？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#321-引用计数算法"><span class="toc-text"> 3.2.1 引用计数算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#322-可达性分析算法"><span class="toc-text"> 3.2.2 可达性分析算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#323-再谈引用"><span class="toc-text"> 3.2.3 再谈引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#324-生存还是死亡"><span class="toc-text"> 3.2.4 生存还是死亡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#325-回收方法区"><span class="toc-text"> 3.2.5 回收方法区</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#33-垃圾收集算法"><span class="toc-text"> 3.3 垃圾收集算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#331-分代收集理论"><span class="toc-text"> 3.3.1 分代收集理论</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#332-标记-清除算法"><span class="toc-text"> 3.3.2 标记-清除算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#333-标记-复制算法"><span class="toc-text"> 3.3.3 标记-复制算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#334-标记-整理算法"><span class="toc-text"> 3.3.4 标记-整理算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#34-hotspot的算法细节实现"><span class="toc-text"> 3.4 HotSpot的算法细节实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#341-根节点枚举"><span class="toc-text"> 3.4.1 根节点枚举</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#342-安全点"><span class="toc-text"> 3.4.2 安全点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#343-安全区域"><span class="toc-text"> 3.4.3 安全区域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#344-记忆集与卡集"><span class="toc-text"> 3.4.4 记忆集与卡集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#345-写屏障"><span class="toc-text"> 3.4.5 写屏障</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#346-并发的可达性分析"><span class="toc-text"> 3.4.6 并发的可达性分析</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#35-垃圾收集器"><span class="toc-text"> 3.5 垃圾收集器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#351-serial收集器"><span class="toc-text"> 3.5.1 Serial收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#352-parnew收集器"><span class="toc-text"> 3.5.2 ParNew收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#353-parallel-scavenge收集器"><span class="toc-text"> 3.5.3 Parallel Scavenge收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#354-serial-old收集器"><span class="toc-text"> 3.5.4 Serial Old收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#355-parallel-old收集器"><span class="toc-text"> 3.5.5 Parallel Old收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#356-cms收集器"><span class="toc-text"> 3.5.6 CMS收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#357-garbage-first收集器"><span class="toc-text"> 3.5.7 Garbage First收集器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#36-低延迟垃圾收集器"><span class="toc-text"> 3.6 低延迟垃圾收集器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#361-shenandoah收集器"><span class="toc-text"> 3.6.1 Shenandoah收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#362-zgc收集器"><span class="toc-text"> 3.6.2 ZGC收集器</span></a></li></ol></li></ol></li></ol>
                                         </div>
                                         
-                                            <h2 id="第3章-垃圾回收器与内存分配策略"><a href="#第3章-垃圾回收器与内存分配策略" class="headerlink" title="第3章 垃圾回收器与内存分配策略"></a>第3章 垃圾回收器与内存分配策略</h2><h3 id="3-1-概述"><a href="#3-1-概述" class="headerlink" title="3.1 概述"></a>3.1 概述</h3><p>在1960年诞生于麻省理工学院的<code>Lisp</code>是第一门开始使用动态内存分配和垃圾收集技术的语言。当<code>Lisp</code>还在胚胎时期，其作者<code>JohnMcCarthy</code>就思考过垃圾收集需要完成的三件事情</p>
+                                            <h2 id="第3章-垃圾回收器与内存分配策略"><a class="markdownIt-Anchor" href="#第3章-垃圾回收器与内存分配策略"></a> 第3章 垃圾回收器与内存分配策略</h2>
+<h3 id="31-概述"><a class="markdownIt-Anchor" href="#31-概述"></a> 3.1 概述</h3>
+<p>在1960年诞生于麻省理工学院的<code>Lisp</code>是第一门开始使用动态内存分配和垃圾收集技术的语言。当<code>Lisp</code>还在胚胎时期，其作者<code>JohnMcCarthy</code>就思考过垃圾收集需要完成的三件事情</p>
 <ul>
 <li>哪些内存需要回收</li>
 <li>什么时候回收</li>
@@ -375,8 +377,10 @@
 <li>一个接口的多个实现类需要的内存可能会不一样，一个方法所执行的不同条件分支所需要的内存也可能不一样</li>
 <li>并且只有在运行期间，我们才能知道程序究竟会创建哪些对象，创建多少个对象</li>
 </ol>
-<h3 id="3-2-对象已死？"><a href="#3-2-对象已死？" class="headerlink" title="3.2 对象已死？"></a>3.2 对象已死？</h3><p>垃圾收集器在对堆进行回收前，第一件事情就是要确定这些对象中哪些还存活着，哪些已经死去</p>
-<h4 id="3-2-1-引用计数算法"><a href="#3-2-1-引用计数算法" class="headerlink" title="3.2.1 引用计数算法"></a>3.2.1 引用计数算法</h4><p>引用计数算法介绍</p>
+<h3 id="32-对象已死"><a class="markdownIt-Anchor" href="#32-对象已死"></a> 3.2 对象已死？</h3>
+<p>垃圾收集器在对堆进行回收前，第一件事情就是要确定这些对象中哪些还存活着，哪些已经死去</p>
+<h4 id="321-引用计数算法"><a class="markdownIt-Anchor" href="#321-引用计数算法"></a> 3.2.1 引用计数算法</h4>
+<p>引用计数算法介绍</p>
 <ul>
 <li>在对象中添加一个引用计数器，每当有一个地方引用它时，计数器值就加一</li>
 <li>当引用失效时，计数器值就减一</li>
@@ -384,7 +388,8 @@
 </ul>
 <p>但是在<code>Java</code>领域中，主流的<code>Java</code>虚拟机里面都没有选用引用计数算法来管理内存。</p>
 <p>考虑下面这种情况，假如<code>objA.instance = objB</code>且<code>objB.instance = objA</code>。且除此之外，这两个对象再无任何引用，实际上这两个对象已经不可访问了，但是按照引用计数算法却难以将它们删除</p>
-<h4 id="3-2-2-可达性分析算法"><a href="#3-2-2-可达性分析算法" class="headerlink" title="3.2.2 可达性分析算法"></a>3.2.2 可达性分析算法</h4><p>当前主流商用程序语言的内存管理子系统，都是通过可达性分析(Reachability Analysis)算法来判定对象是否存活的。</p>
+<h4 id="322-可达性分析算法"><a class="markdownIt-Anchor" href="#322-可达性分析算法"></a> 3.2.2 可达性分析算法</h4>
+<p>当前主流商用程序语言的内存管理子系统，都是通过可达性分析(Reachability Analysis)算法来判定对象是否存活的。</p>
 <p>可达性分析算法介绍</p>
 <ul>
 <li>首先通过一系列称为<code>GC Roots</code>的根对象作为起始节点集</li>
@@ -401,7 +406,8 @@
 <li>所有被同步锁(<code>synchronized</code>关键字)持有的对象</li>
 <li>反映<code>Java</code>虚拟机内部情况的<code>JMXBean</code>、<code>JVMTI</code>中注册的回调、本地代码缓存等</li>
 </ul>
-<h4 id="3-2-3-再谈引用"><a href="#3-2-3-再谈引用" class="headerlink" title="3.2.3 再谈引用"></a>3.2.3 再谈引用</h4><p>通过可达性分析算法判定对象是否引用链可达，判定对象是否存活都和”引用”离不开关系</p>
+<h4 id="323-再谈引用"><a class="markdownIt-Anchor" href="#323-再谈引用"></a> 3.2.3 再谈引用</h4>
+<p>通过可达性分析算法判定对象是否引用链可达，判定对象是否存活都和&quot;引用&quot;离不开关系</p>
 <p>在<code>JDK1.2</code>前，引用是很传统的定义：如果<code>reference</code>类型的数据中存储的数值代表的是另外一块内存的起始地址，就称该<code>reference</code>数据是代表某块内存、某个对象的引用</p>
 <p>在<code>JDK1.2</code>后，<code>Java</code>对引用的概念进行了扩充，按照强弱，分为了以下几种</p>
 <ul>
@@ -410,11 +416,13 @@
 <li>弱引用(Weak Reference)是用来描述那些非必须对象，但是它的强度要比软引用更弱一些，被弱引用关联的对象只能生存到下一次垃圾手机发生为止。当垃圾收集器开始工作，无论当前内存是否足够，都会回收掉只被弱引用关联的对象</li>
 <li>虚引用(Phantom Reference)是最弱的一种引用关系。一个对象是否有虚引用存在，完全不会对其生存时间构成影响，也无法通过虚引用来获取一个对象实例。为一个对象设置虚引用关联的唯一目的只是为了能在这个对象被收集器回收时收到一个系统通知</li>
 </ul>
-<h4 id="3-2-4-生存还是死亡"><a href="#3-2-4-生存还是死亡" class="headerlink" title="3.2.4 生存还是死亡"></a>3.2.4 生存还是死亡</h4><p>要真正宣告一个对象死亡，至少要经历两次标记过程：如果对象在进行可达性分析后发现没有与<code>GC Roots</code>相连接的引用链，那么它将会第一次标记，随后进行一次筛选，筛选的条件是此对象是否有必要执行<code>finalize</code>方法</p>
+<h4 id="324-生存还是死亡"><a class="markdownIt-Anchor" href="#324-生存还是死亡"></a> 3.2.4 生存还是死亡</h4>
+<p>要真正宣告一个对象死亡，至少要经历两次标记过程：如果对象在进行可达性分析后发现没有与<code>GC Roots</code>相连接的引用链，那么它将会第一次标记，随后进行一次筛选，筛选的条件是此对象是否有必要执行<code>finalize</code>方法</p>
 <p>如果这个对象被判定为确有必要执行<code>finalize</code>方法，那么该对象将会被放置在一个名为<code>F-Queue</code>的队列中，并在稍后由一条由虚拟机自动建立的、低调度优先级的<code>Finalizer</code>线程去执行它们的<code>finalize()</code>方法</p>
 <p>如果对象要在<code>finalize</code>中成功拯救自己，只要重新与引用链上的任何一个对象建立关联即可。任何一个对象的<code>finalize()</code>方法都只会被系统自动调用一次，如果对象面临下一次回收，它的<code>finalize()</code>不会再次执行</p>
 <p>但是并不推荐使用这种方法来拯救对象，<code>finalize()</code>能做的所有工作，使用<code>try-finally</code>或者其他方式可以做的更好、更及时</p>
-<h4 id="3-2-5-回收方法区"><a href="#3-2-5-回收方法区" class="headerlink" title="3.2.5 回收方法区"></a>3.2.5 回收方法区</h4><p>方法区垃圾收集的性价比通常比较低：在<code>Java</code>堆中，尤其是新生代，对常规应用进行一次垃圾收集通常可以回收<code>70%</code>至<code>99%</code>的内存空间，相比之下，方法区回收囿于苛刻的判定条件，其区域垃圾回收的回收成果远远低于此</p>
+<h4 id="325-回收方法区"><a class="markdownIt-Anchor" href="#325-回收方法区"></a> 3.2.5 回收方法区</h4>
+<p>方法区垃圾收集的性价比通常比较低：在<code>Java</code>堆中，尤其是新生代，对常规应用进行一次垃圾收集通常可以回收<code>70%</code>至<code>99%</code>的内存空间，相比之下，方法区回收囿于苛刻的判定条件，其区域垃圾回收的回收成果远远低于此</p>
 <p>方法区的垃圾回收主要回收两部分内容：废弃的常量和不再使用的类型。</p>
 <p>假如一个字符串<code>java</code>曾经进入常量池中，但现在没有任何字符串对象引用这个常量，且虚拟机中也没有任何地方引用这个字面量。如果过在此时发生垃圾回收，它就会被清理出常量池</p>
 <p>判断一个类型是否属于“不再被使用的类”需要同时满足以下三个条件</p>
@@ -423,8 +431,10 @@
 <li>加载该类的类加载器已经被回收</li>
 <li>该类对应的<code>java.lang.Class</code>对象没有在任何地方被引用，无法在任何地方通过反射访问该类的方法</li>
 </ul>
-<h3 id="3-3-垃圾收集算法"><a href="#3-3-垃圾收集算法" class="headerlink" title="3.3 垃圾收集算法"></a>3.3 垃圾收集算法</h3><p>从如何判定对象消亡的角度出发，垃圾收集算法可以划分为“引用计数式垃圾收集”和“追踪式垃圾收集”两大类，也常被称为“直接垃圾收集”和“间接垃圾收集”</p>
-<h4 id="3-3-1-分代收集理论"><a href="#3-3-1-分代收集理论" class="headerlink" title="3.3.1 分代收集理论"></a>3.3.1 分代收集理论</h4><p>分代收集建立在两个分代假说上</p>
+<h3 id="33-垃圾收集算法"><a class="markdownIt-Anchor" href="#33-垃圾收集算法"></a> 3.3 垃圾收集算法</h3>
+<p>从如何判定对象消亡的角度出发，垃圾收集算法可以划分为“引用计数式垃圾收集”和“追踪式垃圾收集”两大类，也常被称为“直接垃圾收集”和“间接垃圾收集”</p>
+<h4 id="331-分代收集理论"><a class="markdownIt-Anchor" href="#331-分代收集理论"></a> 3.3.1 分代收集理论</h4>
+<p>分代收集建立在两个分代假说上</p>
 <ol>
 <li>弱分代假说(Weak Generational Hypothesis)：绝大多数对象都是朝生夕灭的</li>
 <li>强分代假说(String Generational Hypothesis)：熬过越多次垃圾收集过程的对象就越难以消亡</li>
@@ -436,36 +446,44 @@
 <li>跨代引用假说：跨代引用相对于同代引用来说仅占极少数，存在互相引用关系的两个对象是应该倾向于同时生存或同时消亡的。</li>
 </ol>
 <p>为了避免扫描整个老年代，需要在新生代建立一个全局的数据结构，记忆集(Remembered Set)，这个结构将老年代划分为若干小块，标记出老年代的哪一块内存会存在跨代引用。此后当发生<code>MinorGC</code>时，只有包含了跨代引用的小块内存里的对象才会被加入到<code>GC Root</code>中扫描</p>
-<h4 id="3-3-2-标记-清除算法"><a href="#3-3-2-标记-清除算法" class="headerlink" title="3.3.2 标记-清除算法"></a>3.3.2 标记-清除算法</h4><p>简单来说就是首先标记所有需要回收的对象，在标记完成后，统一回收掉所有被标记的对象。标记过程就是对象是否属于垃圾的判定过程</p>
+<h4 id="332-标记-清除算法"><a class="markdownIt-Anchor" href="#332-标记-清除算法"></a> 3.3.2 标记-清除算法</h4>
+<p>简单来说就是首先标记所有需要回收的对象，在标记完成后，统一回收掉所有被标记的对象。标记过程就是对象是否属于垃圾的判定过程</p>
 <p>它的主要缺点是</p>
 <ol>
 <li>执行效率不稳定，如果<code>Java</code>堆中存在大量对象，而其中大部分是需要被回收的，这时必须进行大量的标记和清除工作</li>
 <li>内存空间的碎片化问题：标记、清除之后会产生大量不连续的内存碎片，空间碎片太多可能导致当以后在程序运行过程中需要分配较大对象时无法找到足够的连续内存而不得不提前触发另一次垃圾收集动作</li>
 </ol>
-<p><img src="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/200215_0.png" alt=""></p>
-<h4 id="3-3-3-标记-复制算法"><a href="#3-3-3-标记-复制算法" class="headerlink" title="3.3.3 标记-复制算法"></a>3.3.3 标记-复制算法</h4><p>1969年Fenichel提出了一种称为“半区复制”的垃圾收集算法，它将可用内存按容量分为大小相同的两块，每次只使用其中的一块。当这一块的内存用完了，就将还存活的对象复制到另外一块上，然后再另一半的内存空间一次清理掉。</p>
+<p><img src="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/JVM-3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%5C200215_0.png" alt=""></p>
+<h4 id="333-标记-复制算法"><a class="markdownIt-Anchor" href="#333-标记-复制算法"></a> 3.3.3 标记-复制算法</h4>
+<p>1969年Fenichel提出了一种称为“半区复制”的垃圾收集算法，它将可用内存按容量分为大小相同的两块，每次只使用其中的一块。当这一块的内存用完了，就将还存活的对象复制到另外一块上，然后再另一半的内存空间一次清理掉。</p>
 <p>这种算法既可以解决需要回收大量对象的问题（因为它只处理存活对象），也解决了碎片化（因为将存活对象移动到一起）</p>
-<p><img src="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/200215_1.png" alt=""></p>
+<p><img src="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/JVM-3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%5C200215_1.png" alt=""></p>
 <p>但是缺点是过于浪费空间。后来IBM的一项研究表明，新生代中的对象有98%都熬不过第一轮收集。因此并不需要按照1:1的比例来划分新生代的内存空间</p>
 <p>1989年，Appel提出了一种回收方式：把新生代分为一块较大的<code>Eden</code>空间和两块较小的<code>Survivor</code>空间，每次分配内存时只使用<code>Eden</code>空间和一块<code>Survivor</code>空间。当垃圾收集时，直接将存活的对象一次性移动到另一块<code>Survivor</code>空间上，清理掉<code>Eden</code>和用过的那块<code>Survivor</code>。HotSpot默认<code>Eden</code>和<code>Survivor</code>的比例是<code>8:1</code></p>
 <p>然而任何人都无法保证每次回收都只有10%的对象存活，因此我们需要一个“逃生门”设计：当<code>Survivor</code>不足以容纳所有存活对象时，将启用老年代来处理剩余对象</p>
-<h4 id="3-3-4-标记-整理算法"><a href="#3-3-4-标记-整理算法" class="headerlink" title="3.3.4 标记-整理算法"></a>3.3.4 标记-整理算法</h4><p>针对老年代对象的存亡特征，Lueders提出了另外一种有针对性的标记-整理算法。首先标记所有需要回收的对象，然后让所有存活对象向内存空间的一端移动，这样就可以避免碎片化问题</p>
-<p><img src="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/200215_2.png" alt=""></p>
+<h4 id="334-标记-整理算法"><a class="markdownIt-Anchor" href="#334-标记-整理算法"></a> 3.3.4 标记-整理算法</h4>
+<p>针对老年代对象的存亡特征，Lueders提出了另外一种有针对性的标记-整理算法。首先标记所有需要回收的对象，然后让所有存活对象向内存空间的一端移动，这样就可以避免碎片化问题</p>
+<p><img src="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/JVM-3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%5C200215_2.png" alt=""></p>
 <p>然而移动存活对象并更新所有引用这些对象的地方是一种及其负重的操作，而且这种对象在移动时必须暂停用户应用程序。</p>
 <p>是否移动对象都存在弊端，移动则垃圾回收时更为复杂，不移动则垃圾分配时更复杂。</p>
 <p>有一种和稀泥式的方式：让虚拟机平时多数时间采用标记-清除算法，暂时容忍内存碎片的存在，直到碎片化程度大到影响对象分配时，再采用标记-整理算法收集一次，以获得更规整的内存空间</p>
-<h3 id="3-4-HotSpot的算法细节实现"><a href="#3-4-HotSpot的算法细节实现" class="headerlink" title="3.4 HotSpot的算法细节实现"></a>3.4 HotSpot的算法细节实现</h3><h4 id="3-4-1-根节点枚举"><a href="#3-4-1-根节点枚举" class="headerlink" title="3.4.1 根节点枚举"></a>3.4.1 根节点枚举</h4><p>固定可作为<code>GC Roots</code>的节点主要在全局性的引用（例如常量或类静态属性）与执行上下文（例如栈帧中的本地变量表）中</p>
+<h3 id="34-hotspot的算法细节实现"><a class="markdownIt-Anchor" href="#34-hotspot的算法细节实现"></a> 3.4 HotSpot的算法细节实现</h3>
+<h4 id="341-根节点枚举"><a class="markdownIt-Anchor" href="#341-根节点枚举"></a> 3.4.1 根节点枚举</h4>
+<p>固定可作为<code>GC Roots</code>的节点主要在全局性的引用（例如常量或类静态属性）与执行上下文（例如栈帧中的本地变量表）中</p>
 <p>迄今为止，所有收集器在根节点枚举这一步骤上都是必须暂停用户线程的，因为根节点枚举必须在一个冻结的时间点上，不会出现分析过程中，根节点集合的对象引用关系还在不断变化的情况，即使号称几乎不会发生停顿的<code>CMS</code>、<code>G1</code>、<code>ZGC</code>等收集器，枚举根节点时也是必须要停顿的</p>
 <p>当用户线程停顿下来之后，其实并不需要一个不漏地检查完所有执行上下文和全局地引用位置，虚拟机可以使用一组称为<code>OopMap</code>的数据结构，直接得到哪些地方存放着对象引用。</p>
-<h4 id="3-4-2-安全点"><a href="#3-4-2-安全点" class="headerlink" title="3.4.2 安全点"></a>3.4.2 安全点</h4><p>但是导致<code>OopMap</code>内容变化的指令非常多，如果为每条指令都生成对应的<code>OopMap</code>会消耗很多内存，因此<code>HotSpot</code>只是在特定的称为“安全点”的位置记录这些信息，因此这也决定了只有在安全点才可以进行<code>GC</code></p>
+<h4 id="342-安全点"><a class="markdownIt-Anchor" href="#342-安全点"></a> 3.4.2 安全点</h4>
+<p>但是导致<code>OopMap</code>内容变化的指令非常多，如果为每条指令都生成对应的<code>OopMap</code>会消耗很多内存，因此<code>HotSpot</code>只是在特定的称为“安全点”的位置记录这些信息，因此这也决定了只有在安全点才可以进行<code>GC</code></p>
 <p>对于安全点，还需要考虑，如何在垃圾收集发生时让所有线程都跑到最近的安全点，这里有两种方案</p>
 <ul>
 <li>抢先式中断：在<code>GC</code>时，系统首先把所有用户线程全部中断，如果发现有用户线程中断的地方不在安全点，就恢复这条线程执行，让它一会再重新中断，直到跑到安全点</li>
 <li>主动式中断：当<code>GC</code>时，不直接对线程操作，仅仅设置一个标志位，各个线程在执行过程中不断主动去轮询这个标志，一旦发现中断标志为真时就自己在最近的安全点上主动中断挂起</li>
 </ul>
-<h4 id="3-4-3-安全区域"><a href="#3-4-3-安全区域" class="headerlink" title="3.4.3 安全区域"></a>3.4.3 安全区域</h4><p>安全区域是指在一段代码片段之中，引用关系不会发生变化。在这个区域中的任意地方开始<code>GC</code>都是安全的、我们也可以把<code>Safe Region</code>看做是被扩展了的<code>Savepoint</code>。</p>
+<h4 id="343-安全区域"><a class="markdownIt-Anchor" href="#343-安全区域"></a> 3.4.3 安全区域</h4>
+<p>安全区域是指在一段代码片段之中，引用关系不会发生变化。在这个区域中的任意地方开始<code>GC</code>都是安全的、我们也可以把<code>Safe Region</code>看做是被扩展了的<code>Savepoint</code>。</p>
 <p>当用户线程执行到安全区域里面的代码时，首先会标志自己已经进入了安全区域，那样当这段时间里虚拟机要发起垃圾收集时就不必去管这些已经声明自己在安全区域内的线程了</p>
-<h4 id="3-4-4-记忆集与卡集"><a href="#3-4-4-记忆集与卡集" class="headerlink" title="3.4.4 记忆集与卡集"></a>3.4.4 记忆集与卡集</h4><p>记忆集是一种用于记录从非收集区域指向收集区域的指针集合的抽象数据结构。</p>
+<h4 id="344-记忆集与卡集"><a class="markdownIt-Anchor" href="#344-记忆集与卡集"></a> 3.4.4 记忆集与卡集</h4>
+<p>记忆集是一种用于记录从非收集区域指向收集区域的指针集合的抽象数据结构。</p>
 <p>但是如果记录所有的引用记录是极耗内存的，因此我们采用了比较粗的粒度</p>
 <ul>
 <li>字长精度：每个记录精确到一个机器字长</li>
@@ -474,17 +492,20 @@
 </ul>
 <p>卡精度是我们最常用的方式，其实现方式称为卡表，它定义了记忆集的记录精度、与堆内存的映射关系等。卡表每个元素都对应着其标记的内存区域中一块特定大小的内存块，称为卡页</p>
 <p>而一个卡页的内存中通常不止包含一个对象，只要卡页内有一个对象的字段存在跨代指针，那就将对应卡表的数组元素的值标注为1，称为这个元素变脏(Dirty)</p>
-<h4 id="3-4-5-写屏障"><a href="#3-4-5-写屏障" class="headerlink" title="3.4.5 写屏障"></a>3.4.5 写屏障</h4><p>我们还需要解决卡表如何维护的问题，例如它们何时变脏、谁来让它们变脏</p>
+<h4 id="345-写屏障"><a class="markdownIt-Anchor" href="#345-写屏障"></a> 3.4.5 写屏障</h4>
+<p>我们还需要解决卡表如何维护的问题，例如它们何时变脏、谁来让它们变脏</p>
 <p>卡表变脏的时间很明确，应该是发生在引用类型字段赋值的那一刻</p>
 <p>我们通过写屏障的方式来使得卡表变脏。写屏障可以看作在虚拟机层面上对“引用类型字段赋值”这个动作的<code>AOP</code>切面，赋值的前后，都在写屏障的覆盖范围内，只是这样每次赋值操作会产生额外的开销</p>
-<h4 id="3-4-6-并发的可达性分析"><a href="#3-4-6-并发的可达性分析" class="headerlink" title="3.4.6 并发的可达性分析"></a>3.4.6 并发的可达性分析</h4><p>由于<code>GC Roots</code>相比整个<code>Java</code>堆中的全部对象算是极少数，从<code>GC Roots</code>向下遍历对象图时，假如<code>Java</code>堆过大，对象图过于复杂，则标记带来的停顿时间会很长。现代的<code>GC</code>一般都采用扫描对象图的操作和用户线程并发工作。但这将造成对象消失问题。</p>
+<h4 id="346-并发的可达性分析"><a class="markdownIt-Anchor" href="#346-并发的可达性分析"></a> 3.4.6 并发的可达性分析</h4>
+<p>由于<code>GC Roots</code>相比整个<code>Java</code>堆中的全部对象算是极少数，从<code>GC Roots</code>向下遍历对象图时，假如<code>Java</code>堆过大，对象图过于复杂，则标记带来的停顿时间会很长。现代的<code>GC</code>一般都采用扫描对象图的操作和用户线程并发工作。但这将造成对象消失问题。</p>
 <p>为了理解对象消失，首先引入三色标记工具来辅助推导</p>
 <ul>
 <li>白色：表示对象尚未被垃圾收集器访问过</li>
 <li>黑色：对象及这个对象的所有引用都被访问过</li>
 <li>灰色：对象被访问过，但是引用没有完全被访问过</li>
 </ul>
-<p>下图演示了对象消失是如何发生的<br><img src="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/200215_3.png" alt=""></p>
+<p>下图演示了对象消失是如何发生的<br>
+<img src="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/JVM-3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%5C200215_3.png" alt=""></p>
 <p>Wilson证明了，当且仅当以下两个条件同时满足时，会产生“对象消失”的问题</p>
 <ul>
 <li>赋值器插入了一条或多条从黑色对象到白色对象的新引用</li>
@@ -495,18 +516,25 @@
 <li>增量更新：它要破坏的是第一个条件，当黑色对象插入新的指向白色对象的引用关系时，就将这个新插入的引用记录下来，等并发扫描结束之后，再将这些记录过的引用关系中的黑色对象为根，重新扫描一次</li>
 <li>原始快照：当灰色对象要删除指向白色对象的引用关系时，就将这个要删除的引用记录下来，在并发扫描结束之后，再将这些记录过的引用关系中的灰色对象为根，重新扫描一遍</li>
 </ul>
-<h3 id="3-5-垃圾收集器"><a href="#3-5-垃圾收集器" class="headerlink" title="3.5 垃圾收集器"></a>3.5 垃圾收集器</h3><p>如果说收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现。<code>Java</code>虚拟机规范中对垃圾收集器应该如何实现并没有任何规定，因此不同的厂商、不同版本的虚拟机所提供的垃圾收集器都可能会有很大差别，经典收集器如下图所示。</p>
-<p><img src="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/200215_4.png" alt=""></p>
+<h3 id="35-垃圾收集器"><a class="markdownIt-Anchor" href="#35-垃圾收集器"></a> 3.5 垃圾收集器</h3>
+<p>如果说收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现。<code>Java</code>虚拟机规范中对垃圾收集器应该如何实现并没有任何规定，因此不同的厂商、不同版本的虚拟机所提供的垃圾收集器都可能会有很大差别，经典收集器如下图所示。</p>
+<p><img src="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/JVM-3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%5C200215_4.png" alt=""></p>
 <p>如果两个收集器之间存在连线，就说明它们可以搭配使用。虚拟机所处的区域，则表示它是属于新生代收集器还是老年代收集器。</p>
-<h4 id="3-5-1-Serial收集器"><a href="#3-5-1-Serial收集器" class="headerlink" title="3.5.1 Serial收集器"></a>3.5.1 Serial收集器</h4><p> <code>Serial</code>收集器是一个单线程的收集器，它进行垃圾收集时，必须暂停其他所有的工作线程，直到它收集结束。在用户不可见的情况下把用户正常工作的线程全部停掉，这对很多应用来说都是难以接受的。</p>
-<p> <img src="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/200215_5.png" alt=""></p>
+<h4 id="351-serial收集器"><a class="markdownIt-Anchor" href="#351-serial收集器"></a> 3.5.1 Serial收集器</h4>
+<p><code>Serial</code>收集器是一个单线程的收集器，它进行垃圾收集时，必须暂停其他所有的工作线程，直到它收集结束。在用户不可见的情况下把用户正常工作的线程全部停掉，这对很多应用来说都是难以接受的。</p>
+<p><img src="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/JVM-3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%5C200215_5.png" alt=""></p>
 <p>它也有着优于其他收集器的地方：简单而高效（与其他收集器的单线程比），对于限定单个<code>CPU</code>的环境来说， <code>Serial</code>收集器由于没有线程交互的开销，专心做垃圾收集自然可以获得最高的单线程收集效率。</p>
-<h4 id="3-5-2-ParNew收集器"><a href="#3-5-2-ParNew收集器" class="headerlink" title="3.5.2 ParNew收集器"></a>3.5.2 ParNew收集器</h4><p><code>ParNew</code>收集器其实就是<code>Serial</code>收集器的多线程版本</p>
-<h4 id="3-5-3-Parallel-Scavenge收集器"><a href="#3-5-3-Parallel-Scavenge收集器" class="headerlink" title="3.5.3 Parallel Scavenge收集器"></a>3.5.3 Parallel Scavenge收集器</h4><p><code>Parallel Scavenge</code>收集器的持点是它的关注点与其他收集器不同，<code>CMS</code>等收集器的关注点是尽可能地缩短垃圾收集时用户线程的停顿时间，而 <code>Parallel Scavenge</code>收集器的目标则是达到一个可控制的吞吐量（Throughput）。所谓吞吐量就是<code>CPU</code>用于运行用户代码的时间与<code>CPU</code>总消耗时间的比值，虚拟机总共运行了100分钟，其中垃圾收集花掉1分钟，那吞吐量就是99%。</p>
-<h4 id="3-5-4-Serial-Old收集器"><a href="#3-5-4-Serial-Old收集器" class="headerlink" title="3.5.4 Serial Old收集器"></a>3.5.4 Serial Old收集器</h4><p><code>Serial old</code>是<code>Serial</code>收集器的老年代版本，它同样是一个单线程牧集器，使用“标记整理”算法。这个收集器的主要意义也是在于给<code>Client</code>模式下的虚拟机使用。</p>
-<h4 id="3-5-5-Parallel-Old收集器"><a href="#3-5-5-Parallel-Old收集器" class="headerlink" title="3.5.5 Parallel Old收集器"></a>3.5.5 Parallel Old收集器</h4><p><code>Parallel old</code>是<code>Parallel Scavenge</code>收集器的老年代版本，使用多线程和“标记一整理”算法。</p>
-<p>直到<code>Parallel old</code>收集器出现后，“吞吐量优先”收集器终于有了比较名副其实的应用组合，在注重乔吐量以及<code>CPU</code>资源敏感的场合，都可以优先考虑<code>Parallel Scavenge</code>加<code>Parallel Old</code>收集器。 </p>
-<h4 id="3-5-6-CMS收集器"><a href="#3-5-6-CMS收集器" class="headerlink" title="3.5.6 CMS收集器"></a>3.5.6 CMS收集器</h4><p><code>CMS</code>（concurrent Mark Sweep）收集器是一种以获取最短回收停顿时间为目标的收集器。</p>
+<h4 id="352-parnew收集器"><a class="markdownIt-Anchor" href="#352-parnew收集器"></a> 3.5.2 ParNew收集器</h4>
+<p><code>ParNew</code>收集器其实就是<code>Serial</code>收集器的多线程版本</p>
+<h4 id="353-parallel-scavenge收集器"><a class="markdownIt-Anchor" href="#353-parallel-scavenge收集器"></a> 3.5.3 Parallel Scavenge收集器</h4>
+<p><code>Parallel Scavenge</code>收集器的持点是它的关注点与其他收集器不同，<code>CMS</code>等收集器的关注点是尽可能地缩短垃圾收集时用户线程的停顿时间，而 <code>Parallel Scavenge</code>收集器的目标则是达到一个可控制的吞吐量（Throughput）。所谓吞吐量就是<code>CPU</code>用于运行用户代码的时间与<code>CPU</code>总消耗时间的比值，虚拟机总共运行了100分钟，其中垃圾收集花掉1分钟，那吞吐量就是99%。</p>
+<h4 id="354-serial-old收集器"><a class="markdownIt-Anchor" href="#354-serial-old收集器"></a> 3.5.4 Serial Old收集器</h4>
+<p><code>Serial old</code>是<code>Serial</code>收集器的老年代版本，它同样是一个单线程牧集器，使用“标记整理”算法。这个收集器的主要意义也是在于给<code>Client</code>模式下的虚拟机使用。</p>
+<h4 id="355-parallel-old收集器"><a class="markdownIt-Anchor" href="#355-parallel-old收集器"></a> 3.5.5 Parallel Old收集器</h4>
+<p><code>Parallel old</code>是<code>Parallel Scavenge</code>收集器的老年代版本，使用多线程和“标记一整理”算法。</p>
+<p>直到<code>Parallel old</code>收集器出现后，“吞吐量优先”收集器终于有了比较名副其实的应用组合，在注重乔吐量以及<code>CPU</code>资源敏感的场合，都可以优先考虑<code>Parallel Scavenge</code>加<code>Parallel Old</code>收集器。</p>
+<h4 id="356-cms收集器"><a class="markdownIt-Anchor" href="#356-cms收集器"></a> 3.5.6 CMS收集器</h4>
+<p><code>CMS</code>（concurrent Mark Sweep）收集器是一种以获取最短回收停顿时间为目标的收集器。</p>
 <p><code>CMS</code>收集器是基于“标记清除”算法实现的，它的运作过程分为4个步骤</p>
 <ol>
 <li>初始标记：初始标记仅仅只是标记一下<code>GC Roots</code>能直接关联到的对象，速度很快，需要<code>STOP THE WORLD</code></li>
@@ -514,14 +542,16 @@
 <li>重新标记：重新标记阶段则是为了修正并发标记期间因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，这个阶段的停顿时间一般会比初始标记阶段稍长些，但远比并发标记的时间短。也需要<code>STOP THE WORLD</code></li>
 <li>并发清除</li>
 </ol>
-<p>由于整个过程中耗时最长的并发标记和并发清除过程收集器线程都可以与用户线程一起作，所以，从总体上来说，<code>CMS</code>收集器的内存回收过程是与用户线程一起并发执行的。<br><img src="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/200215_6.png" alt=""></p>
+<p>由于整个过程中耗时最长的并发标记和并发清除过程收集器线程都可以与用户线程一起作，所以，从总体上来说，<code>CMS</code>收集器的内存回收过程是与用户线程一起并发执行的。<br>
+<img src="/2020/02/16/JVM-3-垃圾收集器与内存分配策略/JVM-3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%5C200215_6.png" alt=""></p>
 <p>然后<code>CMS</code>有三个明显缺点</p>
 <ol>
 <li><code>CMS</code>收集器对<code>CPU</code>资源非常敏感</li>
 <li><code>CMS</code>收集器无法处理浮动垃圾，可能出现“Concurrent mode Failure”失败而导致另一次<code>Full GC</code>的产生。</li>
 <li><code>CMS</code>是一款基于“标记一清除”算法实现的收集器，这意味着收集结束时会有大量空间碎片产生。空间碎片过多时，将会给大对象分配带来很大麻烦。</li>
 </ol>
-<h4 id="3-5-7-Garbage-First收集器"><a href="#3-5-7-Garbage-First收集器" class="headerlink" title="3.5.7 Garbage First收集器"></a>3.5.7 Garbage First收集器</h4><p><code>G1</code>收集器是垃圾收集器计数发展史上的里程碑式的成果，开创了收集器面向局部收集的设计思路和基于<code>Region</code>的内存布局形式。它主要面向服务器应用。</p>
+<h4 id="357-garbage-first收集器"><a class="markdownIt-Anchor" href="#357-garbage-first收集器"></a> 3.5.7 Garbage First收集器</h4>
+<p><code>G1</code>收集器是垃圾收集器计数发展史上的里程碑式的成果，开创了收集器面向局部收集的设计思路和基于<code>Region</code>的内存布局形式。它主要面向服务器应用。</p>
 <p>在规划<code>JDK10</code>功能目标时，<code>HotSpot</code>虚拟机提出了统一垃圾收集器接口，将内存回收的行为和实现分离，这样日后要移除或加入某一款收集器都会变得容易很多</p>
 <p>G1不再坚持固定大小和固定数量的分代区域划分，而是把连续的<code>Java</code>堆划分为多个大小相等的独立区域(<code>Region</code>)，每个<code>Region</code>都可以根据需要扮演新生代的<code>Eden</code>空间、<code>Survivor</code>空间或者老年代空间。然后收集器根据<code>Region</code>扮演的角色来采用不同的策略处理</p>
 <p><code>Region</code>还有一类特殊的<code>Humongous</code>区域，专门用来存储大对象，<code>G1</code>认为只要大小超过了<code>Region</code>容量一半的对象即可判定为大对象。<code>G1</code>的大多数行为都把<code>Humongous</code>作为老年代的一部分来看待</p>
@@ -534,10 +564,12 @@
 <li>筛选回收：负责更新<code>Region</code>的统计数据，对各个<code>Region</code>的回收价值进行排序，指定回收计划。然后把决定回收的那一部分<code>Region</code>的存活对象复制到空的<code>Region</code>中，再清理掉整个旧<code>Region</code>的全部空间。这个阶段需要停顿用户线程，然后由多条收集器线程并行完成</li>
 </ul>
 <p>从<code>G1</code>开始，最先进的垃圾收集器的设计导向都不约而同地变为追求能够应付应用地内存分配速率(<code>Allocation Rate</code>)，而不追求一次把整个<code>Java</code>堆全部清理干净。这样，应用在分配，同时收集器在收集，只要收集的速度能跟得上对象分配的速度，那一切就能运行得十分完美</p>
-<h3 id="3-6-低延迟垃圾收集器"><a href="#3-6-低延迟垃圾收集器" class="headerlink" title="3.6 低延迟垃圾收集器"></a>3.6 低延迟垃圾收集器</h3><p>衡量垃圾收集器的三项最重要的指标是：内存占用、吞吐量和延迟，三者共同构成一个“不可能三角”。要在这三方面同时具有卓越表现的完美收集器是极其困难的，一款好的垃圾收集器一般同时达成其中的两项</p>
+<h3 id="36-低延迟垃圾收集器"><a class="markdownIt-Anchor" href="#36-低延迟垃圾收集器"></a> 3.6 低延迟垃圾收集器</h3>
+<p>衡量垃圾收集器的三项最重要的指标是：内存占用、吞吐量和延迟，三者共同构成一个“不可能三角”。要在这三方面同时具有卓越表现的完美收集器是极其困难的，一款好的垃圾收集器一般同时达成其中的两项</p>
 <p>在这三项中，延迟的重要性日益凸显，原因是随着计算机硬件的发展和性能的提升，我们越来越能容忍收集器多占用一点点内存</p>
 <p>因此下面将介绍两款低延迟收集器，<code>Shenandoah</code>和<code>ZGC</code>，几乎整个工作都是并发的，只有初始标记和最终标记这些阶段有短暂的停顿</p>
-<h4 id="3-6-1-Shenandoah收集器"><a href="#3-6-1-Shenandoah收集器" class="headerlink" title="3.6.1 Shenandoah收集器"></a>3.6.1 Shenandoah收集器</h4><p><code>Shenandoah</code>是一款只有<code>OpenJDK</code>才会包含的，由<code>RedHat</code>开发的收集器，它在很多方面与<code>G1</code>类似，但是它支持并发的内存整理算法；默认不使用分代；并且摒弃了在<code>G1</code>中耗费大量内存和计算资源去维护的记忆集，改用“连接矩阵”的全局数据结构来记录跨<code>Region</code>的引用关系。连接矩阵可以理解为一张二位表格，如果<code>RegionN</code>有对象指向<code>RegionM</code>，就在表格的N行M列中打一个标记</p>
+<h4 id="361-shenandoah收集器"><a class="markdownIt-Anchor" href="#361-shenandoah收集器"></a> 3.6.1 Shenandoah收集器</h4>
+<p><code>Shenandoah</code>是一款只有<code>OpenJDK</code>才会包含的，由<code>RedHat</code>开发的收集器，它在很多方面与<code>G1</code>类似，但是它支持并发的内存整理算法；默认不使用分代；并且摒弃了在<code>G1</code>中耗费大量内存和计算资源去维护的记忆集，改用“连接矩阵”的全局数据结构来记录跨<code>Region</code>的引用关系。连接矩阵可以理解为一张二位表格，如果<code>RegionN</code>有对象指向<code>RegionM</code>，就在表格的N行M列中打一个标记</p>
 <p><code>Shenandoah</code>收集器的工作过程大致分为以下九个阶段</p>
 <ul>
 <li>初始标记：标记<code>GCRoots</code>可以直接关联到的对象，并且修改<code>TAMS</code>指针。这个指针是用来保证用户线程并发运行时依然可以正确地在可用地<code>Region</code>中分配新对象。这个阶段需要停顿线程</li>
@@ -554,7 +586,8 @@
 <p>此前，要做类似的操作，通常要在被移动对象原有的内存上设置保护陷阱，一旦用户程序访问到归属于旧对象的内存空间就会产生自陷中断，进入预设好的异常处理器中，再由其中的代码逻辑把访问转发到复制后的新对象上。但这种方式需要操作系统的支持</p>
 <p>新方案是在原有对象布局结构的最前面统一增加一个新的引用字段，在对象不处于并发移动的情况下，该引用指向对象自己。而当对象拥有一份新的副本时，让旧对象的转发指针指向新对象。这样只要就对象的内存仍然存在，未被清理，虚拟机内存中所有通过旧对象访问的代码都会转发至新对象</p>
 <p>除此，为了支持转发指针，<code>Shenandoah</code>在读、写屏障中都加入了额外的转发处理，这也造成了性能负担。因为对对象的读操作是很频繁的</p>
-<h4 id="3-6-2-ZGC收集器"><a href="#3-6-2-ZGC收集器" class="headerlink" title="3.6.2 ZGC收集器"></a>3.6.2 ZGC收集器</h4><p><code>ZGC</code>是一款基于<code>Region</code>内存布局的，不设分代的，使用了读屏障、染色指针和内存多重映射等技术来实现可并发的标记-整理算法，以低延迟为首要目标的一款垃圾收集器</p>
+<h4 id="362-zgc收集器"><a class="markdownIt-Anchor" href="#362-zgc收集器"></a> 3.6.2 ZGC收集器</h4>
+<p><code>ZGC</code>是一款基于<code>Region</code>内存布局的，不设分代的，使用了读屏障、染色指针和内存多重映射等技术来实现可并发的标记-整理算法，以低延迟为首要目标的一款垃圾收集器</p>
 <p><code>ZGC</code>的<code>Region</code>具有动态性</p>
 <ul>
 <li>小型<code>Region</code>：容量固定为2MB，用于放置小于256KB的小对象</li>

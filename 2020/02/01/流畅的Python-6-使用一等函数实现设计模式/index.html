@@ -18,20 +18,20 @@
   
   
   <title>[流畅的Python][6][使用一等函数实现设计模式] | T0UGU BLOG</title>
-  <meta name="description" content="第六章 使用一等函数实现设计模式 符合模式并不表示做得对.————————Ralph Johnson   虽然设计模式与语言无关，但这并不意味着每一个模式都能在每一门语言中使用  《设计模式：可复用面向对象软件的基础》的作者在引言中承认，所用的语言决定了哪些模式可用  具体而言  Norvig建议在有一等函数的语言中重新审视”策略”、”命令”、”模板方法”和”访问者”模式 通常，我们可以把这些模式">
+  <meta name="description" content="第六章 使用一等函数实现设计模式  符合模式并不表示做得对.————————Ralph Johnson    虽然设计模式与语言无关，但这并不意味着每一个模式都能在每一门语言中使用   《设计模式：可复用面向对象软件的基础》的作者在引言中承认，所用的语言决定了哪些模式可用   具体而言  Norvig建议在有一等函数的语言中重新审视&amp;quot;策略&amp;quot;、“命令”、&amp;quot;模板方法&amp;q">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[流畅的Python][6][使用一等函数实现设计模式]">
 <meta property="og:url" content="https://t0ugh.biz/2020/02/01/流畅的Python-6-使用一等函数实现设计模式/index.html">
 <meta property="og:site_name" content="打怪升级日常">
-<meta property="og:description" content="第六章 使用一等函数实现设计模式 符合模式并不表示做得对.————————Ralph Johnson   虽然设计模式与语言无关，但这并不意味着每一个模式都能在每一门语言中使用  《设计模式：可复用面向对象软件的基础》的作者在引言中承认，所用的语言决定了哪些模式可用  具体而言  Norvig建议在有一等函数的语言中重新审视”策略”、”命令”、”模板方法”和”访问者”模式 通常，我们可以把这些模式">
+<meta property="og:description" content="第六章 使用一等函数实现设计模式  符合模式并不表示做得对.————————Ralph Johnson    虽然设计模式与语言无关，但这并不意味着每一个模式都能在每一门语言中使用   《设计模式：可复用面向对象软件的基础》的作者在引言中承认，所用的语言决定了哪些模式可用   具体而言  Norvig建议在有一等函数的语言中重新审视&amp;quot;策略&amp;quot;、“命令”、&amp;quot;模板方法&amp;q">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/01/流畅的Python-6-使用一等函数实现设计模式/策略模式类图.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/01/流畅的Python-6-使用一等函数实现设计模式/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E7%B1%BB%E5%9B%BE.jpg">
 <meta property="og:updated_time" content="2020-02-01T12:41:19.013Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[流畅的Python][6][使用一等函数实现设计模式]">
-<meta name="twitter:description" content="第六章 使用一等函数实现设计模式 符合模式并不表示做得对.————————Ralph Johnson   虽然设计模式与语言无关，但这并不意味着每一个模式都能在每一门语言中使用  《设计模式：可复用面向对象软件的基础》的作者在引言中承认，所用的语言决定了哪些模式可用  具体而言  Norvig建议在有一等函数的语言中重新审视”策略”、”命令”、”模板方法”和”访问者”模式 通常，我们可以把这些模式">
-<meta name="twitter:image" content="https://t0ugh.biz/2020/02/01/流畅的Python-6-使用一等函数实现设计模式/策略模式类图.jpg">
+<meta name="twitter:description" content="第六章 使用一等函数实现设计模式  符合模式并不表示做得对.————————Ralph Johnson    虽然设计模式与语言无关，但这并不意味着每一个模式都能在每一门语言中使用   《设计模式：可复用面向对象软件的基础》的作者在引言中承认，所用的语言决定了哪些模式可用   具体而言  Norvig建议在有一等函数的语言中重新审视&amp;quot;策略&amp;quot;、“命令”、&amp;quot;模板方法&amp;q">
+<meta name="twitter:image" content="https://t0ugh.biz/2020/02/01/流畅的Python-6-使用一等函数实现设计模式/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E7%B1%BB%E5%9B%BE.jpg">
   <!-- Canonical links -->
   <link rel="canonical" href="https://t0ugh.biz/2020/02/01/流畅的Python-6-使用一等函数实现设计模式/index.html">
   
@@ -183,7 +183,7 @@
   <div class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flink/">Flink</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -193,7 +193,7 @@
   <div class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/">Flink</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流处理/">流处理</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -203,7 +203,7 @@
   <div class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.2px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.2px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.2px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.2px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.3px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.8px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.1px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.2px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.1px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.3px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.6px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.1px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.2px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.6px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.7px;">java</a> <a href="/tags/jvm/" style="font-size: 13.5px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.2px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.9px;">redis</a> <a href="/tags/vue/" style="font-size: 13.1px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.2px;">动态规划</a> <a href="/tags/微服务/" style="font-size: 13.4px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.4px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.2px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.3px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.1px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.4px;">数据结构</a> <a href="/tags/深度学习/" style="font-size: 13.7px;">深度学习</a> <a href="/tags/算法/" style="font-size: 13.1px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.7px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.1px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
+      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.18px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.18px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Flink/" style="font-size: 13.36px;">Flink</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.18px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.18px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.27px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.82px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.09px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.18px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.09px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.27px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.55px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.09px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.18px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.55px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.64px;">java</a> <a href="/tags/jvm/" style="font-size: 13.45px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.18px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.91px;">redis</a> <a href="/tags/vue/" style="font-size: 13.09px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.18px;">动态规划</a> <a href="/tags/大数据/" style="font-size: 13.36px;">大数据</a> <a href="/tags/微服务/" style="font-size: 13.36px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.36px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.18px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.27px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.09px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.36px;">数据结构</a> <a href="/tags/机器学习/" style="font-size: 13px;">机器学习</a> <a href="/tags/流处理/" style="font-size: 13.36px;">流处理</a> <a href="/tags/深度学习/" style="font-size: 13.73px;">深度学习</a> <a href="/tags/神经网络/" style="font-size: 13px;">神经网络</a> <a href="/tags/算法/" style="font-size: 13.09px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.64px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.09px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
     </div>
   </div>
 
@@ -212,7 +212,7 @@
   <div class="widget">
     <h3 class="widget-title">Archive</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -228,13 +228,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-0-MyBatis源码解析汇总篇/" class="title">[MyBatis源码][0][MyBatis源码解析汇总篇]</a>
+                <a href="/2020/11/08/Flink-5-DataStreamAPI/" class="title">[Flink][5][DataStreamAPI]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T13:20:28.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-08T11:09:54.000Z" itemprop="datePublished">2020-11-08</time>
               </p>
             </div>
           </li>
@@ -243,13 +243,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-7-插件机制/" class="title">[MyBatis源码][7][插件机制]</a>
+                <a href="/2020/11/02/Flink-4-设置Flink开发环境/" class="title">[Flink][4][设置Flink开发环境]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T13:16:34.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-02T11:08:53.000Z" itemprop="datePublished">2020-11-02</time>
               </p>
             </div>
           </li>
@@ -258,13 +258,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-6-缓存机制/" class="title">[MyBatis源码][6][缓存机制]</a>
+                <a href="/2020/11/01/Flink-3-ApacheFlink架构/" class="title">[Flink][3][ApacheFlink架构]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T11:55:22.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-01T11:08:14.000Z" itemprop="datePublished">2020-11-01</time>
               </p>
             </div>
           </li>
@@ -273,13 +273,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/28/MyBatis源码-5-连接池/" class="title">[MyBatis源码][5][连接池]</a>
+                <a href="/2020/10/30/Flink-2-流处理基础/" class="title">[Flink][2][流处理基础]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-28T09:10:54.000Z" itemprop="datePublished">2020-03-28</time>
+                <time datetime="2020-10-30T11:07:33.000Z" itemprop="datePublished">2020-10-30</time>
               </p>
             </div>
           </li>
@@ -288,13 +288,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/27/MyBatis源码-4-SQL执行流程/" class="title">[MyBatis源码][4][SQL执行流程]</a>
+                <a href="/2020/10/29/Flink-1-状态化流处理概述/" class="title">[Flink][1][状态化流处理概述]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-27T14:21:01.000Z" itemprop="datePublished">2020-03-27</time>
+                <time datetime="2020-10-29T03:18:58.000Z" itemprop="datePublished">2020-10-29</time>
               </p>
             </div>
           </li>
@@ -354,85 +354,106 @@
                 
                                     
                                         <div id="toc">
-                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第六章-使用一等函数实现设计模式"><span class="toc-text">第六章 使用一等函数实现设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-案例分析：重构策略模式"><span class="toc-text">6.1 案例分析：重构策略模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-1-经典的策略模式"><span class="toc-text">6.1.1 经典的策略模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-2-使用函数实现策略模式"><span class="toc-text">6.1.2 使用函数实现策略模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-3-选择最佳策略：简单的方式"><span class="toc-text">6.1.3 选择最佳策略：简单的方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-4-找出模块中的全部策略"><span class="toc-text">6.1.4 找出模块中的全部策略</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-命令模式"><span class="toc-text">6.2 命令模式</span></a></li></ol></li></ol>
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第六章-使用一等函数实现设计模式"><span class="toc-text"> 第六章 使用一等函数实现设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#61-案例分析重构策略模式"><span class="toc-text"> 6.1 案例分析：重构策略模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#611-经典的策略模式"><span class="toc-text"> 6.1.1 经典的策略模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#612-使用函数实现策略模式"><span class="toc-text"> 6.1.2 使用函数实现策略模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#613-选择最佳策略简单的方式"><span class="toc-text"> 6.1.3 选择最佳策略：简单的方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#614-找出模块中的全部策略"><span class="toc-text"> 6.1.4 找出模块中的全部策略</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#62-命令模式"><span class="toc-text"> 6.2 命令模式</span></a></li></ol></li></ol>
                                         </div>
                                         
-                                            <h2 id="第六章-使用一等函数实现设计模式"><a href="#第六章-使用一等函数实现设计模式" class="headerlink" title="第六章 使用一等函数实现设计模式"></a>第六章 使用一等函数实现设计模式</h2><blockquote>
+                                            <h2 id="第六章-使用一等函数实现设计模式"><a class="markdownIt-Anchor" href="#第六章-使用一等函数实现设计模式"></a> 第六章 使用一等函数实现设计模式</h2>
+<blockquote>
 <p>符合模式并不表示做得对.————————Ralph Johnson</p>
 </blockquote>
 <ul>
-<li><p>虽然设计模式与语言无关，但这并不意味着每一个模式都能在每一门语言中使用</p>
+<li>
+<p>虽然设计模式与语言无关，但这并不意味着每一个模式都能在每一门语言中使用</p>
 </li>
-<li><p>《设计模式：可复用面向对象软件的基础》的作者在引言中承认，所用的语言决定了哪些模式可用</p>
+<li>
+<p>《设计模式：可复用面向对象软件的基础》的作者在引言中承认，所用的语言决定了哪些模式可用</p>
 </li>
-<li><p>具体而言</p>
+<li>
+<p>具体而言</p>
 <ul>
-<li>Norvig建议在有一等函数的语言中重新审视”策略”、”命令”、”模板方法”和”访问者”模式</li>
+<li>Norvig建议在有一等函数的语言中重新审视&quot;策略&quot;、“命令”、&quot;模板方法&quot;和&quot;访问者&quot;模式</li>
 <li>通常，我们可以把这些模式中涉及的某些类的实例替换成简单的函数，从而减少样本代码</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h3 id="6-1-案例分析：重构策略模式"><a href="#6-1-案例分析：重构策略模式" class="headerlink" title="6.1 案例分析：重构策略模式"></a>6.1 案例分析：重构策略模式</h3><ul>
-<li>如果合理利用作为一等对象的函数，某些设计模式可以简化，”策略”模式就是其中一个很好的例子</li>
+<h3 id="61-案例分析重构策略模式"><a class="markdownIt-Anchor" href="#61-案例分析重构策略模式"></a> 6.1 案例分析：重构策略模式</h3>
+<ul>
+<li>如果合理利用作为一等对象的函数，某些设计模式可以简化，&quot;策略&quot;模式就是其中一个很好的例子</li>
 </ul>
-<h4 id="6-1-1-经典的策略模式"><a href="#6-1-1-经典的策略模式" class="headerlink" title="6.1.1 经典的策略模式"></a>6.1.1 经典的策略模式</h4><ul>
-<li><p>下图指出了策略模式对类的编排<br>  <img src="/2020/02/01/流畅的Python-6-使用一等函数实现设计模式/策略模式类图.jpg" alt=""></p>
+<h4 id="611-经典的策略模式"><a class="markdownIt-Anchor" href="#611-经典的策略模式"></a> 6.1.1 经典的策略模式</h4>
+<ul>
+<li>
+<p>下图指出了策略模式对类的编排<br>
+<img src="/2020/02/01/流畅的Python-6-使用一等函数实现设计模式/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E7%B1%BB%E5%9B%BE.jpg" alt=""></p>
 </li>
-<li><p>策略模式的定义</p>
+<li>
+<p>策略模式的定义</p>
 <blockquote>
 <p>定义一系列算法，把它们一一封装起来，并且使它们可以相互替换。本模式使得算法可以独立于使用它的客户而变换</p>
 </blockquote>
 </li>
-<li><p>策略模式的组成部分</p>
+<li>
+<p>策略模式的组成部分</p>
 <ul>
 <li>上下文：把一些计算委托给不同算法的可互换组件，它提供服务</li>
 <li>策略：实现不同算法的</li>
 </ul>
 </li>
-<li><p>策略模式的注意事项</p>
+<li>
+<p>策略模式的注意事项</p>
 <ul>
 <li>按照《设计模式：可复用面向对象软件的基础》一书中的说明，具体策略由上下文类的客户选择</li>
 <li>具体怎么选择策略，不在这个模式的职责范围内</li>
 </ul>
 </li>
-<li><p>示例：实现Order类，支持插入式折扣策略</p>
+<li>
+<p>示例：实现Order类，支持插入式折扣策略</p>
   <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line">Customer = namedtuple(<span class="string">'Customer'</span>, <span class="string">'name fidelity'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LineItem</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, product, quantity, price)</span>:</span></span><br><span class="line">        self.product = product</span><br><span class="line">        self.quantity = quantity</span><br><span class="line">        self.price = price</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.price * self.quantity</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span>:</span>  <span class="comment"># 上下文</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, customer, cart, promotion=None)</span>:</span></span><br><span class="line">        self.customer = customer</span><br><span class="line">        self.cart = list(cart)</span><br><span class="line">        self.promotion = promotion</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'__total'</span>):</span><br><span class="line">            self.__total = sum(item.total() <span class="keyword">for</span> item <span class="keyword">in</span> self.cart)</span><br><span class="line">        <span class="keyword">return</span> self.__total</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">due</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.promotion <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            discount = <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            discount = self.promotion.discount(self)</span><br><span class="line">        <span class="keyword">return</span> self.total() - discount</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        fmt = <span class="string">'&lt;order total: &#123;:.2f&#125; due: &#123;:.2f&#125;&gt;'</span></span><br><span class="line">        <span class="keyword">return</span> fmt.format(self.total(), self.due())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Promotion</span><span class="params">(ABC)</span>:</span>  <span class="comment"># 策略:抽象基类</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">discount</span><span class="params">(self, order)</span>:</span></span><br><span class="line">        <span class="string">"""返回折扣金额(正值)"""</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FidelityPromo</span><span class="params">(Promotion)</span>:</span>  <span class="comment"># 第一个具体策略</span></span><br><span class="line">    <span class="string">"""为积分为1000或以上的用户提供5%折扣"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">discount</span><span class="params">(self, order)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> order.total() * <span class="number">.05</span> <span class="keyword">if</span> order.customer.fidelity &gt;= <span class="number">1000</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BulkItemPromo</span><span class="params">(Promotion)</span>:</span>  <span class="comment"># 第二个具体策略</span></span><br><span class="line">    <span class="string">"""单个商品为20个或以上时提供10%折扣"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">discount</span><span class="params">(self, order)</span>:</span></span><br><span class="line">        discount = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> order.cart:</span><br><span class="line">            <span class="keyword">if</span> item.quantity &gt;= <span class="number">20</span>:</span><br><span class="line">                discount += item.total() * <span class="number">.1</span></span><br><span class="line">        <span class="keyword">return</span> discount</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LargeOrderPromo</span><span class="params">(Promotion)</span>:</span>  <span class="comment"># 第三个具体策略</span></span><br><span class="line">    <span class="string">"""订单中的不同商品达到10个或以上时提供7%折扣"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">discount</span><span class="params">(self, order)</span>:</span></span><br><span class="line">        distinct_items = &#123;item.product <span class="keyword">for</span> item <span class="keyword">in</span> order.cart&#125;</span><br><span class="line">        <span class="keyword">if</span> len(distinct_items) &gt;= <span class="number">10</span>:</span><br><span class="line">            <span class="keyword">return</span> order.total() * <span class="number">.07</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
-<h4 id="6-1-2-使用函数实现策略模式"><a href="#6-1-2-使用函数实现策略模式" class="headerlink" title="6.1.2 使用函数实现策略模式"></a>6.1.2 使用函数实现策略模式</h4><ul>
-<li><p>背景</p>
+<h4 id="612-使用函数实现策略模式"><a class="markdownIt-Anchor" href="#612-使用函数实现策略模式"></a> 6.1.2 使用函数实现策略模式</h4>
+<ul>
+<li>
+<p>背景</p>
 <ul>
 <li>在前一节的示例中，每个具体策略都是一个类，而且都只定义了一个方法，即discount.此外，策略实例是没有状态的</li>
 <li>也就是说它们看起来像普通的函数，所以没有理由不把具体策略换成简单的函数，并且去掉Promo抽象类</li>
 </ul>
 </li>
-<li><p>示例: Order类和使用函数实现的折扣策略</p>
+<li>
+<p>示例: Order类和使用函数实现的折扣策略</p>
   <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line">Customer = namedtuple(<span class="string">'Customer'</span>, <span class="string">'name fidelity'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LineItem</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, product, quantity, price)</span>:</span></span><br><span class="line">        self.product = product</span><br><span class="line">        self.quantity = quantity</span><br><span class="line">        self.price = price</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.price * self.quantity</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span>:</span>  <span class="comment"># 上下文</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, customer, cart, promotion=None)</span>:</span></span><br><span class="line">        self.customer = customer</span><br><span class="line">        self.cart = list(cart)</span><br><span class="line">        self.promotion = promotion</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'__total'</span>):</span><br><span class="line">            self.__total = sum(item.total() <span class="keyword">for</span> item <span class="keyword">in</span> self.cart)</span><br><span class="line">        <span class="keyword">return</span> self.__total</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">due</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.promotion <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            discount = <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            discount = self.promotion(self)</span><br><span class="line">        <span class="keyword">return</span> self.total() - discount</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        fmt = <span class="string">'&lt;order total: &#123;:.2f&#125; due: &#123;:.2f&#125;&gt;'</span></span><br><span class="line">        <span class="keyword">return</span> fmt.format(self.total(), self.due())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fidelity_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""为积分为1000或以上的用户提供5%折扣"""</span></span><br><span class="line">    <span class="keyword">return</span> order.total() * <span class="number">.05</span> <span class="keyword">if</span> order.customer.fidelity &gt;= <span class="number">1000</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bulk_item_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""单个商品为20个或以上时提供10%折扣"""</span></span><br><span class="line">    discount = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> order.cart:</span><br><span class="line">        <span class="keyword">if</span> item.quantity &gt;= <span class="number">20</span>:</span><br><span class="line">            discount += item.total() * <span class="number">.1</span></span><br><span class="line">    <span class="keyword">return</span> discount</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">large_order_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""订单中的不同商品达到10个或以上时提供7%折扣"""</span></span><br><span class="line">    distinct_items = &#123;item.product <span class="keyword">for</span> item <span class="keyword">in</span> order.cart&#125;</span><br><span class="line">    <span class="keyword">if</span> len(distinct_items) &gt;= <span class="number">10</span>:</span><br><span class="line">        <span class="keyword">return</span> order.total() * <span class="number">.07</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>享元模式与函数的讨论</p>
+<li>
+<p>享元模式与函数的讨论</p>
 <ul>
 <li>值得注意的是，《设计模式：可复用面向对象软件的基础》一书的作者指出：“策略对象通常是很好的享元(flyweight)。”</li>
 <li>那本书的另一部分对“享元”下了定义：享元是可共享的对象，可以同时在多个上下文中使用</li>
 <li>共享是推荐的做法，这样不必在每个新的上下文中使用相同的策略时不断新建具体策略对象，从而减少消耗</li>
-<li>函数比用户定义的类的实例轻量，而且无需使用享元模式，因为各个策略函数在Python编译模块时只会创建一次。普通的函数也是”可共享的对象”，可以同时在多个上下文中使用</li>
+<li>函数比用户定义的类的实例轻量，而且无需使用享元模式，因为各个策略函数在Python编译模块时只会创建一次。普通的函数也是&quot;可共享的对象&quot;，可以同时在多个上下文中使用</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h4 id="6-1-3-选择最佳策略：简单的方式"><a href="#6-1-3-选择最佳策略：简单的方式" class="headerlink" title="6.1.3 选择最佳策略：简单的方式"></a>6.1.3 选择最佳策略：简单的方式</h4><ul>
-<li><p>示例:best_promo迭代一个函数列表，并找出折扣额度最大的</p>
+<h4 id="613-选择最佳策略简单的方式"><a class="markdownIt-Anchor" href="#613-选择最佳策略简单的方式"></a> 6.1.3 选择最佳策略：简单的方式</h4>
 <ul>
-<li><p>代码</p>
+<li>示例:best_promo迭代一个函数列表，并找出折扣额度最大的
+<ul>
+<li>
+<p>代码</p>
   <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># promos列出以函数实现的各个策略</span></span><br><span class="line">promos = [fidelity_promo, bulk_item_promo, large_order_promo]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">best_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""选择可用的最佳折扣"""</span></span><br><span class="line">    <span class="comment"># 使用生成器表达式把order传个promos列表中的各个函数，返回计算出的最大折扣额度</span></span><br><span class="line">    <span class="keyword">return</span> max(promo(order) <span class="keyword">for</span> promo <span class="keyword">in</span> promos)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>解释</p>
+<li>
+<p>解释</p>
 <ul>
 <li>promos是函数列表。习惯函数是一等对象之后，自然而然就会构建这种结构存储函数</li>
 </ul>
 </li>
-<li>缺点<ul>
+<li>
+<p>缺点</p>
+<ul>
 <li>若想添加新的促销策略，要定义相应的函数，还要记得把它添加到promos列表中</li>
 </ul>
 </li>
@@ -440,23 +461,28 @@
 </li>
 </ul>
 <hr>
-<h4 id="6-1-4-找出模块中的全部策略"><a href="#6-1-4-找出模块中的全部策略" class="headerlink" title="6.1.4 找出模块中的全部策略"></a>6.1.4 找出模块中的全部策略</h4><ul>
-<li><p>Python中的模块</p>
+<h4 id="614-找出模块中的全部策略"><a class="markdownIt-Anchor" href="#614-找出模块中的全部策略"></a> 6.1.4 找出模块中的全部策略</h4>
+<ul>
+<li>
+<p>Python中的模块</p>
 <ul>
 <li>在Python中模块也是一等对象，而且标准库提供了几个处理模块的函数</li>
-<li>内置函数<code>globals()</code><ul>
+<li>内置函数<code>globals()</code>
+<ul>
 <li>返回一个字典，表示当前的全局符号表</li>
 <li>这个符号表始终针对当前模块(对函数或方法来说，是指定义它们的模块，而不是调用它们的模块)</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>方案一:使用globals函数来自动寻找其他可用的*_promo函数</p>
+<li>
+<p>方案一:使用globals函数来自动寻找其他可用的*_promo函数</p>
 <ul>
-<li><p>示例：内省模块中的全局命名空间，构建promos列表</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">promos = [globals()[name] <span class="keyword">for</span> name <span class="keyword">in</span> globals() <span class="keyword">if</span> name.endwith(<span class="string">'_promo'</span>) <span class="keyword">and</span> name != <span class="string">'best_promo'</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">best_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""选择可用的最佳折扣"""</span></span><br><span class="line">    <span class="keyword">return</span> max(promo(order) <span class="keyword">for</span> promo <span class="keyword">in</span> promos)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>解释</p>
+<li>示例：内省模块中的全局命名空间，构建promos列表</li>
+</ul>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">promos = [globals()[name] <span class="keyword">for</span> name <span class="keyword">in</span> globals() <span class="keyword">if</span> name.endwith(<span class="string">'_promo'</span>) <span class="keyword">and</span> name != <span class="string">'best_promo'</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">best_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""选择可用的最佳折扣"""</span></span><br><span class="line">    <span class="keyword">return</span> max(promo(order) <span class="keyword">for</span> promo <span class="keyword">in</span> promos)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>解释
 <ul>
 <li>通过迭代globals()来找到所用的_promo函数</li>
 <li>过滤掉best_promo自身，防止无限递归</li>
@@ -465,31 +491,38 @@
 </li>
 </ul>
 </li>
-<li><p>方案二</p>
+<li>
+<p>方案二</p>
 <ul>
 <li>在一个单独的模块中保存所有的策略函数，并把best_promo排除在外</li>
 <li>通过内省这个模块来构建策略函数列表</li>
 </ul>
 </li>
-<li><p>另外</p>
+<li>
+<p>另外</p>
 <ul>
 <li>动态收集促销折扣函数更为显示的一种方案是使用简单的修饰器</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h3 id="6-2-命令模式"><a href="#6-2-命令模式" class="headerlink" title="6.2 命令模式"></a>6.2 命令模式</h3><ul>
-<li><p>命令模式也可以通过把函数作为参数传递而简化</p>
+<h3 id="62-命令模式"><a class="markdownIt-Anchor" href="#62-命令模式"></a> 6.2 命令模式</h3>
+<ul>
+<li>
+<p>命令模式也可以通过把函数作为参数传递而简化</p>
 </li>
-<li><p>命令模式简介</p>
+<li>
+<p>命令模式简介</p>
 <ul>
 <li>命令模式的目的是解耦调用操作的对象(调用者)和提供实现的对象(接收者)</li>
 <li>命令模式的做法是在调用者和接收者之间放一个Command对象，让它实现只有一个方法的接口，调用接收者中的方法执行所需的操作。这样，调用者无需理解接收者的接口，而且不同的接收者可以适应不同的Command子类</li>
 </ul>
 </li>
-<li><p>命令模式的类图如下</p>
+<li>
+<p>命令模式的类图如下</p>
 </li>
-<li><p>Python对命令模式的简化</p>
+<li>
+<p>Python对命令模式的简化</p>
 <ul>
 <li>我们可以不为调用者提供一个Command实例，而是给它一个函数，就如我们对策略模式做的那样</li>
 </ul>

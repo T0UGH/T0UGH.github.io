@@ -18,37 +18,37 @@
   
   
   <title>[Tensorflow][4]深层神经网络 | T0UGU BLOG</title>
-  <meta name="description" content="第四章 深层神经网络 4.1 深度学习与深层网络 深度学习的精确定义：一类通过多层非线性变换对高复杂性数据建模算法的合集  深层神经网络  深层神经网络是实现“多层非线性变换”最常用的一种方法 实际中深度学习基本上就是深层神经网络的代名词   深度学习的两个特性  多层 非线性     4.1.1 线性模型的局限性 线性模型定义：假设一个模型的输入y和输入xi满足以下关系，那么这个模型就是一个线性">
+  <meta name="description" content="第四章 深层神经网络   4.1 深度学习与深层网络   深度学习的精确定义：一类通过多层非线性变换对高复杂性数据建模算法的合集   深层神经网络  深层神经网络是实现“多层非线性变换”最常用的一种方法 实际中深度学习基本上就是深层神经网络的代名词    深度学习的两个特性  多层 非线性      4.1.1 线性模型的局限性   线性模型定义：假设一个模型的输入y和输入xi满足以下关系，那么">
 <meta name="keywords" content="深度学习,Tensorflow">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Tensorflow][4]深层神经网络">
 <meta property="og:url" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/index.html">
 <meta property="og:site_name" content="打怪升级日常">
-<meta property="og:description" content="第四章 深层神经网络 4.1 深度学习与深层网络 深度学习的精确定义：一类通过多层非线性变换对高复杂性数据建模算法的合集  深层神经网络  深层神经网络是实现“多层非线性变换”最常用的一种方法 实际中深度学习基本上就是深层神经网络的代名词   深度学习的两个特性  多层 非线性     4.1.1 线性模型的局限性 线性模型定义：假设一个模型的输入y和输入xi满足以下关系，那么这个模型就是一个线性">
+<meta property="og:description" content="第四章 深层神经网络   4.1 深度学习与深层网络   深度学习的精确定义：一类通过多层非线性变换对高复杂性数据建模算法的合集   深层神经网络  深层神经网络是实现“多层非线性变换”最常用的一种方法 实际中深度学习基本上就是深层神经网络的代名词    深度学习的两个特性  多层 非线性      4.1.1 线性模型的局限性   线性模型定义：假设一个模型的输入y和输入xi满足以下关系，那么">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/线性模型公式.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/线性模型解决线性不可分问题.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/线性模型解决线性可分问题.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/非线性模型解决线性不可分问题.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/加入偏置项和激活函数的神经元结构.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/常见的激活函数.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/加入偏置项和激活函数的神经网络.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/加入偏置项和激活函数的神经元结构.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/感知机无法解决异或问题.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/加入隐藏层解决异或问题.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/交叉熵公式.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/将神经网络输出转化为概率分布.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/Softmax函数.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/均方误差公式.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/指数衰减.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/神经网络模型的三种情况.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/L1正则化.jpg">
-<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/L2正则化.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B%E5%85%AC%E5%BC%8F.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B%E8%A7%A3%E5%86%B3%E7%BA%BF%E6%80%A7%E4%B8%8D%E5%8F%AF%E5%88%86%E9%97%AE%E9%A2%98.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B%E8%A7%A3%E5%86%B3%E7%BA%BF%E6%80%A7%E5%8F%AF%E5%88%86%E9%97%AE%E9%A2%98.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B%E8%A7%A3%E5%86%B3%E7%BA%BF%E6%80%A7%E4%B8%8D%E5%8F%AF%E5%88%86%E9%97%AE%E9%A2%98.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/%E5%8A%A0%E5%85%A5%E5%81%8F%E7%BD%AE%E9%A1%B9%E5%92%8C%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E7%A5%9E%E7%BB%8F%E5%85%83%E7%BB%93%E6%9E%84.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/%E5%8A%A0%E5%85%A5%E5%81%8F%E7%BD%AE%E9%A1%B9%E5%92%8C%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/%E5%8A%A0%E5%85%A5%E5%81%8F%E7%BD%AE%E9%A1%B9%E5%92%8C%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E7%A5%9E%E7%BB%8F%E5%85%83%E7%BB%93%E6%9E%84.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/%E6%84%9F%E7%9F%A5%E6%9C%BA%E6%97%A0%E6%B3%95%E8%A7%A3%E5%86%B3%E5%BC%82%E6%88%96%E9%97%AE%E9%A2%98.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/%E5%8A%A0%E5%85%A5%E9%9A%90%E8%97%8F%E5%B1%82%E8%A7%A3%E5%86%B3%E5%BC%82%E6%88%96%E9%97%AE%E9%A2%98.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/%E4%BA%A4%E5%8F%89%E7%86%B5%E5%85%AC%E5%BC%8F.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/%E5%B0%86%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%BE%93%E5%87%BA%E8%BD%AC%E5%8C%96%E4%B8%BA%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/Softmax%E5%87%BD%E6%95%B0.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/%E5%9D%87%E6%96%B9%E8%AF%AF%E5%B7%AE%E5%85%AC%E5%BC%8F.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/%E6%8C%87%E6%95%B0%E8%A1%B0%E5%87%8F.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%B8%89%E7%A7%8D%E6%83%85%E5%86%B5.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/L1%E6%AD%A3%E5%88%99%E5%8C%96.jpg">
+<meta property="og:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/L2%E6%AD%A3%E5%88%99%E5%8C%96.jpg">
 <meta property="og:updated_time" content="2019-03-10T06:46:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Tensorflow][4]深层神经网络">
-<meta name="twitter:description" content="第四章 深层神经网络 4.1 深度学习与深层网络 深度学习的精确定义：一类通过多层非线性变换对高复杂性数据建模算法的合集  深层神经网络  深层神经网络是实现“多层非线性变换”最常用的一种方法 实际中深度学习基本上就是深层神经网络的代名词   深度学习的两个特性  多层 非线性     4.1.1 线性模型的局限性 线性模型定义：假设一个模型的输入y和输入xi满足以下关系，那么这个模型就是一个线性">
-<meta name="twitter:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/线性模型公式.jpg">
+<meta name="twitter:description" content="第四章 深层神经网络   4.1 深度学习与深层网络   深度学习的精确定义：一类通过多层非线性变换对高复杂性数据建模算法的合集   深层神经网络  深层神经网络是实现“多层非线性变换”最常用的一种方法 实际中深度学习基本上就是深层神经网络的代名词    深度学习的两个特性  多层 非线性      4.1.1 线性模型的局限性   线性模型定义：假设一个模型的输入y和输入xi满足以下关系，那么">
+<meta name="twitter:image" content="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B%E5%85%AC%E5%BC%8F.jpg">
   <!-- Canonical links -->
   <link rel="canonical" href="https://t0ugh.biz/2019/03/10/Tensorflow-4-深层神经网络/index.html">
   
@@ -200,7 +200,7 @@
   <div class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flink/">Flink</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -210,7 +210,7 @@
   <div class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/">Flink</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流处理/">流处理</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -220,7 +220,7 @@
   <div class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.2px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.2px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.2px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.2px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.3px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.8px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.1px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.2px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.1px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.3px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.6px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.1px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.2px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.6px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.7px;">java</a> <a href="/tags/jvm/" style="font-size: 13.5px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.2px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.9px;">redis</a> <a href="/tags/vue/" style="font-size: 13.1px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.2px;">动态规划</a> <a href="/tags/微服务/" style="font-size: 13.4px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.4px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.2px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.3px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.1px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.4px;">数据结构</a> <a href="/tags/深度学习/" style="font-size: 13.7px;">深度学习</a> <a href="/tags/算法/" style="font-size: 13.1px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.7px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.1px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
+      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.18px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.18px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Flink/" style="font-size: 13.36px;">Flink</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.18px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.18px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.27px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.82px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.09px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.18px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.09px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.27px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.55px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.09px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.18px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.55px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.64px;">java</a> <a href="/tags/jvm/" style="font-size: 13.45px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.18px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.91px;">redis</a> <a href="/tags/vue/" style="font-size: 13.09px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.18px;">动态规划</a> <a href="/tags/大数据/" style="font-size: 13.36px;">大数据</a> <a href="/tags/微服务/" style="font-size: 13.36px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.36px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.18px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.27px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.09px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.36px;">数据结构</a> <a href="/tags/机器学习/" style="font-size: 13px;">机器学习</a> <a href="/tags/流处理/" style="font-size: 13.36px;">流处理</a> <a href="/tags/深度学习/" style="font-size: 13.73px;">深度学习</a> <a href="/tags/神经网络/" style="font-size: 13px;">神经网络</a> <a href="/tags/算法/" style="font-size: 13.09px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.64px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.09px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
     </div>
   </div>
 
@@ -229,7 +229,7 @@
   <div class="widget">
     <h3 class="widget-title">Archive</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -245,13 +245,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-0-MyBatis源码解析汇总篇/" class="title">[MyBatis源码][0][MyBatis源码解析汇总篇]</a>
+                <a href="/2020/11/08/Flink-5-DataStreamAPI/" class="title">[Flink][5][DataStreamAPI]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T13:20:28.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-08T11:09:54.000Z" itemprop="datePublished">2020-11-08</time>
               </p>
             </div>
           </li>
@@ -260,13 +260,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-7-插件机制/" class="title">[MyBatis源码][7][插件机制]</a>
+                <a href="/2020/11/02/Flink-4-设置Flink开发环境/" class="title">[Flink][4][设置Flink开发环境]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T13:16:34.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-02T11:08:53.000Z" itemprop="datePublished">2020-11-02</time>
               </p>
             </div>
           </li>
@@ -275,13 +275,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-6-缓存机制/" class="title">[MyBatis源码][6][缓存机制]</a>
+                <a href="/2020/11/01/Flink-3-ApacheFlink架构/" class="title">[Flink][3][ApacheFlink架构]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T11:55:22.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-01T11:08:14.000Z" itemprop="datePublished">2020-11-01</time>
               </p>
             </div>
           </li>
@@ -290,13 +290,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/28/MyBatis源码-5-连接池/" class="title">[MyBatis源码][5][连接池]</a>
+                <a href="/2020/10/30/Flink-2-流处理基础/" class="title">[Flink][2][流处理基础]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-28T09:10:54.000Z" itemprop="datePublished">2020-03-28</time>
+                <time datetime="2020-10-30T11:07:33.000Z" itemprop="datePublished">2020-10-30</time>
               </p>
             </div>
           </li>
@@ -305,13 +305,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/27/MyBatis源码-4-SQL执行流程/" class="title">[MyBatis源码][4][SQL执行流程]</a>
+                <a href="/2020/10/29/Flink-1-状态化流处理概述/" class="title">[Flink][1][状态化流处理概述]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-27T14:21:01.000Z" itemprop="datePublished">2020-03-27</time>
+                <time datetime="2020-10-29T03:18:58.000Z" itemprop="datePublished">2020-10-29</time>
               </p>
             </div>
           </li>
@@ -371,20 +371,25 @@
                 
                                     
                                         <div id="toc">
-                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第四章-深层神经网络"><span class="toc-text">第四章 深层神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-深度学习与深层网络"><span class="toc-text">4.1 深度学习与深层网络</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-1-线性模型的局限性"><span class="toc-text">4.1.1 线性模型的局限性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-2-激活函数实现去线性化"><span class="toc-text">4.1.2 激活函数实现去线性化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-3-多层网络解决异或运算"><span class="toc-text">4.1.3 多层网络解决异或运算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-损失函数定义"><span class="toc-text">4.2 损失函数定义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-经典损失函数"><span class="toc-text">4.2.1 经典损失函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-自定义损失函数"><span class="toc-text">4.2.2 自定义损失函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-神经网络优化算法"><span class="toc-text">4.3 神经网络优化算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-神经网络进一步优化"><span class="toc-text">4.4 神经网络进一步优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-1-学习率的设置"><span class="toc-text">4.4.1 学习率的设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-2-过拟合问题"><span class="toc-text">4.4.2 过拟合问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#滑动平均模型"><span class="toc-text">滑动平均模型</span></a></li></ol></li></ol></li></ol>
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第四章-深层神经网络"><span class="toc-text"> 第四章 深层神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#41-深度学习与深层网络"><span class="toc-text"> 4.1 深度学习与深层网络</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#411-线性模型的局限性"><span class="toc-text"> 4.1.1 线性模型的局限性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#412-激活函数实现去线性化"><span class="toc-text"> 4.1.2 激活函数实现去线性化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#413-多层网络解决异或运算"><span class="toc-text"> 4.1.3 多层网络解决异或运算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#42-损失函数定义"><span class="toc-text"> 4.2 损失函数定义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#421-经典损失函数"><span class="toc-text"> 4.2.1 经典损失函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#422-自定义损失函数"><span class="toc-text"> 4.2.2 自定义损失函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#43-神经网络优化算法"><span class="toc-text"> 4.3 神经网络优化算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#44-神经网络进一步优化"><span class="toc-text"> 4.4 神经网络进一步优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#441-学习率的设置"><span class="toc-text"> 4.4.1 学习率的设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#442-过拟合问题"><span class="toc-text"> 4.4.2 过拟合问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#滑动平均模型"><span class="toc-text"> 滑动平均模型</span></a></li></ol></li></ol></li></ol>
                                         </div>
                                         
-                                            <h2 id="第四章-深层神经网络"><a href="#第四章-深层神经网络" class="headerlink" title="第四章 深层神经网络"></a>第四章 深层神经网络</h2><hr>
-<h3 id="4-1-深度学习与深层网络"><a href="#4-1-深度学习与深层网络" class="headerlink" title="4.1 深度学习与深层网络"></a>4.1 深度学习与深层网络</h3><ul>
-<li><p>深度学习的精确定义：一类通过多层非线性变换对高复杂性数据建模算法的合集</p>
+                                            <h2 id="第四章-深层神经网络"><a class="markdownIt-Anchor" href="#第四章-深层神经网络"></a> 第四章 深层神经网络</h2>
+<hr>
+<h3 id="41-深度学习与深层网络"><a class="markdownIt-Anchor" href="#41-深度学习与深层网络"></a> 4.1 深度学习与深层网络</h3>
+<ul>
+<li>
+<p>深度学习的精确定义：一类通过多层非线性变换对高复杂性数据建模算法的合集</p>
 </li>
-<li><p>深层神经网络</p>
+<li>
+<p>深层神经网络</p>
 <ul>
 <li>深层神经网络是实现“多层非线性变换”最常用的一种方法</li>
 <li>实际中深度学习基本上就是深层神经网络的代名词</li>
 </ul>
 </li>
-<li><p>深度学习的两个特性</p>
+<li>
+<p>深度学习的两个特性</p>
 <ol>
 <li>多层</li>
 <li>非线性</li>
@@ -392,52 +397,77 @@
 </li>
 </ul>
 <hr>
-<h4 id="4-1-1-线性模型的局限性"><a href="#4-1-1-线性模型的局限性" class="headerlink" title="4.1.1 线性模型的局限性"></a>4.1.1 线性模型的局限性</h4><ul>
-<li><p>线性模型定义：假设一个模型的输入y和输入xi满足以下关系，那么这个模型就是一个线性模型<br>  <img src="/2019/03/10/Tensorflow-4-深层神经网络/线性模型公式.jpg" alt=""></p>
+<h4 id="411-线性模型的局限性"><a class="markdownIt-Anchor" href="#411-线性模型的局限性"></a> 4.1.1 线性模型的局限性</h4>
+<ul>
+<li>
+<p>线性模型定义：假设一个模型的输入y和输入xi满足以下关系，那么这个模型就是一个线性模型<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B%E5%85%AC%E5%BC%8F.jpg" alt=""></p>
 </li>
-<li><p>线性模型特点：线性模型的最大特点是任意线性模型的组合仍然是线性模型</p>
+<li>
+<p>线性模型特点：线性模型的最大特点是任意线性模型的组合仍然是线性模型</p>
 </li>
-<li><p>为什么被称为线性模型？</p>
+<li>
+<p>为什么被称为线性模型？</p>
 <ul>
 <li>当模型的输入只有一个的时候，x和y形成了二维坐标系上的一条直线</li>
 <li>当模型有n个输入时，x和y形成了n+1维空间中的一个平面</li>
 </ul>
 </li>
-<li><p>线性模型局限性：</p>
+<li>
+<p>线性模型局限性：</p>
 <ul>
 <li>只通过线性变换，任意层的全连接神经网络和单层神经网络模型的表达能力没有任何区别，而且它们都是线性模型</li>
 <li>线性模型只能解决线性可分问题，但是绝大多数问题都是无法线性分割的</li>
 </ul>
 </li>
-<li><p>样例</p>
+<li>
+<p>样例</p>
 <ul>
-<li><p>使用线性模型无法解决线性不可分问题<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/线性模型解决线性不可分问题.jpg" alt=""></p>
+<li>
+<p>使用线性模型无法解决线性不可分问题<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B%E8%A7%A3%E5%86%B3%E7%BA%BF%E6%80%A7%E4%B8%8D%E5%8F%AF%E5%88%86%E9%97%AE%E9%A2%98.jpg" alt=""></p>
 </li>
-<li><p>使用线性模型可以解决线性可分问题<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/线性模型解决线性可分问题.jpg" alt=""></p>
+<li>
+<p>使用线性模型可以解决线性可分问题<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B%E8%A7%A3%E5%86%B3%E7%BA%BF%E6%80%A7%E5%8F%AF%E5%88%86%E9%97%AE%E9%A2%98.jpg" alt=""></p>
 </li>
-<li><p>使用非线性模可以解决线性不可分问题<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/非线性模型解决线性不可分问题.jpg" alt=""></p>
+<li>
+<p>使用非线性模可以解决线性不可分问题<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B%E8%A7%A3%E5%86%B3%E7%BA%BF%E6%80%A7%E4%B8%8D%E5%8F%AF%E5%88%86%E9%97%AE%E9%A2%98.jpg" alt=""></p>
 </li>
 </ul>
 </li>
 </ul>
 <hr>
-<h4 id="4-1-2-激活函数实现去线性化"><a href="#4-1-2-激活函数实现去线性化" class="headerlink" title="4.1.2 激活函数实现去线性化"></a>4.1.2 激活函数实现去线性化</h4><ul>
-<li><p>激活函数简介</p>
+<h4 id="412-激活函数实现去线性化"><a class="markdownIt-Anchor" href="#412-激活函数实现去线性化"></a> 4.1.2 激活函数实现去线性化</h4>
+<ul>
+<li>
+<p>激活函数简介</p>
 <ul>
 <li>如果将每个神经元的输出通过一个非线性函数，那么整个神经网络的模型也就不再是线性了</li>
 <li>这个非线性函数就是激活函数</li>
 </ul>
 </li>
-<li><p>加入了激活函数和偏置项之后的<strong>神经元</strong>结构<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/加入偏置项和激活函数的神经元结构.jpg" alt=""></p>
+<li>
+<p>加入了激活函数和偏置项之后的<strong>神经元</strong>结构<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/%E5%8A%A0%E5%85%A5%E5%81%8F%E7%BD%AE%E9%A1%B9%E5%92%8C%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E7%A5%9E%E7%BB%8F%E5%85%83%E7%BB%93%E6%9E%84.jpg" alt=""></p>
 </li>
-<li><p>常见的非线性激活函数<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/常见的激活函数.jpg" alt=""><br>这些激活函数的函数图像都不是一条直线，所以通过这些激活函数，每个节点不再是线性变换，于是整个神经网络模型也就不再是线性的</p>
+<li>
+<p>常见的非线性激活函数<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.jpg" alt=""><br>
+这些激活函数的函数图像都不是一条直线，所以通过这些激活函数，每个节点不再是线性变换，于是整个神经网络模型也就不再是线性的</p>
 </li>
-<li><p>加入了激活函数和偏置项之后的<strong>神经网络</strong><br><img src="/2019/03/10/Tensorflow-4-深层神经网络/加入偏置项和激活函数的神经网络.jpg" alt=""><br>此处偏置项可以表达为一个永远输出为1的节点</p>
+<li>
+<p>加入了激活函数和偏置项之后的<strong>神经网络</strong><br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/%E5%8A%A0%E5%85%A5%E5%81%8F%E7%BD%AE%E9%A1%B9%E5%92%8C%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.jpg" alt=""><br>
+此处偏置项可以表达为一个永远输出为1的节点</p>
 </li>
-<li><p>TensorFlow中的激活函数</p>
+<li>
+<p>TensorFlow中的激活函数</p>
 <ul>
 <li>TensorFlow目前提供7种非线性激活函数</li>
-<li>比较常见的有<ul>
+<li>比较常见的有
+<ul>
 <li><code>tf.nn.relu</code></li>
 <li><code>tf.sigmoid</code></li>
 <li><code>tf.tanh</code></li>
@@ -449,17 +479,26 @@
 </li>
 </ul>
 <hr>
-<h4 id="4-1-3-多层网络解决异或运算"><a href="#4-1-3-多层网络解决异或运算" class="headerlink" title="4.1.3 多层网络解决异或运算"></a>4.1.3 多层网络解决异或运算</h4><ul>
-<li><p>异或运算：如果两个输入的符号相同时则输出为0，否则输出为1</p>
-</li>
-<li><p>感知机：可以理解为单层的神经网络<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/加入偏置项和激活函数的神经元结构.jpg" alt=""></p>
-</li>
-<li><p>感知机的缺陷：感知机无法模拟异或运算<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/感知机无法解决异或问题.jpg" alt=""></p>
-</li>
-<li><p>当加入隐藏层以后，异或问题可以得到很好的解决</p>
+<h4 id="413-多层网络解决异或运算"><a class="markdownIt-Anchor" href="#413-多层网络解决异或运算"></a> 4.1.3 多层网络解决异或运算</h4>
 <ul>
-<li>如图<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/加入隐藏层解决异或问题.jpg" alt=""></li>
-<li>另外<ul>
+<li>
+<p>异或运算：如果两个输入的符号相同时则输出为0，否则输出为1</p>
+</li>
+<li>
+<p>感知机：可以理解为单层的神经网络<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/%E5%8A%A0%E5%85%A5%E5%81%8F%E7%BD%AE%E9%A1%B9%E5%92%8C%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E7%A5%9E%E7%BB%8F%E5%85%83%E7%BB%93%E6%9E%84.jpg" alt=""></p>
+</li>
+<li>
+<p>感知机的缺陷：感知机无法模拟异或运算<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/%E6%84%9F%E7%9F%A5%E6%9C%BA%E6%97%A0%E6%B3%95%E8%A7%A3%E5%86%B3%E5%BC%82%E6%88%96%E9%97%AE%E9%A2%98.jpg" alt=""></p>
+</li>
+<li>
+<p>当加入隐藏层以后，异或问题可以得到很好的解决</p>
+<ul>
+<li>如图<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/%E5%8A%A0%E5%85%A5%E9%9A%90%E8%97%8F%E5%B1%82%E8%A7%A3%E5%86%B3%E5%BC%82%E6%88%96%E9%97%AE%E9%A2%98.jpg" alt=""></li>
+<li>另外
+<ul>
 <li>隐藏层的4个节点中，每个节点都有一个角是黑色的</li>
 <li>这4个隐藏节点可以被认为代表了从输入特征中抽取的更高维的特征</li>
 <li>深层神经网络实际上有组合特征提取的功能</li>
@@ -470,39 +509,49 @@
 </li>
 </ul>
 <hr>
-<h3 id="4-2-损失函数定义"><a href="#4-2-损失函数定义" class="headerlink" title="4.2 损失函数定义"></a>4.2 损失函数定义</h3><ul>
+<h3 id="42-损失函数定义"><a class="markdownIt-Anchor" href="#42-损失函数定义"></a> 4.2 损失函数定义</h3>
+<ul>
 <li>损失函数简介：神经网络模型的效果以及优化的目标是通过损失函数来定义的</li>
 </ul>
 <hr>
-<h4 id="4-2-1-经典损失函数"><a href="#4-2-1-经典损失函数" class="headerlink" title="4.2.1 经典损失函数"></a>4.2.1 经典损失函数</h4><ul>
-<li><p>分类问题</p>
+<h4 id="421-经典损失函数"><a class="markdownIt-Anchor" href="#421-经典损失函数"></a> 4.2.1 经典损失函数</h4>
+<ul>
+<li>
+<p>分类问题</p>
 <ul>
 <li>简介：分类问题希望解决的是将不同的样本分到事先定义好的类别中</li>
-<li>例子<ul>
+<li>例子
+<ul>
 <li>判断一个零件是否合格的问题就是一个二分类问题</li>
 <li>手写体数字识别问题可以归纳为一个十分类问题</li>
 </ul>
 </li>
-<li>如何通过神经网络解决分类问题<ul>
+<li>如何通过神经网络解决分类问题
+<ul>
 <li>通过神经网络解决多分类问题最常用的方法是设置n个输出节点，其中n为类别的个数</li>
 <li>在理想情况下，如果一个样本属于类别k，那么这个类别所对应的输出节点的输出值应该为1，而其他节点的输出都为0</li>
 <li>例如：[1,0,0,0,0,0,0,0,0]</li>
 </ul>
 </li>
-<li>如何判断一个输出向量和期望的向量有多接近？<ul>
+<li>如何判断一个输出向量和期望的向量有多接近？
+<ul>
 <li>交叉熵(cross entropy)是常用的评判方法之一</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>交叉熵</p>
+<li>
+<p>交叉熵</p>
 <ul>
 <li>用途：交叉熵用来判断一个输出向量与期望的向量有多接近</li>
-<li>公式<ul>
-<li>给定两个概率分布p和q，通过q来表示p的交叉熵为<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/交叉熵公式.jpg" alt=""></li>
+<li>公式
+<ul>
+<li>给定两个概率分布p和q，通过q来表示p的交叉熵为<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/%E4%BA%A4%E5%8F%89%E7%86%B5%E5%85%AC%E5%BC%8F.jpg" alt=""></li>
 </ul>
 </li>
-<li>简介<ul>
+<li>简介
+<ul>
 <li>交叉熵刻画的是两个概率分布之间的距离</li>
 <li>也可以理解为，交叉熵刻画的是通过概率分布q来表达概率分布p的困难程度</li>
 <li>交叉熵越小，两个概率分布越接近</li>
@@ -510,30 +559,40 @@
 </li>
 </ul>
 </li>
+<li>
+<p>但是神经网络的输出却不一定是一个概率分布，如何将神经网络前向传播得到的结果也变成概率分布呢？</p>
+<ul>
+<li>
+<p>如图<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/%E5%B0%86%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%BE%93%E5%87%BA%E8%BD%AC%E5%8C%96%E4%B8%BA%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83.jpg" alt=""></p>
+</li>
+<li>
+<p>使用Softmax函数作为一层额外的处理层，把神经网络的输出变成一个概率分布</p>
+</li>
+<li>
+<p>假设原始的神经网络输出为y1,y2,…yn，那么经过Softmax回归处理之后的输出为：<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/Softmax%E5%87%BD%E6%95%B0.jpg" alt=""></p>
+</li>
+<li>
+<p>原始神经网络的输出被用作置信值来生成新的输出，而新的输出满足概率分布的所有要求</p>
+</li>
+<li>
+<p>这个新的输出可以理解为经过神经网络的推导，一个样例为不同类别的概率分别是多大。</p>
+</li>
+<li>
+<p>这样就把神经网络的输出也变成了一个概率分布，从而可以通过交叉熵来计算预测的概率分布与真实答案的概率分布之间的距离了</p>
+</li>
 </ul>
+</li>
+<li>
+<p>使用TensorFlow实现交叉熵</p>
 <ul>
-<li><p>但是神经网络的输出却不一定是一个概率分布，如何将神经网络前向传播得到的结果也变成概率分布呢？</p>
-<ul>
-<li><p>如图<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/将神经网络输出转化为概率分布.jpg" alt=""></p>
-</li>
-<li><p>使用Softmax函数作为一层额外的处理层，把神经网络的输出变成一个概率分布</p>
-</li>
-<li><p>假设原始的神经网络输出为y1,y2,…yn，那么经过Softmax回归处理之后的输出为：<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/Softmax函数.jpg" alt=""></p>
-</li>
-<li><p>原始神经网络的输出被用作置信值来生成新的输出，而新的输出满足概率分布的所有要求</p>
-</li>
-<li><p>这个新的输出可以理解为经过神经网络的推导，一个样例为不同类别的概率分别是多大。</p>
-</li>
-<li><p>这样就把神经网络的输出也变成了一个概率分布，从而可以通过交叉熵来计算预测的概率分布与真实答案的概率分布之间的距离了</p>
-</li>
-</ul>
-</li>
-<li><p>使用TensorFlow实现交叉熵</p>
-<ul>
-<li><p>样例代码</p>
+<li>
+<p>样例代码</p>
   <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cross_entropy = - tf.reduce_mean(y_ * </span><br><span class="line">tf.log(tf.clip_by_value(y,<span class="number">1e-10</span>,<span class="number">1.0</span>)))</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>解读</p>
+<li>
+<p>解读</p>
 <ul>
 <li><code>y_</code>：代表正确结果，来自于输入</li>
 <li><code>y</code>：代表预测结果，来自于神经网络的运算结果</li>
@@ -543,76 +602,96 @@
 <li><code>tf.reduce_mean()</code>：对张量中所有元素求平均，并输出一个数字作为平均值</li>
 </ul>
 </li>
-<li>另外<ul>
-<li>可以直接使用<code>tf.nn.softmax_cross_entropy_with_logits()</code>函数实现上述过程<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cross_entropy = tf.nn.softmax_cross_entropy_with_logits(</span><br><span class="line">    labels=y_, logits=y)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>回归问题</p>
+<li>
+<p>另外</p>
 <ul>
-<li>简介<ul>
+<li>可以直接使用<code>tf.nn.softmax_cross_entropy_with_logits()</code>函数实现上述过程</li>
+</ul>
+  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cross_entropy = tf.nn.softmax_cross_entropy_with_logits(</span><br><span class="line">    labels=y_, logits=y)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>回归问题</p>
+<ul>
+<li>简介
+<ul>
 <li>回归问题解决的是对具体数值的预测</li>
 <li>这些问题需要预测的不是一个事先定义好的类别，而是一个任意实数</li>
 <li>解决回归问题的神经网络一般只有一个输出节点，这个节点的输出值就是预测值</li>
 </ul>
 </li>
-<li>回归问题常用损失函数—–均方误差(MSE,mean squared error)<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/均方误差公式.jpg" alt=""></li>
+<li>回归问题常用损失函数-----均方误差(MSE,mean squared error)<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/%E5%9D%87%E6%96%B9%E8%AF%AF%E5%B7%AE%E5%85%AC%E5%BC%8F.jpg" alt=""></li>
 </ul>
 </li>
 </ul>
 <hr>
-<h4 id="4-2-2-自定义损失函数"><a href="#4-2-2-自定义损失函数" class="headerlink" title="4.2.2 自定义损失函数"></a>4.2.2 自定义损失函数</h4><ul>
-<li><p>TensorFlow支持自定义损失函数，使得神经网络优化的结果更加接近实际问题的需求</p>
-</li>
-<li><p>不同的损失函数会对训练得到的模型产生重大影响</p>
-</li>
-<li><p><code>tf.greater()</code>：输入两个向量，比较两个输入向量中每个元素的大小，并返回比较结果</p>
-</li>
-<li><p><code>tf.where()</code>：当第一参数为True时，选择第二个参数的值，否则选择第三个参数的值</p>
-</li>
-</ul>
-<hr>
-<h3 id="4-3-神经网络优化算法"><a href="#4-3-神经网络优化算法" class="headerlink" title="4.3 神经网络优化算法"></a>4.3 神经网络优化算法</h3><hr>
+<h4 id="422-自定义损失函数"><a class="markdownIt-Anchor" href="#422-自定义损失函数"></a> 4.2.2 自定义损失函数</h4>
 <ul>
-<li><p>梯度下降算法(gradient decent)</p>
+<li>
+<p>TensorFlow支持自定义损失函数，使得神经网络优化的结果更加接近实际问题的需求</p>
+</li>
+<li>
+<p>不同的损失函数会对训练得到的模型产生重大影响</p>
+</li>
+<li>
+<p><code>tf.greater()</code>：输入两个向量，比较两个输入向量中每个元素的大小，并返回比较结果</p>
+</li>
+<li>
+<p><code>tf.where()</code>：当第一参数为True时，选择第二个参数的值，否则选择第三个参数的值</p>
+</li>
+</ul>
+<hr>
+<h3 id="43-神经网络优化算法"><a class="markdownIt-Anchor" href="#43-神经网络优化算法"></a> 4.3 神经网络优化算法</h3>
+<hr>
+<ul>
+<li>
+<p>梯度下降算法(gradient decent)</p>
 <ul>
 <li>主要用于优化单个参数的取值</li>
 <li>目前还没有一个通用的方法可以对任意损失函数直接求解<strong>最佳的参数</strong>取值</li>
 <li>梯度下降算法会迭代式更新参数，不断沿着梯度的反方向让参数朝着总损失更小的方向更新</li>
 </ul>
 </li>
-<li><p>反向传播算法(backpropagation)</p>
+<li>
+<p>反向传播算法(backpropagation)</p>
 <ul>
 <li>反向传播算法给出了一个高效的方式在所有参数上使用梯度下降算法，从而使神经网络模型在训练数据上的损失函数尽可能小</li>
 <li>换句话说，反向传播算法就是根据定义好的损失函数优化神经网络中参数的取值，从而使神经网络模型在训练数据集上的损失函数达到一个较小值</li>
 </ul>
 </li>
-<li><p>参数的梯度：可以通过求偏导的方式计算</p>
+<li>
+<p>参数的梯度：可以通过求偏导的方式计算</p>
 </li>
-<li><p>学习率(learning rate)：用来定义每次参数更新的幅度</p>
+<li>
+<p>学习率(learning rate)：用来定义每次参数更新的幅度</p>
 </li>
-<li><p>神经网络的优化过程可以分为两个阶段</p>
+<li>
+<p>神经网络的优化过程可以分为两个阶段</p>
 <ol>
 <li>通过前向传播算法计算得到的预测值，并将预测值和真实值做对比得出两者之间的差距(损失函数)</li>
 <li>通过反向传播算法计算损失函数对每一个参数的梯度，再根据梯度和学习率使用梯度下降算法更新每一个参数</li>
 </ol>
 </li>
-<li><p>需要注意</p>
+<li>
+<p>需要注意</p>
 <ul>
-<li>梯度下降算法并不能保证被优化的函数达到全局最优解<ul>
+<li>梯度下降算法并不能保证被优化的函数达到全局最优解
+<ul>
 <li>当函数的偏导为0，参数就不再更新了，因此梯度下降算法只能达到局部最优解</li>
 </ul>
 </li>
-<li>在海量训练数据下，要计算所有训练数据的损失函数是非常消耗时间的<ul>
+<li>在海量训练数据下，要计算所有训练数据的损失函数是非常消耗时间的
+<ul>
 <li>使用随机梯度下降算法加速训练过程：这个算法优化的不是在全部训练数据上的损失函数，而是在每一轮迭代，随机优化某一条训练数据上的损失函数</li>
 <li>但是在某一条数据上损失函数更小并不代表在全部数据上损失函数更小，甚至无法达到局部最优</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>为了综合梯度下降算法和随机梯度下降算法的优缺点</p>
+<li>
+<p>为了综合梯度下降算法和随机梯度下降算法的优缺点</p>
 <ul>
 <li>每次计算一小部分训练数据的损失函数，这一小部分数据被称为一个batch</li>
 <li>通过矩阵运算，每次在一个batch上优化神经网络的参数并不会比单个数据慢太多</li>
@@ -621,20 +700,26 @@
 </li>
 </ul>
 <hr>
-<h3 id="4-4-神经网络进一步优化"><a href="#4-4-神经网络进一步优化" class="headerlink" title="4.4 神经网络进一步优化"></a>4.4 神经网络进一步优化</h3><hr>
-<h4 id="4-4-1-学习率的设置"><a href="#4-4-1-学习率的设置" class="headerlink" title="4.4.1 学习率的设置"></a>4.4.1 学习率的设置</h4><ul>
-<li><p>学习率：学习率决定参数每次更新的幅度</p>
+<h3 id="44-神经网络进一步优化"><a class="markdownIt-Anchor" href="#44-神经网络进一步优化"></a> 4.4 神经网络进一步优化</h3>
+<hr>
+<h4 id="441-学习率的设置"><a class="markdownIt-Anchor" href="#441-学习率的设置"></a> 4.4.1 学习率的设置</h4>
+<ul>
+<li>
+<p>学习率：学习率决定参数每次更新的幅度</p>
 </li>
-<li><p>背景</p>
+<li>
+<p>背景</p>
 <ul>
 <li>如果学习率过大，可能会导致参数在极优值的两侧来回移动</li>
 <li>如果学习率过小，虽然能保证收敛性，但是会大大降低优化速度</li>
 </ul>
 </li>
-<li><p>指数衰减法</p>
+<li>
+<p>指数衰减法</p>
 <ul>
 <li>简介：可以在训练的前期使用较大的学习率来快速得到一个比较优的解，然后随着迭代的继续逐步减小学习率，使得模型在训练的后期表现较为稳定</li>
-<li>公式：<code>decayed_learning_rate = learning_rate * decay_rate ** (global_step / decay_steps)</code><ul>
+<li>公式：<code>decayed_learning_rate = learning_rate * decay_rate ** (global_step / decay_steps)</code>
+<ul>
 <li><code>decayed_learning_rate</code>：每一轮优化时使用的学习率</li>
 <li><code>learning_rate</code>：事先设置的初始学习率</li>
 <li><code>decay_rate</code>：衰减系数</li>
@@ -647,15 +732,19 @@
 </li>
 </ul>
 </li>
-<li><p>对 <code>tf.train.exponential</code>中<code>staircase</code> 参数的解释</p>
+<li>
+<p>对 <code>tf.train.exponential</code>中<code>staircase</code> 参数的解释</p>
 <ul>
-<li>如图<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/指数衰减.jpg" alt=""></li>
+<li>如图<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/%E6%8C%87%E6%95%B0%E8%A1%B0%E5%87%8F.jpg" alt=""></li>
 <li>通过设置 <code>staircase</code> 参数可以选择不同的衰减方式</li>
-<li>当 <code>staircase = False</code> 时<ul>
+<li>当 <code>staircase = False</code> 时
+<ul>
 <li>学习率随迭代轮次变化的趋势如图中灰线所示</li>
 </ul>
 </li>
-<li>当 <code>staircase = True</code> 时<ul>
+<li>当 <code>staircase = True</code> 时
+<ul>
 <li>global_step / decay_steps会被转化为整数</li>
 <li>如图中黑线所示</li>
 <li>在这种设置下，<code>decay_steps</code> 通常代表了完整的使用一遍训练数据所需要的迭代轮数，这种设置的常用场景是每完整过完一遍训练数据，学习率就减小一次，这可以使得训练数据集中的所有数据对模型训练有相等的作用</li>
@@ -663,22 +752,28 @@
 </li>
 </ul>
 </li>
-<li><p>一般来说初始学习率、衰减系数和衰减速度都是根据经验设置的</p>
+<li>
+<p>一般来说初始学习率、衰减系数和衰减速度都是根据经验设置的</p>
 </li>
 </ul>
 <hr>
-<h4 id="4-4-2-过拟合问题"><a href="#4-4-2-过拟合问题" class="headerlink" title="4.4.2 过拟合问题"></a>4.4.2 过拟合问题</h4><ul>
-<li><p>背景</p>
+<h4 id="442-过拟合问题"><a class="markdownIt-Anchor" href="#442-过拟合问题"></a> 4.4.2 过拟合问题</h4>
+<ul>
+<li>
+<p>背景</p>
 <ul>
 <li>在真实的应用中想要的并不是让模型尽量模拟训练数据的行为，而是希望通过训练出来的模型对<strong>未知数据</strong>给出判断</li>
 <li>模型在训练数据上的表现并不一定代表了它在<strong>未知数据</strong>上的表现</li>
 </ul>
 </li>
-<li><p>过拟合问题</p>
+<li>
+<p>过拟合问题</p>
 <ul>
 <li>简介：过拟合指的是当一个模型过于复杂之后，它可以很好地记忆每个训练数据中随机噪音的部分而“忘记”了要去学习训练数据中通用的趋势</li>
 <li>问题：过度拟合训练数据中的随机噪音虽然可以得到非常小的损失函数，但是对于未知数据可能无法做出可靠的判断</li>
-<li>例子<br>  <img src="/2019/03/10/Tensorflow-4-深层神经网络/神经网络模型的三种情况.jpg" alt=""><ol>
+<li>例子<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%B8%89%E7%A7%8D%E6%83%85%E5%86%B5.jpg" alt="">
+<ol>
 <li>第一种情况下，模型过于简单，无法刻画问题的趋势，也可以称之为欠拟合</li>
 <li>第二个模型是合理的，它既不会过于关注训练数据中的噪音，又能比较好地刻画问题的整体趋势</li>
 <li>第三个模型就是过拟合了，虽然它完美地划分了不同形状的点，但是这样的划分并不能很好地对未知数据做出判断，因为它<strong>过度拟合</strong>了训练数据中的噪音而忽视了问题的整体规律</li>
@@ -686,10 +781,12 @@
 </li>
 </ul>
 </li>
-<li><p>正则化（regularization）</p>
+<li>
+<p>正则化（regularization）</p>
 <ul>
 <li>背景：为了避免过拟合问题，可以使用正则化</li>
-<li>思想：<ul>
+<li>思想：
+<ul>
 <li>正则化的思想就是在损失函数中加入刻画模型复杂程度的指标：<code>R(w)</code></li>
 <li>其中 <code>w</code> 表示每条边上的权重，也就是训练的参数</li>
 <li>这样通过限制权重的大小，使得模型不能任意拟合训练数据中的随机噪音</li>
@@ -697,20 +794,27 @@
 </li>
 </ul>
 </li>
-<li><p>常用的刻画模型复杂度的函数 <code>R(w)</code> 有两种</p>
+<li>
+<p>常用的刻画模型复杂度的函数 <code>R(w)</code> 有两种</p>
 <ul>
-<li>L1正则化<ul>
-<li>公式<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/L1正则化.jpg" alt=""></li>
-<li>特点<ul>
+<li>L1正则化
+<ul>
+<li>公式<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/L1%E6%AD%A3%E5%88%99%E5%8C%96.jpg" alt=""></li>
+<li>特点
+<ul>
 <li>会使参数变得更稀疏，即有大量参数取值为0</li>
 <li>L1正则化的计算公式不可导，因此优化更加复杂，优化方法更多</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>L2正则化<ul>
-<li>公式<br><img src="/2019/03/10/Tensorflow-4-深层神经网络/L2正则化.jpg" alt=""></li>
-<li>特点<ul>
+<li>L2正则化
+<ul>
+<li>公式<br>
+<img src="/2019/03/10/Tensorflow-4-深层神经网络/L2%E6%AD%A3%E5%88%99%E5%8C%96.jpg" alt=""></li>
+<li>特点
+<ul>
 <li>不会使参数变得稀疏</li>
 <li>L2正则化的计算公式可导，因此优化要更加简洁</li>
 </ul>
@@ -719,29 +823,40 @@
 </li>
 </ul>
 </li>
-<li><p>TensorFlow实现正则化</p>
+<li>
+<p>TensorFlow实现正则化</p>
 <ul>
-<li>TensorFlow提供了<code>tf.contrib.layers.l2_regularizer()</code>函数，它可以返回一个函数，这个函数可以计算一个给定参数的L2正则化项的值</li>
-<li><p>样例</p>
+<li>
+<p>TensorFlow提供了<code>tf.contrib.layers.l2_regularizer()</code>函数，它可以返回一个函数，这个函数可以计算一个给定参数的L2正则化项的值</p>
+</li>
+<li>
+<p>样例</p>
   <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">w = tf.Variable(tf.random_normal([<span class="number">2</span>, <span class="number">1</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line">y = tf.matmul(x, w)</span><br><span class="line"><span class="comment"># 在损失函数中额外添加R(w)项，以正则化</span></span><br><span class="line"><span class="comment"># 其中lamb表示正则化的权重</span></span><br><span class="line">loss = tf.reduce_mean(tf.square(y_ - y)) + tf.contrib.layers.l2_regularizer(lamb)(w)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>样例2：使用集合来为多层复杂神经网络添加正则项</p>
+<li>
+<p>样例2：使用集合来为多层复杂神经网络添加正则项</p>
   <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> numpy.random <span class="keyword">import</span> RandomState</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机生成并返回一层神经网络边上的权重，并将这个权重的L2正则化损失加入名称为'losses'的集合中</span></span><br><span class="line"><span class="comment"># lamb代表权重的大小</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_weight</span><span class="params">(shape, lamb)</span>:</span></span><br><span class="line">    <span class="comment"># 生成一个变量</span></span><br><span class="line">    var = tf.Variable(tf.random_normal(shape), dtype=tf.float32)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将新生成变量的L2正则化损失项加入集合</span></span><br><span class="line">    tf.add_to_collection(<span class="string">'losses'</span>, tf.contrib.layers.l2_regularizer(lamb)(var))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 返回这个变量</span></span><br><span class="line">    <span class="keyword">return</span> var</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印所有可训练参数的值</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_weights</span><span class="params">(sess)</span>:</span></span><br><span class="line">    variables = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES)</span><br><span class="line">    print()</span><br><span class="line">    <span class="keyword">for</span> var <span class="keyword">in</span> variables:</span><br><span class="line">        print()</span><br><span class="line">        print(var)</span><br><span class="line">        print(sess.run(var))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义输入数据</span></span><br><span class="line">x = tf.placeholder(tf.float32, (<span class="keyword">None</span>, <span class="number">2</span>))</span><br><span class="line">y_ = tf.placeholder(tf.float32, (<span class="keyword">None</span>, <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义batch的大小</span></span><br><span class="line">batch_size = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义每层网络中神经元的个数</span></span><br><span class="line">layer_dimension = [<span class="number">2</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">1</span>]</span><br><span class="line"><span class="comment"># 神经网络的层数</span></span><br><span class="line">n_layers = len(layer_dimension)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当前层的神经元，初始化为输入层神经元</span></span><br><span class="line">cur_layer = x</span><br><span class="line"><span class="comment"># 当前层的神经元个数</span></span><br><span class="line">in_dimension = layer_dimension[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过一个循环来生成5层全连接的神经网络</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n_layers):</span><br><span class="line">    <span class="comment"># 下一层的节点个数</span></span><br><span class="line">    out_dimension = layer_dimension[i]</span><br><span class="line">    <span class="comment"># 根据这一层和下一层的节点数来生成当前层的权重，并将L2正则添加到集合</span></span><br><span class="line">    weight = get_weight([in_dimension, out_dimension], <span class="number">0.001</span>)</span><br><span class="line">    bias = tf.Variable(tf.constant(<span class="number">0.1</span>, shape=[out_dimension]))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用RuLU激活函数计算下一层的节点，并赋值给当前层变量</span></span><br><span class="line">    cur_layer = tf.nn.relu(tf.matmul(cur_layer, weight) + bias)</span><br><span class="line">    <span class="comment"># 进入下一层之前将下一层的节点数更新为当前层的节点数</span></span><br><span class="line">    in_dimension = layer_dimension[i]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用均方误差作为损失函数</span></span><br><span class="line">mes_loss = tf.reduce_mean(tf.square(y_ - cur_layer))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将均方误差添加到losses集合</span></span><br><span class="line">tf.add_to_collection(<span class="string">'losses'</span>, mes_loss)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将loess集合中所有元素相加，得到最后的损失函数（包括MSE和正则）</span></span><br><span class="line">loss = tf.add_n(tf.get_collection(<span class="string">'losses'</span>))</span><br><span class="line"></span><br><span class="line">global_step = tf.Variable(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用指数衰减来设置学习率</span></span><br><span class="line">learning_rate = tf.train.exponential_decay(<span class="number">0.1</span>, global_step, <span class="number">100</span>, <span class="number">0.96</span>, staircase=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义优化过程,带指数衰减的梯度下降算法</span></span><br><span class="line">learning_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss, global_step=global_step)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用Numpy生成随机数</span></span><br><span class="line">rdm = RandomState(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义数据集的大小</span></span><br><span class="line">dataset_size = <span class="number">128</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用前面的随机数来生成输入数据X和Y</span></span><br><span class="line">X = rdm.rand(dataset_size, <span class="number">2</span>)</span><br><span class="line">Y = [[int(x1+x2 &lt; <span class="number">1</span>)] <span class="keyword">for</span> (x1, x2) <span class="keyword">in</span> X]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启会话开始运算</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="comment"># 初始化所有变量</span></span><br><span class="line">    init_op = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init_op)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 打印所有参数</span></span><br><span class="line">    print_weights(sess)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置训练的轮数</span></span><br><span class="line">    STEPS = <span class="number">5000</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 开启迭代的训练过程</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(STEPS):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 设置当前组batch的开始值和结束值</span></span><br><span class="line">        start = (i * batch_size) % dataset_size</span><br><span class="line">        end = min(start+batch_size, dataset_size)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 训练神经网络并更新参数</span></span><br><span class="line">        sess.run(learning_step, feed_dict=&#123;</span><br><span class="line">            x: X[start:end],</span><br><span class="line">            y_: Y[start:end]</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 打印所有参数</span></span><br><span class="line">    print_weights(sess)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
 </ul>
 <hr>
-<h4 id="滑动平均模型"><a href="#滑动平均模型" class="headerlink" title="滑动平均模型"></a>滑动平均模型</h4><ul>
-<li><p>背景：在采用随机梯度下降算法训练神经网络时，使用滑动平均模型在很多应用中都可以在一定程度上提高最终模型在测试数据上的表现</p>
-</li>
-<li><p>TensorFlow使用<code>tf.train.ExponentialMovingAverage()</code>来实现滑动平均模型</p>
-</li>
-<li><p>衰减率(decay)：用来控制模型更新的速度，decay越大模型就越趋于稳定</p>
-</li>
-<li><p>影子变量</p>
+<h4 id="滑动平均模型"><a class="markdownIt-Anchor" href="#滑动平均模型"></a> 滑动平均模型</h4>
 <ul>
-<li>公式：<code>shadow_variable = decay * shadow_variable + (1 - decay) * variable</code><ul>
+<li>
+<p>背景：在采用随机梯度下降算法训练神经网络时，使用滑动平均模型在很多应用中都可以在一定程度上提高最终模型在测试数据上的表现</p>
+</li>
+<li>
+<p>TensorFlow使用<code>tf.train.ExponentialMovingAverage()</code>来实现滑动平均模型</p>
+</li>
+<li>
+<p>衰减率(decay)：用来控制模型更新的速度，decay越大模型就越趋于稳定</p>
+</li>
+<li>
+<p>影子变量</p>
+<ul>
+<li>公式：<code>shadow_variable = decay * shadow_variable + (1 - decay) * variable</code>
+<ul>
 <li><code>shadow_variable</code>：影子变量</li>
 <li><code>variable</code>：待更新的变量</li>
 <li><code>decay</code>：衰减率</li>
@@ -750,17 +865,20 @@
 <li>影子变量的初始值为相应变量的初始值，而每次运行变量更新后，影子变量会按照上述公式来更新自己的值</li>
 </ul>
 </li>
-<li><p>动态设置衰减率</p>
+<li>
+<p>动态设置衰减率</p>
 <ul>
 <li>背景：为了使得模型在训练前期可以更新得更快</li>
-<li>简介<ul>
+<li>简介
+<ul>
 <li>通过设置<code>num_updates</code>参数来动态设置<code>decay</code>的大小</li>
 <li>此时衰减率为 <code>min(decay, ((1 + num_updates) / (10 + num_updates))</code></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>样例代码</p>
+<li>
+<p>样例代码</p>
   <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个变量用来计算滑动平均，这个变量的初始值为0</span></span><br><span class="line">v1 = tf.Variable(<span class="number">0</span>, dtype=tf.float32)</span><br><span class="line"><span class="comment"># 定义step用来模拟神经网络迭代的轮数，可以用来动态控制衰减率</span></span><br><span class="line">step = tf.Variable(<span class="number">0</span>, trainable=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个滑动平均的类，初始化时给定了衰减率(0.99)和控制衰减率的变量step</span></span><br><span class="line">ema = tf.train.ExponentialMovingAverage(<span class="number">0.99</span>, step)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个更新变量滑动平均的操作，这里需要给定一个列表，每次执行这个操作时，这个列表中的变量都会被更新</span></span><br><span class="line">maintain_averages_op = ema.apply([v1])</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    init_op = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init_op)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过ema.average(v1)来获得滑动平均之后变量的取值</span></span><br><span class="line">    print(sess.run([v1, ema.average(v1)]))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 更新变量v1的值到5</span></span><br><span class="line">    sess.run(tf.assign(v1, <span class="number">5</span>))</span><br><span class="line">    <span class="comment"># 使用maintain_averages_op操作来更新v1的滑动平均值</span></span><br><span class="line">    sess.run(maintain_averages_op)</span><br><span class="line">    print(sess.run([v1, ema.average(v1)]))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 更新变量step的值到10000</span></span><br><span class="line">    sess.run(tf.assign(step, <span class="number">10000</span>))</span><br><span class="line">    <span class="comment"># 更新变量v1的值到10</span></span><br><span class="line">    sess.run(tf.assign(v1, <span class="number">10</span>))</span><br><span class="line">    <span class="comment"># 使用maintain_averages_op操作来更新v1的滑动平均值</span></span><br><span class="line">    sess.run(maintain_averages_op)</span><br><span class="line">    print(sess.run([v1, ema.average(v1)]))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 再次更新滑动平均值</span></span><br><span class="line">    sess.run(maintain_averages_op)</span><br><span class="line">    print(sess.run([v1, ema.average(v1)]))</span><br></pre></td></tr></table></figure>
 </li>
 </ul>

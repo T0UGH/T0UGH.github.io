@@ -18,25 +18,25 @@
   
   
   <title>[Redis][16][Sentinel] | T0UGU BLOG</title>
-  <meta name="description" content="第 16 章 SentinelSentinel（哨兵）是Redis的高可用性解决方案  由一个或多个Sentinel实例组成的Sentinel系统可以监视任意多个主服务器，以及这些主服务器属下的所有从服务器 并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升级为新的主服务器，  下面举个例子说明为什么Sentinal可以保证高可用 首先，我们假设有这样一个系统，如下图，它由">
+  <meta name="description" content="第 16 章 Sentinel Sentinel（哨兵）是Redis的高可用性解决方案  由一个或多个Sentinel实例组成的Sentinel系统可以监视任意多个主服务器，以及这些主服务器属下的所有从服务器 并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升级为新的主服务器，  下面举个例子说明为什么Sentinal可以保证高可用 首先，我们假设有这样一个系统，如下图，">
 <meta name="keywords" content="redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Redis][16][Sentinel]">
 <meta property="og:url" content="https://t0ugh.biz/2020/03/06/Redis-16-Sentinel/index.html">
 <meta property="og:site_name" content="打怪升级日常">
-<meta property="og:description" content="第 16 章 SentinelSentinel（哨兵）是Redis的高可用性解决方案  由一个或多个Sentinel实例组成的Sentinel系统可以监视任意多个主服务器，以及这些主服务器属下的所有从服务器 并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升级为新的主服务器，  下面举个例子说明为什么Sentinal可以保证高可用 首先，我们假设有这样一个系统，如下图，它由">
+<meta property="og:description" content="第 16 章 Sentinel Sentinel（哨兵）是Redis的高可用性解决方案  由一个或多个Sentinel实例组成的Sentinel系统可以监视任意多个主服务器，以及这些主服务器属下的所有从服务器 并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升级为新的主服务器，  下面举个例子说明为什么Sentinal可以保证高可用 首先，我们假设有这样一个系统，如下图，">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/06/Redis-16-Sentinel/200305_26.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/06/Redis-16-Sentinel/200305_27.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/06/Redis-16-Sentinel/200305_28.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/06/Redis-16-Sentinel/200305_29.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/06/Redis-16-Sentinel/200305_30.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/06/Redis-16-Sentinel/200305_31.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/06/Redis-16-Sentinel/Redis-16-Sentinel%5C200305_26.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/06/Redis-16-Sentinel/Redis-16-Sentinel%5C200305_27.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/06/Redis-16-Sentinel/Redis-16-Sentinel%5C200305_28.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/06/Redis-16-Sentinel/Redis-16-Sentinel%5C200305_29.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/06/Redis-16-Sentinel/Redis-16-Sentinel%5C200305_30.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/06/Redis-16-Sentinel/Redis-16-Sentinel%5C200305_31.png">
 <meta property="og:updated_time" content="2020-03-06T08:28:36.676Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Redis][16][Sentinel]">
-<meta name="twitter:description" content="第 16 章 SentinelSentinel（哨兵）是Redis的高可用性解决方案  由一个或多个Sentinel实例组成的Sentinel系统可以监视任意多个主服务器，以及这些主服务器属下的所有从服务器 并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升级为新的主服务器，  下面举个例子说明为什么Sentinal可以保证高可用 首先，我们假设有这样一个系统，如下图，它由">
-<meta name="twitter:image" content="https://t0ugh.biz/2020/03/06/Redis-16-Sentinel/200305_26.png">
+<meta name="twitter:description" content="第 16 章 Sentinel Sentinel（哨兵）是Redis的高可用性解决方案  由一个或多个Sentinel实例组成的Sentinel系统可以监视任意多个主服务器，以及这些主服务器属下的所有从服务器 并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升级为新的主服务器，  下面举个例子说明为什么Sentinal可以保证高可用 首先，我们假设有这样一个系统，如下图，">
+<meta name="twitter:image" content="https://t0ugh.biz/2020/03/06/Redis-16-Sentinel/Redis-16-Sentinel%5C200305_26.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://t0ugh.biz/2020/03/06/Redis-16-Sentinel/index.html">
   
@@ -188,7 +188,7 @@
   <div class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flink/">Flink</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -198,7 +198,7 @@
   <div class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/">Flink</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流处理/">流处理</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -208,7 +208,7 @@
   <div class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.2px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.2px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.2px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.2px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.3px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.8px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.1px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.2px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.1px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.3px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.6px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.1px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.2px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.6px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.7px;">java</a> <a href="/tags/jvm/" style="font-size: 13.5px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.2px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.9px;">redis</a> <a href="/tags/vue/" style="font-size: 13.1px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.2px;">动态规划</a> <a href="/tags/微服务/" style="font-size: 13.4px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.4px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.2px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.3px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.1px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.4px;">数据结构</a> <a href="/tags/深度学习/" style="font-size: 13.7px;">深度学习</a> <a href="/tags/算法/" style="font-size: 13.1px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.7px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.1px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
+      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.18px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.18px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Flink/" style="font-size: 13.36px;">Flink</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.18px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.18px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.27px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.82px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.09px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.18px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.09px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.27px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.55px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.09px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.18px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.55px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.64px;">java</a> <a href="/tags/jvm/" style="font-size: 13.45px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.18px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.91px;">redis</a> <a href="/tags/vue/" style="font-size: 13.09px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.18px;">动态规划</a> <a href="/tags/大数据/" style="font-size: 13.36px;">大数据</a> <a href="/tags/微服务/" style="font-size: 13.36px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.36px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.18px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.27px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.09px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.36px;">数据结构</a> <a href="/tags/机器学习/" style="font-size: 13px;">机器学习</a> <a href="/tags/流处理/" style="font-size: 13.36px;">流处理</a> <a href="/tags/深度学习/" style="font-size: 13.73px;">深度学习</a> <a href="/tags/神经网络/" style="font-size: 13px;">神经网络</a> <a href="/tags/算法/" style="font-size: 13.09px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.64px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.09px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
     </div>
   </div>
 
@@ -217,7 +217,7 @@
   <div class="widget">
     <h3 class="widget-title">Archive</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -233,13 +233,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-0-MyBatis源码解析汇总篇/" class="title">[MyBatis源码][0][MyBatis源码解析汇总篇]</a>
+                <a href="/2020/11/08/Flink-5-DataStreamAPI/" class="title">[Flink][5][DataStreamAPI]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T13:20:28.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-08T11:09:54.000Z" itemprop="datePublished">2020-11-08</time>
               </p>
             </div>
           </li>
@@ -248,13 +248,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-7-插件机制/" class="title">[MyBatis源码][7][插件机制]</a>
+                <a href="/2020/11/02/Flink-4-设置Flink开发环境/" class="title">[Flink][4][设置Flink开发环境]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T13:16:34.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-02T11:08:53.000Z" itemprop="datePublished">2020-11-02</time>
               </p>
             </div>
           </li>
@@ -263,13 +263,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-6-缓存机制/" class="title">[MyBatis源码][6][缓存机制]</a>
+                <a href="/2020/11/01/Flink-3-ApacheFlink架构/" class="title">[Flink][3][ApacheFlink架构]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T11:55:22.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-01T11:08:14.000Z" itemprop="datePublished">2020-11-01</time>
               </p>
             </div>
           </li>
@@ -278,13 +278,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/28/MyBatis源码-5-连接池/" class="title">[MyBatis源码][5][连接池]</a>
+                <a href="/2020/10/30/Flink-2-流处理基础/" class="title">[Flink][2][流处理基础]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-28T09:10:54.000Z" itemprop="datePublished">2020-03-28</time>
+                <time datetime="2020-10-30T11:07:33.000Z" itemprop="datePublished">2020-10-30</time>
               </p>
             </div>
           </li>
@@ -293,13 +293,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/27/MyBatis源码-4-SQL执行流程/" class="title">[MyBatis源码][4][SQL执行流程]</a>
+                <a href="/2020/10/29/Flink-1-状态化流处理概述/" class="title">[Flink][1][状态化流处理概述]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-27T14:21:01.000Z" itemprop="datePublished">2020-03-27</time>
+                <time datetime="2020-10-29T03:18:58.000Z" itemprop="datePublished">2020-10-29</time>
               </p>
             </div>
           </li>
@@ -359,56 +359,78 @@
                 
                                     
                                         <div id="toc">
-                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-16-章-Sentinel"><span class="toc-text">第 16 章 Sentinel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#16-1-启动并初始化Sentinel"><span class="toc-text">16.1 启动并初始化Sentinel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-2-获取主服务器信息"><span class="toc-text">16.2 获取主服务器信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-3-获取从服务器信息"><span class="toc-text">16.3 获取从服务器信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-4-订阅连接的作用"><span class="toc-text">16.4 订阅连接的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-6-检测主观下线状态"><span class="toc-text">16.6 检测主观下线状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-7-检查客观下线状态"><span class="toc-text">16.7 检查客观下线状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-8-选举领头Sentinel"><span class="toc-text">16.8 选举领头Sentinel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-9-故障转移"><span class="toc-text">16.9 故障转移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-10-重点回顾"><span class="toc-text">16.10 重点回顾</span></a></li></ol></li></ol>
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-16-章-sentinel"><span class="toc-text"> 第 16 章 Sentinel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#161-启动并初始化sentinel"><span class="toc-text"> 16.1 启动并初始化Sentinel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#162-获取主服务器信息"><span class="toc-text"> 16.2 获取主服务器信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#163-获取从服务器信息"><span class="toc-text"> 16.3 获取从服务器信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#164-订阅连接的作用"><span class="toc-text"> 16.4 订阅连接的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#166-检测主观下线状态"><span class="toc-text"> 16.6 检测主观下线状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#167-检查客观下线状态"><span class="toc-text"> 16.7 检查客观下线状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#168-选举领头sentinel"><span class="toc-text"> 16.8 选举领头Sentinel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#169-故障转移"><span class="toc-text"> 16.9 故障转移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1610-重点回顾"><span class="toc-text"> 16.10 重点回顾</span></a></li></ol></li></ol>
                                         </div>
                                         
-                                            <h2 id="第-16-章-Sentinel"><a href="#第-16-章-Sentinel" class="headerlink" title="第 16 章 Sentinel"></a>第 16 章 Sentinel</h2><p>Sentinel（哨兵）是Redis的高可用性解决方案</p>
+                                            <h2 id="第-16-章-sentinel"><a class="markdownIt-Anchor" href="#第-16-章-sentinel"></a> 第 16 章 Sentinel</h2>
+<p>Sentinel（哨兵）是Redis的高可用性解决方案</p>
 <ul>
 <li>由一个或多个Sentinel实例组成的Sentinel系统可以监视任意多个主服务器，以及这些主服务器属下的所有从服务器</li>
 <li>并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升级为新的主服务器，</li>
 </ul>
 <p>下面举个例子说明为什么Sentinal可以保证高可用</p>
-<p>首先，我们假设有这样一个系统，如下图，它由sentinel系统、一个主服务器和三个从服务器组成<br><img src="/2020/03/06/Redis-16-Sentinel/200305_26.png" alt=""></p>
-<p>假设这时，主服务下线，则Sentinel系统可以察觉到它的下线<br><img src="/2020/03/06/Redis-16-Sentinel/200305_27.png" alt=""></p>
+<p>首先，我们假设有这样一个系统，如下图，它由sentinel系统、一个主服务器和三个从服务器组成<br>
+<img src="/2020/03/06/Redis-16-Sentinel/Redis-16-Sentinel%5C200305_26.png" alt=""></p>
+<p>假设这时，主服务下线，则Sentinel系统可以察觉到它的下线<br>
+<img src="/2020/03/06/Redis-16-Sentinel/Redis-16-Sentinel%5C200305_27.png" alt=""></p>
 <p>当主服务器下线事件过长，Sentinel系统就会进行故障转移操作</p>
 <ul>
 <li>首先，Sentinel系统会挑选server1属下的其中一个从服务器，并将这个被选中的从服务器升级为新的主服务器。</li>
 <li>之后，Sentinel系统会向server1属下的所有从服务器发送新的复制指令，让它们成为新的主服务器的从服务器，当所有从服务器都开始复制新的主服务器时，故障转移操作执行完毕。</li>
-<li>另外，Sentinel还会继续监视已下线的server1，并在它重新上线时，将它设置为新的主服务器的从服务器。<br><img src="/2020/03/06/Redis-16-Sentinel/200305_28.png" alt=""></li>
+<li>另外，Sentinel还会继续监视已下线的server1，并在它重新上线时，将它设置为新的主服务器的从服务器。<br>
+<img src="/2020/03/06/Redis-16-Sentinel/Redis-16-Sentinel%5C200305_28.png" alt=""></li>
 </ul>
 <p>之后，如果server1重新上线的话，它将被Sentinel系统降级为server2的从服务器</p>
-<h3 id="16-1-启动并初始化Sentinel"><a href="#16-1-启动并初始化Sentinel" class="headerlink" title="16.1 启动并初始化Sentinel"></a>16.1 启动并初始化Sentinel</h3><p>使用下面的命令，可以启动一个Sentinel<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server /path/to/your/sentinel.conf --sentinel</span><br></pre></td></tr></table></figure></p>
+<h3 id="161-启动并初始化sentinel"><a class="markdownIt-Anchor" href="#161-启动并初始化sentinel"></a> 16.1 启动并初始化Sentinel</h3>
+<p>使用下面的命令，可以启动一个Sentinel</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server /path/to/your/sentinel.conf --sentinel</span><br></pre></td></tr></table></figure>
 <p>当一个Sentinel启动时，它需要执行下面几步</p>
 <ol>
-<li><p>初始化服务器：这一步只是初始化一个普通的Redis服务器</p>
+<li>
+<p>初始化服务器：这一步只是初始化一个普通的Redis服务器</p>
 </li>
-<li><p>将普通Redis服务器使用的代码替换成Sentinel专用代码：例如，普通Redis的命令表与Sentinel的命令表区别很大，这一步要使用Sentinel专用的命令表替换Redis命令表</p>
+<li>
+<p>将普通Redis服务器使用的代码替换成Sentinel专用代码：例如，普通Redis的命令表与Sentinel的命令表区别很大，这一步要使用Sentinel专用的命令表替换Redis命令表</p>
 </li>
-<li><p>初始化Sentinel状态：它会创建一个<code>sentinelState</code>结构来保存与sentinel功能相关的一些状态</p>
+<li>
+<p>初始化Sentinel状态：它会创建一个<code>sentinelState</code>结构来保存与sentinel功能相关的一些状态</p>
 </li>
-<li><p>初始化Sentinel的监视主服务器列表：它会根据配置文件，创建Sentinel要监控的一些主服务器</p>
+<li>
+<p>初始化Sentinel的监视主服务器列表：它会根据配置文件，创建Sentinel要监控的一些主服务器</p>
 </li>
-<li><p>创建连向主服务器的网络连接，对于每个被监视的主服务器，Sentinel会创建两个连接</p>
+<li>
+<p>创建连向主服务器的网络连接，对于每个被监视的主服务器，Sentinel会创建两个连接</p>
 <ul>
 <li>一个是命令连接，这个连接专门用于向主服务器发送命令，并接收命令回复。</li>
 <li>另一个是订阅连接，这个连接专门用于订阅主服务器的<code>__sentinel__:he11o</code>频道。</li>
 </ul>
 </li>
 </ol>
-<h3 id="16-2-获取主服务器信息"><a href="#16-2-获取主服务器信息" class="headerlink" title="16.2 获取主服务器信息"></a>16.2 获取主服务器信息</h3><p>Sentinel默认会以<strong>每十秒一次</strong>的频率，通过命令连接向被监视的<strong>主服务器</strong>发送<strong>INFO</strong>命令，并通过分析INFO命令的回复来获取主服务器本身的信息以及与主服务器关联的从服务器信息。</p>
-<h3 id="16-3-获取从服务器信息"><a href="#16-3-获取从服务器信息" class="headerlink" title="16.3 获取从服务器信息"></a>16.3 获取从服务器信息</h3><p>通过上一步，Sentinel就可以得知主服务器下属的从服务器，然后Sentinel不但会保存这些从服务器信息，还会创建到从服务器的命令连接和订阅连接<br><img src="/2020/03/06/Redis-16-Sentinel/200305_29.png" alt=""></p>
+<h3 id="162-获取主服务器信息"><a class="markdownIt-Anchor" href="#162-获取主服务器信息"></a> 16.2 获取主服务器信息</h3>
+<p>Sentinel默认会以<strong>每十秒一次</strong>的频率，通过命令连接向被监视的<strong>主服务器</strong>发送<strong>INFO</strong>命令，并通过分析INFO命令的回复来获取主服务器本身的信息以及与主服务器关联的从服务器信息。</p>
+<h3 id="163-获取从服务器信息"><a class="markdownIt-Anchor" href="#163-获取从服务器信息"></a> 16.3 获取从服务器信息</h3>
+<p>通过上一步，Sentinel就可以得知主服务器下属的从服务器，然后Sentinel不但会保存这些从服务器信息，还会创建到从服务器的命令连接和订阅连接<br>
+<img src="/2020/03/06/Redis-16-Sentinel/Redis-16-Sentinel%5C200305_29.png" alt=""></p>
 <p>在建立连接之后，Sentinel也会按照每十秒一次的频率向从服务器发送INFO命令，根据回复来维护从服务器的状态</p>
-<h3 id="16-4-订阅连接的作用"><a href="#16-4-订阅连接的作用" class="headerlink" title="16.4 订阅连接的作用"></a>16.4 订阅连接的作用</h3><p>每当建立起订阅连接之后，Sentinel就会发送下面的命令，来监听主服务的<code>__sentinel__:hello</code>频道。</p>
-<p>Sentinel会每隔两秒钟向这个频道发送下面格式的消息，这条消息主要包含了sentinel节点自身的信息和主服务器信息<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUBLISH __sentinel__:hello <span class="string">"&lt;s_ip&gt;,&lt;s_port&gt;,&lt;s_runid&gt;,&lt;s_epoch&gt;,&lt;m_name&gt;,&lt;m_ip&gt;,&lt;m_port&gt;,&lt;m_epoch&gt;"</span></span><br></pre></td></tr></table></figure></p>
-<p>然后以主服务器为跳板，其他Sentinel节点也会收到这个消息，因为所有的监视这个主服务器的Sentinel节点都会订阅这个频道，如下图<br><img src="/2020/03/06/Redis-16-Sentinel/200305_30.png" alt=""></p>
+<h3 id="164-订阅连接的作用"><a class="markdownIt-Anchor" href="#164-订阅连接的作用"></a> 16.4 订阅连接的作用</h3>
+<p>每当建立起订阅连接之后，Sentinel就会发送下面的命令，来监听主服务的<code>__sentinel__:hello</code>频道。</p>
+<p>Sentinel会每隔两秒钟向这个频道发送下面格式的消息，这条消息主要包含了sentinel节点自身的信息和主服务器信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUBLISH __sentinel__:hello <span class="string">"&lt;s_ip&gt;,&lt;s_port&gt;,&lt;s_runid&gt;,&lt;s_epoch&gt;,&lt;m_name&gt;,&lt;m_ip&gt;,&lt;m_port&gt;,&lt;m_epoch&gt;"</span></span><br></pre></td></tr></table></figure>
+<p>然后以主服务器为跳板，其他Sentinel节点也会收到这个消息，因为所有的监视这个主服务器的Sentinel节点都会订阅这个频道，如下图<br>
+<img src="/2020/03/06/Redis-16-Sentinel/Redis-16-Sentinel%5C200305_30.png" alt=""></p>
 <p>然后通过这种机制，监听同一个主服务器的Sentinel节点就可以自动发现对方了</p>
-<p>当某个Sentinel节点通过接收到<code>__sentinel__:hello</code>频道发送的消息发现了其他节点，它就会存储这个节点的信息，并且建立与这个节点的命令连接，如下图。实际上Sentinel系统中的所有Sentinel节点之间都有命令连接，它们可以互相通信<br><img src="/2020/03/06/Redis-16-Sentinel/200305_31.png" alt=""></p>
-<h3 id="16-6-检测主观下线状态"><a href="#16-6-检测主观下线状态" class="headerlink" title="16.6 检测主观下线状态"></a>16.6 检测主观下线状态</h3><p>每一秒，Sentinel都会向所有与它创建了连接的节点（包括主服务器、从服务器、其他Sentinel）发送<strong>PING</strong>命令，来判断对方是否在线。</p>
+<p>当某个Sentinel节点通过接收到<code>__sentinel__:hello</code>频道发送的消息发现了其他节点，它就会存储这个节点的信息，并且建立与这个节点的命令连接，如下图。实际上Sentinel系统中的所有Sentinel节点之间都有命令连接，它们可以互相通信<br>
+<img src="/2020/03/06/Redis-16-Sentinel/Redis-16-Sentinel%5C200305_31.png" alt=""></p>
+<h3 id="166-检测主观下线状态"><a class="markdownIt-Anchor" href="#166-检测主观下线状态"></a> 16.6 检测主观下线状态</h3>
+<p>每一秒，Sentinel都会向所有与它创建了连接的节点（包括主服务器、从服务器、其他Sentinel）发送<strong>PING</strong>命令，来判断对方是否在线。</p>
 <p>若一段时间内，某个节点始终没有有效回应，它就会被标记为下线，<code>flags</code>属性将开启<code>SRI_S_DOWN</code>标记，表示这个实例进入了主观下线状态</p>
-<h3 id="16-7-检查客观下线状态"><a href="#16-7-检查客观下线状态" class="headerlink" title="16.7 检查客观下线状态"></a>16.7 检查客观下线状态</h3><p>当Sentinel节点将一个主服务器判断为主观下线，它就会向其他Sentinel节点发送询问，看看其他节点是否也同样认为主服务器下线。</p>
-<p>Sentinel使用下面的命令询问其他Sentinel节点的意见<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SENTINEL is-master-down-by-addr &lt;ip&gt;&lt;port&gt;&lt;current_epoch&gt;&lt;runid&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="167-检查客观下线状态"><a class="markdownIt-Anchor" href="#167-检查客观下线状态"></a> 16.7 检查客观下线状态</h3>
+<p>当Sentinel节点将一个主服务器判断为主观下线，它就会向其他Sentinel节点发送询问，看看其他节点是否也同样认为主服务器下线。</p>
+<p>Sentinel使用下面的命令询问其他Sentinel节点的意见</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SENTINEL is-master-down-by-addr &lt;ip&gt;&lt;port&gt;&lt;current_epoch&gt;&lt;runid&gt;</span><br></pre></td></tr></table></figure>
 <p>然后这个Sentinel节点就会接受其他节点的返回结果，如果有超过N个节点也这么认为，那么这个Sentinel节点就会将主服务器标注为客观下线，并开始选举领头Sentinel。</p>
-<h3 id="16-8-选举领头Sentinel"><a href="#16-8-选举领头Sentinel" class="headerlink" title="16.8 选举领头Sentinel"></a>16.8 选举领头Sentinel</h3><p>当一个主服务器被判定为客观下线后，Sentinel节点就会开始协商，选举出一个领头Sentinel，由它来进行故障转移</p>
+<h3 id="168-选举领头sentinel"><a class="markdownIt-Anchor" href="#168-选举领头sentinel"></a> 16.8 选举领头Sentinel</h3>
+<p>当一个主服务器被判定为客观下线后，Sentinel节点就会开始协商，选举出一个领头Sentinel，由它来进行故障转移</p>
 <p>以下是选举规则</p>
 <ol>
 <li>所有在线的Sentinel节点都由被选为领头Sentinel的资格</li>
@@ -418,13 +440,15 @@
 <li>这样每个源节点都会得知目标节点们的意见，如果有个源节点发现自己获得了半数以上的支持，它就会从局部领头节点变为领头节点，然后执行故障转移</li>
 <li>若本轮没有一个源节点得到半数支持，那么隔一段时间重新选举</li>
 </ol>
-<h3 id="16-9-故障转移"><a href="#16-9-故障转移" class="headerlink" title="16.9 故障转移"></a>16.9 故障转移</h3><p>然后领头Sentinel节点将，进行故障转移操作</p>
+<h3 id="169-故障转移"><a class="markdownIt-Anchor" href="#169-故障转移"></a> 16.9 故障转移</h3>
+<p>然后领头Sentinel节点将，进行故障转移操作</p>
 <ul>
 <li>首先，领头Sentinel节点会挑选server1属下的其中一个从服务器，并将这个被选中的从服务器升级为新的主服务器。</li>
 <li>之后，领头Sentinel节点向server1属下的所有从服务器发送新的复制指令，让它们成为新的主服务器的从服务器，当所有从服务器都开始复制新的主服务器时，故障转移操作执行完毕。</li>
 <li>另外，Sentinel还会继续监视已下线的server1，并在它重新上线时，将它设置为新的主服务器的从服务器。</li>
 </ul>
-<h3 id="16-10-重点回顾"><a href="#16-10-重点回顾" class="headerlink" title="16.10 重点回顾"></a>16.10 重点回顾</h3><ul>
+<h3 id="1610-重点回顾"><a class="markdownIt-Anchor" href="#1610-重点回顾"></a> 16.10 重点回顾</h3>
+<ul>
 <li>Sentinel只是一个运行在特殊模式下的Redis服务器，它使用了和普通模式不同的命令表</li>
 <li>Sentinel会读入用户指定的配置文件，为每个要被监视的主服务器创建相应的实例结构，并创建连向主服务器的命令连接和订阅连接</li>
 <li>Sentinel通过向主服务器发送INFO命令来获得主服务器属下所有从服务器的地址信息，然后与从服务器建立连接</li>

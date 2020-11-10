@@ -18,38 +18,38 @@
   
   
   <title>[Redis][15][复制] | T0UGU BLOG</title>
-  <meta name="description" content="第 15 章 复制在Redis中，用户可以通过执行SLAVEOF命令或者设置slaveof选项，让一个服务器去复制另一个服务器，我们称呼被复制的服务器为主服务器(master)，而对主服务器进行复制的服务器叫做从服务器（slave） 例如下面的命令12127.0.0.1:12345&amp;gt;SLAVEOF 127.0.0.1:6379OK 然后12345就成了6379的从服务器 进行复制的主从服务器">
+  <meta name="description" content="第 15 章 复制 在Redis中，用户可以通过执行SLAVEOF命令或者设置slaveof选项，让一个服务器去复制另一个服务器，我们称呼被复制的服务器为主服务器(master)，而对主服务器进行复制的服务器叫做从服务器（slave） 例如下面的命令 12127.0.0.1:12345&amp;gt;SLAVEOF 127.0.0.1:6379OK 然后12345就成了6379的从服务器 进行复制的主从">
 <meta name="keywords" content="redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Redis][15][复制]">
 <meta property="og:url" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/index.html">
 <meta property="og:site_name" content="打怪升级日常">
-<meta property="og:description" content="第 15 章 复制在Redis中，用户可以通过执行SLAVEOF命令或者设置slaveof选项，让一个服务器去复制另一个服务器，我们称呼被复制的服务器为主服务器(master)，而对主服务器进行复制的服务器叫做从服务器（slave） 例如下面的命令12127.0.0.1:12345&amp;gt;SLAVEOF 127.0.0.1:6379OK 然后12345就成了6379的从服务器 进行复制的主从服务器">
+<meta property="og:description" content="第 15 章 复制 在Redis中，用户可以通过执行SLAVEOF命令或者设置slaveof选项，让一个服务器去复制另一个服务器，我们称呼被复制的服务器为主服务器(master)，而对主服务器进行复制的服务器叫做从服务器（slave） 例如下面的命令 12127.0.0.1:12345&amp;gt;SLAVEOF 127.0.0.1:6379OK 然后12345就成了6379的从服务器 进行复制的主从">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_7.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_8.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_9.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_10.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_11.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_12.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_13.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_14.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_15.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_16.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_17.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_18.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_19.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_20.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_21.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_22.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_23.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_24.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_25.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_7.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_8.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_9.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_10.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_11.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_12.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_13.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_14.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_15.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_16.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_17.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_18.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_19.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_20.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_21.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_22.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_23.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_24.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_25.png">
 <meta property="og:updated_time" content="2020-03-05T12:56:55.398Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Redis][15][复制]">
-<meta name="twitter:description" content="第 15 章 复制在Redis中，用户可以通过执行SLAVEOF命令或者设置slaveof选项，让一个服务器去复制另一个服务器，我们称呼被复制的服务器为主服务器(master)，而对主服务器进行复制的服务器叫做从服务器（slave） 例如下面的命令12127.0.0.1:12345&amp;gt;SLAVEOF 127.0.0.1:6379OK 然后12345就成了6379的从服务器 进行复制的主从服务器">
-<meta name="twitter:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/200305_7.png">
+<meta name="twitter:description" content="第 15 章 复制 在Redis中，用户可以通过执行SLAVEOF命令或者设置slaveof选项，让一个服务器去复制另一个服务器，我们称呼被复制的服务器为主服务器(master)，而对主服务器进行复制的服务器叫做从服务器（slave） 例如下面的命令 12127.0.0.1:12345&amp;gt;SLAVEOF 127.0.0.1:6379OK 然后12345就成了6379的从服务器 进行复制的主从">
+<meta name="twitter:image" content="https://t0ugh.biz/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_7.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://t0ugh.biz/2020/03/05/Redis-15-复制/index.html">
   
@@ -201,7 +201,7 @@
   <div class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flink/">Flink</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -211,7 +211,7 @@
   <div class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/">Flink</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流处理/">流处理</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -221,7 +221,7 @@
   <div class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.2px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.2px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.2px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.2px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.3px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.8px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.1px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.2px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.1px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.3px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.6px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.1px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.2px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.6px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.7px;">java</a> <a href="/tags/jvm/" style="font-size: 13.5px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.2px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.9px;">redis</a> <a href="/tags/vue/" style="font-size: 13.1px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.2px;">动态规划</a> <a href="/tags/微服务/" style="font-size: 13.4px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.4px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.2px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.3px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.1px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.4px;">数据结构</a> <a href="/tags/深度学习/" style="font-size: 13.7px;">深度学习</a> <a href="/tags/算法/" style="font-size: 13.1px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.7px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.1px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
+      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.18px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.18px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Flink/" style="font-size: 13.36px;">Flink</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.18px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.18px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.27px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.82px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.09px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.18px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.09px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.27px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.55px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.09px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.18px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.55px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.64px;">java</a> <a href="/tags/jvm/" style="font-size: 13.45px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.18px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.91px;">redis</a> <a href="/tags/vue/" style="font-size: 13.09px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.18px;">动态规划</a> <a href="/tags/大数据/" style="font-size: 13.36px;">大数据</a> <a href="/tags/微服务/" style="font-size: 13.36px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.36px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.18px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.27px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.09px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.36px;">数据结构</a> <a href="/tags/机器学习/" style="font-size: 13px;">机器学习</a> <a href="/tags/流处理/" style="font-size: 13.36px;">流处理</a> <a href="/tags/深度学习/" style="font-size: 13.73px;">深度学习</a> <a href="/tags/神经网络/" style="font-size: 13px;">神经网络</a> <a href="/tags/算法/" style="font-size: 13.09px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.64px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.09px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
     </div>
   </div>
 
@@ -230,7 +230,7 @@
   <div class="widget">
     <h3 class="widget-title">Archive</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -246,13 +246,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-0-MyBatis源码解析汇总篇/" class="title">[MyBatis源码][0][MyBatis源码解析汇总篇]</a>
+                <a href="/2020/11/08/Flink-5-DataStreamAPI/" class="title">[Flink][5][DataStreamAPI]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T13:20:28.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-08T11:09:54.000Z" itemprop="datePublished">2020-11-08</time>
               </p>
             </div>
           </li>
@@ -261,13 +261,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-7-插件机制/" class="title">[MyBatis源码][7][插件机制]</a>
+                <a href="/2020/11/02/Flink-4-设置Flink开发环境/" class="title">[Flink][4][设置Flink开发环境]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T13:16:34.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-02T11:08:53.000Z" itemprop="datePublished">2020-11-02</time>
               </p>
             </div>
           </li>
@@ -276,13 +276,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-6-缓存机制/" class="title">[MyBatis源码][6][缓存机制]</a>
+                <a href="/2020/11/01/Flink-3-ApacheFlink架构/" class="title">[Flink][3][ApacheFlink架构]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T11:55:22.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-01T11:08:14.000Z" itemprop="datePublished">2020-11-01</time>
               </p>
             </div>
           </li>
@@ -291,13 +291,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/28/MyBatis源码-5-连接池/" class="title">[MyBatis源码][5][连接池]</a>
+                <a href="/2020/10/30/Flink-2-流处理基础/" class="title">[Flink][2][流处理基础]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-28T09:10:54.000Z" itemprop="datePublished">2020-03-28</time>
+                <time datetime="2020-10-30T11:07:33.000Z" itemprop="datePublished">2020-10-30</time>
               </p>
             </div>
           </li>
@@ -306,13 +306,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/27/MyBatis源码-4-SQL执行流程/" class="title">[MyBatis源码][4][SQL执行流程]</a>
+                <a href="/2020/10/29/Flink-1-状态化流处理概述/" class="title">[Flink][1][状态化流处理概述]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-27T14:21:01.000Z" itemprop="datePublished">2020-03-27</time>
+                <time datetime="2020-10-29T03:18:58.000Z" itemprop="datePublished">2020-10-29</time>
               </p>
             </div>
           </li>
@@ -372,19 +372,23 @@
                 
                                     
                                         <div id="toc">
-                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-15-章-复制"><span class="toc-text">第 15 章 复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#15-1-旧版复制功能的实现"><span class="toc-text">15.1 旧版复制功能的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#15-1-1-同步"><span class="toc-text">15.1.1 同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-1-2-命令传播"><span class="toc-text">15.1.2 命令传播</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-2-旧版复制功能的缺陷"><span class="toc-text">15.2 旧版复制功能的缺陷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-3-新版复制功能的实现"><span class="toc-text">15.3 新版复制功能的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-4-部分重同步的实现"><span class="toc-text">15.4 部分重同步的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#15-4-1-复制偏移量"><span class="toc-text">15.4.1 复制偏移量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-4-2-复制积压缓冲区"><span class="toc-text">15.4.2 复制积压缓冲区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-4-3-服务器运行ID"><span class="toc-text">15.4.3 服务器运行ID</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-5-PSYNC命令"><span class="toc-text">15.5 PSYNC命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-6-复制的实现"><span class="toc-text">15.6 复制的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#15-6-1-设置主服务器的地址和端口"><span class="toc-text">15.6.1 设置主服务器的地址和端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-6-2-建立套接字连接"><span class="toc-text">15.6.2 建立套接字连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-6-3-发送PING命令"><span class="toc-text">15.6.3 发送PING命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-6-4-身份验证"><span class="toc-text">15.6.4 身份验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-6-5-发送端口信息"><span class="toc-text">15.6.5 发送端口信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-6-6-同步"><span class="toc-text">15.6.6 同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-6-7-命令传播"><span class="toc-text">15.6.7 命令传播</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-7-心跳检测"><span class="toc-text">15.7 心跳检测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#15-7-1-检测主从服务器的网络连接状态"><span class="toc-text">15.7.1 检测主从服务器的网络连接状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-7-2-辅助事件min-slaves配置选项"><span class="toc-text">15.7.2 辅助事件min-slaves配置选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-7-3-检测命令丢失"><span class="toc-text">15.7.3 检测命令丢失</span></a></li></ol></li></ol></li></ol>
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-15-章-复制"><span class="toc-text"> 第 15 章 复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#151-旧版复制功能的实现"><span class="toc-text"> 15.1 旧版复制功能的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1511-同步"><span class="toc-text"> 15.1.1 同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1512-命令传播"><span class="toc-text"> 15.1.2 命令传播</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#152-旧版复制功能的缺陷"><span class="toc-text"> 15.2 旧版复制功能的缺陷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#153-新版复制功能的实现"><span class="toc-text"> 15.3 新版复制功能的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#154-部分重同步的实现"><span class="toc-text"> 15.4 部分重同步的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1541-复制偏移量"><span class="toc-text"> 15.4.1 复制偏移量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1542-复制积压缓冲区"><span class="toc-text"> 15.4.2 复制积压缓冲区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1543-服务器运行id"><span class="toc-text"> 15.4.3 服务器运行ID</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#155-psync命令"><span class="toc-text"> 15.5 PSYNC命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#156-复制的实现"><span class="toc-text"> 15.6 复制的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1561-设置主服务器的地址和端口"><span class="toc-text"> 15.6.1 设置主服务器的地址和端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1562-建立套接字连接"><span class="toc-text"> 15.6.2 建立套接字连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1563-发送ping命令"><span class="toc-text"> 15.6.3 发送PING命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1564-身份验证"><span class="toc-text"> 15.6.4 身份验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1565-发送端口信息"><span class="toc-text"> 15.6.5 发送端口信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1566-同步"><span class="toc-text"> 15.6.6 同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1567-命令传播"><span class="toc-text"> 15.6.7 命令传播</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#157-心跳检测"><span class="toc-text"> 15.7 心跳检测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1571-检测主从服务器的网络连接状态"><span class="toc-text"> 15.7.1 检测主从服务器的网络连接状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1572-辅助事件min-slaves配置选项"><span class="toc-text"> 15.7.2 辅助事件min-slaves配置选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1573-检测命令丢失"><span class="toc-text"> 15.7.3 检测命令丢失</span></a></li></ol></li></ol></li></ol>
                                         </div>
                                         
-                                            <h2 id="第-15-章-复制"><a href="#第-15-章-复制" class="headerlink" title="第 15 章 复制"></a>第 15 章 复制</h2><p>在Redis中，用户可以通过执行<code>SLAVEOF</code>命令或者设置<code>slaveof</code>选项，让一个服务器去复制另一个服务器，我们称呼被复制的服务器为<strong>主服务器</strong>(master)，而对主服务器进行复制的服务器叫做<strong>从服务器</strong>（slave）</p>
-<p>例如下面的命令<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:12345&gt;SLAVEOF 127.0.0.1:6379</span><br><span class="line">OK</span><br></pre></td></tr></table></figure></p>
+                                            <h2 id="第-15-章-复制"><a class="markdownIt-Anchor" href="#第-15-章-复制"></a> 第 15 章 复制</h2>
+<p>在Redis中，用户可以通过执行<code>SLAVEOF</code>命令或者设置<code>slaveof</code>选项，让一个服务器去复制另一个服务器，我们称呼被复制的服务器为<strong>主服务器</strong>(master)，而对主服务器进行复制的服务器叫做<strong>从服务器</strong>（slave）</p>
+<p>例如下面的命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:12345&gt;SLAVEOF 127.0.0.1:6379</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
 <p>然后12345就成了6379的从服务器</p>
 <p>进行复制的主从服务器双方的数据库将保存相同的数据，这称为数据库状态一致</p>
-<h3 id="15-1-旧版复制功能的实现"><a href="#15-1-旧版复制功能的实现" class="headerlink" title="15.1 旧版复制功能的实现"></a>15.1 旧版复制功能的实现</h3><p>Redis的<strong>复制</strong>功能分为<strong>同步</strong>（sync）和<strong>命令传播</strong>（command propagate）两个操作</p>
+<h3 id="151-旧版复制功能的实现"><a class="markdownIt-Anchor" href="#151-旧版复制功能的实现"></a> 15.1 旧版复制功能的实现</h3>
+<p>Redis的<strong>复制</strong>功能分为<strong>同步</strong>（sync）和<strong>命令传播</strong>（command propagate）两个操作</p>
 <ul>
-<li><strong>同步</strong>操作用于将<strong>从服务器</strong>的<strong>数据库状态**</strong>更新<strong>至</strong>主服务器当前所处的数据库状态**。</li>
+<li><strong>同步</strong>操作用于将<strong>从服务器</strong>的<strong>数据库状态****更新</strong>至<strong>主服务器当前所处的数据库状态</strong>。</li>
 <li><strong>命令传播</strong>操作则用于在主服务器的数据库状态被修改，导致主从服务器的数据库状态出现<strong>不一致时</strong>，让主从服务器的数据库<strong>重新回到一致状态</strong>。</li>
 </ul>
-<h4 id="15-1-1-同步"><a href="#15-1-1-同步" class="headerlink" title="15.1.1 同步"></a>15.1.1 同步</h4><p>当客户端发送<code>SLAVEOF</code>命令给从服务器时，要求从服务器复制主服务器，从服务器会首先执行<strong>同步</strong>操作。</p>
+<h4 id="1511-同步"><a class="markdownIt-Anchor" href="#1511-同步"></a> 15.1.1 同步</h4>
+<p>当客户端发送<code>SLAVEOF</code>命令给从服务器时，要求从服务器复制主服务器，从服务器会首先执行<strong>同步</strong>操作。</p>
 <p>从服务器对主服务器的<strong>同步操作</strong>需要通过向主服务器发送<strong>SYNC命令</strong>来完成</p>
 <ol>
 <li><strong>从</strong>服务器向<strong>主</strong>服务器发送<strong>SYNC命令</strong></li>
@@ -392,61 +396,85 @@
 <li>当主服务器的BGSAVE命令<strong>执行完毕</strong>时，主服务器会将BGSAVE命令生成的<strong>RDB文件发送</strong>给从服务器，从服务器接收并<strong>载入</strong>这个<strong>RDB文件</strong>，将自己的数据库状态<strong>更新至主服务器执行BGSAVE命令时的数据库状态</strong>。</li>
 <li>主服务器将记录在<strong>缓冲区</strong>里面的所有<strong>写命令</strong>发送给从服务器，从服务器执行这些写命令，将自己的数据库状态<strong>更新至主服务器数据库当前所处的状态</strong>。</li>
 </ol>
-<p>步骤如下图所示<br><img src="/2020/03/05/Redis-15-复制/200305_7.png" alt=""></p>
-<p>下表是一个主从服务器进行同步的例子<br><img src="/2020/03/05/Redis-15-复制/200305_8.png" alt=""></p>
-<h4 id="15-1-2-命令传播"><a href="#15-1-2-命令传播" class="headerlink" title="15.1.2 命令传播"></a>15.1.2 命令传播</h4><p>每当<strong>主服务器</strong>执行客户端发送的<strong>写命令</strong>时，主服务器的数据库就有可能会被修改，并导致主从服务器状态<strong>不一致</strong>。</p>
+<p>步骤如下图所示<br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_7.png" alt=""></p>
+<p>下表是一个主从服务器进行同步的例子<br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_8.png" alt=""></p>
+<h4 id="1512-命令传播"><a class="markdownIt-Anchor" href="#1512-命令传播"></a> 15.1.2 命令传播</h4>
+<p>每当<strong>主服务器</strong>执行客户端发送的<strong>写命令</strong>时，主服务器的数据库就有可能会被修改，并导致主从服务器状态<strong>不一致</strong>。</p>
 <p>为了让主从服务器<strong>再次一致</strong>，主服务器需要对从服务器执行<strong>命令传播</strong>操作</p>
 <ul>
 <li>主服务器会将自己执行的写命令，也即是<strong>造成</strong>主从服务器<strong>不一致</strong>的那条<strong>写命令</strong>，<strong>发送给从服务器</strong>执行</li>
 <li>当从服务器<strong>执行了相同的写命令</strong>之后，主从服务器将<strong>再次回到一致</strong>状态</li>
 </ul>
-<p>例如下面几张图<br><img src="/2020/03/05/Redis-15-复制/200305_9.png" alt=""><br><img src="/2020/03/05/Redis-15-复制/200305_10.png" alt=""><br><img src="/2020/03/05/Redis-15-复制/200305_11.png" alt=""></p>
-<h3 id="15-2-旧版复制功能的缺陷"><a href="#15-2-旧版复制功能的缺陷" class="headerlink" title="15.2 旧版复制功能的缺陷"></a>15.2 旧版复制功能的缺陷</h3><p>在旧版，复制主要应用于以下两种场景</p>
+<p>例如下面几张图<br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_9.png" alt=""><br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_10.png" alt=""><br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_11.png" alt=""></p>
+<h3 id="152-旧版复制功能的缺陷"><a class="markdownIt-Anchor" href="#152-旧版复制功能的缺陷"></a> 15.2 旧版复制功能的缺陷</h3>
+<p>在旧版，复制主要应用于以下两种场景</p>
 <ol>
 <li><strong>初次复制</strong>：从服务器之前没有复制过主服务器</li>
 <li><strong>断线后重复制</strong>：处于命令传播阶段的主从服务器因为网络问题而中断，但从服务器之后重连了主服务器。这时，发生了数据不一致。Redis旧版中面对这个情况，直接执行复制操作，将主服务器当前状态打包为RDB传送给从服务器</li>
 </ol>
-<p>例子如下表<br><img src="/2020/03/05/Redis-15-复制/200305_12.png" alt=""></p>
+<p>例子如下表<br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_12.png" alt=""></p>
 <p><strong>问题的关键</strong>就在于：断线之后，从服务器只不过少执行了几条写指令而已。为了恢复一致性，却大动干戈地<strong>重新执行了全部的复制操作</strong>，这会浪费大量资源。</p>
-<h3 id="15-3-新版复制功能的实现"><a href="#15-3-新版复制功能的实现" class="headerlink" title="15.3 新版复制功能的实现"></a>15.3 新版复制功能的实现</h3><p>为了解决旧版复制功能在处理断线重复制情况时的低效问题，Redis从2.8版本开始，使用<code>PSYNC</code>命令代替<code>SYNC</code>命令来执行复制时的同步操作</p>
+<h3 id="153-新版复制功能的实现"><a class="markdownIt-Anchor" href="#153-新版复制功能的实现"></a> 15.3 新版复制功能的实现</h3>
+<p>为了解决旧版复制功能在处理断线重复制情况时的低效问题，Redis从2.8版本开始，使用<code>PSYNC</code>命令代替<code>SYNC</code>命令来执行复制时的同步操作</p>
 <p>PSYNC命令具有完整重同步和部分重同步两种模式</p>
 <ul>
 <li><strong>完整重同步</strong>类似于<code>SYNC</code>命令，它会将主服务器状态打包为RDB发送</li>
 <li><strong>部分重同步</strong>则用于<strong>断线重连</strong>的情况。主服务器可以将主从服务器连接<strong>断开期间执行的写命令</strong>发送给从服务器，从服务器只要接收并执行这些写命令，就可以将数据库更新至主服务器当前所处的状态。</li>
 </ul>
-<p>上一节的例子在新版会如下表方式执行<br><img src="/2020/03/05/Redis-15-复制/200305_13.png" alt=""></p>
-<p>下图展示了主从服务器执行部分重同步时的通信过程<br><img src="/2020/03/05/Redis-15-复制/200305_14.png" alt=""></p>
-<h3 id="15-4-部分重同步的实现"><a href="#15-4-部分重同步的实现" class="headerlink" title="15.4 部分重同步的实现"></a>15.4 部分重同步的实现</h3><p>部分重同步的功能由下面三部分组成</p>
+<p>上一节的例子在新版会如下表方式执行<br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_13.png" alt=""></p>
+<p>下图展示了主从服务器执行部分重同步时的通信过程<br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_14.png" alt=""></p>
+<h3 id="154-部分重同步的实现"><a class="markdownIt-Anchor" href="#154-部分重同步的实现"></a> 15.4 部分重同步的实现</h3>
+<p>部分重同步的功能由下面三部分组成</p>
 <ul>
 <li>主服务器的<strong>复制偏移量</strong>和从服务器的复制偏移量</li>
 <li>主服务器的<strong>复制积压缓冲区</strong></li>
 <li>服务器的<strong>运行ID</strong></li>
 </ul>
-<h4 id="15-4-1-复制偏移量"><a href="#15-4-1-复制偏移量" class="headerlink" title="15.4.1 复制偏移量"></a>15.4.1 复制偏移量</h4><p>主服务器和从服务器会<strong>分别</strong>维护一个<strong>复制偏移量</strong></p>
+<h4 id="1541-复制偏移量"><a class="markdownIt-Anchor" href="#1541-复制偏移量"></a> 15.4.1 复制偏移量</h4>
+<p>主服务器和从服务器会<strong>分别</strong>维护一个<strong>复制偏移量</strong></p>
 <ul>
 <li>主服务器每次向从服务器<strong>传播N个字节</strong>的数据时，就将自己的复制偏移量的值<strong>加上N</strong></li>
 <li>从服务器每次<strong>收到</strong>主服务器传播来的<strong>N个字节</strong>的数据时，就将自己的复制偏移量的值<strong>加上N</strong></li>
 </ul>
 <p>下面举例说明</p>
-<p>刚开始主从服务器有相同的偏移量<code>10086</code><br><img src="/2020/03/05/Redis-15-复制/200305_15.png" alt=""></p>
-<p>此时，主服务器传播长度为33字节的数据，假如所有从服务器正常，如下图<br><img src="/2020/03/05/Redis-15-复制/200305_16.png" alt=""></p>
-<p>假如有一个从服务器掉线<br><img src="/2020/03/05/Redis-15-复制/200305_17.png" alt=""></p>
+<p>刚开始主从服务器有相同的偏移量<code>10086</code><br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_15.png" alt=""></p>
+<p>此时，主服务器传播长度为33字节的数据，假如所有从服务器正常，如下图<br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_16.png" alt=""></p>
+<p>假如有一个从服务器掉线<br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_17.png" alt=""></p>
 <p>从上例，通过对比主从服务器的复制偏移量，程序可以很容易的直到主从服务器是否处于一致状态</p>
-<h4 id="15-4-2-复制积压缓冲区"><a href="#15-4-2-复制积压缓冲区" class="headerlink" title="15.4.2 复制积压缓冲区"></a>15.4.2 复制积压缓冲区</h4><p>复制积压缓冲区是由主服务器维护的一个固定长度先进先出队列，默认大小为1MB。</p>
-<p>当主服务器进行命令传播时，它不仅会将写命令发送给所有从服务器，还会将写命令入队到复制积压缓冲区里面，如下图<br><img src="/2020/03/05/Redis-15-复制/200305_18.png" alt=""></p>
-<p>复制积压缓冲区会保存最近传播的写命令，且缓冲区中的<strong>每个字节</strong>都<strong>对应</strong>一个<strong>复制偏移量</strong>，例如下图<br><img src="/2020/03/05/Redis-15-复制/200305_19.png" alt=""></p>
+<h4 id="1542-复制积压缓冲区"><a class="markdownIt-Anchor" href="#1542-复制积压缓冲区"></a> 15.4.2 复制积压缓冲区</h4>
+<p>复制积压缓冲区是由主服务器维护的一个固定长度先进先出队列，默认大小为1MB。</p>
+<p>当主服务器进行命令传播时，它不仅会将写命令发送给所有从服务器，还会将写命令入队到复制积压缓冲区里面，如下图<br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_18.png" alt=""></p>
+<p>复制积压缓冲区会保存最近传播的写命令，且缓冲区中的<strong>每个字节</strong>都<strong>对应</strong>一个<strong>复制偏移量</strong>，例如下图<br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_19.png" alt=""></p>
 <p>当从服务器重新连上主服务器时，从服务器会通过<code>PSYNC</code>命令将自己的复制偏移量<code>offset</code>发送给主服务器，主服务器会<strong>根据</strong>这个<strong>复制偏移量</strong>来<strong>决定</strong>对从服务器执行<strong>何种同步</strong></p>
 <ul>
-<li><p>如果<code>offset</code>偏移量之后的数据<strong>仍然存在</strong>于<strong>复制积压缓冲区</strong>里面，那么主服务器将对从服务器执行<strong>部分重同步</strong>操作。</p>
+<li>
+<p>如果<code>offset</code>偏移量之后的数据<strong>仍然存在</strong>于<strong>复制积压缓冲区</strong>里面，那么主服务器将对从服务器执行<strong>部分重同步</strong>操作。</p>
 </li>
-<li><p><strong>否则</strong>主服务器将对从服务器执行<strong>完整重同步</strong>操作。</p>
+<li>
+<p><strong>否则</strong>主服务器将对从服务器执行<strong>完整重同步</strong>操作。</p>
 </li>
 </ul>
-<p>回到上面的例子，当掉线的从服务器上线后，发送<code>PSYNC</code>命令并附上自己的复制偏移量<code>10086</code>，然后主服务器发现10086之后的字节都在缓冲区，直接取出并发送给从服务器<br><img src="/2020/03/05/Redis-15-复制/200305_20.png" alt=""></p>
-<h4 id="15-4-3-服务器运行ID"><a href="#15-4-3-服务器运行ID" class="headerlink" title="15.4.3 服务器运行ID"></a>15.4.3 服务器运行ID</h4><p>每个Redis服务器，无论主从，都拥有一个自己的运行ID，它在服务器启动时自动生成，由40个随机的十六进制字符组成</p>
+<p>回到上面的例子，当掉线的从服务器上线后，发送<code>PSYNC</code>命令并附上自己的复制偏移量<code>10086</code>，然后主服务器发现10086之后的字节都在缓冲区，直接取出并发送给从服务器<br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_20.png" alt=""></p>
+<h4 id="1543-服务器运行id"><a class="markdownIt-Anchor" href="#1543-服务器运行id"></a> 15.4.3 服务器运行ID</h4>
+<p>每个Redis服务器，无论主从，都拥有一个自己的运行ID，它在服务器启动时自动生成，由40个随机的十六进制字符组成</p>
 <p>当从服务器对主服务器进行初次复制时，主服务器会将自己的运行ID传送给从服务器保存。</p>
 <p>当从服务器掉线重连时，会发送这个ID。若ID相同，说明掉线之前的主服务器就是这个主服务器，则尝试执行部分重同步；若不相同，则执行完整重同步</p>
-<h3 id="15-5-PSYNC命令"><a href="#15-5-PSYNC命令" class="headerlink" title="15.5 PSYNC命令"></a>15.5 PSYNC命令</h3><p>本节将详细介绍<code>PSYNC</code>命令的完整细节</p>
+<h3 id="155-psync命令"><a class="markdownIt-Anchor" href="#155-psync命令"></a> 15.5 PSYNC命令</h3>
+<p>本节将详细介绍<code>PSYNC</code>命令的完整细节</p>
 <p><code>PSYNC</code>命令的调用方法有两种</p>
 <ul>
 <li>如果从服务器以前没有复制过任何主服务器，那么从服务器在开始一次新的复制时将向主服务器发送<code>PSYNC ? -1</code>命令，主动请求主服务器进行完整重同步</li>
@@ -458,14 +486,19 @@
 <li>如果主服务器返回<code>+CONTINUE</code>回复，那么表示主服务器将与从服务器执行部分重同步操作，从服务器只要等着主服务器将自己缺少的那部分数据发送过来就可以了。</li>
 <li>如果主服务器返回<code>-ERR</code>回复，那么表示主服务器的版本过低，它识别不了<code>PSYNC</code>命令，从服务器将向主服务器发送<code>SYNC</code>命令，并与主服务器执行完整同步操作。</li>
 </ul>
-<p>流程图如下<br><img src="/2020/03/05/Redis-15-复制/200305_21.png" alt=""></p>
-<h3 id="15-6-复制的实现"><a href="#15-6-复制的实现" class="headerlink" title="15.6 复制的实现"></a>15.6 复制的实现</h3><p>本节将按顺序介绍服务器收到客户端发送的<code>SLAVEOF</code>命令后的全部操作</p>
-<h4 id="15-6-1-设置主服务器的地址和端口"><a href="#15-6-1-设置主服务器的地址和端口" class="headerlink" title="15.6.1 设置主服务器的地址和端口"></a>15.6.1 设置主服务器的地址和端口</h4><p>从服务器首先要做的就是将客户端给定的主服务器IP地址以及端口保存到服务器状态的<code>masterhost</code>属性和<code>masterport</code>属性里面</p>
+<p>流程图如下<br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_21.png" alt=""></p>
+<h3 id="156-复制的实现"><a class="markdownIt-Anchor" href="#156-复制的实现"></a> 15.6 复制的实现</h3>
+<p>本节将按顺序介绍服务器收到客户端发送的<code>SLAVEOF</code>命令后的全部操作</p>
+<h4 id="1561-设置主服务器的地址和端口"><a class="markdownIt-Anchor" href="#1561-设置主服务器的地址和端口"></a> 15.6.1 设置主服务器的地址和端口</h4>
+<p>从服务器首先要做的就是将客户端给定的主服务器IP地址以及端口保存到服务器状态的<code>masterhost</code>属性和<code>masterport</code>属性里面</p>
 <p><code>SLAVEOF</code>命令是一个异步命令，在完成<code>masterhost</code>属性和<code>masterport</code>属性的设置工作之后，从服务器将向发送<code>SLAVEOF</code>命令的客户端返回<code>OK</code>，表示复制指令已经被接收，而实际的复制工作将在<code>OK</code>返回之后才真正开始执行。</p>
-<h4 id="15-6-2-建立套接字连接"><a href="#15-6-2-建立套接字连接" class="headerlink" title="15.6.2 建立套接字连接"></a>15.6.2 建立套接字连接</h4><p>在<code>SLAVEOF</code>命令执行之后，从服务器将根据命令所设置的IP地址和端口，创建连向主服务器的套接字连接</p>
+<h4 id="1562-建立套接字连接"><a class="markdownIt-Anchor" href="#1562-建立套接字连接"></a> 15.6.2 建立套接字连接</h4>
+<p>在<code>SLAVEOF</code>命令执行之后，从服务器将根据命令所设置的IP地址和端口，创建连向主服务器的套接字连接</p>
 <p>然后，从服务器将为这个套接字关联一个专门用于处理复制工作的文件事件处理器，这个处理器将负责执行后续的复制工作，比如接收RDB文件，以及接收主服务器传播来的写命令，诸如此类。</p>
 <p>而主服务器在接受从服务器的套接字连接之后，将为该套接字创建相应的客户端状态，并将从服务器看作是一个连接到主服务器的客户端来对待，</p>
-<h4 id="15-6-3-发送PING命令"><a href="#15-6-3-发送PING命令" class="headerlink" title="15.6.3 发送PING命令"></a>15.6.3 发送PING命令</h4><p>从服务器成为主服务器的客户端之后，做的第一件事就是向主服务器发送一个PING命令，它有两个作用</p>
+<h4 id="1563-发送ping命令"><a class="markdownIt-Anchor" href="#1563-发送ping命令"></a> 15.6.3 发送PING命令</h4>
+<p>从服务器成为主服务器的客户端之后，做的第一件事就是向主服务器发送一个PING命令，它有两个作用</p>
 <ul>
 <li>通过发送PING命令可以检查套接字的读写状态是否正常。</li>
 <li>通过发送PING命令可以检查主服务器能否正常处理命令请求。</li>
@@ -476,16 +509,24 @@
 <li>如果主服务器向从服务器返回一个错误，那么表示主服务器暂时没办法处理从服务器的命令请求，不能继续执行复制工作的后续步骤。这时，从服务器断开并重新创建连向主服务器的套接字</li>
 <li>如果从服务器读取到<code>PONG</code>回复，那么表示连接正常，在这种情况下从服务器可以继续执行复制工作的下个步骤。</li>
 </ul>
-<h4 id="15-6-4-身份验证"><a href="#15-6-4-身份验证" class="headerlink" title="15.6.4 身份验证"></a>15.6.4 身份验证</h4><p>下一步，从服务器决定是否向主服务器发送身份验证，流程如下<br><img src="/2020/03/05/Redis-15-复制/200305_22.png" alt=""></p>
-<h4 id="15-6-5-发送端口信息"><a href="#15-6-5-发送端口信息" class="headerlink" title="15.6.5 发送端口信息"></a>15.6.5 发送端口信息</h4><p>在身份验证步骤之后，从服务器将执行命令<code>REPLCONF listening-port &lt;port-number&gt;</code>向主服务器发送从服务器的监听端口号</p>
+<h4 id="1564-身份验证"><a class="markdownIt-Anchor" href="#1564-身份验证"></a> 15.6.4 身份验证</h4>
+<p>下一步，从服务器决定是否向主服务器发送身份验证，流程如下<br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_22.png" alt=""></p>
+<h4 id="1565-发送端口信息"><a class="markdownIt-Anchor" href="#1565-发送端口信息"></a> 15.6.5 发送端口信息</h4>
+<p>在身份验证步骤之后，从服务器将执行命令<code>REPLCONF listening-port &lt;port-number&gt;</code>向主服务器发送从服务器的监听端口号</p>
 <p>主服务器接收到这个命令后，会将端口号记录在从服务器所对应对的客户端状态的<code>slave_listening_port</code>属性中</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisClient</span>&#123;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//从服务器的监听端口号</span></span><br><span class="line">    <span class="keyword">int</span> slave_listening_port;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125; redisClient</span><br></pre></td></tr></table></figure>
-<h4 id="15-6-6-同步"><a href="#15-6-6-同步" class="headerlink" title="15.6.6 同步"></a>15.6.6 同步</h4><p>在这一步，从服务器将向主服务器发送<code>PSYC</code>命令，执行同步操作，并将自己的数据库更新至主服务器数据库当前所处的状态。</p>
+<h4 id="1566-同步"><a class="markdownIt-Anchor" href="#1566-同步"></a> 15.6.6 同步</h4>
+<p>在这一步，从服务器将向主服务器发送<code>PSYC</code>命令，执行同步操作，并将自己的数据库更新至主服务器数据库当前所处的状态。</p>
 <p><code>PSYC</code>的详细过程请参加上一节</p>
 <p>值得一提的是，在同步操作执行之后，主服务器也会成为从服务器的客户端。正因为主服务器成为了从服务器的客户端，所以主服务器才能通过发送写命令来改变从服务器的数据库状态</p>
-<p>如下图<br><img src="/2020/03/05/Redis-15-复制/200305_23.png" alt=""></p>
-<h4 id="15-6-7-命令传播"><a href="#15-6-7-命令传播" class="headerlink" title="15.6.7 命令传播"></a>15.6.7 命令传播</h4><p>当完成了同步之后，主从服务器就会进入命令传播阶段，这时主服务器只要一直将自己执行的写命令发送给从服务器，而从服务器只要一直接收并执行主服务器发来的写命令，就可以保证主从服务器一直保持一致了。</p>
-<h3 id="15-7-心跳检测"><a href="#15-7-心跳检测" class="headerlink" title="15.7 心跳检测"></a>15.7 心跳检测</h3><p>在命令传播阶段，从服务器默认会以每秒一次的频率，向主服务器发送命令<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REPLCONF ACK &lt;replication_offset&gt;</span><br></pre></td></tr></table></figure></p>
+<p>如下图<br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_23.png" alt=""></p>
+<h4 id="1567-命令传播"><a class="markdownIt-Anchor" href="#1567-命令传播"></a> 15.6.7 命令传播</h4>
+<p>当完成了同步之后，主从服务器就会进入命令传播阶段，这时主服务器只要一直将自己执行的写命令发送给从服务器，而从服务器只要一直接收并执行主服务器发来的写命令，就可以保证主从服务器一直保持一致了。</p>
+<h3 id="157-心跳检测"><a class="markdownIt-Anchor" href="#157-心跳检测"></a> 15.7 心跳检测</h3>
+<p>在命令传播阶段，从服务器默认会以每秒一次的频率，向主服务器发送命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REPLCONF ACK &lt;replication_offset&gt;</span><br></pre></td></tr></table></figure>
 <p>其中<code>replication_offset</code>命令是从服务器当前的复制偏移量</p>
 <p>发送<code>REPLCONF ACK</code>命令对于主服务器有三个作用</p>
 <ul>
@@ -493,12 +534,18 @@
 <li>辅助实现<code>min-slaves</code>选项</li>
 <li>检测命令丢失</li>
 </ul>
-<h4 id="15-7-1-检测主从服务器的网络连接状态"><a href="#15-7-1-检测主从服务器的网络连接状态" class="headerlink" title="15.7.1 检测主从服务器的网络连接状态"></a>15.7.1 检测主从服务器的网络连接状态</h4><p>主从服务器可以通过发送和接收<code>REPLCONF ACK</code>命令来检查两者之间的网络连接是否正常：如果主服务器超过一秒钟没有收到从服务器发来的 <code>REPLCONF ACK</code>命令，那么主服务器就知道主从服务器之间的连接出现问题了。</p>
-<h4 id="15-7-2-辅助事件min-slaves配置选项"><a href="#15-7-2-辅助事件min-slaves配置选项" class="headerlink" title="15.7.2 辅助事件min-slaves配置选项"></a>15.7.2 辅助事件min-slaves配置选项</h4><p>Redis的<code>min-s1aves-to-write</code>和<code>min-slaves-max-1ag</code>两个选项可以防止主服务器在不安全的情况下执行写命令。</p>
-<p>假设我们向主服务器提供如下设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">min-slaves-to-write 3</span><br><span class="line">min-slaves-max-lag 10</span><br></pre></td></tr></table></figure></p>
+<h4 id="1571-检测主从服务器的网络连接状态"><a class="markdownIt-Anchor" href="#1571-检测主从服务器的网络连接状态"></a> 15.7.1 检测主从服务器的网络连接状态</h4>
+<p>主从服务器可以通过发送和接收<code>REPLCONF ACK</code>命令来检查两者之间的网络连接是否正常：如果主服务器超过一秒钟没有收到从服务器发来的 <code>REPLCONF ACK</code>命令，那么主服务器就知道主从服务器之间的连接出现问题了。</p>
+<h4 id="1572-辅助事件min-slaves配置选项"><a class="markdownIt-Anchor" href="#1572-辅助事件min-slaves配置选项"></a> 15.7.2 辅助事件min-slaves配置选项</h4>
+<p>Redis的<code>min-s1aves-to-write</code>和<code>min-slaves-max-1ag</code>两个选项可以防止主服务器在不安全的情况下执行写命令。</p>
+<p>假设我们向主服务器提供如下设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">min-slaves-to-write 3</span><br><span class="line">min-slaves-max-lag 10</span><br></pre></td></tr></table></figure>
 <p>这个设置是指，如果从服务器的数量小于3，或者3个服务器的延迟值都大于或等于10秒时，主服务器将拒绝执行写命令</p>
-<h4 id="15-7-3-检测命令丢失"><a href="#15-7-3-检测命令丢失" class="headerlink" title="15.7.3 检测命令丢失"></a>15.7.3 检测命令丢失</h4><p>如果因为网络故障，主服务器传播给从服务器的写命令在半路丢失，那么当从服务器向主服务器发送<code>REPLCONF ACK</code>命令时，主服务器将发觉从服务器当前的复制偏移量少于自己的复制偏移量，然后主服务器就会根据从服务器提交的复制偏移量，在复制积压缓冲区里面找到从服务器缺少的数据，并将这些数据重新发送给从服务器。</p>
-<p>例如下图<br><img src="/2020/03/05/Redis-15-复制/200305_24.png" alt=""><br><img src="/2020/03/05/Redis-15-复制/200305_25.png" alt=""></p>
+<h4 id="1573-检测命令丢失"><a class="markdownIt-Anchor" href="#1573-检测命令丢失"></a> 15.7.3 检测命令丢失</h4>
+<p>如果因为网络故障，主服务器传播给从服务器的写命令在半路丢失，那么当从服务器向主服务器发送<code>REPLCONF ACK</code>命令时，主服务器将发觉从服务器当前的复制偏移量少于自己的复制偏移量，然后主服务器就会根据从服务器提交的复制偏移量，在复制积压缓冲区里面找到从服务器缺少的数据，并将这些数据重新发送给从服务器。</p>
+<p>例如下图<br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_24.png" alt=""><br>
+<img src="/2020/03/05/Redis-15-复制/Redis-15-%E5%A4%8D%E5%88%B6%5C200305_25.png" alt=""></p>
 
                                                 
             </div>

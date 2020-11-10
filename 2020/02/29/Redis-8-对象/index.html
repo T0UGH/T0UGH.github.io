@@ -18,40 +18,40 @@
   
   
   <title>[Redis][8][对象] | T0UGU BLOG</title>
-  <meta name="description" content="第 8 章 Redis对象Redis基于C语言实现了一整套底层数据结构，用于Redis上层构件使用  简单动态字符串（SDS） 双端链表 跳跃表 字典 整数集合 压缩列表  然后Redis并没有直接使用这些数据结构来实现键值对数据库，而是基于这些数据结构创建了一个对象系统，这个系统包含五种类型的对象，每种对象都用到了至少一种我们前面所介绍的数据结构。  字符串对象 列表对象 哈希对象 集合对象 有">
+  <meta name="description" content="第 8 章 Redis对象 Redis基于C语言实现了一整套底层数据结构，用于Redis上层构件使用  简单动态字符串（SDS） 双端链表 跳跃表 字典 整数集合 压缩列表  然后Redis并没有直接使用这些数据结构来实现键值对数据库，而是基于这些数据结构创建了一个对象系统，这个系统包含五种类型的对象，每种对象都用到了至少一种我们前面所介绍的数据结构。  字符串对象 列表对象 哈希对象 集合对象">
 <meta name="keywords" content="redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Redis][8][对象]">
 <meta property="og:url" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/index.html">
 <meta property="og:site_name" content="打怪升级日常">
-<meta property="og:description" content="第 8 章 Redis对象Redis基于C语言实现了一整套底层数据结构，用于Redis上层构件使用  简单动态字符串（SDS） 双端链表 跳跃表 字典 整数集合 压缩列表  然后Redis并没有直接使用这些数据结构来实现键值对数据库，而是基于这些数据结构创建了一个对象系统，这个系统包含五种类型的对象，每种对象都用到了至少一种我们前面所介绍的数据结构。  字符串对象 列表对象 哈希对象 集合对象 有">
+<meta property="og:description" content="第 8 章 Redis对象 Redis基于C语言实现了一整套底层数据结构，用于Redis上层构件使用  简单动态字符串（SDS） 双端链表 跳跃表 字典 整数集合 压缩列表  然后Redis并没有直接使用这些数据结构来实现键值对数据库，而是基于这些数据结构创建了一个对象系统，这个系统包含五种类型的对象，每种对象都用到了至少一种我们前面所介绍的数据结构。  字符串对象 列表对象 哈希对象 集合对象">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_0.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_1.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_3.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_2.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_4.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_5.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_6.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_7.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_8.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_9.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_10.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_11.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_12.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_13.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_14.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_15.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_16.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_17.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_18.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_19.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_20.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_0.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_1.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_3.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_2.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_4.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_5.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_6.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_7.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_8.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_9.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_10.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_11.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_12.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_13.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_14.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_15.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_16.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_17.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_18.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_19.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_20.png">
 <meta property="og:updated_time" content="2020-02-29T08:18:52.196Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Redis][8][对象]">
-<meta name="twitter:description" content="第 8 章 Redis对象Redis基于C语言实现了一整套底层数据结构，用于Redis上层构件使用  简单动态字符串（SDS） 双端链表 跳跃表 字典 整数集合 压缩列表  然后Redis并没有直接使用这些数据结构来实现键值对数据库，而是基于这些数据结构创建了一个对象系统，这个系统包含五种类型的对象，每种对象都用到了至少一种我们前面所介绍的数据结构。  字符串对象 列表对象 哈希对象 集合对象 有">
-<meta name="twitter:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/200229_0.png">
+<meta name="twitter:description" content="第 8 章 Redis对象 Redis基于C语言实现了一整套底层数据结构，用于Redis上层构件使用  简单动态字符串（SDS） 双端链表 跳跃表 字典 整数集合 压缩列表  然后Redis并没有直接使用这些数据结构来实现键值对数据库，而是基于这些数据结构创建了一个对象系统，这个系统包含五种类型的对象，每种对象都用到了至少一种我们前面所介绍的数据结构。  字符串对象 列表对象 哈希对象 集合对象">
+<meta name="twitter:image" content="https://t0ugh.biz/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_0.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://t0ugh.biz/2020/02/29/Redis-8-对象/index.html">
   
@@ -203,7 +203,7 @@
   <div class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flink/">Flink</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -213,7 +213,7 @@
   <div class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/">Flink</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流处理/">流处理</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -223,7 +223,7 @@
   <div class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.2px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.2px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.2px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.2px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.3px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.8px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.1px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.2px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.1px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.3px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.6px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.1px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.2px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.6px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.7px;">java</a> <a href="/tags/jvm/" style="font-size: 13.5px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.2px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.9px;">redis</a> <a href="/tags/vue/" style="font-size: 13.1px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.2px;">动态规划</a> <a href="/tags/微服务/" style="font-size: 13.4px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.4px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.2px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.3px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.1px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.4px;">数据结构</a> <a href="/tags/深度学习/" style="font-size: 13.7px;">深度学习</a> <a href="/tags/算法/" style="font-size: 13.1px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.7px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.1px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
+      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.18px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.18px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Flink/" style="font-size: 13.36px;">Flink</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.18px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.18px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.27px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.82px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.09px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.18px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.09px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.27px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.55px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.09px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.18px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.55px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.64px;">java</a> <a href="/tags/jvm/" style="font-size: 13.45px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.18px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.91px;">redis</a> <a href="/tags/vue/" style="font-size: 13.09px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.18px;">动态规划</a> <a href="/tags/大数据/" style="font-size: 13.36px;">大数据</a> <a href="/tags/微服务/" style="font-size: 13.36px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.36px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.18px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.27px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.09px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.36px;">数据结构</a> <a href="/tags/机器学习/" style="font-size: 13px;">机器学习</a> <a href="/tags/流处理/" style="font-size: 13.36px;">流处理</a> <a href="/tags/深度学习/" style="font-size: 13.73px;">深度学习</a> <a href="/tags/神经网络/" style="font-size: 13px;">神经网络</a> <a href="/tags/算法/" style="font-size: 13.09px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.64px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.09px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
     </div>
   </div>
 
@@ -232,7 +232,7 @@
   <div class="widget">
     <h3 class="widget-title">Archive</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -248,13 +248,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-0-MyBatis源码解析汇总篇/" class="title">[MyBatis源码][0][MyBatis源码解析汇总篇]</a>
+                <a href="/2020/11/08/Flink-5-DataStreamAPI/" class="title">[Flink][5][DataStreamAPI]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T13:20:28.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-08T11:09:54.000Z" itemprop="datePublished">2020-11-08</time>
               </p>
             </div>
           </li>
@@ -263,13 +263,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-7-插件机制/" class="title">[MyBatis源码][7][插件机制]</a>
+                <a href="/2020/11/02/Flink-4-设置Flink开发环境/" class="title">[Flink][4][设置Flink开发环境]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T13:16:34.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-02T11:08:53.000Z" itemprop="datePublished">2020-11-02</time>
               </p>
             </div>
           </li>
@@ -278,13 +278,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-6-缓存机制/" class="title">[MyBatis源码][6][缓存机制]</a>
+                <a href="/2020/11/01/Flink-3-ApacheFlink架构/" class="title">[Flink][3][ApacheFlink架构]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T11:55:22.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-01T11:08:14.000Z" itemprop="datePublished">2020-11-01</time>
               </p>
             </div>
           </li>
@@ -293,13 +293,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/28/MyBatis源码-5-连接池/" class="title">[MyBatis源码][5][连接池]</a>
+                <a href="/2020/10/30/Flink-2-流处理基础/" class="title">[Flink][2][流处理基础]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-28T09:10:54.000Z" itemprop="datePublished">2020-03-28</time>
+                <time datetime="2020-10-30T11:07:33.000Z" itemprop="datePublished">2020-10-30</time>
               </p>
             </div>
           </li>
@@ -308,13 +308,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/27/MyBatis源码-4-SQL执行流程/" class="title">[MyBatis源码][4][SQL执行流程]</a>
+                <a href="/2020/10/29/Flink-1-状态化流处理概述/" class="title">[Flink][1][状态化流处理概述]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-27T14:21:01.000Z" itemprop="datePublished">2020-03-27</time>
+                <time datetime="2020-10-29T03:18:58.000Z" itemprop="datePublished">2020-10-29</time>
               </p>
             </div>
           </li>
@@ -374,10 +374,11 @@
                 
                                     
                                         <div id="toc">
-                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-8-章-Redis对象"><span class="toc-text">第 8 章 Redis对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-对象的类型与编码"><span class="toc-text">8.1 对象的类型与编码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-1-1-类型"><span class="toc-text">8.1.1 类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-1-2-编码"><span class="toc-text">8.1.2 编码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-字符串对象"><span class="toc-text">8.2 字符串对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-1-字符串对象的编码"><span class="toc-text">8.2.1 字符串对象的编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-1-字符串对象编码转换"><span class="toc-text">8.2.1 字符串对象编码转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-2-字符串命令的实现"><span class="toc-text">8.2.2 字符串命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-列表对象"><span class="toc-text">8.3 列表对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-3-1-列表对象的编码"><span class="toc-text">8.3.1 列表对象的编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-3-2-列表对象编码转换"><span class="toc-text">8.3.2 列表对象编码转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-3-3-列表命令的实现"><span class="toc-text">8.3.3 列表命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-哈希对象"><span class="toc-text">8.4 哈希对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-1-哈希对象的编码"><span class="toc-text">8.4.1 哈希对象的编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-2-哈希对象编码转换"><span class="toc-text">8.4.2 哈希对象编码转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-2-哈希命令的实现"><span class="toc-text">8.4.2 哈希命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-5-集合对象"><span class="toc-text">8.5 集合对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-5-1-集合对象的编码"><span class="toc-text">8.5.1 集合对象的编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-5-2-集合对象编码转换"><span class="toc-text">8.5.2 集合对象编码转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-5-3-集合命令的实现"><span class="toc-text">8.5.3 集合命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-6-有序集合对象"><span class="toc-text">8.6 有序集合对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-6-1-有序集合对象的编码"><span class="toc-text">8.6.1 有序集合对象的编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-6-2-有序集合对象编码转换"><span class="toc-text">8.6.2 有序集合对象编码转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-6-2-有序集合命令的实现"><span class="toc-text">8.6.2 有序集合命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-7-类型检查与命令多态"><span class="toc-text">8.7 类型检查与命令多态</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-7-1-类型检查的实现"><span class="toc-text">8.7.1 类型检查的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-7-1-多态命令的实现"><span class="toc-text">8.7.1 多态命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-8-内存回收"><span class="toc-text">8.8 内存回收</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-9-对象共享"><span class="toc-text">8.9 对象共享</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-10-对象的空转时长"><span class="toc-text">8.10 对象的空转时长</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-11-本章重点"><span class="toc-text">8.11 本章重点</span></a></li></ol></li></ol>
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-8-章-redis对象"><span class="toc-text"> 第 8 章 Redis对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#81-对象的类型与编码"><span class="toc-text"> 8.1 对象的类型与编码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#811-类型"><span class="toc-text"> 8.1.1 类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#812-编码"><span class="toc-text"> 8.1.2 编码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#82-字符串对象"><span class="toc-text"> 8.2 字符串对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#821-字符串对象的编码"><span class="toc-text"> 8.2.1 字符串对象的编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#821-字符串对象编码转换"><span class="toc-text"> 8.2.1 字符串对象编码转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#822-字符串命令的实现"><span class="toc-text"> 8.2.2 字符串命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#83-列表对象"><span class="toc-text"> 8.3 列表对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#831-列表对象的编码"><span class="toc-text"> 8.3.1 列表对象的编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#832-列表对象编码转换"><span class="toc-text"> 8.3.2 列表对象编码转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#833-列表命令的实现"><span class="toc-text"> 8.3.3 列表命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#84-哈希对象"><span class="toc-text"> 8.4 哈希对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#841-哈希对象的编码"><span class="toc-text"> 8.4.1 哈希对象的编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#842-哈希对象编码转换"><span class="toc-text"> 8.4.2 哈希对象编码转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#842-哈希命令的实现"><span class="toc-text"> 8.4.2 哈希命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#85-集合对象"><span class="toc-text"> 8.5 集合对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#851-集合对象的编码"><span class="toc-text"> 8.5.1 集合对象的编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#852-集合对象编码转换"><span class="toc-text"> 8.5.2 集合对象编码转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#853-集合命令的实现"><span class="toc-text"> 8.5.3 集合命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#86-有序集合对象"><span class="toc-text"> 8.6 有序集合对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#861-有序集合对象的编码"><span class="toc-text"> 8.6.1 有序集合对象的编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#862-有序集合对象编码转换"><span class="toc-text"> 8.6.2 有序集合对象编码转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#862-有序集合命令的实现"><span class="toc-text"> 8.6.2 有序集合命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#87-类型检查与命令多态"><span class="toc-text"> 8.7 类型检查与命令多态</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#871-类型检查的实现"><span class="toc-text"> 8.7.1 类型检查的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#871-多态命令的实现"><span class="toc-text"> 8.7.1 多态命令的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#88-内存回收"><span class="toc-text"> 8.8 内存回收</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#89-对象共享"><span class="toc-text"> 8.9 对象共享</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#810-对象的空转时长"><span class="toc-text"> 8.10 对象的空转时长</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#811-本章重点"><span class="toc-text"> 8.11 本章重点</span></a></li></ol></li></ol>
                                         </div>
                                         
-                                            <h2 id="第-8-章-Redis对象"><a href="#第-8-章-Redis对象" class="headerlink" title="第 8 章 Redis对象"></a>第 8 章 Redis对象</h2><p>Redis基于C语言实现了一整套底层<strong>数据结构</strong>，用于Redis上层构件使用</p>
+                                            <h2 id="第-8-章-redis对象"><a class="markdownIt-Anchor" href="#第-8-章-redis对象"></a> 第 8 章 Redis对象</h2>
+<p>Redis基于C语言实现了一整套底层<strong>数据结构</strong>，用于Redis上层构件使用</p>
 <ul>
 <li>简单动态字符串（SDS）</li>
 <li>双端链表</li>
@@ -394,44 +395,58 @@
 <li>集合对象</li>
 <li>有序集合对象</li>
 </ul>
-<h3 id="8-1-对象的类型与编码"><a href="#8-1-对象的类型与编码" class="headerlink" title="8.1 对象的类型与编码"></a>8.1 对象的类型与编码</h3><p>Redis<strong>使用对象来表示数据库中的键和值</strong>，每次当我们在Redis的数据库中新创建一个键值对时，我们至少会创建两个对象，一个对象用作键值对的键，另一个对象用作键值对的值。</p>
-<p>Redis中的每个对象都由一个<code>redisObject</code>结构表示，该结构中和保存数据有关的三个属性分别是<code>type</code>属性、 <code>encoding</code>属性和<code>ptr</code>属性：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisObject</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 类型</span></span><br><span class="line">    <span class="keyword">unsigned</span> type:<span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 编码</span></span><br><span class="line">    <span class="keyword">unsigned</span> encoding:<span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对象最后一次被访问的时间</span></span><br><span class="line">    <span class="keyword">unsigned</span> lru:REDIS_LRU_BITS; <span class="comment">/* lru time (relative to server.lruclock) */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 引用计数</span></span><br><span class="line">    <span class="keyword">int</span> refcount;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 指向实际值的指针</span></span><br><span class="line">    <span class="keyword">void</span> *ptr;</span><br><span class="line"></span><br><span class="line">&#125; robj;</span><br></pre></td></tr></table></figure></p>
+<h3 id="81-对象的类型与编码"><a class="markdownIt-Anchor" href="#81-对象的类型与编码"></a> 8.1 对象的类型与编码</h3>
+<p>Redis<strong>使用对象来表示数据库中的键和值</strong>，每次当我们在Redis的数据库中新创建一个键值对时，我们至少会创建两个对象，一个对象用作键值对的键，另一个对象用作键值对的值。</p>
+<p>Redis中的每个对象都由一个<code>redisObject</code>结构表示，该结构中和保存数据有关的三个属性分别是<code>type</code>属性、 <code>encoding</code>属性和<code>ptr</code>属性：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisObject</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 类型</span></span><br><span class="line">    <span class="keyword">unsigned</span> type:<span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 编码</span></span><br><span class="line">    <span class="keyword">unsigned</span> encoding:<span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对象最后一次被访问的时间</span></span><br><span class="line">    <span class="keyword">unsigned</span> lru:REDIS_LRU_BITS; <span class="comment">/* lru time (relative to server.lruclock) */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 引用计数</span></span><br><span class="line">    <span class="keyword">int</span> refcount;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 指向实际值的指针</span></span><br><span class="line">    <span class="keyword">void</span> *ptr;</span><br><span class="line"></span><br><span class="line">&#125; robj;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>其中，为了节省内存，前三个属性采用了位域，如<code>unsign type:4</code>，指定了<code>type</code>属性使用前四个<code>bit</code></li>
 </ul>
 <p>下面将对上面代码的属性进行解读</p>
-<h4 id="8-1-1-类型"><a href="#8-1-1-类型" class="headerlink" title="8.1.1 类型"></a>8.1.1 类型</h4><p>对象的<code>type</code>属性记录了对象的类型，这个属性的值可以是下表列出的常量的其中一个。<br><img src="/2020/02/29/Redis-8-对象/200229_0.png" alt=""></p>
+<h4 id="811-类型"><a class="markdownIt-Anchor" href="#811-类型"></a> 8.1.1 类型</h4>
+<p>对象的<code>type</code>属性记录了对象的类型，这个属性的值可以是下表列出的常量的其中一个。<br>
+<img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_0.png" alt=""></p>
 <p>对于Redis数据库保存的键值对来说，键总是一个字符串对象，而值则可以是这五种对象的任意一种。并且，当我们称呼一个键为“列表键”时，我们指的是“这个数据库键所对应的值为列表对象”。</p>
 <p><code>TYPE</code>命令：当我们对一个数据库键执行<code>TYPE</code>命令时，命令返回的结果为数据库键对应的值对象的类型。例如，列表键将返回列表类型。</p>
-<h4 id="8-1-2-编码"><a href="#8-1-2-编码" class="headerlink" title="8.1.2 编码"></a>8.1.2 编码</h4><p><code>encoding</code>属性记录了对象所使用的编码，也即是说这个对象使用了什么数据结构作为对象的底层实现。每种类型的对象都至少使用了两种不同的编码，下表列出了每种类型的对象可以使用的编码。</p>
-<p><img src="/2020/02/29/Redis-8-对象/200229_1.png" alt=""></p>
-<p>使用<code>OBJECT ENCODING</code>命令可以查看一个数据库键的值对象的编码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SET msg &quot;hello, world&quot;</span><br><span class="line">OK</span><br><span class="line">redis&gt; OBJECT ENCODING msg</span><br><span class="line">&quot;embstr&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="812-编码"><a class="markdownIt-Anchor" href="#812-编码"></a> 8.1.2 编码</h4>
+<p><code>encoding</code>属性记录了对象所使用的编码，也即是说这个对象使用了什么数据结构作为对象的底层实现。每种类型的对象都至少使用了两种不同的编码，下表列出了每种类型的对象可以使用的编码。</p>
+<p><img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_1.png" alt=""></p>
+<p>使用<code>OBJECT ENCODING</code>命令可以查看一个数据库键的值对象的编码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SET msg &quot;hello, world&quot;</span><br><span class="line">OK</span><br><span class="line">redis&gt; OBJECT ENCODING msg</span><br><span class="line">&quot;embstr&quot;</span><br></pre></td></tr></table></figure>
 <p>通过<code>encoding</code>属性来设定对象所使用的编码，而不是为特定类型的对象关联一种固定的编码，极大地提升了Redis的灵活性和效率，因为Redis可以根据不同的使用场景来为一个对象设置不同的编码，从而优化对象在某一场景下的效率。</p>
-<h3 id="8-2-字符串对象"><a href="#8-2-字符串对象" class="headerlink" title="8.2 字符串对象"></a>8.2 字符串对象</h3><h4 id="8-2-1-字符串对象的编码"><a href="#8-2-1-字符串对象的编码" class="headerlink" title="8.2.1 字符串对象的编码"></a>8.2.1 字符串对象的编码</h4><p>字符串对象的编码可以是<code>int</code>、<code>raw</code>或者 <code>embstr</code></p>
+<h3 id="82-字符串对象"><a class="markdownIt-Anchor" href="#82-字符串对象"></a> 8.2 字符串对象</h3>
+<h4 id="821-字符串对象的编码"><a class="markdownIt-Anchor" href="#821-字符串对象的编码"></a> 8.2.1 字符串对象的编码</h4>
+<p>字符串对象的编码可以是<code>int</code>、<code>raw</code>或者 <code>embstr</code></p>
 <ul>
-<li><p><code>int</code></p>
+<li>
+<p><code>int</code></p>
 <ul>
 <li>如果一个字符串对象保存的是整数值，并且这个整数值可以<code>long</code>类型来表示</li>
 <li>那么字符串对象会直接将整数值保存在字符串对象结构的<code>ptr</code>属性里面（将<code>void*</code>转换成<code>1ong</code>）</li>
 <li>并将字符串对象的编码设置为<code>int</code>。</li>
-<li>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_3.png" alt=""></li>
+<li>例如下图<br>
+<img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_3.png" alt=""></li>
 </ul>
 </li>
-<li><p><code>raw</code></p>
+<li>
+<p><code>raw</code></p>
 <ul>
 <li>如果字符串对象保存的是一个字符串值，并且这个字符串值的长度大于32字节</li>
 <li>那么字符串对象将使用一个简单动态字符串（<code>SDS</code>）来保存这个字符串值</li>
 <li>并将对象的编码设置为<code>raw</code></li>
-<li>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_2.png" alt=""></li>
+<li>例如下图<br>
+<img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_2.png" alt=""></li>
 </ul>
 </li>
-<li><p><code>embstr</code></p>
+<li>
+<p><code>embstr</code></p>
 <ul>
 <li>如果字符串对象保存的是一个字符串值，并且这个字符串值的长度小于等于32字节</li>
 <li>那么字符串对象将使用<code>embstr</code>编码的方式来保存这个字符串值</li>
 <li>这种编码和<code>raw</code>编码一样，都使用<code>redisObject</code>结构和<code>sdshdr</code>结构来表示字符串对象</li>
 <li><code>embstr</code>编码只调用一次内存分配函数分配一块连续的空间，空间中依次包含 <code>redisObject</code>和<code>sdshdr</code>两个结构，</li>
-<li>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_4.png" alt=""></li>
+<li>例如下图<br>
+<img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_4.png" alt=""></li>
 </ul>
 </li>
 </ul>
@@ -442,7 +457,8 @@
 <li>所有数据都保存在一块连续的内存里面</li>
 </ul>
 <p>此外，<strong>浮点数</strong>在Redis中也是作为字符串值来存储的</p>
-<h4 id="8-2-1-字符串对象编码转换"><a href="#8-2-1-字符串对象编码转换" class="headerlink" title="8.2.1 字符串对象编码转换"></a>8.2.1 字符串对象编码转换</h4><p><code>int</code>到<code>raw</code>的转换</p>
+<h4 id="821-字符串对象编码转换"><a class="markdownIt-Anchor" href="#821-字符串对象编码转换"></a> 8.2.1 字符串对象编码转换</h4>
+<p><code>int</code>到<code>raw</code>的转换</p>
 <ul>
 <li>对于<code>int</code>编码的字符串对象来说，如果我们向对象执行了一些命令，使得这个对象保存的不再是整数值，而是一个字符串值</li>
 <li>那么字符串对象的编码将从<code>int</code>变为<code>raw</code>。</li>
@@ -452,123 +468,161 @@
 <li>Redis没有为<code>embstr</code>编码的字符串对象编写任何相应的修改程序，所以<code>embstr</code>编码的字符串对象实际上是<strong>只读的</strong></li>
 <li><code>embstr</code>编码的字符串对象在<strong>执行修改命令</strong>之后，总会变成一个<code>raw</code>编码的字符串对象。</li>
 </ul>
-<h4 id="8-2-2-字符串命令的实现"><a href="#8-2-2-字符串命令的实现" class="headerlink" title="8.2.2 字符串命令的实现"></a>8.2.2 字符串命令的实现</h4><p><img src="/2020/02/29/Redis-8-对象/200229_5.png" alt=""></p>
-<h3 id="8-3-列表对象"><a href="#8-3-列表对象" class="headerlink" title="8.3 列表对象"></a>8.3 列表对象</h3><h4 id="8-3-1-列表对象的编码"><a href="#8-3-1-列表对象的编码" class="headerlink" title="8.3.1 列表对象的编码"></a>8.3.1 列表对象的编码</h4><p>列表对象的编码可以是<code>ziplist</code>或者<code>linkedlist</code></p>
+<h4 id="822-字符串命令的实现"><a class="markdownIt-Anchor" href="#822-字符串命令的实现"></a> 8.2.2 字符串命令的实现</h4>
+<p><img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_5.png" alt=""></p>
+<h3 id="83-列表对象"><a class="markdownIt-Anchor" href="#83-列表对象"></a> 8.3 列表对象</h3>
+<h4 id="831-列表对象的编码"><a class="markdownIt-Anchor" href="#831-列表对象的编码"></a> 8.3.1 列表对象的编码</h4>
+<p>列表对象的编码可以是<code>ziplist</code>或者<code>linkedlist</code></p>
 <p><code>ziplist</code></p>
 <ul>
-<li><code>ziplist</code>编码的列表对象使用压缩列表作为底层实现，每个压缩列表节点保存了一个列表元素</li>
-<li><p>例如我们执行如下命令，创建一个包括三个元素的<code>numbers</code>列表键</p>
+<li>
+<p><code>ziplist</code>编码的列表对象使用压缩列表作为底层实现，每个压缩列表节点保存了一个列表元素</p>
+</li>
+<li>
+<p>例如我们执行如下命令，创建一个包括三个元素的<code>numbers</code>列表键</p>
   <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; RPUSH numbers 1 <span class="string">"three"</span> 5</span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>结果如下图<br><img src="/2020/02/29/Redis-8-对象/200229_6.png" alt=""></p>
+<li>
+<p>结果如下图<br>
+<img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_6.png" alt=""></p>
 </li>
 </ul>
 <p><code>linkedlist</code></p>
 <ul>
 <li><code>linkedlist</code>编码的列表对象使用双端链表作为底层实现，每个链表节点都保存了一个<strong>字符串对象</strong>，而每个<strong>字符串对象</strong>都保存了一个<strong>列表元素</strong></li>
-<li>还是上面的<code>numbers</code>列表，在<code>linkedlist</code>以下图结构存储<br><img src="/2020/02/29/Redis-8-对象/200229_7.png" alt=""></li>
+<li>还是上面的<code>numbers</code>列表，在<code>linkedlist</code>以下图结构存储<br>
+<img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_7.png" alt=""></li>
 </ul>
-<h4 id="8-3-2-列表对象编码转换"><a href="#8-3-2-列表对象编码转换" class="headerlink" title="8.3.2 列表对象编码转换"></a>8.3.2 列表对象编码转换</h4><p>当列表对象可以<strong>同时满足</strong>以下两个条件时，列表对象使用<code>zip1ist</code>编码：</p>
+<h4 id="832-列表对象编码转换"><a class="markdownIt-Anchor" href="#832-列表对象编码转换"></a> 8.3.2 列表对象编码转换</h4>
+<p>当列表对象可以<strong>同时满足</strong>以下两个条件时，列表对象使用<code>zip1ist</code>编码：</p>
 <ul>
 <li>列表对象保存的所有<strong>字符串元素的长度</strong>都小于64字节</li>
 <li>列表对象保存的<strong>元素数量</strong>小于512个</li>
 </ul>
 <p><strong>不能</strong>满足上述两个条件的列表对象需要使用<code>linkedlist</code>编码。</p>
 <p>当使用<code>ziplist</code>编码所需的两个条件的任意一个<strong>不能</strong>被满足时，对象的<strong>编码转换</strong>操作就会被执行，原本保存在<strong>压缩列表</strong>里的所有列表元素都会被<strong>转移</strong>并保存到<strong>双端链表</strong>里面，对象的<strong>编码</strong>也会从<code>zip1ist</code>变为<code>linkedlist</code></p>
-<h4 id="8-3-3-列表命令的实现"><a href="#8-3-3-列表命令的实现" class="headerlink" title="8.3.3 列表命令的实现"></a>8.3.3 列表命令的实现</h4><p><img src="/2020/02/29/Redis-8-对象/200229_8.png" alt=""></p>
-<h3 id="8-4-哈希对象"><a href="#8-4-哈希对象" class="headerlink" title="8.4 哈希对象"></a>8.4 哈希对象</h3><h4 id="8-4-1-哈希对象的编码"><a href="#8-4-1-哈希对象的编码" class="headerlink" title="8.4.1 哈希对象的编码"></a>8.4.1 哈希对象的编码</h4><p>哈希对象的<strong>编码</strong>可以是<code>ziplist</code>或者<code>hashtable</code></p>
+<h4 id="833-列表命令的实现"><a class="markdownIt-Anchor" href="#833-列表命令的实现"></a> 8.3.3 列表命令的实现</h4>
+<p><img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_8.png" alt=""></p>
+<h3 id="84-哈希对象"><a class="markdownIt-Anchor" href="#84-哈希对象"></a> 8.4 哈希对象</h3>
+<h4 id="841-哈希对象的编码"><a class="markdownIt-Anchor" href="#841-哈希对象的编码"></a> 8.4.1 哈希对象的编码</h4>
+<p>哈希对象的<strong>编码</strong>可以是<code>ziplist</code>或者<code>hashtable</code></p>
 <p><code>ziplist</code></p>
 <ul>
 <li><code>ziplist</code>编码的哈希对象使用<strong>压缩列表</strong>作为<strong>底层实现</strong></li>
-<li>每当有键值对要<strong>新加入</strong>到哈希对象时<ul>
+<li>每当有键值对要<strong>新加入</strong>到哈希对象时
+<ul>
 <li>程序会先将保存了<strong>键</strong>的压缩列表节点推入到压缩列表<strong>表尾</strong></li>
 <li>然后再将保存了<strong>值</strong>的压缩列表节点推入到压缩列表<strong>表尾</strong></li>
 </ul>
 </li>
 <li>保存了<strong>同一键值对</strong>的两个节点总是<strong>紧挨</strong>在一起</li>
 <li><strong>先添加</strong>到哈希对象中的键值对会被放在压缩列表的<strong>表头</strong>方向，而<strong>后添加</strong>到哈希对象中的键值对会被放在压缩列表的<strong>表尾</strong>方向。</li>
-<li>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_9.png" alt=""></li>
+<li>例如下图<br>
+<img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_9.png" alt=""></li>
 </ul>
 <p><code>hashtable</code></p>
 <ul>
 <li><code>hashtable</code>编码的哈希对象使用<strong>字典</strong>作为底层实现</li>
-<li>哈希对象中的每个键值对都使用一个<strong>字典键值对</strong>来保存<ul>
+<li>哈希对象中的每个键值对都使用一个<strong>字典键值对</strong>来保存
+<ul>
 <li>字典的每个<strong>键</strong>都是一个<strong>字符串对象</strong>，对象中保存了键值对的键</li>
 <li>字典的每个<strong>值</strong>都是一个<strong>字符串对象</strong>，对象中保存了键值对的值。</li>
 </ul>
 </li>
-<li>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_10.png" alt=""></li>
+<li>例如下图<br>
+<img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_10.png" alt=""></li>
 </ul>
-<h4 id="8-4-2-哈希对象编码转换"><a href="#8-4-2-哈希对象编码转换" class="headerlink" title="8.4.2 哈希对象编码转换"></a>8.4.2 哈希对象编码转换</h4><p>当哈希对象可以<strong>同时</strong>满足以下两个条件时，哈希对象使用<code>ziplist</code>编码：</p>
+<h4 id="842-哈希对象编码转换"><a class="markdownIt-Anchor" href="#842-哈希对象编码转换"></a> 8.4.2 哈希对象编码转换</h4>
+<p>当哈希对象可以<strong>同时</strong>满足以下两个条件时，哈希对象使用<code>ziplist</code>编码：</p>
 <ul>
 <li>哈希对象保存的所有键值对的<strong>键和值</strong>的<strong>字符串长度</strong>都小于64字节</li>
 <li>哈希对象保存的<strong>键值对数量</strong>小于512个</li>
 </ul>
 <p><strong>不能</strong>满足这两个条件的哈希对象需要使用<code>hashtable</code>编码。</p>
 <p>当使用<code>ziplist</code>编码所需的两个条件的<strong>任意</strong>一个<strong>不能</strong>被满足时，对象的<strong>编码转换</strong>操作就会被执行，原本保存在<strong>压缩列表</strong>里的所有键值对都会被<strong>转移</strong>并保存到<strong>字典</strong>里面，对象的<strong>编码</strong>也会从<code>zip1ist</code>变为<code>hashtable</code></p>
-<h4 id="8-4-2-哈希命令的实现"><a href="#8-4-2-哈希命令的实现" class="headerlink" title="8.4.2 哈希命令的实现"></a>8.4.2 哈希命令的实现</h4><p><img src="/2020/02/29/Redis-8-对象/200229_11.png" alt=""></p>
-<h3 id="8-5-集合对象"><a href="#8-5-集合对象" class="headerlink" title="8.5 集合对象"></a>8.5 集合对象</h3><h4 id="8-5-1-集合对象的编码"><a href="#8-5-1-集合对象的编码" class="headerlink" title="8.5.1 集合对象的编码"></a>8.5.1 集合对象的编码</h4><p>集合对象的<strong>编码</strong>可以是<code>intset</code>或者<code>hashtable</code>。</p>
+<h4 id="842-哈希命令的实现"><a class="markdownIt-Anchor" href="#842-哈希命令的实现"></a> 8.4.2 哈希命令的实现</h4>
+<p><img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_11.png" alt=""></p>
+<h3 id="85-集合对象"><a class="markdownIt-Anchor" href="#85-集合对象"></a> 8.5 集合对象</h3>
+<h4 id="851-集合对象的编码"><a class="markdownIt-Anchor" href="#851-集合对象的编码"></a> 8.5.1 集合对象的编码</h4>
+<p>集合对象的<strong>编码</strong>可以是<code>intset</code>或者<code>hashtable</code>。</p>
 <p><code>intset</code></p>
 <ul>
 <li><code>intset</code>编码的集合对象使用<strong>整数集合</strong>作为底层实现，集合对象包含的所有元素都被保存在整数集合里面</li>
-<li>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_12.png" alt=""></li>
+<li>例如下图<br>
+<img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_12.png" alt=""></li>
 </ul>
 <p><code>hashtable</code></p>
 <ul>
 <li><code>hashtable</code>编码的集合对象使用<strong>字典</strong>作为底层实现</li>
 <li>字典的每个<strong>键</strong>都是一个<strong>字符串对象</strong>，每个字符串对象包含了一个集合元素，而字典的<strong>值</strong>则全部被设置为<strong>NULL</strong>。</li>
 </ul>
-<h4 id="8-5-2-集合对象编码转换"><a href="#8-5-2-集合对象编码转换" class="headerlink" title="8.5.2 集合对象编码转换"></a>8.5.2 集合对象编码转换</h4><p>当集合对象可以<strong>同时满足</strong>以下两个条件时，对象使用<code>intset</code>编码</p>
+<h4 id="852-集合对象编码转换"><a class="markdownIt-Anchor" href="#852-集合对象编码转换"></a> 8.5.2 集合对象编码转换</h4>
+<p>当集合对象可以<strong>同时满足</strong>以下两个条件时，对象使用<code>intset</code>编码</p>
 <ul>
 <li>集合对象保存的所有元素都是<strong>整数值</strong></li>
 <li>集合对象保存的<strong>元素数量</strong>不超过512个</li>
 </ul>
 <p><strong>不能</strong>满足这两个条件的集合对象需要使用 <code>hashtable</code>编码。</p>
-<h4 id="8-5-3-集合命令的实现"><a href="#8-5-3-集合命令的实现" class="headerlink" title="8.5.3 集合命令的实现"></a>8.5.3 集合命令的实现</h4><p><img src="/2020/02/29/Redis-8-对象/200229_13.png" alt=""><br><img src="/2020/02/29/Redis-8-对象/200229_14.png" alt=""></p>
-<h3 id="8-6-有序集合对象"><a href="#8-6-有序集合对象" class="headerlink" title="8.6 有序集合对象"></a>8.6 有序集合对象</h3><h4 id="8-6-1-有序集合对象的编码"><a href="#8-6-1-有序集合对象的编码" class="headerlink" title="8.6.1 有序集合对象的编码"></a>8.6.1 有序集合对象的编码</h4><p>有序集合的<strong>编码</strong>可以是<code>ziplist</code>或者<code>skiplist</code></p>
+<h4 id="853-集合命令的实现"><a class="markdownIt-Anchor" href="#853-集合命令的实现"></a> 8.5.3 集合命令的实现</h4>
+<p><img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_13.png" alt=""><br>
+<img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_14.png" alt=""></p>
+<h3 id="86-有序集合对象"><a class="markdownIt-Anchor" href="#86-有序集合对象"></a> 8.6 有序集合对象</h3>
+<h4 id="861-有序集合对象的编码"><a class="markdownIt-Anchor" href="#861-有序集合对象的编码"></a> 8.6.1 有序集合对象的编码</h4>
+<p>有序集合的<strong>编码</strong>可以是<code>ziplist</code>或者<code>skiplist</code></p>
 <p><code>ziplist</code></p>
 <ul>
 <li><code>zip1ist</code>编码的压缩列表对象使用<strong>压缩列表</strong>作为底层实现</li>
 <li>每个集合元素使用<strong>两个紧挨</strong>在一起的压缩列表节点来<strong>保存</strong>，第一个节点保存元素的<strong>成员</strong>（member），而第二个元素则保存元素的<strong>分值</strong>（score，作为排序的依据）</li>
 <li>压缩列表内的集合元素按分值<strong>从小到大</strong>进行<strong>排序</strong></li>
-<li>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_15.png" alt=""></li>
+<li>例如下图<br>
+<img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_15.png" alt=""></li>
 </ul>
 <p><code>skiplist</code></p>
 <ul>
 <li><code>skiplist</code>编码的有序集合对象使用<code>zset</code>结构作为底层实现，一个<code>zset</code>结构<strong>同时</strong>包含一个<strong>字典</strong>和一个<strong>跳跃表</strong></li>
 <li><strong>跳跃表</strong>按分值<strong>从小到大</strong>保存了所有集合元素，每个跳跃表节点都保存了一个集合元素：跳跃表节点的<code>object</code>属性保存了元素的<strong>成员</strong>，而跳跃表节点的<code>score</code>属性则保存了元素的<strong>分值</strong>。</li>
-<li>字典为有序集合创建了一个<strong>从成员到分值的映射</strong>，字典中的每个键值对都保存了一个集合元素：<ul>
+<li>字典为有序集合创建了一个<strong>从成员到分值的映射</strong>，字典中的每个键值对都保存了一个集合元素：
+<ul>
 <li>字典的<strong>键</strong>保存了元素的<strong>成员</strong></li>
 <li>而字典的<strong>值</strong>则保存了元素的<strong>分值</strong></li>
-<li>通过这个字典，程序可以用 $O(1)$ 复杂度<strong>查找给定成员的分值</strong></li>
+<li>通过这个字典，程序可以用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span> 复杂度<strong>查找给定成员的分值</strong></li>
 </ul>
 </li>
 <li>有序集合每个元素的<strong>成员</strong>都是一个<strong>字符串对象</strong>，而每个元素的<strong>分值</strong>都是一个<code>double</code>类型的<strong>浮点数</strong></li>
 <li>这两种数据结构都会通过<strong>指针共享相同元素</strong>的成员和分值，所以同时使用跳跃表和字典来保存集合元素<strong>不会产生重复</strong>成员或者分值</li>
-<li>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_16.png" alt=""></li>
+<li>例如下图<br>
+<img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_16.png" alt=""></li>
 </ul>
-<h4 id="8-6-2-有序集合对象编码转换"><a href="#8-6-2-有序集合对象编码转换" class="headerlink" title="8.6.2 有序集合对象编码转换"></a>8.6.2 有序集合对象编码转换</h4><p>当有序集合对象可以<strong>同时</strong>满足以下两个条件时，对象使用<code>ziplist</code>编码</p>
+<h4 id="862-有序集合对象编码转换"><a class="markdownIt-Anchor" href="#862-有序集合对象编码转换"></a> 8.6.2 有序集合对象编码转换</h4>
+<p>当有序集合对象可以<strong>同时</strong>满足以下两个条件时，对象使用<code>ziplist</code>编码</p>
 <ul>
 <li>有序集合保存的<strong>元素数量</strong>小于128个</li>
 <li>有序集合保存的所有<strong>元素成员的长度</strong>都小于64字节</li>
 </ul>
 <p><strong>不能</strong>满足以上两个条件的有序集合对象将使用<code>skiplist</code>编码</p>
-<h4 id="8-6-2-有序集合命令的实现"><a href="#8-6-2-有序集合命令的实现" class="headerlink" title="8.6.2 有序集合命令的实现"></a>8.6.2 有序集合命令的实现</h4><p><img src="/2020/02/29/Redis-8-对象/200229_17.png" alt=""></p>
-<h3 id="8-7-类型检查与命令多态"><a href="#8-7-类型检查与命令多态" class="headerlink" title="8.7 类型检查与命令多态"></a>8.7 类型检查与命令多态</h3><p>Redis中用于操作键的命令可以分为两种</p>
+<h4 id="862-有序集合命令的实现"><a class="markdownIt-Anchor" href="#862-有序集合命令的实现"></a> 8.6.2 有序集合命令的实现</h4>
+<p><img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_17.png" alt=""></p>
+<h3 id="87-类型检查与命令多态"><a class="markdownIt-Anchor" href="#87-类型检查与命令多态"></a> 8.7 类型检查与命令多态</h3>
+<p>Redis中用于操作键的命令可以分为两种</p>
 <ol>
 <li>其中一种命令可以对<strong>任何类型的键</strong>使用，例如<code>DEL</code>命令、<code>EXPIRE</code>命令、<code>RENAME</code>命令、<code>TYPE</code>命令等，这种命令背后的实现机制是<strong>命令多态</strong></li>
 <li>另一种命令只能应用于<strong>特定类型</strong>的键，例如<code>SET</code>、<code>GET</code>、<code>APPEND</code>、<code>STRLEN</code>等命令只能对字符串键执行，这种命令的实现需要经过<strong>类型检查</strong></li>
 </ol>
-<h4 id="8-7-1-类型检查的实现"><a href="#8-7-1-类型检查的实现" class="headerlink" title="8.7.1 类型检查的实现"></a>8.7.1 类型检查的实现</h4><p>在执行一个<strong>类型特定的命令</strong>之前，Redis会先检查<strong>输入键</strong>的<strong>类型</strong>是否正确，然后再决定是否执行给定的命令。</p>
+<h4 id="871-类型检查的实现"><a class="markdownIt-Anchor" href="#871-类型检查的实现"></a> 8.7.1 类型检查的实现</h4>
+<p>在执行一个<strong>类型特定的命令</strong>之前，Redis会先检查<strong>输入键</strong>的<strong>类型</strong>是否正确，然后再决定是否执行给定的命令。</p>
 <p>类型特定命令所进行的<strong>类型检查</strong>是通过<code>redisObject</code>结构的<code>type</code>属性来实现的</p>
 <ul>
 <li>在执行一个类型特定命令之前，服务器会先检查输入数据库键的<strong>值对象</strong>是否为执行命令所需的类型</li>
 <li>如果是的话，服务器就对键执行指定的命令；否则，服务器将<strong>拒绝</strong>执行命令，并向客户端返回一个<strong>类型错误</strong>。</li>
 </ul>
-<p>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_18.png" alt=""></p>
-<h4 id="8-7-1-多态命令的实现"><a href="#8-7-1-多态命令的实现" class="headerlink" title="8.7.1 多态命令的实现"></a>8.7.1 多态命令的实现</h4><p>Redis除了会根据值对象的类型来判断键是否能够执行指定命令之外，还会根据<strong>值对象</strong>的<strong>编码</strong>方式，选择正确的命令<strong>实现代码</strong>来执行命令。</p>
-<p>如下图<br><img src="/2020/02/29/Redis-8-对象/200229_19.png" alt=""></p>
-<h3 id="8-8-内存回收"><a href="#8-8-内存回收" class="headerlink" title="8.8 内存回收"></a>8.8 内存回收</h3><p>因为C语言并不具备自动内存回收功能，所以Redis在自己的对象系统中构建了一个<strong>引用计数技术</strong>实现的<strong>内存回收</strong>机制，通过这一机制，程序可以通过跟踪对象的引用计数信息，在适当的时候自动释放对象并进行内存回收。</p>
+<p>例如下图<br>
+<img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_18.png" alt=""></p>
+<h4 id="871-多态命令的实现"><a class="markdownIt-Anchor" href="#871-多态命令的实现"></a> 8.7.1 多态命令的实现</h4>
+<p>Redis除了会根据值对象的类型来判断键是否能够执行指定命令之外，还会根据<strong>值对象</strong>的<strong>编码</strong>方式，选择正确的命令<strong>实现代码</strong>来执行命令。</p>
+<p>如下图<br>
+<img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_19.png" alt=""></p>
+<h3 id="88-内存回收"><a class="markdownIt-Anchor" href="#88-内存回收"></a> 8.8 内存回收</h3>
+<p>因为C语言并不具备自动内存回收功能，所以Redis在自己的对象系统中构建了一个<strong>引用计数技术</strong>实现的<strong>内存回收</strong>机制，通过这一机制，程序可以通过跟踪对象的引用计数信息，在适当的时候自动释放对象并进行内存回收。</p>
 <p>每个对象的引用计数信息由<code>redisObject</code>结构的 <code>refCount</code>属性记录（可以查看本章第一节）</p>
 <p>对象的<strong>引用计数信息</strong>会随着对象的<strong>使用状态</strong>而不断变化：</p>
 <ul>
@@ -577,18 +631,23 @@
 <li>当对象<strong>不再</strong>被一个程序使用时，它的引用计数值会被<strong>减一</strong></li>
 <li>当对象的引用计数值<strong>变为0</strong>时，对象所占用的内存会被<strong>释放</strong></li>
 </ul>
-<h3 id="8-9-对象共享"><a href="#8-9-对象共享" class="headerlink" title="8.9 对象共享"></a>8.9 对象共享</h3><p>除了用于实现引用计数内存回收机制之外，对象的<strong>引用计数</strong>属性还带有<strong>对象共享</strong>的作用。</p>
+<h3 id="89-对象共享"><a class="markdownIt-Anchor" href="#89-对象共享"></a> 8.9 对象共享</h3>
+<p>除了用于实现引用计数内存回收机制之外，对象的<strong>引用计数</strong>属性还带有<strong>对象共享</strong>的作用。</p>
 <p>在Redis中，让多个键共享同一个值对象需要执行以下两个步骤：</p>
 <ol>
 <li>将数据库键的<strong>值指针</strong>指向一个现有的<strong>值对象</strong>；</li>
 <li>将被共享的<strong>值对象</strong>的<strong>引用计数增一</strong></li>
 </ol>
-<p>例如下图<br><img src="/2020/02/29/Redis-8-对象/200229_20.png" alt=""></p>
+<p>例如下图<br>
+<img src="/2020/02/29/Redis-8-对象/Redis-8-%E5%AF%B9%E8%B1%A1%5C200229_20.png" alt=""></p>
 <p>Redis只<strong>对包含整数值的字符串对象</strong>进行<strong>共享</strong>，也就是<code>type</code>为<code>StringObject</code>，<code>encoding</code>为<code>int</code>。</p>
 <p>目前来说， Redis会在<strong>初始化服务器</strong>时，<strong>创建</strong>一万个<strong>字符串对象</strong>，这些对象包含了从0到9999的所有整数值，当服务器需要用到值为0到9999的字符串对象时，服务器就会使用这些共享对象，而不是新创建对象。</p>
-<h3 id="8-10-对象的空转时长"><a href="#8-10-对象的空转时长" class="headerlink" title="8.10 对象的空转时长"></a>8.10 对象的空转时长</h3><p><code>redisObject</code>结构包含的最后一个属性为<code>lru</code>属性，该属性记录了对象<strong>最后一次被命令程序访问的时间</strong></p>
-<p><code>OBJECT IDLETIME</code>命令可以打印出给定键的<strong>空转时长</strong>，这一空转时长就是通过将当前时间减去键的值对象的lru时间计算得出的：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET msg <span class="string">"hello, world"</span></span><br><span class="line">OBJECT IDLETIME msg</span><br></pre></td></tr></table></figure></p>
-<h3 id="8-11-本章重点"><a href="#8-11-本章重点" class="headerlink" title="8.11 本章重点"></a>8.11 本章重点</h3><ul>
+<h3 id="810-对象的空转时长"><a class="markdownIt-Anchor" href="#810-对象的空转时长"></a> 8.10 对象的空转时长</h3>
+<p><code>redisObject</code>结构包含的最后一个属性为<code>lru</code>属性，该属性记录了对象<strong>最后一次被命令程序访问的时间</strong></p>
+<p><code>OBJECT IDLETIME</code>命令可以打印出给定键的<strong>空转时长</strong>，这一空转时长就是通过将当前时间减去键的值对象的lru时间计算得出的：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET msg <span class="string">"hello, world"</span></span><br><span class="line">OBJECT IDLETIME msg</span><br></pre></td></tr></table></figure>
+<h3 id="811-本章重点"><a class="markdownIt-Anchor" href="#811-本章重点"></a> 8.11 本章重点</h3>
+<ul>
 <li>Redis数据库中的每个<strong>键值对</strong>的键和值都是一个<strong>对象</strong>。</li>
 <li>Redis共有字符串、列表、哈希、集合、有序集合五种类型的<strong>对象</strong>，每种类型的对象至少都有两种或以上的<strong>编码方式</strong>，不同的编码可以在不同的使用场景上优化对象的使用效率。</li>
 <li>服务器在执行某些命令之前，会先<strong>检查</strong>给定键的<strong>类型</strong>能否执行指定的命令。</li>

@@ -18,33 +18,33 @@
   
   
   <title>[MySQL][5][创建高性能的索引] | T0UGU BLOG</title>
-  <meta name="description" content="第 5 章 创建高性能的索引索引是存储引擎用于快速找到记录的一种数据结构。 索引对于良好的性能非常关键。尤其是当表中的数据量越来越大时，索引对性能的影响愈发重要。在数据量较小且负载较低时，不恰当的索引对性能的影响可能还不明显，但当数据量逐渐增大时，性能则会急速下降。 5.1 索引基础要理解MySQL中索引是如何工作的，最简单的方法就是去看看一本书的“索引”部分如果想在一本书中找到某个特定主题，一般">
+  <meta name="description" content="第 5 章 创建高性能的索引 __索引__是存储引擎用于快速找到记录的一种数据结构。 索引对于良好的性能非常关键。尤其是当表中的数据量越来越大时，索引对性能的影响愈发重要。在数据量较小且负载较低时，不恰当的索引对性能的影响可能还不明显，但当数据量逐渐增大时，性能则会急速下降。  5.1 索引基础 要理解MySQL中索引是如何工作的，最简单的方法就是去看看一本书的“索引”部分如果想在一本书中找到某">
 <meta name="keywords" content="MySQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[MySQL][5][创建高性能的索引]">
 <meta property="og:url" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/index.html">
 <meta property="og:site_name" content="打怪升级日常">
-<meta property="og:description" content="第 5 章 创建高性能的索引索引是存储引擎用于快速找到记录的一种数据结构。 索引对于良好的性能非常关键。尤其是当表中的数据量越来越大时，索引对性能的影响愈发重要。在数据量较小且负载较低时，不恰当的索引对性能的影响可能还不明显，但当数据量逐渐增大时，性能则会急速下降。 5.1 索引基础要理解MySQL中索引是如何工作的，最简单的方法就是去看看一本书的“索引”部分如果想在一本书中找到某个特定主题，一般">
+<meta property="og:description" content="第 5 章 创建高性能的索引 __索引__是存储引擎用于快速找到记录的一种数据结构。 索引对于良好的性能非常关键。尤其是当表中的数据量越来越大时，索引对性能的影响愈发重要。在数据量较小且负载较低时，不恰当的索引对性能的影响可能还不明显，但当数据量逐渐增大时，性能则会急速下降。  5.1 索引基础 要理解MySQL中索引是如何工作的，最简单的方法就是去看看一本书的“索引”部分如果想在一本书中找到某">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/200227_1.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/200227_2.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/200227_3.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/200227_4.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/200227_5.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/200227_6.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/200227_7.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/200227_8.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/200227_9.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/200227_10.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/200227_11.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/200227_12.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/200227_13.png">
-<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/200227_14.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_1.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_2.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_3.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_4.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_5.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_6.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_7.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_8.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_9.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_10.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_11.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_12.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_13.png">
+<meta property="og:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_14.png">
 <meta property="og:updated_time" content="2020-02-27T09:31:55.310Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[MySQL][5][创建高性能的索引]">
-<meta name="twitter:description" content="第 5 章 创建高性能的索引索引是存储引擎用于快速找到记录的一种数据结构。 索引对于良好的性能非常关键。尤其是当表中的数据量越来越大时，索引对性能的影响愈发重要。在数据量较小且负载较低时，不恰当的索引对性能的影响可能还不明显，但当数据量逐渐增大时，性能则会急速下降。 5.1 索引基础要理解MySQL中索引是如何工作的，最简单的方法就是去看看一本书的“索引”部分如果想在一本书中找到某个特定主题，一般">
-<meta name="twitter:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/200227_1.png">
+<meta name="twitter:description" content="第 5 章 创建高性能的索引 __索引__是存储引擎用于快速找到记录的一种数据结构。 索引对于良好的性能非常关键。尤其是当表中的数据量越来越大时，索引对性能的影响愈发重要。在数据量较小且负载较低时，不恰当的索引对性能的影响可能还不明显，但当数据量逐渐增大时，性能则会急速下降。  5.1 索引基础 要理解MySQL中索引是如何工作的，最简单的方法就是去看看一本书的“索引”部分如果想在一本书中找到某">
+<meta name="twitter:image" content="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_1.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://t0ugh.biz/2020/02/27/MySQL-5-创建高性能的索引/index.html">
   
@@ -196,7 +196,7 @@
   <div class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flink/">Flink</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -206,7 +206,7 @@
   <div class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/">Flink</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流处理/">流处理</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -216,7 +216,7 @@
   <div class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.2px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.2px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.2px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.2px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.3px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.8px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.1px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.2px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.1px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.3px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.6px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.1px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.2px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.6px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.7px;">java</a> <a href="/tags/jvm/" style="font-size: 13.5px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.2px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.9px;">redis</a> <a href="/tags/vue/" style="font-size: 13.1px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.2px;">动态规划</a> <a href="/tags/微服务/" style="font-size: 13.4px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.4px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.2px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.3px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.1px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.4px;">数据结构</a> <a href="/tags/深度学习/" style="font-size: 13.7px;">深度学习</a> <a href="/tags/算法/" style="font-size: 13.1px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.7px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.1px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
+      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.18px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.18px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Flink/" style="font-size: 13.36px;">Flink</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.18px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/JavaScript/" style="font-size: 13.18px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.27px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.82px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.09px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.18px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.09px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.27px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.55px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.09px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.18px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.55px;">Tensorflow</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.64px;">java</a> <a href="/tags/jvm/" style="font-size: 13.45px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.18px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.91px;">redis</a> <a href="/tags/vue/" style="font-size: 13.09px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.18px;">动态规划</a> <a href="/tags/大数据/" style="font-size: 13.36px;">大数据</a> <a href="/tags/微服务/" style="font-size: 13.36px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.36px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.18px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.27px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.09px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.36px;">数据结构</a> <a href="/tags/机器学习/" style="font-size: 13px;">机器学习</a> <a href="/tags/流处理/" style="font-size: 13.36px;">流处理</a> <a href="/tags/深度学习/" style="font-size: 13.73px;">深度学习</a> <a href="/tags/神经网络/" style="font-size: 13px;">神经网络</a> <a href="/tags/算法/" style="font-size: 13.09px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.64px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.09px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
     </div>
   </div>
 
@@ -225,7 +225,7 @@
   <div class="widget">
     <h3 class="widget-title">Archive</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -241,13 +241,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-0-MyBatis源码解析汇总篇/" class="title">[MyBatis源码][0][MyBatis源码解析汇总篇]</a>
+                <a href="/2020/11/08/Flink-5-DataStreamAPI/" class="title">[Flink][5][DataStreamAPI]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T13:20:28.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-08T11:09:54.000Z" itemprop="datePublished">2020-11-08</time>
               </p>
             </div>
           </li>
@@ -256,13 +256,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-7-插件机制/" class="title">[MyBatis源码][7][插件机制]</a>
+                <a href="/2020/11/02/Flink-4-设置Flink开发环境/" class="title">[Flink][4][设置Flink开发环境]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T13:16:34.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-02T11:08:53.000Z" itemprop="datePublished">2020-11-02</time>
               </p>
             </div>
           </li>
@@ -271,13 +271,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/30/MyBatis源码-6-缓存机制/" class="title">[MyBatis源码][6][缓存机制]</a>
+                <a href="/2020/11/01/Flink-3-ApacheFlink架构/" class="title">[Flink][3][ApacheFlink架构]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-30T11:55:22.000Z" itemprop="datePublished">2020-03-30</time>
+                <time datetime="2020-11-01T11:08:14.000Z" itemprop="datePublished">2020-11-01</time>
               </p>
             </div>
           </li>
@@ -286,13 +286,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/28/MyBatis源码-5-连接池/" class="title">[MyBatis源码][5][连接池]</a>
+                <a href="/2020/10/30/Flink-2-流处理基础/" class="title">[Flink][2][流处理基础]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-28T09:10:54.000Z" itemprop="datePublished">2020-03-28</time>
+                <time datetime="2020-10-30T11:07:33.000Z" itemprop="datePublished">2020-10-30</time>
               </p>
             </div>
           </li>
@@ -301,13 +301,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/MyBatis/">MyBatis</a>
+                <a class="category-link" href="/categories/Flink/">Flink</a>
               </p>
               <p class="item-title">
-                <a href="/2020/03/27/MyBatis源码-4-SQL执行流程/" class="title">[MyBatis源码][4][SQL执行流程]</a>
+                <a href="/2020/10/29/Flink-1-状态化流处理概述/" class="title">[Flink][1][状态化流处理概述]</a>
               </p>
               <p class="item-date">
-                <time datetime="2020-03-27T14:21:01.000Z" itemprop="datePublished">2020-03-27</time>
+                <time datetime="2020-10-29T03:18:58.000Z" itemprop="datePublished">2020-10-29</time>
               </p>
             </div>
           </li>
@@ -367,89 +367,116 @@
                 
                                     
                                         <div id="toc">
-                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-5-章-创建高性能的索引"><span class="toc-text">第 5 章 创建高性能的索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-索引基础"><span class="toc-text">5.1 索引基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-1-索引的类型"><span class="toc-text">5.1.1 索引的类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-2-B-Tree索引"><span class="toc-text">5.1.2 B-Tree索引</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-2-1-B-Tree索引的一个例子"><span class="toc-text">5.1.2.1 B-Tree索引的一个例子</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-2-2-可以使用B-Tree索引的查询类型"><span class="toc-text">5.1.2.2 可以使用B-Tree索引的查询类型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-2-3-B-Tree索引的其他作用"><span class="toc-text">5.1.2.3 B-Tree索引的其他作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-2-4-使用B-Tree索引的限制"><span class="toc-text">5.1.2.4 使用B-Tree索引的限制</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-3-哈希索引"><span class="toc-text">5.1.3 哈希索引</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-3-4-哈希索引的限制"><span class="toc-text">5.1.3.4 哈希索引的限制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-3-4-哈希索引与InnoDB"><span class="toc-text">5.1.3.4 哈希索引与InnoDB</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-索引的优点"><span class="toc-text">5.2 索引的优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-高性能的索引策略"><span class="toc-text">5.3 高性能的索引策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-1-独立的列"><span class="toc-text">5.3.1 独立的列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-2-前缀索引和索引选择性"><span class="toc-text">5.3.2 前缀索引和索引选择性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-3-多列索引"><span class="toc-text">5.3.3 多列索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-4-选择合适的索引列顺序"><span class="toc-text">5.3.4 选择合适的索引列顺序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-5-聚簇索引"><span class="toc-text">5.3.5 聚簇索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-5-1-聚簇索引的优点和缺点"><span class="toc-text">5.3.5.1  聚簇索引的优点和缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-5-2-InnoDB与MyISAM数据分布对比"><span class="toc-text">5.3.5.2  InnoDB与MyISAM数据分布对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-5-3-InnoDB主键的选择"><span class="toc-text">5.3.5.3 InnoDB主键的选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-6-覆盖索引"><span class="toc-text">5.3.6 覆盖索引</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-3-6-1-覆盖索引的好处"><span class="toc-text">5.3.6.1 覆盖索引的好处</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-7-使用索引扫描来做排序"><span class="toc-text">5.3.7 使用索引扫描来做排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-8-压缩（前缀压缩）索引"><span class="toc-text">5.3.8 压缩（前缀压缩）索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-9-重复索引"><span class="toc-text">5.3.9 重复索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-10-冗余索引"><span class="toc-text">5.3.10 冗余索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-11-未使用的索引"><span class="toc-text">5.3.11 未使用的索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-12-索引和锁"><span class="toc-text">5.3.12 索引和锁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-索引案例学习"><span class="toc-text">5.4 索引案例学习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-1-支持多种过滤条件"><span class="toc-text">5.4.1 支持多种过滤条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-2-避免多个范围条件"><span class="toc-text">5.4.2 避免多个范围条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-3-优化排序"><span class="toc-text">5.4.3 优化排序</span></a></li></ol></li></ol></li></ol>
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-5-章-创建高性能的索引"><span class="toc-text"> 第 5 章 创建高性能的索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#51-索引基础"><span class="toc-text"> 5.1 索引基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#511-索引的类型"><span class="toc-text"> 5.1.1 索引的类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#512-b-tree索引"><span class="toc-text"> 5.1.2 B-Tree索引</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5121-b-tree索引的一个例子"><span class="toc-text"> 5.1.2.1 B-Tree索引的一个例子</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5122-可以使用b-tree索引的查询类型"><span class="toc-text"> 5.1.2.2 可以使用B-Tree索引的查询类型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5123-b-tree索引的其他作用"><span class="toc-text"> 5.1.2.3 B-Tree索引的其他作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5124-使用b-tree索引的限制"><span class="toc-text"> 5.1.2.4 使用B-Tree索引的限制</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#513-哈希索引"><span class="toc-text"> 5.1.3 哈希索引</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5134-哈希索引的限制"><span class="toc-text"> 5.1.3.4 哈希索引的限制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5134-哈希索引与innodb"><span class="toc-text"> 5.1.3.4 哈希索引与InnoDB</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#52-索引的优点"><span class="toc-text"> 5.2 索引的优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#53-高性能的索引策略"><span class="toc-text"> 5.3 高性能的索引策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#531-独立的列"><span class="toc-text"> 5.3.1 独立的列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#532-前缀索引和索引选择性"><span class="toc-text"> 5.3.2 前缀索引和索引选择性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#533-多列索引"><span class="toc-text"> 5.3.3 多列索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#534-选择合适的索引列顺序"><span class="toc-text"> 5.3.4 选择合适的索引列顺序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#535-聚簇索引"><span class="toc-text"> 5.3.5 聚簇索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5351-聚簇索引的优点和缺点"><span class="toc-text"> 5.3.5.1  聚簇索引的优点和缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5352-innodb与myisam数据分布对比"><span class="toc-text"> 5.3.5.2  InnoDB与MyISAM数据分布对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5353-innodb主键的选择"><span class="toc-text"> 5.3.5.3 InnoDB主键的选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#536-覆盖索引"><span class="toc-text"> 5.3.6 覆盖索引</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5361-覆盖索引的好处"><span class="toc-text"> 5.3.6.1 覆盖索引的好处</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#537-使用索引扫描来做排序"><span class="toc-text"> 5.3.7 使用索引扫描来做排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#538-压缩前缀压缩索引"><span class="toc-text"> 5.3.8 压缩（前缀压缩）索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#539-重复索引"><span class="toc-text"> 5.3.9 重复索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5310-冗余索引"><span class="toc-text"> 5.3.10 冗余索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5311-未使用的索引"><span class="toc-text"> 5.3.11 未使用的索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5312-索引和锁"><span class="toc-text"> 5.3.12 索引和锁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#54-索引案例学习"><span class="toc-text"> 5.4 索引案例学习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#541-支持多种过滤条件"><span class="toc-text"> 5.4.1 支持多种过滤条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#542-避免多个范围条件"><span class="toc-text"> 5.4.2 避免多个范围条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#543-优化排序"><span class="toc-text"> 5.4.3 优化排序</span></a></li></ol></li></ol></li></ol>
                                         </div>
                                         
-                                            <h2 id="第-5-章-创建高性能的索引"><a href="#第-5-章-创建高性能的索引" class="headerlink" title="第 5 章 创建高性能的索引"></a>第 5 章 创建高性能的索引</h2><p><strong>索引</strong>是存储引擎用于快速找到记录的一种数据结构。</p>
+                                            <h2 id="第-5-章-创建高性能的索引"><a class="markdownIt-Anchor" href="#第-5-章-创建高性能的索引"></a> 第 5 章 创建高性能的索引</h2>
+<p>__索引__是存储引擎用于快速找到记录的一种数据结构。</p>
 <p>索引对于良好的性能非常关键。尤其是当表中的数据量越来越大时，索引对性能的影响愈发重要。在数据量较小且负载较低时，不恰当的索引对性能的影响可能还不明显，但当数据量逐渐增大时，性能则会急速下降。</p>
-<h3 id="5-1-索引基础"><a href="#5-1-索引基础" class="headerlink" title="5.1 索引基础"></a>5.1 索引基础</h3><p>要理解MySQL中索引是如何工作的，最简单的方法就是去看看一本书的“索引”部分如果想在一本书中找到某个特定主题，一般会先看书的“索引”，找到对应的页码，然后直接翻到那一页即可。MySQL中的索引与一本书的目录作用差不多，都是用来快速定位想要找的内容。</p>
-<p>在MySQL中，存储引擎先在索引中找到对应值，然后根据匹配的索引记录找到对应的数据行。例如要运行下面的查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> first_name <span class="keyword">FROM</span> actor <span class="keyword">WHERE</span> actor_id = <span class="number">5</span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="51-索引基础"><a class="markdownIt-Anchor" href="#51-索引基础"></a> 5.1 索引基础</h3>
+<p>要理解MySQL中索引是如何工作的，最简单的方法就是去看看一本书的“索引”部分如果想在一本书中找到某个特定主题，一般会先看书的“索引”，找到对应的页码，然后直接翻到那一页即可。MySQL中的索引与一本书的目录作用差不多，都是用来快速定位想要找的内容。</p>
+<p>在MySQL中，存储引擎先在索引中找到对应值，然后根据匹配的索引记录找到对应的数据行。例如要运行下面的查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> first_name <span class="keyword">FROM</span> actor <span class="keyword">WHERE</span> actor_id = <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
 <p>MySQL会先在索引上按值进行查找，找到<code>actor_id</code>等于<code>5</code>的索引项，这个索引项中包含数据行的地址，然后返回所有包含该值的数据行。</p>
 <p>索引可以包含一个或多个列的值。如果索引包含多个列，那么列的顺序也十分重要，因为 MySQL只能高效地使用索引的最左前缀列。</p>
-<h4 id="5-1-1-索引的类型"><a href="#5-1-1-索引的类型" class="headerlink" title="5.1.1 索引的类型"></a>5.1.1 索引的类型</h4><p>在MySQL中，索引是在存储引擎层而不是服务器层实现的。所以，并没有统一的索引标准：不同存储引擎的索引的工作方式并不一样，也不是所有的存储引擎都支持所有类型的索引。即使多个存储引擎支持同一种类型的索引，其底层的实现也可能不同。</p>
-<h4 id="5-1-2-B-Tree索引"><a href="#5-1-2-B-Tree索引" class="headerlink" title="5.1.2 B-Tree索引"></a>5.1.2 B-Tree索引</h4><p>大多数 MySQL引擎都支持这种索引，它使用B-Tree数据结构来存储数据</p>
+<h4 id="511-索引的类型"><a class="markdownIt-Anchor" href="#511-索引的类型"></a> 5.1.1 索引的类型</h4>
+<p>在MySQL中，索引是在存储引擎层而不是服务器层实现的。所以，并没有统一的索引标准：不同存储引擎的索引的工作方式并不一样，也不是所有的存储引擎都支持所有类型的索引。即使多个存储引擎支持同一种类型的索引，其底层的实现也可能不同。</p>
+<h4 id="512-b-tree索引"><a class="markdownIt-Anchor" href="#512-b-tree索引"></a> 5.1.2 B-Tree索引</h4>
+<p>大多数 MySQL引擎都支持这种索引，它使用B-Tree数据结构来存储数据</p>
 <p>B-Tree通常意味着所有的值都是按顺序存储的，并且每一个叶子页到根的距离相同。如下图所示</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_1.png" alt=""></p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_1.png" alt=""></p>
 <p>B-Tree索引能够加快访问数据的速度，因为存储引擎不再需要进行全表扫描来获取需要的数据，取而代之的是从索引的根节点（图示并未画出）开始进行搜索。根节点的槽中存放了指向子节点的指针，存储引擎根据这些指针向下层查找。通过比较节点页的值和要查找的值可以找到合适的指针进入下层子节点，这些指针实际上定义了子节点页中值的上限和下限。最终存储引擎要么是找到对应的值，要么该记录不存在。</p>
 <p>叶子节点比较特别，它们的指针指向的是被索引的数据，而不是其他的节点页。此外，树的深度和表的大小直接相关。</p>
 <p>B-Tree对索引列是顺序组织存储的，所以很适合査找范围数据。例如像“找出所有以I到K开头的名字”这样的查找效率会非常高。</p>
-<h5 id="5-1-2-1-B-Tree索引的一个例子"><a href="#5-1-2-1-B-Tree索引的一个例子" class="headerlink" title="5.1.2.1 B-Tree索引的一个例子"></a>5.1.2.1 B-Tree索引的一个例子</h5><p>下面举一个B-Tree索引的例子</p>
+<h5 id="5121-b-tree索引的一个例子"><a class="markdownIt-Anchor" href="#5121-b-tree索引的一个例子"></a> 5.1.2.1 B-Tree索引的一个例子</h5>
+<p>下面举一个B-Tree索引的例子</p>
 <p>假设有如下数据表</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_2.png" alt=""></p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_2.png" alt=""></p>
 <p>对于表中的每一行数据，索引中包含了<code>last_name</code>、<code>first_name</code>和<code>dob</code>列的值，下图显示了该索引是如何组织数据的存储的。</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_3.png" alt=""></p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_3.png" alt=""></p>
 <p>请注意，索引对多个值进行排序的依据是<code>CREATE TABLE</code>语句中定义索引时列的顺序。看下最后两个条目，两个人的姓和名都一样，则根据他们的出生日期来排列顺序。</p>
-<h5 id="5-1-2-2-可以使用B-Tree索引的查询类型"><a href="#5-1-2-2-可以使用B-Tree索引的查询类型" class="headerlink" title="5.1.2.2 可以使用B-Tree索引的查询类型"></a>5.1.2.2 可以使用B-Tree索引的查询类型</h5><ul>
-<li><p>全值匹配</p>
+<h5 id="5122-可以使用b-tree索引的查询类型"><a class="markdownIt-Anchor" href="#5122-可以使用b-tree索引的查询类型"></a> 5.1.2.2 可以使用B-Tree索引的查询类型</h5>
+<ul>
+<li>
+<p>全值匹配</p>
 <ul>
 <li>全值匹配指的是和索引中的所有列进行匹配</li>
 <li>例如前面提到的索引可用于查找姓名为Cuba Allen、出生于1960-01-01的人</li>
 </ul>
 </li>
-<li><p>匹配最左前缀</p>
+<li>
+<p>匹配最左前缀</p>
 <ul>
 <li>前面提到的索引可用于查找所有姓为Allen的人，即只使用索引的第一列</li>
 </ul>
 </li>
-<li><p>匹配列前缀</p>
+<li>
+<p>匹配列前缀</p>
 <ul>
 <li>也可以只匹配某一列的值的开头部分。</li>
 <li>例如前面提到的索引可用于查找所有以J开头的姓的人。这里也只使用了索引的列的开头。</li>
 </ul>
 </li>
-<li><p>匹配范围值</p>
+<li>
+<p>匹配范围值</p>
 <ul>
 <li>例如前面提到的索引可用于查找姓在Allen和Barrymore之间的人。这里也只使用了索引的第一列</li>
 </ul>
 </li>
-<li><p>精确匹配某一列并范围匹配另外一列</p>
+<li>
+<p>精确匹配某一列并范围匹配另外一列</p>
 <ul>
 <li>前面提到的索引也可用于查找所有姓为Allen，并且名字是字母K开头（比如Kim Karl等）的人。</li>
 <li>即第一列<code>last_name</code>全匹配，第二列<code>first_name</code>范围匹配。</li>
 </ul>
 </li>
-<li><p>只访问索引的查询</p>
+<li>
+<p>只访问索引的查询</p>
 <ul>
 <li>B-Tree通常可以支持“只访问索引的查询”</li>
 <li>它会直接读取索引中保存的数据信息，这样就无需访问数据行了</li>
 </ul>
 </li>
 </ul>
-<h5 id="5-1-2-3-B-Tree索引的其他作用"><a href="#5-1-2-3-B-Tree索引的其他作用" class="headerlink" title="5.1.2.3 B-Tree索引的其他作用"></a>5.1.2.3 B-Tree索引的其他作用</h5><p>因为索引树中的节点是有序的，所以除了按值查找之外，索引还可以用于查询中的<code>ORDER BY</code>操作。一般来说，如果B-Tree可以按照某种方式查找到值，那么也可以按照这种方式用于排序。所以，如果<code>ORDER BY</code>子句满足前面列出的几种査询类型，则这个索引也可以满足对应的排序需求</p>
-<h5 id="5-1-2-4-使用B-Tree索引的限制"><a href="#5-1-2-4-使用B-Tree索引的限制" class="headerlink" title="5.1.2.4 使用B-Tree索引的限制"></a>5.1.2.4 使用B-Tree索引的限制</h5><ul>
-<li><p>如果不是按照索引的最左列开始查找，则无法使用索引。例如上面例子中的索引无法用于查找名字为Bill的人，也无法查找某个特定生日的人，因为这两列都不是最左数据列。类似地，也无法查找姓氏以某个字母结尾的人。</p>
+<h5 id="5123-b-tree索引的其他作用"><a class="markdownIt-Anchor" href="#5123-b-tree索引的其他作用"></a> 5.1.2.3 B-Tree索引的其他作用</h5>
+<p>因为索引树中的节点是有序的，所以除了按值查找之外，索引还可以用于查询中的<code>ORDER BY</code>操作。一般来说，如果B-Tree可以按照某种方式查找到值，那么也可以按照这种方式用于排序。所以，如果<code>ORDER BY</code>子句满足前面列出的几种査询类型，则这个索引也可以满足对应的排序需求</p>
+<h5 id="5124-使用b-tree索引的限制"><a class="markdownIt-Anchor" href="#5124-使用b-tree索引的限制"></a> 5.1.2.4 使用B-Tree索引的限制</h5>
+<ul>
+<li>
+<p>如果不是按照索引的最左列开始查找，则无法使用索引。例如上面例子中的索引无法用于查找名字为Bill的人，也无法查找某个特定生日的人，因为这两列都不是最左数据列。类似地，也无法查找姓氏以某个字母结尾的人。</p>
 </li>
-<li><p>不能跳过索引中的列。也就是说，前面所述的索引无法用于查找姓为Smith并且在某个特定日期出生的人。如果不指定名(<code>first name</code>)，则MySQL只能使用索引的第一列。</p>
+<li>
+<p>不能跳过索引中的列。也就是说，前面所述的索引无法用于查找姓为Smith并且在某个特定日期出生的人。如果不指定名(<code>first name</code>)，则MySQL只能使用索引的第一列。</p>
 </li>
-<li><p>如果查询中有某个列的范围查询，则其右边所有列都无法使用索引优化查找。例如有查询 <code>WHERE last_name=&#39;Smith&#39; AND first name LIKE&#39;J%&#39; AND dob != &#39;1976-12-23&#39;</code>，这个查询只能使用索引的前两列，因为这里<code>LIKE</code>是一个范围条件</p>
+<li>
+<p>如果查询中有某个列的范围查询，则其右边所有列都无法使用索引优化查找。例如有查询 <code>WHERE last_name='Smith' AND first name LIKE'J%' AND dob != '1976-12-23'</code>，这个查询只能使用索引的前两列，因为这里<code>LIKE</code>是一个范围条件</p>
 </li>
 </ul>
-<h4 id="5-1-3-哈希索引"><a href="#5-1-3-哈希索引" class="headerlink" title="5.1.3 哈希索引"></a>5.1.3 哈希索引</h4><p>哈希索引基于哈希表实现，只有精确匹配索引所有列的查询才有效。对于每一行数据，存储引擎都会对所有的索引列计算一个哈希码。哈希索引将所有的哈希码存储在索引中，同时在哈希表中保存指向每个数据行的指针</p>
+<h4 id="513-哈希索引"><a class="markdownIt-Anchor" href="#513-哈希索引"></a> 5.1.3 哈希索引</h4>
+<p>哈希索引基于哈希表实现，只有精确匹配索引所有列的查询才有效。对于每一行数据，存储引擎都会对所有的索引列计算一个哈希码。哈希索引将所有的哈希码存储在索引中，同时在哈希表中保存指向每个数据行的指针</p>
 <p>在MySQL中，只有Memory引擎显式支持哈希索引。这也是Memory引擎表的默认索引类型，Memory引擎同时也支持B-Tree索引。如果多个列的哈希值相同，索引会以链表的方式存放多个记录指针到同一个哈希条目中。</p>
-<h5 id="5-1-3-4-哈希索引的限制"><a href="#5-1-3-4-哈希索引的限制" class="headerlink" title="5.1.3.4 哈希索引的限制"></a>5.1.3.4 哈希索引的限制</h5><ul>
-<li><p>哈希索引只包含哈希值和行指针，而不存储字段值，所以不能使用索引中的值来避免读取行。</p>
+<h5 id="5134-哈希索引的限制"><a class="markdownIt-Anchor" href="#5134-哈希索引的限制"></a> 5.1.3.4 哈希索引的限制</h5>
+<ul>
+<li>
+<p>哈希索引只包含哈希值和行指针，而不存储字段值，所以不能使用索引中的值来避免读取行。</p>
 </li>
-<li><p>哈希索引数据并不是按照索引值顺序存储的，所以也就无法用于排序。</p>
+<li>
+<p>哈希索引数据并不是按照索引值顺序存储的，所以也就无法用于排序。</p>
 </li>
-<li><p>哈希索引也不支持部分索引列匹配查找，因为哈希索引始终是使用索引列的全部内容来计算哈希值的。</p>
+<li>
+<p>哈希索引也不支持部分索引列匹配查找，因为哈希索引始终是使用索引列的全部内容来计算哈希值的。</p>
 </li>
-<li><p>哈希索引只支持等值比较查询，包括<code>=</code>、<code>IN()</code>。也不支持任何范围查询，例如，<code>WHERE price &gt; 18</code></p>
+<li>
+<p>哈希索引只支持等值比较查询，包括<code>=</code>、<code>IN()</code>。也不支持任何范围查询，例如，<code>WHERE price &gt; 18</code></p>
 </li>
-<li><p>如果哈希冲突很多的话，一些索引维护操作的代价也会很高。当出现哈希冲突的时候，存储引擎必须遍历链表中所有的行指针，逐行进行比较，直到找到所有符合条件的行。</p>
+<li>
+<p>如果哈希冲突很多的话，一些索引维护操作的代价也会很高。当出现哈希冲突的时候，存储引擎必须遍历链表中所有的行指针，逐行进行比较，直到找到所有符合条件的行。</p>
 </li>
 </ul>
-<h5 id="5-1-3-4-哈希索引与InnoDB"><a href="#5-1-3-4-哈希索引与InnoDB" class="headerlink" title="5.1.3.4 哈希索引与InnoDB"></a>5.1.3.4 哈希索引与InnoDB</h5><p>InnoDB引擎有一个特殊的功能叫做“自适应哈希索引”。当InnoDB注意到某些索引值被使用得非常频繁时，它会在内存中基于B-Tree索引之上再创建一个哈希索引，这样就让B-Tree索引也具有哈希索引的一些优点，比如快速的哈希查找。这是一个完全自动的、内部的行为，用户无法控制或者配置，不过如果有必要完全可以关闭该功能。</p>
-<h3 id="5-2-索引的优点"><a href="#5-2-索引的优点" class="headerlink" title="5.2 索引的优点"></a>5.2 索引的优点</h3><p>索引可以让服务器快速地定位到表的指定位置。根据创建索引的数据结构不同，索引也有一些其他的附加作用。</p>
+<h5 id="5134-哈希索引与innodb"><a class="markdownIt-Anchor" href="#5134-哈希索引与innodb"></a> 5.1.3.4 哈希索引与InnoDB</h5>
+<p>InnoDB引擎有一个特殊的功能叫做“自适应哈希索引&quot;。当InnoDB注意到某些索引值被使用得非常频繁时，它会在内存中基于B-Tree索引之上再创建一个哈希索引，这样就让B-Tree索引也具有哈希索引的一些优点，比如快速的哈希查找。这是一个完全自动的、内部的行为，用户无法控制或者配置，不过如果有必要完全可以关闭该功能。</p>
+<h3 id="52-索引的优点"><a class="markdownIt-Anchor" href="#52-索引的优点"></a> 5.2 索引的优点</h3>
+<p>索引可以让服务器快速地定位到表的指定位置。根据创建索引的数据结构不同，索引也有一些其他的附加作用。</p>
 <p>例如B-Tree索引，最常见的B-Tree索引，按照顺序存储数据，所以MySQL可以用来做<code>ORDER BY</code>和<code>GROUP BY</code>操作。因为数据是有序的，所以B-Tree也就会将相关的列值都存储在一起。最后，因为索引中存储了实际的列值，所以某些査询只使用索引就能够完成全部查询。</p>
 <p>泛泛而谈，索引有如下优点</p>
 <ol>
@@ -463,25 +490,35 @@
 <li>如果索引中的数据顺序和查找中的排列顺序一致则获得二星</li>
 <li>如果索引中的列包含了查询中需要的全部列则获得三星</li>
 </ul>
-<h3 id="5-3-高性能的索引策略"><a href="#5-3-高性能的索引策略" class="headerlink" title="5.3 高性能的索引策略"></a>5.3 高性能的索引策略</h3><p>正确地创建和使用索引是实现髙性能査询的基础。下面介绍高性能使用索引的策略。</p>
-<h4 id="5-3-1-独立的列"><a href="#5-3-1-独立的列" class="headerlink" title="5.3.1 独立的列"></a>5.3.1 独立的列</h4><p>独立的列是指索引列不能是表达式的一部分，也不能是函数的参数。如果查询中使用的不是独立的列，则MySQL不会使用索引。下面就是两个反例</p>
-<p>反例1，表达式，无法使用索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> actor_id <span class="keyword">FROM</span> actor <span class="keyword">WHERE</span> actor_id + <span class="number">1</span> = <span class="number">5</span>;</span><br></pre></td></tr></table></figure></p>
-<p>反例2，函数的参数，无法使用索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ... <span class="keyword">WHERE</span> <span class="keyword">TO_DAYS</span>(<span class="keyword">CURRENT_DATE</span>) - <span class="keyword">TO_DAYS</span>(date_col) &lt;= <span class="number">10</span>;</span><br></pre></td></tr></table></figure></p>
-<h4 id="5-3-2-前缀索引和索引选择性"><a href="#5-3-2-前缀索引和索引选择性" class="headerlink" title="5.3.2 前缀索引和索引选择性"></a>5.3.2 前缀索引和索引选择性</h4><p>有时候需要索引很长的字符列，这会让索引变得大且慢。通常可以索引开始的部分字符，这样可以大大节约索引空间，从而提高索引效率。</p>
-<p>下面演示一下如何创建前缀索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> city_demo <span class="keyword">ADD</span> <span class="keyword">KEY</span> (city(<span class="number">7</span>));</span><br></pre></td></tr></table></figure></p>
+<h3 id="53-高性能的索引策略"><a class="markdownIt-Anchor" href="#53-高性能的索引策略"></a> 5.3 高性能的索引策略</h3>
+<p>正确地创建和使用索引是实现髙性能査询的基础。下面介绍高性能使用索引的策略。</p>
+<h4 id="531-独立的列"><a class="markdownIt-Anchor" href="#531-独立的列"></a> 5.3.1 独立的列</h4>
+<p>独立的列是指索引列不能是表达式的一部分，也不能是函数的参数。如果查询中使用的不是独立的列，则MySQL不会使用索引。下面就是两个反例</p>
+<p>反例1，表达式，无法使用索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> actor_id <span class="keyword">FROM</span> actor <span class="keyword">WHERE</span> actor_id + <span class="number">1</span> = <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+<p>反例2，函数的参数，无法使用索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ... <span class="keyword">WHERE</span> <span class="keyword">TO_DAYS</span>(<span class="keyword">CURRENT_DATE</span>) - <span class="keyword">TO_DAYS</span>(date_col) &lt;= <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="532-前缀索引和索引选择性"><a class="markdownIt-Anchor" href="#532-前缀索引和索引选择性"></a> 5.3.2 前缀索引和索引选择性</h4>
+<p>有时候需要索引很长的字符列，这会让索引变得大且慢。通常可以索引开始的部分字符，这样可以大大节约索引空间，从而提高索引效率。</p>
+<p>下面演示一下如何创建前缀索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> city_demo <span class="keyword">ADD</span> <span class="keyword">KEY</span> (city(<span class="number">7</span>));</span><br></pre></td></tr></table></figure>
 <p>但使用前缀索引会降低索引的选择性。索引的选择性是指，不重复的索引值和数据表的记录总数的比值(T)，范围从l/T到1之间。索引的选择性越高则查询效率越高，因为选择性高的索引可以让MySQL在查找时过滤掉更多的行。无重复索引的选择性是1，这是最好的索引选择性，性能也是最好的。</p>
 <p>后缀索引：有时候后缀索引（suffix index）也有用途（例如，找到某个域名的所有电子邮件地址）。MySQL原生并不支持反向索引，但是可以把宇符串反转后存储，并基于此建立前缀索引。</p>
-<h4 id="5-3-3-多列索引"><a href="#5-3-3-多列索引" class="headerlink" title="5.3.3 多列索引"></a>5.3.3 多列索引</h4><p>在多个列上建立独立的单列索引大部分情况下并不能提高MySQL的查询性能。MySQL5.0和更新版本引入了一种叫“索引合并”（index merge）的策略，一定程度上可以使用表上的多个单列索引来定位指定的行。更早版本的MySQL只能使用其中某一个单列索引，然而这种情况下没有哪一个独立的单列索引是非常有效的。</p>
+<h4 id="533-多列索引"><a class="markdownIt-Anchor" href="#533-多列索引"></a> 5.3.3 多列索引</h4>
+<p>在多个列上建立独立的单列索引大部分情况下并不能提高MySQL的查询性能。MySQL5.0和更新版本引入了一种叫“索引合并”（index merge）的策略，一定程度上可以使用表上的多个单列索引来定位指定的行。更早版本的MySQL只能使用其中某一个单列索引，然而这种情况下没有哪一个独立的单列索引是非常有效的。</p>
 <p>索引合并虽然是一种很好的策略，但是有时成本比较高。如果在<code>EXPLAIN</code>中看到有索引合并，应该好好检查一下查询和表的结构，看是不是已经是最优的。</p>
-<h4 id="5-3-4-选择合适的索引列顺序"><a href="#5-3-4-选择合适的索引列顺序" class="headerlink" title="5.3.4 选择合适的索引列顺序"></a>5.3.4 选择合适的索引列顺序</h4><p>正确的顺序依赖于使用该索引的查询，并且同时需要考虑如何更好地满足排序和分组的需要。</p>
+<h4 id="534-选择合适的索引列顺序"><a class="markdownIt-Anchor" href="#534-选择合适的索引列顺序"></a> 5.3.4 选择合适的索引列顺序</h4>
+<p>正确的顺序依赖于使用该索引的查询，并且同时需要考虑如何更好地满足排序和分组的需要。</p>
 <p>在一个多列B-Tree索引中，索引列的顺序意味着索引首先按照最左列进行排序，其次是第二列，等等。所以，索引可以按照升序或者降序进行扫描，以满足精确符合列顺序的<code>ORDER BY</code>、<code>GROUP BY</code>和<code>DISTINCT</code>等子句的查询需求。</p>
 <p>对于如何选择索引的列顺序有一个经验法则：将选择性最高的列放到索引最前列。</p>
-<h4 id="5-3-5-聚簇索引"><a href="#5-3-5-聚簇索引" class="headerlink" title="5.3.5 聚簇索引"></a>5.3.5 聚簇索引</h4><p>当表有聚簇索引时，它的数据行实际上存放在索引的叶子页（leaf page）中。术语“聚簇”表示数据行和相邻的键值紧凑地存储在一起。因为无法同时把数据行存放在两个不同的地方，所以一个表只能有一个聚簇索引。</p>
+<h4 id="535-聚簇索引"><a class="markdownIt-Anchor" href="#535-聚簇索引"></a> 5.3.5 聚簇索引</h4>
+<p>当表有聚簇索引时，它的数据行实际上存放在索引的叶子页（leaf page）中。术语“聚簇”表示数据行和相邻的键值紧凑地存储在一起。因为无法同时把数据行存放在两个不同的地方，所以一个表只能有一个聚簇索引。</p>
 <p>下图展示了聚簇索引中的记录是如何存放的。注意到，叶子页包含了行的全部数据，但是节点页只包含了索引列。在这个案例中，索引列包含的是整数值。</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_4.png" alt=""></p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_4.png" alt=""></p>
 <p>InnoDB将通过主键聚集数据，如果没有定义主键，InnoDB会选择一个唯一的非空索引代替。如果没有这样的索引， InnoDB会隐式定义一个主键来作为聚簇索引。</p>
 <p>InnoDB只聚集在同一个页面中的记录包含相邻键值的页面可能在物理空间中相距甚远。但是通常前页会保存后页的指针，这样方便寻找。</p>
-<h4 id="5-3-5-1-聚簇索引的优点和缺点"><a href="#5-3-5-1-聚簇索引的优点和缺点" class="headerlink" title="5.3.5.1  聚簇索引的优点和缺点"></a>5.3.5.1  聚簇索引的优点和缺点</h4><p>优点</p>
+<h4 id="5351-聚簇索引的优点和缺点"><a class="markdownIt-Anchor" href="#5351-聚簇索引的优点和缺点"></a> 5.3.5.1  聚簇索引的优点和缺点</h4>
+<p>优点</p>
 <ul>
 <li>可以把相关数据保存在一起。例如实现电子邮箱时，可以根据用户ID来聚集数据，这样只需要从磁盘读取少数的数据页就能获取某个用户的全部邮件。如没有使用聚簇索引，则每封邮件都可能导致一次磁盘I/O。</li>
 <li>数据访问更快。聚簇索引将索引和数据保存在同一个B-Tree中，因此从聚簇索引中获取数据通常比在非聚簇索引中查找要快。</li>
@@ -496,72 +533,98 @@
 <li>二级索引（非聚簇索引，也就是此表上的其他索引）可能比想象的要更大，因为在二级索引的叶子节点包含了引用行的主键列</li>
 <li>二级索引访问需要两次索引查找，而不是一次。因为通过二级索引査找行，存储引擎需要找到二级索引的叶子节点获得对应的主键值，然后根据这个值去聚簇索引中查找到对应的行。这里做了重复的工作：两次B-Tree查找而不是一次。</li>
 </ul>
-<h4 id="5-3-5-2-InnoDB与MyISAM数据分布对比"><a href="#5-3-5-2-InnoDB与MyISAM数据分布对比" class="headerlink" title="5.3.5.2  InnoDB与MyISAM数据分布对比"></a>5.3.5.2  InnoDB与MyISAM数据分布对比</h4><p>InnoDB是使用聚簇索引的存储引擎，而MyISAM不使用。通过它们的对比，我们将更好的理解聚簇索引的概念和存储方式。</p>
-<p>这里为了方便理解，我们先写一个样例表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> layout_test(</span><br><span class="line">    col1 <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    col2 <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span>(col1),</span><br><span class="line">    <span class="keyword">KEY</span>(col2)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<h4 id="5352-innodb与myisam数据分布对比"><a class="markdownIt-Anchor" href="#5352-innodb与myisam数据分布对比"></a> 5.3.5.2  InnoDB与MyISAM数据分布对比</h4>
+<p>InnoDB是使用聚簇索引的存储引擎，而MyISAM不使用。通过它们的对比，我们将更好的理解聚簇索引的概念和存储方式。</p>
+<p>这里为了方便理解，我们先写一个样例表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> layout_test(</span><br><span class="line">    col1 <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    col2 <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span>(col1),</span><br><span class="line">    <span class="keyword">KEY</span>(col2)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <p>首先介绍MyISAM。</p>
-<p>当插入数据时，MyISAM按照数据插入的顺序存储在磁盘上，如下图。<br><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_5.png" alt=""></p>
+<p>当插入数据时，MyISAM按照数据插入的顺序存储在磁盘上，如下图。<br>
+<img src="/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_5.png" alt=""></p>
 <p>这种分布方式下，主键索引和非主键索引其实结构上没什么区别，如下图。</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_6.png" alt=""></p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_7.png" alt=""></p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_6.png" alt=""></p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_7.png" alt=""></p>
 <p>然后是InnoDB</p>
 <p>首先，它的主键索引是聚簇索引，如下图结构</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_8.png" alt=""></p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_8.png" alt=""></p>
 <p>它其实就是整张表，表中所有的数据都存储在这颗B-Tree中。聚簇索引的每一个叶子节点都包含了主键值、事务ID、用于事务和MVCC的回滚指针以及所有的剩余列。</p>
 <p>InnoDB的二级索引和聚簇索引很不相同。InnoDB二级索引的叶子节点中存储的不是“行指针”，而是主键值，并以此作为指向行的“指针”这样的策略减少了当出现行移动或者数据页分裂时二级索引的维护工作。但是使用主键值当作指针会让二级索引占用更多的空间。</p>
 <p>下面是一个二级索引的结构图</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_9.png" alt=""></p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_9.png" alt=""></p>
 <p>最后，我们通过下图来看看InnoDB和MyISAM保存数据和索引的区别</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_10.png" alt=""></p>
-<h4 id="5-3-5-3-InnoDB主键的选择"><a href="#5-3-5-3-InnoDB主键的选择" class="headerlink" title="5.3.5.3 InnoDB主键的选择"></a>5.3.5.3 InnoDB主键的选择</h4><p>如果正在使用InnoDB表并且没有什么数据需要聚集，那么可以定义一个代理键（surrogate key）作为主键，这种主键的数据应该和应用无关，最简单的方法是使用<code>AUTO_INCREMENT</code>自增列。这样可以保证数据行是按顺序写入，对于根据主键做关联操作的性能也会更好。</p>
-<p>原因如下图，因为主键的值是顺序的，所以InnoDB把每一条记录都存储在上一条记录的后面。当达到页的最大填充因子时，下一条记录就会写入新的页中。一旦数据按照这种顺序的方式加载，主键页就会近似于被顺序的记录填满。<br><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_11.png" alt=""></p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_10.png" alt=""></p>
+<h4 id="5353-innodb主键的选择"><a class="markdownIt-Anchor" href="#5353-innodb主键的选择"></a> 5.3.5.3 InnoDB主键的选择</h4>
+<p>如果正在使用InnoDB表并且没有什么数据需要聚集，那么可以定义一个代理键（surrogate key）作为主键，这种主键的数据应该和应用无关，最简单的方法是使用<code>AUTO_INCREMENT</code>自增列。这样可以保证数据行是按顺序写入，对于根据主键做关联操作的性能也会更好。</p>
+<p>原因如下图，因为主键的值是顺序的，所以InnoDB把每一条记录都存储在上一条记录的后面。当达到页的最大填充因子时，下一条记录就会写入新的页中。一旦数据按照这种顺序的方式加载，主键页就会近似于被顺序的记录填满。<br>
+<img src="/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_11.png" alt=""></p>
 <p>但是，假如我们选择一个相对随机无插入顺序的主键呢？</p>
-<p>如下图<br><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_12.png" alt=""></p>
+<p>如下图<br>
+<img src="/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_12.png" alt=""></p>
 <p>这将造成大量的随机I/O，大量的页分裂操作，并产生很多磁盘碎片。</p>
 <p>因此，尽可能使用单调增加的聚簇键的值来插入新行。</p>
-<h4 id="5-3-6-覆盖索引"><a href="#5-3-6-覆盖索引" class="headerlink" title="5.3.6 覆盖索引"></a>5.3.6 覆盖索引</h4><p>如果索引的叶子节点中已经包含要查询的数据，那么就没有必要再回表查询。如果一个索引包含所有需要查询的字段的值，我们就称之为“覆盖索引”。</p>
-<h5 id="5-3-6-1-覆盖索引的好处"><a href="#5-3-6-1-覆盖索引的好处" class="headerlink" title="5.3.6.1 覆盖索引的好处"></a>5.3.6.1 覆盖索引的好处</h5><ul>
-<li><p>索引条目通常远小于数据行大小，所以如果只需要读取索引，那MySQL就会极大地减少数据访问量。</p>
+<h4 id="536-覆盖索引"><a class="markdownIt-Anchor" href="#536-覆盖索引"></a> 5.3.6 覆盖索引</h4>
+<p>如果索引的叶子节点中已经包含要查询的数据，那么就没有必要再回表查询。如果一个索引包含所有需要查询的字段的值，我们就称之为“覆盖索引”。</p>
+<h5 id="5361-覆盖索引的好处"><a class="markdownIt-Anchor" href="#5361-覆盖索引的好处"></a> 5.3.6.1 覆盖索引的好处</h5>
+<ul>
+<li>
+<p>索引条目通常远小于数据行大小，所以如果只需要读取索引，那MySQL就会极大地减少数据访问量。</p>
 </li>
-<li><p>因为索引是按照列值顺序存储的（至少在单个页内是如此），所以对于I/O密集型的范围查询会比随机从磁盘读取每一行数据的I/O要少得多。</p>
+<li>
+<p>因为索引是按照列值顺序存储的（至少在单个页内是如此），所以对于I/O密集型的范围查询会比随机从磁盘读取每一行数据的I/O要少得多。</p>
 </li>
-<li><p>由于InnoDB的聚簇索引，覆盖索引对InnoDB表特别有用。InnoDB的二级索引在叶子节点中保存了行的主键值，所以如果二级主键能够覆盖查询，则可以避免对主键索引的二次查询。</p>
+<li>
+<p>由于InnoDB的聚簇索引，覆盖索引对InnoDB表特别有用。InnoDB的二级索引在叶子节点中保存了行的主键值，所以如果二级主键能够覆盖查询，则可以避免对主键索引的二次查询。</p>
 </li>
 </ul>
-<h4 id="5-3-7-使用索引扫描来做排序"><a href="#5-3-7-使用索引扫描来做排序" class="headerlink" title="5.3.7 使用索引扫描来做排序"></a>5.3.7 使用索引扫描来做排序</h4><p>MySQL可以使用同一个索引既满足排序，又用于查找行。因此，如果可能，设计索引时应该尽可能地同时满足这两种任务，这样是最好的。</p>
+<h4 id="537-使用索引扫描来做排序"><a class="markdownIt-Anchor" href="#537-使用索引扫描来做排序"></a> 5.3.7 使用索引扫描来做排序</h4>
+<p>MySQL可以使用同一个索引既满足排序，又用于查找行。因此，如果可能，设计索引时应该尽可能地同时满足这两种任务，这样是最好的。</p>
 <p>只有当索引的列顺序和<code>ORDER BY</code>子句的顺序完全一致，并且所有列的排序方向都一样时，MySQL才能够使用索引来对结果做排序。如果查询需要关联多张表，则只有当<code>ORDER BY</code>子句引用的字段全部为第一个表时，才能使用索引做排序。<code>ORDER BY</code>子句和查找型查询的限制是一样的：需要满足索引的最左前缀的要求；否则，MySQL都需要执行排序操作，而无法利用索引排序。</p>
 <p>但是同时还要注意与<code>where</code>条件的交互，假设表<code>rental</code>有索引<code>(rental_date, inventory_id, customer_id)</code>，下面举例说明</p>
-<p>下面这个查询可以使用索引，因为第一列被指定为了常数<code>rental_date=&#39;2015_05_25&#39;</code>，然后使用第二列排序，将两列组合起来就形成了索引的最左前缀。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">... where rental_date = '2005-05-25' ORDER BY inventory_id;</span><br></pre></td></tr></table></figure></p>
-<p>下面这个查询也没问题，因为<code>ORDER BY</code>使用的两列就是索引的最左前缀：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE rental_date &gt; '2005-05-25' ORDER BY rental_date, inventory_id;</span><br></pre></td></tr></table></figure></p>
+<p>下面这个查询可以使用索引，因为第一列被指定为了常数<code>rental_date='2015_05_25'</code>，然后使用第二列排序，将两列组合起来就形成了索引的最左前缀。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">... where rental_date = '2005-05-25' ORDER BY inventory_id;</span><br></pre></td></tr></table></figure>
+<p>下面这个查询也没问题，因为<code>ORDER BY</code>使用的两列就是索引的最左前缀：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE rental_date &gt; '2005-05-25' ORDER BY rental_date, inventory_id;</span><br></pre></td></tr></table></figure>
 <p>下面是一些不能使用索引做排序的查询</p>
 <ul>
-<li><p>下面这个查询的<code>ORDER BY</code>子句中引用了一个不在索引中的列</p>
+<li>
+<p>下面这个查询的<code>ORDER BY</code>子句中引用了一个不在索引中的列</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE rental_date = '2005-05-25' ORDER BY inventory_id, staff_id;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>下面这个查询的<code>WHERE</code>和<code>ORDER BY</code>中的列无法组合成索引的最左前缀</p>
+<li>
+<p>下面这个查询的<code>WHERE</code>和<code>ORDER BY</code>中的列无法组合成索引的最左前缀</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE rental_date = '2005-05-25' ORDER BY customer_id;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>下面这个查询在索引列的第一列上使用了范围条件，这个列倒是可以使用索引，但是会导致后面的列无法使用</p>
+<li>
+<p>下面这个查询在索引列的第一列上使用了范围条件，这个列倒是可以使用索引，但是会导致后面的列无法使用</p>
   <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE rental_date &gt; '2005-05-25' ORDER BY inventory_id, customer_id;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>下面这个查询在<code>inventory_id</code>列上有多个等于条件，对于排序来说，这也是一种范围查询</p>
+<li>
+<p>下面这个查询在<code>inventory_id</code>列上有多个等于条件，对于排序来说，这也是一种范围查询</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE rental_date = '2005-05-25' AND inventory_id IN(1, 2) ORDER BY customer_id</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="5-3-8-压缩（前缀压缩）索引"><a href="#5-3-8-压缩（前缀压缩）索引" class="headerlink" title="5.3.8 压缩（前缀压缩）索引"></a>5.3.8 压缩（前缀压缩）索引</h4><p>MyISAM使用前缀压缩来减少索引的大小，从而让更多的索引可以放入内存中，这在某些情况下能极大地提高性能。默认只压缩字符串，但通过参数设置也可以对整数做压缩。</p>
+<h4 id="538-压缩前缀压缩索引"><a class="markdownIt-Anchor" href="#538-压缩前缀压缩索引"></a> 5.3.8 压缩（前缀压缩）索引</h4>
+<p>MyISAM使用前缀压缩来减少索引的大小，从而让更多的索引可以放入内存中，这在某些情况下能极大地提高性能。默认只压缩字符串，但通过参数设置也可以对整数做压缩。</p>
 <p>MyISAM压缩每个索引块的方法是，先完全保存索引块中的第一个值，然后将其他值和第一个值进行比较得到相同前缀的字节数和剩余的不同后缀部分，把这部分存储起来即可。例如，索引块中的第一个值是<code>perform</code>，第二个值是<code>performance</code>，那么第二个值的前缀压缩后存储的是类似<code>7, ance</code>这样的形式。</p>
-<h4 id="5-3-9-重复索引"><a href="#5-3-9-重复索引" class="headerlink" title="5.3.9 重复索引"></a>5.3.9 重复索引</h4><p>重复索引是指在相同的列上按照相同的顺序创建的相同类型的索引。</p>
+<h4 id="539-重复索引"><a class="markdownIt-Anchor" href="#539-重复索引"></a> 5.3.9 重复索引</h4>
+<p>重复索引是指在相同的列上按照相同的顺序创建的相同类型的索引。</p>
 <p>MySQL允许在相同列上创建重复索引，但是这会大大影响性能。因为MySQL需要单独维护重复的索引，并且优化器在优化查询的时候也需要逐个地进行考虑。</p>
 <p>应该避免这样创建重复索引，发现以后也应该立即移除。</p>
-<p>例如下图<br><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_13.png" alt=""></p>
+<p>例如下图<br>
+<img src="/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_13.png" alt=""></p>
 <p>一个经验不足的用户可能是想创建一个主键，先加上唯一限制，然后再加上索引以供查询使用。事实上，MySQL的唯一限制和主键限制都是通过索引实现的，因此，上面的写法实际上在相同的列上创建了三个重复的索引。</p>
-<h4 id="5-3-10-冗余索引"><a href="#5-3-10-冗余索引" class="headerlink" title="5.3.10 冗余索引"></a>5.3.10 冗余索引</h4><p>冗余索引和重复索引有一些不同。如果创建了索引<code>(A, B)</code>，再创建索引<code>(A)</code>就是冗余索引，因为这只是前一个索引的前缀索引。但是如果再创建索引<code>(B,A)</code>，则不是冗余索引。另外，将一个索引扩展为<code>(A, ID)</code>，其中<code>ID</code>是主键，对于InnoDB来说主键列已经包含在二级索引中了，所以这也是冗余的。</p>
+<h4 id="5310-冗余索引"><a class="markdownIt-Anchor" href="#5310-冗余索引"></a> 5.3.10 冗余索引</h4>
+<p>冗余索引和重复索引有一些不同。如果创建了索引<code>(A, B)</code>，再创建索引<code>(A)</code>就是冗余索引，因为这只是前一个索引的前缀索引。但是如果再创建索引<code>(B,A)</code>，则不是冗余索引。另外，将一个索引扩展为<code>(A, ID)</code>，其中<code>ID</code>是主键，对于InnoDB来说主键列已经包含在二级索引中了，所以这也是冗余的。</p>
 <p>但也有时候出于性能方面的考虑需要冗余索引，因为扩展已有的索引会导致其变得太大，从而影响其他使用该索引的查询的性能。</p>
 <p>建立过多冗余索引的缺点是导致写操作过慢</p>
-<h4 id="5-3-11-未使用的索引"><a href="#5-3-11-未使用的索引" class="headerlink" title="5.3.11 未使用的索引"></a>5.3.11 未使用的索引</h4><p>可能还会有一些服务器永远不用的索引。这样的索引完全是累赘，建议考虑删除。</p>
-<h4 id="5-3-12-索引和锁"><a href="#5-3-12-索引和锁" class="headerlink" title="5.3.12 索引和锁"></a>5.3.12 索引和锁</h4><p>InnoDB只有在访问行的时候才会对其加锁，而索引能够减少InnoDB访问的行的次数，从而减少锁的数量。</p>
+<h4 id="5311-未使用的索引"><a class="markdownIt-Anchor" href="#5311-未使用的索引"></a> 5.3.11 未使用的索引</h4>
+<p>可能还会有一些服务器永远不用的索引。这样的索引完全是累赘，建议考虑删除。</p>
+<h4 id="5312-索引和锁"><a class="markdownIt-Anchor" href="#5312-索引和锁"></a> 5.3.12 索引和锁</h4>
+<p>InnoDB只有在访问行的时候才会对其加锁，而索引能够减少InnoDB访问的行的次数，从而减少锁的数量。</p>
 <p>此外，InnoDB在二级索引上使用共享（读）锁，但访问主键索引需要排他（写）锁。</p>
-<h3 id="5-4-索引案例学习"><a href="#5-4-索引案例学习" class="headerlink" title="5.4 索引案例学习"></a>5.4 索引案例学习</h3><p>假设要设计一个在线约会网站，用户信息表有很多列，包括国家、地区、城市、性别、眼睛颜色，等等。网站必须支持上面这些特征的各种组合来搜索用户，还必须允许根据用户的最后在线时间、其他会员对用户的评分等对用户进行排序并对结果进行限制。如何设计索引满足上面的复杂需求呢？</p>
-<h4 id="5-4-1-支持多种过滤条件"><a href="#5-4-1-支持多种过滤条件" class="headerlink" title="5.4.1 支持多种过滤条件"></a>5.4.1 支持多种过滤条件</h4><p>现在需要看看这两方面</p>
+<h3 id="54-索引案例学习"><a class="markdownIt-Anchor" href="#54-索引案例学习"></a> 5.4 索引案例学习</h3>
+<p>假设要设计一个在线约会网站，用户信息表有很多列，包括国家、地区、城市、性别、眼睛颜色，等等。网站必须支持上面这些特征的各种组合来搜索用户，还必须允许根据用户的最后在线时间、其他会员对用户的评分等对用户进行排序并对结果进行限制。如何设计索引满足上面的复杂需求呢？</p>
+<h4 id="541-支持多种过滤条件"><a class="markdownIt-Anchor" href="#541-支持多种过滤条件"></a> 5.4.1 支持多种过滤条件</h4>
+<p>现在需要看看这两方面</p>
 <ol>
 <li>哪些列拥有很多不同的取值，在有更多不同值的列上创建索引的选择性会更好。</li>
 <li>哪些列在<code>WHERE</code>子句中出现得最频繁，更频繁则用到此索引的机会越多</li>
@@ -569,7 +632,7 @@
 <p>按照这两点，我们筛选出了<code>(sex, country)</code>列作为前缀。</p>
 <p><code>sex</code>的选择性很低，但是为什么要选择它呢？因为我们有方法去绕过它：</p>
 <ul>
-<li>如果某个査询不限制性别，那么可以通过在查询条件中新增<code>AND SEX IN(&#39;m&#39;, &#39;f&#39;)</code>来让MySQL选择该索引。</li>
+<li>如果某个査询不限制性别，那么可以通过在查询条件中新增<code>AND SEX IN('m', 'f')</code>来让MySQL选择该索引。</li>
 <li>这样写并不会过滤任何行，和没有这个条件时返回的结果相同。</li>
 <li>但是必须加上这个列的条件，MySQL才能够匹配索引的最左前缀</li>
 </ul>
@@ -579,7 +642,9 @@
 <li>前面提到的列在<code>WHERE</code>子句中都是等于条件，但是<code>age</code>列则多半是范围查询（例如查找年龄在18-25岁之间的人）</li>
 <li>原则上，尽可能将需要做范围查询的列放到索引的后面，以便优化器能使用尽可能多的索引列。</li>
 </ul>
-<h4 id="5-4-2-避免多个范围条件"><a href="#5-4-2-避免多个范围条件" class="headerlink" title="5.4.2 避免多个范围条件"></a>5.4.2 避免多个范围条件</h4><p>假设我们有一个<code>last_online</code>列并希望通过下面的查询显示在过去几周上线过的用户<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">WHERE eye_color IN('brown', 'blue', 'hazel')</span><br><span class="line">AND hair color IN（'black', 'red', 'blonde', 'brown')</span><br><span class="line">AND sex IN('M', 'F')</span><br><span class="line">AND last_online &gt; DATE_SUB(NOW(), INTERVAL 7 DAY)</span><br><span class="line">ANd age BETWEEN 18 AND 25</span><br></pre></td></tr></table></figure></p>
+<h4 id="542-避免多个范围条件"><a class="markdownIt-Anchor" href="#542-避免多个范围条件"></a> 5.4.2 避免多个范围条件</h4>
+<p>假设我们有一个<code>last_online</code>列并希望通过下面的查询显示在过去几周上线过的用户</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">WHERE eye_color IN('brown', 'blue', 'hazel')</span><br><span class="line">AND hair color IN（'black', 'red', 'blonde', 'brown')</span><br><span class="line">AND sex IN('M', 'F')</span><br><span class="line">AND last_online &gt; DATE_SUB(NOW(), INTERVAL 7 DAY)</span><br><span class="line">ANd age BETWEEN 18 AND 25</span><br></pre></td></tr></table></figure>
 <p>这个查询有一个问题：它有两个范围条件，<code>last_online</code>列和<code>age</code>列，MySQL可以使用<code>last_online</code>列索引或者<code>age</code>列索引，但无法同时使用它们。</p>
 <p>我们可以用下面的方法避免这个问题</p>
 <ul>
@@ -587,14 +652,16 @@
 <li>这个方法可以让MySQL使用<code>(active,sex, country,age)</code>索引。</li>
 <li>并且我们还可以使用上面5.4.1提到的方法来绕过<code>active</code>属性</li>
 </ul>
-<h4 id="5-4-3-优化排序"><a href="#5-4-3-优化排序" class="headerlink" title="5.4.3 优化排序"></a>5.4.3 优化排序</h4><p>使用文件排序对小数据集是很快的，但如果一个查询匹配的结果有上百万行的话就很慢了。所以根据5.3节我们可以创建一些索引用于排序。</p>
-<p>但是分页是另一个性能瓶颈，例如下面的查询<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> col1 <span class="keyword">FROM</span> <span class="keyword">profiles</span> <span class="keyword">WHERE</span> sex = <span class="string">'M'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> rating <span class="keyword">LIMIT</span> <span class="number">100000</span>, <span class="number">10</span>;</span><br></pre></td></tr></table></figure></p>
+<h4 id="543-优化排序"><a class="markdownIt-Anchor" href="#543-优化排序"></a> 5.4.3 优化排序</h4>
+<p>使用文件排序对小数据集是很快的，但如果一个查询匹配的结果有上百万行的话就很慢了。所以根据5.3节我们可以创建一些索引用于排序。</p>
+<p>但是分页是另一个性能瓶颈，例如下面的查询</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> col1 <span class="keyword">FROM</span> <span class="keyword">profiles</span> <span class="keyword">WHERE</span> sex = <span class="string">'M'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> rating <span class="keyword">LIMIT</span> <span class="number">100000</span>, <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>无论如何创建索引，这种査询都是个严重的问题。</li>
 <li>因为随着偏移量的增加，MySQL需要花费大量的时间来扫描需要丢弃的数据。反范式化、预先计算和缓存可能是解决这类查询的仅有策略。</li>
 </ul>
 <p>优化这类索引的另一个比较好的策略是使用延迟关联，通过使用覆盖索引查询返回需要的主键，再根据这些主键关联原表获得需要的行。如下所示</p>
-<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/200227_14.png" alt=""></p>
+<p><img src="/2020/02/27/MySQL-5-创建高性能的索引/MySQL-5-%E5%88%9B%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E7%B4%A2%E5%BC%95%5C200227_14.png" alt=""></p>
 
                                                 
             </div>
