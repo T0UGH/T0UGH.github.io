@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>[神经网络与深度学习][4][前馈神经网络] | T0UGU BLOG</title>
+  <meta name="description" content="第4章 前馈神经网络  神经网络是一种大规模的并行分布式处理器，天然具有存储并使用经验知识的能力．它从两个方面上模拟大脑：（1）网络 获取的知识是通过学习来获取的；（2）内部神经元的连接强度，即突触权重，用于储存获取的知识．  人工神经网络（Artificial Neural Network，ANN）是指一系列受生物学和神经科学启发的数学模型．这些模型主要是通过对人脑的神经元网络进行抽象，构建人">
+<meta name="keywords" content="机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[神经网络与深度学习][4][前馈神经网络]">
+<meta property="og:url" content="https://t0ugh.biz/2020/11/11/神经网络与深度学习-4-前馈神经网络/index.html">
+<meta property="og:site_name" content="打怪升级日常">
+<meta property="og:description" content="第4章 前馈神经网络  神经网络是一种大规模的并行分布式处理器，天然具有存储并使用经验知识的能力．它从两个方面上模拟大脑：（1）网络 获取的知识是通过学习来获取的；（2）内部神经元的连接强度，即突触权重，用于储存获取的知识．  人工神经网络（Artificial Neural Network，ANN）是指一系列受生物学和神经科学启发的数学模型．这些模型主要是通过对人脑的神经元网络进行抽象，构建人">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://i.loli.net/2020/09/19/Aa3Zmy2NDXeTGxt.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/19/jlDV8iwqW1pZI7u.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/19/3a7nWT2rzLSydfp.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/19/Zf9VRq8Dmk75Cru.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/19/YVgEHFLeslTi9qK.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/19/gjBWVaq9pryM2XL.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/19/jWlxOcsJy5zeugf.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/19/xe2dMsOFZ7BjkTq.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/19/L4aEW5zecYCRFMf.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/19/jw3n7ZMKSGIk421.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/19/MkJdjsRatXLbANv.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/19/AHc3O1QUw96pT24.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/19/iwEetKZWBPx4vNa.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/19/lxfs4PIoKN78MqQ.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/20/aSCTGtPN4EZuQgn.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/20/GFn5vWrJKdBqH83.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/20/qni3wbDWVdSCF6T.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/20/Zklqch9vOgiLeW7.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/20/zFOikKjRu5AMHtX.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/20/6WBq4GyKbZJXuNl.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/20/EP2eiAv3VLj7bDm.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/20/3R6JcGWoM4bzudm.jpg">
+<meta property="og:image" content="https://i.loli.net/2020/09/20/ZswqEJbfoyMANpX.jpg">
+<meta property="og:updated_time" content="2020-11-11T09:14:19.176Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[神经网络与深度学习][4][前馈神经网络]">
+<meta name="twitter:description" content="第4章 前馈神经网络  神经网络是一种大规模的并行分布式处理器，天然具有存储并使用经验知识的能力．它从两个方面上模拟大脑：（1）网络 获取的知识是通过学习来获取的；（2）内部神经元的连接强度，即突触权重，用于储存获取的知识．  人工神经网络（Artificial Neural Network，ANN）是指一系列受生物学和神经科学启发的数学模型．这些模型主要是通过对人脑的神经元网络进行抽象，构建人">
+<meta name="twitter:image" content="https://i.loli.net/2020/09/19/Aa3Zmy2NDXeTGxt.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://t0ugh.biz/2020/11/11/神经网络与深度学习-4-前馈神经网络/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/t0ugh" target="_blank">
+          <img class="img-circle img-rotate" src="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">T0UGH</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生&amp;编程爱好者</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> ShenYang, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/t0ugh" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flink/">Flink</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java并发/">Java并发</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tomcat/">Tomcat</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/">Flink</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流处理/">流处理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.17px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.17px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Flink/" style="font-size: 13.42px;">Flink</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.17px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 13.17px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.25px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.83px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.08px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.17px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.08px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.58px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.08px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.17px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.58px;">Tensorflow</a> <a href="/tags/Tomcat/" style="font-size: 13.08px;">Tomcat</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.67px;">java</a> <a href="/tags/jvm/" style="font-size: 13.42px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.17px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.92px;">redis</a> <a href="/tags/vue/" style="font-size: 13.08px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.17px;">动态规划</a> <a href="/tags/大数据/" style="font-size: 13.42px;">大数据</a> <a href="/tags/并发/" style="font-size: 13.33px;">并发</a> <a href="/tags/微服务/" style="font-size: 13.33px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.33px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.17px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.25px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.08px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.33px;">数据结构</a> <a href="/tags/机器学习/" style="font-size: 13.5px;">机器学习</a> <a href="/tags/流处理/" style="font-size: 13.42px;">流处理</a> <a href="/tags/深度学习/" style="font-size: 13.75px;">深度学习</a> <a href="/tags/神经网络/" style="font-size: 13px;">神经网络</a> <a href="/tags/算法/" style="font-size: 13.08px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.67px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.08px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java并发/">Java并发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/11/Java并发-5-Java中的锁/" class="title">[Java并发][5][Java中的锁]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-11T09:21:10.000Z" itemprop="datePublished">2020-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java并发/">Java并发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/11/Java并发-4-Java并发编程基础/" class="title">[Java并发][4][Java并发编程基础]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-11T09:20:40.000Z" itemprop="datePublished">2020-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java并发/">Java并发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/11/Java并发-3-Java内存模型/" class="title">[Java并发][3][Java内存模型]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-11T09:20:05.000Z" itemprop="datePublished">2020-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java并发/">Java并发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/11/Java并发-2-Java并发机制的底层实现原理/" class="title">[Java并发][2][Java并发机制的底层实现原理]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-11T09:19:20.000Z" itemprop="datePublished">2020-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java并发/">Java并发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/11/Java并发-1-并发编程的挑战/" class="title">[Java并发][1][并发编程的挑战]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-11T09:18:26.000Z" itemprop="datePublished">2020-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+    <article id="post-神经网络与深度学习-4-前馈神经网络" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+        
+            <div class="article-header">
+                
+                    
+  
+    <h1 class="article-title" itemprop="name">
+      [神经网络与深度学习][4][前馈神经网络]
+    </h1>
+  
+
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/11/11/神经网络与深度学习-4-前馈神经网络/" class="article-date">
+	  <time datetime="2020-11-11T09:14:00.000Z" itemprop="datePublished">2020-11-11</time>
+	</a>
+</span>
+                                    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/深度学习/">深度学习</a>
+  </span>
+
+                                        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/机器学习/">机器学习</a>
+  </span>
+
+
+                                            
+
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/11/11/神经网络与深度学习-4-前馈神经网络/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第4章-前馈神经网络"><span class="toc-text"> 第4章 前馈神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#41-神经元"><span class="toc-text"> 4.1 神经元</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#411-sigmoid型函数"><span class="toc-text"> 4.1.1 Sigmoid型函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4111-logistic函数"><span class="toc-text"> 4.1.1.1 Logistic函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4112-tanh函数"><span class="toc-text"> 4.1.1.2 Tanh函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4113-hard-logistic函数和hard-tanh函数"><span class="toc-text"> 4.1.1.3 Hard-Logistic函数和Hard-Tanh函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#412-relu函数"><span class="toc-text"> 4.1.2 ReLU函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4121-带泄露的relu"><span class="toc-text"> 4.1.2.1 带泄露的ReLU</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4122-带参数的relu"><span class="toc-text"> 4.1.2.2 带参数的ReLU</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4123-elu函数"><span class="toc-text"> 4.1.2.3 ELU函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4124-softplus函数"><span class="toc-text"> 4.1.2.4 Softplus函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#413-swish函数"><span class="toc-text"> 4.1.3 Swish函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#414-gelu函数"><span class="toc-text"> 4.1.4 GELU函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#415-maxout函数"><span class="toc-text"> 4.1.5 Maxout函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#42-网络结构"><span class="toc-text"> 4.2 网络结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#421-前馈网络"><span class="toc-text"> 4.2.1 前馈网络</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#422-记忆网络"><span class="toc-text"> 4.2.2 记忆网络</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#423-图网络"><span class="toc-text"> 4.2.3 图网络</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#43-前馈神经网络"><span class="toc-text"> 4.3 前馈神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#431-通用近似定理"><span class="toc-text"> 4.3.1 通用近似定理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#432-应用到机器学习"><span class="toc-text"> 4.3.2 应用到机器学习</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4321-观点一"><span class="toc-text"> 4.3.2.1 观点一</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4322-观点二"><span class="toc-text"> 4.3.2.2 观点二</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#433-参数学习"><span class="toc-text"> 4.3.3 参数学习</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#44-反向传播算法"><span class="toc-text"> 4.4 反向传播算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#45-自动梯度计算"><span class="toc-text"> 4.5 自动梯度计算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#451-数值微分"><span class="toc-text"> 4.5.1 数值微分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#452-符号微分"><span class="toc-text"> 4.5.2 符号微分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#453-自动微分"><span class="toc-text"> 4.5.3 自动微分</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4531-前向模式和反向模式"><span class="toc-text"> 4.5.3.1 前向模式和反向模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4532-静态计算图和动态计算图"><span class="toc-text"> 4.5.3.2 静态计算图和动态计算图</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#46-优化问题"><span class="toc-text"> 4.6 优化问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#461-非凸优化问题"><span class="toc-text"> 4.6.1 非凸优化问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#462-梯度消失问题"><span class="toc-text"> 4.6.2 梯度消失问题</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第4章-前馈神经网络"><a class="markdownIt-Anchor" href="#第4章-前馈神经网络"></a> 第4章 前馈神经网络</h2>
+<blockquote>
+<p><strong>神经网络</strong>是一种大规模的<strong>并行分布式处理器</strong>，天然具有存储并使用经验知识的能力．它从两个方面上模拟大脑：（1）<strong>网络</strong><br>
+<strong>获取的知识</strong>是通过<strong>学习</strong>来获取的；（2）内部<strong>神经元的连接强度</strong>，即突触权重，用于<strong>储存获取的知识</strong>．</p>
+</blockquote>
+<p><strong>人工神经网络</strong>（Artificial Neural Network，ANN）是指一系列受生物学和神经科学启发的数学模型．这些模型主要是通过<strong>对人脑的神经元网络进行抽象</strong>，<strong>构建人工神经元</strong>，并按照一定拓扑结构来建立人工神经元之间的连接，来模拟生物神经网络．</p>
+<p>神经网络最早是作为一种主要的<strong>连接主义模型</strong>．20 世纪80 年代中后期，最流行的一种连接主义模型是<strong>分布式并行处理</strong></p>
+<ol>
+<li><strong>信息表示</strong>是<strong>分布式</strong>的（非局部的）；</li>
+<li><strong>记忆和知识</strong>是<strong>存储在单元之间的连接上</strong>；</li>
+<li>通过<strong>逐渐改变单元之间的连接强度</strong>来学习新的知识．</li>
+</ol>
+<p>从机器学习的角度来看，神经网络一般可以看作一个<strong>非线性模型</strong>，其<strong>基本组成单元</strong>为<strong>具有非线性激活函数</strong>的<strong>神经元</strong>，通过大量神经元之间的连接，使得神经网络成为一种<strong>高度非线性</strong>的模型．<strong>神经元之间的连接权重</strong>就是需要学习的参数，可以在机器学习的框架下通过<strong>梯度下降方法</strong>来进行<strong>学习</strong>．</p>
+<h3 id="41-神经元"><a class="markdownIt-Anchor" href="#41-神经元"></a> 4.1 神经元</h3>
+<p>神经元（Neuron），是构成神经网络的基本单元。</p>
+<p>一个生物神经元通常具有多个树突和一条轴突．</p>
+<ul>
+<li>树突用来接收信息，轴突用来发送信息．</li>
+<li>当神经元所获得的输入信号的积累超过某个阈值时，它就处于兴奋状态，产生电脉冲．</li>
+<li>轴突尾端有许多末梢可以给其他神经元的树突产生连接（突触），并将电脉冲信号传递给其他神经元．</li>
+</ul>
+<p>假设一个神经元接收𝐷 个输入𝑥1, 𝑥2, ⋯ , 𝑥𝐷，令向量𝒙 = [𝑥1; 𝑥2; ⋯ ; 𝑥𝐷] 来表示这组输入，并用<strong>净输入</strong>（Net Input）𝑧 ∈ ℝ 表示一个<strong>神经元</strong>所获得的<strong>输入信号</strong>𝒙 的<strong>加权和</strong></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>z</mi><mo>=</mo><munderover><mo>∑</mo><mrow><mi>d</mi><mo>=</mo><mn>1</mn></mrow><mi>D</mi></munderover><msub><mi>w</mi><mi>d</mi></msub><msub><mi>x</mi><mi>d</mi></msub><mo>+</mo><mi>b</mi><mo>=</mo><msup><mi>𝒘</mi><mi>T</mi></msup><mi>𝒙</mi><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">z = \sum ^D _{d=1} w_dx_d + b = 𝒘^T𝒙 + b
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.1304490000000005em;vertical-align:-1.302113em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283360000000002em;"><span style="top:-1.8478869999999998em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.300005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.302113em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.9746609999999999em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord boldsymbol" style="margin-right:0.11111em;">w</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord boldsymbol" style="margin-right:0.12583em;">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span></span></p>
+<p>其中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi><mo>=</mo><mo stretchy="false">[</mo><msup><mi>𝑤</mi><mn>1</mn></msup><mo separator="true">;</mo><msup><mi>𝑤</mi><mn>2</mn></msup><mo separator="true">;</mo><mo>⋯</mo><mo separator="true">;</mo><msup><mi>𝑤</mi><mi>𝐷</mi></msup><mo stretchy="false">]</mo><mo>∈</mo><msup><mi mathvariant="normal">R</mi><mi>𝐷</mi></msup></mrow><annotation encoding="application/x-tex">w = [𝑤^1; 𝑤^2; ⋯ ; 𝑤^𝐷] ∈ ℝ^𝐷</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.0913309999999998em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span></span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord amsrm">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span></span></span></span></span></span></span></span></span></span></span> 是𝐷 维的<strong>权重向量</strong>，𝑏 ∈ ℝ 是<strong>偏置</strong>．</p>
+<p><strong>净输入</strong>z 在<strong>经过</strong>一个<strong>非线性函数</strong>𝑓(⋅) 后，得到神经元的<strong>活性值</strong>（Activation）a，</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>=</mo><mi>f</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">a = f(z)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mclose">)</span></span></span></span></span></p>
+<p>其中<strong>非线性函数𝑓(⋅)</strong> 称为<strong>激活函数</strong>（Activation Function）．</p>
+<p><img src="https://i.loli.net/2020/09/19/Aa3Zmy2NDXeTGxt.png" alt=""></p>
+<p><strong>激活函数</strong>需要具有以下<strong>特征</strong></p>
+<ol>
+<li><strong>连续</strong>并<strong>可导</strong>（允许少数点上不可导）的<strong>非线性函数</strong>．可导的激活函数可以直接利用数值优化的方法来学习网络参数．</li>
+<li><strong>激活函数</strong>及其<strong>导函数</strong>要尽可能的<strong>简单</strong>，有利于提高网络计算效率．</li>
+<li>激活函数的导函数的<strong>值域</strong>要在一个<strong>合适的区间</strong>内，不能太大也不能太小，否则会影响训练的效率和稳定性．</li>
+</ol>
+<h4 id="411-sigmoid型函数"><a class="markdownIt-Anchor" href="#411-sigmoid型函数"></a> 4.1.1 Sigmoid型函数</h4>
+<p>Sigmoid 型函数是指一类<strong>S 型曲线函数</strong>，为<strong>两端饱和</strong>函数．常用的Sigmoid型函数有Logistic 函数和Tanh 函数．</p>
+<h5 id="4111-logistic函数"><a class="markdownIt-Anchor" href="#4111-logistic函数"></a> 4.1.1.1 Logistic函数</h5>
+<p>Logistic 函数定义为</p>
+<p class="katex-block katex-error" title="Error: Font metrics not found for font: .">𝜎(𝑥) = \frac 1 {1 + exp(−x)}
+</p>
+<p>Logistic 函数可以看成是一个**“挤压”函数**，把一个实数域的输入“挤压”到(0, 1)．当<strong>输入值</strong>在<strong>0</strong> 附近时，Sigmoid 型函数近似为<strong>线性函数</strong>；当输入值<strong>靠近两端</strong>时，对输入进行<strong>抑制</strong>．输入越小，越接近于0；输入越大，越接近于1．且Logistic函数<strong>连续</strong>并<strong>可导</strong></p>
+<p><img src="https://i.loli.net/2020/09/19/jlDV8iwqW1pZI7u.png" alt=""></p>
+<p>因为Logistic 函数的性质，使得<strong>装备了Logistic 激活函数的神经元</strong>具有以下<strong>两点性质</strong>：</p>
+<ol>
+<li>其<strong>输出</strong>直接可以看作<strong>概率分布</strong>，使得神经网络可以更好地和统计学习模型进行结合．</li>
+<li>其可以看作一个<strong>软性门</strong>（Soft Gate），用来<strong>控制其他神经元输出信息</strong>的<strong>数量</strong>．</li>
+</ol>
+<h5 id="4112-tanh函数"><a class="markdownIt-Anchor" href="#4112-tanh函数"></a> 4.1.1.2 Tanh函数</h5>
+<p><strong>Tanh 函数</strong>也是一种Sigmoid 型函数．其定义为</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>a</mi><mi>n</mi><mi>h</mi><mo stretchy="false">(</mo><mi>𝑥</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>e</mi><mi>x</mi><mi>p</mi><mo stretchy="false">(</mo><mi>𝑥</mi><mo stretchy="false">)</mo><mi mathvariant="normal">−</mi><mi>e</mi><mi>x</mi><mi>p</mi><mo stretchy="false">(</mo><mi mathvariant="normal">−</mi><mi>𝑥</mi><mo stretchy="false">)</mo></mrow><mrow><mi>e</mi><mi>x</mi><mi>p</mi><mo stretchy="false">(</mo><mi>𝑥</mi><mo stretchy="false">)</mo><mo>+</mo><mi>e</mi><mi>x</mi><mi>p</mi><mo stretchy="false">(</mo><mi mathvariant="normal">−</mi><mi>𝑥</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">tanh(𝑥) = \frac {exp(𝑥) − exp(−𝑥)} {exp(𝑥) + exp(−𝑥)}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord">−</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mord">−</span><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord">−</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>Tanh 函数可以看作<strong>放大</strong>并<strong>平移</strong>的<strong>Logistic 函数</strong>，其值域是(−1, 1)．</p>
+<p>Tanh 函数的输出是<strong>零中心化</strong>的（Zero-Centered），而Logistic函数的输出恒大于0．<strong>非零中心化的输出</strong>会使得其<strong>后一层</strong>的神经元的<strong>输入</strong>发生<strong>偏置偏移</strong>（Bias Shift），并进一步使得梯度下降的<strong>收敛速度变慢</strong>．</p>
+<p><img src="https://i.loli.net/2020/09/19/3a7nWT2rzLSydfp.png" alt=""></p>
+<h5 id="4113-hard-logistic函数和hard-tanh函数"><a class="markdownIt-Anchor" href="#4113-hard-logistic函数和hard-tanh函数"></a> 4.1.1.3 Hard-Logistic函数和Hard-Tanh函数</h5>
+<p>Logistic 函数和Tanh 函数都是Sigmoid 型函数，具有饱和性，但是<strong>计算开销较大</strong>．因为这两个函数都是在中间（0 附近）<strong>近似线性</strong>，<strong>两端饱和</strong>．因此，这两个函数可以通过<strong>分段函数来近似</strong>．</p>
+<p><img src="https://i.loli.net/2020/09/19/Zf9VRq8Dmk75Cru.png" alt=""></p>
+<h4 id="412-relu函数"><a class="markdownIt-Anchor" href="#412-relu函数"></a> 4.1.2 ReLU函数</h4>
+<p>ReLU（Rectified Linear Unit，<strong>修正线性单元</strong>）[Nair et al., 2010]，也叫Rectifier 函数[Glorot et al., 2011]，是目前深度神经网络中经常使用的激活函数．<br>
+ReLU 实际上是一个<strong>斜坡（ramp）函数</strong>，定义为</p>
+<p><img src="https://i.loli.net/2020/09/19/YVgEHFLeslTi9qK.png" alt=""></p>
+<p><strong>优点</strong></p>
+<ul>
+<li>采用ReLU 的神经元只需要进行加、乘和比较的操作，<strong>计算</strong>上更加<strong>高效</strong>．</li>
+<li>ReLU 函数也被认为具有<strong>生物学合理性</strong>（Biological Plausibility），比如单侧抑制、宽兴奋边界（即兴奋程度可以非常高）．</li>
+<li>在优化方面，相比于Sigmoid 型函数的两端饱和，ReLU 函数为左饱和函数，且在𝑥 &gt; 0 时导数为1，在一定程度上<strong>缓解了神经网络的梯度消失问题，加速梯度下降的收敛速度</strong>．</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>ReLU 函数的输出是<strong>非零中心化</strong>的，给后一层的神经网络引入偏置偏移，会<strong>影响梯度下降的效率</strong>．</li>
+<li>ReLU 神经元在训练时比较容易“死亡”．在训练时，如果参数在一次<strong>不恰当的更新后</strong>，第一个隐藏层中的<strong>某个ReLU 神经元在所有的训练数据上都不能被激活</strong>，那么这个神经元自身参数的<strong>梯度永远都会是0</strong>，在以后的训练过程中永远不能被激活．这种现象称为<strong>死亡ReLU问题</strong>（Dying ReLU Problem），并且也有可能会发生在其他隐藏层．</li>
+</ul>
+<p>在实际使用中，为了避免上述情况，有几种ReLU 的变种也会被广泛使用．</p>
+<h5 id="4121-带泄露的relu"><a class="markdownIt-Anchor" href="#4121-带泄露的relu"></a> 4.1.2.1 带泄露的ReLU</h5>
+<p>带泄露的ReLU（Leaky ReLU）在<strong>输入𝑥 &lt; 0</strong> 时，也<strong>保持</strong>一个很<strong>小的梯度𝛾</strong>．这样当神经元<strong>非激活时</strong>也能有一个非零的梯度<strong>可以更新参数</strong>，<strong>避免死亡ReLU问题</strong></p>
+<p><img src="https://i.loli.net/2020/09/19/gjBWVaq9pryM2XL.png" alt=""></p>
+<h5 id="4122-带参数的relu"><a class="markdownIt-Anchor" href="#4122-带参数的relu"></a> 4.1.2.2 带参数的ReLU</h5>
+<p>带参数的ReLU（Parametric ReLU，PReLU）<strong>引入</strong>一个<strong>可学习的参数</strong>，不同神经元可以有不同的参数[He et al., 2015]．对于第𝑖 个神经元，其PReLU 的定义为</p>
+<p><img src="https://i.loli.net/2020/09/19/jWlxOcsJy5zeugf.png" alt=""></p>
+<p>如果𝛾𝑖 = 0，那么PReLU 就退化为ReLU．如果𝛾𝑖 为一个很小的常数，则PReLU 可以看作带泄露的ReLU．PReLU 可以<strong>允许不同神经元</strong>具有<strong>不同的参数</strong>，也可以一组神经元<strong>共享一个参数</strong>．</p>
+<h5 id="4123-elu函数"><a class="markdownIt-Anchor" href="#4123-elu函数"></a> 4.1.2.3 ELU函数</h5>
+<p><strong>ELU</strong>（Exponential Linear Unit，<strong>指数线性单元</strong>）是一个近似的<strong>零中心化</strong>的<strong>非线性函数</strong>，其定义为</p>
+<p><img src="https://i.loli.net/2020/09/19/xe2dMsOFZ7BjkTq.png" alt=""></p>
+<p>其中<strong>𝛾 ≥ 0</strong> 是一个<strong>超参数</strong>，决定𝑥 ≤ 0 时的饱和曲线，并调整输出均值在0 附近．</p>
+<h5 id="4124-softplus函数"><a class="markdownIt-Anchor" href="#4124-softplus函数"></a> 4.1.2.4 Softplus函数</h5>
+<p><strong>Softplus</strong> 函数[Dugas et al., 2001] 可以看作<strong>Rectifier 函数</strong>的<strong>平滑版本</strong>，其定义为</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>o</mi><mi>f</mi><mi>t</mi><mi>p</mi><mi>l</mi><mi>u</mi><mi>s</mi><mo stretchy="false">(</mo><mi>𝑥</mi><mo stretchy="false">)</mo><mo>=</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>e</mi><mi>x</mi><mi>p</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Softplus(𝑥) = log(1 + exp(x))
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">t</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">u</span><span class="mord mathdefault">s</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></p>
+<p>Softplus 函数其导数刚好是Logistic 函数．Softplus 函数虽然也具有<strong>单侧抑制</strong>、<strong>宽兴奋边界</strong>的特性，却<strong>没有稀疏激活性</strong>．</p>
+<p>下图给出了ReLU、Leaky ReLU、ELU 以及Softplus 函数的示例</p>
+<p><img src="https://i.loli.net/2020/09/19/L4aEW5zecYCRFMf.png" alt=""></p>
+<h4 id="413-swish函数"><a class="markdownIt-Anchor" href="#413-swish函数"></a> 4.1.3 Swish函数</h4>
+<p>Swish 函数是一种**自门控（Self-Gated）**激活函数，定义为</p>
+<p class="katex-block katex-error" title="Error: Font metrics not found for font: .">swish(𝑥) = x𝜎(𝛽x)
+</p>
+<p>其中<strong>𝜎(⋅) 为Logistic 函数</strong>，<strong>𝛽</strong> 为可学习的<strong>参数</strong>或一个固定<strong>超参数</strong>．𝜎(⋅) ∈ (0, 1) 可以看作一种软性的门控机制．当<strong>𝜎(𝛽𝑥) 接近于1</strong> 时，门处于**“开”状态**，激活函数的<strong>输出近似于𝑥 本身</strong>；当<strong>𝜎(𝛽𝑥) 接近于0</strong> 时，门的状态为**“关”<strong>，激活函数的</strong>输出近似于0**．</p>
+<p><img src="https://i.loli.net/2020/09/19/jw3n7ZMKSGIk421.png" alt=""></p>
+<ol>
+<li>当𝛽 = 0 时，Swish 函数变成线性函数𝑥/2．</li>
+<li>当𝛽 = 1 时，Swish 函数在𝑥 &gt; 0时近似线性，在𝑥 &lt; 0 时近似饱和，同时具有一定的非单调性．</li>
+<li>当𝛽 → +∞ 时，𝜎(𝛽𝑥) 趋向于离散的0-1 函数，Swish 函数近似为ReLU 函数．</li>
+<li>因此，Swish 函数可以看作<strong>线性函数</strong>和<strong>ReLU 函数</strong>之间的<strong>非线性插值函数</strong>，其<strong>程度</strong>由<strong>参数𝛽 控制</strong>．</li>
+</ol>
+<h4 id="414-gelu函数"><a class="markdownIt-Anchor" href="#414-gelu函数"></a> 4.1.4 GELU函数</h4>
+<p><strong>GELU</strong>也是一种通过<strong>门控机制</strong>来调整其输出值的激活函数，和Swish 函数比较类似．</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>G</mi><mi>E</mi><mi>L</mi><mi>U</mi><mo stretchy="false">(</mo><mi>𝑥</mi><mo stretchy="false">)</mo><mo>=</mo><mi>𝑥</mi><mi>𝑃</mi><mo stretchy="false">(</mo><mi>𝑋</mi><mo>≤</mo><mi>𝑥</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">GELU(𝑥) = 𝑥𝑃(𝑋 ≤ 𝑥)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">G</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">L</span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">x</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span></span></p>
+<ul>
+<li>其中𝑃(𝑋 ≤ 𝑥) 是<strong>高斯分布</strong>𝒩(𝜇, 𝜎2) 的<strong>累积分布函数</strong>，其中𝜇, 𝜎 为超参数，一般设𝜇 = 0, 𝜎 = 1 即可．</li>
+<li>由于<strong>高斯分布的累积分布函数为S 型函数</strong>，因此GELU 函数可以<strong>用Tanh 函数或Logistic 函数来近似</strong>，</li>
+</ul>
+<p><img src="https://i.loli.net/2020/09/19/MkJdjsRatXLbANv.png" alt=""></p>
+<ul>
+<li>当<strong>使用Logistic 函数来近似</strong>时，GELU 相当于一种<strong>特殊的Swish</strong> 函数(𝛽值为1.702)．</li>
+</ul>
+<h4 id="415-maxout函数"><a class="markdownIt-Anchor" href="#415-maxout函数"></a> 4.1.5 Maxout函数</h4>
+<p>Maxout 单元也是一种<strong>分段线性函数</strong>．Maxout 单元的<strong>输入</strong>是<strong>上一层神经元</strong>的<strong>全部原始输出</strong>，是一个向量𝒙 = [𝑥1; 𝑥2; ⋯ ; 𝑥𝐷]．<br>
+<strong>每个Maxout 单元</strong>有<strong>𝐾 个权重向量</strong><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>𝒘</mi><mi>𝑘</mi></msub><mo>∈</mo><msup><mi mathvariant="normal">R</mi><mi>𝐷</mi></msup></mrow><annotation encoding="application/x-tex">𝒘_𝑘 ∈ ℝ^𝐷</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6891em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord boldsymbol" style="margin-right:0.11111em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.11111em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord amsrm">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span></span></span></span></span></span></span></span></span></span></span> 和<strong>K个偏置</strong><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>𝑏</mi><mi>𝑘</mi></msub><mo stretchy="false">(</mo><mn>1</mn><mo>≤</mo><mi>𝑘</mi><mo>≤</mo><mi>𝐾</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">𝑏_𝑘 (1 ≤ 𝑘 ≤ 𝐾)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83041em;vertical-align:-0.13597em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="mclose">)</span></span></span></span>．对于输入𝒙，可以得到<strong>𝐾 个净输入</strong><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>𝑧</mi><mi>𝑘</mi></msub></mrow><annotation encoding="application/x-tex">𝑧_𝑘</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, 1 ≤ 𝑘 ≤ 𝐾．</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>z</mi><mi>k</mi></msub><mo>=</mo><msubsup><mi>w</mi><mi>k</mi><mi>T</mi></msubsup><mi>x</mi><mo>+</mo><msub><mi>b</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">z_k = w^T_kx + b_k
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.138331em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-2.4530000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p>其中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>𝒘</mi><mi>𝑘</mi></msub><mo>=</mo><mo stretchy="false">[</mo><msub><mi>𝑤</mi><mrow><mi>𝑘</mi><mo separator="true">,</mo><mn>1</mn></mrow></msub><mo separator="true">,</mo><mo>⋯</mo><mo separator="true">,</mo><msub><mi>𝑤</mi><mrow><mi>𝑘</mi><mo separator="true">,</mo><mi>𝐷</mi></mrow></msub><msup><mo stretchy="false">]</mo><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">𝒘_𝑘 = [𝑤_{𝑘,1}, ⋯ , 𝑤_{𝑘,𝐷}]^T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.59444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord boldsymbol" style="margin-right:0.11111em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.11111em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.1274389999999999em;vertical-align:-0.286108em;"></span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mpunct mtight">,</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">]</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span></span></span></span> 为第𝑘 个权重向量．</p>
+<p>然后从这个K个净输入中<strong>挑选出最大值</strong>作为<strong>输出</strong></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mi>o</mi><mi>u</mi><mi>t</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>m</mi><mi>a</mi><msub><mi>x</mi><mrow><mi>k</mi><mo>∈</mo><mo stretchy="false">[</mo><mn>1</mn><mo separator="true">,</mo><mi>K</mi><mo stretchy="false">]</mo></mrow></msub><mo stretchy="false">(</mo><msub><mi>z</mi><mi>k</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">maxout(x) = max_{k \in [1, K]}(z_k)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mord mathdefault">o</span><span class="mord mathdefault">u</span><span class="mord mathdefault">t</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.1052em;vertical-align:-0.3551999999999999em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">∈</span><span class="mopen mtight">[</span><span class="mord mtight">1</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.07153em;">K</span><span class="mclose mtight">]</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>Maxout 单元<strong>不单是净输入到输出之间的非线性映射</strong>，而是整体学习<strong>输入到输出之间的非线性映射</strong>关系．</p>
+<h3 id="42-网络结构"><a class="markdownIt-Anchor" href="#42-网络结构"></a> 4.2 网络结构</h3>
+<p>要想模拟人脑的能力，单一的神经元是远远不够的，需要通过<strong>很多神经元一起协作</strong>来<strong>完成复杂的功能</strong>．这样<strong>通过一定的连接方</strong><br>
+<strong>式</strong>或信息传递方式进行<strong>协作</strong>的<strong>神经元</strong>可以看作一个<strong>网络</strong>，就是神经网络．</p>
+<p>到目前为止，研究者已经发明了各种各样的神经网络结构．目前常用的神经网络结构有以下三种：</p>
+<p><img src="https://i.loli.net/2020/09/19/AHc3O1QUw96pT24.png" alt=""></p>
+<h4 id="421-前馈网络"><a class="markdownIt-Anchor" href="#421-前馈网络"></a> 4.2.1 前馈网络</h4>
+<ul>
+<li>前馈网络中各个<strong>神经元</strong>按<strong>接收信息的先后</strong>分为不同的<strong>分组</strong>．</li>
+<li>每一组可以看作一个神经层．<strong>每一层</strong>中的神经元<strong>接收前一层</strong>神经元的<strong>输出</strong>，并<strong>输出</strong>到<strong>下一层</strong>神经元．</li>
+<li>整个网络中的<strong>信息</strong>是<strong>朝一个方向传播</strong>，没有反向的信息传播，可以用一个<strong>有向无环路图</strong>表示．</li>
+<li>前馈网络包括<strong>全连接前馈网络</strong>（本章中的第4.3节）和<strong>卷积神经网络</strong>（第5章）等．</li>
+<li>前馈网络可以看作一个<strong>函数</strong>，通过<strong>简单非线性函数</strong>的多次<strong>复合</strong>，实现<strong>输入空间</strong>到<strong>输出空间</strong>的<strong>复杂映射</strong>．这种网络结构简单，易于实现．</li>
+</ul>
+<h4 id="422-记忆网络"><a class="markdownIt-Anchor" href="#422-记忆网络"></a> 4.2.2 记忆网络</h4>
+<ul>
+<li><strong>记忆网络</strong>，也称为<strong>反馈网络</strong>，网络中的神经元不但可以<strong>接收其他神经元的信息</strong>，也可以<strong>接收自己的历史信息</strong>．</li>
+<li>和前馈网络相比，记忆网络中的神经元<strong>具有记忆功能</strong>，在不同的时刻具有不同的状态．</li>
+<li>记忆神经网络中的<strong>信息传播可以是单向或双向传递</strong>，因此可用一个<strong>有向循环图</strong>或<strong>无向图</strong>来表示．</li>
+<li>记忆网络包括<strong>循环神经网络</strong>（第6章）、Hopfield 网络（第8.6.1节）、玻尔兹曼机（第12.1节）、受限玻尔兹曼机（第12.2节）等．</li>
+</ul>
+<h4 id="423-图网络"><a class="markdownIt-Anchor" href="#423-图网络"></a> 4.2.3 图网络</h4>
+<p>前馈网络和记忆网络的输入都可以表示为向量或向量序列．但实际应用中，很多数据是<strong>图结构的数据</strong>，比如知识图谱、社交网络、分子（Molecular ）网络等．前馈网络和记忆网络很难处理图结构的数据．</p>
+<p>图网络是<strong>定义在图结构数据上</strong>的<strong>神经网络</strong>（第6.8节）．图中每个节点都由一个或一组神经元构成．<strong>节点之间的连接</strong>可以是<strong>有向</strong>的，也可以是<strong>无向</strong>的．每个节点可以<strong>收到来自相邻节点或自身的信息</strong>．</p>
+<p>图网络是<strong>前馈网络</strong>和<strong>记忆网络</strong>的<strong>泛化</strong>，包含很多不同的实现方式，比如<strong>图卷积网络</strong>、<strong>图注意力网络</strong>、<strong>消息传递神经网络</strong>等．</p>
+<h3 id="43-前馈神经网络"><a class="markdownIt-Anchor" href="#43-前馈神经网络"></a> 4.3 前馈神经网络</h3>
+<p>不同的<strong>神经网络模型</strong>有着不同<strong>网络连接的拓扑结构</strong>．一种比较<strong>直接的拓扑结构是前馈网络</strong>．<strong>前馈神经网络</strong>（Feedforward Neural Network，FNN）是<strong>最早发明的简单人工神经网络</strong>．前馈神经网络也经常称为<strong>多层感知器</strong>（Multi-Layer Perceptron，MLP）．但多层感知器的叫法并不是十分合理，因为<strong>前馈神经网络</strong>其实是由<strong>多层的Logistic 回归模型</strong>（连续的非线性函数）组成，而<strong>不是</strong>由<strong>多层的感知器</strong>（不连续的非线性函数）组成．</p>
+<p>在前馈神经网络中，<strong>各神经元</strong>分别属于<strong>不同的层</strong>．</p>
+<ul>
+<li>每一层的<strong>神经元</strong>可以<strong>接收前一层神经元</strong>的信号，并产生<strong>信号输出</strong>到下一层．</li>
+<li><strong>第0层</strong>称为<strong>输入层</strong>，<strong>最后一层</strong>称为<strong>输出层</strong>，<strong>其他中间层</strong>称为<strong>隐藏层</strong>．</li>
+<li>整个<strong>网络中无反馈</strong>，信号从输入层向输出层单向传播，可用一个有向无环图表示．</li>
+</ul>
+<p>下图给出前馈神经网络的示例</p>
+<p><img src="https://i.loli.net/2020/09/19/iwEetKZWBPx4vNa.png" alt=""></p>
+<p>下表给出了描述前馈神经网络的数学符号</p>
+<table>
+<thead>
+<tr>
+<th>记号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>L</mi></mrow><annotation encoding="application/x-tex">L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">L</span></span></span></span></td>
+<td>神经网络的层数</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>M</mi><mi>l</mi></msub></mrow><annotation encoding="application/x-tex">M_l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+<td>第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span>层神经元的个数</td>
+</tr>
+<tr>
+<td>𝑓𝑙 (⋅)</td>
+<td>第𝑙 层神经元的<strong>激活函数</strong></td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>W</mi><mo stretchy="false">(</mo><mi>𝑙</mi><mo stretchy="false">)</mo><mo>∈</mo><msup><mi mathvariant="normal">R</mi><mrow><msub><mi>𝑀</mi><mi>𝑙</mi></msub><mo>×</mo><msub><mi>𝑀</mi><mi>𝑙</mi></msub><mi mathvariant="normal">−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">W(𝑙) ∈ ℝ^{𝑀_𝑙×𝑀_𝑙−1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord amsrm">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3487714285714287em;margin-left:-0.10903em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15122857142857138em;"><span></span></span></span></span></span></span><span class="mbin mtight">×</span><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3487714285714287em;margin-left:-0.10903em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15122857142857138em;"><span></span></span></span></span></span></span><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span></td>
+<td>第𝑙 − 1 层到第𝑙 层的<strong>权重矩阵</strong></td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><mo stretchy="false">(</mo><mi>𝑙</mi><mo stretchy="false">)</mo><mo>∈</mo><msup><mi mathvariant="normal">R</mi><msub><mi>𝑀</mi><mi>𝑙</mi></msub></msup></mrow><annotation encoding="application/x-tex">b(𝑙) ∈ ℝ^{𝑀_𝑙}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">b</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord amsrm">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3487714285714287em;margin-left:-0.10903em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15122857142857138em;"><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></td>
+<td>第𝑙 − 1 层到第𝑙 层的<strong>偏置</strong></td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>z</mi><mo stretchy="false">(</mo><mi>l</mi><mo stretchy="false">)</mo><mo>∈</mo><msup><mi mathvariant="normal">R</mi><msub><mi>𝑀</mi><mi>l</mi></msub></msup></mrow><annotation encoding="application/x-tex">z(l) ∈ ℝ^{𝑀_l}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord amsrm">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3487714285714287em;margin-left:-0.10903em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15122857142857138em;"><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></td>
+<td>第𝑙 层神经元的<strong>净输入</strong>（净活性值）</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>𝒂</mi><mo stretchy="false">(</mo><mi>𝑙</mi><mo stretchy="false">)</mo><mo>∈</mo><msup><mi mathvariant="normal">R</mi><msub><mi>𝑀</mi><mi>l</mi></msub></msup></mrow><annotation encoding="application/x-tex">𝒂(𝑙) ∈ ℝ^{𝑀_l}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord boldsymbol" style="margin-right:0.09426em;">a</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord amsrm">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3487714285714287em;margin-left:-0.10903em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15122857142857138em;"><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></td>
+<td>第𝑙 层神经元的<strong>输出</strong>（活性值）</td>
+</tr>
+</tbody>
+</table>
+<p>令<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>𝒂</mi><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">𝒂(0) = x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord boldsymbol" style="margin-right:0.09426em;">a</span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>，<strong>前馈神经网络</strong>通过不断<strong>迭代下面公式</strong>进行<strong>信息传播</strong>：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>z</mi><mrow><mo stretchy="false">(</mo><mi>𝑙</mi><mo stretchy="false">)</mo></mrow></msup><mo>=</mo><msup><mi>𝑾</mi><mrow><mo stretchy="false">(</mo><mi>𝑙</mi><mo stretchy="false">)</mo></mrow></msup><msup><mi>𝒂</mi><mrow><mo stretchy="false">(</mo><mi>𝑙</mi><mi mathvariant="normal">−</mi><mn>1</mn><mo stretchy="false">)</mo></mrow></msup><mo>+</mo><msup><mi>𝒃</mi><mrow><mo stretchy="false">(</mo><mi>𝑙</mi><mo stretchy="false">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">z^{(𝑙)} = 𝑾^{(𝑙)}𝒂^{(𝑙−1)} + 𝒃^{(𝑙)}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.938em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.0213299999999998em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord boldsymbol" style="margin-right:0.18625em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mord"><span class="mord boldsymbol" style="margin-right:0.09426em;">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mtight">−</span><span class="mord mtight">1</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.938em;vertical-align:0em;"></span><span class="mord"><span class="mord boldsymbol" style="margin-right:0.07861em;">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>𝒂</mi><mrow><mo stretchy="false">(</mo><mi>𝑙</mi><mo stretchy="false">)</mo></mrow></msup><mo>=</mo><msub><mi>𝑓</mi><mi>𝑙</mi></msub><mo stretchy="false">(</mo><msup><mi>z</mi><mrow><mo stretchy="false">(</mo><mi>𝑙</mi><mo stretchy="false">)</mo></mrow></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">𝒂^{(𝑙)} = 𝑓_𝑙(z^{(𝑙)})
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.938em;vertical-align:0em;"></span><span class="mord"><span class="mord boldsymbol" style="margin-right:0.09426em;">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.188em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<ol>
+<li>首先根据第𝑙−1层神经元的活性值（Activation）𝒂(𝑙−1) 计算出第𝑙 层神经元的<strong>净活性值</strong>（Net Activation）𝒛(𝑙)</li>
+<li>然后<strong>经过一个激活函数</strong>得到第𝑙 层神经元的<strong>活性值</strong>．</li>
+<li>因此，我们也可以把<strong>每个神经层</strong>看作一个<strong>仿射变换</strong>（Affine Transformation）和一个<strong>非线性变换</strong>．</li>
+</ol>
+<p>这样，<strong>前馈神经网络</strong>可以通过<strong>逐层的信息传递</strong>，得到网络<strong>最后的输出𝒂(𝐿)</strong>．整个网络可以看作一个<strong>复合函数𝜙(𝒙; 𝑾, 𝒃)</strong>，将<strong>向量𝒙</strong> 作为<strong>第1 层</strong>的<strong>输入𝒂(0)</strong>，将<strong>第𝐿 层的输出𝒂(𝐿)</strong> 作为<strong>整个函数的输出</strong>．</p>
+<p class="katex-block katex-error" title="Error: Font metrics not found for font: .">𝒙 = 𝒂(0) → 𝒛(1) → 𝒂(1) → 𝒛(2) → ⋯ → 𝒂(𝐿−1) → 𝒛(𝐿) → 𝒂(𝐿) = 𝜙(𝒙; 𝑾, 𝒃),
+</p>
+<p>其中𝑾, 𝒃 表示网络中<strong>所有层</strong>的<strong>连接权重</strong>和<strong>偏置</strong>．</p>
+<h4 id="431-通用近似定理"><a class="markdownIt-Anchor" href="#431-通用近似定理"></a> 4.3.1 通用近似定理</h4>
+<p><img src="https://i.loli.net/2020/09/19/lxfs4PIoKN78MqQ.png" alt=""></p>
+<p>翻译一下，通用近似定理是说，对于<strong>具有线性输出层</strong>和<strong>至少一个使用“挤压”性质的激活函数</strong>的<strong>隐藏层</strong>组成的前馈神经网络，只要其隐藏层<strong>神经元的数量足够</strong>，它可以<strong>以任意的精度</strong>来<strong>近似</strong>任何一个定义在实数空间<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi mathvariant="normal">R</mi><mi>𝐷</mi></msup></mrow><annotation encoding="application/x-tex">ℝ^𝐷</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord amsrm">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span></span></span></span></span></span></span></span></span></span></span>中的<strong>有界闭集函数</strong></p>
+<h4 id="432-应用到机器学习"><a class="markdownIt-Anchor" href="#432-应用到机器学习"></a> 4.3.2 应用到机器学习</h4>
+<p>根据<strong>通用近似定理</strong>，神经网络在某种程度上可以作为一个**“万能”函数<strong>来使用，可以用来</strong>进行复杂的特征转换**，或逼近一个复杂的条件分布．</p>
+<p>要<strong>取得好的分类效果</strong>，需要将样本的<strong>原始特征向量</strong>𝒙 <strong>转换</strong>到<strong>更有效的特征向量𝜙(𝒙)</strong>，这个过程叫作<strong>特征抽取</strong>．</p>
+<h5 id="4321-观点一"><a class="markdownIt-Anchor" href="#4321-观点一"></a> 4.3.2.1 观点一</h5>
+<p>多层前馈神经网络可以看作一个<strong>非线性复合函数</strong><span class="katex-error" title="Error: Font metrics not found for font: .">𝜙 ∶ ℝ^𝐷 → ℝ^{𝐷′}</span>，将输入<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>𝒙</mi><mo>∈</mo><msup><mi mathvariant="normal">R</mi><mi>𝐷</mi></msup></mrow><annotation encoding="application/x-tex">𝒙 ∈ ℝ^𝐷</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord boldsymbol" style="margin-right:0.12583em;">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord amsrm">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span></span></span></span></span></span></span></span></span></span></span> <strong>映射</strong>到输出<span class="katex-error" title="Error: Font metrics not found for font: .">𝜙(𝒙) ∈ ℝ^𝐷′</span>．因此，多层前馈神经网络也可以看成是一种<strong>特征转换</strong>方法，其<strong>输出𝜙(𝒙)</strong> 作为<strong>分类器的输入</strong>进行分类．</p>
+<p>给定一个训练样本(𝒙, 𝑦)，<strong>先利用</strong>多层前馈<strong>神经网络</strong>将𝒙 <strong>映射</strong>到𝜙(𝒙)，然后<strong>再</strong>将𝜙(𝒙) 输入到<strong>分类</strong>器𝑔(⋅)，即</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>y</mi><mo>^</mo></mover><mo>=</mo><mi>g</mi><mo stretchy="false">(</mo><mi>ϕ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo separator="true">;</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\hat y = g(\phi(x); \theta)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;">^</span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault">ϕ</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span></span></span></span></span></p>
+<ul>
+<li>其中𝑔(⋅)为线性或非线性的<strong>分类器</strong></li>
+<li>𝜃为分类器𝑔(⋅)的<strong>参数</strong>，</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>y</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;">^</span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span></span></span></span>为分类器的<strong>输出</strong>．</li>
+</ul>
+<h5 id="4322-观点二"><a class="markdownIt-Anchor" href="#4322-观点二"></a> 4.3.2.2 观点二</h5>
+<p>如果分类器𝑔(⋅) 为Logistic 回归分类器或Softmax 回归分类器，那么<strong>𝑔(⋅)</strong> 也可以看成是<strong>网络的最后一层</strong>，即神经网络<strong>直接输出</strong>不同类别的<strong>条件概率𝑝(𝑦|𝒙)</strong>．</p>
+<h4 id="433-参数学习"><a class="markdownIt-Anchor" href="#433-参数学习"></a> 4.3.3 参数学习</h4>
+<p>对于<strong>某个样本</strong>(𝒙, 𝑦)，如果采用<strong>交叉熵损失函数</strong>，其损失函数为</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>L</mi><mo stretchy="false">(</mo><mi>y</mi><mo separator="true">,</mo><mover accent="true"><mi>y</mi><mo>^</mo></mover><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><msup><mi>y</mi><mi>T</mi></msup><mi>l</mi><mi>o</mi><mi>g</mi><mover accent="true"><mi>y</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">L(y, \hat y) = -y^T log \hat y
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">L</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;">^</span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.0857709999999998em;vertical-align:-0.19444em;"></span><span class="mord">−</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;">^</span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>其中𝒚 ∈ {0, 1}𝐶 为标签𝑦 对应的one-hot 向量表示．</p>
+<p>那么，对于给定训练集，为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi><mo>=</mo><msubsup><mrow><mo stretchy="false">(</mo><mi>𝒙</mi><mo stretchy="false">(</mo><mi>𝑛</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>𝑦</mi><mo stretchy="false">(</mo><mi>𝑛</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><mrow><mi>𝑛</mi><mo>=</mo><mn>1</mn></mrow><mi>𝑁</mi></msubsup></mrow><annotation encoding="application/x-tex">D = {(𝒙(𝑛), 𝑦(𝑛))}^𝑁_{𝑛=1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.2809309999999998em;vertical-align:-0.29969999999999997em;"></span><span class="mord"><span class="mord"><span class="mopen">(</span><span class="mord boldsymbol" style="margin-right:0.12583em;">x</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mclose">)</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.981231em;"><span style="top:-2.4003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29969999999999997em;"><span></span></span></span></span></span></span></span></span></span>，将每个样本𝒙(𝑛) 输入给前馈神经网络，得到<strong>网络输出</strong>为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>y</mi><mo>^</mo></mover><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\hat y(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;">^</span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>，其在<strong>数据集<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span></span></span></span><strong>上的</strong>结构化风险函数</strong>为</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mo stretchy="false">(</mo><mi>𝑾</mi><mo separator="true">,</mo><mi>𝒃</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mi>N</mi></mfrac><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mi>L</mi><mo stretchy="false">(</mo><msup><mi>y</mi><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></msup><mo separator="true">,</mo><msup><mover accent="true"><mi>y</mi><mo>^</mo></mover><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></msup><mo stretchy="false">)</mo><mo>+</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>λ</mi><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mi>W</mi><mi mathvariant="normal">∣</mi><msubsup><mi mathvariant="normal">∣</mi><mi>F</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">R(𝑾, 𝒃) = \frac 1 N \sum ^N _{n=1} L(y^{(n)}, \hat y ^{(n)}) + \frac 1 2 \lambda ||W||^2_F
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">(</span><span class="mord boldsymbol" style="margin-right:0.18625em;">W</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord boldsymbol" style="margin-right:0.07861em;">b</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.0954490000000003em;vertical-align:-1.267113em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord">1</span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283360000000002em;"><span style="top:-1.882887em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.267113em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">L</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight">n</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;">^</span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight">n</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord">2</span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord">1</span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathdefault">λ</span><span class="mord">∣</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span><span class="mord">∣</span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">F</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<ul>
+<li>其中𝑾 和𝒃 分别表示网络中所有的<strong>权重矩阵</strong>和<strong>偏置向量</strong>；</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">‖</mi><mi>𝑾</mi><msubsup><mi mathvariant="normal">‖</mi><mi>F</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">‖𝑾‖^2_F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.089439em;vertical-align:-0.275331em;"></span><span class="mord">‖</span><span class="mord boldsymbol" style="margin-right:0.18625em;">W</span><span class="mord"><span class="mord">‖</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-2.424669em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">F</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.275331em;"><span></span></span></span></span></span></span></span></span></span> 是<strong>正则化项</strong>，用来<strong>防止过拟合</strong>；</li>
+<li><strong>𝜆</strong> &gt; 0 为<strong>超参数</strong>．𝜆 越大，𝑾 越接近于0</li>
+</ul>
+<p>这里的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">‖</mi><mi>𝑾</mi><msubsup><mi mathvariant="normal">‖</mi><mi>F</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">‖𝑾‖^2_F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.089439em;vertical-align:-0.275331em;"></span><span class="mord">‖</span><span class="mord boldsymbol" style="margin-right:0.18625em;">W</span><span class="mord"><span class="mord">‖</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-2.424669em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">F</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.275331em;"><span></span></span></span></span></span></span></span></span></span>一般使用 <strong>Frobenius 范数</strong>：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mi>W</mi><mi mathvariant="normal">∣</mi><msubsup><mi mathvariant="normal">∣</mi><mi>F</mi><mn>2</mn></msubsup><mo>=</mo><munderover><mo>∑</mo><mrow><mi>l</mi><mo>=</mo><mn>1</mn></mrow><mi>L</mi></munderover><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><msub><mi>M</mi><mi>l</mi></msub></munderover><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><msub><mi>M</mi><mrow><mi>l</mi><mo>−</mo><mn>1</mn></mrow></msub></munderover><mo stretchy="false">(</mo><msubsup><mi>w</mi><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mo stretchy="false">(</mo><mi>l</mi><mo stretchy="false">)</mo></mrow></msubsup><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">||W||^2_F = \sum ^L _{l=1} \sum ^{M_l} _{i=1} \sum ^{M_{l-1}} _{j=1}(w_{ij}^{(l)})^2 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1141079999999999em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span><span class="mord">∣</span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">F</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.300638em;vertical-align:-1.4137769999999998em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283360000000002em;"><span style="top:-1.8478869999999998em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.300005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.302113em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8451960000000003em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.316865em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3487714285714287em;margin-left:-0.10903em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15122857142857138em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8868610000000006em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.35853em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.3487714285714287em;margin-left:-0.10903em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.21074999999999994em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.4137769999999998em;"><span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0448em;"><span style="top:-2.4231360000000004em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span style="top:-3.2198em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.412972em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>有了学习准则和训练样本，网络参数可以通过<strong>梯度下降法</strong>来进行学习．在梯度下降方法的每次迭代中，第𝑙 层的参数𝑾(𝑙) 和𝒃(𝑙) <strong>参数更新方式</strong>为</p>
+<p><img src="https://i.loli.net/2020/09/20/aSCTGtPN4EZuQgn.png" alt=""></p>
+<p>由上述公式可得，<strong>梯度下降法</strong>需要<strong>计算损失函数对参数的偏导数</strong>，如果通过链式法则逐一对每个参数进行求偏导比较低效．在神经网络的训练中经常使用<strong>反向传播算法</strong>来<strong>高效地计算梯度</strong>．</p>
+<h3 id="44-反向传播算法"><a class="markdownIt-Anchor" href="#44-反向传播算法"></a> 4.4 反向传播算法</h3>
+<p>使用误差<strong>反向传播算法</strong>的前馈神经网络训练过程可以分为以下<strong>三步</strong>：<br>
+（1） <strong>前馈计算</strong>每一层的净输入𝒛(𝑙) 和激活值𝒂(𝑙)，直到最后一层；<br>
+（2） <strong>反向传播计算</strong>每一层的<strong>误差项𝛿(𝑙)</strong>；<br>
+（3） 计算<strong>每一层参数</strong>的<strong>偏导数</strong>，<strong>并更新</strong>参数．</p>
+<p><img src="https://i.loli.net/2020/09/20/GFn5vWrJKdBqH83.png" alt=""></p>
+<p>偏导数<span class="katex-error" title="Error: Font metrics not found for font: .">\frac {𝜕L(𝒚, 𝒚̂)}{𝜕𝒛(𝑙)}</span> 表示<strong>第𝑙 层神经元对最终损失</strong>的<strong>影响</strong>，也反映了最终损失对第𝑙 层神经元的<strong>敏感程度</strong>，因此一般称为第𝑙 层神经<br>
+元的<strong>误差项</strong>，用<strong>𝛿(𝑙)</strong> 来表示．</p>
+<p class="katex-block katex-error" title="Error: Font metrics not found for font: .">𝛿(𝑙) ≜ \frac {𝜕L(𝒚, 𝒚̂)}{𝜕𝒛(𝑙)} ∈ ℝ^{𝑀_𝑙}
+</p>
+<p>误差项<strong>𝛿(𝑙)</strong> 也间接反映了<strong>不同神经元对网络能力的贡献程度</strong>，从而比较好地<strong>解决</strong>了<strong>贡献度分配问题</strong>（Credit Assignment Problem，CAP）．</p>
+<h3 id="45-自动梯度计算"><a class="markdownIt-Anchor" href="#45-自动梯度计算"></a> 4.5 自动梯度计算</h3>
+<p>参数的<strong>梯度</strong>可以让计算机来<strong>自动计算</strong>．目前，主流的深度学习框架都包含了自动梯度计算的功能，即我们可以<strong>只考</strong><br>
+<strong>虑网络结构</strong>并用代码实现，其<strong>梯度</strong>可以自动进行计算，<strong>无须人工干预</strong>，这样可以大幅提高开发效率．</p>
+<p><strong>自动计算梯度的方法</strong>可以分为以下三类：<strong>数值微分</strong>、<strong>符号微分</strong>和<strong>自动微分</strong>．</p>
+<h4 id="451-数值微分"><a class="markdownIt-Anchor" href="#451-数值微分"></a> 4.5.1 数值微分</h4>
+<p><strong>数值微分</strong>（Numerical Differentiation）是用<strong>数值方法</strong>来<strong>计算函数𝑓(𝑥) 的导数</strong>．函数𝑓(𝑥) 的点𝑥 的导数定义为</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>𝑓</mi><mi mathvariant="normal">′</mi><mo stretchy="false">(</mo><mi>𝑥</mi><mo stretchy="false">)</mo><mo>=</mo><mi>l</mi><mi>i</mi><msub><mi>m</mi><mrow><mi mathvariant="normal">Δ</mi><mi>𝑥</mi><mo>→</mo><mn>0</mn></mrow></msub><mfrac><mrow><mi>𝑓</mi><mo stretchy="false">(</mo><mi>𝑥</mi><mo>+</mo><mi mathvariant="normal">Δ</mi><mi>𝑥</mi><mo stretchy="false">)</mo><mi mathvariant="normal">−</mi><mi>𝑓</mi><mo stretchy="false">(</mo><mi>𝑥</mi><mo stretchy="false">)</mo></mrow><mrow><mi mathvariant="normal">Δ</mi><mi>𝑥</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">𝑓′(𝑥) = lim _{Δ𝑥→0} \frac {𝑓(𝑥 + Δ𝑥) − 𝑓(𝑥)} {Δ𝑥}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord">′</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.113em;vertical-align:-0.686em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">Δ</span><span class="mord mathdefault mtight">x</span><span class="mrel mtight">→</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">Δ</span><span class="mord mathdefault">x</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">Δ</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mord">−</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>要计算函数𝑓(𝑥) 在点𝑥 的导数，可以<strong>对𝑥 加上</strong>一个<strong>很少的非零的扰动Δ𝑥</strong>，通过上述定义来直接计算函数𝑓(𝑥) 的梯度．<strong>数值微分</strong>方法非常<strong>容易实现</strong>，但<strong>找到一个合适的扰动</strong>Δ𝑥 却十分<strong>困难</strong>．如果<strong>Δ𝑥 过小</strong>，会引起数值计算问题，比如<strong>舍入误差</strong>；如果<strong>Δ𝑥 过大</strong>，会增加<strong>截断误差</strong>，使得导数计算不准确．因此，数值微分的<strong>实用性比较差</strong>．</p>
+<h4 id="452-符号微分"><a class="markdownIt-Anchor" href="#452-符号微分"></a> 4.5.2 符号微分</h4>
+<p><strong>符号微分</strong>（Symbolic Differentiation）是一种<strong>基于符号计算</strong>的<strong>自动求导</strong>方法。</p>
+<p><strong>符号计算</strong>也叫代数计算，是指用计算机来<strong>处理带有变量的数学表达式</strong>．这里的<strong>变量</strong>被看作<strong>符号</strong>（Symbols），一般不需要代入具体的值．和符号计算相对应的概念是<strong>数值计算</strong>，即将数值代入数学表示中进行计算．</p>
+<p>符号计算的<strong>输入</strong>和<strong>输出</strong>都是<strong>数学表达式</strong>，一般包括对数学表达式的<strong>化简</strong>、<strong>因式分解</strong>、<strong>微分</strong>、<strong>积分</strong>、解代数方程、求解常微分方程<strong>等运算</strong>．</p>
+<p>例如数学公式的<strong>化简</strong></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">输</mi><mi mathvariant="normal">入</mi><mo>:</mo><mn>3</mn><mi>x</mi><mo>−</mo><mi>x</mi><mo>+</mo><mn>2</mn><mi>x</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">输入: 3x - x + 2x + 1
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord cjk_fallback">输</span><span class="mord cjk_fallback">入</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">输</mi><mi mathvariant="normal">出</mi><mo>:</mo><mn>4</mn><mi>x</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">输出: 4x + 1
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord cjk_fallback">输</span><span class="mord cjk_fallback">出</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span></p>
+<ul>
+<li>符号微分可以在<strong>编译时</strong>就<strong>计算梯度</strong>的<strong>数学表示</strong>，并进一步利用符号计算方法进行优化．</li>
+<li>此外，符号计算的一个优点是符号计算和<strong>平台无关</strong>，可以在CPU 或GPU 上运行．</li>
+<li>符号微分也有一些不足之处：
+<ol>
+<li><strong>编译时间较长</strong>，特别是对于循环，需要很长时间进行编译；</li>
+<li>为了进行符号微分，一般<strong>需要设计一种专门的语言</strong>来表示数学表达式，并且要对变量（符号）进行预先声明；</li>
+<li><strong>很难</strong>对程序进行<strong>调试</strong></li>
+</ol>
+</li>
+</ul>
+<h4 id="453-自动微分"><a class="markdownIt-Anchor" href="#453-自动微分"></a> 4.5.3 自动微分</h4>
+<p><strong>自动微分</strong>（Automatic Differentiation，AD）是一种可以<strong>对一个（程序）函数</strong>进行<strong>计算导数</strong>的方法．符号微分的处理对象是数学表达式，而自动微分的<strong>处理对象</strong>是<strong>一个函数</strong>或<strong>一段程序</strong>．</p>
+<p>自动微分的基本原理是<strong>所有的数值计算</strong>可以<strong>分解</strong>为一些基本操作，包含+, −, ×, / 和一些初等函数exp, log, sin, cos 等，然后利用<strong>链式法则</strong>来<strong>自动计算</strong>一个复合函数的<strong>梯度</strong>．</p>
+<p>为简单起见，这里以一个神经网络中常见的复合函数的例子来说明自动微分的过程．令复合函数𝑓(𝑥; 𝑤, 𝑏) 为</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>𝑓</mi><mo stretchy="false">(</mo><mi>𝑥</mi><mo separator="true">;</mo><mi>𝑤</mi><mo separator="true">,</mo><mi>𝑏</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mi>e</mi><mi>x</mi><mi>p</mi><mo stretchy="false">(</mo><mi mathvariant="normal">−</mi><mo stretchy="false">(</mo><mi>𝑤</mi><mi>𝑥</mi><mo>+</mo><mi>𝑏</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>+</mo><mn>1</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">𝑓(𝑥; 𝑤, 𝑏) = \frac 1 {exp ( − (𝑤𝑥 + 𝑏)) + 1}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.25744em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord">−</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">b</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord">1</span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>其中<strong>𝑥</strong> 为输入<strong>标量</strong>，𝑤 和𝑏 分别为<strong>权重</strong>和<strong>偏置参数</strong>．</p>
+<p>首先，我们将<strong>复合函数</strong>𝑓(𝑥; 𝑤, 𝑏) <strong>分解</strong>为一系列的基本操作，并<strong>构成一个计算图</strong>（Computational Graph）．<strong>计算图</strong>是<strong>数学运算</strong>的<strong>图形化表示</strong>．计算图中的<strong>每个非叶子节点</strong>表示一个<strong>基本操作</strong>，每个<strong>叶子节点</strong>为一个<strong>输入变量</strong>或<strong>常量</strong></p>
+<p><img src="https://i.loli.net/2020/09/20/qni3wbDWVdSCF6T.png" alt=""></p>
+<p>从计算图上可以看出，<strong>复合函数</strong>𝑓(𝑥; 𝑤, 𝑏) 由6 个<strong>基本函数</strong>ℎ𝑖, 1 ≤ 𝑖 ≤ 6 组成．如表4.2所示，<strong>每个基本函数的导数都十分简单</strong>，可以<strong>通过规则</strong>来<strong>实现</strong>．</p>
+<p><img src="https://i.loli.net/2020/09/20/Zklqch9vOgiLeW7.png" alt=""></p>
+<p>整个复合函数𝑓(𝑥; 𝑤, 𝑏) 关于<strong>参数𝑤 和𝑏 的导数</strong>可以通过<strong>计算图上的节点𝑓(𝑥; 𝑤, 𝑏)</strong> 与参数𝑤 和𝑏 之间<strong>路径上</strong>所有的<strong>导数连乘</strong>来得到，即</p>
+<p><img src="https://i.loli.net/2020/09/20/zFOikKjRu5AMHtX.png" alt=""></p>
+<h5 id="4531-前向模式和反向模式"><a class="markdownIt-Anchor" href="#4531-前向模式和反向模式"></a> 4.5.3.1 前向模式和反向模式</h5>
+<p>按照计算导数的顺序，自动微分可以分为两种模式：前向模式和反向模式．</p>
+<p><strong>前向模式</strong>：前向模式是按计算图中计算方向的相同方向来递归地计算梯度．</p>
+<p><img src="https://i.loli.net/2020/09/20/6WBq4GyKbZJXuNl.png" alt=""></p>
+<p><strong>反向模式</strong>：反向模式是按计算图中计算方向的相反方向来递归地计算梯度．</p>
+<p><img src="https://i.loli.net/2020/09/20/EP2eiAv3VLj7bDm.png" alt=""></p>
+<p>对于一般的函数形式𝑓 ∶ <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi mathvariant="normal">R</mi><mi>N</mi></msup><mo>→</mo><msup><mi mathvariant="normal">R</mi><mi>M</mi></msup></mrow><annotation encoding="application/x-tex">ℝ^N → ℝ^M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord amsrm">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord amsrm">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">M</span></span></span></span></span></span></span></span></span></span></span>，<strong>前向模式</strong>需要对<strong>每一个输入变量</strong>都进行一遍<strong>遍历</strong>，共需要<strong>𝑁 遍</strong>．而<strong>反向模式</strong>需要对<strong>每一个输出</strong>都进行一个<strong>遍历</strong>，共需要<strong>𝑀 遍</strong>．当𝑁 &gt; 𝑀 时，反向模式更高效．在<strong>前馈神经网络</strong>的<strong>参数学习中</strong>，风险函数为𝑓 ∶ <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi mathvariant="normal">R</mi><mi>N</mi></msup><mo>→</mo><mi mathvariant="normal">R</mi></mrow><annotation encoding="application/x-tex">ℝ^N → ℝ</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord amsrm">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68889em;vertical-align:0em;"></span><span class="mord amsrm">R</span></span></span></span>，<strong>输出为标量</strong>，因此采用<strong>反向模式</strong>为最有效的计算方式，<strong>只需要一遍计算</strong>．</p>
+<h5 id="4532-静态计算图和动态计算图"><a class="markdownIt-Anchor" href="#4532-静态计算图和动态计算图"></a> 4.5.3.2 静态计算图和动态计算图</h5>
+<p>计算图按构建方式可以分为<strong>静态计算图</strong>（Static Computational Graph）和<strong>动态计算图</strong>（Dynamic Computational Graph）</p>
+<p><strong>静态计算图</strong>是在<strong>编译时构建</strong>计算图，计算图构建好之后在程序运行时不能改变，而<strong>动态计算图</strong>是在<strong>程序运行时</strong>动态构建．</p>
+<p>两种构建方式各有优缺点．</p>
+<ul>
+<li><strong>静态计算图</strong>在<strong>构建时</strong>可以进行<strong>优化</strong>，<strong>并行能力强</strong>，但<strong>灵活性比较差</strong>．</li>
+<li><strong>动态计算图</strong>则<strong>不容易优化</strong>，当不同输入的网络结构不一致时，<strong>难以并行</strong>计算，但是<strong>灵活性比较高</strong>．</li>
+</ul>
+<p>在目前深度学习框架里，Theano 和Tensorflow采用的是静态计算图，而DyNet、Chainer 和PyTorch 采用的是动态计算图．Tensorflow 2.0 也支持了动态计算图．</p>
+<h3 id="46-优化问题"><a class="markdownIt-Anchor" href="#46-优化问题"></a> 4.6 优化问题</h3>
+<p>神经网络的<strong>参数学习</strong>比线性模型要更加<strong>困难</strong>，主要原因有两点：</p>
+<ol>
+<li><strong>非凸优化</strong>问题</li>
+<li><strong>梯度消失</strong>问题．</li>
+</ol>
+<h4 id="461-非凸优化问题"><a class="markdownIt-Anchor" href="#461-非凸优化问题"></a> 4.6.1 非凸优化问题</h4>
+<p>先介绍<strong>凸</strong>和<strong>非凸</strong>区别</p>
+<p><strong>凸：</strong></p>
+<ul>
+<li>指的是顺着梯度方向走到底就 <strong>一定是 最优解</strong> 。</li>
+<li><strong>大部分 传统机器学习 问题</strong> 都是凸的。</li>
+</ul>
+<p><img src="https://i.loli.net/2020/09/20/3R6JcGWoM4bzudm.jpg" alt=""></p>
+<p><strong>非凸：</strong></p>
+<ul>
+<li>指的是顺着梯度方向走到底<strong>只能保证是局部最优</strong>，<strong>不能保证</strong> 是<strong>全局最优</strong>。</li>
+<li><strong>深度学习</strong>以及小部分传统机器学习问题都是非凸的。</li>
+</ul>
+<p><img src="https://i.loli.net/2020/09/20/ZswqEJbfoyMANpX.jpg" alt=""></p>
+<p><strong>神经网络</strong>的优化问题是一个<strong>非凸优化问题</strong></p>
+<h4 id="462-梯度消失问题"><a class="markdownIt-Anchor" href="#462-梯度消失问题"></a> 4.6.2 梯度消失问题</h4>
+<p>在神经网络中误差反向传播的迭代公式为</p>
+<p class="katex-block katex-error" title="Error: Font metrics not found for font: .">𝛿(𝑙) = 𝑓′_𝑙 (z^{(𝑙)}) ⊙ (𝑾^{(𝑙+1)})^T𝛿(𝑙+1).
+</p>
+<p>误差从输出层<strong>反向传播</strong>时，在<strong>每一层</strong>都要<strong>乘以</strong>该层的<strong>激活函数</strong>的<strong>导数</strong>．</p>
+<p>但<strong>是Sigmoid 型函数</strong>的<strong>导数</strong>的<strong>值域</strong>都<strong>小</strong>于或等于1，由于Sigmoid 型函数的饱和性，饱和区的导数更是接近于0．这样，<strong>误差</strong>经过每一层传递都会不断<strong>衰减</strong>．当网络层数很深时，梯度就会不停衰减，甚至<strong>消失</strong>，使得整个网络很难训练．这就是所谓的<strong>梯度消失问题</strong>（Vanishing Gradient Problem），也称为<strong>梯度弥散问题．</strong></p>
+<p><strong>减轻梯度消失问题的方法</strong>有很多种．一种简单有效的方式是<strong>使用导数比较大的激活函数</strong>，比如ReLU 等．</p>
+
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://t0ugh.biz/2020/11/11/神经网络与深度学习-4-前馈神经网络/" title="[神经网络与深度学习][4][前馈神经网络]" target="_blank" rel="external">https://t0ugh.biz/2020/11/11/神经网络与深度学习-4-前馈神经网络/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/t0ugh" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/t0ugh" target="_blank"><span class="text-dark">T0UGH</span><small class="ml-1x">学生&amp;编程爱好者</small></a></h3>
+        <div>很拽很拽很拽很拽很拽很拽很拽很拽</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+            </div>
+    </article>
+    
+        
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+            
+</div>
+
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/11/11/神经网络与深度学习-5-卷积神经网络/" title="[神经网络与深度学习][5][卷积神经网络]"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/11/11/神经网络与深度学习-3-线性模型/" title="[神经网络与深度学习][3][线性模型]"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+        
+
+            
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/t0ugh" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'E1MH6h0YP3yhA0PJsohNBgiT-gzGzoHsz',
+    appKey: 'YOiN6zLq3XGfKmlR0b8vyHtN',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>[Java并发][2][Java并发机制的底层实现原理] | T0UGU BLOG</title>
+  <meta name="description" content="第2章 Java并发机制的底层实现原理 Java代码在编译后会变成Java字节码，字节码被类加载器加载到JVM里，JVM执行字节码，最终需要转化为汇编指令在CPU上执行，Java中所使用的并发机制 依赖于JVM的实现和CPU的指令。  2.1 volatile的应用 在多线程并发编程中synchronized和volatile都扮演着重要的角色，volatile是轻量级的synchronized">
+<meta name="keywords" content="Java,并发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Java并发][2][Java并发机制的底层实现原理]">
+<meta property="og:url" content="https://t0ugh.biz/2020/11/11/Java并发-2-Java并发机制的底层实现原理/index.html">
+<meta property="og:site_name" content="打怪升级日常">
+<meta property="og:description" content="第2章 Java并发机制的底层实现原理 Java代码在编译后会变成Java字节码，字节码被类加载器加载到JVM里，JVM执行字节码，最终需要转化为汇编指令在CPU上执行，Java中所使用的并发机制 依赖于JVM的实现和CPU的指令。  2.1 volatile的应用 在多线程并发编程中synchronized和volatile都扮演着重要的角色，volatile是轻量级的synchronized">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20200930125945.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20200930130116.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20200930130218.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20200930132818.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20200930185323.png">
+<meta property="og:updated_time" content="2020-11-11T09:19:35.568Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Java并发][2][Java并发机制的底层实现原理]">
+<meta name="twitter:description" content="第2章 Java并发机制的底层实现原理 Java代码在编译后会变成Java字节码，字节码被类加载器加载到JVM里，JVM执行字节码，最终需要转化为汇编指令在CPU上执行，Java中所使用的并发机制 依赖于JVM的实现和CPU的指令。  2.1 volatile的应用 在多线程并发编程中synchronized和volatile都扮演着重要的角色，volatile是轻量级的synchronized">
+<meta name="twitter:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20200930125945.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://t0ugh.biz/2020/11/11/Java并发-2-Java并发机制的底层实现原理/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/t0ugh" target="_blank">
+          <img class="img-circle img-rotate" src="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">T0UGH</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生&amp;编程爱好者</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> ShenYang, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/t0ugh" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flink/">Flink</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java并发/">Java并发</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tomcat/">Tomcat</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/">Flink</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流处理/">流处理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.17px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.17px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Flink/" style="font-size: 13.42px;">Flink</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.17px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 13.17px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.25px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.83px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.08px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.17px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.08px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.58px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.08px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.17px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.58px;">Tensorflow</a> <a href="/tags/Tomcat/" style="font-size: 13.08px;">Tomcat</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.67px;">java</a> <a href="/tags/jvm/" style="font-size: 13.42px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.17px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.92px;">redis</a> <a href="/tags/vue/" style="font-size: 13.08px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.17px;">动态规划</a> <a href="/tags/大数据/" style="font-size: 13.42px;">大数据</a> <a href="/tags/并发/" style="font-size: 13.33px;">并发</a> <a href="/tags/微服务/" style="font-size: 13.33px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.33px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.17px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.25px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.08px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.33px;">数据结构</a> <a href="/tags/机器学习/" style="font-size: 13.5px;">机器学习</a> <a href="/tags/流处理/" style="font-size: 13.42px;">流处理</a> <a href="/tags/深度学习/" style="font-size: 13.75px;">深度学习</a> <a href="/tags/神经网络/" style="font-size: 13px;">神经网络</a> <a href="/tags/算法/" style="font-size: 13.08px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.67px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.08px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java并发/">Java并发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/11/Java并发-5-Java中的锁/" class="title">[Java并发][5][Java中的锁]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-11T09:21:10.000Z" itemprop="datePublished">2020-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java并发/">Java并发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/11/Java并发-4-Java并发编程基础/" class="title">[Java并发][4][Java并发编程基础]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-11T09:20:40.000Z" itemprop="datePublished">2020-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java并发/">Java并发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/11/Java并发-3-Java内存模型/" class="title">[Java并发][3][Java内存模型]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-11T09:20:05.000Z" itemprop="datePublished">2020-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java并发/">Java并发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/11/Java并发-2-Java并发机制的底层实现原理/" class="title">[Java并发][2][Java并发机制的底层实现原理]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-11T09:19:20.000Z" itemprop="datePublished">2020-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java并发/">Java并发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/11/Java并发-1-并发编程的挑战/" class="title">[Java并发][1][并发编程的挑战]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-11T09:18:26.000Z" itemprop="datePublished">2020-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+    <article id="post-Java并发-2-Java并发机制的底层实现原理" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+        
+            <div class="article-header">
+                
+                    
+  
+    <h1 class="article-title" itemprop="name">
+      [Java并发][2][Java并发机制的底层实现原理]
+    </h1>
+  
+
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/11/11/Java并发-2-Java并发机制的底层实现原理/" class="article-date">
+	  <time datetime="2020-11-11T09:19:20.000Z" itemprop="datePublished">2020-11-11</time>
+	</a>
+</span>
+                                    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Java并发/">Java并发</a>
+  </span>
+
+                                        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/Java/">Java</a>, <a class="article-tag-link" href="/tags/并发/">并发</a>
+  </span>
+
+
+                                            
+
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/11/11/Java并发-2-Java并发机制的底层实现原理/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第2章-java并发机制的底层实现原理"><span class="toc-text"> 第2章 Java并发机制的底层实现原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#21-volatile的应用"><span class="toc-text"> 2.1 volatile的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#211-volatile的定义与实现原理"><span class="toc-text"> 2.1.1 volatile的定义与实现原理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-synchronized的实现原理与应用"><span class="toc-text"> 2.2 synchronized的实现原理与应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#221-java对象头"><span class="toc-text"> 2.2.1 Java对象头</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#222-锁的升级与对比"><span class="toc-text"> 2.2.2 锁的升级与对比</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2221-偏向锁"><span class="toc-text"> 2.2.2.1 偏向锁</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2222-轻量级锁"><span class="toc-text"> 2.2.2.2 轻量级锁</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2223-重量级锁"><span class="toc-text"> 2.2.2.3 重量级锁</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2224-锁的优缺点对比"><span class="toc-text"> 2.2.2.4 锁的优缺点对比</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#23-原子操作的实现原理"><span class="toc-text"> 2.3 原子操作的实现原理</span></a></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第2章-java并发机制的底层实现原理"><a class="markdownIt-Anchor" href="#第2章-java并发机制的底层实现原理"></a> 第2章 Java并发机制的底层实现原理</h2>
+<p>Java代码在编译后会变成Java字节码，字节码被类加载器加载到JVM里，JVM执行字节码，最终需要转化为汇编指令在CPU上执行，Java中所使用的<strong>并发机制</strong> <strong>依赖于JVM的实现和CPU的指令</strong>。</p>
+<h3 id="21-volatile的应用"><a class="markdownIt-Anchor" href="#21-volatile的应用"></a> 2.1 volatile的应用</h3>
+<p>在多线程并发编程中<code>synchronized</code>和<code>volatile</code>都扮演着重要的角色，<code>volatile</code>是<strong>轻量级</strong>的<code>synchronized</code>，它在<strong>多处理器开发</strong>中保证了<strong>共享变量的“可见性”</strong>。<strong>可见性</strong>的意思是<strong>当一个线程修改一个共享变量时，另外一个线程能读到这个修改的值</strong>。，它比synchronized的使用和执行成本更低，因为它<strong>不会引起线程上下文的切换和调度</strong>。</p>
+<h4 id="211-volatile的定义与实现原理"><a class="markdownIt-Anchor" href="#211-volatile的定义与实现原理"></a> 2.1.1 volatile的定义与实现原理</h4>
+<blockquote>
+<p>Java语言规范第3版中对volatile的定义如下：Java编程语言允许线程访问共享变量，为了确保共享变量能被准确和一致地更新，线程应该确保通过排他锁单独获得这个变量。Java语言提供了volatile，在某些情况下比锁要更加方便。<strong>如果一个字段被声明成volatile，Java线程内存模型确保所有线程看到这个变量的值是一致的。</strong></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0x01a3de1d: movb $0×0,0×1104800(%esi);</span><br><span class="line">0x01a3de24: lock addl $0×0,(%esp);</span><br></pre></td></tr></table></figure>
+<p>有<strong>volatile变量</strong>修饰的<strong>共享变量</strong>进行<strong>写操作</strong>的时候会多出上面显示的第二行汇编代码：<strong>Lock指令</strong></p>
+<p><strong>Lock</strong>前缀的指令在<strong>多核处理器</strong>下会引发了两件事情</p>
+<ol>
+<li>将当前处理器<strong>缓存行</strong>的数据<strong>写回到系统内存</strong>。
+<ul>
+<li>如果对声明了<code>volatile</code>的变量进行<strong>写操作</strong>，JVM就会向处理器<strong>发送一条Lock前缀的指令</strong>，将这个变量所在<strong>缓存行的数据</strong> <strong>写回</strong>到<strong>系统内存</strong>。</li>
+<li>但是，就算写回到内存，如果其他处理器缓存的值还是旧的，再执行计算操作就会有问题</li>
+</ul>
+</li>
+<li>这个<strong>写回内存</strong>的操作会<strong>使在其他CPU里缓存了该内存地址的数据无效</strong>。
+<ul>
+<li>在多处理器下，为了保证各个处理器的缓存是一致的，就会实现缓<strong>存一致性协议</strong></li>
+<li>处理器使用<strong>嗅探技术</strong>保证它的<strong>内部缓存</strong>、<strong>系统内存</strong>和<strong>其他处理器的缓存</strong>的数据在<strong>总线</strong>上<strong>保持一致</strong></li>
+<li>当<strong>处理器</strong>发现自己<strong>缓存行对应的内存地址</strong> <strong>被修改</strong>，就会将当前处理器的缓存行<strong>设置成无效状态</strong></li>
+<li>当处理器对这个数据进行<strong>修改操作</strong>的时候，会<strong>重新从系统内存中把数据读到处理器缓存里</strong></li>
+</ul>
+</li>
+</ol>
+<h3 id="22-synchronized的实现原理与应用"><a class="markdownIt-Anchor" href="#22-synchronized的实现原理与应用"></a> 2.2 synchronized的实现原理与应用</h3>
+<p>先来看下利用synchronized实现同步的基础，<strong>Java中的每一个对象</strong>都可以<strong>作为锁</strong>。具体表现为以下3种形式：</p>
+<ul>
+<li>对于<strong>普通同步方法</strong>，锁是<strong>当前实例对象</strong>。</li>
+<li>对于<strong>静态同步方法</strong>，锁是<strong>当前类的Class对象</strong>。</li>
+<li>对于<strong>同步方法块</strong>，锁是<strong>Synchonized括号里配置的对象</strong>。</li>
+</ul>
+<p>当一个线程试图访问同步代码块时，它首先必须得到锁，退出或抛出异常时必须释放锁。</p>
+<p>从JVM规范中可以看到Synchonized在JVM里的实现原理</p>
+<ul>
+<li>JVM<strong>基于进入和退出Monitor对象</strong>来<strong>实现方法同步和代码块同步。</strong><code>monitorenter</code>指令是在编译后插入到<strong>同步代码块的开始位置</strong>，而</li>
+<li><code>monitorexit</code>是<strong>插入到方法结束处和异常处</strong>，JVM要保证每个monitorenter必须有对应的monitorexit与之配对。</li>
+<li><strong>任何对象都有一个monitor与之关联，当且一个monitor被持有后，它将处于锁定状态。</strong></li>
+<li><strong>线程</strong>执行到monitorenter指令时，将会尝试<strong>获取对象所对应的monitor的所有权</strong>，即尝试获得对象的锁。</li>
+</ul>
+<h4 id="221-java对象头"><a class="markdownIt-Anchor" href="#221-java对象头"></a> 2.2.1 Java对象头</h4>
+<p>synchronized用的锁是存在Java对象头里的</p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20200930125945.png" alt=""></p>
+<p>Java对象头里的<strong>Mark Word</strong>里默认<strong>存储</strong>对象的HashCode、分代年龄和<strong>锁标记位</strong>。32位JVM的Mark Word的默认存储结构如表2-3所示。</p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20200930130116.png" alt=""></p>
+<p>在<strong>运行期间</strong>，<strong>Mark Word</strong>里存储的数据会<strong>随着锁标志位的变化而变化</strong>。Mark Word可能变化为存储以下4种数据，如表2-4所示。</p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20200930130218.png" alt=""></p>
+<h4 id="222-锁的升级与对比"><a class="markdownIt-Anchor" href="#222-锁的升级与对比"></a> 2.2.2 锁的升级与对比</h4>
+<blockquote>
+<p>CAS，即 Compare And Swap(比较与交换)，是一种<strong>无锁算法</strong>，<strong>基于硬件原语</strong>实现，属于<strong>原子指令</strong>，能够<strong>在不使用锁的情况下实现多线程之间的变量同步</strong>。</p>
+</blockquote>
+<p>在Java SE 1.6中，锁一共有4种状态，级别从低到高依次是：</p>
+<ul>
+<li><strong>无锁</strong>状态</li>
+<li><strong>偏向锁</strong>状态</li>
+<li><strong>轻量级锁</strong>状态</li>
+<li><strong>重量级锁</strong>状态，</li>
+</ul>
+<p>这几个状态会<strong>随着竞争情况</strong>逐渐<strong>升级</strong>。<strong>锁可以升级但不能降级</strong>，这种锁升级却不能降级的策略，目的是<strong>为了提高获得锁和释放锁的效率</strong></p>
+<h5 id="2221-偏向锁"><a class="markdownIt-Anchor" href="#2221-偏向锁"></a> 2.2.2.1 偏向锁</h5>
+<p>轻量级锁是为了在线程交替执行同步块时提高性能，而<strong>偏向锁</strong>则是<strong>在只有一个线程执行同步块时进一步提高性能</strong>。</p>
+<p>经过研究发现，大<strong>多数情况下</strong>，<strong>锁</strong>不仅<strong>不存在多线程竞争</strong>，而且<strong>总是由同一线程多次获得</strong>，为了让线程获得锁的代价更低而引入了<strong>偏向锁</strong>。</p>
+<p><strong>偏向锁的获取</strong></p>
+<ul>
+<li>当<strong>一个线程</strong>访问同步块并<strong>获取锁</strong>时，会<strong>在对象头</strong>和<strong>栈帧中</strong>的锁记录里<strong>存储</strong> <strong>锁偏向</strong>的<strong>线程ID</strong>，</li>
+<li>以后<strong>该线程</strong>在<strong>进入和退出同步块时</strong>不需要进行CAS操作来加锁和解锁，只需<strong>简单地测试</strong>一下<strong>对象头</strong>的Mark Word里是<strong>否存储着指向当前线程的偏向锁</strong>。
+<ul>
+<li>如果测试<strong>成功</strong>，表示<strong>线程已经获得了锁</strong>。</li>
+<li>如果测试<strong>失败</strong>，则需要<strong>再测试</strong>一下Mark Word中<strong>偏向锁的标识</strong> <strong>是否设置成1</strong>（表示当前是偏向锁）
+<ul>
+<li>如果<strong>没有设置</strong>，则使用CAS指令<strong>竞争锁</strong>；</li>
+<li>如果<strong>设置了</strong>，则尝试使用CAS指令<strong>将对象头的偏向锁指向当前线程</strong>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>偏向锁的撤销</strong></p>
+<ul>
+<li>偏向锁使用了一种等到竞争出现才释放锁的机制，所以当其他线程尝试竞争偏向锁时，持有偏向锁的线程才会释放锁。</li>
+<li>它会首先暂停拥有偏向锁的线程，然后检查持有偏向锁的线程是否活着
+<ul>
+<li>如果线程不处于活动状态，则将对象头设置成未锁定（标志位为“01”）状态；</li>
+<li>如果线程仍然活着，恢复到未锁定（标志位为“01”）或轻量级锁（标志位为“00”）的状态。</li>
+<li>最后唤醒暂停的线程。</li>
+</ul>
+</li>
+</ul>
+<p>偏向锁的获取和撤销流程如下图所示：线程1演示了偏向锁的初始化流程，线程2演示了偏向锁的撤销流程</p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20200930132818.png" alt=""></p>
+<h5 id="2222-轻量级锁"><a class="markdownIt-Anchor" href="#2222-轻量级锁"></a> 2.2.2.2 轻量级锁</h5>
+<p><strong>轻量级锁</strong>是<strong>相对于</strong>使用<strong>操作系统互斥量</strong>来<strong>实现传统锁</strong>而言的。但是，首先需要强调一点的是，轻量级锁并不是用来代替重量级锁的，它的本意是<strong>在没有多线程竞争的前提下，减少传统的重量级锁使用产生的性能消耗</strong>。在解释轻量级锁的执行过程之前，先明白一点，轻量级锁所<strong>适应的场景是线程交替执行同步块</strong>的情况，如果存在同一时间访问同一锁的情况，就会导致轻量级锁膨胀为重量级锁。</p>
+<p><strong>轻量级锁的加锁过程：</strong></p>
+<ol>
+<li>在代码进入同步块的时候，<strong>如果同步对象锁状态为无锁状态</strong>（锁标志位为“01”状态，是否为偏向锁为“0”），虚拟机首先将在当前线程的栈帧中<strong>建立一个名为锁记录（Lock Record）的空间</strong>，用于存储锁对象目前的Mark Word的拷贝，官方称之为 Displaced Mark Word。</li>
+<li><strong>拷贝</strong>对象头中的<strong>Mark Word</strong>复制到锁记录中。</li>
+<li>拷贝成功后，虚拟机将使用CAS操作尝试<strong>将对象的Mark Word更新为指向Lock Record的指针</strong>，并将Lock record里的owner指针指向object mark word。如果更新成功，则执行步骤（3），否则执行步骤（4）。</li>
+<li><strong>如果这个更新动作成功了，那么这个线程就拥有了该对象的锁</strong>，并且对象Mark Word的<strong>锁标志位设置为“00”</strong>，即表示此对象处于轻量级锁定状态，</li>
+<li>如果这个更新操作失败了，
+<ol>
+<li>虚拟机首先会检查对象的Mark Word是否指向当前线程的栈帧，如果是就说明当前线程已经拥有了这个对象的锁，那就可以直接进入同步块继续执行。</li>
+<li><strong>否则</strong>说明<strong>多个线程竞争锁</strong>，<strong>轻量级锁就要膨胀为重量级锁</strong>，锁标志的状态值变为“10”，Mark Word中存储的就是指向重量级锁（互斥量）的指针，后面等待锁的线程也要进入阻塞状态。 <strong>而当前线程便尝试使用自旋来获取锁</strong>，自旋就是为了不让线程阻塞，而采用循环去获取锁的过程。</li>
+</ol>
+</li>
+</ol>
+<p><strong>轻量级锁的解锁过程：</strong></p>
+<ol>
+<li>通过CAS操作尝试<strong>用该线程锁空间中复制的Displaced Mark Word</strong>对象<strong>替换当前的Mark Word</strong>。</li>
+<li>如果<strong>替换成功</strong>，<strong>整个同步过程就完成</strong>了。</li>
+<li>如果<strong>替换失败</strong>，说明有其他线程尝试过获取该锁（此时<strong>锁已膨胀</strong>），那就要在释放锁的同时，唤醒被挂起的线程。</li>
+</ol>
+<p>下图是两个线程同时争夺锁，导致锁膨胀的流程图。</p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20200930185323.png" alt=""></p>
+<h5 id="2223-重量级锁"><a class="markdownIt-Anchor" href="#2223-重量级锁"></a> 2.2.2.3 重量级锁</h5>
+<p>Synchronized是通过对象内部的一个叫做监视器锁（monitor）来实现的。但是监视器锁本质又是依赖于底层的操作系统的Mutex Lock来实现的。而操作系统实现线程之间的切换这就需要从用户态转换到核心态，这个成本非常高，状态之间的转换需要相对比较长的时间，这就是为什么Synchronized效率低的原因。因此，这种<strong>依赖于操作系统</strong>Mutex Lock<strong>所实现的锁</strong>我们称之为**“重量级锁”**。JDK中对Synchronized做的种种优化，其核心都是为了减少这种重量级锁的使用。<strong>JDK1.6以后，为了减少获得锁和释放锁所带来的性能消耗，提高性能，引入了“轻量级锁”和“偏向锁”。</strong></p>
+<h5 id="2224-锁的优缺点对比"><a class="markdownIt-Anchor" href="#2224-锁的优缺点对比"></a> 2.2.2.4 锁的优缺点对比</h5>
+<table>
+<thead>
+<tr>
+<th>锁</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>偏向锁</strong></td>
+<td><strong>加锁</strong>和<strong>解锁</strong> <strong>不需要额外的消耗</strong>，和执行非同步方法比仅存在纳秒级的差距。</td>
+<td>如果<strong>线程间存在锁竞争</strong>，会<strong>带来额外</strong>的锁撤销的<strong>消耗</strong>。</td>
+<td><strong>适用于只有一个线程访问同步块</strong>场景。</td>
+</tr>
+<tr>
+<td><strong>轻量级锁</strong></td>
+<td>竞争的<strong>线程</strong> <strong>不会阻塞</strong>，提高了程序的响应速度。</td>
+<td>如果始终得不到锁竞争的线程使用<strong>自旋</strong>会<strong>消耗CPU</strong>。</td>
+<td><strong>追求响应时间</strong>。同步块执行速度非常快。</td>
+</tr>
+<tr>
+<td><strong>重量级锁</strong></td>
+<td>线程竞争<strong>不使用自旋</strong>，<strong>不会消耗CPU</strong>。</td>
+<td><strong>线程阻塞</strong>，响应时间<strong>缓慢</strong>。</td>
+<td><strong>追求吞吐量</strong>。同步块执行速度较长。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-原子操作的实现原理"><a class="markdownIt-Anchor" href="#23-原子操作的实现原理"></a> 2.3 原子操作的实现原理</h3>
+
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://t0ugh.biz/2020/11/11/Java并发-2-Java并发机制的底层实现原理/" title="[Java并发][2][Java并发机制的底层实现原理]" target="_blank" rel="external">https://t0ugh.biz/2020/11/11/Java并发-2-Java并发机制的底层实现原理/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/t0ugh" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/t0ugh" target="_blank"><span class="text-dark">T0UGH</span><small class="ml-1x">学生&amp;编程爱好者</small></a></h3>
+        <div>很拽很拽很拽很拽很拽很拽很拽很拽</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+            </div>
+    </article>
+    
+        
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+            
+</div>
+
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/11/11/Java并发-3-Java内存模型/" title="[Java并发][3][Java内存模型]"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/11/11/Java并发-1-并发编程的挑战/" title="[Java并发][1][并发编程的挑战]"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+        
+
+            
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/t0ugh" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'E1MH6h0YP3yhA0PJsohNBgiT-gzGzoHsz',
+    appKey: 'YOiN6zLq3XGfKmlR0b8vyHtN',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
