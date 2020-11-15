@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>[Flink][7][有状态算子和应用] | T0UGU BLOG</title>
+  <meta name="description" content="第7章 有状态算子和应用 大多数复杂一点的算子都需要存储部分数据。Flink的许多内置的数据流算子、数据源和数据汇都是有状态的。例如：  窗口算子为ProcessWindowFunction收集输入事件或为ReduceFunction保存聚合结果 ProcessFunction需要保存计时器 一些数据汇函数需要维护事务的状态  除了内置的算子、数据源、数据汇之外，Flink的DataStream">
+<meta name="keywords" content="大数据,Flink,流处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Flink][7][有状态算子和应用]">
+<meta property="og:url" content="https://t0ugh.biz/2020/11/15/Flink-7-有状态算子和应用/index.html">
+<meta property="og:site_name" content="打怪升级日常">
+<meta property="og:description" content="第7章 有状态算子和应用 大多数复杂一点的算子都需要存储部分数据。Flink的许多内置的数据流算子、数据源和数据汇都是有状态的。例如：  窗口算子为ProcessWindowFunction收集输入事件或为ReduceFunction保存聚合结果 ProcessFunction需要保存计时器 一些数据汇函数需要维护事务的状态  除了内置的算子、数据源、数据汇之外，Flink的DataStream">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201113134348.png">
+<meta property="og:updated_time" content="2020-11-15T10:56:52.642Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Flink][7][有状态算子和应用]">
+<meta name="twitter:description" content="第7章 有状态算子和应用 大多数复杂一点的算子都需要存储部分数据。Flink的许多内置的数据流算子、数据源和数据汇都是有状态的。例如：  窗口算子为ProcessWindowFunction收集输入事件或为ReduceFunction保存聚合结果 ProcessFunction需要保存计时器 一些数据汇函数需要维护事务的状态  除了内置的算子、数据源、数据汇之外，Flink的DataStream">
+<meta name="twitter:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201113134348.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://t0ugh.biz/2020/11/15/Flink-7-有状态算子和应用/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/t0ugh" target="_blank">
+          <img class="img-circle img-rotate" src="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">T0UGH</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生&amp;编程爱好者</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> ShenYang, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/t0ugh" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flink/">Flink</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java并发/">Java并发</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tomcat/">Tomcat</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/">Flink</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流处理/">流处理</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.17px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.17px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Flink/" style="font-size: 13.5px;">Flink</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.17px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 13.17px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.25px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.83px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.08px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.17px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.08px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.58px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.08px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.17px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.58px;">Tensorflow</a> <a href="/tags/Tomcat/" style="font-size: 13.08px;">Tomcat</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.67px;">java</a> <a href="/tags/jvm/" style="font-size: 13.42px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.17px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.92px;">redis</a> <a href="/tags/vue/" style="font-size: 13.08px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.17px;">动态规划</a> <a href="/tags/大数据/" style="font-size: 13.5px;">大数据</a> <a href="/tags/并发/" style="font-size: 13.33px;">并发</a> <a href="/tags/微服务/" style="font-size: 13.33px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.33px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.17px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.25px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.08px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.33px;">数据结构</a> <a href="/tags/机器学习/" style="font-size: 13.5px;">机器学习</a> <a href="/tags/流处理/" style="font-size: 13.5px;">流处理</a> <a href="/tags/深度学习/" style="font-size: 13.75px;">深度学习</a> <a href="/tags/神经网络/" style="font-size: 13px;">神经网络</a> <a href="/tags/算法/" style="font-size: 13.08px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.67px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.08px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Flink/">Flink</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/15/Flink-7-有状态算子和应用/" class="title">[Flink][7][有状态算子和应用]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-15T10:56:30.000Z" itemprop="datePublished">2020-11-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java并发/">Java并发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/11/Java并发-5-Java中的锁/" class="title">[Java并发][5][Java中的锁]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-11T09:21:10.000Z" itemprop="datePublished">2020-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java并发/">Java并发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/11/Java并发-4-Java并发编程基础/" class="title">[Java并发][4][Java并发编程基础]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-11T09:20:40.000Z" itemprop="datePublished">2020-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java并发/">Java并发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/11/Java并发-3-Java内存模型/" class="title">[Java并发][3][Java内存模型]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-11T09:20:05.000Z" itemprop="datePublished">2020-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java并发/">Java并发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/11/Java并发-2-Java并发机制的底层实现原理/" class="title">[Java并发][2][Java并发机制的底层实现原理]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-11T09:19:20.000Z" itemprop="datePublished">2020-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+    <article id="post-Flink-7-有状态算子和应用" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+        
+            <div class="article-header">
+                
+                    
+  
+    <h1 class="article-title" itemprop="name">
+      [Flink][7][有状态算子和应用]
+    </h1>
+  
+
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/11/15/Flink-7-有状态算子和应用/" class="article-date">
+	  <time datetime="2020-11-15T10:56:30.000Z" itemprop="datePublished">2020-11-15</time>
+	</a>
+</span>
+                                    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Flink/">Flink</a>
+  </span>
+
+                                        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/Flink/">Flink</a>, <a class="article-tag-link" href="/tags/大数据/">大数据</a>, <a class="article-tag-link" href="/tags/流处理/">流处理</a>
+  </span>
+
+
+                                            
+
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/11/15/Flink-7-有状态算子和应用/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第7章-有状态算子和应用"><span class="toc-text"> 第7章 有状态算子和应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#71-实现有状态函数"><span class="toc-text"> 7.1 实现有状态函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#711-键状态"><span class="toc-text"> 7.1.1 键状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#712-算子状态"><span class="toc-text"> 7.1.2 算子状态</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#7121-为什么要把算子状态当作列表来处理呢"><span class="toc-text"> 7.1.2.1 为什么要把算子状态当作列表来处理呢？</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#713-使用连接广播状态using-connected-broadcast-state"><span class="toc-text"> 7.1.3 使用连接广播状态(Using Connected Broadcast State)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#714-使用checkpointedfunction接口"><span class="toc-text"> 7.1.4 使用CheckpointedFunction接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#715-接收检查点完成的通知"><span class="toc-text"> 7.1.5 接收检查点完成的通知</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#72-为有状态的应用开启故障恢复"><span class="toc-text"> 7.2 为有状态的应用开启故障恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#73-确保有状态应用的可维护性"><span class="toc-text"> 7.3 确保有状态应用的可维护性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#731-指定算子唯一标识"><span class="toc-text"> 7.3.1 指定算子唯一标识</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#732-为使用键状态的算子定义最大并行度"><span class="toc-text"> 7.3.2 为使用键状态的算子定义最大并行度</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#74-有状态应用的性能及鲁棒性"><span class="toc-text"> 7.4 有状态应用的性能及鲁棒性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#741-选择状态后端"><span class="toc-text"> 7.4.1 选择状态后端</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#7411-memorystatebackend内存式的易丢但快"><span class="toc-text"> 7.4.1.1 MemoryStateBackend(内存式的，易丢但快)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7412-fsstatebackend本地状态在内存检查点会持久化"><span class="toc-text"> 7.4.1.2 FsStateBackend(本地状态在内存，检查点会持久化)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7413-rocksdbstatebackend本地持久化检查点也持久化"><span class="toc-text"> 7.4.1.3 RocksDBStateBackend（本地持久化，检查点也持久化）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#742-选择状态原语"><span class="toc-text"> 7.4.2 选择状态原语</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#743-防止状态泄露"><span class="toc-text"> 7.4.3 防止状态泄露</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#75-更新有状态应用"><span class="toc-text"> 7.5 更新有状态应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#751-保持现有状态更新应用"><span class="toc-text"> 7.5.1 保持现有状态更新应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#752-从应用中删除状态"><span class="toc-text"> 7.5.2 从应用中删除状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#753-修改算子的状态"><span class="toc-text"> 7.5.3 修改算子的状态</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#76-可查询式状态queryable-state"><span class="toc-text"> 7.6 可查询式状态(queryable state)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#761-可查询式状态服务的架构及启动方式"><span class="toc-text"> 7.6.1 可查询式状态服务的架构及启动方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#762-对外暴露可查询式状态"><span class="toc-text"> 7.6.2 对外暴露可查询式状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#763-从外部系统查询状态"><span class="toc-text"> 7.6.3 从外部系统查询状态</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第7章-有状态算子和应用"><a class="markdownIt-Anchor" href="#第7章-有状态算子和应用"></a> 第7章 有状态算子和应用</h2>
+<p>大多数复杂一点的算子都需要存储部分数据。Flink的许多<strong>内置</strong>的数据流<strong>算子</strong>、<strong>数据源</strong>和<strong>数据汇</strong>都是<strong>有状态的</strong>。例如：</p>
+<ul>
+<li>窗口算子为ProcessWindowFunction<strong>收集输入事件</strong>或为ReduceFunction<strong>保存聚合结果</strong></li>
+<li><strong>ProcessFunction</strong>需要<strong>保存计时器</strong></li>
+<li>一些<strong>数据汇函数</strong>需要<strong>维护事务</strong>的状态</li>
+</ul>
+<p>除了内置的算子、数据源、数据汇之外，Flink的DataStream API还提供了一些接口，用于在<strong>用户自定义函数(user-defined function)<strong>中</strong>注册</strong>、<strong>维护</strong>和<strong>访问</strong> <strong>状态</strong>。</p>
+<p>本章重点介绍</p>
+<ol>
+<li><strong>如何</strong>在用户定义的函数中<strong>定义不同类型的状态</strong>并与之交互。</li>
+<li>我们还将讨论<strong>性能</strong>方面以及<strong>如何控制函数状态的大小</strong>。</li>
+<li>最后，我们将展示如何将键状态配置为<strong>可查询状态</strong>，以及如何从外部应用程序访问它。</li>
+</ol>
+<h3 id="71-实现有状态函数"><a class="markdownIt-Anchor" href="#71-实现有状态函数"></a> 7.1 实现有状态函数</h3>
+<p>函数有两种类型的状态：<strong>键状态</strong>(keyed state)和<strong>算子状态</strong>(operator state)。在本节中，我们将一一介绍如何实现具有键状态的函数和具有算子状态的函数。</p>
+<h4 id="711-键状态"><a class="markdownIt-Anchor" href="#711-键状态"></a> 7.1.1 键状态</h4>
+<p>用户自定义函数可以在键属性的上下文中<strong>存储</strong>和<strong>访问</strong> <strong>对应的键状态</strong>。Flink会为<strong>键域中</strong>的<strong>每个键</strong>都维护<strong>一个状态实例</strong>，这些实例会分布在算子的那些并行任务上。也就是说函数所在算子的<strong>每个并行任务</strong>都负责<strong>键域的一个子域</strong>，并维护<strong>子域上每个键</strong> <strong>对应</strong>的那个<strong>状态实例</strong>。因此，键状态非常类似于<strong>分布式键值映射</strong>(distributed key-value map)。</p>
+<p><strong>键状态</strong>只能<strong>应用在KeyedStream上</strong>。</p>
+<p>Flink为<strong>键状态</strong>提供了多个<strong>状态原语</strong>。状态原语定义了在<strong>单个键</strong>上<strong>状态实例</strong>的<strong>存储结构</strong>。Flink支持以下状态原语:</p>
+<table>
+<thead>
+<tr>
+<th>状态原语</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ValueState[T]</strong></td>
+<td><strong>保存</strong>类型为T的<strong>单个值</strong>。可以通过<code>ValueState.value()</code>来<strong>获取</strong>，通过<code>ValueState.update(value: T)</code>来<strong>更新</strong></td>
+</tr>
+<tr>
+<td><strong>ListState[T]</strong></td>
+<td>保存类型为T的元素<strong>列表</strong>。支持add、addAll、get等操作。但是<strong>不支持对单个元素的删除</strong>，但可以通过<code>update</code>方法来用新列表替换原来的列表</td>
+</tr>
+<tr>
+<td><strong>MapState[K, V]</strong></td>
+<td>保存一个键和值的<strong>映射</strong>。该原语提供了许多Java Map接口的常规方法</td>
+</tr>
+<tr>
+<td><strong>ReducingState[T]</strong></td>
+<td><strong>用于聚合操作</strong>，与ListState[T]的API大致相似。但调用它的add()会立即使用ReduceFunction聚合值。并且它的get()方法只会返回一个<strong>单值列表</strong>：这个<strong>值</strong>是<strong>聚合结果</strong></td>
+</tr>
+<tr>
+<td><strong>AggregatingState[I, O]</strong></td>
+<td><strong>用于聚合操作</strong>，比ReducingState更通用一点。调用它的add()会立即使用AggregateFunction聚合值</td>
+</tr>
+</tbody>
+</table>
+<p>下面举个例子。如果传感器测量的温度自上次测量以来发生了超过阈值的变化，示例应用程序将发出警报事件。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">KeyedStateFunction</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/** main() defines and executes the DataStream program */</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略不重要代码</span></span><br><span class="line">    <span class="keyword">val</span> env = ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略不重要代码</span></span><br><span class="line">    <span class="keyword">val</span> sensorData: <span class="type">DataStream</span>[<span class="type">SensorReading</span>] = ...</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 先分key  </span></span><br><span class="line">    <span class="keyword">val</span> keyedSensorData: <span class="type">KeyedStream</span>[<span class="type">SensorReading</span>, <span class="type">String</span>] = sensorData.keyBy(_.id)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对keyedStream调用flatMap  </span></span><br><span class="line">    <span class="keyword">val</span> alerts: <span class="type">DataStream</span>[(<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)] = keyedSensorData</span><br><span class="line">      .flatMap(<span class="keyword">new</span> <span class="type">TemperatureAlertFunction</span>(<span class="number">1.7</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment">// print result stream to standard out</span></span><br><span class="line">    alerts.print()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// execute application</span></span><br><span class="line">    env.execute(<span class="string">"Generate Temperature Alerts"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * The function emits an alert if the temperature measurement of a sensor changed by more than</span></span><br><span class="line"><span class="comment">  * a configured threshold compared to the last reading.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * @param threshold The threshold to raise an alert.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TemperatureAlertFunction</span>(<span class="params">val threshold: <span class="type">Double</span></span>)</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">RichFlatMapFunction</span>[<span class="type">SensorReading</span>, (<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)] </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 用来存储 上一次温度 的状态      </span></span><br><span class="line">  <span class="comment">// the state handle object</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">var</span> lastTempState: <span class="type">ValueState</span>[<span class="type">Double</span>] = _</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 初始化工作      </span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">open</span></span>(parameters: <span class="type">Configuration</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// create state descriptor 创建一个状态描述符</span></span><br><span class="line">    <span class="keyword">val</span> lastTempDescriptor = <span class="keyword">new</span> <span class="type">ValueStateDescriptor</span>[<span class="type">Double</span>](</span><br><span class="line">        <span class="string">"lastTemp"</span>, classOf[<span class="type">Double</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// obtain the state handle 初始化并获取 上一次温度 状态的引用</span></span><br><span class="line">    lastTempState = getRuntimeContext.getState[<span class="type">Double</span>](lastTempDescriptor)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 真正的处理函数      </span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">flatMap</span></span>(reading: <span class="type">SensorReading</span>,</span><br><span class="line">  	out: <span class="type">Collector</span>[(<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// fetch the last temperature from state 从状态中拿到上一次的温度</span></span><br><span class="line">    <span class="keyword">val</span> lastTemp = lastTempState.value()</span><br><span class="line">    <span class="comment">// check if we need to emit an alert 计算差值</span></span><br><span class="line">    <span class="keyword">val</span> tempDiff = (reading.temperature - lastTemp).abs</span><br><span class="line">    <span class="comment">// 如果差值超过阈值，就会被输出</span></span><br><span class="line">    <span class="keyword">if</span> (tempDiff &gt; threshold) &#123; </span><br><span class="line">      <span class="comment">// temperature changed by more than the threshold</span></span><br><span class="line">      out.collect((reading.id, reading.temperature, tempDiff))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// update lastTemp state 更新状态</span></span><br><span class="line">    <span class="keyword">this</span>.lastTempState.update(reading.temperature)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面对例子中的几个重点进行解释</p>
+<ul>
+<li>
+<p>要<strong>创建</strong>一个<strong>状态对象</strong>，我们<strong>必须</strong>通过RichFunction的RuntimeContext向Flink<strong>注册</strong>一个<strong>状态描述符</strong>。</p>
+<ul>
+<li><strong>每种状态原语</strong>都有自己<strong>特定的状态描述符</strong>，描述符中包括<strong>状态的名称</strong>和<strong>状态的数据类型</strong>。例如，<code>val lastTempDescriptor = new ValueStateDescriptor[Double](&quot;lastTemp&quot;, classOf[Double])</code>中，状态原语ValueState有自己的状态描述符类<code>ValueStateDescriptor</code>，我们通过提供状态的名称<code>lastTemp</code>和状态的类型<code>Double</code>来实例化状态描述符类。</li>
+<li><strong>ReducingState</strong>和<strong>AggregatingState</strong>的<strong>描述符</strong>在实例化时还需要<strong>额外提供</strong> <strong>ReduceFunction或AggregateFunction</strong>来对加入该状态的值进行聚合。</li>
+</ul>
+</li>
+<li>
+<p>通过注册多个状态描述符，让处理函数拥有多个状态对象</p>
+</li>
+<li>
+<p>因为Flink需要创建合适的<strong>序列化器</strong>，所以描述符中<strong>必须指定数据类型</strong>。（如前面类型指定的<code>classOf[Double]</code>）</p>
+</li>
+<li>
+<p>一般把<strong>状态引用</strong>声明为类中的<strong>成员变量</strong>。然后，<strong>状态引用</strong>会在<strong>open()方法</strong>中被<strong>初始化</strong>。例如，前面例子的<code>lastTempState</code>这个状态被声明为了类的成员变量，并且在<code>open()</code>方法中<code>lastTempState = getRuntimeContext.getState[Double](lastTempDescriptor)</code>，它被初始化了。</p>
+</li>
+</ul>
+<p>当一个函数注册一个状态描述符时，Flink会<strong>检查状态后端</strong>中<strong>是否已经</strong>有该状态描述符对应的状态。在<strong>从故障恢复算子</strong>或者<strong>从保存点启动应用</strong>时，可能会<strong>发生这种检查</strong>。在这两种情况下，Flink都将<strong>新注册</strong>的状态引用<strong>链接到</strong>状态后端中<strong>描述符相同</strong>的<strong>现存状态</strong>。如果<strong>找不到</strong>，就将状态初始化为<strong>空</strong>。</p>
+<p>此外，FlinkAPI还提供了一种更简洁的写法，我们用这种简便写法实现与上例逻辑相同的功能。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> alerts: <span class="type">DataStream</span>[(<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)] = keyedData</span><br><span class="line">  .flatMapWithState[(<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>), <span class="type">Double</span>] &#123;</span><br><span class="line">    <span class="comment">// 处理第一个事件到达的情况（这时没法对比阈值差距）</span></span><br><span class="line">    <span class="comment">// 第一个参数是当前事件</span></span><br><span class="line">    <span class="comment">// 第二个参数是当前状态(Flink会从后端中取出状态并填充到这里)</span></span><br><span class="line">    <span class="comment">// 第一个返回值是flatMap的结果列表</span></span><br><span class="line">    <span class="comment">// 第二个返回值是处理后的状态(Flink会用这个值来对后端中的状态进行更新)  </span></span><br><span class="line">    <span class="keyword">case</span> (in: <span class="type">SensorReading</span>, <span class="type">None</span>) =&gt;&#123;</span><br><span class="line">      <span class="comment">// no previous temperature defined; just update the last temperature</span></span><br><span class="line">      (<span class="type">List</span>.empty, <span class="type">Some</span>(in.temperature))</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 处理非第一个事件到达的情况（正常的处理，这里才能比较阈值）  </span></span><br><span class="line">    <span class="keyword">case</span> (r: <span class="type">SensorReading</span>, lastTemp: <span class="type">Some</span>[<span class="type">Double</span>]) =&gt; &#123;</span><br><span class="line">      <span class="comment">// compare temperature difference with threshold</span></span><br><span class="line">      <span class="keyword">val</span> tempDiff = (r.temperature - lastTemp.get).abs</span><br><span class="line">      <span class="keyword">if</span> (tempDiff &gt; <span class="number">1.7</span>) &#123;</span><br><span class="line">        <span class="comment">// threshold exceeded; emit an alert and update the last temperature</span></span><br><span class="line">        (<span class="type">List</span>((r.id, r.temperature, tempDiff)), <span class="type">Some</span>(r.temperature))</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// threshold not exceeded; just update the last temperature</span></span><br><span class="line">        (<span class="type">List</span>.empty, <span class="type">Some</span>(r.temperature))</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="712-算子状态"><a class="markdownIt-Anchor" href="#712-算子状态"></a> 7.1.2 算子状态</h4>
+<p><strong>每个算子的并行任务</strong>管理<strong>算子状态</strong>。在算子的同一并行任务中处理的所有事件都可以访问相同的状态。Flink支持三种算子状态：列表状态、联合列表状态以及广播状态。</p>
+<p><strong>处理函数</strong>可以通过<strong>实现<code>ListCheckpointed</code>接口</strong>来<strong>处理算子列表状态</strong>。处理函数会将<strong>算子状态</strong>当作<strong>常规的成员变量</strong>来实现，然后<strong>通过</strong>ListCheckpoint接口中的两个<strong>回调函数</strong>与<strong>状态后端</strong> <strong>交互</strong>:</p>
+<p>下面来看看ListCheckpointed接口的源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ListCheckpointed</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Serializable</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 以列表的形式返回一个函数状态的快照</span></span><br><span class="line">	<span class="function">List&lt;T&gt; <span class="title">snapshotState</span><span class="params">(<span class="keyword">long</span> checkpointId, <span class="keyword">long</span> timestamp)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 根绝提供的列表来恢复函数状态</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">restoreState</span><span class="params">(List&lt;T&gt; state)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面我们举个例子，它显示了如何为一个函数实现ListCheckpoint接口，该函数为算子的每个并行任务统计温度超过阈值的数目</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HighTempCounter</span>(<span class="params">val threshold: <span class="type">Double</span></span>)</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">RichFlatMapFunction</span>[<span class="type">SensorReading</span>, (<span class="type">Int</span>, <span class="type">Long</span>)]</span></span><br><span class="line"><span class="class">    <span class="keyword">with</span> <span class="title">ListCheckpointed</span>[java.lang.<span class="type">Long</span>] </span>&#123;</span><br><span class="line">  <span class="comment">// 获取当前任务的索引标志</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">lazy</span> <span class="keyword">val</span> subtaskIdx = getRuntimeContext.getIndexOfThisSubtask</span><br><span class="line">  <span class="comment">// 本地计数器（当前任务的本地状态）</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">var</span> highTempCnt = <span class="number">0</span>L</span><br><span class="line">  <span class="comment">// 处理函数，每当温度超过阈值就对本地计数器+1      </span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">flatMap</span></span>(</span><br><span class="line">      in: <span class="type">SensorReading</span>, </span><br><span class="line">      out: <span class="type">Collector</span>[(<span class="type">Int</span>, <span class="type">Long</span>)]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">if</span> (in.temperature &gt; threshold) &#123;</span><br><span class="line">      <span class="comment">// increment counter if threshold is exceeded</span></span><br><span class="line">      highTempCnt += <span class="number">1</span></span><br><span class="line">      <span class="comment">// emit update with subtask index and counter</span></span><br><span class="line">      out.collect((subtaskIdx, highTempCnt))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用来返回快照，这个函数会在生成检查点时被调用</span></span><br><span class="line"><span class="comment"> * @Param chkpntId: 检查点编号</span></span><br><span class="line"><span class="comment"> * @Param ts: JobManager创建检测点时的时间戳</span></span><br><span class="line"><span class="comment"> * @Return 将本地状态转换为一个列表来返回</span></span><br><span class="line"><span class="comment"> */</span>       </span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">snapshotState</span></span>(</span><br><span class="line">      chkpntId: <span class="type">Long</span>, </span><br><span class="line">      ts: <span class="type">Long</span>): java.util.<span class="type">List</span>[java.lang.<span class="type">Long</span>] = &#123;</span><br><span class="line">    <span class="comment">// snapshot state as list with a single count</span></span><br><span class="line">    java.util.<span class="type">Collections</span>.singletonList(highTempCnt)</span><br><span class="line">  &#125;</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用于恢复本地状态，这个函数在初始化函数状态时被调用</span></span><br><span class="line"><span class="comment"> * @Param state: 将这个列表转换为本地状态</span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">restoreState</span></span>(</span><br><span class="line">      state: util.<span class="type">List</span>[java.lang.<span class="type">Long</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    highTempCnt = <span class="number">0</span></span><br><span class="line">    <span class="comment">// restore state by adding all longs of the list</span></span><br><span class="line">    <span class="keyword">for</span> (cnt &lt;- state.asScala) &#123;</span><br><span class="line">      highTempCnt += cnt</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="7121-为什么要把算子状态当作列表来处理呢"><a class="markdownIt-Anchor" href="#7121-为什么要把算子状态当作列表来处理呢"></a> 7.1.2.1 为什么要把算子状态当作列表来处理呢？</h5>
+<p>看完上个示例，您可能想知道为什么算子状态作为<strong>状态对象列表(a list of state objects)<strong>处理。这是因为</strong>List结构</strong> <strong>支持改变</strong>带算子状态的函数的<strong>并行性</strong>。为了增加或减少具有算子状态的函数的并行性，需要将算子状态重新分配给更多或更少的任务实例。这需要<strong>分割</strong>或<strong>合并</strong> <strong>状态</strong>对象，而一般来说，<strong>列表</strong>要比单个值<strong>更加适合</strong> <strong>分割</strong>和<strong>合并</strong></p>
+<p>通过提供状态对象列表，具有算子状态的函数可以使用<code>snapshotState()</code>和<code>restoreState()</code>方法实现此逻辑。</p>
+<ul>
+<li><code>snapshotState()</code>方法将本地算子状态<strong>分解</strong>为多个部分</li>
+<li><code>restoreState()</code>方法将本地算子状态从多个部分<strong>组合</strong>起来</li>
+<li>当一个算子状态被恢复时，该状态的各个部分被分配到算子的所有<strong>并行任务</strong>中，并调用restoreState()方法。</li>
+<li>如果<strong>并行任务</strong>比<strong>状态对象</strong> <strong>多</strong>，那么<strong>有些任务启动时分配不到状态</strong>，那么传入restoreState()方法时，<strong>入参</strong>就是个<strong>空列表</strong>。</li>
+</ul>
+<p>那么，我们前面那个例子只是<code>java.util.Collections.singletonList(highTempCnt)</code>，这可能在增加并行度时导致有的任务获取不到状态，所以我们改造一下这个方法，如下代码</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 分割操作符列表状态，以便在重新缩放期间更好地分布</span></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">snapshotState</span></span>(</span><br><span class="line">    chkpntId: <span class="type">Long</span>, </span><br><span class="line">    ts: <span class="type">Long</span>): java.util.<span class="type">List</span>[java.lang.<span class="type">Long</span>] = &#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// split count into ten partial counts</span></span><br><span class="line">  <span class="keyword">val</span> div = highTempCnt / <span class="number">10</span></span><br><span class="line">  <span class="keyword">val</span> mod = (highTempCnt % <span class="number">10</span>).toInt</span><br><span class="line">  <span class="comment">// 把这个本地计数器拆分成10份，返回一个长度为10的列表	</span></span><br><span class="line">  <span class="comment">// return count as ten parts</span></span><br><span class="line">  (<span class="type">List</span>.fill(mod)(<span class="keyword">new</span> java.lang.<span class="type">Long</span>(div + <span class="number">1</span>)) </span><br><span class="line">   	++ <span class="type">List</span>.fill(<span class="number">10</span> - mod)(<span class="keyword">new</span> java.lang.<span class="type">Long</span>(div))).asJava</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="713-使用连接广播状态using-connected-broadcast-state"><a class="markdownIt-Anchor" href="#713-使用连接广播状态using-connected-broadcast-state"></a> 7.1.3 使用连接广播状态(Using Connected Broadcast State)</h4>
+<p>流应用中的一个常见需求是将<strong>相同的信息</strong> <strong>分发</strong>到一个算子的<strong>所有并行任务</strong>中，并将其作为可恢复状态进行维护。</p>
+<blockquote>
+<p>例如，一个规则流和一个依赖于这个规则的事件流。函数 connect 这两个输入流。它需要使用规则来处理所有的输入事件。因此我们需要对规则流进行广播，来让所有处理事件流的任务都接收到规则，都用这个规则来处理输入事件。</p>
+</blockquote>
+<p>下面还是直接看个例子，看看如何实现用<strong>广播流</strong>来<strong>动态配置阈值</strong>的温度报警系统</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">BroadcastStateFunction</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/** main() defines and executes the DataStream program */</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// set up the streaming execution environment</span></span><br><span class="line">    <span class="keyword">val</span> env = ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ingest sensor stream</span></span><br><span class="line">    <span class="keyword">val</span> sensorData: <span class="type">DataStream</span>[<span class="type">SensorReading</span>] = </span><br><span class="line"></span><br><span class="line">    <span class="comment">// define a stream of thresholds</span></span><br><span class="line">    <span class="comment">// 定义一个阈值的流（规则流，需要广播，这样可以动态配置规则）  </span></span><br><span class="line">    <span class="keyword">val</span> thresholds: <span class="type">DataStream</span>[<span class="type">ThresholdUpdate</span>] = env.fromElements(</span><br><span class="line">      <span class="type">ThresholdUpdate</span>(<span class="string">"sensor_1"</span>, <span class="number">5.0</span>d),</span><br><span class="line">      <span class="type">ThresholdUpdate</span>(<span class="string">"sensor_2"</span>, <span class="number">0.9</span>d),</span><br><span class="line">      <span class="type">ThresholdUpdate</span>(<span class="string">"sensor_3"</span>, <span class="number">0.5</span>d),</span><br><span class="line">      <span class="type">ThresholdUpdate</span>(<span class="string">"sensor_1"</span>, <span class="number">1.2</span>d),  <span class="comment">// update threshold for sensor_1</span></span><br><span class="line">      <span class="type">ThresholdUpdate</span>(<span class="string">"sensor_3"</span>, <span class="number">0.0</span>d))  <span class="comment">// disable threshold for sensor_3</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对事件流进行分key  </span></span><br><span class="line">    <span class="keyword">val</span> keyedSensorData: <span class="type">KeyedStream</span>[<span class="type">SensorReading</span>, <span class="type">String</span>] = sensorData.keyBy(_.id)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个广播状态描述符（一个键状态描述符）</span></span><br><span class="line">    <span class="comment">// 名字是"thresholds"</span></span><br><span class="line">    <span class="comment">// 键的类型是String</span></span><br><span class="line">    <span class="comment">// 值的类型是Double  </span></span><br><span class="line">    <span class="keyword">val</span> broadcastStateDescriptor = <span class="keyword">new</span> <span class="type">MapStateDescriptor</span>[<span class="type">String</span>, <span class="type">Double</span>](</span><br><span class="line">        <span class="string">"thresholds"</span>,</span><br><span class="line">        classOf[<span class="type">String</span>],</span><br><span class="line">        classOf[<span class="type">Double</span>]</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 使用一个或多个广播状态描述符来创建一个广播流  </span></span><br><span class="line">    <span class="keyword">val</span> broadcastThresholds: <span class="type">BroadcastStream</span>[<span class="type">ThresholdUpdate</span>] = thresholds</span><br><span class="line">      .broadcast(broadcastStateDescriptor)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将正常流与广播流联结，并且使用处理函数处理  </span></span><br><span class="line">    <span class="keyword">val</span> alerts: <span class="type">DataStream</span>[(<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)] = keyedSensorData</span><br><span class="line">      .connect(broadcastThresholds)</span><br><span class="line">      .process(<span class="keyword">new</span> <span class="type">UpdatableTemperatureAlertFunction</span>())</span><br><span class="line"></span><br><span class="line">    <span class="comment">// print result stream to standard out</span></span><br><span class="line">    alerts.print()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// execute application</span></span><br><span class="line">    env.execute(<span class="string">"Generate Temperature Alerts"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">ThresholdUpdate</span>(<span class="params">id: <span class="type">String</span>, threshold: <span class="type">Double</span></span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">/**</span></span></span><br><span class="line"><span class="class">  <span class="title">*</span> <span class="title">处理函数需要实现KeyedBroadcastProcessFunction接口，它有四个类型参数</span></span></span><br><span class="line"><span class="class">  <span class="title">*</span> <span class="title">The</span> <span class="title">key</span> <span class="title">type</span> <span class="title">of</span> <span class="title">the</span> <span class="title">input</span> <span class="title">keyed</span> <span class="title">stream</span>.</span></span><br><span class="line"><span class="class">  <span class="title">*</span> <span class="title">事件流中元素的类型</span>(<span class="params"><span class="type">The</span> input type of the keyed (non-broadcast</span>) <span class="title">side</span>.)</span></span><br><span class="line"><span class="class">  <span class="title">*</span> <span class="title">广播流中元素的类型</span>(<span class="params"><span class="type">The</span> input type of the broadcast side.</span>)</span></span><br><span class="line"><span class="class">  <span class="title">*</span> <span class="title">输出的类型</span></span></span><br><span class="line"><span class="class">  <span class="title">*/</span></span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">UpdatableTemperatureAlertFunction</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">KeyedBroadcastProcessFunction</span>[<span class="type">String</span>,</span></span><br><span class="line"><span class="class">                                          <span class="type">SensorReading</span>,</span></span><br><span class="line"><span class="class">                                          <span class="type">ThresholdUpdate</span>,</span></span><br><span class="line"><span class="class">                                          (<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)] </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 阈值状态描述符      </span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">lazy</span> <span class="keyword">val</span> thresholdStateDescriptor </span><br><span class="line">        = <span class="keyword">new</span> <span class="type">MapStateDescriptor</span>[<span class="type">String</span>, <span class="type">Double</span>]</span><br><span class="line">        (<span class="string">"thresholds"</span>, classOf[<span class="type">String</span>], classOf[<span class="type">Double</span>])</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ValueState[Double]状态 用来储存上一个温度的</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">var</span> lastTempState: <span class="type">ValueState</span>[<span class="type">Double</span>] = _</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 初始化函数      </span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">open</span></span>(parameters: <span class="type">Configuration</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">// 创建上一个温度状态的描述符</span></span><br><span class="line">    <span class="keyword">val</span> lastTempDescriptor </span><br><span class="line">      = <span class="keyword">new</span> <span class="type">ValueStateDescriptor</span>[<span class="type">Double</span>](<span class="string">"lastTemp"</span>, classOf[<span class="type">Double</span>])</span><br><span class="line">    <span class="comment">// 根据描述符来初始化上一个温度状态</span></span><br><span class="line">    lastTempState = getRuntimeContext.getState[<span class="type">Double</span>](lastTempDescriptor)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 处理广播流的事件      </span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">processBroadcastElement</span></span>(</span><br><span class="line">      update: <span class="type">ThresholdUpdate</span>,</span><br><span class="line">      ctx: <span class="type">KeyedBroadcastProcessFunction</span>[</span><br><span class="line">          <span class="type">String</span>,</span><br><span class="line">          <span class="type">SensorReading</span>,</span><br><span class="line">          <span class="type">ThresholdUpdate</span>,</span><br><span class="line">          (<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)]#<span class="type">Context</span>,</span><br><span class="line">      out: <span class="type">Collector</span>[(<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从上下文获取广播状态  </span></span><br><span class="line">    <span class="keyword">val</span> thresholds = ctx.getBroadcastState(thresholdStateDescriptor)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果传入状态的阈值不等于0.0d，更新广播状态  </span></span><br><span class="line">    <span class="keyword">if</span> (update.threshold != <span class="number">0.0</span>d) &#123;</span><br><span class="line">      thresholds.put(update.id, update.threshold)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 如果传入的阈值为0.0d，就说明用户不想设置阈值了，就直接删掉广播状态中对应键</span></span><br><span class="line">      thresholds.remove(update.id)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 处理正常流的事件   </span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">processElement</span></span>(</span><br><span class="line">      reading: <span class="type">SensorReading</span>,</span><br><span class="line">      readOnlyCtx: <span class="type">KeyedBroadcastProcessFunction</span>[</span><br><span class="line">          <span class="type">String</span>,</span><br><span class="line">          <span class="type">SensorReading</span>,</span><br><span class="line">          <span class="type">ThresholdUpdate</span>,</span><br><span class="line">          (<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)]#<span class="type">ReadOnlyContext</span>,</span><br><span class="line">      out: <span class="type">Collector</span>[(<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获得只读的广播状态</span></span><br><span class="line">    <span class="keyword">val</span> thresholds = readOnlyCtx.getBroadcastState(thresholdStateDescriptor)</span><br><span class="line">    <span class="comment">// 获取key对应的阈值，然后比较是否超过阈值，超过就报警</span></span><br><span class="line">    <span class="keyword">if</span> (thresholds.contains(reading.id)) &#123;</span><br><span class="line">      <span class="comment">// get threshold for sensor</span></span><br><span class="line">      <span class="keyword">val</span> sensorThreshold: <span class="type">Double</span> = thresholds.get(reading.id)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// fetch the last temperature from state</span></span><br><span class="line">      <span class="keyword">val</span> lastTemp = lastTempState.value()</span><br><span class="line">      <span class="comment">// check if we need to emit an alert</span></span><br><span class="line">      <span class="keyword">val</span> tempDiff = (reading.temperature - lastTemp).abs</span><br><span class="line">      <span class="keyword">if</span> (tempDiff &gt; sensorThreshold) &#123;</span><br><span class="line">        <span class="comment">// temperature increased by more than the threshold</span></span><br><span class="line">        out.collect((reading.id, reading.temperature, tempDiff))</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新上一个温度</span></span><br><span class="line">    <span class="keyword">this</span>.lastTempState.update(reading.temperature)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于上面的示例，有几点要说明一下</p>
+<ul>
+<li>KeyedBroadcastProcessFunction的元素处理方法是<strong>不对称</strong>的。方法processElement()和processBroadcastElement()参数中的上下文<strong>一个支持读写</strong>，<strong>一个只可读</strong>。</li>
+</ul>
+<h4 id="714-使用checkpointedfunction接口"><a class="markdownIt-Anchor" href="#714-使用checkpointedfunction接口"></a> 7.1.4 使用CheckpointedFunction接口</h4>
+<p><strong>CheckpointedFunction接口</strong>是<strong>指定有状态函数</strong>的<strong>最底层接口</strong>。它提供了<strong>钩子方法</strong>来<strong>注册</strong>和<strong>维护</strong> <strong>键状态</strong>和<strong>算子状态</strong>，并且是唯一允许访问算子列表联合状态(在恢复或保存点重新启动时完全复制的操作符状态)的接口。</p>
+<p>CheckpointedFunction接口定义了两个方法，initializeState()和snapshotState()。</p>
+<ul>
+<li>
+<p><strong>initializeState()<strong>方法在</strong>创建</strong>CheckpointedFunction的<strong>并行任务时</strong>被调用。当启动应用程序或由于故障而重新启动任务时，就会创建并行任务从而调用这个方法。该方法用于<strong>初始化</strong>状态或者<strong>恢复</strong>状态</p>
+</li>
+<li>
+<p>在<strong>生成检查点之前</strong>，<strong>snapshotState()<strong>方法被调用，snapshotState()方法的目的是确保</strong>在检查点生成完成之前</strong> <strong>更新</strong>所有<strong>状态对象</strong>（这样检查点拿到的本地任务状态就是新的）。</p>
+</li>
+</ul>
+<p>下面还是举个例子，这个例子<strong>同时具有键状态和算子状态</strong>，它统计每个键和每个算子任务有多少传感器读数超过了指定的阈值。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HighTempCounter</span>(<span class="params">val threshold: <span class="type">Double</span></span>)</span></span><br><span class="line"><span class="class">  <span class="keyword">extends</span> <span class="title">FlatMapFunction</span>[<span class="type">SensorReading</span>, (<span class="type">String</span>, <span class="type">Long</span>, <span class="type">Long</span>)]</span></span><br><span class="line"><span class="class">	<span class="title">//</span> <span class="title">需要实现CheckpointedFunction接口</span>		</span></span><br><span class="line"><span class="class">    <span class="keyword">with</span> <span class="title">CheckpointedFunction</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 本地变量，用来统计当前任务超过阈值的温度个数</span></span><br><span class="line">  <span class="keyword">var</span> opHighTempCnt: <span class="type">Long</span> = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 键状态，用来储存当前key超过阈值的温度个数      </span></span><br><span class="line">  <span class="keyword">var</span> keyedCntState: <span class="type">ValueState</span>[<span class="type">Long</span>] = _</span><br><span class="line">        </span><br><span class="line">  <span class="comment">// 算子状态，用来储存当前任务超过阈值的温度个数 </span></span><br><span class="line">  <span class="keyword">var</span> opCntState: <span class="type">ListState</span>[<span class="type">Long</span>] = _</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 处理函数      </span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">flatMap</span></span>(</span><br><span class="line">      v: <span class="type">SensorReading</span>, </span><br><span class="line">      out: <span class="type">Collector</span>[(<span class="type">String</span>, <span class="type">Long</span>, <span class="type">Long</span>)]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">if</span> (v.temperature &gt; threshold) &#123;</span><br><span class="line">      <span class="comment">// 本地变量++</span></span><br><span class="line">      opHighTempCnt += <span class="number">1</span></span><br><span class="line">      <span class="comment">// 更新键状态</span></span><br><span class="line">      <span class="keyword">val</span> keyHighTempCnt = keyedCntState.value() + <span class="number">1</span></span><br><span class="line">      keyedCntState.update(keyHighTempCnt)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// emit new counters 输出</span></span><br><span class="line">      out.collect((v.id, keyHighTempCnt, opHighTempCnt))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 初始化      </span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">initializeState</span></span>(initContext: <span class="type">FunctionInitializationContext</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">// initialize keyed state 初始化键状态</span></span><br><span class="line">    <span class="keyword">val</span> keyCntDescriptor = <span class="keyword">new</span> <span class="type">ValueStateDescriptor</span>[<span class="type">Long</span>](<span class="string">"keyedCnt"</span>, classOf[<span class="type">Long</span>])</span><br><span class="line">    keyedCntState = initContext.getKeyedStateStore.getState(keyCntDescriptor)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// initialize operator state 初始化算子状态</span></span><br><span class="line">    <span class="keyword">val</span> opCntDescriptor = <span class="keyword">new</span> <span class="type">ListStateDescriptor</span>[<span class="type">Long</span>](<span class="string">"opCnt"</span>, classOf[<span class="type">Long</span>])</span><br><span class="line">    opCntState = initContext.getOperatorStateStore.getListState(opCntDescriptor)</span><br><span class="line">    <span class="comment">// initialize local variable with state 用算子状态来设置本地变量的值</span></span><br><span class="line">    opHighTempCnt = opCntState.get().asScala.sum</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 快照（用于检查点前的更新）      </span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">snapshotState</span></span>(snapshotContext: <span class="type">FunctionSnapshotContext</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">// update operator state with local state 把本地变量储存的值更新到算子状态</span></span><br><span class="line">    opCntState.clear()</span><br><span class="line">    opCntState.add(opHighTempCnt)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="715-接收检查点完成的通知"><a class="markdownIt-Anchor" href="#715-接收检查点完成的通知"></a> 7.1.5 接收检查点完成的通知</h4>
+<p>由于检查点机制，Flink可以实现非常好的性能。然而，另一个含义是，<strong>除了生成检查点时的几个逻辑时间点，应用永远不会处于一致的状态</strong>。<strong>对于一些算子</strong>来说，<strong>知道检查点是否完成</strong>是很<strong>重要</strong>的。（例如，旨在将数据写入具有严格一致性要求的外部系统的数据汇必须只发出在检查点完成之前接收到的记录，以确保在出现故障的情况下不会重新发送数据。）</p>
+<p><strong>只有所有算子任务的状态都成功地写入检查点存储</strong>时，检查点<strong>才算成功</strong>。因此，<strong>只有JobManager</strong>才<strong>能确定</strong>检查点是否成功。</p>
+<p>需要接收检查点完成的通知的算子可以<strong>实现CheckpointListener接口</strong>。这个接口提供了notifyCheckpointComplete(long  chkpntId)方法，当JobManager确定一个检查点成功完成后，该方法会被调用。</p>
+<h3 id="72-为有状态的应用开启故障恢复"><a class="markdownIt-Anchor" href="#72-为有状态的应用开启故障恢复"></a> 7.2 为有状态的应用开启故障恢复</h3>
+<p>Flink通过<strong>检查点机制</strong>来启动故障恢复，我们<strong>需要显式地启动</strong>检查点机制，如下所示</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> env = <span class="type">StreamExecutionEnvironment</span>.getExecutionEnvironment</span><br><span class="line"></span><br><span class="line"><span class="comment">// set checkpointing interval to 10 seconds (10000 milliseconds)</span></span><br><span class="line">env.enableCheckpointing(<span class="number">10000</span>L)</span><br></pre></td></tr></table></figure>
+<p><strong>检查点间隔</strong>(如前文的10s)会<strong>影响</strong>检查点机制在<strong>常规处理期间的开销</strong>以及<strong>从故障中恢复所需的时间</strong>。较短的检查点间隔在常规处理期间会导致较高的开销，但可以实现更快的恢复，因为需要重新处理的数据更少。</p>
+<p>Flink提供了其他一些可供调节的配置选项，比如</p>
+<ul>
+<li><strong>一致性保障</strong>(精确一次或至少一次)的选择</li>
+<li><strong>并发检查点的数量</strong></li>
+<li>用来取消长时间运行检查点的<strong>超时时间</strong></li>
+<li>和<strong>状态后端相关</strong>的选项。</li>
+</ul>
+<h3 id="73-确保有状态应用的可维护性"><a class="markdownIt-Anchor" href="#73-确保有状态应用的可维护性"></a> 7.3 确保有状态应用的可维护性</h3>
+<p>已经运行了几周的应用的<strong>状态</strong>可能<strong>代价很高</strong>，甚至无法重新计算。同时，长时间运行的应用程序也需要一些维护，比如修复bug、添加、调整或删除功能，或者调整算子的并行性等。因此，能够将状态<strong>迁移到新版本</strong>应用或<strong>重分配</strong>到更多或更少的算子任务是很重要的。</p>
+<p>Flink提供<strong>保存点</strong>来<strong>维护</strong>应用<strong>状态</strong>。但是，它要求<strong>初始版本的应用</strong>的全部有状态<strong>算子</strong>都<strong>指定两个参数</strong>，以确保将来可以正确地维护应用程序。</p>
+<ol>
+<li>算子的<strong>唯一标识符</strong></li>
+<li><strong>最大并行度</strong>(只针对基于键的算子)。</li>
+</ol>
+<p><strong>算子</strong>的<strong>唯一标识符</strong>和<strong>最大并行度</strong>被<strong>固化</strong>到保存点中，不能更改。如果标识符或最大并行度被更改，则<strong>不能</strong>从以前的保存点<strong>重启</strong>应用。</p>
+<h4 id="731-指定算子唯一标识"><a class="markdownIt-Anchor" href="#731-指定算子唯一标识"></a> 7.3.1 指定算子唯一标识</h4>
+<p>应该为应用的每个算子指定唯一标识符。这个标识符是保存点中的元数据。当从保存点启动应用程序时，标识符用于将保存点中的状态映射到已启动应用的相应算子。只有当已启动应用程序的算子的标识符相同时，才能将保存点状态恢复到它们。</p>
+<p>设置方式如下，强烈建议手动设置</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> alerts: <span class="type">DataStream</span>[(<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)] = keyedSensorData</span><br><span class="line">  .flatMap(<span class="keyword">new</span> <span class="type">TemperatureAlertFunction</span>(<span class="number">1.1</span>))</span><br><span class="line">  <span class="comment">// uid方法，用来设置并行度	</span></span><br><span class="line">  .uid(<span class="string">"TempAlert"</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="732-为使用键状态的算子定义最大并行度"><a class="markdownIt-Anchor" href="#732-为使用键状态的算子定义最大并行度"></a> 7.3.2 为使用键状态的算子定义最大并行度</h4>
+<p>算子的<strong>最大并行度</strong>参数定义了算子在对键状态进行分割时，所用到的<strong>键值组数目</strong>。该数量限制了键状态的<strong>算子</strong>可以被扩展到的<strong>最大并行任务数</strong>。（因为<strong>一个并行任务</strong> <strong>至少</strong>要有<strong>一个键值组</strong>）</p>
+<p>下面展示如何设置最大并行度</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> env = <span class="type">StreamExecutionEnvironment</span>.getExecutionEnvironment</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为应用设置最大并行度</span></span><br><span class="line">env.setMaxParallelism(<span class="number">512</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为算子设置最大并行度</span></span><br><span class="line"><span class="keyword">val</span> alerts: <span class="type">DataStream</span>[(<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)] = keyedSensorData</span><br><span class="line">  .flatMap(<span class="keyword">new</span> <span class="type">TemperatureAlertFunction</span>(<span class="number">1.1</span>))</span><br><span class="line">  <span class="comment">// set the maximum parallelism for this operator and</span></span><br><span class="line">  <span class="comment">// override the application-wide value</span></span><br><span class="line">  .setMaxParallelism(<span class="number">1024</span>)</span><br></pre></td></tr></table></figure>
+<p>如果<strong>算子</strong>在首个版本<strong>没有设置最大并行度</strong>，则会根据首个版本的并行度来<strong>推断</strong>它</p>
+<ul>
+<li>如果并行度小于等于128，则最大并行度为128。</li>
+<li>如果该操作符的并行度大于128，则最大并行度计算为<code>Min(nextPowerOfTwo(parallelism + (parallelism / 2)),2^15)</code>。</li>
+</ul>
+<h3 id="74-有状态应用的性能及鲁棒性"><a class="markdownIt-Anchor" href="#74-有状态应用的性能及鲁棒性"></a> 7.4 有状态应用的性能及鲁棒性</h3>
+<p>算子与状态的交互会影响应用程序的<strong>健壮性</strong>(robustness)和<strong>性能</strong>(perfermance)。比如选择状态后端、检查点算法的配置、状态的大小都会影响健壮性和性能。</p>
+<h4 id="741-选择状态后端"><a class="markdownIt-Anchor" href="#741-选择状态后端"></a> 7.4.1 选择状态后端</h4>
+<p><strong>状态后端</strong>负责<strong>存储</strong> <strong>每个任务</strong>的<strong>本地状态</strong>，并在<strong>执行检查点时</strong>将其持久化到<strong>远程存储</strong>。由于本地状态可以以不同的方式进行维护和检查点，状态后端是<strong>可插拔的(pluggable)</strong>。<strong>不同的应用</strong>可以<strong>选择</strong> <strong>不同的状态后端</strong>实现来维护它们的状态。状态后端的选择对有状态应用程序的健壮性和性能有影响。<strong>每种状态后端</strong>都<strong>提供</strong>了<strong>状态原语的实现</strong>，比如ValueState、ListState和MapState。</p>
+<p>Flink提供了三种状态后端</p>
+<ul>
+<li>MemoryStateBackend</li>
+<li>FsStateBackend</li>
+<li>RocksDBStateBackend</li>
+</ul>
+<h5 id="7411-memorystatebackend内存式的易丢但快"><a class="markdownIt-Anchor" href="#7411-memorystatebackend内存式的易丢但快"></a> 7.4.1.1 MemoryStateBackend(内存式的，易丢但快)</h5>
+<p>MemoryStateBackend将状态作为<strong>常规对象</strong>存储在TaskManager  <strong>JVM进程的堆</strong>上。</p>
+<ul>
+<li>例如，MapState由Java  HashMap对象支持。</li>
+<li>虽然这种方法提供了非常低的读写延迟，但它对应用程序的健壮性有影响。
+<ul>
+<li>如果任务实例的状态变得太大，<strong>JVM</strong>和在其上运行的所有任务实例可能会由于<strong>OutOfMemoryError</strong>而<strong>被杀死</strong>。</li>
+<li>此外，这种方法可能会出现<strong>垃圾回收暂停</strong>(garbage collection pause)问题，因为它将许多长期存在的对象放在堆内存上。</li>
+</ul>
+</li>
+<li>当<strong>生成检查点</strong>时，MemoryStateBackend将状态发送给JobManager,  <strong>JobManager</strong>将其<strong>存储在堆内存中</strong>。因此，应用程序的总状态必须符合JobManager的内存。因为它的内存是易失性的，所以在JobManager失败的情况下会丢失状态。</li>
+<li>由于这些限制，MemoryStateBackend仅推荐用于<strong>开发</strong>和<strong>调试</strong>目的。</li>
+</ul>
+<h5 id="7412-fsstatebackend本地状态在内存检查点会持久化"><a class="markdownIt-Anchor" href="#7412-fsstatebackend本地状态在内存检查点会持久化"></a> 7.4.1.2 FsStateBackend(本地状态在内存，检查点会持久化)</h5>
+<ul>
+<li>FsStateBackend在TaskManager的<strong>JVM</strong>堆上<strong>存储本地状态</strong>，就像MemoryStateBackend一样。</li>
+<li>然而，FsStateBackend方式下，<strong>检查点</strong>会被写入<strong>远程持久文件系统</strong>。</li>
+<li>FsStateBackend提供了<strong>内存读写速度级别</strong>的<strong>本地访问</strong>和<strong>持久化级别</strong>的<strong>故障容错</strong>。</li>
+<li>但是，它受到TaskManager内存大小的限制，可能会出现垃圾收集暂停。</li>
+</ul>
+<h5 id="7413-rocksdbstatebackend本地持久化检查点也持久化"><a class="markdownIt-Anchor" href="#7413-rocksdbstatebackend本地持久化检查点也持久化"></a> 7.4.1.3 RocksDBStateBackend（本地持久化，检查点也持久化）</h5>
+<ul>
+<li>RocksDBStateBackend将所有<strong>本地状态</strong>存储到<strong>本地RocksDB实例中</strong>。</li>
+<li>RocksDB是一个嵌入式键值存储，它<strong>将数据持久化到本地磁盘</strong>。为了从RocksDB读写数据，需要进行序列化和反序列化。在<strong>生成检查点</strong>时，RocksDBStateBackend还将状态发送到<strong>远程持久文件系统</strong>。</li>
+<li>所以对于具有非常大状态的应用程序，RocksDBStateBackend是一个不错的选择。</li>
+</ul>
+<p>下面展示如何为应用配置状态后端</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> env = <span class="type">StreamExecutionEnvironment</span>.getExecutionEnvironment</span><br><span class="line"><span class="keyword">val</span> checkpointPath: <span class="type">String</span> = ???</span><br><span class="line"><span class="comment">// new 一个RocksDB状态后端实例</span></span><br><span class="line"><span class="keyword">val</span> backend = <span class="keyword">new</span> <span class="type">RocksDBStateBackend</span>(checkpointPath)</span><br><span class="line"><span class="comment">// configure the state backend 配置它</span></span><br><span class="line">env.setStateBackend(backend)</span><br></pre></td></tr></table></figure>
+<h4 id="742-选择状态原语"><a class="markdownIt-Anchor" href="#742-选择状态原语"></a> 7.4.2 选择状态原语</h4>
+<p>因为RocksDB等后端的状态<strong>读写</strong>涉及<strong>序列化</strong>和<strong>反序列化</strong>，所以<strong>状态原语的选择</strong>很<strong>影响算子性能</strong>。例如：</p>
+<ul>
+<li>ValueState在被访问时是完全反序列化，在被更新时会完全序列化。</li>
+<li>RocksDBStateBackend的ListState在<strong>读取值</strong>之前对<strong>所有列表条目进行反序列化</strong>。但是，向ListState<strong>添加单个值</strong>是一种<strong>廉价的操作</strong>，因为只有追加的值需要序列化，而整个列表不需要完全序列化。</li>
+<li>MapState的RocksDBStateBackend允许读写在键的级别上提供序列化控制。（可以只序列化或者反序列化某个键及其对应的值）。</li>
+</ul>
+<p>举例子，</p>
+<ul>
+<li>
+<p>针对RocksDBStateBackend来说，使用<code>MapState[X,Y]</code>要比<code>ValueState[HashMap[X,Y]]</code>更高效。</p>
+</li>
+<li>
+<p>如果经常在列表尾部添加元素，但很少访问列表，那么<code>ListState[X]</code>要比<code>ValueState[List[X]]</code>更高效。</p>
+</li>
+</ul>
+<p>此外，建议对于同一个状态来说，每次函数调用只更新一次状态。</p>
+<h4 id="743-防止状态泄露"><a class="markdownIt-Anchor" href="#743-防止状态泄露"></a> 7.4.3 防止状态泄露</h4>
+<p>流应用程序通常设计为连续运行数月或数年。如果<strong>应用状态</strong> <strong>不断增加</strong>，在<strong>某个时刻</strong>它会变得太大并<strong>杀死应用程序</strong>，除非采取措施为应用提供更多的资源。为了<strong>防止应用的资源消耗随着时间而增加</strong>，<strong>控制算子状态的大小</strong>非常重要。由于状态的处理直接影响算子语义，所以<strong>Flink不能自动清除状态</strong>并释放存储空间。相反，<strong>所有有状态算子都必须承担控制其状态的大小的责任，确保它不会无限增长。</strong></p>
+<p><strong>状态无限增长</strong>的一个常见<strong>原因</strong>是<strong>键域无限增长</strong>。</p>
+<blockquote>
+<p>例如，在点击事件流，点击事件有一个session_id属性，该属性在一段时间后失效。在这种情况下，具有键状态的函数将积累越来越多键的状态。<strong>随着键域的增大，状态不断增大，但是过期键的状态是陈旧而无用</strong>。这个问题的解决方案是<strong>删除过期键</strong>。</p>
+<p>并且这种情况也会发生在部分DataStreamAPI的<strong>内置算子</strong>上，比如：针对KeyedStream的那些内置聚合函数，<code>min</code>、<code>max</code>、<code>sum</code>等等。所以，在使用这些内置算子时，一定要<strong>保证键域不是无限增加</strong>的</p>
+</blockquote>
+<p>我们可以通过注册计时器，并声明回调函数的方式来清理过期的键</p>
+<p>下面举个例子。它会清除在一小时内没有提供任何新的温度测量值的键。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">StatefulProcessFunction</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/** main() defines and executes the DataStream program */</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// set up the streaming execution environment</span></span><br><span class="line">    <span class="keyword">val</span> env = ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ingest sensor stream</span></span><br><span class="line">    <span class="keyword">val</span> sensorData: <span class="type">DataStream</span>[<span class="type">SensorReading</span>] = ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> keyedSensorData: <span class="type">KeyedStream</span>[<span class="type">SensorReading</span>, <span class="type">String</span>] = sensorData.keyBy(_.id)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> alerts: <span class="type">DataStream</span>[(<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)] = keyedSensorData</span><br><span class="line">      .process(<span class="keyword">new</span> <span class="type">SelfCleaningTemperatureAlertFunction</span>(<span class="number">1.5</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment">// print result stream to standard out</span></span><br><span class="line">    alerts.print()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// execute application</span></span><br><span class="line">    env.execute(<span class="string">"Generate Temperature Alerts"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SelfCleaningTemperatureAlertFunction</span>(<span class="params">val threshold: <span class="type">Double</span></span>)</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">KeyedProcessFunction</span>[<span class="type">String</span>, <span class="type">SensorReading</span>, (<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)] </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 状态，用来保存上一个温度</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">var</span> lastTempState: <span class="type">ValueState</span>[<span class="type">Double</span>] = _</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 状态，用来保存上一个计时器的时间点      </span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">var</span> lastTimerState: <span class="type">ValueState</span>[<span class="type">Long</span>] = _</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">open</span></span>(parameters: <span class="type">Configuration</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">// 注册并初始化上一个温度状态</span></span><br><span class="line">    <span class="keyword">val</span> lastTempDescriptor = <span class="keyword">new</span> <span class="type">ValueStateDescriptor</span>[<span class="type">Double</span>](<span class="string">"lastTemp"</span>,</span><br><span class="line">    	classOf[<span class="type">Double</span>])</span><br><span class="line">    </span><br><span class="line">    lastTempState = getRuntimeContext.getState[<span class="type">Double</span>](lastTempDescriptor)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 注册并初始化上一个计时器状态</span></span><br><span class="line">    <span class="keyword">val</span> timestampDescriptor: <span class="type">ValueStateDescriptor</span>[<span class="type">Long</span>] </span><br><span class="line">      = <span class="keyword">new</span> <span class="type">ValueStateDescriptor</span>[<span class="type">Long</span>](</span><br><span class="line">          <span class="string">"timestampState"</span>, classOf[<span class="type">Long</span>])</span><br><span class="line">    </span><br><span class="line">    lastTimerState = getRuntimeContext.getState(timestampDescriptor)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 处理函数      </span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">processElement</span></span>(</span><br><span class="line">      reading: <span class="type">SensorReading</span>,</span><br><span class="line">      ctx: <span class="type">KeyedProcessFunction</span>[<span class="type">String</span>, <span class="type">SensorReading</span>, (<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)]#<span class="type">Context</span>,</span><br><span class="line">      out: <span class="type">Collector</span>[(<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算新计时器的触发时间</span></span><br><span class="line">    <span class="keyword">val</span> newTimer = ctx.timestamp() + (<span class="number">3600</span> * <span class="number">1000</span>)</span><br><span class="line">    <span class="comment">// 获取当前计时器</span></span><br><span class="line">    <span class="keyword">val</span> curTimer = lastTimerState.value()</span><br><span class="line">    <span class="comment">// 删除当前计时器然后注册新计时器</span></span><br><span class="line">    ctx.timerService().deleteEventTimeTimer(curTimer)</span><br><span class="line">    ctx.timerService().registerEventTimeTimer(newTimer)</span><br><span class="line">    <span class="comment">// 更新计时器触发时间到lastTimerState状态上</span></span><br><span class="line">    lastTimerState.update(newTimer)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取上一个温度，比较然后决定是否发出警报</span></span><br><span class="line">    <span class="keyword">val</span> lastTemp = lastTempState.value()</span><br><span class="line">    <span class="keyword">val</span> tempDiff = (reading.temperature - lastTemp).abs</span><br><span class="line">    <span class="keyword">if</span> (tempDiff &gt; threshold) &#123;</span><br><span class="line">      out.collect((reading.id, reading.temperature, tempDiff))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新上一个温度</span></span><br><span class="line">    <span class="keyword">this</span>.lastTempState.update(reading.temperature)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 计时器到时间时，这个函数被触发      </span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">onTimer</span></span>(</span><br><span class="line">      timestamp: <span class="type">Long</span>,</span><br><span class="line">      ctx: <span class="type">KeyedProcessFunction</span>[<span class="type">String</span>, <span class="type">SensorReading</span>, (<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)]#<span class="type">OnTimerContext</span>,</span><br><span class="line">      out: <span class="type">Collector</span>[(<span class="type">String</span>, <span class="type">Double</span>, <span class="type">Double</span>)]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 清除一个小时都没有收到事件的键对应的状态</span></span><br><span class="line">    lastTempState.clear()</span><br><span class="line">    lastTimerState.clear()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="75-更新有状态应用"><a class="markdownIt-Anchor" href="#75-更新有状态应用"></a> 7.5 更新有状态应用</h3>
+<p>对长时间运行的<strong>有状态流应用</strong>进行<strong>错误修复</strong>或<strong>业务逻辑更改</strong>常常发生。因此，我们要保证在流应用发生<strong>版本更新</strong>时，<strong>不丢失应用状态</strong></p>
+<p>Flink通过三个步骤来实现版本更新</p>
+<ol>
+<li>为正在运行的应用<strong>生成保存点</strong></li>
+<li><strong>停止老版本</strong>应用</li>
+<li><strong>从保存点启动新版本</strong>的应用。</li>
+</ol>
+<p>但是只有新老版本的<strong>保存点兼容</strong>时，才能完成更新。也就是说，Flink只支持下面三种更新（只有这三种更新的保存点是兼容的）</p>
+<ul>
+<li>在<strong>不更改</strong>或删除现有<strong>状态</strong>的情况下<strong>更改</strong>应用的<strong>逻辑</strong>。这包括向应用中添加算子。</li>
+<li>从应用中<strong>删除某个状态</strong>。</li>
+<li>通过<strong>更改状态原语类型或状态的数据类型</strong>来修改现有算子的状态（只有部分情况可以兼容）</li>
+</ul>
+<h4 id="751-保持现有状态更新应用"><a class="markdownIt-Anchor" href="#751-保持现有状态更新应用"></a> 7.5.1 保持现有状态更新应用</h4>
+<p>如果应用<strong>在没有删除或更改现有状态的情况下</strong>进行了更新，那么它始终是与保存点<strong>兼容</strong>的，并且可以从老版本的保存点启动。</p>
+<p>如果向应用<strong>添加</strong>新的有状态<strong>算子</strong>，或向现有<strong>算子</strong>添加新的<strong>状态</strong>，则在从保存点启动应用时，<strong>该状态将初始化为空</strong>。（新添加的算子或状态，启动时初始化为空）</p>
+<h4 id="752-从应用中删除状态"><a class="markdownIt-Anchor" href="#752-从应用中删除状态"></a> 7.5.2 从应用中删除状态</h4>
+<p>还可以通过<strong>删除状态</strong>来调整应用程序。可以<strong>删除完整的算子</strong>或仅从算子中<strong>删除一个状态</strong>。这种情况下，保存点的部分状态将无法映射到新版本应用。</p>
+<p>默认情况下，Flink将<strong>不会启动</strong> <strong>没有恢复</strong>保存点中包含的<strong>所有状态</strong>的应用程序，以避免丢失保存点中的状态。但是，可以禁用此安全检查</p>
+<h4 id="753-修改算子的状态"><a class="markdownIt-Anchor" href="#753-修改算子的状态"></a> 7.5.3 修改算子的状态</h4>
+<p>增删状态比较容易兼容，但是修改状态很难做到兼容。</p>
+<p>一般来说，会发生两种情况的修改</p>
+<ul>
+<li><strong>更改状态的数据类型</strong>，例如将ValueState[Int]更改为ValueState[Double]，</li>
+<li><strong>更改状态原语的类型</strong>，例如，将ValueState[List[String]]更改为ListState[String]</li>
+</ul>
+<p>对于这两种情况，Flink会进行如下处理</p>
+<ul>
+<li>Flink目前还<strong>不支持更改状态原语的类型</strong></li>
+<li>由于涉及到序列化和反序列化机制。对于更改状态的数据类型：在Flink 1.7中，如果数据类型被定义为Apache  Avro类型，并且新数据类型也是根据Avro的模式演化规则从原始类型演变而来的Avro类型，那么支持更改状态的数据类型。</li>
+</ul>
+<h3 id="76-可查询式状态queryable-state"><a class="markdownIt-Anchor" href="#76-可查询式状态queryable-state"></a> 7.6 可查询式状态(queryable state)</h3>
+<p>许多流处理应用需要与其他应用共享它的结果。Apache Flink提供了<strong>可查询状态</strong>的特性来<strong>与其他应用共享结果</strong>。在Flink中，任何键状态都可以作为可查询状态以只读的形式暴露给外部应用程序。</p>
+<h4 id="761-可查询式状态服务的架构及启动方式"><a class="markdownIt-Anchor" href="#761-可查询式状态服务的架构及启动方式"></a> 7.6.1 可查询式状态服务的架构及启动方式</h4>
+<p>Flink的可查询状态服务由三个组件组成:</p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201113134348.png" alt=""></p>
+<ul>
+<li><strong>QueryableStateClient</strong>：<strong>外部应用</strong> <strong>使用</strong>QueryableStateClient来提交查询和获取结果。</li>
+<li><strong>QueryableStateClientProxy</strong>：QueryableStateClientProxy<strong>接受并响应QSClient的请求</strong>。每个TaskManager上都运行一个客户端代理。因为状态分布在各个TaskManager，因此ClientProxy先询问JobManager来得知需要查询的状态在哪个TaskManager上，然后向这个TaskManager的QSServer发送请求。</li>
+<li><strong>QueryableStateServer</strong>：QueryableStateServer响应客户端代理的请求。每个TaskManager都运行一个StateServer，该Server<strong>从本地状态后端获取键状态</strong>，并将其返回给QSClientProxy。</li>
+</ul>
+<h4 id="762-对外暴露可查询式状态"><a class="markdownIt-Anchor" href="#762-对外暴露可查询式状态"></a> 7.6.2 对外暴露可查询式状态</h4>
+<p>实现一个<strong>带有可查询式状态</strong>的<strong>流应用</strong>很容易。你要做的就是定义一个带有键状态的函数，并在获得状态引用之前，调用setQueryable(String)方法使状态变成可查询的。如下例所示</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">open</span></span>(parameters: <span class="type">Configuration</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">// 创建状态描述符</span></span><br><span class="line">   <span class="keyword">val</span> lastTempDescriptor = <span class="keyword">new</span> <span class="type">ValueStateDescriptor</span>[<span class="type">Double</span>](<span class="string">"lastTemp"</span>, classOf[<span class="type">Double</span>])</span><br><span class="line">   </span><br><span class="line">   <span class="comment">// 启动可查询状态，并设置查询标识符</span></span><br><span class="line">   lastTempDescriptor.setQueryable(<span class="string">"lastTemperature"</span>)</span><br><span class="line">   </span><br><span class="line">   <span class="comment">// 注册并初始化状态</span></span><br><span class="line">   lastTempState = getRuntimeContext.getState[<span class="type">Double</span>](lastTempDescriptor)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除此之外，Flink还<strong>支持利用数据汇</strong>将流中的<strong>所有事件</strong>都<strong>存到可查询状态</strong>中</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> tenSecsMaxTemps: <span class="type">DataStream</span>[(<span class="type">String</span>, <span class="type">Double</span>)] = sensorData</span><br><span class="line">  <span class="comment">// project to sensor id and temperature</span></span><br><span class="line">  .map(r =&gt; (r.id, r.temperature))</span><br><span class="line">  <span class="comment">// compute every 10 seconds the max temperature per sensor</span></span><br><span class="line">  .keyBy(_._1)</span><br><span class="line">  .timeWindow(<span class="type">Time</span>.seconds(<span class="number">10</span>))</span><br><span class="line">  .max(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// store max temperature of the last 10 secs for each sensor </span></span><br><span class="line"><span class="comment">// in a queryable state</span></span><br><span class="line">tenSecsMaxTemps</span><br><span class="line">  <span class="comment">// key by sensor id</span></span><br><span class="line">  .keyBy(_._1)</span><br><span class="line">  .asQueryableState(<span class="string">"maxTemperature"</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="763-从外部系统查询状态"><a class="markdownIt-Anchor" href="#763-从外部系统查询状态"></a> 7.6.3 从外部系统查询状态</h4>
+<p><strong>任何基于jvm的应用</strong>都可以<strong>使用QueryableStateClient</strong> <strong>查询正在运行的Flink应用</strong>的<strong>可查询状态</strong>。</p>
+<p>下面举个例子</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TemperatureDashboard</span> </span>&#123;</span><br><span class="line">  <span class="comment">// assume local setup and TM runs on same machine as client</span></span><br><span class="line">  <span class="keyword">val</span> proxyHost = <span class="string">"127.0.0.1"</span></span><br><span class="line">  <span class="keyword">val</span> proxyPort = <span class="number">9069</span></span><br><span class="line">  <span class="comment">// jobId of running QueryableStateJob</span></span><br><span class="line">  <span class="comment">// can be looked up in logs of running job or the web UI</span></span><br><span class="line">  <span class="keyword">val</span> jobId = <span class="string">"d2447b1a5e0d952c372064c886d2220a"</span></span><br><span class="line">  <span class="comment">// how many sensors to query</span></span><br><span class="line">  <span class="keyword">val</span> numSensors = <span class="number">5</span></span><br><span class="line">  <span class="comment">// how often to query the state</span></span><br><span class="line">  <span class="keyword">val</span> refreshInterval = <span class="number">10000</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">// configure client with host and port of queryable state proxy</span></span><br><span class="line">    <span class="keyword">val</span> client = <span class="keyword">new</span> <span class="type">QueryableStateClient</span>(proxyHost, proxyPort)</span><br><span class="line">    <span class="keyword">val</span> futures = <span class="keyword">new</span> <span class="type">Array</span>[</span><br><span class="line">      <span class="type">CompletableFuture</span>[<span class="type">ValueState</span>[(<span class="type">String</span>, <span class="type">Double</span>)]]](numSensors)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">val</span> results = <span class="keyword">new</span> <span class="type">Array</span>[<span class="type">Double</span>](numSensors)</span><br><span class="line">    <span class="comment">// print header line of dashboard table</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">val</span> header = (<span class="keyword">for</span> (i &lt;- <span class="number">0</span> until numSensors) <span class="keyword">yield</span> <span class="string">"sensor_"</span> + (i + <span class="number">1</span>)</span><br><span class="line">    	.mkString(<span class="string">"\t| "</span>)</span><br><span class="line">    </span><br><span class="line">    println(header)</span><br><span class="line">    <span class="comment">// loop forever</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">      <span class="comment">// send out async queries</span></span><br><span class="line">      <span class="keyword">for</span> (i &lt;- <span class="number">0</span> until numSensors) &#123;</span><br><span class="line">        futures(i) = queryState(<span class="string">"sensor_"</span> + (i + <span class="number">1</span>), client)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// wait for results</span></span><br><span class="line">      <span class="keyword">for</span> (i &lt;- <span class="number">0</span> until numSensors) &#123;</span><br><span class="line">        results(i) = futures(i).get().value()._2</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// print result</span></span><br><span class="line">      <span class="keyword">val</span> line = results.map(t =&gt; <span class="string">f"<span class="subst">$t</span>%1.3f"</span>).mkString(<span class="string">"\t| "</span>)</span><br><span class="line">      println(line)</span><br><span class="line">      <span class="comment">// wait to send out next queries</span></span><br><span class="line">      <span class="type">Thread</span>.sleep(refreshInterval)</span><br><span class="line">    &#125;</span><br><span class="line">    client.shutdownAndWait()</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">queryState</span></span>(</span><br><span class="line">      key: <span class="type">String</span>,</span><br><span class="line">      client: <span class="type">QueryableStateClient</span>)</span><br><span class="line">    : <span class="type">CompletableFuture</span>[<span class="type">ValueState</span>[(<span class="type">String</span>, <span class="type">Double</span>)]] = &#123;</span><br><span class="line">    </span><br><span class="line">    client</span><br><span class="line">      .getKvState[<span class="type">String</span>, <span class="type">ValueState</span>[(<span class="type">String</span>, <span class="type">Double</span>)], (<span class="type">String</span>, <span class="type">Double</span>)](</span><br><span class="line">        <span class="type">JobID</span>.fromHexString(jobId), <span class="comment">// jobId</span></span><br><span class="line">        <span class="string">"maxTemperature"</span>, <span class="comment">//状态标志符</span></span><br><span class="line">        key, <span class="comment">// 键</span></span><br><span class="line">        <span class="type">Types</span>.<span class="type">STRING</span>, <span class="comment">// 键的类型</span></span><br><span class="line">        <span class="keyword">new</span> <span class="type">ValueStateDescriptor</span>[(<span class="type">String</span>, <span class="type">Double</span>)]( <span class="comment">//状态描述符</span></span><br><span class="line">          <span class="string">""</span>, <span class="comment">// state name not relevant here 此处与状态名称无关，随便取名</span></span><br><span class="line">          <span class="type">Types</span>.<span class="type">TUPLE</span>[(<span class="type">String</span>, <span class="type">Double</span>)]))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://t0ugh.biz/2020/11/15/Flink-7-有状态算子和应用/" title="[Flink][7][有状态算子和应用]" target="_blank" rel="external">https://t0ugh.biz/2020/11/15/Flink-7-有状态算子和应用/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/t0ugh" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/t0ugh" target="_blank"><span class="text-dark">T0UGH</span><small class="ml-1x">学生&amp;编程爱好者</small></a></h3>
+        <div>很拽很拽很拽很拽很拽很拽很拽很拽</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+            </div>
+    </article>
+    
+        
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+            
+</div>
+
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2020/11/11/Java并发-5-Java中的锁/" title="[Java并发][5][Java中的锁]"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+        
+
+            
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/t0ugh" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'E1MH6h0YP3yhA0PJsohNBgiT-gzGzoHsz',
+    appKey: 'YOiN6zLq3XGfKmlR0b8vyHtN',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
