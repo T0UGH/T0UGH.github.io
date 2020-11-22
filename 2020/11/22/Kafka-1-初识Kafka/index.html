@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>[Kafka][1][初识Kafka] | T0UGU BLOG</title>
+  <meta name="description" content="第1章 初识Kafka  参考资料  Kafka权威指南   数据为企业的发展提供动力。我们从数据中获取信息，对它们进行分析处理，然后生成更多的数据。每个应用程序都会产生数据，包括日志消息、度量指标、用户活动记录、响应消息等。数据的点点滴滴都在暗示一些重要的事情，比如下一步行动的方向。  1.1 发布与订阅消息系统 先来了解发布与订阅消息系统的概念，并认识这个系统的重要性。  数据（消息）的发送">
+<meta name="keywords" content="大数据,Kafka,消息队列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Kafka][1][初识Kafka]">
+<meta property="og:url" content="https://t0ugh.biz/2020/11/22/Kafka-1-初识Kafka/index.html">
+<meta property="og:site_name" content="打怪升级日常">
+<meta property="og:description" content="第1章 初识Kafka  参考资料  Kafka权威指南   数据为企业的发展提供动力。我们从数据中获取信息，对它们进行分析处理，然后生成更多的数据。每个应用程序都会产生数据，包括日志消息、度量指标、用户活动记录、响应消息等。数据的点点滴滴都在暗示一些重要的事情，比如下一步行动的方向。  1.1 发布与订阅消息系统 先来了解发布与订阅消息系统的概念，并认识这个系统的重要性。  数据（消息）的发送">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122152443.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122152645.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122152906.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122153146.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122155245.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122161046.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122161736.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122161957.png">
+<meta property="og:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122163514.png">
+<meta property="og:updated_time" content="2020-11-22T09:11:29.828Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Kafka][1][初识Kafka]">
+<meta name="twitter:description" content="第1章 初识Kafka  参考资料  Kafka权威指南   数据为企业的发展提供动力。我们从数据中获取信息，对它们进行分析处理，然后生成更多的数据。每个应用程序都会产生数据，包括日志消息、度量指标、用户活动记录、响应消息等。数据的点点滴滴都在暗示一些重要的事情，比如下一步行动的方向。  1.1 发布与订阅消息系统 先来了解发布与订阅消息系统的概念，并认识这个系统的重要性。  数据（消息）的发送">
+<meta name="twitter:image" content="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122152443.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://t0ugh.biz/2020/11/22/Kafka-1-初识Kafka/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="打怪升级日常" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/t0ugh" target="_blank">
+          <img class="img-circle img-rotate" src="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">T0UGH</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生&amp;编程爱好者</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> ShenYang, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/t0ugh" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>东北大学软件工程本科在读</p><p>我的邮箱:wang.g.p@foxmail.com</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flink/">Flink</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GitHub/">GitHub</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java并发/">Java并发</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Junit/">Junit</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kafka/">Kafka</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tensorflow/">Tensorflow</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tomcat/">Tomcat</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/vim/">vim</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nlp/">nlp</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务设计/">微服务设计</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/敏捷开发/">敏捷开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/流畅的Python/">流畅的Python</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法导论/">算法导论</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蓝桥杯/">蓝桥杯</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/">Flink</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GithubFlow/">GithubFlow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/">Kafka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/">MNIST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrum/">Scrum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tensorflow/">Tensorflow</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aof/">aof</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdb/">rdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文分词/">中文分词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词提取/">关键词提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治算法/">分治算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务设计/">微服务设计</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷原则/">敏捷原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷宣言/">敏捷宣言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流处理/">流处理</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/消息队列/">消息队列</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法导论/">算法导论</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蓝桥杯/">蓝桥杯</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词性标注/">词性标注</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心算法/">贪心算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件测试/">软件测试</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/tags/C/" style="font-size: 13.17px;">C++</a> <a href="/tags/CNN/" style="font-size: 13px;">CNN</a> <a href="/tags/Docker/" style="font-size: 13.17px;">Docker</a> <a href="/tags/ES6/" style="font-size: 13px;">ES6</a> <a href="/tags/Flink/" style="font-size: 13.58px;">Flink</a> <a href="/tags/Git/" style="font-size: 13px;">Git</a> <a href="/tags/GitHub/" style="font-size: 13.17px;">GitHub</a> <a href="/tags/GithubFlow/" style="font-size: 13px;">GithubFlow</a> <a href="/tags/JAVA/" style="font-size: 13px;">JAVA</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 13.17px;">JavaScript</a> <a href="/tags/Junit/" style="font-size: 13px;">Junit</a> <a href="/tags/Kafka/" style="font-size: 13px;">Kafka</a> <a href="/tags/LSTM/" style="font-size: 13px;">LSTM</a> <a href="/tags/MNIST/" style="font-size: 13px;">MNIST</a> <a href="/tags/MongoDB/" style="font-size: 13px;">MongoDB</a> <a href="/tags/MyBatis/" style="font-size: 14px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 13.25px;">MySQL</a> <a href="/tags/NLP/" style="font-size: 13px;">NLP</a> <a href="/tags/Python/" style="font-size: 13.83px;">Python</a> <a href="/tags/REST/" style="font-size: 13px;">REST</a> <a href="/tags/RNN/" style="font-size: 13.08px;">RNN</a> <a href="/tags/Redis/" style="font-size: 13.17px;">Redis</a> <a href="/tags/Scrum/" style="font-size: 13.08px;">Scrum</a> <a href="/tags/Spring/" style="font-size: 13.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.58px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.08px;">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 13.17px;">SpringMVC</a> <a href="/tags/Tensorflow/" style="font-size: 13.58px;">Tensorflow</a> <a href="/tags/Tomcat/" style="font-size: 13.08px;">Tomcat</a> <a href="/tags/YAML/" style="font-size: 13px;">YAML</a> <a href="/tags/aof/" style="font-size: 13px;">aof</a> <a href="/tags/c/" style="font-size: 13px;">c</a> <a href="/tags/java/" style="font-size: 13.67px;">java</a> <a href="/tags/jvm/" style="font-size: 13.42px;">jvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nlp/" style="font-size: 13.17px;">nlp</a> <a href="/tags/rdb/" style="font-size: 13px;">rdb</a> <a href="/tags/redis/" style="font-size: 13.92px;">redis</a> <a href="/tags/vue/" style="font-size: 13.08px;">vue</a> <a href="/tags/中文分词/" style="font-size: 13px;">中文分词</a> <a href="/tags/关键词提取/" style="font-size: 13px;">关键词提取</a> <a href="/tags/分治算法/" style="font-size: 13px;">分治算法</a> <a href="/tags/动态规划/" style="font-size: 13.17px;">动态规划</a> <a href="/tags/大数据/" style="font-size: 13.67px;">大数据</a> <a href="/tags/并发/" style="font-size: 13.33px;">并发</a> <a href="/tags/微服务/" style="font-size: 13.33px;">微服务</a> <a href="/tags/微服务设计/" style="font-size: 13.33px;">微服务设计</a> <a href="/tags/排序/" style="font-size: 13.17px;">排序</a> <a href="/tags/敏捷原则/" style="font-size: 13px;">敏捷原则</a> <a href="/tags/敏捷宣言/" style="font-size: 13px;">敏捷宣言</a> <a href="/tags/敏捷开发/" style="font-size: 13.25px;">敏捷开发</a> <a href="/tags/数据库事务/" style="font-size: 13.08px;">数据库事务</a> <a href="/tags/数据结构/" style="font-size: 13.33px;">数据结构</a> <a href="/tags/机器学习/" style="font-size: 13.5px;">机器学习</a> <a href="/tags/流处理/" style="font-size: 13.58px;">流处理</a> <a href="/tags/消息队列/" style="font-size: 13px;">消息队列</a> <a href="/tags/深度学习/" style="font-size: 13.75px;">深度学习</a> <a href="/tags/神经网络/" style="font-size: 13px;">神经网络</a> <a href="/tags/算法/" style="font-size: 13.08px;">算法</a> <a href="/tags/算法导论/" style="font-size: 13.67px;">算法导论</a> <a href="/tags/蓝桥杯/" style="font-size: 13.08px;">蓝桥杯</a> <a href="/tags/词性标注/" style="font-size: 13px;">词性标注</a> <a href="/tags/贪心算法/" style="font-size: 13px;">贪心算法</a> <a href="/tags/软件测试/" style="font-size: 13px;">软件测试</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Kafka/">Kafka</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/22/Kafka-1-初识Kafka/" class="title">[Kafka][1][初识Kafka]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-22T09:10:44.000Z" itemprop="datePublished">2020-11-22</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Flink/">Flink</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/18/Flink-8-读写外部系统/" class="title">[Flink][8][读写外部系统]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-18T13:07:04.000Z" itemprop="datePublished">2020-11-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Flink/">Flink</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/15/Flink-7-有状态算子和应用/" class="title">[Flink][7][有状态算子和应用]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-15T10:56:30.000Z" itemprop="datePublished">2020-11-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java并发/">Java并发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/11/Java并发-5-Java中的锁/" class="title">[Java并发][5][Java中的锁]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-11T09:21:10.000Z" itemprop="datePublished">2020-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java并发/">Java并发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/11/Java并发-4-Java并发编程基础/" class="title">[Java并发][4][Java并发编程基础]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-11T09:20:40.000Z" itemprop="datePublished">2020-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+    <article id="post-Kafka-1-初识Kafka" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+        
+            <div class="article-header">
+                
+                    
+  
+    <h1 class="article-title" itemprop="name">
+      [Kafka][1][初识Kafka]
+    </h1>
+  
+
+                        
+                            <div class="article-meta">
+                                <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/11/22/Kafka-1-初识Kafka/" class="article-date">
+	  <time datetime="2020-11-22T09:10:44.000Z" itemprop="datePublished">2020-11-22</time>
+	</a>
+</span>
+                                    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Kafka/">Kafka</a>
+  </span>
+
+                                        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/Kafka/">Kafka</a>, <a class="article-tag-link" href="/tags/大数据/">大数据</a>, <a class="article-tag-link" href="/tags/消息队列/">消息队列</a>
+  </span>
+
+
+                                            
+
+                                                <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/11/22/Kafka-1-初识Kafka/#comments" class="article-comment-link">Comments</a></span>
+                                                
+                            </div>
+            </div>
+            <div class="article-entry marked-body" itemprop="articleBody">
+                
+                                    
+                                        <div id="toc">
+                                            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第1章-初识kafka"><span class="toc-text"> 第1章 初识Kafka</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-发布与订阅消息系统"><span class="toc-text"> 1.1 发布与订阅消息系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#111-如何开始"><span class="toc-text"> 1.1.1 如何开始</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#112-独立的队列系统"><span class="toc-text"> 1.1.2　独立的队列系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-kafka登场"><span class="toc-text"> 1.2 Kafka登场</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#121-消息和批次message-and-batch"><span class="toc-text"> 1.2.1 消息和批次(Message and batch)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#122-模式schema"><span class="toc-text"> 1.2.2 模式(schema)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#123-主题和分区topic-and-partition"><span class="toc-text"> 1.2.3 主题和分区(Topic and Partition)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#124-生产者和消费者"><span class="toc-text"> 1.2.4 生产者和消费者</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#125-broker和集群"><span class="toc-text"> 1.2.5 broker和集群</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#126-多集群"><span class="toc-text"> 1.2.6 多集群</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-为什么选择kafka"><span class="toc-text"> 1.3 为什么选择Kafka</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#131-多个生产者"><span class="toc-text"> 1.3.1 多个生产者</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#132-多个消费者"><span class="toc-text"> 1.3.2 多个消费者</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#133-基于磁盘的数据存储"><span class="toc-text"> 1.3.3 基于磁盘的数据存储</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#134-伸缩性"><span class="toc-text"> 1.3.4 伸缩性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#135-高性能"><span class="toc-text"> 1.3.5 高性能</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-kafka在数据生态系统中的重要性"><span class="toc-text"> 1.4 Kafka在数据生态系统中的重要性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-使用场景"><span class="toc-text"> 1.5 使用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#151-活动跟踪activity-tracking"><span class="toc-text"> 1.5.1 活动跟踪(Activity tracking)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#152-发送通知messaging"><span class="toc-text"> 1.5.2 发送通知(Messaging)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#153-度量指标和日志记录metric-and-logging"><span class="toc-text"> 1.5.3 度量指标和日志记录(Metric and logging)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#154-提交日志commit-log"><span class="toc-text"> 1.5.4 提交日志(Commit log)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#155-流处理streaming-processing"><span class="toc-text"> 1.5.5 流处理(Streaming processing)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-起源故事"><span class="toc-text"> 1.6 起源故事</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#161linkedin的问题"><span class="toc-text"> 1.6.1LinkedIn的问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#162-kafka的诞生"><span class="toc-text"> 1.6.2 Kafka的诞生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#163-走向开源"><span class="toc-text"> 1.6.3 走向开源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#164-命名"><span class="toc-text"> 1.6.4 命名</span></a></li></ol></li></ol></li></ol>
+                                        </div>
+                                        
+                                            <h2 id="第1章-初识kafka"><a class="markdownIt-Anchor" href="#第1章-初识kafka"></a> 第1章 初识Kafka</h2>
+<blockquote>
+<p>参考资料</p>
+<ul>
+<li><a href="https://book.douban.com/subject/27665114/" target="_blank" rel="noopener">Kafka权威指南</a></li>
+</ul>
+</blockquote>
+<p>数据为企业的发展提供动力。我们从数据中获取信息，对它们进行分析处理，然后生成更多的数据。每个应用程序都会产生数据，包括日志消息、度量指标、用户活动记录、响应消息等。数据的点点滴滴都在暗示一些重要的事情，比如下一步行动的方向。</p>
+<h3 id="11-发布与订阅消息系统"><a class="markdownIt-Anchor" href="#11-发布与订阅消息系统"></a> 1.1 发布与订阅消息系统</h3>
+<p>先来了解发布与订阅消息系统的概念，并认识这个系统的重要性。</p>
+<ul>
+<li>数据（消息）的<strong>发送者</strong>（发布者）<strong>不会直接</strong>把消息发送给<strong>接收者</strong>，这是发布与订阅消息系统的一个特点。</li>
+<li>发布者以某种方式<strong>对消息进行分类</strong>，接收（订阅者）<strong>订阅</strong>它们，以便接收特定类型的消息。</li>
+<li>发布与订阅系统一般会有一个<strong>broker</strong>，也就是发布消息的中心点。</li>
+</ul>
+<h4 id="111-如何开始"><a class="markdownIt-Anchor" href="#111-如何开始"></a> 1.1.1 如何开始</h4>
+<p>发布与订阅消息系统的大部分<strong>应用场景</strong>都是从一个<strong>简单</strong>的<strong>进程间通道</strong>开始的。例如，你的应用需要往别处<strong>发送度量指标(metric)</strong>，可以在你的<strong>应用</strong>和另一个可以在<strong>仪表盘应用</strong>之间建立<strong>直接连接</strong>，然后通过这个连接推送度量指标，如下图所示。</p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122152443.png" alt=""></p>
+<p>但是这种方式在应对<strong>复杂场景</strong>时并不适合，如下图，如果场景变得复杂，<strong>直连</strong>会<strong>让节点间的通信变得一团糟</strong></p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122152645.png" alt=""></p>
+<p>这时，技术债务开始凸显出来，于是你决定偿还掉一些。</p>
+<ul>
+<li>你创建了一个<strong>独立的应用</strong>：用于<strong>接收</strong>来自其他应用程序的<strong>度量指标</strong>，并为其他应用提供一个<strong>查询服务</strong>。这样，之前架构的复杂度被降低到图1-3 所示的那样。</li>
+<li>那么恭喜你，你已经创建了一个<strong>基于发布与订阅</strong>的<strong>消息系统</strong>。</li>
+</ul>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122152906.png" alt=""></p>
+<h4 id="112-独立的队列系统"><a class="markdownIt-Anchor" href="#112-独立的队列系统"></a> 1.1.2　独立的队列系统</h4>
+<p>在你跟<strong>度量指标</strong>打得不可开交的时候，你的一个同事也正在跟<strong>日志</strong>消息奋战。还有另一个同事正在<strong>跟踪网站用户的行为</strong>，为负责机器学习开发的同事提供信息，同时为管理团队生成报告。你和同事们使用<strong>相同的方式创建这些系统</strong>，解耦信息的发布者和订阅者。</p>
+<p>图1-4所示的架构包含了<strong>3 个独立的</strong> <strong>发布与订阅系统</strong>。</p>
+<ul>
+<li><strong>指标</strong>(Metric)的发布订阅系统</li>
+<li><strong>日志</strong>(logging)的发布订阅系统</li>
+<li><strong>用户跟踪</strong>(tracking)的发布订阅系统</li>
+</ul>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122153146.png" alt=""></p>
+<p>此时，你真正需要的是一个<strong>单一</strong>的<strong>集中式系统</strong>，它可以用来<strong>发布和订阅</strong> <strong>多种通用类型的数据</strong>，其规模可以随着公司业务的增长而增长。</p>
+<h3 id="12-kafka登场"><a class="markdownIt-Anchor" href="#12-kafka登场"></a> 1.2 Kafka登场</h3>
+<p>Kafka 就是为了<strong>解决上述问题</strong>而设计的一款<strong>基于发布与订阅的消息系统</strong>。</p>
+<ul>
+<li>它一般被称为“<strong>分布式提交日志</strong>”或者“<strong>分布式流平台</strong>”。</li>
+<li>Kafka 中的数据是按照一定<strong>顺序</strong> <strong>持久化</strong>保存的，可以按需读取。</li>
+<li>并且Kafka 的<strong>数据</strong> <strong>分布在Kafka集群的各个部分</strong>，具备数据<strong>故障保护</strong>和<strong>性能伸缩</strong>能力。</li>
+</ul>
+<h4 id="121-消息和批次message-and-batch"><a class="markdownIt-Anchor" href="#121-消息和批次message-and-batch"></a> 1.2.1 消息和批次(Message and batch)</h4>
+<p>Kafka 的<strong>数据单元</strong>被称为<strong>消息</strong>。</p>
+<ul>
+<li>消息由<strong>字节数组</strong>组成。</li>
+<li>消息可以有一个<strong>键</strong>，键也是一个字节数组。可以<strong>通过键</strong>，<strong>控制消息写入哪个分区</strong>。最简单的例子就是为键生成一个散列值，然后使用散列值对主题分区数进行取模，为消息选取分区。这样可以保证具有相同键的消息总是被写到相同的分区上。</li>
+</ul>
+<p>为了提高效率，消息被分<strong>批次</strong>写入Kafka。</p>
+<ul>
+<li>批次就是<strong>一组消息</strong>，这些消息属于<strong>同一个主题的同一分区</strong>。</li>
+<li>如果每一个消息都单独穿行于网络，会导致大量的网络开销，把消息分成批次传输可以<strong>减少网络开销</strong>。</li>
+</ul>
+<h4 id="122-模式schema"><a class="markdownIt-Anchor" href="#122-模式schema"></a> 1.2.2 模式(schema)</h4>
+<p>对于Kafka 来说，消息不过是晦涩难懂的字节数组，所以有人建议用一些<strong>额外的结构</strong>来<strong>定义消息内容含义</strong>，让它们更易于理解，这就是<strong>模式</strong>。</p>
+<p>Kafka 的开发者一般使用<strong>Apache Avro</strong>来<strong>定义模式</strong></p>
+<ul>
+<li>它最初是为Hadoop 开发的一款<strong>序列化框架</strong>。</li>
+<li>Avro 提供了一种紧凑的序列化格式，<strong>模式</strong>和<strong>消息体</strong>是<strong>分开</strong>的；</li>
+<li>它还支持<strong>强类型</strong>和<strong>模式进化</strong>，其<strong>版本</strong>既向前<strong>兼容</strong>，也向后兼容。</li>
+</ul>
+<h4 id="123-主题和分区topic-and-partition"><a class="markdownIt-Anchor" href="#123-主题和分区topic-and-partition"></a> 1.2.3 主题和分区(Topic and Partition)</h4>
+<p>Kafka 的消息通过<strong>主题</strong>进行分类。</p>
+<ul>
+<li>主题就好比数据库的<strong>表</strong>，或者文件系统里的<strong>文件夹</strong>。</li>
+<li><strong>主题</strong>可以被分为若干个<strong>分区</strong>，一个分区就是一个<strong>提交日志(commit log)</strong>。</li>
+<li>消息以<strong>追加</strong>的方式写入分区，然后以<strong>先入先出(FIFO)<strong>的顺序</strong>读取</strong>。</li>
+<li>要注意，由于一个主题一般包含几个分区，因此<strong>无法在整个主题范围内</strong>保证消息<strong>有序</strong>，但可以保证消息在<strong>单个分区内</strong> <strong>有序</strong>。</li>
+<li>Kafka 通过<strong>分区</strong>来实现<strong>数据冗余(redundency)<strong>和</strong>伸缩性(scalability)</strong>。</li>
+<li>分区可以分布在不同的服务器上，也就是说，一个<strong>主题</strong>可以<strong>横跨多个服务器</strong>，以此来提供比单个服务器更强大的性能。</li>
+</ul>
+<p>图1-5 所示的主题有4个分区，消息被追加写入每个分区的尾部。</p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122155245.png" alt=""></p>
+<h4 id="124-生产者和消费者"><a class="markdownIt-Anchor" href="#124-生产者和消费者"></a> 1.2.4 生产者和消费者</h4>
+<p>Kafka 系统的<strong>用户</strong>被分为<strong>两种</strong>：<strong>生产者</strong>和<strong>消费者</strong></p>
+<p><strong>生产者创建消息</strong>。</p>
+<ul>
+<li>一般情况下，一个消息会被发布到一个特定的<strong>主题</strong>上。</li>
+<li>生产者在默认情况下把消息<strong>均衡</strong>地分布到<strong>主题的所有分区</strong>上，而并不关心特定消息会被写到哪个分区。</li>
+<li>不过，在<strong>某些情况下</strong>，生产者也可以通过<strong>分区器</strong>和<strong>键</strong>，把消息直接<strong>写到指定的分区</strong>。</li>
+</ul>
+<p><strong>消费者读取消息</strong>。</p>
+<ul>
+<li>消费者<strong>订阅</strong>一个或多个<strong>主题</strong>，并按照消息生成的<strong>顺序读取</strong>它们。</li>
+<li>消费者通过检查消息的<strong>偏移量</strong>来区分已经读取过的消息。</li>
+<li>偏移量是<strong>消息的一种元数据</strong>，它是一个不断<strong>递增</strong>的整数值，在创建每条消息时，Kafka 会把它附加到每条消息里。</li>
+<li>消费者把每个分区<strong>最后读取的消息</strong>的<strong>偏移量</strong> <strong>保存</strong>在Zookeeper 或Kafka 上，如果消费者关闭或重启，它的<strong>读取状态不会丢失</strong>。</li>
+</ul>
+<p>可以将多个消费者组织成一个<strong>消费者群组</strong>，来<strong>共享</strong>一个主题：</p>
+<ul>
+<li><strong>同一群组</strong>的多个消费者共同<strong>读取一个主题</strong>。</li>
+<li>群组保证<strong>每个分区</strong>只能被<strong>一个消费者</strong>使用，并且整个群组对于<strong>主题中的每条消息</strong>精确<strong>处理一次</strong>。</li>
+<li>消费者与分区之间的<strong>映射</strong>通常被称为消费者对分区的<strong>所有权关系</strong>。</li>
+</ul>
+<p>图1-6 所示的群组中，有3 个消费者同时读取一个主题。其中的两个消费者各自读取一个分区，另外一个消费者读取其他两个分区。</p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122161046.png" alt=""></p>
+<h4 id="125-broker和集群"><a class="markdownIt-Anchor" href="#125-broker和集群"></a> 1.2.5 broker和集群</h4>
+<p>一个独立的Kafka 服务器被称为<strong>broker</strong>。</p>
+<ul>
+<li>broker <strong>接收</strong>来自<strong>生产者</strong>的消息，为消息设置偏移量，并提交消息到<strong>磁盘保存</strong>。</li>
+<li>broker 为<strong>消费者</strong>提供服务，对读取分区的请求作出<strong>响应</strong>，返回已经提交到磁盘上的消息。</li>
+</ul>
+<p>多个broker可以组成一个Kafka<strong>集群</strong></p>
+<ul>
+<li>每个集群都有一个broker 同时充当了<strong>集群控制器</strong>的角色。控制器负责管理集群，包括将<strong>分区分配</strong>给broker 和<strong>监控</strong>broker。</li>
+<li>在集群中，<strong>每个分区</strong>都对应一个<strong>首领broker</strong>，该broker 被称为分区的首领。</li>
+<li>并且<strong>一个分区</strong>可以分配给<strong>多个broker</strong>，但只有一个首领。其他broker都是这个首领的<strong>从者broker</strong>。这个时候会发生<strong>分区复制</strong>。首领broker会复制消息到从者broker。这种复制机制为分区提供了<strong>消息冗余</strong></li>
+<li>这样，如果<strong>首领broker 失效</strong>，从者broker可以<strong>接管</strong>领导权，而服务不会停止且消息不会丢失</li>
+</ul>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122161736.png" alt=""></p>
+<p><strong>保留消息</strong>（在一定期限内）是Kafka 的一个重要特性。Kafka broker 默认的消息保留策略是这样的：</p>
+<ul>
+<li>要么保留一段时间（比如7 天），</li>
+<li>要么保留到消息达到一定大小的字节数（比如1GB）。</li>
+</ul>
+<h4 id="126-多集群"><a class="markdownIt-Anchor" href="#126-多集群"></a> 1.2.6 多集群</h4>
+<p>kafka也支持<strong>多集群</strong>。如下图</p>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122161957.png" alt=""></p>
+<p>多集群具体介绍略，后面章节会提到。</p>
+<h3 id="13-为什么选择kafka"><a class="markdownIt-Anchor" href="#13-为什么选择kafka"></a> 1.3 为什么选择Kafka</h3>
+<p>有很多其他的发布/订阅消息传递系统，例如：RabbitMQ、ActiveMQ等，那么是什么让Apache Kafka成为一个好的选择呢？</p>
+<h4 id="131-多个生产者"><a class="markdownIt-Anchor" href="#131-多个生产者"></a> 1.3.1 多个生产者</h4>
+<p>卡夫卡能够无缝地支持<strong>多个生产者</strong>，无论这些生产者使用的是多个主题还是同一主题。这使得该系统非常适合<strong>聚合</strong>来自许多前端系统的数据，并使其保持一致。</p>
+<h4 id="132-多个消费者"><a class="markdownIt-Anchor" href="#132-多个消费者"></a> 1.3.2 多个消费者</h4>
+<p>Kafka 也支持<strong>多个消费者</strong>从<strong>同一个消息流</strong>上读取数据，而且消费者之间<strong>互不影响</strong>。这与其他队列系统不同，其他队列系统的消息一旦被一个客户端读取，其他客户端就无法再读取它。</p>
+<p>另外，多个消费者可以组成一个<strong>消费者群组</strong>，它们<strong>共享</strong>一个消息流，并保证<strong>整个群组</strong>对<strong>每条消息</strong>只处理<strong>一次</strong>。</p>
+<h4 id="133-基于磁盘的数据存储"><a class="markdownIt-Anchor" href="#133-基于磁盘的数据存储"></a> 1.3.3 基于磁盘的数据存储</h4>
+<p>Kafka允许<strong>消费者</strong> <strong>非实时</strong>地读取消息，这要归功于Kafka 的<strong>消息保留</strong>特性。</p>
+<ul>
+<li>
+<p>消费者可能会因为<strong>自身处理能力低</strong>或突发的<strong>流量高峰</strong>导致<strong>无法及时</strong>读取消息</p>
+</li>
+<li>
+<p>而<strong>持久化数据</strong>可以<strong>保证数据不会丢失</strong>。</p>
+<ul>
+<li>消费者可以在进行应用程序维护时离线一小段时间，而无需担心消息丢失或堵塞在生产者端。</li>
+<li>消费者可以被关闭，但消息会继续保留在Kafka 里。消费者可以从上次中断的地方继续处理消息。</li>
+</ul>
+</li>
+</ul>
+<h4 id="134-伸缩性"><a class="markdownIt-Anchor" href="#134-伸缩性"></a> 1.3.4 伸缩性</h4>
+<p>Kafka可以通过<strong>增加broker</strong>的方式来实现<strong>横向扩展</strong>，它的<strong>伸缩性</strong>很灵活</p>
+<blockquote>
+<p>例如：用户在开发阶段可以先使用单个broker，再扩展到包含3 个broker 的小型开发集群，然后随着数据量不断增长，部署到生产环境的集群可能包含上百个broker。</p>
+</blockquote>
+<h4 id="135-高性能"><a class="markdownIt-Anchor" href="#135-高性能"></a> 1.3.5 高性能</h4>
+<p>上面提到的所有特性，让Kafka 成为了一个高性能的发布与订阅消息系统。通过横向扩展生产者、消费者和broker，Kafka 可以轻松处理巨大的消息流。在处理大量数据的同时，它还能保证<strong>亚秒级的消息延迟</strong>。</p>
+<h3 id="14-kafka在数据生态系统中的重要性"><a class="markdownIt-Anchor" href="#14-kafka在数据生态系统中的重要性"></a> 1.4 Kafka在数据生态系统中的重要性</h3>
+<p>在现代应用场景中，数据分布在很多不同的应用。这些应用可以整体上看作一个数据生态系统。</p>
+<p>Kafka 为数据生态系统带来了<strong>循环系统</strong>，如图1-9 所示。</p>
+<ul>
+<li>它负责各个应用间的<strong>消息传递</strong>，为所有应用提供<strong>一致的接口</strong>。</li>
+<li>生产者应用和消费者应用之间不再有紧密的<strong>耦合</strong>，也不需要在它们之间建立任何类型的<strong>直连</strong>。</li>
+<li>我们可以根据业务需要<strong>添加或移除应用</strong>，因为生产者不再关心谁在使用数据，也不关心有多少个消费者。</li>
+</ul>
+<p><img src="https://healthlung.oss-cn-beijing.aliyuncs.com/20201122163514.png" alt=""></p>
+<h3 id="15-使用场景"><a class="markdownIt-Anchor" href="#15-使用场景"></a> 1.5 使用场景</h3>
+<h4 id="151-活动跟踪activity-tracking"><a class="markdownIt-Anchor" href="#151-活动跟踪activity-tracking"></a> 1.5.1 活动跟踪(Activity tracking)</h4>
+<p>Kafka 最初的使用场景是<strong>跟踪用户的活动</strong>。</p>
+<ul>
+<li>网站用户与前端应用程序发生交互，前端应用程序生成<strong>用户活动相关的消息</strong>。这些消息比如页面访问次数和点击量。</li>
+<li>这些消息可以被<strong>发布到Kafka</strong>的一个或多个主题上，然后由一个或多个<strong>后端应用程序负责读取</strong>。这样，我们就可以用它们来<strong>生成报告</strong>，为<strong>机器学习</strong>系统提供数据，<strong>更新搜索结果</strong>等等。</li>
+</ul>
+<h4 id="152-发送通知messaging"><a class="markdownIt-Anchor" href="#152-发送通知messaging"></a> 1.5.2 发送通知(Messaging)</h4>
+<p>Kafka 的另一个基本用途是<strong>发送通知</strong>。</p>
+<ul>
+<li><strong>应用程序向用户发送通知</strong>（比如<strong>邮件</strong>）就是通过传递消息来实现的。</li>
+<li>这些应用程序组件可以<strong>直接</strong>生成消息并<strong>发布到kafka</strong>，而不需要关心消息是如何发送给用户的，也不需要关心这些消息发送给用户时是什么格式的。</li>
+<li>另一个<strong>公共应用程序</strong>会从Kakfa<strong>读取</strong>这些消息，并且<strong>处理</strong>消息成适合用户阅读的格式，然后<strong>发送</strong>给用户</li>
+</ul>
+<h4 id="153-度量指标和日志记录metric-and-logging"><a class="markdownIt-Anchor" href="#153-度量指标和日志记录metric-and-logging"></a> 1.5.3 度量指标和日志记录(Metric and logging)</h4>
+<p>Kafka 也可以用于收集应用程序和系统度量指标以及日志。</p>
+<ul>
+<li>多个不同的应用程序定期把<strong>度量指标</strong>发布到Kafka 主题上，监控系统读取并分析这些消息。</li>
+<li><strong>日志消息</strong>也可以被发布到Kafka 主题上，然专门的日志搜索系统（比如Elasticsearch）或安全分析应用程序会读取并处理它们。</li>
+</ul>
+<h4 id="154-提交日志commit-log"><a class="markdownIt-Anchor" href="#154-提交日志commit-log"></a> 1.5.4 提交日志(Commit log)</h4>
+<p><strong>Kafka 的基本概念来源于数据库的提交日志</strong>，所以使用Kafka 作为提交日志是件顺理成章的事。我们可以把数据库的更新放到Kafka 上，应用程序可以读取这些更新。</p>
+<ul>
+<li>例如：数据库主库和从库之间的<strong>更新复制</strong></li>
+<li>或者<strong>合并</strong>多个数据库的<strong>更新</strong>到一个数据库实例上</li>
+</ul>
+<h4 id="155-流处理streaming-processing"><a class="markdownIt-Anchor" href="#155-流处理streaming-processing"></a> 1.5.5 流处理(Streaming processing)</h4>
+<p>用户可以编写小型应用程序来操作Kafka 消息，比如计算度量指标，为其他应用程序有效地处理消息分区，或者对来自多个数据源的消息进行转换。</p>
+<h3 id="16-起源故事"><a class="markdownIt-Anchor" href="#16-起源故事"></a> 1.6 起源故事</h3>
+<h4 id="161linkedin的问题"><a class="markdownIt-Anchor" href="#161linkedin的问题"></a> 1.6.1LinkedIn的问题</h4>
+<p>LinkedIn 有一个<strong>指标监控系统</strong>。LinkedIn 还有一个比较复杂的<strong>请求跟踪系统</strong>。与此同时，还创建了另一个用于<strong>收集用户活动信息的系统</strong>。这些系统都需要从多个前端获取数据，这时就需要一个<strong>统一且通用的发布订阅系统</strong>。</p>
+<h4 id="162-kafka的诞生"><a class="markdownIt-Anchor" href="#162-kafka的诞生"></a> 1.6.2 Kafka的诞生</h4>
+<p>LinkedIn 的开发团队由Jay Kreps 领导。Jay Kreps 是LinkedIn 的首席工程师，之前负责分布式键值存储系统Voldemort 的开发。初建团队成员还包括Neha Narkhede，不久之后，Jun Rao 也加入了进来。他们一起着手创建一个消息系统，可以同时满足上述的两种需求，并且可以在未来进行横向扩展。他们的主要目标如下：</p>
+<ul>
+<li>使用<strong>推送和拉取</strong>模型<strong>解耦生产者和消费者</strong>；</li>
+<li>为消息传递系统中的消息提供<strong>数据持久化</strong>，以便支持<strong>多个消费者</strong>；</li>
+<li>通过系统优化实现<strong>高吞吐量</strong>；</li>
+<li>系统可以随着数据流的增长进行<strong>横向扩展</strong>。</li>
+</ul>
+<p>最后我们看到的这个发布与订阅消息系统具有<strong>典型的消息系统接口</strong>，但从<strong>存储层</strong>来看，它<strong>更像是一个日志聚合系统</strong>。Kafka 使用<strong>Avro</strong> 作为消息序列化框架，每天高效地处理数十亿级别的度量指标和用户活动跟踪信息。LinkedIn 已经拥有超过万亿级别的消息使用量（截止到2015 年8 月），而且每天仍然需要处理超过千万亿字节的数据。</p>
+<h4 id="163-走向开源"><a class="markdownIt-Anchor" href="#163-走向开源"></a> 1.6.3 走向开源</h4>
+<p>略</p>
+<h4 id="164-命名"><a class="markdownIt-Anchor" href="#164-命名"></a> 1.6.4 命名</h4>
+<blockquote>
+<p>我想既然Kafka 是为了写数据而产生的，那么用作家的名字来命名会显得更有意义。我在大学时期上过很多文学课程，很喜欢Franz Kafka。况且，对于开源项目来说，这个名字听起来很酷。因此，名字和应用本身基本没有太多联系。-------Jay Kreps</p>
+</blockquote>
+
+                                                
+            </div>
+            <div class="article-footer">
+                <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://t0ugh.biz/2020/11/22/Kafka-1-初识Kafka/" title="[Kafka][1][初识Kafka]" target="_blank" rel="external">https://t0ugh.biz/2020/11/22/Kafka-1-初识Kafka/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/t0ugh" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://i.loli.net/2020/03/21/WAKimNUecFR64uo.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/t0ugh" target="_blank"><span class="text-dark">T0UGH</span><small class="ml-1x">学生&amp;编程爱好者</small></a></h3>
+        <div>很拽很拽很拽很拽很拽很拽很拽很拽</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+            </div>
+    </article>
+    
+        
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+            
+</div>
+
+    <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2020/11/18/Flink-8-读写外部系统/" title="[Flink][8][读写外部系统]"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+        
+
+            
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/t0ugh" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'E1MH6h0YP3yhA0PJsohNBgiT-gzGzoHsz',
+    appKey: 'YOiN6zLq3XGfKmlR0b8vyHtN',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
